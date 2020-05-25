@@ -15,15 +15,15 @@ public:
 	void stop();
 	void tick();
 private:
-	__int64 m_baseTime;
-	__int64 m_pausedTime;
-	__int64 m_stopTime;
-	__int64 m_prevTime;
+	__int64 mBaseTime;
+	__int64 mPausedTime;
+	__int64 mStopTime;
+	__int64 mPrevTime;
 	__int64 m_currTime;
 
-	double m_secondsPerCount;
-	double m_deltaTime;
+	double mSecondsPerCount;
+	double mDeltaTime;
 
-	bool m_stopped;
+	bool mStopped;
 };
 
