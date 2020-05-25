@@ -19,7 +19,7 @@ private:
 	__int64 mPausedTime;
 	__int64 mStopTime;
 	__int64 mPrevTime;
-	__int64 m_currTime;
+	__int64 mCurrTime;
 
 	double mSecondsPerCount;
 	double mDeltaTime;
