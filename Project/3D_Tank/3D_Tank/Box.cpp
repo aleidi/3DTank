@@ -1,5 +1,6 @@
 #include "Box.h"
 #include "BindableBase.h"
+#include "GeometryGenerator.h"
 
 Box::Box(Graphics& gfx,
 	std::mt19937& rng,
@@ -19,27 +20,10 @@ Box::Box(Graphics& gfx,
 	theta(adist(rng)),
 	phi(adist(rng))
 {
-	struct Vertex
-	{
-		struct
-		{
-			float x;
-			float y;
-			float z;
-		} pos;
-	};
-	const std::vector<Vertex> vertices =
-	{
-		{ -1.0f,-1.0f,-1.0f },
-		{ 1.0f,-1.0f,-1.0f },
-		{ -1.0f,1.0f,-1.0f },
-		{ 1.0f,1.0f,-1.0f },
-		{ -1.0f,-1.0f,1.0f },
-		{ 1.0f,-1.0f,1.0f },
-		{ -1.0f,1.0f,1.0f },
-		{ 1.0f,1.0f,1.0f },
-	};
-	AddBind(std::make_unique<VertexBuffer>(gfx, vertices));
+	GeometryGenerator::Mesh mesh;
+	GeometryGenerator::getMesh(GeometryGenerator::BOX, mesh);
+	
+	AddBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"SolidVertexShader.cso");
 	auto pvsbc = pvs->GetBytecode();
@@ -47,7 +31,7 @@ Box::Box(Graphics& gfx,
 
 	AddBind(std::make_unique<PixelShader>(gfx, L"SolidPixelShader.cso"));
 
-	const std::vector<unsigned short> indices =
+	const std::vector<UINT> indices =
 	{
 		0,2,1, 2,3,1,
 		1,3,5, 3,7,5,
@@ -56,7 +40,7 @@ Box::Box(Graphics& gfx,
 		0,4,2, 2,4,6,
 		0,1,4, 1,5,4
 	};
-	AddIndexBuffer(std::make_unique<IndexBuffer>(gfx, indices));
+	AddIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
 
 	struct ConstantBuffer2
 	{

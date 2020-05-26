@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <map>
 #include <DirectXMath.h>
 #include "EnginePlat.h"
 
@@ -17,8 +18,30 @@ public:
 		XMFLOAT3 Position;
 	};
 
-	void CreateBox(std::vector<Vertex>& vertices, std::vector<UINT>& indices);
-	void CreateSphere(std::vector<Vertex>& vertices, std::vector<UINT>& indices);
-	void CreatePlane(std::vector<Vertex>& vertices, std::vector<UINT>& indices);
+	struct Mesh
+	{
+		std::vector<Vertex> vertices;
+		std::vector<UINT> indices;
+	};
+
+	enum MeshType
+	{
+		BOX,
+		Sphere,
+		Plane
+	};
+
+	static void getMesh(MeshType type, Mesh& mesh);
+
+private:
+
+
+
+	static void createBox();
+	static void createSphere();
+	static void createPlane();
+	
+private:
+	static std::map<MeshType,Mesh> mMeshes;
 };
 
