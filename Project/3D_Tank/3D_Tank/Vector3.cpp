@@ -14,7 +14,7 @@ Vector3& Vector3::operator=(const Vector3& v)
 	return *this;
 }
 
-Vector3& Vector3::operator += (const Vector3& v)
+void Vector3::operator += (const Vector3& v)
 {
 	x += v.x;
 	y += v.y;
@@ -32,7 +32,7 @@ Vector3 Vector3::normalize() const
 	Vector3 value(x, y, z);
 	if (magSq > 0.0f)
 	{
-		float oneOverMag = 1.0f / sqrt(magSq);
+		float oneOverMag = (float)(1.0f / sqrt(magSq));
 		value.x *= oneOverMag;
 		value.y *= oneOverMag;
 		value.z *= oneOverMag;
