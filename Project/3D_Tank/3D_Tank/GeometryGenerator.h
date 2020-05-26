@@ -24,7 +24,7 @@ public:
 		std::vector<UINT> indices;
 	};
 
-	static void getMesh(EngineType::MeshType type, Mesh& mesh);
+	static void getMesh(EngineRender::MeshType type, Mesh& mesh);
 
 private:
 
@@ -35,6 +35,6 @@ private:
 	static void createPlane();
 	
 private:
-	static std::map<EngineType::MeshType,Mesh> mMeshes;
+	static std::map<EngineRender::MeshType,Mesh> mMeshes;
 };
 
