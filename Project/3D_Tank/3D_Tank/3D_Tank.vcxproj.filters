@@ -135,6 +135,12 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -198,6 +204,12 @@
       <Filter>Header\Game</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
       <Filter>Header\Game</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
