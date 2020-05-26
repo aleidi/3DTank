@@ -2,6 +2,7 @@
 #include "Graphics.h"
 #include "Window.h"
 #include "Box.h"
+#include "Sound.h"
 #include<sstream>
 
 //test code
@@ -48,6 +49,10 @@ void Engine::run()
 		}
 	}
 	mGraphics->EndFrame();
+
+	Sound *mSound = new Sound;
+	mSound->initialize();
+	mSound->playBGM();
 }
 
 void Engine::calculateFrameStats()

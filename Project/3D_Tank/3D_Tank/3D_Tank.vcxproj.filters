@@ -76,6 +76,12 @@
     <Filter Include="Source\Game">
       <UniqueIdentifier>{36d87a03-c4d2-4a37-9fbf-f737bdec40df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\Sound">
+      <UniqueIdentifier>{381ed3ce-b30c-4e16-a3fe-526e507a976e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Sound">
+      <UniqueIdentifier>{b13d60af-e127-4d47-bd05-256a3072befe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -131,6 +137,9 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Source\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Header\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
