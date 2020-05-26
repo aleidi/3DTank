@@ -132,6 +132,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -195,6 +198,9 @@
       <Filter>Header\Game</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
       <Filter>Header\Game</Filter>
     </ClInclude>
   </ItemGroup>

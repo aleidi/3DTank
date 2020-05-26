@@ -1,20 +1,20 @@
 #include "GeometryGenerator.h"
 
-std::map<GeometryGenerator::MeshType, GeometryGenerator::Mesh> GeometryGenerator::mMeshes;
+std::map<EngineType::MeshType, GeometryGenerator::Mesh> GeometryGenerator::mMeshes;
 
-void GeometryGenerator::getMesh(MeshType type, Mesh& mesh)
+void GeometryGenerator::getMesh(EngineType::MeshType type, Mesh& mesh)
 {
 	if (mMeshes[type].vertices.size() == 0 || mMeshes[type].indices.size() == 0)
 	{
 		switch (type)
 		{
-		case GeometryGenerator::BOX:
+		case EngineType::MeshType::BOX:
 			createBox();
 			break;
-		case GeometryGenerator::Sphere:
+		case EngineType::MeshType::Sphere:
 			createSphere();
 			break;
-		case GeometryGenerator::Plane:
+		case EngineType::MeshType::Plane:
 			createPlane();
 			break;
 		}
@@ -47,8 +47,8 @@ void GeometryGenerator::createBox()
 		0,1,4, 1,5,4
 	};
 
-	mMeshes[MeshType::BOX].vertices = vertices;
-	mMeshes[MeshType::BOX].indices = indices;
+	mMeshes[EngineType::MeshType::BOX].vertices = vertices;
+	mMeshes[EngineType::MeshType::BOX].indices = indices;
 }
 
 void GeometryGenerator::createSphere()

@@ -3,6 +3,16 @@
 #include <cassert>
 #include <typeinfo>
 
+DirectX::XMMATRIX Drawable::GetTransformXM() const noexcept
+{
+	return *mTransformXM;
+}
+
+void Drawable::SetTransformXM(DirectX::XMMATRIX & matrix)
+{
+	mTransformXM = &matrix;
+}
+
 void Drawable::Draw(Graphics& gfx) const noexcept
 {
 	for (auto& b : mBinds)
