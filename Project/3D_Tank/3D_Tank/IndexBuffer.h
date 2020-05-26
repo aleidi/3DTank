@@ -5,9 +5,9 @@ class IndexBuffer : public Bindable
 {
 public:
 	IndexBuffer(Graphics& gfx, const std::vector<unsigned short>& indices);
-	void Bind(Graphics& gfx) noexcept override;
-	UINT GetCount() const noexcept;
+	void bind(Graphics& gfx) noexcept override;
+	UINT getCount() const noexcept;
 protected:
-	UINT count;
+	UINT mCount;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pIndexBuffer;
 };

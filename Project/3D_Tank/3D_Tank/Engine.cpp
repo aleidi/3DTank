@@ -47,7 +47,6 @@ void Engine::run()
 			b->Draw(*mGraphics);
 		}
 	}
-
 	mGraphics->EndFrame();
 }
 

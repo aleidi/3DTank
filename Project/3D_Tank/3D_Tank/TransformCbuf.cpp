@@ -1,17 +1,17 @@
 #include "TransformCbuf.h"
 
-TransformCbuf::TransformCbuf(Graphics& gfx, const Drawable& parent)
+TransformCbuf::TransformCbuf(Graphics& gfx, const Drawable& mParent)
 	:
-	vcbuf(gfx),
-	parent(parent)
+	mVertexConstbuff(gfx),
+	mParent(mParent)
 {}
 
-void TransformCbuf::Bind(Graphics& gfx) noexcept
+void TransformCbuf::bind(Graphics& gfx) noexcept
 {
-	vcbuf.Update(gfx,
+	mVertexConstbuff.Update(gfx,
 		DirectX::XMMatrixTranspose(
-			parent.GetTransformXM() * gfx.GetProjection()
+			mParent.GetTransformXM() * gfx.GetProjection()
 		)
 	);
-	vcbuf.Bind(gfx);
+	mVertexConstbuff.bind(gfx);
 }

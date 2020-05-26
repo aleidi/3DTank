@@ -20,7 +20,7 @@ public:
 		sd.pSysMem = vertices.data();
 		GetDevice(gfx)->CreateBuffer(&bd, &sd, &pVertexBuffer);
 	}
-	void Bind(Graphics& gfx) noexcept override;
+	void bind(Graphics& gfx) noexcept override;
 protected:
 	UINT stride;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;

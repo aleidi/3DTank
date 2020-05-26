@@ -38,7 +38,7 @@ public:
 	void CleanFrame();
 	void EndFrame();
 
-	void DrawIndexed(UINT count) noexcept;
+	void DrawIndexed(UINT mCount) noexcept;
 	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
 	DirectX::XMMATRIX GetProjection() const noexcept;
 
@@ -46,7 +46,7 @@ private:
 	int mClientWidth;
 	int mClientHeight;
 	HWND mhMainWnd;
-	DirectX::XMMATRIX projection;
+	DirectX::XMMATRIX mProjection;
 
 	Microsoft::WRL::ComPtr<ID3D11Device> pDevice;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> pContext;

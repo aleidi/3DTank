@@ -11,11 +11,11 @@ public:
 	Drawable(const Drawable&) = delete;
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
 	void Draw(Graphics& gfx) const noexcept;
-	virtual void Update(float dt) noexcept = 0;
+	virtual void Update(float deltaTime) noexcept = 0;
 	void AddBind(std::unique_ptr<Bindable> bind) noexcept;
 	void AddIndexBuffer(std::unique_ptr<class IndexBuffer> ibuf) noexcept;
 	virtual ~Drawable() = default;
 private:
 	const IndexBuffer* pIndexBuffer = nullptr;
-	std::vector<std::unique_ptr<Bindable>> binds;
+	std::vector<std::unique_ptr<Bindable>> mBinds;
 };

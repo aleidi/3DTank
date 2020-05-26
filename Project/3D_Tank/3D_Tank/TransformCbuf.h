@@ -6,9 +6,9 @@
 class TransformCbuf : public Bindable
 {
 public:
-	TransformCbuf(Graphics& gfx, const Drawable& parent);
-	void Bind(Graphics& gfx) noexcept override;
+	TransformCbuf(Graphics& gfx, const Drawable& mParent);
+	void bind(Graphics& gfx) noexcept override;
 private:
-	VertexConstantBuffer<DirectX::XMMATRIX> vcbuf;
-	const Drawable& parent;
+	VertexConstantBuffer<DirectX::XMMATRIX> mVertexConstbuff;
+	const Drawable& mParent;
 };

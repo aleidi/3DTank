@@ -17,7 +17,7 @@
 //	GetDevice(gfx)->CreateBuffer(&bd, &sd, &pVertexBuffer);
 //}
 
-void VertexBuffer::Bind(Graphics& gfx) noexcept
+void VertexBuffer::bind(Graphics& gfx) noexcept
 {
 	const UINT offset = 0u;
 	GetContext(gfx)->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
