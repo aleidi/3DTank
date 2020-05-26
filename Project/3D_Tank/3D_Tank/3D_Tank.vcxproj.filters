@@ -132,7 +132,14 @@
     <ClCompile Include="Object.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Mesh.cpp">
+=======
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+>>>>>>> 65be2b8056837b107d2dc5d3abf6779c7d8717d1
       <Filter>Source\Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -200,7 +207,14 @@
     <ClInclude Include="Object.h">
       <Filter>Header\Game</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Mesh.h">
+=======
+    <ClInclude Include="Transform.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+>>>>>>> 65be2b8056837b107d2dc5d3abf6779c7d8717d1
       <Filter>Header\Game</Filter>
     </ClInclude>
   </ItemGroup>
