@@ -70,6 +70,12 @@
     <Filter Include="Header\EUI">
       <UniqueIdentifier>{54ede792-44f9-4d40-a5fb-1b4d11f54105}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\Game">
+      <UniqueIdentifier>{59ab0317-11f0-4324-b461-3d569adff7da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game">
+      <UniqueIdentifier>{36d87a03-c4d2-4a37-9fbf-f737bdec40df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -119,6 +125,12 @@
     </ClCompile>
     <ClCompile Include="GeometryGenerator.cpp">
       <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Source\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="EnginePlat.h">
       <Filter>Header\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Header\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
