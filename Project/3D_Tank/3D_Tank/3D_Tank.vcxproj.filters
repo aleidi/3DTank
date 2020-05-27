@@ -141,6 +141,15 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="DInput_PC.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="DInput_PS4.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -208,6 +217,15 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Header\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="DInput_PC.h">
+      <Filter>Header\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="DInput_PS4.h">
+      <Filter>Header\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

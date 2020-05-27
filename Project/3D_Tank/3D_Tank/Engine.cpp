@@ -30,17 +30,31 @@ Engine::Engine(Window& wnd)
 			));
 	}
 	mGraphics->SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+
+	mDInput = new DInputPC();
+	mDInput->initialize(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 }
 
 void Engine::run()
 {
 	//timer update
 	mTimer.tick();
+	// physics.Update()
+	// input.update();
+	// input test code
+	mDInput->getInput();
+	if (mDInput->iskeyDown(DIK_A)) MessageBox(mWnd.getHwnd(), L"I pressed A", L"Input_Test", MB_OK);
+
+	/*
+	render.update();
+	gameUI.Update();
+	eui.update();
+	*/
 
 	{
 		//test code
 		calculateFrameStats();
-		//render update
+		//render.update()
 		mGraphics->CleanFrame();
 		for (auto& b : boxes)
 		{
