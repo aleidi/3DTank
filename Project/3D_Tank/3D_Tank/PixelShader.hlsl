@@ -1,10 +1,4 @@
-struct VertexOut
+float4 main(float4 pos : SV_Position) : SV_Target
 {
-	float4 pos : SV_Position;
-	float4 color : COLOR;
-};
-
-float4 main(VertexOut pin) : SV_Target
-{
-    return pin.color;
+	return float4(1.0f,1.0f,1.0f,1.0f);
 }

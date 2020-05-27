@@ -2,10 +2,12 @@
 #include "Graphics.h"
 #include "Window.h"
 #include "Box.h"
+#include "TestCube.h"
 #include<sstream>
 
 //test code
 std::vector<std::unique_ptr<Box>> boxes;
+std::vector<std::unique_ptr<TestCube>> cubes;
 
 Engine::Engine(Window& wnd)
 	:
@@ -15,7 +17,21 @@ Engine::Engine(Window& wnd)
 	mTimer.reset();
 
 	//test code
-	//set boxes
+	////set boxes
+	//std::mt19937 rng(std::random_device{}());
+	//std::uniform_real_distribution<float> adist(0.0f, 3.1415f * 2.0f);
+	//std::uniform_real_distribution<float> ddist(0.0f, 3.1415f * 2.0f);
+	//std::uniform_real_distribution<float> odist(0.0f, 3.1415f * 0.3f);
+	//std::uniform_real_distribution<float> rdist(6.0f, 20.0f);
+	//for (auto i = 0; i < 80; i++)
+	//{
+	//	boxes.push_back(std::make_unique<Box>(
+	//		*mGraphics, rng, adist,
+	//		ddist, odist, rdist
+	//		));
+	//}
+
+	//set cubes
 	std::mt19937 rng(std::random_device{}());
 	std::uniform_real_distribution<float> adist(0.0f, 3.1415f * 2.0f);
 	std::uniform_real_distribution<float> ddist(0.0f, 3.1415f * 2.0f);
@@ -23,11 +39,12 @@ Engine::Engine(Window& wnd)
 	std::uniform_real_distribution<float> rdist(6.0f, 20.0f);
 	for (auto i = 0; i < 80; i++)
 	{
-		boxes.push_back(std::make_unique<Box>(
+		cubes.push_back(std::make_unique<TestCube>(
 			*mGraphics, rng, adist,
 			ddist, odist, rdist
 			));
 	}
+
 	mGraphics->SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 }
 
@@ -41,10 +58,15 @@ void Engine::run()
 		calculateFrameStats();
 		//render update
 		mGraphics->CleanFrame();
-		for (auto& b : boxes)
+		//for (auto& b : boxes)
+		//{
+		//	b->Update(mTimer.getDeltaTIme());
+		//	b->Draw(*mGraphics);
+		//}
+		for (auto& c : cubes)
 		{
-			b->Update(mTimer.getDeltaTIme());
-			b->Draw(*mGraphics);
+			c->Update(mTimer.getDeltaTIme());
+			c->Draw(*mGraphics);
 		}
 	}
 	mGraphics->EndFrame();

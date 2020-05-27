@@ -141,6 +141,18 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source\Render\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Sampler.cpp">
+      <Filter>Source\Render\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="DDSTextureLoader.cpp">
+      <Filter>Source\Render\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCube.cpp">
+      <Filter>Source\Render\Graphics\Drawable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -215,6 +227,18 @@
     <ClInclude Include="Mesh.h">
       <Filter>Header\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="DDSTextureLoader.h">
+      <Filter>Header\Render\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Sampler.h">
+      <Filter>Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="TestCube.h">
+      <Filter>Header\Render\Graphics\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -227,6 +251,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="SolidVertexShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelShaderTex.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexShaderTex.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
