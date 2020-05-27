@@ -2,6 +2,7 @@
 #include <string>
 #include "fmod/fmod.hpp"
 #include "fmod/fmod.h"
+#include "Vector3.h"
 
 #pragma comment (lib,"fmod_vc.lib")
 #pragma comment (lib,"fmodL_vc.lib")
@@ -28,14 +29,17 @@ public:
 public:
 	bool initialize();
 	void playBGM();
-	void play(const int&);
-	void stop();
+	void play(const int&, const Vector3*);
+	bool setPause(const int&);
+	bool setReplay(const int&);
+	bool stop(const int&);
 	void shutDown();
+	void setPosition(const Vector3*, FMOD::Sound*);
 
 	FMOD_RESULT loadSoundFile(std::string filename, int soundidx);
 private:
-	FMOD::System *mAudio;
-	FMOD::Sound *mSound[7];
-	FMOD::Channel *mChannel;
-	
+	FMOD::System *mFmodAudio;
+	FMOD::Sound *mFmodSound[SOUND_NUM];
+	FMOD::Channel *mFmodChannel[SOUND_NUM];
+
 };
