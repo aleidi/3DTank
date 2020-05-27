@@ -150,6 +150,15 @@
     <ClCompile Include="DInput_PS4.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -226,6 +235,15 @@
     </ClInclude>
     <ClInclude Include="DInput_PS4.h">
       <Filter>Header\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
