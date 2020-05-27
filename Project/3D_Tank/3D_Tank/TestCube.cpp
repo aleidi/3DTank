@@ -1,23 +1,9 @@
 #include "TestCube.h"
 #include "BindableBase.h"
 
-TestCube::TestCube(Graphics& gfx,
-	std::mt19937& rng,
-	std::uniform_real_distribution<float>& adist,
-	std::uniform_real_distribution<float>& ddist,
-	std::uniform_real_distribution<float>& odist,
-	std::uniform_real_distribution<float>& rdist)
+TestCube::TestCube(Graphics& gfx)
 	:
-	r(rdist(rng)),
-	droll(ddist(rng)),
-	dpitch(ddist(rng)),
-	dyaw(ddist(rng)),
-	dphi(odist(rng)),
-	dtheta(odist(rng)),
-	dchi(odist(rng)),
-	chi(adist(rng)),
-	theta(adist(rng)),
-	phi(adist(rng))
+	pos({0.0f,0.0f,0.0f}),rot({0.0f,0.0f,0.0f}),scale({1.0f,1.0f,1.0f})
 {
 	struct Vertex
 	{
@@ -104,18 +90,35 @@ TestCube::TestCube(Graphics& gfx,
 
 void TestCube::Update(float deltaTime) noexcept
 {
-	roll += droll * deltaTime;
-	pitch += dpitch * deltaTime;
-	yaw += dyaw * deltaTime;
-	theta += dtheta * deltaTime;
-	phi += dphi * deltaTime;
-	chi += dchi * deltaTime;
+	
 }
 
 DirectX::XMMATRIX TestCube::GetTransformXM() const noexcept
 {
-	return DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) *
-		DirectX::XMMatrixTranslation(r, 0.0f, 0.0f) *
-		DirectX::XMMatrixRotationRollPitchYaw(theta, phi, chi) *
-		DirectX::XMMatrixTranslation(0.0f, 0.0f, 20.0f);
+	return DirectX::XMMatrixScaling(scale.x, scale.y, scale.z) *
+		DirectX::XMMatrixRotationRollPitchYaw(rot.x, rot.y, rot.z) *
+		DirectX::XMMatrixTranslation(pos.x, pos.y, pos.z) *
+		DirectX::XMMatrixTranslation(0.0f, 0.0f, 10.0f);
+}
+
+void TestCube::Translate(float x, float y, float z)
+{
+	const float deg2rad = XM_PI / 180;
+	pos.x += x * deg2rad;
+	pos.y += y * deg2rad;
+	pos.z += z * deg2rad;
+}
+
+void TestCube::Rotate(float pitch, float yaw, float roll)
+{
+	rot.x += pitch;
+	rot.y += yaw;
+	rot.z += roll;
+}
+
+void TestCube::Scale(float x, float y, float z)
+{
+	scale.x = x;
+	scale.y = y;
+	scale.z = z;
 }
