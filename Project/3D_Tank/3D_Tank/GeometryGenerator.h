@@ -24,14 +24,7 @@ public:
 		std::vector<UINT> indices;
 	};
 
-	enum MeshType
-	{
-		BOX,
-		Sphere,
-		Plane
-	};
-
-	static void getMesh(MeshType type, Mesh& mesh);
+	static void getMesh(EngineRender::MeshType type, Mesh& mesh);
 
 private:
 
@@ -42,6 +35,6 @@ private:
 	static void createPlane();
 	
 private:
-	static std::map<MeshType,Mesh> mMeshes;
+	static std::map<EngineRender::MeshType,Mesh> mMeshes;
 };
 
