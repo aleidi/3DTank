@@ -21,7 +21,7 @@ Box::Box(Graphics& gfx,
 	phi(adist(rng))
 {
 	GeometryGenerator::Mesh mesh;
-	GeometryGenerator::getMesh(EngineRender::MeshType::BOX, mesh);
+	GeometryGenerator::getMesh(GeometryGenerator::BOX, mesh);
 	
 	AddBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 

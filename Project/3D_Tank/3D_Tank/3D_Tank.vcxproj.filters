@@ -141,25 +141,6 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source\Sound</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
-=======
-<<<<<<< HEAD
-    <ClCompile Include="Mesh.cpp">
-=======
->>>>>>> 9c7d99a44f788463b4509772e8b20fce36166732
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-<<<<<<< HEAD
-=======
->>>>>>> 65be2b8056837b107d2dc5d3abf6779c7d8717d1
->>>>>>> 9c7d99a44f788463b4509772e8b20fce36166732
-      <Filter>Source\Game</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -227,26 +208,6 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Header\Sound</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    <ClInclude Include="Mesh.h">
-=======
->>>>>>> 9c7d99a44f788463b4509772e8b20fce36166732
-    <ClInclude Include="Transform.h">
-      <Filter>Header\Game</Filter>
-    </ClInclude>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-<<<<<<< HEAD
-      <Filter>Header\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-=======
->>>>>>> 65be2b8056837b107d2dc5d3abf6779c7d8717d1
->>>>>>> 9c7d99a44f788463b4509772e8b20fce36166732
-      <Filter>Header\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

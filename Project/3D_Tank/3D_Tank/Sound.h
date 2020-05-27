@@ -10,13 +10,13 @@
 const int SOUND_NUM = 7;
 const std::string SOUND_FILE_PATH[7] =
 {
-	"../Resource/Sound/Music.wav",
-	"../Resource/Sound/Tank_move_lp.wav",
-	"../Resource/Sound/Tank_Shot.wav",
-	"../Resource/Sound/Shell_Flyby.wav",
-	"../Resource/Sound/Boom.wav",
-	"../Resource/Sound/Button_Click.wav",
-	"../Resource/Sound/Explossion.wav"
+	"Resource/Sound/BGM00_Background.wav",
+	"Resource/Sound/BGM01_Button_click.wav",
+	"Resource/Sound/SE00_Tank_move_lp.wav",
+	"Resource/Sound/SE01_Tank_shot.wav",
+	"Resource/Sound/SE02_Tank_explossion.wav",
+	"Resource/Sound/SE03_Shell_flyby.wav",
+	"Resource/Sound/SE04_Shell_boom.wav"
 };
 
 class Sound
