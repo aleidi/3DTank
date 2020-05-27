@@ -4,7 +4,7 @@
 
 Window::Window(HINSTANCE hInst)
 	:
-	mWndClassName(WNDCLASSNAME),mHinst(hInst)
+	mWndClassName(WNDCLASSNAME), mHinst(hInst)
 {
 	//define window class and register
 	WNDCLASSEX wndClass = { 0 };
@@ -25,7 +25,7 @@ Window::Window(HINSTANCE hInst)
 	wr.left = 100;
 	wr.right = WINDOW_WIDTH + wr.left;
 	wr.top = 100;
-	wr.bottom = WINDOW_HEIGHT+ wr.top;
+	wr.bottom = WINDOW_HEIGHT + wr.top;
 	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
 
 	//create window
@@ -61,6 +61,12 @@ HWND Window::getHwnd() const
 {
 	return mHwnd;
 }
+
+HINSTANCE Window::getHinst() const
+{
+	return mHinst;
+}
+
 
 LRESULT WINAPI Window::handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {

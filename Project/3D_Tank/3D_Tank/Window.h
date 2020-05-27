@@ -11,6 +11,7 @@ public:
 
 	bool processMessage();
 	HWND getHwnd() const;
+	HINSTANCE getHinst() const;
 private:
 	static LRESULT WINAPI handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static LRESULT WINAPI handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
