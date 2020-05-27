@@ -18,7 +18,7 @@ public:
 		XMFLOAT3 Position;
 	};
 
-	struct Mesh
+	struct Model
 	{
 		std::vector<Vertex> vertices;
 		std::vector<UINT> indices;
@@ -31,7 +31,7 @@ public:
 		Plane
 	};
 
-	static void getMesh(MeshType type, Mesh& mesh);
+	static void getModel(MeshType type, Model& mesh);
 
 private:
 
@@ -42,6 +42,6 @@ private:
 	static void createPlane();
 	
 private:
-	static std::map<MeshType,Mesh> mMeshes;
+	static std::map<MeshType,Model> mMeshes;
 };
 

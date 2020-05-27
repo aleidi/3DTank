@@ -153,9 +153,6 @@
     <ClCompile Include="Vector3.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
@@ -170,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="TestCube.cpp">
       <Filter>Source\Render\Graphics\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +254,6 @@
     <ClInclude Include="Transform.h">
       <Filter>Header\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header\Render\Graphics\Bindable</Filter>
     </ClInclude>
@@ -268,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="TestCube.h">
       <Filter>Header\Render\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

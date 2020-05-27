@@ -3,11 +3,11 @@
 #include "EnginePlat.h"
 #include "Drawable.h"
 
-class Mesh : public Component
+class Model : public Component
 {
 public:
-	Mesh();
-	~Mesh();
+	Model();
+	~Model();
 
 protected:
 	std::unique_ptr<Drawable> shape;

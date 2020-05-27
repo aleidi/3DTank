@@ -1,8 +1,8 @@
 #include "GeometryGenerator.h"
 
-std::map<GeometryGenerator::MeshType, GeometryGenerator::Mesh> GeometryGenerator::mMeshes;
+std::map<GeometryGenerator::MeshType, GeometryGenerator::Model> GeometryGenerator::mMeshes;
 
-void GeometryGenerator::getMesh(MeshType type, Mesh& mesh)
+void GeometryGenerator::getModel(MeshType type, Model& mesh)
 {
 	if (mMeshes[type].vertices.size() == 0 || mMeshes[type].indices.size() == 0)
 	{

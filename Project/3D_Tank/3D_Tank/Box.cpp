@@ -19,10 +19,10 @@ Box::Box(Graphics& gfx,
 	theta(adist(rng)),
 	phi(adist(rng))
 {
-	GeometryGenerator::Mesh mesh;
-	GeometryGenerator::getMesh(GeometryGenerator::BOX, mesh);
+	GeometryGenerator::Model Model;
+	GeometryGenerator::getModel(GeometryGenerator::BOX, Model);
 	
-	AddBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
+	AddBind(std::make_unique<VertexBuffer>(gfx, Model.vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"SolidVertexShader.cso");
 	auto pvsbc = pvs->GetBytecode();
@@ -30,7 +30,7 @@ Box::Box(Graphics& gfx,
 
 	AddBind(std::make_unique<PixelShader>(gfx, L"SolidPixelShader.cso"));
 
-	AddIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
+	AddIndexBuffer(std::make_unique<IndexBuffer>(gfx, Model.indices));
 
 	struct ConstantBuffer2
 	{
