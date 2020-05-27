@@ -27,7 +27,6 @@ private:
 private:
 	Window& mWnd;
 	Graphics* mGraphics;
-	DInputPC* mDInput;
 	Timer mTimer;
 };
 

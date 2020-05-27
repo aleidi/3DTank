@@ -6,10 +6,10 @@
 
 class DInputPC {
 public:
-	DInputPC();
-	~DInputPC();
+	// DInputPC();
+	// ~DInputPC();
 
-	// static DInputPC& getInstance();
+	static DInputPC& getInstance();
 
 	////////////////////////////////////////////
 	HRESULT initialize(HWND hWnd, HINSTANCE hInstance, DWORD keyboardCoopFlags, DWORD mouseCoopFlags); // initialize DirectInput keyboard & mouse
@@ -31,8 +31,8 @@ private:
 	DIMOUSESTATE m_MouseState;
 
 	////////////////// singleton///////////////////////
-		// DInputPC();
-		// ~DInputPC();
+	DInputPC();
+	~DInputPC();
 		// DInputPC(const DInputPC& other);
 };
 
