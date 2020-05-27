@@ -13,20 +13,6 @@ class Window;
 class Graphics
 {
 	friend class Bindable;
-
-	struct Vertex
-	{
-		XMFLOAT3 pos;
-		XMFLOAT4 color;
-	};
-
-	struct ConstantBuffer
-	{
-		XMMATRIX World;
-		XMMATRIX View;
-		XMMATRIX Proj;
-	};
-
 public:
 	Graphics(Window& wnd);
 	~Graphics();
@@ -54,11 +40,5 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pRenderTargetView;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView;
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> depthStencilBuffer;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> pIndexBuffer;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> pConstantBuffer;
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> pInputLayout;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> pVertexShader;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> pPixelShader;
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> pRasterizerState;
 };
