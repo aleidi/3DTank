@@ -1,11 +1,20 @@
-#include"Object.h"
+#pragma once
+#include "EngineCommon.h"
+
+class GameObject;
 
 class Component
 {
-protected:
-	Object* object;
-
 public:
-	bool setObject(Object obj);
-	Object getObject();
+	Component();
+	~Component();
+
+	void setObject(GameObject* obj) noexcept;
+	GameObject* getObject() const noexcept;
+	void setID(UINT id) noexcept;
+	UINT getID() const noexcept;
+
+private:
+	GameObject* mObject;
+	UINT mID;
 };
