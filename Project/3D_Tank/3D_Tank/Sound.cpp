@@ -1,6 +1,7 @@
 #include "Sound.h"
 
 Sound::Sound() {
+	FMOD::System_Create(&mFmodAudio);
 }
 
 
@@ -15,8 +16,7 @@ bool Sound::initialize()
 {
 	FMOD_RESULT result;
 	//init FMOD
-	FMOD::System_Create(&mFmodAudio);
-	result = mFmodAudio->init(100, FMOD_INIT_NORMAL, NULL);
+	result = mFmodAudio->init(10, FMOD_INIT_NORMAL, NULL);
 	if (result != FMOD_OK) {
 		return false;
 	}
@@ -25,8 +25,12 @@ bool Sound::initialize()
 }
 
 void Sound::playBGM() {
-
+	bool isPlaying = false;
 	FMOD_RESULT result;
+	result = mFmodChannel[0]->isPlaying(&isPlaying);
+	if (result == FMOD_OK)
+		return ;
+
 	result = loadSoundFile(SOUND_FILE_PATH[0], 0);
 	if (result != FMOD_OK)
 		return;
@@ -37,12 +41,17 @@ void Sound::playBGM() {
 
 void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 	FMOD_RESULT result;
+	bool isPlaying = false;
 	switch (numberOfSoundFile) {
 	case 0: {
 		playBGM();
 		break;
 	}
 	case 1: {
+		result = mFmodChannel[numberOfSoundFile]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
 		result = loadSoundFile(SOUND_FILE_PATH[1], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
@@ -52,6 +61,10 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		break;
 	}
 	case 2: {
+		result = mFmodChannel[numberOfSoundFile]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
 		result = loadSoundFile(SOUND_FILE_PATH[2], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
@@ -62,6 +75,10 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		break;
 	}
 	case 3: {
+		result = mFmodChannel[numberOfSoundFile]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
 		result = loadSoundFile(SOUND_FILE_PATH[3], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
@@ -71,6 +88,10 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		break;
 	}
 	case 4: {
+		result = mFmodChannel[numberOfSoundFile]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
 		result = loadSoundFile(SOUND_FILE_PATH[4], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
@@ -80,6 +101,10 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		break;
 	}
 	case 5: {
+		result = mFmodChannel[numberOfSoundFile]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
 		result = loadSoundFile(SOUND_FILE_PATH[5], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
@@ -89,6 +114,10 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		break;
 	}
 	case 6: {
+		result = mFmodChannel[numberOfSoundFile]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
 		result = loadSoundFile(SOUND_FILE_PATH[6], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
