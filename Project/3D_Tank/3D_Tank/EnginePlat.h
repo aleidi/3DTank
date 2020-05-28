@@ -4,16 +4,6 @@
 #include "Windows.h"
 #include "Configuration.h"
 
-namespace EngineRender
-{
-	enum MeshType
-	{
-		BOX,
-		Sphere,
-		Plane
-	};
-}
-
 #ifndef HR
 #define HR(x) { hr = x; if( FAILED(hr) ) { return hr; } } 
 #endif // !HR
