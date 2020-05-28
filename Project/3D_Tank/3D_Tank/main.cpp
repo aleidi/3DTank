@@ -10,12 +10,14 @@ int WINAPI WinMain(
 	Window wnd(hInstance);
 
 	Engine engine(wnd);
+
+	engine.OnInit();
+
 	while (wnd.processMessage())
 	{
 		engine.run();
 	}
 	
-
 	return 0;
 }
 

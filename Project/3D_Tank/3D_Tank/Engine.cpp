@@ -1,7 +1,6 @@
 #include "Engine.h"
 #include "Graphics.h"
 #include "Window.h"
-#include "Box.h"
 #include "TestCube.h"
 #include "Sound.h"
 #include <sstream>
@@ -12,32 +11,53 @@ std::vector<std::unique_ptr<TestCube>> cubes;
 Engine::Engine(Window& wnd)
 	:
 	mWnd(wnd),
-	mGraphics(new Graphics(wnd))
+	mGraphics(new Graphics(wnd)),
+	mSound(new Sound())
 {
-	mTimer.reset();
-	float fScale = 1.0f;
-	float fTrans_x = 0.0f;
-	float fTrans_y = 0.0f;
-	float fTrans_z = 1.0f;
 	//test code
 	//set cubes
 	cubes.push_back(std::make_unique<TestCube>(*mGraphics));
 
 	mGraphics->SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 
-	DInputPC::getInstance().onInit(wnd.getHwnd(),wnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
 
+}
+
+void Engine::OnInit()
+{
+	//Timer Init
+	mTimer.reset();
+
+	float fScale = 1.0f;
+	float fTrans_x = 0.0f;
+	float fTrans_y = 0.0f;
+	float fTrans_z = 1.0f;
+
+	//Input Init
+	DInputPC::getInstance().onInit(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
+
+	//Sound Init
+	mSound->initialize();
+
+	//SceneManagerInit
+
+	//Gui Init
+
+	//EUI Init
 }
 
 void Engine::run()
 {
-	//timer update
+	//Timer update
 	mTimer.tick();
-	// physics.Update()
-	// input.update();
-	// input test code
+
+	//Input Update
 	DInputPC::getInstance().onUpdate();
-	// if (DInputPC::getInstance().iskeyDown(DIK_A)) MessageBox(mWnd.getHwnd(), L"I pressed A", L"Input_Test", MB_OK);
+	
+	//Sound Update
+	mSound->playBGM();
+
+	// physics.Update()
 
 	/*
 	render.update();
@@ -90,9 +110,6 @@ void Engine::run()
 	}
 	mGraphics->EndFrame();
 
-	Sound *mSound = new Sound;
-	mSound->initialize();
-	mSound->playBGM();
 }
 
 void Engine::calculateFrameStats()

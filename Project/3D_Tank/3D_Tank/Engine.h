@@ -12,6 +12,7 @@
 
 class Window;
 class Graphics;
+class Sound;
 
 class Engine
 {
@@ -20,6 +21,7 @@ public:
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
 
+	void OnInit();
 	void run();
 private:
 	void calculateFrameStats();
@@ -28,6 +30,7 @@ private:
 	Window& mWnd;
 	Graphics* mGraphics;
 	Timer mTimer;
+	Sound* mSound;
 	float fScale;
 	float fTrans_x;
 	float fTrans_y;

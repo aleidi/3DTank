@@ -1,54 +1,82 @@
 #include "GeometryGenerator.h"
 
-std::map<GeometryGenerator::MeshType, GeometryGenerator::Model> GeometryGenerator::mMeshes;
+std::map<GeometryGenerator::MeshType, GeometryGenerator::Mesh> GeometryGenerator::mMeshes;
 
-void GeometryGenerator::getModel(MeshType type, Model& mesh)
+void GeometryGenerator::getCube(Mesh & mesh)
 {
-	if (mMeshes[type].vertices.size() == 0 || mMeshes[type].indices.size() == 0)
+	if (mMeshes[MeshType::Cube].vertices.size() == 0 || mMeshes[MeshType::Cube].indices.size() == 0)
 	{
-		switch (type)
-		{
-		case GeometryGenerator::BOX:
-			createBox();
-			break;
-		case GeometryGenerator::Sphere:
-			createSphere();
-			break;
-		case GeometryGenerator::Plane:
-			createPlane();
-			break;
-		}
+		createCube();
 	}
-
-	mesh = mMeshes[type];
+	mesh = mMeshes[MeshType::Cube];
 }
 
-void GeometryGenerator::createBox()
+void GeometryGenerator::getSphere(Mesh & mesh)
 {
-	const std::vector<Vertex> vertices =
+}
+
+void GeometryGenerator::getPlane(Mesh & mesh)
+{
+}
+
+void GeometryGenerator::createCube()
+{
+	std::vector<Vertex> vertices =
 	{
-		{ -1.0f,-1.0f,-1.0f },
-		{ 1.0f,-1.0f,-1.0f },
-		{ -1.0f,1.0f,-1.0f },
-		{ 1.0f,1.0f,-1.0f },
-		{ -1.0f,-1.0f,1.0f },
-		{ 1.0f,-1.0f,1.0f },
-		{ -1.0f,1.0f,1.0f },
-		{ 1.0f,1.0f,1.0f },
+		{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
+		{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
+		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
+		{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
+
+		{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
+		{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
+		{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
+		{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
+
+		{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
+		{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT2(1.0f, 1.0f) },
+		{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
+		{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f) },
+
+		{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
+		{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT2(0.0f, 1.0f) },
+		{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
+		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f) },
+
+		{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT2(0.0f, 1.0f) },
+		{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT2(1.0f, 1.0f) },
+		{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
+		{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
+
+		{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
+		{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
+		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f) },
+		{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f) },
 	};
 
 	const std::vector<UINT> indices =
 	{
-		0,2,1, 2,3,1,
-		1,3,5, 3,7,5,
-		2,6,3, 3,6,7,
-		4,5,7, 4,7,6,
-		0,4,2, 2,4,6,
-		0,1,4, 1,5,4
+		3,1,0,
+		2,1,3,
+
+		6,4,5,
+		7,4,6,
+
+		11,9,8,
+		10,9,11,
+
+		14,12,13,
+		15,12,14,
+
+		19,17,16,
+		18,17,19,
+
+		22,20,21,
+		23,20,22
 	};
 
-	mMeshes[MeshType::BOX].vertices = vertices;
-	mMeshes[MeshType::BOX].indices = indices;
+	mMeshes[MeshType::Cube].vertices = vertices;
+	mMeshes[MeshType::Cube].indices = indices;
 }
 
 void GeometryGenerator::createSphere()

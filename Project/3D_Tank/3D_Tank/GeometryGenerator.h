@@ -2,7 +2,7 @@
 #include <vector>
 #include <map>
 #include <DirectXMath.h>
-#include "EnginePlat.h"
+#include "EngineCommon.h"
 
 using namespace DirectX;
 
@@ -11,14 +11,11 @@ class GeometryGenerator
 public:
 	struct Vertex
 	{
-		Vertex(){}
-		Vertex(float px,float py, float pz)
-			:Position(px,py,pz)
-		{}
 		XMFLOAT3 Position;
+		XMFLOAT2 Texcoord;
 	};
 
-	struct Model
+	struct Mesh
 	{
 		std::vector<Vertex> vertices;
 		std::vector<UINT> indices;
@@ -26,22 +23,21 @@ public:
 
 	enum MeshType
 	{
-		BOX,
+		Cube,
 		Sphere,
 		Plane
 	};
 
-	static void getModel(MeshType type, Model& mesh);
+	static void getCube(Mesh& mesh);
+	static void getSphere(Mesh& mesh);
+	static void getPlane(Mesh& mesh);
 
 private:
-
-
-
-	static void createBox();
+	static void createCube();
 	static void createSphere();
 	static void createPlane();
 	
 private:
-	static std::map<MeshType,Model> mMeshes;
+	static std::map<MeshType, Mesh> mMeshes;
 };
 

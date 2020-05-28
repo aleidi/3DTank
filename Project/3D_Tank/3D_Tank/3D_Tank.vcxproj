@@ -164,7 +164,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bindable.cpp" />
-    <ClCompile Include="Box.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DInput_PC.cpp" />
     <ClCompile Include="DInput_PS4.cpp" />
@@ -176,8 +175,9 @@
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="TestCube.cpp" />
@@ -195,7 +195,6 @@
   <ItemGroup>
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
-    <ClInclude Include="Box.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="ConstantBuffers.h" />
@@ -208,9 +207,10 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputLayout.h" />
-    <ClInclude Include="EnginePlat.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="Object.h" />
+    <ClInclude Include="EngineCommon.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="TestCube.h" />
