@@ -90,9 +90,6 @@
     <ClCompile Include="Bindable.cpp">
       <Filter>Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="Box.cpp">
-      <Filter>Source\Render\Graphics\Drawable</Filter>
-    </ClCompile>
     <ClCompile Include="Drawable.cpp">
       <Filter>Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
@@ -205,9 +202,6 @@
     </ClInclude>
     <ClInclude Include="IndexBuffer.h">
       <Filter>Header\Render\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="Box.h">
-      <Filter>Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>Header\Render\Graphics</Filter>
