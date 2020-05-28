@@ -159,13 +159,13 @@
     <ClCompile Include="TestCube.cpp">
       <Filter>Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -248,9 +248,6 @@
     <ClInclude Include="TestCube.h">
       <Filter>Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header\Game</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Header\Game</Filter>
     </ClInclude>
@@ -261,6 +258,9 @@
       <Filter>Header\Engine</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

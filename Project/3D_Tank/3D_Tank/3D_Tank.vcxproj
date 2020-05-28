@@ -175,8 +175,8 @@
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sampler.cpp" />
@@ -208,8 +208,8 @@
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputLayout.h" />
     <ClInclude Include="EngineCommon.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sampler.h" />
