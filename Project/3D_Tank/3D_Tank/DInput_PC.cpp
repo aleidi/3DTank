@@ -44,9 +44,13 @@ HRESULT DInputPC::onInit(HWND hWnd, HINSTANCE hInstance, DWORD keyboardCoopFlags
 }
 
 void DInputPC::onUpdate() {
-	// copykeybuffer
-	for (int i = 0; i < 256; i++) {
-		pre_keyBuffer[i] = m_keyBuffer[i];
+
+	//// copykeybuffer
+	int k = 0;
+	for (auto& buff : pre_keyBuffer)
+	{
+		buff = m_keyBuffer[k];
+		++k;
 	}
 	// copymousebuffer
 	for (int i = 0; i < 4; i++) {
