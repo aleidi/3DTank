@@ -165,6 +165,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -256,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="Configuration.h">
       <Filter>Header\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
