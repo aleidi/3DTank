@@ -132,9 +132,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Source\Sound</Filter>
     </ClCompile>
@@ -163,6 +160,9 @@
       <Filter>Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -209,22 +209,13 @@
     <ClInclude Include="Window.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Configuration.h">
-      <Filter>Header\Misc</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="GeometryGenerator.h">
       <Filter>Header\Render</Filter>
     </ClInclude>
-    <ClInclude Include="EnginePlat.h">
-      <Filter>Header\Misc</Filter>
-    </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Header\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
       <Filter>Header\Game</Filter>
     </ClInclude>
     <ClInclude Include="Sound.h">
@@ -256,6 +247,15 @@
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineCommon.h">
+      <Filter>Header\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Header\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

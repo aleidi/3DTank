@@ -2,7 +2,7 @@
 
 #include <dinput.h>
 #include <memory.h>
-#include "EnginePlat.h"
+#include "EngineCommon.h"
 
 class DInputPC {
 public:

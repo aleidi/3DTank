@@ -1,5 +1,5 @@
 #pragma once
-#include "EnginePlat.h"
+#include "EngineCommon.h"
 
 class Window
 {

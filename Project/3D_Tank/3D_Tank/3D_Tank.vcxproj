@@ -176,7 +176,7 @@
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="TestCube.cpp" />
@@ -206,9 +206,9 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputLayout.h" />
-    <ClInclude Include="EnginePlat.h" />
+    <ClInclude Include="EngineCommon.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="Object.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="TestCube.h" />

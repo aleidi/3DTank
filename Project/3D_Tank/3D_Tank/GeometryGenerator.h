@@ -2,7 +2,7 @@
 #include <vector>
 #include <map>
 #include <DirectXMath.h>
-#include "EnginePlat.h"
+#include "EngineCommon.h"
 
 using namespace DirectX;
 
