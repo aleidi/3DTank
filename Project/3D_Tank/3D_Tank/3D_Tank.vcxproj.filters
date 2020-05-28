@@ -141,9 +141,6 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Source\Input</Filter>
-    </ClCompile>
     <ClCompile Include="DInput_PC.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
@@ -238,9 +235,6 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Header\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Header\Input</Filter>
     </ClInclude>
     <ClInclude Include="DInput_PC.h">
       <Filter>Header\Input</Filter>

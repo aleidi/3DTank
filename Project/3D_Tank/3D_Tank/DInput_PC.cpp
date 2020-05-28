@@ -87,12 +87,12 @@ float DInputPC::mouseDZ() {
 
 ////////////////// singleton///////////////////////
 
-/*
-static DInputPC& DInputPC::getInstance() {
+
+DInputPC& DInputPC::getInstance() {
 	static DInputPC m_DInputPC;
 	return m_DInputPC;
 }
-*/
+
 
 
 

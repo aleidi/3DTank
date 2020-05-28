@@ -27,7 +27,11 @@ private:
 private:
 	Window& mWnd;
 	Graphics* mGraphics;
-	DInputPC* mDInput;
 	Timer mTimer;
+	float fScale;
+	float fTrans_x;
+	float fTrans_y;
+	float fTrans_z;
+
 };
 
