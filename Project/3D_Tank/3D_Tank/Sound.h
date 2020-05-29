@@ -27,14 +27,16 @@ public:
 	Sound(const Sound&);
 	~Sound();
 public:
-	bool initialize();
+	bool onInit();
 	void playBGM();
 	void play(const int&, const Vector3*);
 	bool setPause(const int&);
 	bool setReplay(const int&);
 	bool stop(const int&);
+	void onUpdate(const float&);
 	void shutDown();
-	void setPosition(const Vector3*, FMOD::Sound*);
+	void setPosition();
+	//void setPosition(const Vector3&);
 
 	FMOD_RESULT loadSoundFile(std::string filename, int soundidx);
 private:

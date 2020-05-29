@@ -6,13 +6,14 @@ Sound::Sound() {
 
 
 Sound::~Sound() {
+	mFmodAudio->close();
 }
 
 Sound::Sound(const Sound& other) {
 
 }
 
-bool Sound::initialize()
+bool Sound::onInit()
 {
 	FMOD_RESULT result;
 	//init FMOD
@@ -29,12 +30,13 @@ void Sound::playBGM() {
 	FMOD_RESULT result;
 	result = mFmodChannel[0]->isPlaying(&isPlaying);
 	if (result == FMOD_OK)
-		return ;
+		return;
 
 	result = loadSoundFile(SOUND_FILE_PATH[0], 0);
 	if (result != FMOD_OK)
 		return;
-	mFmodSound[0]->setMode(FMOD_3D);
+	//mFmodSound[0]->setMode(FMOD_3D);
+	setPosition();
 	//mFmodSound[0]->setMode(FMOD_LOOP_NORMAL);
 	mFmodAudio->playSound(mFmodSound[0], NULL, false, &mFmodChannel[0]);
 }
@@ -56,7 +58,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[1]->setMode(FMOD_3D);
-		setPosition(position, mFmodSound[1]);
+		//setPosition(position, mFmodSound[1]);
 		mFmodAudio->playSound(mFmodSound[1], NULL, false, &mFmodChannel[1]);
 		break;
 	}
@@ -70,7 +72,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 			return;
 		mFmodSound[2]->setMode(FMOD_3D);
 		mFmodSound[2]->setMode(FMOD_LOOP_NORMAL);
-		setPosition(position, mFmodSound[2]);
+		//setPosition(position, mFmodSound[2]);
 		mFmodAudio->playSound(mFmodSound[2], NULL, false, &mFmodChannel[2]);
 		break;
 	}
@@ -83,7 +85,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[3]->setMode(FMOD_3D);
-		setPosition(position, mFmodSound[3]);
+		//setPosition(position, mFmodSound[3]);
 		mFmodAudio->playSound(mFmodSound[3], NULL, false, &mFmodChannel[3]);
 		break;
 	}
@@ -96,7 +98,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[4]->setMode(FMOD_3D);
-		setPosition(position, mFmodSound[4]);
+		//setPosition(position, mFmodSound[4]);
 		mFmodAudio->playSound(mFmodSound[4], NULL, false, &mFmodChannel[4]);
 		break;
 	}
@@ -109,7 +111,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[5]->setMode(FMOD_3D);
-		setPosition(position, mFmodSound[5]);
+		//setPosition(position, mFmodSound[5]);
 		mFmodAudio->playSound(mFmodSound[5], NULL, false, &mFmodChannel[5]);
 		break;
 	}
@@ -122,7 +124,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[6]->setMode(FMOD_3D);
-		setPosition(position, mFmodSound[6]);
+		//setPosition(position, mFmodSound[6]);
 		mFmodAudio->playSound(mFmodSound[6], NULL, false, &mFmodChannel[6]);
 		break;
 	}
@@ -165,6 +167,14 @@ bool Sound::stop(const int& numOfChannel) {
 	return true;
 }
 
+void Sound::onUpdate(const float& f) {
+	FMOD_VECTOR listenVector{ 10.0f + f,0.0f,0.0f };
+	FMOD_VECTOR vel{ 1.0f,0.0f,0.0f };
+	FMOD_VECTOR up{ 0.0f,1.0f,0.0f };
+	FMOD_VECTOR forward{ 1.0f,0.0f,0.0f };
+	mFmodAudio->set3DListenerAttributes(0, &listenVector, &vel, &forward, &up);
+	mFmodAudio->update();
+}
 void Sound::shutDown() {
 	mFmodAudio->release();
 }
@@ -172,22 +182,18 @@ void Sound::shutDown() {
 FMOD_RESULT Sound::loadSoundFile(std::string filename, int soundidx) {
 	FMOD_RESULT result = FMOD_OK;
 	const char* soundfilename = filename.c_str();
-
-	result = mFmodAudio->createStream(soundfilename, FMOD_DEFAULT, NULL, &mFmodSound[soundidx]);
-	//if (soundidx == 0) {
+	result = mFmodAudio->createSound(soundfilename, FMOD_3D | FMOD_3D_LINEARROLLOFF, NULL, &mFmodSound[soundidx]);
 	//	//#define FMOD_LOOP_OFF 
 	//	//#define FMOD_LOOP_NORMAL   
-	//	mSound[0]->setMode(FMOD_LOOP_NORMAL);
-	//	mAudio->playSound(mSound[0], NULL, false, &mChannel);
-	//	
-	//}
 	return result;
 }
 
-void Sound::setPosition(const Vector3* mVector, FMOD::Sound* mFmodSound) {
-	FMOD_VECTOR fVector;
-	fVector.x = mVector->x;
-	fVector.y = mVector->y;
-	fVector.z = mVector->z;
-	mFmodSound->set3DCustomRolloff(&fVector, 2);
+void Sound::setPosition() {
+	FMOD_VECTOR position{ 0.0f,0.0f,0.0f };
+	FMOD_VECTOR vel{ -1.0f,0.0f,0.0f };
+	mFmodSound[0]->set3DMinMaxDistance(10.0f, 1000.0f);
+	FMOD_VECTOR lin{ 1.0f,1.0f,1.0f };
+	mFmodSound[0]->set3DCustomRolloff(&lin, 1);
+	mFmodChannel[0]->set3DAttributes(&position, &vel);
+
 }
