@@ -4,8 +4,10 @@ DInputPC::DInputPC() {
 	m_pDirectInput = NULL;
 	m_KeyboardDevice = NULL;
 	ZeroMemory(m_keyBuffer, sizeof(char) * 256);
+	ZeroMemory(pre_keyBuffer, sizeof(char) * 256);
 	m_MouseDevice = NULL;
 	ZeroMemory(&m_MouseState, sizeof(m_MouseState));
+	ZeroMemory(pre_rgbButtons, sizeof(BYTE) * 4);
 }
 
 DInputPC::~DInputPC() {
@@ -18,9 +20,7 @@ DInputPC::~DInputPC() {
 	SAFE_RELEASE(m_pDirectInput);
 }
 
-// DInputPC::DInputPC(const DInputPC& other) {}
-
-HRESULT DInputPC::initialize(HWND hWnd, HINSTANCE hInstance, DWORD keyboardCoopFlags, DWORD mouseCoopFlags) {
+HRESULT DInputPC::onInit(HWND hWnd, HINSTANCE hInstance, DWORD keyboardCoopFlags, DWORD mouseCoopFlags) {
 	HRESULT hr;
 
 	HR(DirectInput8Create(hInstance, DIRECTINPUT_VERSION,
@@ -43,6 +43,22 @@ HRESULT DInputPC::initialize(HWND hWnd, HINSTANCE hInstance, DWORD keyboardCoopF
 	return S_OK;
 }
 
+void DInputPC::onUpdate() {
+
+	//// copykeybuffer
+	int k = 0;
+	for (auto& buff : pre_keyBuffer)
+	{
+		buff = m_keyBuffer[k];
+		++k;
+	}
+	// copymousebuffer
+	for (int i = 0; i < 4; i++) {
+		pre_rgbButtons[i] = m_MouseState.rgbButtons[i];
+	} 
+	DInputPC::getInput();
+}
+
 void DInputPC::getInput() {
 	HRESULT hr = m_KeyboardDevice->GetDeviceState(sizeof(m_keyBuffer), (void**)&m_keyBuffer);
 	// get keyboard input
@@ -50,7 +66,6 @@ void DInputPC::getInput() {
 		m_KeyboardDevice->Acquire();
 		m_KeyboardDevice->GetDeviceState(sizeof(m_keyBuffer), (LPVOID)m_keyBuffer);
 	}
-
 
 	hr = m_MouseDevice->GetDeviceState(sizeof(DIMOUSESTATE), (void**)&m_MouseState);
 	// get mouse input
@@ -60,15 +75,28 @@ void DInputPC::getInput() {
 	}
 }
 
+bool DInputPC::iskey(int iKey) {
+	return (m_keyBuffer[iKey] & 0x80);
+}
+
 bool DInputPC::iskeyDown(int iKey) {
-	if (m_keyBuffer[iKey] & 0x80)
-		return true;
-	else
-		return false;
+	return (!(pre_keyBuffer[iKey] & 0x80) && iskey(iKey));
+}
+
+bool DInputPC::iskeyUp(int iKey) {
+	return ((pre_keyBuffer[iKey] & 0x80) && !iskey(iKey));
+}
+
+bool DInputPC::isMouseButton(int button) {
+	return(m_MouseState.rgbButtons[button] & 0x80) != 0;
 }
 
 bool DInputPC::isMouseButtonDown(int button) {
-	return(m_MouseState.rgbButtons[button] & 0x80) != 0;
+	return (((pre_rgbButtons[button] & 0x80) == 0) && isMouseButton(button));
+}
+
+bool DInputPC::isMouseButtonUp(int button) {
+	return (((pre_rgbButtons[button] & 0x80) != 0) && !isMouseButton(button));
 }
 
 float DInputPC::mouseDX() {
@@ -84,9 +112,7 @@ float DInputPC::mouseDZ() {
 }
 
 
-
 ////////////////// singleton///////////////////////
-
 
 DInputPC& DInputPC::getInstance() {
 	static DInputPC m_DInputPC;
