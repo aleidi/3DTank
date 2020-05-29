@@ -1,10 +1,12 @@
 #include "TestCube.h"
 #include "BindableBase.h"
 
-TestCube::TestCube(Graphics& gfx)
+TestCube::TestCube(Graphics & gfx, UINT id)
 	:
-	pos({0.0f,0.0f,0.0f}),rot({0.0f,0.0f,0.0f}),scale({1.0f,1.0f,1.0f})
+	pos({ 0.0f,0.0f,0.0f }), rot({ 0.0f,0.0f,0.0f }), scale({ 1.0f,1.0f,1.0f })
 {
+	mID = id;
+
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getCube(mesh);
 	AddBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
@@ -27,10 +29,14 @@ TestCube::TestCube(Graphics& gfx)
 	AddBind(std::make_unique<Texture>(gfx, L"Resource\\Objects\\TX_FreightContainer_01a_ALB.dds"));
 
 	AddBind(std::make_unique<Sampler>(gfx));
-	 
+
 	AddBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
+}
+
+TestCube::~TestCube()
+{
 }
 
 void TestCube::Update(float deltaTime) noexcept

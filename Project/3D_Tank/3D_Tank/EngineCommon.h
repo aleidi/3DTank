@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <memory>
+#include <vector>
 #include "Windows.h"
 #include "Configuration.h"
 

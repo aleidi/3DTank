@@ -1,6 +1,6 @@
 #include "TransformCbuf.h"
 
-TransformCbuf::TransformCbuf(Graphics& gfx, const Drawable& mParent)
+TransformCbuf::TransformCbuf(Graphics& gfx, const Drawable3D& mParent)
 	:
 	mVertexConstbuff(gfx),
 	mParent(mParent)

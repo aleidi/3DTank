@@ -1,8 +1,6 @@
 #include "Engine.h"
-#include "Graphics.h"
 #include "Window.h"
 #include "TestCube.h"
-#include "Sound.h"
 #include <sstream>
 
 //test code
@@ -12,18 +10,19 @@ static float dis = 0.0f;
 Engine::Engine(Window& wnd)
 	:
 	mWnd(wnd),
-	mGraphics(new Graphics(wnd)),
-	mSound(new Sound())
+	mSound(std::make_unique<Sound>()),
+	mRendering(std::make_unique<Rendering>(wnd))
 {
-	//test code
-	//set cubes
-	cubes.push_back(std::make_unique<TestCube>(*mGraphics));
+
 }
 
 void Engine::OnInit()
 {
 	//Timer Init
 	mTimer.reset();
+
+	//test code
+	calculateFrameStats();
 
 	float fScale = 1.0f;
 	float fTrans_x = 0.0f;
@@ -37,11 +36,18 @@ void Engine::OnInit()
 	mSound->onInit();
 	mSound->playBGM();
 
+	//Rendering Init
+	mRendering.get()->onInit();
+
 	//SceneManagerInit
 
 	//Gui Init
 
 	//EUI Init
+
+	//test code
+	//set cubes
+	cubes.push_back(std::make_unique<TestCube>(*mRendering.get()->getGFX()));
 }
 
 void Engine::run()
@@ -51,86 +57,62 @@ void Engine::run()
 
 	//Input Update
 	DInputPC::getInstance().onUpdate();
+
+	//Physics Update
+
+	//Game Update
 	
 	//Sound Update
 	dis += fTrans_z;
 	mSound->onUpdate(dis);
 
-	// physics.Update()
+	//PreRender
+	mRendering.get()->onPreRender(mTimer.getDeltaTIme());
+
+	//OnRender
+	mRendering.get()->onRender(mTimer.getDeltaTIme());
+
+#pragma region test code
+
+	if (DInputPC::getInstance().iskey(DIK_W))
+	{
+		fTrans_z -= mTimer.getDeltaTIme();
+		mRendering.get()->getGFX()->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
+	}
+	if (DInputPC::getInstance().iskey(DIK_S))
+	{
+		fTrans_z += mTimer.getDeltaTIme();
+		mRendering.get()->getGFX()->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
+	}
+	if (DInputPC::getInstance().iskey(DIK_A))
+	{
+		fTrans_x -= mTimer.getDeltaTIme();
+		mRendering.get()->getGFX()->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
+	}
+	if (DInputPC::getInstance().iskey(DIK_D))
+	{
+		fTrans_x += mTimer.getDeltaTIme();
+		mRendering.get()->getGFX()->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
+	}
+
+
+	for (auto& c : cubes)
+	{
+		c->Update(mTimer.getDeltaTIme());
+
+		c->Draw(*mRendering.get()->getGFX());
+	}
+#pragma endregion
+
+
+	//PostRender
+	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
 
 	/*
-	render.update();
 	gameUI.Update();
 	eui.update();
 	*/
 
-	{
-		//test code
-		calculateFrameStats();
-		//render.update()
-		mGraphics->CleanFrame();
-		for (auto& c : cubes)
-		{	
-			c->Update(mTimer.getDeltaTIme());
-			
-			////////////////Rotate///////////////////
-			/*
-			if (DInputPC::getInstance().isMouseButton(0)) {
-				c->Rotate(DInputPC::getInstance().mouseDY()*mTimer.getDeltaTIme() * 50, DInputPC::getInstance().mouseDX()*mTimer.getDeltaTIme() * 50,
-					DInputPC::getInstance().mouseDZ()*mTimer.getDeltaTIme() * 50);
-			}
-			*/
-			/////////////////Translate//////////////////
-			//if (DInputPC::getInstance().isMouseButtonDown(0)) fTrans_y = 5.0f;
-			//else if (DInputPC::getInstance().isMouseButtonUp(1)) fTrans_y = -5.0f;
-			//else fTrans_y = 0.0f;
-			//if (DInputPC::getInstance().iskey(DIK_W)) fTrans_z = 0.05f;
-			//else if (DInputPC::getInstance().iskey(DIK_S)) fTrans_z = -0.05f;
-			//else fTrans_z = 0.0f;
-			//if (DInputPC::getInstance().iskeyDown(DIK_A)) fTrans_x = -5.0f;
-			//else if (DInputPC::getInstance().iskeyUp(DIK_D)) fTrans_x = 5.0f;
-			//else fTrans_x = 0.0f;
-			//c->Translate(fTrans_x, fTrans_y, fTrans_z);
-
-
-			if (DInputPC::getInstance().iskey(DIK_W))
-			{
-				fTrans_z -= mTimer.getDeltaTIme();
-				mGraphics->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
-			}
-			if (DInputPC::getInstance().iskey(DIK_S))
-			{
-				fTrans_z += mTimer.getDeltaTIme();
-				mGraphics->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
-			}
-			if (DInputPC::getInstance().iskey(DIK_A))
-			{
-				fTrans_x -= mTimer.getDeltaTIme();
-				mGraphics->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
-			}
-			if (DInputPC::getInstance().iskey(DIK_D))
-			{
-				fTrans_x += mTimer.getDeltaTIme();
-				mGraphics->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
-			}
-
-			/////////////////Scale////////////////////
-			/*
-			if (DInputPC::getInstance().isMouseButton(1)) {
-				if (DInputPC::getInstance().mouseDZ() > 0) {
-					fScale += 0.05f ;
-					c->Scale(fScale, fScale, fScale);
-				}
-				else if(DInputPC::getInstance().mouseDZ() < 0) {
-					fScale -= 0.05f ;
-					c->Scale(fScale, fScale, fScale);
-				}
-			}
-			*/
-			c->Draw(*mGraphics); 
-		}
-	}
-	mGraphics->EndFrame();
 
 }
 
@@ -148,8 +130,7 @@ void Engine::calculateFrameStats()
 
 		std::wostringstream outs;
 		outs.precision(6);
-		outs << WNDTITLE << "   " << "FPS: " << fps << "   " << "Frame Time: " << mspf << "(ms)"
-			<< "transx:"<<fTrans_x;
+		outs << WNDTITLE << "   " << "FPS: " << fps << "   " << "Frame Time: " << mspf << "(ms)";
 		SetWindowText(mWnd.getHwnd(), outs.str().c_str());
 
 		frameCnt = 0;

@@ -177,6 +177,12 @@
     <ClCompile Include="RenderCamera.cpp">
       <Filter>Source\Render\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Rendering.cpp">
+      <Filter>Source\Render\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable3D.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -274,6 +280,12 @@
     </ClInclude>
     <ClInclude Include="RenderCamera.h">
       <Filter>Header\Render\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering.h">
+      <Filter>Header\Render\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable3D.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

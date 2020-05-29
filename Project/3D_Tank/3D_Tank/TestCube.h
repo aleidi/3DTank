@@ -1,10 +1,12 @@
 #pragma once
-#include "Drawable.h"
+#include "Drawable3D.h"
 
-class TestCube : public Drawable
+class TestCube : public Drawable3D
 {
 public:
-	TestCube(Graphics& gfx);
+	TestCube(Graphics& gfx) :TestCube(gfx, 0) {}
+	TestCube(Graphics& gfx, UINT id);
+	~TestCube();
 	void Update(float deltaTime) noexcept override;
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 

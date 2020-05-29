@@ -1,5 +1,7 @@
 #pragma once
 #include "Timer.h"
+#include "Sound.h"
+#include "Rendering.h"
 
 #if defined(PS4)
 #include "DInput_PS4.h"
@@ -11,8 +13,6 @@
 #pragma comment(lib, "dxguid.lib")
 
 class Window;
-class Graphics;
-class Sound;
 
 class Engine
 {
@@ -28,9 +28,11 @@ private:
 
 private:
 	Window& mWnd;
-	Graphics* mGraphics;
+	std::unique_ptr<Sound> mSound;
+	std::unique_ptr<Rendering> mRendering;
 	Timer mTimer;
-	Sound* mSound;
+
+	//testcode
 	float fScale;
 	float fTrans_x;
 	float fTrans_y;
