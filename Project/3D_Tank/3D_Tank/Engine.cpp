@@ -7,6 +7,7 @@
 
 //test code
 std::vector<std::unique_ptr<TestCube>> cubes;
+static float dis = 0.0f;
 
 Engine::Engine(Window& wnd)
 	:
@@ -37,7 +38,8 @@ void Engine::OnInit()
 	DInputPC::getInstance().onInit(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
 
 	//Sound Init
-	mSound->initialize();
+	mSound->onInit();
+	mSound->playBGM();
 
 	//SceneManagerInit
 
@@ -55,7 +57,8 @@ void Engine::run()
 	DInputPC::getInstance().onUpdate();
 	
 	//Sound Update
-	mSound->playBGM();
+	dis += fTrans_z;
+	mSound->onUpdate(dis);
 
 	// physics.Update()
 
