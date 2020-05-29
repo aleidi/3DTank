@@ -9,12 +9,12 @@ Rendering::Rendering(Window & wnd)
 
 Rendering::~Rendering()
 {
-	for (std::vector<Drawable3D*>::iterator it = mObjects3D.begin(); it != mObjects3D.end(); ++it)
+	for (std::map<UINT,Drawable3D*>::iterator it = mObjects3D.begin(); it != mObjects3D.end(); ++it)
 	{
-		if (nullptr != *it)
+		if (nullptr != it->second)
 		{
-			delete *it;
-			*it = nullptr;
+			delete it->second;
+			it->second = nullptr;
 		}
 	}
 	mObjects3D.clear();
@@ -32,9 +32,13 @@ void Rendering::onPreRender(float deltaTime)
 
 void Rendering::onRender(float deltaTime)
 {
-	for (std::vector<Drawable3D*>::iterator it = mObjects3D.begin(); it != mObjects3D.end(); ++it)
+	for (std::map<UINT, Drawable3D*>::iterator it = mObjects3D.begin(); it != mObjects3D.end(); ++it)
 	{
-		(*it)->Draw(*mGraphics);
+		if (nullptr == it->second)
+		{
+			continue;
+		}
+		it->second->Draw(*mGraphics);
 	}
 }
 
@@ -43,9 +47,17 @@ void Rendering::onPostRender(float deltaTime)
 	mGraphics->EndFrame();
 }
 
-void Rendering::AddDrawable(Drawable3D* drawable) noexcept
+void Rendering::addDrawable3D(Drawable3D * drawable) noexcept
 {
-	mObjects3D.push_back(drawable);
+	mObjects3D[drawable->getID()]= drawable;
+}
+
+void Rendering::removeDrawable3D(Drawable3D * drawable)
+{
+	int id = drawable->getID();
+	delete mObjects3D[id];
+	mObjects3D[id] = nullptr;
+	mObjects3D.erase(id);
 }
 
 Graphics * Rendering::getGFX()

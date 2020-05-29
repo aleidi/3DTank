@@ -9,7 +9,7 @@ public:
 	Drawable3D(const Drawable3D&) = delete;
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept { return DirectX::XMMATRIX();}
 	void setID(UINT id) noexcept { mID = id; }
-	UINT getID(UINT id) noexcept { return mID; }
+	UINT getID() noexcept { return mID; }
 protected:
 	UINT mID;
 };
