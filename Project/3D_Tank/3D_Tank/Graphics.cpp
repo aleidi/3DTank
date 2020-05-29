@@ -25,10 +25,10 @@ namespace Colors
 	XMFLOAT4 LightSteelBlue = { 0.69f, 0.77f, 0.87f, 1.0f };
 }
 
-Graphics::Graphics(Window& wnd)
+Graphics::Graphics(const Window& wnd)
 	:
 	mhMainWnd(wnd.getHwnd()),mClientWidth(WINDOW_WIDTH),mClientHeight(WINDOW_HEIGHT),
-	mRenderCamera(std::make_unique<RenderCamera>(this))
+	mRenderCamera(std::make_unique<RenderCamera>(*this))
 {
 	DXGI_SWAP_CHAIN_DESC sd;
 

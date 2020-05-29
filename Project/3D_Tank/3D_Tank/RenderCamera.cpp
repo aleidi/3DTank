@@ -1,11 +1,11 @@
 #include "RenderCamera.h"
 #include "Window.h"
 
-RenderCamera::RenderCamera(Graphics* gfx)
+RenderCamera::RenderCamera(const Graphics& gfx)
 	: mPosition(0.0f,0.0f,0.0f), mRotation(0.0f,0.0f,0.0f),
 	mRight(1.0f,0.0f,0.0f),mUp(0.0f,0.0f,1.0f),mForward(0.0f,0.0f,1.0f),
 	mProjType(ProjectionType::Perspective),mFov(XM_PI/3),mAspect(WINDOW_WIDTH/WINDOW_HEIGHT),mNearZ(0.1f),mFarZ(1000.0f),
-	mViewport{ 0.0f,0.0f, (float)gfx->mClientWidth,(float)gfx->mClientWidth,0.0f,1.0f}
+	mViewport{ 0.0f,0.0f, (float)gfx.mClientWidth,(float)gfx.mClientWidth,0.0f,1.0f}
 {
 }
 

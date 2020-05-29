@@ -12,7 +12,7 @@ class RenderCamera
 	};
 
 public:
-	RenderCamera(Graphics* gfx);
+	RenderCamera(const Graphics& gfx);
 	~RenderCamera();
 
 	XMVECTOR getPosition() noexcept;

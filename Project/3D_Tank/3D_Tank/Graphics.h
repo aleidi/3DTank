@@ -17,7 +17,7 @@ class Graphics
 	friend class Bindable;
 	friend class RenderCamera;
 public:
-	Graphics(Window& wnd);
+	Graphics(const Window& wnd);
 	~Graphics();
 
 	ID3D11Device* GetDevice() const;
