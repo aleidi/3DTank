@@ -1,11 +1,13 @@
 #include "Component.h"
 
 Component::Component()
+	:mID(0),mObject(nullptr)
 {
 }
 
 Component::~Component()
 {
+	mObject = nullptr;
 }
 
 void Component::setObject(GameObject * obj) noexcept
