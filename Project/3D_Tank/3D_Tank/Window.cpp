@@ -57,12 +57,12 @@ bool Window::processMessage()
 	return true;
 }
 
-HWND Window::getHwnd() const
+HWND Window::getHwnd() const noexcept
 {
 	return mHwnd;
 }
 
-HINSTANCE Window::getHinst() const
+HINSTANCE Window::getHinst() const noexcept
 {
 	return mHinst;
 }

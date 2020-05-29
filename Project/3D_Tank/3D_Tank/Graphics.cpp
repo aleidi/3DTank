@@ -1,10 +1,11 @@
-#include "Graphics.h"
 #include <cassert>
 #include <math.h>
 #include <d3dcompiler.h>
 #include "dxgi1_2.h"
 #include "dxgi.h"
 #include "Window.h"
+#include "Graphics.h"
+#include "RenderCamera.h"
 
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"d3dcompiler.lib")
@@ -26,9 +27,9 @@ namespace Colors
 
 Graphics::Graphics(Window& wnd)
 	:
-	mhMainWnd(wnd.getHwnd()),mClientWidth(WINDOW_WIDTH),mClientHeight(WINDOW_HEIGHT)
+	mhMainWnd(wnd.getHwnd()),mClientWidth(WINDOW_WIDTH),mClientHeight(WINDOW_HEIGHT),
+	mRenderCamera(std::make_unique<RenderCamera>(this))
 {
-
 	DXGI_SWAP_CHAIN_DESC sd;
 
 	sd.BufferDesc.Width = mClientWidth; 
@@ -151,12 +152,17 @@ void Graphics::DrawIndexed(UINT mCount) noexcept
 	pContext->DrawIndexed(mCount, 0u, 0u);
 }
 
-void Graphics::SetProjection(DirectX::FXMMATRIX proj) noexcept
+DirectX::XMMATRIX Graphics::GetViewProj() const noexcept
 {
-	mProjection = proj;
+	return mRenderCamera.get()->getViewProjXM();
 }
 
-DirectX::XMMATRIX Graphics::GetProjection() const noexcept
+void Graphics::CamSetPosition(float x, float y, float z)
 {
-	return mProjection;
+	mRenderCamera.get()->setPosition(x, y, z);
+}
+
+void Graphics::CamSetRotation(float x, float y, float z)
+{
+	mRenderCamera.get()->setRotation(x, y, z);
 }

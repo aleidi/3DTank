@@ -7,12 +7,15 @@
 #include <memory>
 #include <random>
 
-using namespace DirectX;
 class Window;
+class RenderCamera;
+
+using namespace DirectX;
 
 class Graphics
 {
 	friend class Bindable;
+	friend class RenderCamera;
 public:
 	Graphics(Window& wnd);
 	~Graphics();
@@ -25,8 +28,11 @@ public:
 	void EndFrame();
 
 	void DrawIndexed(UINT mCount) noexcept;
-	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
-	DirectX::XMMATRIX GetProjection() const noexcept;
+	DirectX::XMMATRIX GetViewProj() const noexcept;
+
+	//test code
+	void CamSetPosition(float x, float y, float z);
+	void CamSetRotation(float x, float y, float z);
 
 private:
 	int mClientWidth;
@@ -41,4 +47,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView;
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> depthStencilBuffer;
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> pRasterizerState;
+
+	std::unique_ptr<RenderCamera> mRenderCamera;
 };

@@ -10,8 +10,9 @@ public:
 	~Window();
 
 	bool processMessage();
-	HWND getHwnd() const;
-	HINSTANCE getHinst() const;
+	HWND getHwnd() const noexcept;
+	HINSTANCE getHinst() const noexcept;
+
 private:
 	static LRESULT WINAPI handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static LRESULT WINAPI handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

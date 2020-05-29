@@ -10,7 +10,7 @@ void TransformCbuf::bind(Graphics& gfx) noexcept
 {
 	mVertexConstbuff.Update(gfx,
 		DirectX::XMMatrixTranspose(
-			mParent.GetTransformXM() * gfx.GetProjection()
+			mParent.GetTransformXM() * gfx.GetViewProj()
 		)
 	);
 	mVertexConstbuff.bind(gfx);
