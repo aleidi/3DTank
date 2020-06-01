@@ -173,6 +173,7 @@
     <ClCompile Include="Drawable3D.cpp" />
     <ClCompile Include="DXTrace.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GeometryGenerator.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Drawable3D.h" />
     <ClInclude Include="DXTrace.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GeometryGenerator.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IndexBuffer.h" />

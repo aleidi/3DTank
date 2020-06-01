@@ -192,6 +192,9 @@
     <ClCompile Include="DXTrace.cpp">
       <Filter>Source\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjectFactory.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -301,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="DXTrace.h">
       <Filter>Header\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectFactory.h">
+      <Filter>Header\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
