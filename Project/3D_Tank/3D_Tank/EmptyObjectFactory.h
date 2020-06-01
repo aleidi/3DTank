@@ -1,5 +1,13 @@
 #pragma once
-class EmptyObject
-{
+#include "GameObjectFactory.h"
+
+class EmptyObjectFactory : public GameObjectFactory {
+public:
+	EmptyObjectFactory();
+	~EmptyObjectFactory();
+	GameObject* getObject();
+
+private:
+
 };
 

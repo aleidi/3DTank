@@ -189,9 +189,6 @@
     <ClCompile Include="DXTrace.cpp">
       <Filter>Source\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectFactory.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
     <ClCompile Include="CubeObjectFactory.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
