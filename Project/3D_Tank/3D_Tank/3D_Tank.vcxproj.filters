@@ -192,6 +192,15 @@
     <ClCompile Include="GameObjectFactory.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
+    <ClCompile Include="CubeObjectFactory.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="EmptyObjectFactory.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereObjectFactory.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -300,6 +309,15 @@
       <Filter>Header\Misc</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectFactory.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereObjectFactory.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="EmptyObjectFactory.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeObjectFactory.h">
       <Filter>Header\Game</Filter>
     </ClInclude>
   </ItemGroup>

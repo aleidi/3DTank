@@ -1,4 +1,5 @@
 #include "DInput_PC.h"
+#include "Engine.h"
 
 DInputPC::DInputPC() {
 	m_pDirectInput = NULL;
@@ -57,6 +58,11 @@ void DInputPC::onUpdate() {
 		pre_rgbButtons[i] = m_MouseState.rgbButtons[i];
 	} 
 	DInputPC::getInput();
+
+
+	int num = 10086;
+	Engine::sGetInstance()->showtText(std::to_wstring(num), 0, 0, 300, 300, false);
+	Engine::sGetInstance()->showtText(L"asdsdaasdasda",0,0,300,300,false);
 }
 
 void DInputPC::getInput() {
