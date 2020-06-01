@@ -1,6 +1,6 @@
 #include "Rendering.h"
 #include "Window.h"
-#include "Drawable3D.h"
+#include "Drawable.h"
 
 Rendering::Rendering(Window & wnd)
 	:mhMainWnd(&wnd),mDrawings()
