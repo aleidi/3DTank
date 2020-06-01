@@ -5,8 +5,6 @@ TestCube::TestCube(Graphics & gfx, UINT id)
 	:
 	pos({ 0.0f,0.0f,0.0f }), rot({ 0.0f,0.0f,0.0f }), scale({ 1.0f,1.0f,1.0f })
 {
-	mID = id;
-
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getCube(mesh);
 	AddBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));

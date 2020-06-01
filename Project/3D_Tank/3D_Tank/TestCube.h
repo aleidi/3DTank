@@ -1,7 +1,7 @@
 #pragma once
-#include "Drawable3D.h"
+#include "Drawable.h"
 
-class TestCube : public Drawable3D
+class TestCube : public Drawable
 {
 public:
 	TestCube(Graphics& gfx) :TestCube(gfx, 0) {}

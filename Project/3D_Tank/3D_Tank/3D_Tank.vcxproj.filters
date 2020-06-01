@@ -177,9 +177,6 @@
     <ClCompile Include="Rendering.cpp">
       <Filter>Source\Render\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Drawable3D.cpp">
-      <Filter>Source\Render\Graphics\Drawable</Filter>
-    </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
       <Filter>Source\Game\Component</Filter>
     </ClCompile>
@@ -286,9 +283,6 @@
     </ClInclude>
     <ClInclude Include="Rendering.h">
       <Filter>Header\Render\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawable3D.h">
-      <Filter>Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Header\Game\Component</Filter>

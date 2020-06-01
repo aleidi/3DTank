@@ -9,6 +9,7 @@ class Drawable
 public:
 	Drawable() = default;
 	Drawable(const Drawable&) = delete;
+	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
 	void Draw(Graphics& gfx) const noexcept;
 	virtual void Update(float deltaTime) noexcept = 0;
 	void AddBind(std::unique_ptr<Bindable> bind) noexcept;

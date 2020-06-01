@@ -1,17 +1,17 @@
 #pragma once
 #include "Component.h"
 
-class Drawable3D;
+class Drawable;
 class Rendering;
 
 class RenderComponent : public Component
 {
 public:
-	RenderComponent(Drawable3D* theMesh,Rendering* theRender);
+	RenderComponent(Drawable* theMesh,Rendering* theRender);
 	~RenderComponent();
 
 private:
-	Drawable3D* mMesh;
+	Drawable* mMesh;
 	Rendering*  mRender;
 };
 
