@@ -6,6 +6,7 @@
 //test code
 std::vector<std::unique_ptr<TestCube>> cubes;
 static float dis = 0.0f;
+Engine* Engine::sInstance = nullptr;
 
 Engine::Engine(Window& wnd)
 	:
@@ -16,7 +17,24 @@ Engine::Engine(Window& wnd)
 
 }
 
-void Engine::OnInit()
+Engine * Engine::sGetInstance()
+{
+	return sInstance;
+}
+
+void Engine::createSingleton(Window & wnd)
+{
+	assert(!sInstance);
+	sInstance = new Engine(wnd);
+}
+
+void Engine::Destroy()
+{
+	delete sInstance;
+	sInstance = nullptr;
+}
+
+void Engine::onInit()
 {
 	//Timer Init
 	mTimer.reset();
@@ -95,6 +113,18 @@ void Engine::run()
 		fTrans_x += mTimer.getDeltaTIme();
 		mRendering.get()->getGFX()->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
 	}
+	if (DInputPC::getInstance().iskeyDown(DIK_1))
+	{
+		showtText(L"FUCK!!!", 0, 0, 200, 200, true);
+	}
+	if (DInputPC::getInstance().iskeyDown(DIK_2))
+	{
+		showtText(L"FUCKFUCK!!!!!!", 0, 0, 400, 400, true);
+	}
+	if (DInputPC::getInstance().iskeyDown(DIK_0))
+	{
+		showtText(L"", 0, 0, 0, 0, false);
+	}
 
 
 	for (auto& c : cubes)
@@ -117,6 +147,11 @@ void Engine::run()
 
 }
 
+void Engine::showtText(const std::wstring & str = L"", float leftTopX=0, float leftTopY=0, float width=0, float height=0, bool canShow = false)
+{
+	mRendering->getGFX()->setShowText(str, leftTopX, leftTopY, width, height, canShow);
+}
+
 void Engine::calculateFrameStats()
 {
 	static int frameCnt = 0;
@@ -133,7 +168,7 @@ void Engine::calculateFrameStats()
 		outs.precision(6);
 		outs << WNDTITLE << "   " << "FPS: " << fps << "   " << "Frame Time: " << mspf << "(ms)";
 		SetWindowText(mWnd.getHwnd(), outs.str().c_str());
-
+		
 		frameCnt = 0;
 		timeElapsed += 1.0f;
 	}

@@ -24,6 +24,8 @@ public:
 	Graphics* getGFX();
 
 private:
+
+
 	Graphics* mGraphics;
 	Window* mhMainWnd;
 

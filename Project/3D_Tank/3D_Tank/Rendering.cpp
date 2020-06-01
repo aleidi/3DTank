@@ -27,7 +27,7 @@ void Rendering::onRender(float deltaTime)
 
 void Rendering::onPostRender(float deltaTime)
 {
-	mGraphics->ShowText(L"fuck!fuck!fuck!", 100.0f, 100.0f, 200.0f, 200.0f);
+	mGraphics->showText();
 
 	mGraphics->EndFrame();
 }

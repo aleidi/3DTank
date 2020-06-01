@@ -20,6 +20,24 @@ class Graphics
 	friend class Bindable;
 	friend class RenderCamera;
 public:
+
+	struct TextDisplay 
+	{
+		TextDisplay()
+		{
+			str = L"";
+			leftTopX = 0.0f;
+			leftTopY = 0.0f;
+			width = 0.0f;
+			height = 0.0f;
+		}
+		std::wstring str;
+		float leftTopX;
+		float leftTopY;
+		float width;
+		float height;
+	};
+
 	Graphics(const Window& wnd);
 	~Graphics();
 
@@ -36,7 +54,8 @@ public:
 	void EndFrame();
 
 	void DrawIndexed(UINT mCount) noexcept;
-	void ShowText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height);
+	void setShowText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
+	void showText();
 	DirectX::XMMATRIX GetViewProj() const noexcept;
 
 	//test code
@@ -47,6 +66,9 @@ private:
 	int mClientWidth;
 	int mClientHeight;
 	HWND mhMainWnd;
+
+	TextDisplay mTextDisplay;
+	bool mCanShowText;
 	DirectX::XMMATRIX mProjection;
 
 	D3D_DRIVER_TYPE mDriverType;

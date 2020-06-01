@@ -34,11 +34,11 @@ namespace Colors
 
 Graphics::Graphics(const Window& wnd)
 	:
-	mhMainWnd(wnd.getHwnd()),
+	mhMainWnd(wnd.getHwnd()), mCanShowText(false),
 	m4xMsaaQuality(0),mEnable4xMsaa(false),
 	mRenderCamera(std::make_unique<RenderCamera>(*this))
 {
-		InitD3D();
+	InitD3D();
 
 	InitD2D();
 }
@@ -416,12 +416,30 @@ void Graphics::DrawIndexed(UINT mCount) noexcept
 	pContext->DrawIndexed(mCount, 0u, 0u);
 }
 
-void Graphics::ShowText(const std::wstring & str, float leftTopX, float leftTopY, float width, float height)
+void Graphics::setShowText(const std::wstring & str, float leftTopX, float leftTopY, float width, float height, bool canShow)
 {
+	mCanShowText = canShow;
+	if (mCanShowText != true)
+	{
+		return;
+	}
+	mTextDisplay.str = str;
+	mTextDisplay.leftTopX = leftTopX;
+	mTextDisplay.leftTopY = leftTopY;
+	mTextDisplay.width = width;
+	mTextDisplay.height = height;
+}
+
+void Graphics::showText()
+{
+	if (mCanShowText != true)
+	{
+		return;
+	}
 	pd2dRenderTarget->BeginDraw();
 
-	D2D1_RECT_F rc{ leftTopX,leftTopY,width,height };
-	pd2dRenderTarget->DrawTextW(str.c_str(), str.size() + 1, pTextFormat.Get(), rc, pColorBrush.Get());
+	D2D1_RECT_F rc{ mTextDisplay.leftTopX,mTextDisplay.leftTopY,mTextDisplay.width,mTextDisplay.height };
+	pd2dRenderTarget->DrawTextW(mTextDisplay.str.c_str(), mTextDisplay.str.size() + 1, pTextFormat.Get(), rc, pColorBrush.Get());
 
 	pd2dRenderTarget->EndDraw();
 }

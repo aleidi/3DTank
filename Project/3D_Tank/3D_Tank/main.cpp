@@ -9,13 +9,13 @@ int WINAPI WinMain(
 {
 	Window wnd(hInstance);
 
-	Engine engine(wnd);
+	Engine::createSingleton(wnd);
 
-	engine.OnInit();
+	Engine::sGetInstance()->onInit();
 
 	while (wnd.processMessage())
 	{
-		engine.run();
+		Engine::sGetInstance()->run();
 	}
 	
 	return 0;

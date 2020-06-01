@@ -17,16 +17,23 @@ class Window;
 class Engine
 {
 public:
+	static Engine* sGetInstance();
+	static void createSingleton(Window& wnd);
+	static void Destroy();
+
+	void onInit();
+	void run();
+
+	void showtText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
+private:
 	Engine(Window& wnd);
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
-
-	void OnInit();
-	void run();
-private:
 	void calculateFrameStats();
 
 private:
+	static Engine* sInstance;
+
 	Window& mWnd;
 	std::unique_ptr<Sound> mSound;
 	std::unique_ptr<Rendering> mRendering;
