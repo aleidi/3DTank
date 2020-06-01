@@ -67,7 +67,7 @@ void DInputPC::getInput() {
 		m_KeyboardDevice->GetDeviceState(sizeof(m_keyBuffer), (LPVOID)m_keyBuffer);
 	}
 
-	hr = m_MouseDevice->GetDeviceState(sizeof(DIMOUSESTATE), (void**)&m_MouseState);
+	hr = m_MouseDevice->GetDeviceState(sizeof(DIMOUSESTATE), (void**)&m_MouseState); // Exception thrown: read access violation.	this->m_MouseDevice was nullptr. ?
 	// get mouse input
 	if (hr) {
 		m_MouseDevice->Acquire();
