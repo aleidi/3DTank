@@ -74,8 +74,15 @@ XMVECTOR RenderCamera::getForward() noexcept
 
 XMMATRIX RenderCamera::getViewXM() noexcept
 {
-	return XMMatrixRotationRollPitchYaw(mRotation.z, mRotation.x, mRotation.x) *
-		XMMatrixTranslation(mPosition.x, mPosition.y, mPosition.z);
+	const DirectX::XMVECTOR forwardBaseVector = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+	// apply the camera rotations to a base vector
+	const auto lookVector = XMVector3Transform(forwardBaseVector,
+		XMMatrixRotationRollPitchYaw(mRotation.z, mRotation.x, mRotation.y));
+
+	const auto camPosition = XMLoadFloat3(&mPosition);
+	const auto camTarget = camPosition + lookVector;
+
+	return XMMatrixLookAtLH(camPosition, camTarget, XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
 }
 
 XMMATRIX RenderCamera::getProjectionXM() noexcept

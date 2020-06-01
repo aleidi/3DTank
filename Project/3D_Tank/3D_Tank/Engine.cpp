@@ -54,6 +54,7 @@ void Engine::run()
 {
 	//Timer update
 	mTimer.tick();
+	calculateFrameStats();
 
 	//Input Update
 	DInputPC::getInstance().onUpdate();

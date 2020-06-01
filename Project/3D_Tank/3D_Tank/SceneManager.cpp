@@ -3,7 +3,6 @@
 SceneManager SceneManager::instance;
 
 SceneManager::SceneManager()
-	:mObjsID(0),mCompsID(0),mObjs(),mComps()
 {
 }
 
@@ -39,16 +38,4 @@ Transform * SceneManager::createTransform() const noexcept
 RenderComponent * SceneManager::createRender() const noexcept
 {
 	return nullptr;
-}
-
-void SceneManager::destroyGameobject(UINT id) noexcept
-{
-	delete mObjs[id];
-	mObjs[id] = nullptr;
-}
-
-void SceneManager::destroyComponent(UINT id) noexcept
-{
-	delete mComps[id];
-	mComps[id] = nullptr;
 }

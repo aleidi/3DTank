@@ -17,16 +17,6 @@ GameObject::~GameObject()
 	mComps.clear();
 }
 
-void GameObject::setID(UINT id) noexcept
-{
-	mID = id;
-}
-
-UINT GameObject::getID() const noexcept
-{
-	return mID;
-}
-
 void GameObject::addComponent(Component * comp) noexcept
 {
 	mComps.push_back(comp);

@@ -1,13 +1,12 @@
 #include "RenderComponent.h"
 #include "Rendering.h"
+#include "Drawable3D.h"
 
-RenderComponent::RenderComponent(Drawable3D* theMesh)
-	:mMesh(theMesh)
+RenderComponent::RenderComponent(Drawable3D* theMesh,Rendering* theRender)
+	:mMesh(theMesh),mRender(theRender)
 {
-	mManager->addDrawable3D(mMesh);
 }
 
 RenderComponent::~RenderComponent()
 {
-	mManager->removeDrawable3D(mMesh);
 }

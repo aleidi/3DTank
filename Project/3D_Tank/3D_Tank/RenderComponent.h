@@ -7,10 +7,11 @@ class Rendering;
 class RenderComponent : public Component
 {
 public:
-	RenderComponent(Drawable3D* theMesh);
+	RenderComponent(Drawable3D* theMesh,Rendering* theRender);
 	~RenderComponent();
+
 private:
 	Drawable3D* mMesh;
-	Rendering* mManager;
+	Rendering*  mRender;
 };
 

@@ -88,6 +88,9 @@
     <Filter Include="Header\Game\Component">
       <UniqueIdentifier>{1032f928-5656-478b-940c-c1682769a9ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Misc">
+      <UniqueIdentifier>{507199e9-4e0e-4be2-9df4-a8559b56ebd0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -162,9 +165,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Source\Game\Component</Filter>
     </ClCompile>
@@ -182,6 +182,15 @@
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
       <Filter>Source\Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="d3dUtil.cpp">
+      <Filter>Source\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="DXTrace.cpp">
+      <Filter>Source\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,9 +275,6 @@
     <ClInclude Include="Configuration.h">
       <Filter>Header\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Header\Game\Component</Filter>
     </ClInclude>
@@ -286,6 +292,15 @@
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Header\Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dUtil.h">
+      <Filter>Header\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="DXTrace.h">
+      <Filter>Header\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

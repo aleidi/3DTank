@@ -6,15 +6,18 @@ class GameObject;
 class Component
 {
 public:
-	Component();
+	Component() = default;
+	Component(GameObject* object);
 	~Component();
+
+	virtual void onAwake() {}
+	virtual void onEnable() {}
+	virtual void onStart() {}
+	virtual void onUpdate(float deltaTime) {}
 
 	void setObject(GameObject* obj) noexcept;
 	GameObject* getObject() const noexcept;
-	void setID(UINT id) noexcept;
-	UINT getID() const noexcept;
 
 private:
 	GameObject* mObject;
-	UINT mID;
 };
