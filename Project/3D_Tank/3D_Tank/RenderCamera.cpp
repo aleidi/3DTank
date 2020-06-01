@@ -77,7 +77,7 @@ XMMATRIX RenderCamera::getViewXM() noexcept
 	const DirectX::XMVECTOR forwardBaseVector = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 	// apply the camera rotations to a base vector
 	const auto lookVector = XMVector3Transform(forwardBaseVector,
-		XMMatrixRotationRollPitchYaw(mRotation.z, mRotation.x, mRotation.y));
+		XMMatrixRotationRollPitchYaw(mRotation.x, mRotation.y, mRotation.z));
 
 	const auto camPosition = XMLoadFloat3(&mPosition);
 	const auto camTarget = camPosition + lookVector;
