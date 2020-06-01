@@ -44,6 +44,9 @@ private:
 	float fTrans_x;
 	float fTrans_y;
 	float fTrans_z;
+	float fRot_x;
+	float fRot_y;
+	float fRot_z;
 
 };
 

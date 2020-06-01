@@ -1,11 +1,11 @@
 #pragma once
 #include "Drawable.h"
 
-class TestCube : public Drawable
+class ModelMesh : public Drawable
 {
 public:
-	TestCube(Graphics& gfx);
-	~TestCube();
+	ModelMesh(Graphics& gfx);
+	~ModelMesh();
 	void Update(float deltaTime) noexcept override;
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 
@@ -13,7 +13,6 @@ public:
 	void Rotate(float pitch, float yaw, float roll);
 	void Scale(float x, float y, float z);
 private:
-	// positional
 	XMFLOAT3 pos;
 	XMFLOAT3 rot;
 	XMFLOAT3 scale;

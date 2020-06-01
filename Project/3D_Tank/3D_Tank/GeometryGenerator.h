@@ -31,13 +31,16 @@ public:
 	static void getCube(Mesh& mesh);
 	static void getSphere(Mesh& mesh);
 	static void getPlane(Mesh& mesh);
+	static void getModel(Mesh& mesh, const std::string& name);
 
 private:
 	static void createCube();
 	static void createSphere();
 	static void createPlane();
+	static void createModel(const std::string& name);
 	
 private:
 	static std::map<MeshType, Mesh> mMeshes;
+	static std::map<std::string, Mesh> mModels;
 };
 

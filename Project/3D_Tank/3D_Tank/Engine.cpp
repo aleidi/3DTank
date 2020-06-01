@@ -1,10 +1,13 @@
 #include "Engine.h"
 #include "Window.h"
 #include "TestCube.h"
+#include "ModelMesh.h"
 #include <sstream>
 
 //test code
 std::vector<std::unique_ptr<TestCube>> cubes;
+std::vector<std::unique_ptr<ModelMesh>> tanks;
+
 static float dis = 0.0f;
 Engine* Engine::sInstance = nullptr;
 
@@ -42,10 +45,13 @@ void Engine::onInit()
 	//test code
 	calculateFrameStats();
 
-	float fScale = 1.0f;
-	float fTrans_x = 0.0f;
-	float fTrans_y = 0.0f;
-	float fTrans_z = 0.0f;
+	 fScale = 1.0f;
+	 fTrans_x = 0.0f;
+	 fTrans_y = 0.0f;
+	 fTrans_z = 0.0f;
+	 fRot_x = 0.0f;
+	 fRot_y = 0.0f;
+	 fRot_z = 0.0f;
 
 	//Input Init
 	DInputPC::getInstance().onInit(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
@@ -66,6 +72,7 @@ void Engine::onInit()
 	//test code
 	//set cubes
 	cubes.push_back(std::make_unique<TestCube>(*mRendering.get()->getGFX()));
+	tanks.push_back(std::make_unique<ModelMesh>(*mRendering.get()->getGFX()));
 }
 
 void Engine::run()
@@ -95,24 +102,56 @@ void Engine::run()
 
 	if (DInputPC::getInstance().iskey(DIK_W))
 	{
-		fTrans_z -= mTimer.getDeltaTIme();
-		mRendering.get()->getGFX()->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
+		fTrans_z += mTimer.getDeltaTIme();
 	}
 	if (DInputPC::getInstance().iskey(DIK_S))
 	{
-		fTrans_z += mTimer.getDeltaTIme();
-		mRendering.get()->getGFX()->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
+		fTrans_z -= mTimer.getDeltaTIme();
 	}
 	if (DInputPC::getInstance().iskey(DIK_A))
 	{
 		fTrans_x -= mTimer.getDeltaTIme();
-		mRendering.get()->getGFX()->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
 	}
 	if (DInputPC::getInstance().iskey(DIK_D))
 	{
 		fTrans_x += mTimer.getDeltaTIme();
-		mRendering.get()->getGFX()->CamSetRotation(fTrans_x, fTrans_y, fTrans_z);
 	}
+	if (DInputPC::getInstance().iskey(DIK_Q))
+	{
+		fTrans_y += mTimer.getDeltaTIme();
+	}
+	if (DInputPC::getInstance().iskey(DIK_E))
+	{
+		fTrans_y -= mTimer.getDeltaTIme();
+	}
+	if (DInputPC::getInstance().iskey(DIK_I))
+	{
+		fRot_x -= mTimer.getDeltaTIme();
+	}
+	if (DInputPC::getInstance().iskey(DIK_K))
+	{
+		fRot_x += mTimer.getDeltaTIme();
+	}
+	if (DInputPC::getInstance().iskey(DIK_J))
+	{
+		fRot_y -= mTimer.getDeltaTIme();
+	}
+	if (DInputPC::getInstance().iskey(DIK_L))
+	{
+		fRot_y += mTimer.getDeltaTIme();
+	}
+	if (DInputPC::getInstance().iskey(DIK_U))
+	{
+		fRot_z -= mTimer.getDeltaTIme();
+	}
+	if (DInputPC::getInstance().iskey(DIK_O))
+	{
+		fRot_z += mTimer.getDeltaTIme();
+	}
+	mRendering.get()->getGFX()->CamSetPosition(fTrans_x, fTrans_y, fTrans_z);
+	mRendering.get()->getGFX()->CamSetRotation(fRot_x, fRot_y, fRot_z);
+
+
 	if (DInputPC::getInstance().iskeyDown(DIK_1))
 	{
 		showtText(L"FUCK!!!", 0, 0, 200, 200, true);
@@ -127,11 +166,18 @@ void Engine::run()
 	}
 
 
-	for (auto& c : cubes)
-	{
-		c->Update(mTimer.getDeltaTIme());
+	//for (auto& c : cubes)
+	//{
+	//	c->Update(mTimer.getDeltaTIme());
 
-		c->Draw(*mRendering.get()->getGFX());
+	//	c->Draw(*mRendering.get()->getGFX());
+	//}
+
+	for (auto& t : tanks)
+	{
+		t->Update(mTimer.getDeltaTIme());
+
+		t->Draw(*mRendering.get()->getGFX());
 	}
 #pragma endregion
 

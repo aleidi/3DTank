@@ -22,6 +22,7 @@ void GameObject::addComponent(Component * comp) noexcept
 	mComps.push_back(comp);
 }
 
+template<class T>
 Component * GameObject::getComponent(int index) const noexcept
 {
 	return mComps[index];

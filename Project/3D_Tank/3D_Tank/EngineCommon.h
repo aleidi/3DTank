@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <list>
 #include <map>
 #include "Windows.h"
 #include "Configuration.h"

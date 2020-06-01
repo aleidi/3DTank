@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include "EngineCommon.h"
 
 class Component;
@@ -12,6 +11,7 @@ public:
 	~GameObject();
 
 	void addComponent(Component* comp) noexcept;
+	template<class T>
 	Component* getComponent(int index) const noexcept;
 	Transform* getTransform() const noexcept;
 

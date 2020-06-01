@@ -1,12 +1,12 @@
-#include "TestCube.h"
+#include "ModelMesh.h"
 #include "BindableBase.h"
 
-TestCube::TestCube(Graphics & gfx)
+ModelMesh::ModelMesh(Graphics & gfx)
 	:
-	pos({ 0.0f,0.0f,0.0f }), rot({ 0.0f,0.0f,0.0f }), scale({ 1.0f,1.0f,1.0f })
+	pos({ 0.0f,0.0f,0.0f }), rot({ 0.0f,0.0f,0.0f }), scale({ 0.1f,0.1f,0.1f })
 {
 	GeometryGenerator::Mesh mesh;
-	GeometryGenerator::getCube(mesh);
+	GeometryGenerator::getModel(mesh,"Tank\\TankBattery.txt");
 	AddBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"VertexShaderTex.cso");
@@ -24,7 +24,7 @@ TestCube::TestCube(Graphics & gfx)
 	};
 	AddBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	AddBind(std::make_unique<Texture>(gfx, L"Resource\\Model\\Objects\\TX_FreightContainer_01a_ALB.dds"));
+	AddBind(std::make_unique<Texture>(gfx, L"Resource\\Model\\Tank\\TankTex.dds"));
 
 	AddBind(std::make_unique<Sampler>(gfx));
 
@@ -33,16 +33,15 @@ TestCube::TestCube(Graphics & gfx)
 	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
 }
 
-TestCube::~TestCube()
+ModelMesh::~ModelMesh()
 {
 }
 
-void TestCube::Update(float deltaTime) noexcept
+void ModelMesh::Update(float deltaTime) noexcept
 {
-	
 }
 
-DirectX::XMMATRIX TestCube::GetTransformXM() const noexcept
+DirectX::XMMATRIX ModelMesh::GetTransformXM() const noexcept
 {
 	return DirectX::XMMatrixScaling(scale.x, scale.y, scale.z) *
 		DirectX::XMMatrixRotationRollPitchYaw(rot.x, rot.y, rot.z) *
@@ -50,24 +49,14 @@ DirectX::XMMATRIX TestCube::GetTransformXM() const noexcept
 		DirectX::XMMatrixTranslation(0.0f, 0.0f, 10.0f);
 }
 
-void TestCube::Translate(float x, float y, float z)
+void ModelMesh::Translate(float x, float y, float z)
 {
-	const float deg2rad = XM_PI / 180;
-	pos.x += x * deg2rad;
-	pos.y += y * deg2rad;
-	pos.z += z * deg2rad;
 }
 
-void TestCube::Rotate(float pitch, float yaw, float roll)
+void ModelMesh::Rotate(float pitch, float yaw, float roll)
 {
-	rot.x += pitch;
-	rot.y += yaw;
-	rot.z += roll;
 }
 
-void TestCube::Scale(float x, float y, float z)
+void ModelMesh::Scale(float x, float y, float z)
 {
-	scale.x = x;
-	scale.y = y;
-	scale.z = z;
 }

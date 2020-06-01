@@ -201,6 +201,12 @@
     <ClCompile Include="SphereObjectFactory.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Source\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelMesh.cpp">
+      <Filter>Source\Render\Graphics\Drawable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -319,6 +325,12 @@
     </ClInclude>
     <ClInclude Include="CubeObjectFactory.h">
       <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Header\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,8 @@
 #include "GeometryGenerator.h"
+#include "FileManager.h"
 
 std::map<GeometryGenerator::MeshType, GeometryGenerator::Mesh> GeometryGenerator::mMeshes;
+std::map<std::string, GeometryGenerator::Mesh> GeometryGenerator::mModels;
 
 void GeometryGenerator::getCube(Mesh & mesh)
 {
@@ -17,6 +19,15 @@ void GeometryGenerator::getSphere(Mesh & mesh)
 
 void GeometryGenerator::getPlane(Mesh & mesh)
 {
+}
+
+void GeometryGenerator::getModel(Mesh & mesh, const std::string & name)
+{
+	if (mModels[name].vertices.size() == 0 || mModels[name].indices.size() == 0)
+	{
+		createModel(name);
+	}
+	mesh = mModels[name];
 }
 
 void GeometryGenerator::createCube()
@@ -85,4 +96,11 @@ void GeometryGenerator::createSphere()
 
 void GeometryGenerator::createPlane()
 {
+}
+
+void GeometryGenerator::createModel(const std::string & name)
+{
+	Mesh m;
+	FileManager::LoadOBJModel(m, name);
+	mModels[name] = m;
 }
