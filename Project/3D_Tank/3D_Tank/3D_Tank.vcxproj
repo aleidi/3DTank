@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="BoundingVolume.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CubeObjectFactory.cpp" />
     <ClCompile Include="d3dUtil.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RenderCamera.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Rendering.cpp" />
@@ -202,6 +204,7 @@
   <ItemGroup>
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
+    <ClInclude Include="BoundingVolume.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="ConstantBuffers.h" />
@@ -221,6 +224,7 @@
     <ClInclude Include="InputLayout.h" />
     <ClInclude Include="EngineCommon.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="RenderCamera.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Rendering.h" />
