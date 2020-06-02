@@ -1,12 +1,14 @@
 #include "GameObject.h"
+#include "Component.h"
 
-GameObject::GameObject()
+GameObject::GameObject(Transform * trans)
+	:mTransform(trans)
 {
 }
 
 GameObject::~GameObject()
 {
-	for (std::vector<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
 	{
 		if (nullptr != *it)
 		{
@@ -22,13 +24,47 @@ void GameObject::addComponent(Component * comp) noexcept
 	mComps.push_back(comp);
 }
 
-template<class T>
-Component * GameObject::getComponent(int index) const noexcept
+bool GameObject::removeComponent(Component * comp)
 {
-	return mComps[index];
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end();)
+	{
+		if (*it == comp)
+		{
+			delete *it;
+			*it = nullptr;
+			mComps.erase(it++);
+			return true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return false;
+}
+
+template<class T>
+T * GameObject::getComponent(T* t) const noexcept
+{
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		if (*it == t)
+		{
+			return *it;
+		}
+	}
+	return nullptr;
 }
 
 Transform * GameObject::getTransform() const noexcept
 {
-	return reinterpret_cast<Transform*>(mComps[0]);
+	return mTransform;
+}
+
+void GameObject::onUpdate(float deltaTime) noexcept
+{
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		(*it)->onUpdate(deltaTime);
+	}
 }

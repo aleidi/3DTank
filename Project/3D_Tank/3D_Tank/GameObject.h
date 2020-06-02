@@ -7,15 +7,20 @@ class Transform;
 class GameObject
 {
 public:
-	GameObject();
+	GameObject() = delete;
+	GameObject(Transform* trans);
 	~GameObject();
 
 	void addComponent(Component* comp) noexcept;
-	template<class T>
-	Component* getComponent(int index) const noexcept;
+	bool removeComponent(Component* comp);
+	template<typename T>
+	T* getComponent(T* t) const noexcept;
 	Transform* getTransform() const noexcept;
 
+	void onUpdate(float deltaTime) noexcept;
+
 private:
-	std::vector<Component*> mComps;
+	std::list<Component*> mComps;
+	Transform* mTransform;
 };
 

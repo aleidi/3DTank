@@ -26,6 +26,7 @@ void Rendering::onPreRender(float deltaTime)
 
 void Rendering::onRender(float deltaTime)
 {
+	RenderManager::sGetInstance()->onDraw();
 }
 
 void Rendering::onPostRender(float deltaTime)

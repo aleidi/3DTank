@@ -10,9 +10,12 @@ public:
 	static void createSingleton(Graphics& gfx);
 	static void Destroy();
 
-	void addMeshToPool(Mesh* mesh);
-	void removeMeshFromPool(Mesh* mesh);
+	void onDraw() noexcept;
+
+	void addMeshToPool(Mesh* mesh) noexcept;
+	bool removeMeshFromPool(Mesh* mesh) noexcept;
 	Graphics& getGraphics() const;
+
 private:
 	RenderManager(Graphics& gfx);
 	~RenderManager();

@@ -1,4 +1,5 @@
 #include "RenderManager.h"
+#include "Mesh.h"
 
 RenderManager* RenderManager::sInstance = nullptr;
 
@@ -19,12 +20,20 @@ void RenderManager::Destroy()
 	sInstance = nullptr;
 }
 
-void RenderManager::addMeshToPool(Mesh * mesh)
+void RenderManager::onDraw() noexcept
+{
+	for (std::list<Mesh*>::iterator it = mMeshes.begin(); it != mMeshes.end(); ++it)
+	{
+		(*it)->Draw(mGraphics);
+	}
+}
+
+void RenderManager::addMeshToPool(Mesh * mesh) noexcept
 {
 	mMeshes.push_back(mesh);
 }
 
-void RenderManager::removeMeshFromPool(Mesh * mesh)
+bool RenderManager::removeMeshFromPool(Mesh * mesh) noexcept
 {
 	for (std::list<Mesh*>::iterator it = mMeshes.begin(); it != mMeshes.end();)
 	{
@@ -33,12 +42,14 @@ void RenderManager::removeMeshFromPool(Mesh * mesh)
 			delete *it;
 			*it = nullptr;
 			mMeshes.erase(it++);
+			return true;
 		}
 		else
 		{
 			++it;
 		}
 	}
+	return false;
 }
 
 Graphics & RenderManager::getGraphics() const

@@ -1,8 +1,9 @@
+#include <sstream>
 #include "Engine.h"
 #include "Window.h"
 #include "TestCube.h"
 #include "ModelMesh.h"
-#include <sstream>
+#include "SceneManager.h"
 
 Engine* Engine::sInstance = nullptr;
 
@@ -61,10 +62,13 @@ void Engine::onInit()
 	mSound->onInit();
 	mSound->playBGM();
 
+	//Game Init
+	//SceneManagerInit
+	SceneManager::createSingleton();
+
 	//Rendering Init
 	mRendering.get()->onInit();
 
-	//SceneManagerInit
 
 	//Gui Init
 

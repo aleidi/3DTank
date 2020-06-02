@@ -1,11 +1,22 @@
 #include "RenderComponent.h"
-#include "Rendering.h"
+#include "RenderManager.h"
 
-RenderComponent::RenderComponent(Drawable* theMesh,Rendering* theRender)
-	:mMesh(theMesh),mRender(theRender)
+RenderComponent::RenderComponent(Mesh* theMesh)
+	:mMesh(theMesh)
 {
+	RenderManager::sGetInstance()->addMeshToPool(mMesh);
 }
 
 RenderComponent::~RenderComponent()
 {
+}
+
+void RenderComponent::addMesh(Mesh * theMesh) noexcept
+{
+	if (mMesh != nullptr)
+	{
+		RenderManager::sGetInstance()->removeMeshFromPool(mMesh);
+	}
+	mMesh = theMesh;
+	RenderManager::sGetInstance()->addMeshToPool(mMesh);
 }

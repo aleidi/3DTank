@@ -3,25 +3,31 @@
 
 #include "EngineCommon.h"
 
-class Gameobject;
-class Component;
-class Transform;
+class GameObject;
 class RenderComponent;
 
 class SceneManager
 {
 public:
-	Gameobject* createCube() const noexcept;
-	Gameobject* createSphere() const noexcept;
-	Gameobject* createPlane() const noexcept;
-	Gameobject* createEmptyObject() const noexcept;
-	Transform* createTransform() const noexcept;
-	RenderComponent* createRender() const noexcept;
+	static SceneManager* sGetInstance();
+	static void createSingleton();
 
+	GameObject* createCube() const noexcept;
+	GameObject* createSphere() const noexcept;
+	GameObject* createPlane() const noexcept;
+	GameObject* createEmptyObject() const noexcept;
+	void createRenderComponent(GameObject* object) const noexcept;
+
+	void addGameObjectToPool(GameObject* object) noexcept;
+	bool removeGameObjectToPool(GameObject* object) noexcept;
+
+	void onUpdate(float deltaTime);
 private:
 	SceneManager();
 	~SceneManager();
 
-	static SceneManager instance;
+	std::list<GameObject*> mObjs;
+
+	static SceneManager* sInstance;
 };
 

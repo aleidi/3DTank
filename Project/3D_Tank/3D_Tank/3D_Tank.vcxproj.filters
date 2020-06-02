@@ -171,12 +171,6 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source\Game\Component</Filter>
     </ClCompile>
-    <ClCompile Include="RenderCamera.cpp">
-      <Filter>Source\Render\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering.cpp">
-      <Filter>Source\Render\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
       <Filter>Source\Game\Component</Filter>
     </ClCompile>
@@ -217,6 +211,12 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="RenderManager.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderCamera.cpp">
       <Filter>Source\Render</Filter>
     </ClCompile>
   </ItemGroup>
@@ -308,12 +308,6 @@
     <ClInclude Include="Transform.h">
       <Filter>Header\Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="RenderCamera.h">
-      <Filter>Header\Render\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering.h">
-      <Filter>Header\Render\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Header\Game\Component</Filter>
     </ClInclude>
@@ -354,6 +348,12 @@
       <Filter>Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="RenderManager.h">
+      <Filter>Header\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering.h">
+      <Filter>Header\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderCamera.h">
       <Filter>Header\Render</Filter>
     </ClInclude>
   </ItemGroup>

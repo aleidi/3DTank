@@ -1,17 +1,18 @@
 #pragma once
 #include "Component.h"
 
-class Drawable;
-class Rendering;
+class Mesh;
 
 class RenderComponent : public Component
 {
 public:
-	RenderComponent(Drawable* theMesh,Rendering* theRender);
+	RenderComponent():RenderComponent(nullptr) {}
+	RenderComponent(Mesh* theMesh);
 	~RenderComponent();
 
+	void addMesh(Mesh* theMesh) noexcept;
+
 private:
-	Drawable* mMesh;
-	Rendering*  mRender;
+	Mesh* mMesh;
 };
 

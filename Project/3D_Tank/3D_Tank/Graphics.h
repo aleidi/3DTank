@@ -7,7 +7,6 @@
 #include <wrl/client.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
-#include <memory>
 #include <random>
 
 class Window;
