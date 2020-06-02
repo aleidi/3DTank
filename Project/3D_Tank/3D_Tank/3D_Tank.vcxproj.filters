@@ -198,10 +198,10 @@
     <ClCompile Include="SphereObjectFactory.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="BoundingVolume.cpp">
+    <ClCompile Include="Ray.cpp">
       <Filter>Source\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Ray.cpp">
+    <ClCompile Include="BoundingCube.cpp">
       <Filter>Source\Physics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -323,10 +323,10 @@
     <ClInclude Include="CubeObjectFactory.h">
       <Filter>Header\Game</Filter>
     </ClInclude>
-    <ClInclude Include="BoundingVolume.h">
+    <ClInclude Include="Ray.h">
       <Filter>Header\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Ray.h">
+    <ClInclude Include="BoundingCube.h">
       <Filter>Header\Physics</Filter>
     </ClInclude>
   </ItemGroup>

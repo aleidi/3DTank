@@ -164,7 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bindable.cpp" />
-    <ClCompile Include="BoundingVolume.cpp" />
+    <ClCompile Include="BoundingCube.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CubeObjectFactory.cpp" />
     <ClCompile Include="d3dUtil.cpp" />
@@ -204,7 +204,7 @@
   <ItemGroup>
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
-    <ClInclude Include="BoundingVolume.h" />
+    <ClInclude Include="BoundingCube.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="ConstantBuffers.h" />
