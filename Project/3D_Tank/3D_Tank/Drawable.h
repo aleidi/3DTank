@@ -15,5 +15,5 @@ public:
 	virtual ~Drawable() = default;
 private:
 	const IndexBuffer* pIndexBuffer = nullptr;
-	std::vector<std::unique_ptr<Bindable>> mBinds;
+	std::list<std::unique_ptr<Bindable>> mBinds;
 };
