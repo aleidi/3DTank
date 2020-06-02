@@ -7,8 +7,6 @@ SphereObjectFactory::~SphereObjectFactory() {
 }
 
 GameObject* SphereObjectFactory::getObject() {
-	Transform* trans = new Transform();
-	GameObject* obj = new GameObject(trans);
-	// obj->addComponent(trans);
+	GameObject* obj = new GameObject();
 	return obj;
 }

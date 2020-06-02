@@ -1,8 +1,9 @@
 #include "GameObject.h"
 #include "Component.h"
+#include "Transform.h"
 
-GameObject::GameObject(Transform * trans)
-	:mTransform(trans)
+GameObject::GameObject()
+	:mTransform(new Transform(this))
 {
 }
 

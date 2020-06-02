@@ -1,30 +1,29 @@
 #pragma once
-#include <vector>
+#include <list>
 
+#include <DirectXMath.h>
 #include "Component.h"
 #include "Vector3.h"
 
 class Transform : Component
 {
 public:
-	Vector3 position;
-	Vector3 rotation;
-	Vector3 scale;
-	Vector3 forward;
-	Vector3 right;
-	Vector3 up;
+	Vector3 Position;
+	Vector3 Rotation;
+	Vector3 Scale;
+	Vector3 Forward;
+	Vector3 Right;
+	Vector3 Up;
 protected:
-	std::vector<Transform*> children;
+	std::list<Transform*> children;
 	Transform* parent;
 
 	Vector3 worldPosition;
 	Vector3 worldRotation;
 	Vector3 worldScale;
-	//	Matrix4x4 localToWorldMatrix;
-	//	Matrix4x4 worldToLocalMatrix;
 
 public:
-	Transform();
+	Transform(GameObject* obj) noexcept;
 	void translate(Vector3);
 	void rotateX(float);
 	void rotateY(float);
@@ -34,8 +33,5 @@ public:
 	void addParent(Transform*);
 	void addChild(Transform*);
 
-	//	void setWorldToLocalMatrix();
-	//	Matrix4x4 getWorldToLocalMatrix();
-	//	void setLocalToWorldMatrix();
-	//	Matrix4x4 getLocalToWorldMatrix();
+	DirectX::XMMATRIX getLoacalToWorldMatrix() noexcept;
 };

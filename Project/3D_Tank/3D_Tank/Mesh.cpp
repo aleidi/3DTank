@@ -12,7 +12,7 @@ void Mesh::Update(float deltaTime) noexcept
 
 DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept
 {
-	return DirectX::XMMATRIX();
+	return mOwner->getTransformXM();
 }
 
 Mesh::~Mesh()

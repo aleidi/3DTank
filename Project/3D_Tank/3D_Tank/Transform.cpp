@@ -1,35 +1,45 @@
 #include "Transform.h"
 
-Transform::Transform()
+Transform::Transform(GameObject * obj) noexcept
+	:Component(obj),
+	Position(Vector3::zero),Rotation(Vector3::zero),Scale(Vector3::zero),
+	Forward(Vector3::forward),Right(Vector3::right),Up(Vector3::up),
+	children(),parent()
 {
-	forward = Vector3::forward;
-	right = Vector3::right;
-	up = Vector3::up;
 }
 
 void Transform::translate(Vector3 v)
 {
-	position += v;
+	Position += v;
 }
 
 void Transform::rotateX(float angle)
 {
-	rotation.x += angle;
+	Rotation.x += DirectX::XMConvertToRadians(angle);
 }
 
 void Transform::rotateY(float angle)
 {
-	rotation.y += angle;
+	Rotation.y += DirectX::XMConvertToRadians(angle);
 }
 
 void Transform::rotateZ(float angle)
 {
-	rotation.z += angle;
+	Rotation.z += DirectX::XMConvertToRadians(angle);
 }
 
 Transform* Transform::getChild(int index)
 {
-	return children.at(index);
+	std::list<Transform*>::iterator it = children.begin();
+	for (int i = 0; i < index && it != children.end(); ++i)
+	{
+		if(index == i)
+		{
+			return *it;
+		}
+		++it;
+	}
+	return nullptr;
 }
 
 void Transform::addParent(Transform* parent)
@@ -40,4 +50,11 @@ void Transform::addParent(Transform* parent)
 void Transform::addChild(Transform* child)
 {
 	children.push_back(child);
+}
+
+DirectX::XMMATRIX Transform::getLoacalToWorldMatrix() noexcept
+{
+	return DirectX::XMMatrixScaling(Scale.x,Scale.y,Scale.z)*
+		DirectX::XMMatrixRotationRollPitchYaw(Rotation.x,Rotation.y,Rotation.z)*
+		DirectX::XMMatrixTranslation(Position.x,Position.y,Position.z);
 }

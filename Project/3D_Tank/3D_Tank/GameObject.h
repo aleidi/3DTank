@@ -7,8 +7,7 @@ class Transform;
 class GameObject
 {
 public:
-	GameObject() = delete;
-	GameObject(Transform* trans);
+	GameObject();
 	~GameObject();
 
 	void addComponent(Component* comp) noexcept;

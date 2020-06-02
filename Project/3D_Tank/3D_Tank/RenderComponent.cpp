@@ -1,8 +1,10 @@
 #include "RenderComponent.h"
 #include "RenderManager.h"
+#include "GameObject.h"
+#include "Transform.h"
 
-RenderComponent::RenderComponent(Mesh* theMesh)
-	:mMesh(theMesh)
+RenderComponent::RenderComponent(GameObject* obj, Mesh* theMesh)
+	:Component(obj),mMesh(theMesh)
 {
 	RenderManager::sGetInstance()->addMeshToPool(mMesh);
 }
@@ -19,4 +21,9 @@ void RenderComponent::addMesh(Mesh * theMesh) noexcept
 	}
 	mMesh = theMesh;
 	RenderManager::sGetInstance()->addMeshToPool(mMesh);
+}
+
+DirectX::XMMATRIX RenderComponent::getTransformXM() noexcept
+{
+	return mObject->getTransform()->getLoacalToWorldMatrix();
 }

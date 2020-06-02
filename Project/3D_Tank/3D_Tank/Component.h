@@ -6,9 +6,9 @@ class GameObject;
 class Component
 {
 public:
-	Component() = default;
+	Component() = delete;
 	Component(GameObject* object);
-	~Component();
+	virtual ~Component();
 
 	virtual void onAwake() {}
 	virtual void onEnable() {}
@@ -18,6 +18,6 @@ public:
 	void setObject(GameObject* obj) noexcept;
 	GameObject* getObject() const noexcept;
 
-private:
+protected:
 	GameObject* mObject;
 };
