@@ -219,6 +219,9 @@
     <ClCompile Include="RenderCamera.cpp">
       <Filter>Source\Render</Filter>
     </ClCompile>
+    <ClCompile Include="BoundingSphere.cpp">
+      <Filter>Source\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -355,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="RenderCamera.h">
       <Filter>Header\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingSphere.h">
+      <Filter>Header\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
