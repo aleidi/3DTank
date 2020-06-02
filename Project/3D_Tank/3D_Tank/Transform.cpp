@@ -61,6 +61,13 @@ void Transform::addChild(Transform* child)
 
 DirectX::XMMATRIX Transform::getLoacalToWorldMatrix() noexcept
 {
+	if (parent != nullptr)
+	{
+		return parent->getLoacalToWorldMatrix()*
+			DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z)*
+			DirectX::XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z)*
+			DirectX::XMMatrixTranslation(Position.x, Position.y, Position.z);
+	}
 	return DirectX::XMMatrixScaling(Scale.x,Scale.y,Scale.z)*
 		DirectX::XMMatrixRotationRollPitchYaw(Rotation.x,Rotation.y,Rotation.z)*
 		DirectX::XMMatrixTranslation(Position.x,Position.y,Position.z);

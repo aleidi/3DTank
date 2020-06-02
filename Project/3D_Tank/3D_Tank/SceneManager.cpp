@@ -12,6 +12,7 @@ SceneManager::SceneManager()
 	mFactories["Cube"] = new CubeObjectFactory();
 	mFactories["Sphere"] = new SphereObjectFactory();
 	mFactories["Plane"] = new PlaneObjectFactory();
+	mFactories["Empty"] = new EmptyObjectFactory();
 }
 
 SceneManager::~SceneManager()
@@ -55,7 +56,7 @@ GameObject * SceneManager::createPlane() const noexcept
 
 GameObject * SceneManager::createEmptyObject() const noexcept
 {
-	return nullptr;
+	return mFactories.at("Empty")->getObject();
 }
 
 void SceneManager::createRenderComponent(GameObject * object) const noexcept
