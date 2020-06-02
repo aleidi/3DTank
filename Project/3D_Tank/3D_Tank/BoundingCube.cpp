@@ -1,4 +1,6 @@
 #include "BoundingCube.h"
+#include "Ray.h"
+#include "BoundingSphere.h"
 
 BoundingCube::BoundingCube(const Vector3& center, const Vector3& extents) {
 	DirectX::XMFLOAT3 cen{ center.x,center.y,center.z };
@@ -15,9 +17,10 @@ BoundingCube::BoundingCube(const Vector3& center, const Vector3& extents) {
 BoundingCube::BoundingCube(const BoundingCube& bv) :AABB(bv.AABB) {}
 
 BoundingCube::~BoundingCube() {
-	if (AABB != NULL)
+	if (AABB != NULL) {
 		delete AABB;
-	AABB = NULL;
+		AABB = NULL;
+	}
 }
 
 void BoundingCube::createAABB(BoundingCube& out, const Vector3& pt1, const Vector3& pt2) {
@@ -26,14 +29,30 @@ void BoundingCube::createAABB(BoundingCube& out, const Vector3& pt1, const Vecto
 	DirectX::BoundingBox::CreateFromPoints(*out.AABB, position1, position2);
 }
 
-bool BoundingCube::isCollision(const BoundingCube& bv1, const BoundingCube& bv2) {
-	return bv1.AABB->Intersects(*bv2.AABB);
+void BoundingCube::createMerged(const BoundingCube& b1, const BoundingCube& b2) {
+	this->AABB->CreateMerged(*this->AABB, *b1.AABB, *b2.AABB);
 }
 
-bool BoundingCube::isRayIntersectsBV(const BoundingCube& bv, Ray& ray, float& dis) {
-	DirectX::FXMVECTOR origin{ ray.getOrigin().x,ray.getOrigin().y,ray.getOrigin().z };
-	DirectX::FXMVECTOR direction{ ray.getDirection().x,ray.getDirection().y,ray.getDirection().z };
-	return AABB->Intersects(origin, direction, dis);
+bool BoundingCube::isCollision(const BoundingCube& bv) {
+	return this->AABB->Intersects(*bv.AABB);
 }
 
-//BoundingBox Transform function
+bool BoundingCube::isIntersectRay(Ray* ray, float& dis) {
+	DirectX::FXMVECTOR origin{ ray->getOrigin().x,ray->getOrigin().y,ray->getOrigin().z };
+	DirectX::FXMVECTOR direction{ ray->getDirection().x,ray->getDirection().y,ray->getDirection().z };
+	return this->AABB->Intersects(origin, direction, dis);
+}
+
+bool BoundingCube::isIntersectSphere(BoundingSphere* s) {
+	return this->AABB->Intersects(s->getSphere());
+}
+
+Vector3 BoundingCube::getCenter() {
+	return Vector3(this->AABB->Center.x, this->AABB->Center.y, this->AABB->Center.z);
+}
+
+void BoundingCube::transform(BoundingCube& out, const float& scale, const Vector3& r, const Vector3& t) {
+	DirectX::FXMVECTOR rotation{ r.x,r.y,r.z };
+	DirectX::FXMVECTOR translation{ t.x,t.y,t.z };
+	out.AABB->Transform(*out.AABB, scale, rotation, translation);
+}

@@ -207,9 +207,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectFactory.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="RenderManager.cpp">
       <Filter>Source\Render</Filter>
     </ClCompile>
@@ -218,6 +215,9 @@
     </ClCompile>
     <ClCompile Include="RenderCamera.cpp">
       <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingSphere.cpp">
+      <Filter>Source\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -355,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="RenderCamera.h">
       <Filter>Header\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingSphere.h">
+      <Filter>Header\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
