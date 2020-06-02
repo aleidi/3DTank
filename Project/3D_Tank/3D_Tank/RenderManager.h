@@ -15,9 +15,9 @@ public:
 	Graphics& getGraphics() const;
 private:
 	RenderManager(Graphics& gfx);
+	~RenderManager();
 	RenderManager(const RenderManager&) = delete;
 	RenderManager& operator=(const RenderManager&) = delete;
-
 private:
 	static RenderManager* sInstance;
 

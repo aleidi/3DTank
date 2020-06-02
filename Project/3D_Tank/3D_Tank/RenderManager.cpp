@@ -50,3 +50,16 @@ RenderManager::RenderManager(Graphics & gfx)
 	:mMeshes(),mGraphics(gfx)
 {
 }
+
+RenderManager::~RenderManager()
+{
+	for (std::list<Mesh*>::iterator it = mMeshes.begin(); it != mMeshes.end(); ++it)
+	{
+		if (nullptr != *it)
+		{
+			delete *it;
+			*it = nullptr;
+		}
+	}
+	mMeshes.clear();
+}
