@@ -213,8 +213,11 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
-    <ClCompile Include="RenderManager.cpp">
+    <ClCompile Include="GameObjectFactory.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Source\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -351,7 +354,7 @@
       <Filter>Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="RenderManager.h">
-      <Filter>Header</Filter>
+      <Filter>Header\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
