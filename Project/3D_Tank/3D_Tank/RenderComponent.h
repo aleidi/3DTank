@@ -7,11 +7,10 @@ class Mesh;
 class RenderComponent : public Component
 {
 public:
-	RenderComponent(GameObject* obj):RenderComponent(obj,nullptr) {}
-	RenderComponent(GameObject* obj, Mesh* theMesh);
+	RenderComponent(GameObject* obj);
 	~RenderComponent();
 
-	void addMesh(Mesh* theMesh) noexcept;
+	void setMesh(Mesh* theMesh) noexcept;
 	DirectX::XMMATRIX getTransformXM() noexcept;
 
 private:

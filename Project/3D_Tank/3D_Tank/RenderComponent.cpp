@@ -3,8 +3,8 @@
 #include "GameObject.h"
 #include "Transform.h"
 
-RenderComponent::RenderComponent(GameObject* obj, Mesh* theMesh)
-	:Component(obj),mMesh(theMesh)
+RenderComponent::RenderComponent(GameObject* obj)
+	:Component(obj),mMesh()
 {
 	RenderManager::sGetInstance()->addMeshToPool(mMesh);
 }
@@ -13,7 +13,7 @@ RenderComponent::~RenderComponent()
 {
 }
 
-void RenderComponent::addMesh(Mesh * theMesh) noexcept
+void RenderComponent::setMesh(Mesh * theMesh) noexcept
 {
 	if (mMesh != nullptr)
 	{

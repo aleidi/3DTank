@@ -383,6 +383,12 @@
     <ClInclude Include="Plane.h">
       <Filter>Header\Render\Graphics\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentBase.h">
+      <Filter>Header\Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshBase.h">
+      <Filter>Header\Render\Graphics\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

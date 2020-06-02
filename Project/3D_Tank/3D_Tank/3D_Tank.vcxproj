@@ -215,6 +215,7 @@
     <ClInclude Include="BoundingCube.h" />
     <ClInclude Include="BoundingSphere.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentBase.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="ConstantBuffers.h" />
     <ClInclude Include="Cube.h" />
@@ -235,6 +236,7 @@
     <ClInclude Include="InputLayout.h" />
     <ClInclude Include="EngineCommon.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="MeshBase.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Mesh.h" />
