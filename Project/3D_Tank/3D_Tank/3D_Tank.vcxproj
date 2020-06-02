@@ -176,7 +176,6 @@
     <ClCompile Include="EmptyObjectFactory.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FileManager.cpp" />
-    <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GeometryGenerator.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />

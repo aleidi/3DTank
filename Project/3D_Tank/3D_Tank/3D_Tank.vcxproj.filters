@@ -207,9 +207,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectFactory.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="RenderManager.cpp">
       <Filter>Source\Render</Filter>
     </ClCompile>
