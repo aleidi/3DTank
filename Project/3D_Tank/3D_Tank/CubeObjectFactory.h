@@ -5,7 +5,7 @@ class CubeObjectFactory : public GameObjectFactory {
 public:
 	CubeObjectFactory();
 	~CubeObjectFactory();
-	GameObject* getObject();
+	GameObject* getObject() override;
 
 private:
 

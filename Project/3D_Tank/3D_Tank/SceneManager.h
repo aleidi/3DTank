@@ -1,10 +1,9 @@
 #pragma once
-#include <map>
-
 #include "EngineCommon.h"
 
 class GameObject;
 class RenderComponent;
+class GameObjectFactory;
 
 class SceneManager
 {
@@ -27,6 +26,7 @@ private:
 	~SceneManager();
 
 	std::list<GameObject*> mObjs;
+	std::map<std::string,GameObjectFactory*> mFactories;
 
 	static SceneManager* sInstance;
 };

@@ -24,6 +24,10 @@ void RenderManager::onDraw() noexcept
 {
 	for (std::list<Mesh*>::iterator it = mMeshes.begin(); it != mMeshes.end(); ++it)
 	{
+		if (nullptr == *it)
+		{
+			continue;
+		}
 		(*it)->Draw(mGraphics);
 	}
 }

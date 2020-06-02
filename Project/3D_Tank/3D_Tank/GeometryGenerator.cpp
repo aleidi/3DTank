@@ -17,7 +17,7 @@ void GeometryGenerator::getSphere(Mesh & mesh)
 {
 	if (mMeshes[MeshType::Sphere].vertices.size() == 0 || mMeshes[MeshType::Sphere].indices.size() == 0)
 	{
-		createCube();
+		createSphere();
 	}
 	mesh = mMeshes[MeshType::Sphere];
 }
@@ -26,7 +26,7 @@ void GeometryGenerator::getPlane(Mesh & mesh)
 {
 	if (mMeshes[MeshType::Plane].vertices.size() == 0 || mMeshes[MeshType::Plane].indices.size() == 0)
 	{
-		createCube();
+		createPlane();
 	}
 	mesh = mMeshes[MeshType::Plane];
 }

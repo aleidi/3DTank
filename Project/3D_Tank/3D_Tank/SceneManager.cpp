@@ -2,12 +2,16 @@
 #include "SceneManager.h"
 #include "RenderComponent.h"
 #include "GameObject.h"
+#include "FactoryBase.h"
 
 SceneManager* SceneManager::sInstance = nullptr;
 
 SceneManager::SceneManager()
-	:mObjs()
+	:mObjs(),mFactories()
 {
+	mFactories["Cube"] = new CubeObjectFactory();
+	mFactories["Sphere"] = new SphereObjectFactory();
+	mFactories["Plane"] = new PlaneObjectFactory();
 }
 
 SceneManager::~SceneManager()
@@ -36,17 +40,17 @@ void SceneManager::createSingleton()
 
 GameObject * SceneManager::createCube() const noexcept
 {
-	return nullptr;
+	return mFactories.at("Cube")->getObject();
 }
 
 GameObject * SceneManager::createSphere() const noexcept
 {
-	return nullptr;
+	return mFactories.at("Sphere")->getObject();
 }
 
 GameObject * SceneManager::createPlane() const noexcept
 {
-	return nullptr;
+	return mFactories.at("Plane")->getObject();
 }
 
 GameObject * SceneManager::createEmptyObject() const noexcept

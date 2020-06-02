@@ -5,7 +5,7 @@ class EmptyObjectFactory : public GameObjectFactory {
 public:
 	EmptyObjectFactory();
 	~EmptyObjectFactory();
-	GameObject* getObject();
+	GameObject* getObject() override;
 
 private:
 

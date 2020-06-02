@@ -21,6 +21,7 @@ public:
 	static void createSingleton(Window& wnd);
 	static void Destroy();
 
+	void onPreInit();
 	void onInit();
 	void run();
 

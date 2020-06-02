@@ -5,7 +5,7 @@
 class GameObjectFactory {
 public:
 	GameObjectFactory(){}
-	~GameObjectFactory(){}
+	virtual ~GameObjectFactory(){}
 	virtual GameObject* getObject() = 0;
 
 private:

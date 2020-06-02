@@ -1,10 +1,12 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "Transform.h"
+#include "SceneManager.h"
 
 GameObject::GameObject()
 	:mTransform(new Transform(this))
 {
+	SceneManager::sGetInstance()->addGameObjectToPool(this);
 }
 
 GameObject::~GameObject()

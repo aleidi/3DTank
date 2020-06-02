@@ -25,6 +25,7 @@ protected:
 public:
 	Transform(GameObject* obj) noexcept;
 	void translate(Vector3);
+	void translate(float x, float y, float z);
 	void rotateX(float);
 	void rotateY(float);
 	void rotateZ(float);

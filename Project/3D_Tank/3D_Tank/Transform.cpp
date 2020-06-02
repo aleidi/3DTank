@@ -2,7 +2,7 @@
 
 Transform::Transform(GameObject * obj) noexcept
 	:Component(obj),
-	Position(Vector3::zero),Rotation(Vector3::zero),Scale(Vector3::zero),
+	Position(Vector3::zero),Rotation(Vector3::zero),Scale(Vector3::one),
 	Forward(Vector3::forward),Right(Vector3::right),Up(Vector3::up),
 	children(),parent()
 {
@@ -11,6 +11,13 @@ Transform::Transform(GameObject * obj) noexcept
 void Transform::translate(Vector3 v)
 {
 	Position += v;
+}
+
+void Transform::translate(float x, float y, float z)
+{
+	Position.x += x;
+	Position.y += y;
+	Position.z += z;
 }
 
 void Transform::rotateX(float angle)

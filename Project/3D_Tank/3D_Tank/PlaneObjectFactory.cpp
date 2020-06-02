@@ -1,21 +1,24 @@
-#include "SphereObjectFactory.h"
+#include "PlaneObjectFactory.h"
 #include "ComponentBase.h"
 #include "MeshBase.h"
 
-SphereObjectFactory::SphereObjectFactory() {
+PlaneObjectFactory::PlaneObjectFactory()
+{
 }
 
-SphereObjectFactory::~SphereObjectFactory() {
+PlaneObjectFactory::~PlaneObjectFactory()
+{
 }
 
-GameObject* SphereObjectFactory::getObject() {
+GameObject * PlaneObjectFactory::getObject()
+{
 	//create gameobject
 	GameObject* obj = new GameObject();
 
 	//create render component
 	RenderComponent* rc = new RenderComponent(obj);
-	Sphere* sphere = new Sphere(rc);
-	rc->setMesh(sphere);
+	Plane* plane = new Plane(rc);
+	rc->setMesh(plane);
 	//attach render component to gameobject
 	obj->addComponent(rc);
 

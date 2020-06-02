@@ -240,6 +240,9 @@
     <ClCompile Include="SphereObjectFactory.cpp">
       <Filter>Source\Game\Factory</Filter>
     </ClCompile>
+    <ClCompile Include="PlaneObjectFactory.cpp">
+      <Filter>Source\Game\Factory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -393,6 +396,12 @@
       <Filter>Header\Game\Factory</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectFactory.h">
+      <Filter>Header\Game\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryBase.h">
+      <Filter>Source\Game\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneObjectFactory.h">
       <Filter>Header\Game\Factory</Filter>
     </ClInclude>
   </ItemGroup>

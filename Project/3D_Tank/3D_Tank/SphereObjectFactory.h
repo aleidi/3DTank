@@ -5,7 +5,7 @@ class SphereObjectFactory : public GameObjectFactory {
 public:
 	SphereObjectFactory();
 	~SphereObjectFactory();
-	GameObject* getObject();
+	GameObject* getObject() override;
 
 private:
 

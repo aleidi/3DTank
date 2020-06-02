@@ -1,15 +1,18 @@
 #include <sstream>
 #include "Engine.h"
 #include "Window.h"
-#include "TestCube.h"
 #include "ModelMesh.h"
 #include "SceneManager.h"
+#include "GameObject.h"
+#include "Transform.h"
 
 Engine* Engine::sInstance = nullptr;
 
 //test code
-std::vector<std::unique_ptr<TestCube>> cubes;
-std::vector<std::unique_ptr<ModelMesh>> tanks;
+//std::vector<std::unique_ptr<ModelMesh>> tanks;
+GameObject* cube;
+GameObject* plane;
+GameObject* sphere;
 
 static float dis = 0.0f;
 
@@ -39,10 +42,20 @@ void Engine::Destroy()
 	sInstance = nullptr;
 }
 
-void Engine::onInit()
+void Engine::onPreInit()
 {
 	//Timer Init
 	mTimer.reset();
+
+	//SceneManagerInit
+	SceneManager::createSingleton();
+
+	//Rendering Init
+	mRendering.get()->onInit();
+}
+
+void Engine::onInit()
+{
 
 	//test code
 	calculateFrameStats();
@@ -63,11 +76,6 @@ void Engine::onInit()
 	mSound->playBGM();
 
 	//Game Init
-	//SceneManagerInit
-	SceneManager::createSingleton();
-
-	//Rendering Init
-	mRendering.get()->onInit();
 
 
 	//Gui Init
@@ -76,8 +84,12 @@ void Engine::onInit()
 
 	//test code
 	//set cubes
-	cubes.push_back(std::make_unique<TestCube>(*mRendering.get()->getGFX()));
-	tanks.push_back(std::make_unique<ModelMesh>(*mRendering.get()->getGFX()));
+	//cubes.push_back(std::make_unique<TestCube>(*mRendering.get()->getGFX()));
+	//tanks.push_back(std::make_unique<ModelMesh>(*mRendering.get()->getGFX()));
+
+	//cube = SceneManager::sGetInstance()->createCube();
+	plane = SceneManager::sGetInstance()->createPlane();
+	sphere = SceneManager::sGetInstance()->createSphere();
 }
 
 void Engine::run()
@@ -92,7 +104,12 @@ void Engine::run()
 	//Physics Update
 
 	//Game Update
-	
+	SceneManager::sGetInstance()->onUpdate(mTimer.getDeltaTIme());
+	//cube->getTransform()->translate(rand() % 5 * mTimer.getDeltaTIme(),0.0f,0.0f);
+	//cube->getTransform()->rotateX(mTimer.getDeltaTIme()*10);
+	plane->getTransform()->rotateX(mTimer.getDeltaTIme()*10.0f);
+	sphere->getTransform()->translate(rand() % 5 * mTimer.getDeltaTIme(), 0.0f, 0.0f);
+
 	//Sound Update
 	dis += fTrans_z;
 	mSound->onUpdate(dis);
@@ -171,19 +188,12 @@ void Engine::run()
 	}
 
 
-	//for (auto& c : cubes)
+	//for (auto& t : tanks)
 	//{
-	//	c->Update(mTimer.getDeltaTIme());
+	//	t->Update(mTimer.getDeltaTIme());
 
-	//	c->Draw(*mRendering.get()->getGFX());
+	//	t->Draw(*mRendering.get()->getGFX());
 	//}
-
-	for (auto& t : tanks)
-	{
-		t->Update(mTimer.getDeltaTIme());
-
-		t->Draw(*mRendering.get()->getGFX());
-	}
 #pragma endregion
 
 

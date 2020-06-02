@@ -11,6 +11,8 @@ int WINAPI WinMain(
 
 	Engine::createSingleton(wnd);
 
+	Engine::sGetInstance()->onPreInit();
+
 	Engine::sGetInstance()->onInit();
 
 	while (wnd.processMessage())

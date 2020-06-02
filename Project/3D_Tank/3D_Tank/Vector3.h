@@ -7,6 +7,7 @@ public:
 	static Vector3 right;
 	static Vector3 forward;
 	static Vector3 zero;
+	static Vector3 one;
 
 	Vector3() {}
 	Vector3(const Vector3& v) : x(v.x), y(v.y), z(v.z) {}
