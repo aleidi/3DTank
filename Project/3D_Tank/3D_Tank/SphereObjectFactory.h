@@ -1,5 +1,13 @@
 #pragma once
-class SphereObject
-{
+#include "GameObjectFactory.h"
+
+class SphereObjectFactory : public GameObjectFactory {
+public:
+	SphereObjectFactory();
+	~SphereObjectFactory();
+	GameObject* getObject();
+
+private:
+
 };
 

@@ -189,9 +189,6 @@
     <ClCompile Include="DXTrace.cpp">
       <Filter>Source\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectFactory.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
     <ClCompile Include="CubeObjectFactory.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
@@ -200,6 +197,12 @@
     </ClCompile>
     <ClCompile Include="SphereObjectFactory.cpp">
       <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingCube.cpp">
+      <Filter>Source\Physics</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
       <Filter>Source\Misc</Filter>
@@ -331,6 +334,12 @@
     </ClInclude>
     <ClInclude Include="CubeObjectFactory.h">
       <Filter>Header\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Header\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingCube.h">
+      <Filter>Header\Physics</Filter>
     </ClInclude>
     <ClInclude Include="FileManager.h">
       <Filter>Header\Misc</Filter>
