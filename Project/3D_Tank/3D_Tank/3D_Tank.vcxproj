@@ -176,6 +176,7 @@
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DXTrace.cpp" />
     <ClCompile Include="EmptyObjectFactory.cpp" />
+    <ClCompile Include="EnemyTank.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="GeometryGenerator.cpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
     <ClInclude Include="BoundingCube.h" />
@@ -228,6 +230,7 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DXTrace.h" />
     <ClInclude Include="EmptyObjectFactory.h" />
+    <ClInclude Include="EnemyTank.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FileManager.h" />
@@ -253,6 +256,8 @@
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SphereObjectFactory.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateMachine.h" />
     <ClInclude Include="TestCube.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
