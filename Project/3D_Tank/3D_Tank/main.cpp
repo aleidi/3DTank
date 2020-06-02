@@ -18,6 +18,8 @@ int WINAPI WinMain(
 		Engine::sGetInstance()->run();
 	}
 	
+	Engine::sGetInstance()->Destroy();
+
 	return 0;
 }
 

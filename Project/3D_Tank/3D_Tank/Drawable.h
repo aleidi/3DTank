@@ -1,8 +1,6 @@
 #pragma once
 #include "Graphics.h"
-#include <DirectXMath.h>
-
-class Bindable;
+#include "Bindable.h"
 
 class Drawable
 {

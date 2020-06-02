@@ -207,6 +207,12 @@
     <ClCompile Include="ModelMesh.cpp">
       <Filter>Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source\Render\Graphics\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -331,6 +337,12 @@
     </ClInclude>
     <ClInclude Include="ModelMesh.h">
       <Filter>Header\Render\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header\Render\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

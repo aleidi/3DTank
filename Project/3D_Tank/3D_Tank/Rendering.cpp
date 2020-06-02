@@ -1,6 +1,7 @@
 #include "Rendering.h"
 #include "Window.h"
 #include "Drawable.h"
+#include "RenderManager.h"
 
 Rendering::Rendering(Window & wnd)
 	:mhMainWnd(&wnd),mDrawings()
@@ -14,6 +15,8 @@ Rendering::~Rendering()
 void Rendering::onInit()
 {
 	mGraphics = new Graphics(*mhMainWnd);
+
+	RenderManager::createSingleton(*mGraphics);
 }
 
 void Rendering::onPreRender(float deltaTime)

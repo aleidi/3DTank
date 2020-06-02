@@ -4,12 +4,13 @@
 #include "ModelMesh.h"
 #include <sstream>
 
+Engine* Engine::sInstance = nullptr;
+
 //test code
 std::vector<std::unique_ptr<TestCube>> cubes;
 std::vector<std::unique_ptr<ModelMesh>> tanks;
 
 static float dis = 0.0f;
-Engine* Engine::sInstance = nullptr;
 
 Engine::Engine(Window& wnd)
 	:

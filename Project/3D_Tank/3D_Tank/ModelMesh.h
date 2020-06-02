@@ -1,7 +1,7 @@
 #pragma once
-#include "Drawable.h"
+#include "Mesh.h"
 
-class ModelMesh : public Drawable
+class ModelMesh : public Mesh
 {
 public:
 	ModelMesh(Graphics& gfx);
