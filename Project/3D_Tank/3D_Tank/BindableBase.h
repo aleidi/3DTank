@@ -11,3 +11,4 @@
 #include "Texture.h"
 #include "Sampler.h"
 #include "GeometryGenerator.h"
+#include "RenderManager.h"

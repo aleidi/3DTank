@@ -1,7 +1,7 @@
 #include "Mesh.h"
 #include "RenderComponent.h"
 
-Mesh::Mesh(RenderComponent * owner, Graphics& gfx)
+Mesh::Mesh(RenderComponent * owner)
 	:mOwner(owner)
 {
 }

@@ -91,6 +91,12 @@
     <Filter Include="Source\Misc">
       <UniqueIdentifier>{507199e9-4e0e-4be2-9df4-a8559b56ebd0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Render\Graphics\Mesh">
+      <UniqueIdentifier>{c8d0d3b0-ac5c-42eb-9b31-5fe0d6d5c4ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Render\Graphics\Mesh">
+      <UniqueIdentifier>{b5cb07f4-a458-430e-873f-33b483056398}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -204,9 +210,6 @@
     <ClCompile Include="ModelMesh.cpp">
       <Filter>Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Source\Render\Graphics\Drawable</Filter>
-    </ClCompile>
     <ClCompile Include="RenderManager.cpp">
       <Filter>Source\Render</Filter>
     </ClCompile>
@@ -218,6 +221,18 @@
     </ClCompile>
     <ClCompile Include="BoundingSphere.cpp">
       <Filter>Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source\Render\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source\Render\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Source\Render\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Source\Render\Graphics\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -344,9 +359,6 @@
     <ClInclude Include="ModelMesh.h">
       <Filter>Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header\Render\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="RenderManager.h">
       <Filter>Header\Render</Filter>
     </ClInclude>
@@ -358,6 +370,18 @@
     </ClInclude>
     <ClInclude Include="BoundingSphere.h">
       <Filter>Header\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header\Render\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header\Render\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Header\Render\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Header\Render\Graphics\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
