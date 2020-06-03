@@ -217,10 +217,10 @@ void GeometryGenerator::createPlane()
 {
 	const std::vector<Vertex> v =
 	{
-		{XMFLOAT3(-0.5f,-0.5f,0.0f),XMFLOAT2(0.0f,0.0f)},
-		{XMFLOAT3(+0.5f,-0.5f,0.0f),XMFLOAT2(1.0f,0.0f)},
-		{XMFLOAT3(+0.5f,+0.5f,0.0f),XMFLOAT2(1.0f,1.0f)},
-		{XMFLOAT3(-0.5f,+0.5f,0.0f),XMFLOAT2(0.0f,1.0f)},
+		{XMFLOAT3(-0.5f,0.0f,-0.5f),XMFLOAT2(0.0f,0.0f)},
+		{XMFLOAT3(+0.5f,0.0f,-0.5f),XMFLOAT2(1.0f,0.0f)},
+		{XMFLOAT3(+0.5f,0.0f,+0.5f),XMFLOAT2(1.0f,1.0f)},
+		{XMFLOAT3(-0.5f,0.0f,+0.5f),XMFLOAT2(0.0f,1.0f)},
 	};
 
 	const std::vector<UINT> i =

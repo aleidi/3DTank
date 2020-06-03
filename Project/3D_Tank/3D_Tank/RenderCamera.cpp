@@ -1,7 +1,8 @@
+#include <string>
 #include "RenderCamera.h"
 #include "Window.h"
-#include "Engine.h"
-#include <string>
+
+//#include "Engine.h"
 
 RenderCamera::RenderCamera(const Graphics& gfx)
 	: mPosition(0.0f,0.0f,0.0f), mRotation(0.0f,0.0f,0.0f),
@@ -99,14 +100,14 @@ XMMATRIX RenderCamera::getProjectionXM() noexcept
 
 XMMATRIX RenderCamera::getViewProjXM() noexcept
 {
-	std::wstring wc = L"RotationX: ";
-	wc += std::to_wstring(XMConvertToDegrees(mRotation.x));
-	wc += L", RotationY: ";
-	wc += std::to_wstring(XMConvertToDegrees(mRotation.y));
-	wc += L", RotationZ: ";
-	wc += std::to_wstring(XMConvertToDegrees(mRotation.z));
+	//std::wstring wc = L"RotationX: ";
+	//wc += std::to_wstring(XMConvertToDegrees(mRotation.x));
+	//wc += L", RotationY: ";
+	//wc += std::to_wstring(XMConvertToDegrees(mRotation.y));
+	//wc += L", RotationZ: ";
+	//wc += std::to_wstring(XMConvertToDegrees(mRotation.z));
 
-	Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600,true);
+	//Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600,true);
 	return getViewXM()*getProjectionXM();
 }
 

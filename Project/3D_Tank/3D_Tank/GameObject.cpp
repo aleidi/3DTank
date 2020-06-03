@@ -70,4 +70,5 @@ void GameObject::onUpdate(float deltaTime) noexcept
 	{
 		(*it)->onUpdate(deltaTime);
 	}
+	mTransform->onUpdate(deltaTime);
 }

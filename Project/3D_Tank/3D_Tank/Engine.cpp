@@ -89,7 +89,7 @@ void Engine::onInit()
 
 	//cube = SceneManager::sGetInstance()->createCube();
 	plane = SceneManager::sGetInstance()->createPlane();
-	sphere = SceneManager::sGetInstance()->createSphere();
+//	sphere = SceneManager::sGetInstance()->createSphere();
 }
 
 void Engine::run()
@@ -107,8 +107,8 @@ void Engine::run()
 	SceneManager::sGetInstance()->onUpdate(mTimer.getDeltaTIme());
 	//cube->getTransform()->translate(rand() % 5 * mTimer.getDeltaTIme(),0.0f,0.0f);
 	//cube->getTransform()->rotateX(mTimer.getDeltaTIme()*10);
-	plane->getTransform()->rotateX(mTimer.getDeltaTIme()*10.0f);
-	sphere->getTransform()->translate(rand() % 5 * mTimer.getDeltaTIme(), 0.0f, 0.0f);
+	//plane->getTransform()->rotateX(mTimer.getDeltaTIme()*10.0f);
+	//sphere->getTransform()->translate(rand() % 5 * mTimer.getDeltaTIme(), 0.0f, 0.0f);
 
 	//Sound Update
 	dis += fTrans_z;
@@ -172,20 +172,6 @@ void Engine::run()
 	}
 	mRendering.get()->getGFX()->CamSetPosition(fTrans_x, fTrans_y, fTrans_z);
 	mRendering.get()->getGFX()->CamSetRotation(fRot_x, fRot_y, fRot_z);
-
-
-	if (DInputPC::getInstance().iskeyDown(DIK_1))
-	{
-		showtText(L"FUCK!!!", 0, 0, 200, 200, true);
-	}
-	if (DInputPC::getInstance().iskeyDown(DIK_2))
-	{
-		showtText(L"FUCKFUCK!!!!!!", 0, 0, 400, 400, true);
-	}
-	if (DInputPC::getInstance().iskeyDown(DIK_0))
-	{
-		showtText(L"", 0, 0, 0, 0, false);
-	}
 
 
 	//for (auto& t : tanks)

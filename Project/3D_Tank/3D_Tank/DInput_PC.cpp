@@ -60,9 +60,9 @@ void DInputPC::onUpdate() {
 	DInputPC::getInput();
 
 
-	int num = 10086;
-	Engine::sGetInstance()->showtText(std::to_wstring(num), 0, 0, 300, 300, false);
-	Engine::sGetInstance()->showtText(L"asdsdaasdasda",0,0,300,300,false);
+	//int num = 10086;
+	//Engine::sGetInstance()->showtText(std::to_wstring(num), 0, 0, 300, 300, false);
+	//Engine::sGetInstance()->showtText(L"asdsdaasdasda",0,0,300,300,false);
 }
 
 void DInputPC::getInput() {
