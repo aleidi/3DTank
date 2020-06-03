@@ -103,6 +103,12 @@
     <Filter Include="Source\Game\Factory">
       <UniqueIdentifier>{1a302824-af37-48b3-a66c-8bd525a1e180}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\Game\AI">
+      <UniqueIdentifier>{21f34dfb-ac7b-4686-92bf-f64cccd06db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\AI">
+      <UniqueIdentifier>{a565a145-8500-45a7-81a3-f86e69478151}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -248,6 +254,9 @@
     </ClCompile>
     <ClCompile Include="ComponentFactory.cpp">
       <Filter>Source\Game\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyTank.cpp">
+      <Filter>Source\Game\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -415,6 +424,18 @@
     </ClInclude>
     <ClInclude Include="ComponentFactory.h">
       <Filter>Header\Game\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGameEntity.h">
+      <Filter>Header\Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyTank.h">
+      <Filter>Header\Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header\Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Header\Game\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

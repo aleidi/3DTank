@@ -3,7 +3,7 @@
 #include "Vector3.h"
 
 class Ray;
-class BoundingSphere;
+class MBoundingSphere;
 
 class BoundingCube {
 public:
@@ -16,10 +16,16 @@ public:
 	void createMerged(const BoundingCube&, const BoundingCube&);
 	bool isCollision(const BoundingCube&);
 	bool isIntersectRay(Ray*, float&);
-	bool isIntersectSphere(BoundingSphere*);
+	bool isIntersectSphere(MBoundingSphere*);
 	Vector3 getCenter();
 	void transform(BoundingCube&, const float&, const Vector3&, const Vector3&);
 
 private:
 	DirectX::BoundingBox* AABB;
 };
+
+//struct XMFLOAT3
+//{
+//	float x;
+//	float y;
+//	float z;

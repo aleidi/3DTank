@@ -43,7 +43,7 @@ bool BoundingCube::isIntersectRay(Ray* ray, float& dis) {
 	return this->AABB->Intersects(origin, direction, dis);
 }
 
-bool BoundingCube::isIntersectSphere(BoundingSphere* s) {
+bool BoundingCube::isIntersectSphere(MBoundingSphere* s) {
 	return this->AABB->Intersects(s->getSphere());
 }
 
