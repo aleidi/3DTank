@@ -48,6 +48,6 @@ private:
 	float fRot_x;
 	float fRot_y;
 	float fRot_z;
-
+	float fspeed;
 };
 

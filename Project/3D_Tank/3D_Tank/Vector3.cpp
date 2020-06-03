@@ -54,3 +54,21 @@ Vector3 Vector3::cross(const Vector3& lhs, const Vector3& rhs)
 		lhs.x*rhs.y - lhs.y*rhs.x
 	);
 }
+
+Vector3 Vector3::multiply(const Vector3 & lhs, const Vector3 & rhs)
+{
+	Vector3 v;
+	v.x = lhs.x * rhs.x;
+	v.y = lhs.y * rhs.y;
+	v.z = lhs.z * rhs.z;
+	return v;
+}
+
+Vector3 operator+(const Vector3 & lhs, const Vector3 & rhs)
+{
+	Vector3 v;
+	v.x = lhs.x + rhs.x;
+	v.y = lhs.y + rhs.y;
+	v.z = lhs.z + rhs.z;
+	return v;
+}

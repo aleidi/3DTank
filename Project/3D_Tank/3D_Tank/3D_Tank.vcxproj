@@ -178,6 +178,7 @@
     <ClCompile Include="EmptyObjectFactory.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="GameScript.cpp" />
     <ClCompile Include="GeometryGenerator.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="GameScript.h" />
     <ClInclude Include="GeometryGenerator.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IndexBuffer.h" />

@@ -87,11 +87,24 @@ bool SceneManager::removeGameObjectToPool(GameObject * object) noexcept
 	return false;
 }
 
+GameObject * SceneManager::findObjectWithName(const std::string & name)
+{
+	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)
+	{
+		if ((*it)->getName() == name)
+		{
+			return *it;
+		}
+	}
+
+	return nullptr;
+}
+
 void SceneManager::onUpdate(float deltaTime)
 {
 	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)
 	{
-		if (nullptr != *it)
+		if (nullptr != *it && (*it)->hasParent() != true)
 		{
 			(*it)->onUpdate(deltaTime);
 		}

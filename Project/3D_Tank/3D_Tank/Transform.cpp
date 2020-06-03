@@ -7,58 +7,20 @@ Transform::Transform(GameObject * obj) noexcept
 	children(),parent(),
 	localToWorld()
 {
+	onUpdate(0.0f);
 }
 
 void Transform::onUpdate(float deltaTime)
 {
-	XMMATRIX matrix;
-	//calculate model->world matrix
-	if (parent != nullptr)
+	calcultateTransformMatrix();
+
+	for (std::list<Transform*>::iterator it = children.begin(); it != children.end(); ++it)
 	{
-		matrix = parent->getLoacalToWorldMatrix()*
-			XMMatrixScaling(Scale.x, Scale.y, Scale.z)*
-			XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z)*
-			XMMatrixTranslation(Position.x, Position.y, Position.z);
+		if (*it != nullptr)
+		{
+			(*it)->onUpdate(deltaTime);
+		}
 	}
-	else
-	{
-		matrix = XMMatrixScaling(Scale.x, Scale.y, Scale.z)*
-			XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z)*
-			XMMatrixTranslation(Position.x, Position.y, Position.z);
-	}
-	XMStoreFloat4x4(&localToWorld, matrix);
-	
-	//calculate world position
-	XMVECTOR v = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
-	v = XMVector3Transform(v, matrix);
-	worldPosition.x = XMVectorGetX(v);
-	worldPosition.y = XMVectorGetY(v);
-	worldPosition.z = XMVectorGetZ(v);
-
-
-	//calculate forward vector of model
-	v = XMVectorSet(Vector3::forward.x, Vector3::forward.y, Vector3::forward.z, 0.0f);
-	v = XMVector3Transform(v, matrix);
-	v = XMVector3Normalize(v);
-	Forward.x = XMVectorGetX(v);
-	Forward.y = XMVectorGetY(v);
-	Forward.z = XMVectorGetZ(v);
-
-	//calculate right vector of model
-	v = XMVectorSet(Vector3::right.x, Vector3::right.y, Vector3::right.z, 0.0f);
-	v = XMVector3Transform(v, matrix);
-	v = XMVector3Normalize(v);
-	Right.x = XMVectorGetX(v);
-	Right.y = XMVectorGetY(v);
-	Right.z = XMVectorGetZ(v);
-
-	//calculate up vector of model
-	v = XMVectorSet(Vector3::up.x, Vector3::up.y, Vector3::up.z, 0.0f);
-	v = XMVector3Transform(v, matrix);
-	v = XMVector3Normalize(v);
-	Up.x = XMVectorGetX(v);
-	Up.y = XMVectorGetY(v);
-	Up.z = XMVectorGetZ(v);
 }
 
 void Transform::translate(Vector3 v)
@@ -102,17 +64,109 @@ Transform* Transform::getChild(int index)
 	return nullptr;
 }
 
-void Transform::addParent(Transform* parent)
+Transform * Transform::getParent()
+{
+	return parent;
+}
+
+void Transform::addParent(Transform* parent) noexcept
 {
 	this->parent = parent;
 }
 
-void Transform::addChild(Transform* child)
+void Transform::addChild(Transform* child) noexcept
 {
 	children.push_back(child);
+}
+
+bool Transform::removeChild(Transform * child) noexcept
+{
+	for (std::list<Transform*>::iterator it = children.begin(); it != children.end();)
+	{
+		if (*it == child)
+		{
+			children.erase(it++);
+			return true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return false;
+}
+
+bool Transform::removeParent() noexcept
+{
+	if (nullptr == parent)
+	{
+		return false;
+	}
+	parent = nullptr;
+	Position = worldPosition;
+	Rotation = worldRotation;
+	Scale = worldScale;
+	return true;
 }
 
 XMMATRIX Transform::getLoacalToWorldMatrix() noexcept
 {
 	return XMLoadFloat4x4(&localToWorld);
+}
+
+void Transform::calcultateTransformMatrix() noexcept
+{
+	XMMATRIX matrix;
+	//calculate model->world matrix, world rotation and world scale
+	if (parent != nullptr)
+	{
+		matrix = XMMatrixScaling(Scale.x, Scale.y, Scale.z)*
+			XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z)*
+			XMMatrixTranslation(Position.x, Position.y, Position.z)* 
+			parent->getLoacalToWorldMatrix();
+
+		worldRotation = parent->Rotation + Rotation;
+		worldScale = Vector3::multiply(parent->Scale, Scale);
+	}
+	else
+	{
+		matrix = XMMatrixScaling(Scale.x, Scale.y, Scale.z)*
+			XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z)*
+			XMMatrixTranslation(Position.x, Position.y, Position.z);
+
+		worldRotation = Rotation;
+		worldScale = Scale;
+	}
+	XMStoreFloat4x4(&localToWorld, matrix);
+
+	//calculate world position
+	XMVECTOR v = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
+	v = XMVector3Transform(v, matrix);
+	worldPosition.x = XMVectorGetX(v);
+	worldPosition.y = XMVectorGetY(v);
+	worldPosition.z = XMVectorGetZ(v);
+
+	//calculate forward vector of model
+	v = XMVectorSet(Vector3::forward.x, Vector3::forward.y, Vector3::forward.z, 0.0f);
+	v = XMVector3Transform(v, matrix);
+	v = XMVector3Normalize(v);
+	Forward.x = XMVectorGetX(v);
+	Forward.y = XMVectorGetY(v);
+	Forward.z = XMVectorGetZ(v);
+
+	//calculate right vector of model
+	v = XMVectorSet(Vector3::right.x, Vector3::right.y, Vector3::right.z, 0.0f);
+	v = XMVector3Transform(v, matrix);
+	v = XMVector3Normalize(v);
+	Right.x = XMVectorGetX(v);
+	Right.y = XMVectorGetY(v);
+	Right.z = XMVectorGetZ(v);
+
+	//calculate up vector of model
+	v = XMVectorSet(Vector3::up.x, Vector3::up.y, Vector3::up.z, 0.0f);
+	v = XMVector3Transform(v, matrix);
+	v = XMVector3Normalize(v);
+	Up.x = XMVectorGetX(v);
+	Up.y = XMVectorGetY(v);
+	Up.z = XMVectorGetZ(v);
 }

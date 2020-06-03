@@ -20,9 +20,12 @@ public:
 	void rotateZ(float);
 
 	Transform* getChild(int);
-	void addParent(Transform*);
-	void addChild(Transform*);
-	
+	Transform* getParent();
+	void addParent(Transform*) noexcept;
+	void addChild(Transform*) noexcept;
+	bool removeChild(Transform* child) noexcept;
+	bool removeParent() noexcept;
+
 	XMMATRIX getLoacalToWorldMatrix() noexcept;
 
 public:
@@ -36,6 +39,9 @@ public:
 	Vector3 worldPosition;
 	Vector3 worldRotation;
 	Vector3 worldScale;
+
+private:
+	void calcultateTransformMatrix() noexcept;
 
 private:
 	std::list<Transform*> children;

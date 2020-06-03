@@ -67,6 +67,7 @@ void Engine::onInit()
 	 fRot_x = 0.0f;
 	 fRot_y = 0.0f;
 	 fRot_z = 0.0f;
+	 fspeed = 5.0f;
 
 	//Input Init
 	DInputPC::getInstance().onInit(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
@@ -87,9 +88,13 @@ void Engine::onInit()
 	//cubes.push_back(std::make_unique<TestCube>(*mRendering.get()->getGFX()));
 	//tanks.push_back(std::make_unique<ModelMesh>(*mRendering.get()->getGFX()));
 
-	//cube = SceneManager::sGetInstance()->createCube();
-	plane = SceneManager::sGetInstance()->createPlane();
-//	sphere = SceneManager::sGetInstance()->createSphere();
+	cube = SceneManager::sGetInstance()->createCube();
+	//plane = SceneManager::sGetInstance()->createPlane();
+	sphere = SceneManager::sGetInstance()->createSphere();
+
+	sphere->attach(*cube);
+	sphere->getTransform()->translate(5.0f, 0.0f, 0.0f);
+
 }
 
 void Engine::run()
@@ -105,10 +110,7 @@ void Engine::run()
 
 	//Game Update
 	SceneManager::sGetInstance()->onUpdate(mTimer.getDeltaTIme());
-	//cube->getTransform()->translate(rand() % 5 * mTimer.getDeltaTIme(),0.0f,0.0f);
-	//cube->getTransform()->rotateX(mTimer.getDeltaTIme()*10);
-	//plane->getTransform()->rotateX(mTimer.getDeltaTIme()*10.0f);
-	//sphere->getTransform()->translate(rand() % 5 * mTimer.getDeltaTIme(), 0.0f, 0.0f);
+	cube->getTransform()->rotateY(mTimer.getDeltaTIme()*10);
 
 	//Sound Update
 	dis += fTrans_z;
@@ -124,51 +126,51 @@ void Engine::run()
 
 	if (DInputPC::getInstance().iskey(DIK_W))
 	{
-		fTrans_z += mTimer.getDeltaTIme();
+		fTrans_z += mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_S))
 	{
-		fTrans_z -= mTimer.getDeltaTIme();
+		fTrans_z -= mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_A))
 	{
-		fTrans_x -= mTimer.getDeltaTIme();
+		fTrans_x -= mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_D))
 	{
-		fTrans_x += mTimer.getDeltaTIme();
+		fTrans_x += mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_Q))
 	{
-		fTrans_y += mTimer.getDeltaTIme();
+		fTrans_y += mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_E))
 	{
-		fTrans_y -= mTimer.getDeltaTIme();
+		fTrans_y -= mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_I))
 	{
-		fRot_x -= mTimer.getDeltaTIme();
+		fRot_x -= mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_K))
 	{
-		fRot_x += mTimer.getDeltaTIme();
+		fRot_x += mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_J))
 	{
-		fRot_y -= mTimer.getDeltaTIme();
+		fRot_y -= mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_L))
 	{
-		fRot_y += mTimer.getDeltaTIme();
+		fRot_y += mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_U))
 	{
-		fRot_z -= mTimer.getDeltaTIme();
+		fRot_z -= mTimer.getDeltaTIme() * fspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_O))
 	{
-		fRot_z += mTimer.getDeltaTIme();
+		fRot_z += mTimer.getDeltaTIme() * fspeed;
 	}
 	mRendering.get()->getGFX()->CamSetPosition(fTrans_x, fTrans_y, fTrans_z);
 	mRendering.get()->getGFX()->CamSetRotation(fRot_x, fRot_y, fRot_z);
@@ -182,7 +184,17 @@ void Engine::run()
 	//}
 #pragma endregion
 
-
+	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
+	{
+		if (sphere->hasParent())
+		{
+			sphere->deAttach();
+		}
+		else
+		{
+			sphere->attach(*cube);
+		}
+	}
 	//PostRender
 	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
 

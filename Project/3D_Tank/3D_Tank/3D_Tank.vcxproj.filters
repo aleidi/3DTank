@@ -243,6 +243,9 @@
     <ClCompile Include="PlaneObjectFactory.cpp">
       <Filter>Source\Game\Factory</Filter>
     </ClCompile>
+    <ClCompile Include="GameScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -403,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="PlaneObjectFactory.h">
       <Filter>Header\Game\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScript.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

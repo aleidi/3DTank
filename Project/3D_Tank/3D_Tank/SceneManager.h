@@ -19,6 +19,7 @@ public:
 
 	void addGameObjectToPool(GameObject* object) noexcept;
 	bool removeGameObjectToPool(GameObject* object) noexcept;
+	GameObject* findObjectWithName(const std::string& name);
 
 	void onUpdate(float deltaTime);
 private:

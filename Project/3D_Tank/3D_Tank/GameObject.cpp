@@ -3,8 +3,10 @@
 #include "Transform.h"
 #include "SceneManager.h"
 
+class GameScript;
+
 GameObject::GameObject()
-	:mTransform(new Transform(this))
+	:mTransform(new Transform(this)),mName("GameObject")
 {
 	SceneManager::sGetInstance()->addGameObjectToPool(this);
 }
@@ -24,7 +26,16 @@ GameObject::~GameObject()
 
 void GameObject::addComponent(Component * comp) noexcept
 {
-	mComps.push_back(comp);
+	//ensure that the GameScript components are at the end of list
+	GameScript* p = reinterpret_cast<GameScript*>(comp);
+	if (p == nullptr)
+	{
+		mComps.push_front(comp);
+	}
+	else
+	{
+		mComps.push_back(comp);
+	}
 }
 
 bool GameObject::removeComponent(Component * comp)
@@ -64,7 +75,45 @@ Transform * GameObject::getTransform() const noexcept
 	return mTransform;
 }
 
-void GameObject::onUpdate(float deltaTime) noexcept
+const std::string & GameObject::getName() const noexcept
+{
+	return mName;
+}
+
+void GameObject::setName(const std::string & name) noexcept
+{
+	mName = name;
+}
+
+GameObject * GameObject::find(const std::string & name)
+{
+	return SceneManager::sGetInstance()->findObjectWithName(name);
+}
+
+void GameObject::attach(const GameObject & obj) noexcept
+{
+	obj.getTransform()->addChild(mTransform);
+	mTransform->addParent(obj.getTransform());
+}
+
+void GameObject::attach(Transform & transform) noexcept
+{
+	transform.addChild(mTransform);
+	mTransform->addParent(&transform);
+}
+
+bool GameObject::hasParent() noexcept
+{
+	auto i = mTransform->getParent();
+	return (i != nullptr);
+}
+
+void GameObject::deAttach() noexcept
+{
+	mTransform->removeParent();
+}
+
+void GameObject::onUpdate(float deltaTime)
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
 	{
