@@ -63,6 +63,11 @@ void SceneManager::createRenderComponent(GameObject * object) const noexcept
 {
 }
 
+void SceneManager::createModel(GameObject & obj, const std::string & modelPath, const std::wstring & texturePath)
+{
+	ComponentFactory::createModel(obj, modelPath, texturePath);
+}
+
 void SceneManager::addGameObjectToPool(GameObject * object) noexcept
 {
 	mObjs.push_back(object);

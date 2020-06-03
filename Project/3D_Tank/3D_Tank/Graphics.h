@@ -59,7 +59,13 @@ public:
 
 	//test code
 	void CamSetPosition(float x, float y, float z);
+	void CamSetPosition(XMVECTOR v);
 	void CamSetRotation(float x, float y, float z);
+	DirectX::XMVECTOR getcamForward();
+	DirectX::XMVECTOR getcamRight();
+	DirectX::XMVECTOR getcamUp();
+	DirectX::XMVECTOR getCamPos();
+
 
 private:
 	int mClientWidth;

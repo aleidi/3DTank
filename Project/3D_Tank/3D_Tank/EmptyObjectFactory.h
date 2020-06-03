@@ -6,8 +6,5 @@ public:
 	EmptyObjectFactory();
 	~EmptyObjectFactory();
 	GameObject* getObject() override;
-
-private:
-
 };
 

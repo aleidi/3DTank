@@ -1,18 +1,21 @@
 #include <sstream>
 #include "Engine.h"
 #include "Window.h"
-#include "ModelMesh.h"
 #include "SceneManager.h"
+#include "ComponentFactory.h"
+
 #include "GameObject.h"
 #include "Transform.h"
+#include "ModelMesh.h"
 
 Engine* Engine::sInstance = nullptr;
 
 //test code
-//std::vector<std::unique_ptr<ModelMesh>> tanks;
-GameObject* cube;
-GameObject* plane;
-GameObject* sphere;
+GameObject* hq;
+GameObject* tankBattery;
+GameObject* tankBody;
+GameObject* tankTrackL;
+GameObject* tankTrackR;
 
 static float dis = 0.0f;
 
@@ -67,7 +70,8 @@ void Engine::onInit()
 	 fRot_x = 0.0f;
 	 fRot_y = 0.0f;
 	 fRot_z = 0.0f;
-	 fspeed = 5.0f;
+	 fspeed = 300.0f;
+	 rspeed = 5.0f;
 
 	//Input Init
 	DInputPC::getInstance().onInit(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
@@ -84,17 +88,25 @@ void Engine::onInit()
 	//EUI Init
 
 	//test code
-	//set cubes
-	//cubes.push_back(std::make_unique<TestCube>(*mRendering.get()->getGFX()));
-	//tanks.push_back(std::make_unique<ModelMesh>(*mRendering.get()->getGFX()));
+	hq = SceneManager::sGetInstance()->createEmptyObject();
 
-	cube = SceneManager::sGetInstance()->createCube();
-	//plane = SceneManager::sGetInstance()->createPlane();
-	sphere = SceneManager::sGetInstance()->createSphere();
+	tankBattery = SceneManager::sGetInstance()->createEmptyObject();
+	SceneManager::sGetInstance()->createModel(*tankBattery, "Tank\\TankBattery", L"Tank\\TankTex");
+	tankBattery->attach(*hq);
 
-	sphere->attach(*cube);
-	sphere->getTransform()->translate(5.0f, 0.0f, 0.0f);
+	GameObject* tankBody = SceneManager::sGetInstance()->createEmptyObject();
+	SceneManager::sGetInstance()->createModel(*tankBody, "Tank\\TankBody", L"Tank\\TankTex");
+	tankBody->attach(*hq);
 
+	GameObject* tankTrackL = SceneManager::sGetInstance()->createEmptyObject();
+	SceneManager::sGetInstance()->createModel(*tankTrackL, "Tank\\TankTrack_L", L"Tank\\TankTrack");
+	tankTrackL->attach(*hq);
+
+	GameObject* tankTrackR = SceneManager::sGetInstance()->createEmptyObject();
+	SceneManager::sGetInstance()->createModel(*tankTrackR, "Tank\\TankTrack_R", L"Tank\\TankTrack");
+	tankTrackR->attach(*hq);
+
+	hq->getTransform()->Scale = Vector3(0.1f, 0.1f, 0.1f);
 }
 
 void Engine::run()
@@ -110,7 +122,6 @@ void Engine::run()
 
 	//Game Update
 	SceneManager::sGetInstance()->onUpdate(mTimer.getDeltaTIme());
-	cube->getTransform()->rotateY(mTimer.getDeltaTIme()*10);
 
 	//Sound Update
 	dis += fTrans_z;
@@ -123,78 +134,84 @@ void Engine::run()
 	mRendering.get()->onRender(mTimer.getDeltaTIme());
 
 #pragma region test code
-
+	float dt = mTimer.getDeltaTIme() * fspeed;
+	float dt2 = mTimer.getDeltaTIme() * rspeed;
+	XMVECTOR v = mRendering.get()->getGFX()->getCamPos();
 	if (DInputPC::getInstance().iskey(DIK_W))
 	{
-		fTrans_z += mTimer.getDeltaTIme() * fspeed;
+		v = mRendering.get()->getGFX()->getcamForward();
+		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+		v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
 	}
 	if (DInputPC::getInstance().iskey(DIK_S))
 	{
-		fTrans_z -= mTimer.getDeltaTIme() * fspeed;
+		v = mRendering.get()->getGFX()->getcamForward();
+		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+		v = XMVectorSubtract(mRendering.get()->getGFX()->getCamPos(),v);
+
 	}
 	if (DInputPC::getInstance().iskey(DIK_A))
 	{
-		fTrans_x -= mTimer.getDeltaTIme() * fspeed;
+		v = mRendering.get()->getGFX()->getcamRight();
+		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+		v = XMVectorSubtract(mRendering.get()->getGFX()->getCamPos(), v);
 	}
 	if (DInputPC::getInstance().iskey(DIK_D))
 	{
-		fTrans_x += mTimer.getDeltaTIme() * fspeed;
+		v = mRendering.get()->getGFX()->getcamRight();
+		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+		v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
 	}
 	if (DInputPC::getInstance().iskey(DIK_Q))
 	{
-		fTrans_y += mTimer.getDeltaTIme() * fspeed;
+		v = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+		v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
 	}
 	if (DInputPC::getInstance().iskey(DIK_E))
 	{
-		fTrans_y -= mTimer.getDeltaTIme() * fspeed;
+		v = XMVectorSet(0.0f, -1.0f, 0.0f, 0.0f);
+		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+		v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
 	}
 	if (DInputPC::getInstance().iskey(DIK_I))
 	{
-		fRot_x -= mTimer.getDeltaTIme() * fspeed;
+		fRot_x -= mTimer.getDeltaTIme() * rspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_K))
 	{
-		fRot_x += mTimer.getDeltaTIme() * fspeed;
+		fRot_x += mTimer.getDeltaTIme() * rspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_J))
 	{
-		fRot_y -= mTimer.getDeltaTIme() * fspeed;
+		fRot_y -= mTimer.getDeltaTIme() * rspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_L))
 	{
-		fRot_y += mTimer.getDeltaTIme() * fspeed;
+		fRot_y += mTimer.getDeltaTIme() * rspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_U))
 	{
-		fRot_z -= mTimer.getDeltaTIme() * fspeed;
+		fRot_z -= mTimer.getDeltaTIme() * rspeed;
 	}
 	if (DInputPC::getInstance().iskey(DIK_O))
 	{
-		fRot_z += mTimer.getDeltaTIme() * fspeed;
+		fRot_z += mTimer.getDeltaTIme() * rspeed;
 	}
-	mRendering.get()->getGFX()->CamSetPosition(fTrans_x, fTrans_y, fTrans_z);
+	mRendering.get()->getGFX()->CamSetPosition(v);
 	mRendering.get()->getGFX()->CamSetRotation(fRot_x, fRot_y, fRot_z);
 
 
-	//for (auto& t : tanks)
-	//{
-	//	t->Update(mTimer.getDeltaTIme());
-
-	//	t->Draw(*mRendering.get()->getGFX());
-	//}
 #pragma endregion
 
-	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
+	if (DInputPC::getInstance().iskey(DIK_SPACE))
 	{
-		if (sphere->hasParent())
-		{
-			sphere->deAttach();
-		}
-		else
-		{
-			sphere->attach(*cube);
-		}
+		auto x = 5 - rand() % 10;
+		auto y = 2 - rand() % 5;
+		auto z = 5 - rand() % 10;
+		hq->getTransform()->translate(dt*x, dt*y, dt*z);
 	}
+
 	//PostRender
 	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
 

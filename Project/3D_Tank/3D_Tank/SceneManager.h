@@ -16,6 +16,7 @@ public:
 	GameObject* createPlane() const noexcept;
 	GameObject* createEmptyObject() const noexcept;
 	void createRenderComponent(GameObject* object) const noexcept;
+	void createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath);
 
 	void addGameObjectToPool(GameObject* object) noexcept;
 	bool removeGameObjectToPool(GameObject* object) noexcept;

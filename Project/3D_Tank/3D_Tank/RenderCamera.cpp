@@ -2,7 +2,7 @@
 #include "RenderCamera.h"
 #include "Window.h"
 
-//#include "Engine.h"
+#include "Engine.h"
 
 RenderCamera::RenderCamera(const Graphics& gfx)
 	: mPosition(0.0f,0.0f,0.0f), mRotation(0.0f,0.0f,0.0f),
@@ -45,6 +45,8 @@ XMVECTOR RenderCamera::getRotation() noexcept
 void RenderCamera::setRotation(XMVECTOR rot) noexcept
 {
 	XMStoreFloat3(&mRotation, rot);
+
+	calculateDirectionVector();
 }
 
 void RenderCamera::setRotation(float x, float y, float z) noexcept
@@ -52,6 +54,8 @@ void RenderCamera::setRotation(float x, float y, float z) noexcept
 	mRotation.x = x;
 	mRotation.y = y;
 	mRotation.z = z;
+
+	calculateDirectionVector();
 }
 
 XMVECTOR RenderCamera::getRight() noexcept
@@ -100,14 +104,14 @@ XMMATRIX RenderCamera::getProjectionXM() noexcept
 
 XMMATRIX RenderCamera::getViewProjXM() noexcept
 {
-	//std::wstring wc = L"RotationX: ";
-	//wc += std::to_wstring(XMConvertToDegrees(mRotation.x));
-	//wc += L", RotationY: ";
-	//wc += std::to_wstring(XMConvertToDegrees(mRotation.y));
-	//wc += L", RotationZ: ";
-	//wc += std::to_wstring(XMConvertToDegrees(mRotation.z));
+	std::wstring wc = L"RotationX: ";
+	wc += std::to_wstring(mForward.x);
+	wc += L", RotationY: ";
+	wc += std::to_wstring(mForward.y);
+	wc += L", RotationZ: ";
+	wc += std::to_wstring(mForward.z);
 
-	//Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600,true);
+	Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600,true);
 	return getViewXM()*getProjectionXM();
 }
 
@@ -136,4 +140,23 @@ void RenderCamera::setProjectionType(int type) noexcept
 	{
 		mProjType = ProjectionType::Perspective;
 	}
+}
+
+void RenderCamera::calculateDirectionVector() noexcept
+{
+	XMMATRIX matrix = XMMatrixRotationRollPitchYaw(mRotation.x, mRotation.y, mRotation.z);
+	//calculate forward vector
+	XMVECTOR v = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+	v = XMVector3Transform(v, matrix);
+	XMStoreFloat3(&mForward, v);
+
+	//calculate right vector
+	v = XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
+	v = XMVector3Transform(v, matrix);
+	XMStoreFloat3(&mRight, v);
+
+	//calculate up vector
+	v = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	v = XMVector3Transform(v, matrix);
+	XMStoreFloat3(&mUp, v);
 }

@@ -6,8 +6,5 @@ public:
 	CubeObjectFactory();
 	~CubeObjectFactory();
 	GameObject* getObject() override;
-
-private:
-
 };
 

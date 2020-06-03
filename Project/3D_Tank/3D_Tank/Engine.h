@@ -49,5 +49,6 @@ private:
 	float fRot_y;
 	float fRot_z;
 	float fspeed;
+	float rspeed;
 };
 

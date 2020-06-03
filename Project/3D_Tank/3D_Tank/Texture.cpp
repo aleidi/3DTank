@@ -3,7 +3,10 @@
 
 Texture::Texture(Graphics& gfx, const wchar_t * path)
 {
-	CreateDDSTextureFromFile(GetDevice(gfx), path, nullptr, pTextureRV.GetAddressOf());
+	std::wstring str = L".\\Resource\\Model\\";
+	str += path;
+	str += L".dds";
+	CreateDDSTextureFromFile(GetDevice(gfx), str.c_str(), nullptr, pTextureRV.GetAddressOf());
 }
 
 void Texture::bind(Graphics & gfx) noexcept

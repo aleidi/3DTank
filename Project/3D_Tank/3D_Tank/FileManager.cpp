@@ -8,7 +8,7 @@ void FileManager::LoadOBJModel(GeometryGenerator::Mesh & mesh, const std::string
 	UINT index = 0;
 	std::fstream fin;
 	std::string path;
-	path = ".\\Resource\\Model\\" + name;
+	path = ".\\Resource\\Model\\" + name + ".txt";
 	fin.open(path);
 
 	if (!fin.good())

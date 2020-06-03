@@ -5,3 +5,4 @@
 #include "CubeObjectFactory.h"
 #include "SphereObjectFactory.h"
 #include "PlaneObjectFactory.h"
+#include "ComponentFactory.h"

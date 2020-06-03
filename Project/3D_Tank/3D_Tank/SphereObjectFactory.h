@@ -6,8 +6,5 @@ public:
 	SphereObjectFactory();
 	~SphereObjectFactory();
 	GameObject* getObject() override;
-
-private:
-
 };
 

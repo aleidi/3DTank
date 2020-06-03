@@ -116,14 +116,12 @@ bool Graphics::InitD3D()
 		return false;
 	}
 
-	// ¼ì²âÊÇ·ñÖ§³ÖÌØÐÔµÈ¼¶11.0»ò11.1
 	if (featureLevel != D3D_FEATURE_LEVEL_11_0 && featureLevel != D3D_FEATURE_LEVEL_11_1)
 	{
 		MessageBox(0, L"Direct3D Feature Level 11 unsupported.", 0, 0);
 		return false;
 	}
 
-	// ¼ì²â MSAAÖ§³ÖµÄÖÊÁ¿µÈ¼¶
 	pDevice->CheckMultisampleQualityLevels(
 		DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m4xMsaaQuality);
 	assert(m4xMsaaQuality > 0);
@@ -269,11 +267,10 @@ void Graphics::BindD2DResource()
 {
 	assert(pd2dFactory);
 	assert(pd2dFactory);
-	// ÊÍ·ÅD2DµÄÏà¹Ø×ÊÔ´
+
 	pColorBrush.Reset();
 	pd2dRenderTarget.Reset();
 
-	// ÎªD2D´´½¨DXGI±íÃæäÖÈ¾Ä¿±ê
 	Microsoft::WRL::ComPtr<IDXGISurface> surface;
 	HRD(pSwapChain->GetBuffer(0, __uuidof(IDXGISurface), reinterpret_cast<void**>(surface.GetAddressOf())));
 	D2D1_RENDER_TARGET_PROPERTIES props = D2D1::RenderTargetProperties(
@@ -454,7 +451,32 @@ void Graphics::CamSetPosition(float x, float y, float z)
 	mRenderCamera.get()->setPosition(x, y, z);
 }
 
+void Graphics::CamSetPosition(XMVECTOR v)
+{
+	mRenderCamera.get()->setPosition(v);
+}
+
 void Graphics::CamSetRotation(float x, float y, float z)
 {
 	mRenderCamera.get()->setRotation(x, y, z);
+}
+
+DirectX::XMVECTOR Graphics::getcamForward()
+{
+	return mRenderCamera.get()->getForward();
+}
+
+DirectX::XMVECTOR Graphics::getcamRight()
+{
+	return mRenderCamera.get()->getRight();
+}
+
+DirectX::XMVECTOR Graphics::getcamUp()
+{
+	return  mRenderCamera.get()->getUp();
+}
+
+DirectX::XMVECTOR Graphics::getCamPos()
+{
+	return mRenderCamera.get()->getPosition();
 }

@@ -204,9 +204,6 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Source\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="ModelMesh.cpp">
-      <Filter>Source\Render\Graphics\Drawable</Filter>
-    </ClCompile>
     <ClCompile Include="RenderManager.cpp">
       <Filter>Source\Render</Filter>
     </ClCompile>
@@ -245,6 +242,12 @@
     </ClCompile>
     <ClCompile Include="GameScript.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelMesh.cpp">
+      <Filter>Source\Render\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentFactory.cpp">
+      <Filter>Source\Game\Factory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -356,9 +359,6 @@
     <ClInclude Include="FileManager.h">
       <Filter>Header\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="ModelMesh.h">
-      <Filter>Header\Render\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="RenderManager.h">
       <Filter>Header\Render</Filter>
     </ClInclude>
@@ -401,14 +401,20 @@
     <ClInclude Include="GameObjectFactory.h">
       <Filter>Header\Game\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="FactoryBase.h">
-      <Filter>Source\Game\Factory</Filter>
-    </ClInclude>
     <ClInclude Include="PlaneObjectFactory.h">
       <Filter>Header\Game\Factory</Filter>
     </ClInclude>
     <ClInclude Include="GameScript.h">
       <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>Header\Render\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryBase.h">
+      <Filter>Header\Game\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentFactory.h">
+      <Filter>Header\Game\Factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
