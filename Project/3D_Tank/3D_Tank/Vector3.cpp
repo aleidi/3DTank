@@ -22,6 +22,11 @@ void Vector3::operator += (const Vector3& v)
 	z += v.z;
 }
 
+bool Vector3::operator==(const Vector3 &v)
+{
+	return x = v.x&&y == v.y&&z == v.z;
+}
+
 Vector3 Vector3::operator*(float d) const
 {
 	return Vector3(x*d, y*d, z*d);
