@@ -11,9 +11,9 @@ class Transform : public Component
 {
 public:
 	Transform(GameObject* obj) noexcept;
-	void onUpdate(float deltaTime) override;
+	void onEngineUpdate(float deltaTime) override;
 
-	void translate(Vector3);
+	void translate(const Vector3&);
 	void translate(float x, float y, float z);
 	void rotateX(float);
 	void rotateY(float);

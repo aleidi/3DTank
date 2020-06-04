@@ -10,7 +10,7 @@ Transform::Transform(GameObject * obj) noexcept
 	onUpdate(0.0f);
 }
 
-void Transform::onUpdate(float deltaTime)
+void Transform::onEngineUpdate(float deltaTime)
 {
 	calcultateTransformMatrix();
 
@@ -18,12 +18,12 @@ void Transform::onUpdate(float deltaTime)
 	{
 		if (*it != nullptr)
 		{
-			(*it)->onUpdate(deltaTime);
+			(*it)->onEngineUpdate(deltaTime);
 		}
 	}
 }
 
-void Transform::translate(Vector3 v)
+void Transform::translate(const Vector3& v)
 {
 	Position += v;
 }
@@ -148,7 +148,7 @@ void Transform::calcultateTransformMatrix() noexcept
 
 	//calculate forward vector of model
 	v = XMVectorSet(Vector3::forward.x, Vector3::forward.y, Vector3::forward.z, 0.0f);
-	v = XMVector3Transform(v, matrix);
+	v = XMVector4Transform(v, matrix);
 	v = XMVector3Normalize(v);
 	Forward.x = XMVectorGetX(v);
 	Forward.y = XMVectorGetY(v);
@@ -156,7 +156,7 @@ void Transform::calcultateTransformMatrix() noexcept
 
 	//calculate right vector of model
 	v = XMVectorSet(Vector3::right.x, Vector3::right.y, Vector3::right.z, 0.0f);
-	v = XMVector3Transform(v, matrix);
+	v = XMVector4Transform(v, matrix);
 	v = XMVector3Normalize(v);
 	Right.x = XMVectorGetX(v);
 	Right.y = XMVectorGetY(v);
@@ -164,7 +164,7 @@ void Transform::calcultateTransformMatrix() noexcept
 
 	//calculate up vector of model
 	v = XMVectorSet(Vector3::up.x, Vector3::up.y, Vector3::up.z, 0.0f);
-	v = XMVector3Transform(v, matrix);
+	v = XMVector4Transform(v, matrix);
 	v = XMVector3Normalize(v);
 	Up.x = XMVectorGetX(v);
 	Up.y = XMVectorGetY(v);
