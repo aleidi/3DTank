@@ -26,12 +26,4 @@ void TankGamePlay::onUpdate(float deltaTime)
 		mTransform->rotateY(deltaTime*(-8.0f));
 	}
 
-	std::wstring wc = L"ForwardX: ";
-	wc += std::to_wstring(mTransform->Forward.x);
-	wc += L", ForwardY: ";
-	wc += std::to_wstring(mTransform->Forward.y);
-	wc += L", ForwardZ: ";
-	wc += std::to_wstring(mTransform->Forward.z);
-
-	Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600, true);
 }
