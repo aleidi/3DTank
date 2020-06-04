@@ -276,6 +276,9 @@
     <ClCompile Include="ScriptComponent.cpp">
       <Filter>Engine\Source\Gameplay\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Engine\Source\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -460,6 +463,9 @@
     </ClInclude>
     <ClInclude Include="ScriptComponent.h">
       <Filter>Engine\Header\Gameplay\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
