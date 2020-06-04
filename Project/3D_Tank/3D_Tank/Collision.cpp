@@ -110,13 +110,23 @@ bool Collision::cubeCollisionRay(const Cube& cube, const Ray& ray, float& dis)
 
 bool Collision::rayExamination(const Ray& ray, Cube& cube, float& dis)
 {
+	float minDis = -1.f;
 	for (int i = 0; i < cubeNum; i++) {
 		if (cubeCollisionRay(mCube[i], ray, dis) == true) {
-			cube = mCube[i];
-			return true;
+			if (minDis == -1.f) {
+				minDis = dis;
+				cube = mCube[i];
+			}
+			else {
+				if (dis < minDis) {
+					minDis = dis;
+					cube = mCube[i];
+				}
+			}
 		}
 	}
-	return false;
+	if (minDis == -1.f) return false;
+	else return true;
 }
 
 bool Collision::createCube(const Vector3& point1, const Vector3& point2)
