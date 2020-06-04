@@ -26,7 +26,9 @@ public:
 	bool hasParent() noexcept;
 	void deAttach() noexcept;
 
+	void onStart();
 	void onUpdate(float deltaTime);
+	void onEngineUpdate(float deltaTime);
 
 private:
 	std::list<Component*> mComps;

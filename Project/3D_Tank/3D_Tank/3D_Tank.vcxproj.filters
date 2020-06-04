@@ -276,6 +276,12 @@
     <ClCompile Include="ScriptComponent.cpp">
       <Filter>Engine\Source\Gameplay\Component</Filter>
     </ClCompile>
+    <ClCompile Include="TankGamePlay.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TankBatteryCtrl.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -460,6 +466,15 @@
     </ClInclude>
     <ClInclude Include="ScriptComponent.h">
       <Filter>Engine\Header\Gameplay\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TankGamePlay.h">
+      <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon.h">
+      <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TankBatteryCtrl.h">
+      <Filter>Game\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

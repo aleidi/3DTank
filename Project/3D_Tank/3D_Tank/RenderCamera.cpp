@@ -104,14 +104,14 @@ XMMATRIX RenderCamera::getProjectionXM() noexcept
 
 XMMATRIX RenderCamera::getViewProjXM() noexcept
 {
-	std::wstring wc = L"RotationX: ";
-	wc += std::to_wstring(mForward.x);
-	wc += L", RotationY: ";
-	wc += std::to_wstring(mForward.y);
-	wc += L", RotationZ: ";
-	wc += std::to_wstring(mForward.z);
+	//std::wstring wc = L"RotationX: ";
+	//wc += std::to_wstring(mForward.x);
+	//wc += L", RotationY: ";
+	//wc += std::to_wstring(mForward.y);
+	//wc += L", RotationZ: ";
+	//wc += std::to_wstring(mForward.z);
 
-	Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600,true);
+	//Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600,true);
 	return getViewXM()*getProjectionXM();
 }
 

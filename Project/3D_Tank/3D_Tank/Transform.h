@@ -12,6 +12,7 @@ class Transform : public Component
 public:
 	Transform(GameObject* obj) noexcept;
 	void onEngineUpdate(float deltaTime) override;
+	void onUpdate(float deltaTime) override;
 
 	void translate(const Vector3&);
 	void translate(float x, float y, float z);

@@ -203,6 +203,8 @@
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SphereObjectFactory.cpp" />
+    <ClCompile Include="TankBatteryCtrl.cpp" />
+    <ClCompile Include="TankGamePlay.cpp" />
     <ClCompile Include="TestCube.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -241,6 +243,7 @@
     <ClInclude Include="EntityNames.h" />
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="GameCommon.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="ScriptComponent.h" />
     <ClInclude Include="GeometryGenerator.h" />
@@ -266,6 +269,8 @@
     <ClInclude Include="SphereObjectFactory.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="TankBatteryCtrl.h" />
+    <ClInclude Include="TankGamePlay.h" />
     <ClInclude Include="TestCube.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />

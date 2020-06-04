@@ -7,6 +7,8 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "ModelMesh.h"
+#include "TankGamePlay.h"
+#include "TankBatteryCtrl.h"
 
 Engine* Engine::sInstance = nullptr;
 
@@ -23,9 +25,12 @@ Engine::Engine(Window& wnd)
 	:
 	mWnd(wnd),
 	mSound(std::make_unique<Sound>()),
-	mRendering(std::make_unique<Rendering>(wnd))
+	mRendering(std::make_unique<Rendering>(wnd)),
+	mIsGameMode(false)
 {
+	onPreInit();
 
+	onInit();
 }
 
 Engine * Engine::sGetInstance()
@@ -80,19 +85,23 @@ void Engine::onInit()
 	mSound->onInit();
 	mSound->playBGM();
 
-	//Game Init
-
-
 	//Gui Init
 
 	//EUI Init
 
+	//Game Init
+	//SceneManager::sGetInstance()
+
 	//test code
 	hq = SceneManager::sGetInstance()->createEmptyObject();
+	ScriptComponent* sc = new TankGamePlay(hq);
+	hq->addScriptComponent(sc);
 
 	tankBattery = SceneManager::sGetInstance()->createEmptyObject();
 	SceneManager::sGetInstance()->createModel(*tankBattery, "Tank\\TankBattery", L"Tank\\TankTex");
 	tankBattery->attach(*hq);
+	ScriptComponent* sc2 = new TankBatteryCtrl(tankBattery);
+	tankBattery->addScriptComponent(sc2);
 
 	GameObject* tankBody = SceneManager::sGetInstance()->createEmptyObject();
 	SceneManager::sGetInstance()->createModel(*tankBody, "Tank\\TankBody", L"Tank\\TankTex");
@@ -113,6 +122,7 @@ void Engine::run()
 {
 	//Timer update
 	mTimer.tick();
+	float deltaTime = mTimer.getDeltaTIme();
 	calculateFrameStats();
 
 	//Input Update
@@ -121,17 +131,21 @@ void Engine::run()
 	//Physics Update
 
 	//Game Update
-	SceneManager::sGetInstance()->onUpdate(mTimer.getDeltaTIme());
+	SceneManager::sGetInstance()->onEngineUpdate(deltaTime);
+	if (mIsGameMode)
+	{
+		SceneManager::sGetInstance()->onUpdate(deltaTime);
+	}
 
 	//Sound Update
 	dis += fTrans_z;
 	mSound->onUpdate(dis);
 
 	//PreRender
-	mRendering.get()->onPreRender(mTimer.getDeltaTIme());
+	mRendering.get()->onPreRender(deltaTime);
 
 	//OnRender
-	mRendering.get()->onRender(mTimer.getDeltaTIme());
+	mRendering.get()->onRender(deltaTime);
 
 #pragma region test code
 	float dt = mTimer.getDeltaTIme() * fspeed;
@@ -206,14 +220,11 @@ void Engine::run()
 
 	if (DInputPC::getInstance().iskey(DIK_SPACE))
 	{
-		auto x = 5 - rand() % 10;
-		auto y = 2 - rand() % 5;
-		auto z = 5 - rand() % 10;
-		hq->getTransform()->translate(dt*x, dt*y, dt*z);
+		mIsGameMode = true;
 	}
 
 	//PostRender
-	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
+	mRendering.get()->onPostRender(deltaTime);
 
 	/*
 	gameUI.Update();

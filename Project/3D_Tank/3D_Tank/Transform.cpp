@@ -1,4 +1,5 @@
 #include "Transform.h"
+#include "GameObject.h"
 
 Transform::Transform(GameObject * obj) noexcept
 	:Component(obj),
@@ -18,7 +19,18 @@ void Transform::onEngineUpdate(float deltaTime)
 	{
 		if (*it != nullptr)
 		{
-			(*it)->onEngineUpdate(deltaTime);
+			(*it)->getObject()->onEngineUpdate(deltaTime);
+		}
+	}
+}
+
+void Transform::onUpdate(float deltaTime)
+{
+	for (std::list<Transform*>::iterator it = children.begin(); it != children.end(); ++it)
+	{
+		if (*it != nullptr)
+		{
+			(*it)->getObject()->onUpdate(deltaTime);
 		}
 	}
 }

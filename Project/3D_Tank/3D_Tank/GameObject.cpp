@@ -109,6 +109,14 @@ void GameObject::deAttach() noexcept
 	mTransform->removeParent();
 }
 
+void GameObject::onStart()
+{
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		(*it)->onStart();
+	}
+}
+
 void GameObject::onUpdate(float deltaTime)
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
@@ -116,4 +124,13 @@ void GameObject::onUpdate(float deltaTime)
 		(*it)->onUpdate(deltaTime);
 	}
 	mTransform->onUpdate(deltaTime);
+}
+
+void GameObject::onEngineUpdate(float deltaTime)
+{
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		(*it)->onEngineUpdate(deltaTime);
+	}
+	mTransform->onEngineUpdate(deltaTime);
 }

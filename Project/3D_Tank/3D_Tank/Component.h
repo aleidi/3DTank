@@ -9,6 +9,7 @@ public:
 	Component() = delete;
 	Component(GameObject* object) noexcept;
 	virtual ~Component();
+	virtual void onEngineUpdate(float deltaTime) {}
 
 	virtual void onAwake() {}
 	virtual void onEnable() {}
