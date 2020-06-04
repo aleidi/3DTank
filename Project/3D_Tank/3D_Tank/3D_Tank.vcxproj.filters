@@ -482,6 +482,9 @@
     <ClInclude Include="TankBatteryCtrl.h">
       <Filter>Game\Header</Filter>
     </ClInclude>
+    <ClInclude Include="KeycodeRedefine.h">
+      <Filter>Engine\Header\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

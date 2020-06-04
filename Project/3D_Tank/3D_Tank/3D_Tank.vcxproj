@@ -247,6 +247,7 @@
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="GameCommon.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="KeycodeRedefine.h" />
     <ClInclude Include="ScriptComponent.h" />
     <ClInclude Include="GeometryGenerator.h" />
     <ClInclude Include="Graphics.h" />
