@@ -26,14 +26,12 @@ GameObject::~GameObject()
 
 void GameObject::addComponent(Component * comp) noexcept
 {
-	//ensure that the ScriptComponent components are at the end of list
-	if(typeid(*comp) != typeid(ScriptComponent))
-	{
-		mComps.push_back(comp);
-		return;
-	}
+	mComps.push_back(comp);
+}
 
-	mComps.push_front(comp);
+void GameObject::addScriptComponent(ScriptComponent * comp) noexcept
+{
+	mComps.push_front(dynamic_cast<Component*>(comp));
 }
 
 bool GameObject::removeComponent(Component * comp)
