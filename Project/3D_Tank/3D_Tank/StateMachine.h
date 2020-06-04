@@ -1,5 +1,6 @@
 #pragma once
 #include <assert.h>
+
 #include "State.h"
 
 template <class entity_type>

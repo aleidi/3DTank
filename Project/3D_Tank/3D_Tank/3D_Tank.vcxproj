@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BoundingCube.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="DXTrace.cpp" />
     <ClCompile Include="EmptyObjectFactory.cpp" />
     <ClCompile Include="EnemyTank.cpp" />
+    <ClCompile Include="EnemyTankOwnedStates.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
@@ -234,7 +236,9 @@
     <ClInclude Include="DXTrace.h" />
     <ClInclude Include="EmptyObjectFactory.h" />
     <ClInclude Include="EnemyTank.h" />
+    <ClInclude Include="EnemyTankOwnedStates.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="EntityNames.h" />
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="GameObjectFactory.h" />

@@ -258,6 +258,12 @@
     <ClCompile Include="ScriptComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyTankOwnedStates.cpp">
+      <Filter>Source\Game\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseGameEntity.cpp">
+      <Filter>Source\Game\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -436,6 +442,12 @@
     </ClInclude>
     <ClInclude Include="ScriptComponent.h">
       <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyTankOwnedStates.h">
+      <Filter>Header\Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityNames.h">
+      <Filter>Header\Game\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
