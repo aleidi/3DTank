@@ -1,9 +1,9 @@
+#include <typeinfo>
 #include "GameObject.h"
 #include "Component.h"
 #include "Transform.h"
 #include "SceneManager.h"
-
-class ScriptComponent;
+#include "ScriptComponent.h"
 
 GameObject::GameObject()
 	:mTransform(new Transform(this)),mName("GameObject")
@@ -27,15 +27,13 @@ GameObject::~GameObject()
 void GameObject::addComponent(Component * comp) noexcept
 {
 	//ensure that the ScriptComponent components are at the end of list
-	ScriptComponent* p = reinterpret_cast<ScriptComponent*>(comp);
-	if (p == nullptr)
-	{
-		mComps.push_front(comp);
-	}
-	else
+	if(typeid(*comp) != typeid(ScriptComponent))
 	{
 		mComps.push_back(comp);
+		return;
 	}
+
+	mComps.push_front(comp);
 }
 
 bool GameObject::removeComponent(Component * comp)

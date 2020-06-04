@@ -3,5 +3,7 @@
 
 class ScriptComponent : public Component
 {
-};
+public:
+	ScriptComponent(GameObject* object) noexcept;
 
+};

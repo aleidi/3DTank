@@ -7,4 +7,5 @@ void ComponentFactory::createModel(GameObject & obj, const std::string & modelPa
 {
 	RenderComponent* rc = new RenderComponent(&obj);
 	rc->setMesh(new ModelMesh(rc, modelPath, texturePath));
+	obj.addComponent(rc);
 }
