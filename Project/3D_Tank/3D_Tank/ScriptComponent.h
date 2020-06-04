@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 
-class GameScript : public Component
+class ScriptComponent : public Component
 {
 };
 

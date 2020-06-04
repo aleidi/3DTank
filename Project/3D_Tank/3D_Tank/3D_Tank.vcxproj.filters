@@ -246,9 +246,6 @@
     <ClCompile Include="PlaneObjectFactory.cpp">
       <Filter>Source\Game\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="GameScript.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="ModelMesh.cpp">
       <Filter>Source\Render\Graphics\Mesh</Filter>
     </ClCompile>
@@ -257,6 +254,9 @@
     </ClCompile>
     <ClCompile Include="EnemyTank.cpp">
       <Filter>Source\Game\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptComponent.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -413,9 +413,6 @@
     <ClInclude Include="PlaneObjectFactory.h">
       <Filter>Header\Game\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="GameScript.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="ModelMesh.h">
       <Filter>Header\Render\Graphics\Mesh</Filter>
     </ClInclude>
@@ -436,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="StateMachine.h">
       <Filter>Header\Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptComponent.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

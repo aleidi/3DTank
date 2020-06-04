@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "SceneManager.h"
 
-class GameScript;
+class ScriptComponent;
 
 GameObject::GameObject()
 	:mTransform(new Transform(this)),mName("GameObject")
@@ -26,8 +26,8 @@ GameObject::~GameObject()
 
 void GameObject::addComponent(Component * comp) noexcept
 {
-	//ensure that the GameScript components are at the end of list
-	GameScript* p = reinterpret_cast<GameScript*>(comp);
+	//ensure that the ScriptComponent components are at the end of list
+	ScriptComponent* p = reinterpret_cast<ScriptComponent*>(comp);
 	if (p == nullptr)
 	{
 		mComps.push_front(comp);
