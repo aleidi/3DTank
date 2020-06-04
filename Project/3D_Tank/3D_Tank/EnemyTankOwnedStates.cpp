@@ -7,8 +7,8 @@
 
 //-------------------methods for DazeAndRest
 
-DazeAndRest& DazeAndRest::getInstance() {
-	static DazeAndRest m_DazeAndRest;
+DazeAndRest* DazeAndRest::getInstance() {
+	static DazeAndRest* m_DazeAndRest;
 	return m_DazeAndRest;
 }
 
@@ -25,8 +25,8 @@ void DazeAndRest::Exit(EnemyTank* pEnemyTank) {
 }
 
 //-------------------methods for Patrol
-Patrol& Patrol::getInstance() {
-	static Patrol m_Patrol;
+Patrol* Patrol::getInstance() {
+	static Patrol* m_Patrol;
 	return m_Patrol;
 }
 

@@ -12,9 +12,9 @@ public:
 		                              m_pGlobalState(NULL)
 	{}
 
-	void setCurrentState(State<entity_type>& s) { m_pCurrentState = s; }
-	void setPreviousState(State<entity_type>& s) { m_pPreviousState = s; }
-	void setGlobalState(State<entity_type>& s) { m_pGlobalState = s; }
+	void setCurrentState(State<entity_type>* s) { m_pCurrentState = s; }
+	void setPreviousState(State<entity_type>* s) { m_pPreviousState = s; }
+	void setGlobalState(State<entity_type>* s) { m_pGlobalState = s; }
 
 	void update() const {
 		if (m_pGlobalState) m_pGlobalState->Execute(m_pOwner);

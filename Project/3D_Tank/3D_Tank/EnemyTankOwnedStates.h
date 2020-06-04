@@ -5,7 +5,7 @@ class EnemyTank;
 
 class DazeAndRest : public State<EnemyTank> {
 public:
-	static DazeAndRest& getInstance();
+	static DazeAndRest* getInstance();
 	virtual void Enter(EnemyTank* pETank);
 	virtual void Execute(EnemyTank* pETank);
 	virtual void Exit(EnemyTank* pETank);
@@ -18,7 +18,7 @@ private:
 
 class Patrol : public State<EnemyTank> {
 public:
-	static Patrol& getInstance();
+	static Patrol* getInstance();
 	virtual void Enter(EnemyTank* pETank);
 	virtual void Execute(EnemyTank* pETank);
 	virtual void Exit(EnemyTank* pETank);
