@@ -167,6 +167,7 @@
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BoundingCube.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Cube.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="BindableBase.h" />
     <ClInclude Include="BoundingCube.h" />
     <ClInclude Include="BoundingSphere.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentBase.h" />
     <ClInclude Include="ComponentFactory.h" />

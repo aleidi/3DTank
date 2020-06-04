@@ -276,6 +276,9 @@
     <ClCompile Include="ScriptComponent.cpp">
       <Filter>Engine\Source\Gameplay\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Engine\Source\Physics</Filter>
+    </ClCompile>
     <ClCompile Include="TankGamePlay.cpp">
       <Filter>Game\Source</Filter>
     </ClCompile>
@@ -466,6 +469,9 @@
     </ClInclude>
     <ClInclude Include="ScriptComponent.h">
       <Filter>Engine\Header\Gameplay\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
     <ClInclude Include="TankGamePlay.h">
       <Filter>Game\Header</Filter>
