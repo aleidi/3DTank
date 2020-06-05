@@ -121,6 +121,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Engine\Header\Misc\Messaging">
+      <UniqueIdentifier>{188779ce-ccb5-4b59-aa44-3981433b25c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source\Misc\Messaging">
+      <UniqueIdentifier>{1c79f24b-ee92-4207-a969-5a10813cc1b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -306,6 +312,15 @@
     <ClCompile Include="CameraCtrl.cpp">
       <Filter>Game\Source</Filter>
     </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Engine\Source\Gameplay\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageDispatcher.cpp">
+      <Filter>Engine\Source\Misc\Messaging</Filter>
+    </ClCompile>
+    <ClCompile Include="CrudeTimer.cpp">
+      <Filter>Engine\Source\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -364,9 +379,6 @@
     </ClInclude>
     <ClInclude Include="DInput_PS4.h">
       <Filter>Engine\Header\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Engine\Header\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
@@ -538,6 +550,27 @@
     </ClInclude>
     <ClInclude Include="CameraCtrl.h">
       <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Engine\Header\Gameplay\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageDispatcher.h">
+      <Filter>Engine\Header\Misc\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageTypes.h">
+      <Filter>Engine\Header\Misc\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="Telegram.h">
+      <Filter>Engine\Header\Misc\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleUtils.h">
+      <Filter>Engine\Header\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Engine\Header\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CrudeTimer.h">
+      <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
