@@ -15,6 +15,7 @@ public:
 	void onPreRender(float deltaTime);
 	void onRender(float deltaTime);
 	void onPostRender(float deltaTime);
+	void onEndRender(float deltaTime);
 
 	void addDrawing(RenderComponent* drawComp) noexcept;
 	void removeDrawing(UINT id);

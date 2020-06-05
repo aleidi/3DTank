@@ -35,7 +35,10 @@ void Rendering::onRender(float deltaTime)
 void Rendering::onPostRender(float deltaTime)
 {
 	mGraphics->showText();
+}
 
+void Rendering::onEndRender(float deltaTime)
+{
 	mGraphics->EndFrame();
 }
 
