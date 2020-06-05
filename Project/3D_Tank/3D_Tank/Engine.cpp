@@ -99,6 +99,7 @@ void Engine::onInit()
 
 	//test code
 	hq = SceneManager::sGetInstance()->createEmptyObject();
+	hq->setName("tankA");
 
 	tankBattery = SceneManager::sGetInstance()->createEmptyObject();
 	SceneManager::sGetInstance()->createModel(*tankBattery, "Tank\\TankBattery", L"Tank\\TankTex");
@@ -230,12 +231,13 @@ void Engine::run()
 	ImGui::NewFrame();
 	ImGui::Begin("Transform:");
 
-	float position = 0.0;
-	float rotation = 0.0;
-	float scale    = 0.0;
-	std::string  positionText = "Position : "+ std::to_string(position);
-	std::string  rotationText = "Rotation : "+ std::to_string(rotation);
-	std::string  scaleText = "Scale    : "+ std::to_string(scale);
+	std::string gameObjectName = hq->getName();
+	Vector3 position = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->Position;
+	Vector3 rotation = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->Rotation;
+	Vector3 scale    = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->Scale;
+	std::string  positionText = "Position : "+ std::to_string(position.x) + std::to_string(position.y) + std::to_string(position.z);
+	std::string  rotationText = "Rotation : "+ std::to_string(rotation.x) + std::to_string(rotation.y) + std::to_string(rotation.z);
+	std::string  scaleText = "Scale    : "+ std::to_string(scale.x) + std::to_string(scale.y) + std::to_string(scale.z);
 	ImGui::Text(positionText.c_str());
 	ImGui::Text(rotationText.c_str());
 	ImGui::Text(scaleText.c_str());
