@@ -247,13 +247,15 @@ void Engine::run()
 	//mRendering.get()->getGFX()->CamSetPosition(v);
 	//mRendering.get()->getGFX()->CamSetRotation(fRot_x, fRot_y, fRot_z);
 
-
-#pragma endregion
-
 	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
 	{
 		mIsGameMode = true;
 	}
+
+#pragma endregion
+
+	//PostRender
+	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
 
 	//start imGui frame
 	static int counter = 0;
@@ -264,9 +266,9 @@ void Engine::run()
 	ImGui::Begin("Transform:");
 
 	std::string gameObjectName = hq->getName();
-	Vector3 position = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->Position;
-	Vector3 rotation = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->Rotation;
-	Vector3 scale    = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->Scale;
+	Vector3 position = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getPosition();
+	Vector3 rotation = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getRotation();
+	Vector3 scale    = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getScale();
 	std::string  positionText = "Position : "+ std::to_string(position.x) + std::to_string(position.y) + std::to_string(position.z);
 	std::string  rotationText = "Rotation : "+ std::to_string(rotation.x) + std::to_string(rotation.y) + std::to_string(rotation.z);
 	std::string  scaleText = "Scale    : "+ std::to_string(scale.x) + std::to_string(scale.y) + std::to_string(scale.z);
@@ -291,9 +293,7 @@ void Engine::run()
 	*/
 
 
-	//PostRender
-	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
-
+	mRendering.get()->onEndRender(deltaTime);
 }
 
 void Engine::showtText(const std::wstring & str = L"", float leftTopX=0, float leftTopY=0, float width=0, float height=0, bool canShow = false)
