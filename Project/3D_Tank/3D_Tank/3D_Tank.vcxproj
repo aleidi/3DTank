@@ -167,6 +167,8 @@
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BoundingCube.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraCtrl.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
@@ -209,6 +211,8 @@
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SphereObjectFactory.cpp" />
+    <ClCompile Include="TankBatteryCtrl.cpp" />
+    <ClCompile Include="TankGamePlay.cpp" />
     <ClCompile Include="TestCube.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -227,6 +231,8 @@
     <ClInclude Include="BindableBase.h" />
     <ClInclude Include="BoundingCube.h" />
     <ClInclude Include="BoundingSphere.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraCtrl.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentBase.h" />
@@ -248,7 +254,10 @@
     <ClInclude Include="EntityNames.h" />
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="GameCommon.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="KeycodeRedefine.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="imgui_impl_dx11.h" />
@@ -281,6 +290,8 @@
     <ClInclude Include="SphereObjectFactory.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="TankBatteryCtrl.h" />
+    <ClInclude Include="TankGamePlay.h" />
     <ClInclude Include="TestCube.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />

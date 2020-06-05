@@ -40,6 +40,8 @@ private:
 	std::unique_ptr<Rendering> mRendering;
 	Timer mTimer;
 
+	bool mIsGameMode;
+
 	//testcode
 	float fScale;
 	float fTrans_x;

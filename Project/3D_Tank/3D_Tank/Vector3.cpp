@@ -15,11 +15,20 @@ Vector3& Vector3::operator=(const Vector3& v)
 	return *this;
 }
 
-void Vector3::operator += (const Vector3& v)
+Vector3& Vector3::operator += (const Vector3& v)
 {
 	x += v.x;
 	y += v.y;
 	z += v.z;
+	return *this;
+}
+
+Vector3 & Vector3::operator*=(const Vector3 & v)
+{
+	x *= v.x;
+	y *= v.y;
+	z *= v.z;
+	return *this;
 }
 
 bool Vector3::operator==(const Vector3 &v)
@@ -69,11 +78,21 @@ Vector3 Vector3::multiply(const Vector3 & lhs, const Vector3 & rhs)
 	return v;
 }
 
-Vector3 operator+(const Vector3 & lhs, const Vector3 & rhs)
+Vector3 operator+(Vector3 lhs, const Vector3 & rhs)
 {
-	Vector3 v;
-	v.x = lhs.x + rhs.x;
-	v.y = lhs.y + rhs.y;
-	v.z = lhs.z + rhs.z;
-	return v;
+	lhs += rhs;
+	return lhs;
+}
+
+Vector3 operator-(Vector3 lhs, const Vector3 & rhs)
+{
+	return lhs + rhs * (-1.0f);
+}
+
+Vector3 operator/(Vector3 lhs, const Vector3 & rhs)
+{
+	lhs.x /= rhs.x;
+	lhs.y /= rhs.y;
+	lhs.z /= rhs.z;
+	return lhs;
 }

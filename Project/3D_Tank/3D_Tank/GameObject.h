@@ -3,6 +3,7 @@
 
 class Component;
 class Transform;
+class ScriptComponent;
 
 class GameObject
 {
@@ -11,6 +12,7 @@ public:
 	~GameObject();
 
 	void addComponent(Component* comp) noexcept;
+	void addScriptComponent(ScriptComponent* comp) noexcept;
 	bool removeComponent(Component* comp);
 	template<typename T>
 	T* getComponent(T* t) const noexcept;
@@ -24,7 +26,9 @@ public:
 	bool hasParent() noexcept;
 	void deAttach() noexcept;
 
+	void onStart();
 	void onUpdate(float deltaTime);
+	void onEngineUpdate(float deltaTime);
 
 private:
 	std::list<Component*> mComps;

@@ -279,6 +279,12 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="TankGamePlay.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TankBatteryCtrl.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
     <ClCompile Include="imgui_widgets.cpp">
       <Filter>Engine\Source\GUI</Filter>
     </ClCompile>
@@ -293,6 +299,12 @@
     </ClCompile>
     <ClCompile Include="imgui.cpp">
       <Filter>Engine\Source\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraCtrl.cpp">
+      <Filter>Game\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -482,6 +494,9 @@
     <ClInclude Include="Collision.h">
       <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="TankGamePlay.h">
+      <Filter>Game\Header</Filter>
+    </ClInclude>
     <ClInclude Include="imgui.h">
       <Filter>Engine\Header\GUI</Filter>
     </ClInclude>
@@ -505,6 +520,24 @@
     </ClInclude>
     <ClInclude Include="imconfig.h">
       <Filter>Engine\Header\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon.h">
+      <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TankBatteryCtrl.h">
+      <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="KeycodeRedefine.h">
+      <Filter>Engine\Header\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Header\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Engine\Header\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraCtrl.h">
+      <Filter>Game\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

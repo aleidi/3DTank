@@ -14,9 +14,12 @@ public:
 	Vector3(float nx, float ny, float nz) : x(nx), y(ny), z(nz) {}
 
 	Vector3& operator = (const Vector3&);
-	void operator += (const Vector3&);
+	Vector3& operator += (const Vector3&);
+	Vector3& operator*=(const Vector3&);
 	bool operator==(const Vector3&);
-	friend Vector3 operator+(const Vector3&, const Vector3&);
+	friend Vector3 operator+(Vector3, const Vector3&);
+	friend Vector3 operator-(Vector3, const Vector3&);
+	friend Vector3 operator/(Vector3, const Vector3&);
 	Vector3 operator * (float) const;
 	Vector3 normalize() const;
 	static float dot(const Vector3& lhs, const Vector3& rhs);

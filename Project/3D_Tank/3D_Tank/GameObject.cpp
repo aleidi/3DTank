@@ -1,9 +1,9 @@
+#include <typeinfo>
 #include "GameObject.h"
 #include "Component.h"
 #include "Transform.h"
 #include "SceneManager.h"
-
-class ScriptComponent;
+#include "ScriptComponent.h"
 
 GameObject::GameObject()
 	:mTransform(new Transform(this)),mName("GameObject")
@@ -26,16 +26,12 @@ GameObject::~GameObject()
 
 void GameObject::addComponent(Component * comp) noexcept
 {
-	//ensure that the ScriptComponent components are at the end of list
-	ScriptComponent* p = reinterpret_cast<ScriptComponent*>(comp);
-	if (p == nullptr)
-	{
-		mComps.push_front(comp);
-	}
-	else
-	{
-		mComps.push_back(comp);
-	}
+	mComps.push_back(comp);
+}
+
+void GameObject::addScriptComponent(ScriptComponent * comp) noexcept
+{
+	mComps.push_front(dynamic_cast<Component*>(comp));
 }
 
 bool GameObject::removeComponent(Component * comp)
@@ -113,6 +109,14 @@ void GameObject::deAttach() noexcept
 	mTransform->removeParent();
 }
 
+void GameObject::onStart()
+{
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		(*it)->onStart();
+	}
+}
+
 void GameObject::onUpdate(float deltaTime)
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
@@ -120,4 +124,13 @@ void GameObject::onUpdate(float deltaTime)
 		(*it)->onUpdate(deltaTime);
 	}
 	mTransform->onUpdate(deltaTime);
+}
+
+void GameObject::onEngineUpdate(float deltaTime)
+{
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		(*it)->onEngineUpdate(deltaTime);
+	}
+	mTransform->onEngineUpdate(deltaTime);
 }

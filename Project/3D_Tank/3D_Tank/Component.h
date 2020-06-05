@@ -7,8 +7,9 @@ class Component
 {
 public:
 	Component() = delete;
-	Component(GameObject* object);
+	Component(GameObject* object) noexcept;
 	virtual ~Component();
+	virtual void onEngineUpdate(float deltaTime) {}
 
 	virtual void onAwake() {}
 	virtual void onEnable() {}
@@ -16,7 +17,6 @@ public:
 	virtual void onUpdate(float deltaTime) {}
 	virtual void onFixedUpdate(float deltaTime) {}
 
-	void setObject(GameObject* obj) noexcept;
 	GameObject* getObject() const noexcept;
 
 protected:

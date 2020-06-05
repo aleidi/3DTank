@@ -7,6 +7,10 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "ModelMesh.h"
+#include "TankGamePlay.h"
+#include "TankBatteryCtrl.h"
+#include "Camera.h"
+#include "CameraCtrl.h"
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -20,6 +24,8 @@ GameObject* tankBattery;
 GameObject* tankBody;
 GameObject* tankTrackL;
 GameObject* tankTrackR;
+GameObject* cam;
+GameObject* follow;
 
 static float dis = 0.0f;
 
@@ -27,9 +33,12 @@ Engine::Engine(Window& wnd)
 	:
 	mWnd(wnd),
 	mSound(std::make_unique<Sound>()),
-	mRendering(std::make_unique<Rendering>(wnd))
+	mRendering(std::make_unique<Rendering>(wnd)),
+	mIsGameMode(false)
 {
+	onPreInit();
 
+	onInit();
 }
 
 Engine * Engine::sGetInstance()
@@ -84,9 +93,6 @@ void Engine::onInit()
 	mSound->onInit();
 	mSound->playBGM();
 
-	//Game Init
-
-
 	//Gui Init
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -97,33 +103,58 @@ void Engine::onInit()
 
 	//EUI Init
 
+	//Game Init
+	//SceneManager::sGetInstance()
+
 	//test code
 	hq = SceneManager::sGetInstance()->createEmptyObject();
-	hq->setName("tankA");
+	hq->setName("hq");
+	ScriptComponent* sc = new TankGamePlay(hq);
+	hq->addScriptComponent(sc);
+	
+	follow = SceneManager::sGetInstance()->createEmptyObject();
+	follow->setName("follow");
+	follow->attach(*hq);
+	follow->getTransform()->translate(0.0f, 20.0f, -40.0f);
+
+	cam = SceneManager::sGetInstance()->createEmptyObject();
+	cam->setName("camera");
+	Camera* maincam = new Camera(cam);
+	cam->addComponent(maincam);
+	maincam->MainCamera = maincam;
+	cam->addComponent(new CameraCtrl(cam));
+	cam->getTransform()->rotateX(20);
 
 	tankBattery = SceneManager::sGetInstance()->createEmptyObject();
+	tankBattery->setName("tankBattery");
 	SceneManager::sGetInstance()->createModel(*tankBattery, "Tank\\TankBattery", L"Tank\\TankTex");
 	tankBattery->attach(*hq);
+	ScriptComponent* sc2 = new TankBatteryCtrl(tankBattery);
+	tankBattery->addScriptComponent(sc2);
 
 	GameObject* tankBody = SceneManager::sGetInstance()->createEmptyObject();
+	tankBody->setName("tankBody");
 	SceneManager::sGetInstance()->createModel(*tankBody, "Tank\\TankBody", L"Tank\\TankTex");
 	tankBody->attach(*hq);
 
 	GameObject* tankTrackL = SceneManager::sGetInstance()->createEmptyObject();
+	tankTrackL->setName("tankTrackL");
 	SceneManager::sGetInstance()->createModel(*tankTrackL, "Tank\\TankTrack_L", L"Tank\\TankTrack");
 	tankTrackL->attach(*hq);
 
 	GameObject* tankTrackR = SceneManager::sGetInstance()->createEmptyObject();
+	tankTrackR->setName("tankTrackR");
 	SceneManager::sGetInstance()->createModel(*tankTrackR, "Tank\\TankTrack_R", L"Tank\\TankTrack");
 	tankTrackR->attach(*hq);
 
-	hq->getTransform()->Scale = Vector3(0.1f, 0.1f, 0.1f);
+	hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 }
 
 void Engine::run()
 {
 	//Timer update
 	mTimer.tick();
+	float deltaTime = mTimer.getDeltaTIme();
 	calculateFrameStats();
 
 	//Input Update
@@ -132,95 +163,96 @@ void Engine::run()
 	//Physics Update
 
 	//Game Update
-	SceneManager::sGetInstance()->onUpdate(mTimer.getDeltaTIme());
+	SceneManager::sGetInstance()->onEngineUpdate(deltaTime);
+	if (mIsGameMode)
+	{
+		SceneManager::sGetInstance()->onUpdate(deltaTime);
+	}
 
 	//Sound Update
 	dis += fTrans_z;
 	mSound->onUpdate(dis);
 
 	//PreRender
-	mRendering.get()->onPreRender(mTimer.getDeltaTIme());
+	mRendering.get()->onPreRender(deltaTime);
 
 	//OnRender
-	mRendering.get()->onRender(mTimer.getDeltaTIme());
+	mRendering.get()->onRender(deltaTime);
 
 #pragma region test code
 	float dt = mTimer.getDeltaTIme() * fspeed;
 	float dt2 = mTimer.getDeltaTIme() * rspeed;
-	XMVECTOR v = mRendering.get()->getGFX()->getCamPos();
-	if (DInputPC::getInstance().iskey(DIK_W))
-	{
-		v = mRendering.get()->getGFX()->getcamForward();
-		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-		v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
-	}
-	if (DInputPC::getInstance().iskey(DIK_S))
-	{
-		v = mRendering.get()->getGFX()->getcamForward();
-		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-		v = XMVectorSubtract(mRendering.get()->getGFX()->getCamPos(),v);
+	//XMVECTOR v = mRendering.get()->getGFX()->getCamPos();
+	//if (DInputPC::getInstance().iskey(DIK_W))
+	//{
+	//	v = mRendering.get()->getGFX()->getcamForward();
+	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+	//	v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_S))
+	//{
+	//	v = mRendering.get()->getGFX()->getcamForward();
+	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+	//	v = XMVectorSubtract(mRendering.get()->getGFX()->getCamPos(),v);
 
-	}
-	if (DInputPC::getInstance().iskey(DIK_A))
-	{
-		v = mRendering.get()->getGFX()->getcamRight();
-		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-		v = XMVectorSubtract(mRendering.get()->getGFX()->getCamPos(), v);
-	}
-	if (DInputPC::getInstance().iskey(DIK_D))
-	{
-		v = mRendering.get()->getGFX()->getcamRight();
-		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-		v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
-	}
-	if (DInputPC::getInstance().iskey(DIK_Q))
-	{
-		v = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-		v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
-	}
-	if (DInputPC::getInstance().iskey(DIK_E))
-	{
-		v = XMVectorSet(0.0f, -1.0f, 0.0f, 0.0f);
-		v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-		v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
-	}
-	if (DInputPC::getInstance().iskey(DIK_I))
-	{
-		fRot_x -= mTimer.getDeltaTIme() * rspeed;
-	}
-	if (DInputPC::getInstance().iskey(DIK_K))
-	{
-		fRot_x += mTimer.getDeltaTIme() * rspeed;
-	}
-	if (DInputPC::getInstance().iskey(DIK_J))
-	{
-		fRot_y -= mTimer.getDeltaTIme() * rspeed;
-	}
-	if (DInputPC::getInstance().iskey(DIK_L))
-	{
-		fRot_y += mTimer.getDeltaTIme() * rspeed;
-	}
-	if (DInputPC::getInstance().iskey(DIK_U))
-	{
-		fRot_z -= mTimer.getDeltaTIme() * rspeed;
-	}
-	if (DInputPC::getInstance().iskey(DIK_O))
-	{
-		fRot_z += mTimer.getDeltaTIme() * rspeed;
-	}
-	mRendering.get()->getGFX()->CamSetPosition(v);
-	mRendering.get()->getGFX()->CamSetRotation(fRot_x, fRot_y, fRot_z);
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_A))
+	//{
+	//	v = mRendering.get()->getGFX()->getcamRight();
+	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+	//	v = XMVectorSubtract(mRendering.get()->getGFX()->getCamPos(), v);
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_D))
+	//{
+	//	v = mRendering.get()->getGFX()->getcamRight();
+	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+	//	v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_Q))
+	//{
+	//	v = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+	//	v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_E))
+	//{
+	//	v = XMVectorSet(0.0f, -1.0f, 0.0f, 0.0f);
+	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
+	//	v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_I))
+	//{
+	//	fRot_x -= mTimer.getDeltaTIme() * rspeed;
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_K))
+	//{
+	//	fRot_x += mTimer.getDeltaTIme() * rspeed;
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_J))
+	//{
+	//	fRot_y -= mTimer.getDeltaTIme() * rspeed;
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_L))
+	//{
+	//	fRot_y += mTimer.getDeltaTIme() * rspeed;
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_U))
+	//{
+	//	fRot_z -= mTimer.getDeltaTIme() * rspeed;
+	//}
+	//if (DInputPC::getInstance().iskey(DIK_O))
+	//{
+	//	fRot_z += mTimer.getDeltaTIme() * rspeed;
+	//}
+	//mRendering.get()->getGFX()->CamSetPosition(v);
+	//mRendering.get()->getGFX()->CamSetRotation(fRot_x, fRot_y, fRot_z);
 
 
 #pragma endregion
 
-	if (DInputPC::getInstance().iskey(DIK_SPACE))
+	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
 	{
-		auto x = 5 - rand() % 10;
-		auto y = 2 - rand() % 5;
-		auto z = 5 - rand() % 10;
-		hq->getTransform()->translate(dt*x, dt*y, dt*z);
+		mIsGameMode = true;
 	}
 
 	//start imGui frame

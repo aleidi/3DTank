@@ -51,11 +51,13 @@ public:
 	void ShiftShowMode(D3D11_FILL_MODE mode);
 	void CleanFrame();
 	void EndFrame();
+	void onUdpate(float deltaTime);
 
 	void DrawIndexed(UINT mCount) noexcept;
 	void setShowText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
 	void showText();
 	DirectX::XMMATRIX GetViewProj() const noexcept;
+
 
 	//test code
 	void CamSetPosition(float x, float y, float z);

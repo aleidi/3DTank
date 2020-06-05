@@ -22,7 +22,9 @@ public:
 	bool removeGameObjectToPool(GameObject* object) noexcept;
 	GameObject* findObjectWithName(const std::string& name);
 
+	void onGameStart();
 	void onUpdate(float deltaTime);
+	void onEngineUpdate(float deltaTime);
 private:
 	SceneManager();
 	~SceneManager();
