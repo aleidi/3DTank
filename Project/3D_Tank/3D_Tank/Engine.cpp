@@ -154,6 +154,36 @@ void Engine::onInit()
 	ground->setName("Ground");
 	SceneManager::sGetInstance()->createModel(*ground, "Objects\\SM_ZPlane_01a", L"Objects\\TX_RockyMud_01_ALB");
 
+	GameObject* freightContainer_A = SceneManager::sGetInstance()->createEmptyObject();
+	freightContainer_A->setName("freightContainer_A");
+	SceneManager::sGetInstance()->createModel(*freightContainer_A, "Objects\\SM_FreightContainer_01", L"Objects\\TX_FreightContainer_01a_ALB");
+	freightContainer_A->getTransform()->translate(Vector3::right*20.0f);
+	freightContainer_A->getTransform()->setScale(Vector3(0.025f, 0.025f, 0.025f));
+
+	GameObject* freightContainer_B = SceneManager::sGetInstance()->createEmptyObject();
+	freightContainer_B->setName("freightContainer_B");
+	SceneManager::sGetInstance()->createModel(*freightContainer_B, "Objects\\SM_FreightContainer_01", L"Objects\\TX_FreightContainer_01b_ALB");
+	freightContainer_B->getTransform()->translate(Vector3::right*-15.0f + Vector3::forward*20.0f);
+	freightContainer_B->getTransform()->setScale(Vector3(0.03f, 0.03f, 0.03f));
+
+	GameObject* SM_WaterTank = SceneManager::sGetInstance()->createEmptyObject();
+	SM_WaterTank->setName("SM_WaterTank");
+	SceneManager::sGetInstance()->createModel(*SM_WaterTank, "Objects\\SM_WaterTank_01a", L"Objects\\TX_PortableWaterTank_01_ALB");
+	SM_WaterTank->getTransform()->translate(Vector3::right*-30.0f + Vector3::forward*50.0f);
+	SM_WaterTank->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+
+	GameObject* SM_Crate = SceneManager::sGetInstance()->createEmptyObject();
+	SM_Crate->setName("SM_Crate");
+	SceneManager::sGetInstance()->createModel(*SM_Crate, "Objects\\SM_Crate_01a", L"Objects\\TX_Crates_01a_ALB");
+	SM_Crate->getTransform()->translate(Vector3::forward*50.0f);
+	SM_Crate->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+
+	GameObject* SM_construction_fence = SceneManager::sGetInstance()->createEmptyObject();
+	SM_construction_fence->setName("SM_construction_fence");
+	SceneManager::sGetInstance()->createModel(*SM_construction_fence, "Objects\\SM_construction_fence_01a", L"Objects\\TX_ConstructionFence_01a_ALB");
+	SM_construction_fence->getTransform()->translate(Vector3::right*50.0f + Vector3::forward*50.0f);
+	SM_construction_fence->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+
 	GameObject* obstacle = SceneManager::sGetInstance()->createSphere();
 	obstacle->setName("obstacle");
 	Vector3 pos(20.f, 5.f, 5.f);
