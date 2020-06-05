@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "Drawable.h"
 #include "RenderManager.h"
+#include "RenderCamera.h"
 
 Rendering::Rendering(Window & wnd)
 	:mhMainWnd(&wnd),mDrawings()
@@ -21,6 +22,8 @@ void Rendering::onInit()
 
 void Rendering::onPreRender(float deltaTime)
 {
+	mGraphics->onUdpate(deltaTime);
+
 	mGraphics->CleanFrame();
 }
 

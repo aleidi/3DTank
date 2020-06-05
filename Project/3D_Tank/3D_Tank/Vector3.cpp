@@ -75,3 +75,8 @@ Vector3 operator+(Vector3 lhs, const Vector3 & rhs)
 	lhs += rhs;
 	return lhs;
 }
+
+Vector3 operator-(Vector3 lhs, const Vector3 & rhs)
+{
+	return lhs + rhs * (-1.0f);
+}

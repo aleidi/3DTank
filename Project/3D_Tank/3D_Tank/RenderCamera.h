@@ -33,6 +33,8 @@ public:
 	void setViewport(float topLeftX, float topLeftY, float width, float height, float minDepth, float maxDepth) noexcept;
 	/// 0 for Perspective, 1 for Orthographic , default is Perspective mode
 	void setProjectionType(int type = 0) noexcept;
+
+	void onUpdate(float deltaTime) noexcept;
 	
 protected:
 	XMFLOAT3 mPosition;
@@ -53,4 +55,3 @@ protected:
 private:
 	void calculateDirectionVector() noexcept;
 };
-

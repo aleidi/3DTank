@@ -8,7 +8,6 @@ Transform::Transform(GameObject * obj) noexcept
 	children(),parent(),
 	localToWorld()
 {
-	onUpdate(0.0f);
 }
 
 void Transform::onEngineUpdate(float deltaTime)
@@ -129,34 +128,24 @@ XMMATRIX Transform::getLoacalToWorldMatrix() noexcept
 void Transform::calcultateTransformMatrix() noexcept
 {
 	XMMATRIX matrix;
+	XMVECTOR v;
 	//calculate model->world matrix, world rotation and world scale
 	if (parent != nullptr)
 	{
-		matrix = XMMatrixScaling(Scale.x, Scale.y, Scale.z)*
-			XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z)*
-			XMMatrixTranslation(Position.x, Position.y, Position.z)* 
-			parent->getLoacalToWorldMatrix();
-
-		worldRotation = parent->Rotation + Rotation;
-		worldScale = Vector3::multiply(parent->Scale, Scale);
+		worldPosition =  parent->worldPosition + Position;
+		worldRotation = parent->worldRotation + Rotation;
+		worldScale = Vector3::multiply(parent->worldScale, Scale);
 	}
 	else
 	{
-		matrix = XMMatrixScaling(Scale.x, Scale.y, Scale.z)*
-			XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z)*
-			XMMatrixTranslation(Position.x, Position.y, Position.z);
-
+		worldPosition = Position;
 		worldRotation = Rotation;
 		worldScale = Scale;
 	}
+	matrix = XMMatrixScaling(worldScale.x, worldScale.y, worldScale.z)*
+		XMMatrixRotationRollPitchYaw(worldRotation.x, worldRotation.y, worldRotation.z)*
+		XMMatrixTranslation(worldPosition.x, worldPosition.y, worldPosition.z);
 	XMStoreFloat4x4(&localToWorld, matrix);
-
-	//calculate world position
-	XMVECTOR v = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
-	v = XMVector3Transform(v, matrix);
-	worldPosition.x = XMVectorGetX(v);
-	worldPosition.y = XMVectorGetY(v);
-	worldPosition.z = XMVectorGetZ(v);
 
 	//calculate forward vector of model
 	v = XMVectorSet(Vector3::forward.x, Vector3::forward.y, Vector3::forward.z, 0.0f);

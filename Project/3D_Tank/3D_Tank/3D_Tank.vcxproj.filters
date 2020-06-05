@@ -285,6 +285,9 @@
     <ClCompile Include="TankBatteryCtrl.cpp">
       <Filter>Game\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Source\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -484,6 +487,9 @@
     </ClInclude>
     <ClInclude Include="KeycodeRedefine.h">
       <Filter>Engine\Header\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Header\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

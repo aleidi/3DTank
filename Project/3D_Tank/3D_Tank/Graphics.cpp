@@ -408,6 +408,11 @@ void Graphics::EndFrame()
 	pSwapChain->Present(0,0);
 }
 
+void Graphics::onUdpate(float deltaTime)
+{
+	mRenderCamera.get()->onUpdate(deltaTime);
+}
+
 void Graphics::DrawIndexed(UINT mCount) noexcept
 {
 	pContext->DrawIndexed(mCount, 0u, 0u);

@@ -1,13 +1,14 @@
 #include <string>
 #include "RenderCamera.h"
 #include "Window.h"
+#include "Camera.h"
 
 #include "Engine.h"
 
 RenderCamera::RenderCamera(const Graphics& gfx)
 	: mPosition(0.0f,0.0f,0.0f), mRotation(0.0f,0.0f,0.0f),
 	mRight(1.0f,0.0f,0.0f),mUp(0.0f,0.0f,1.0f),mForward(0.0f,0.0f,1.0f),
-	mProjType(ProjectionType::Perspective),mFov(XM_PI/3),mAspect(WINDOW_WIDTH/WINDOW_HEIGHT),mNearZ(0.1f),mFarZ(1000.0f),
+	mProjType(ProjectionType::Perspective),mFov(XM_PI/3),mAspect((float)WINDOW_WIDTH/WINDOW_HEIGHT),mNearZ(0.1f),mFarZ(1000.0f),
 	mViewport{ 0.0f,0.0f, (float)gfx.mClientWidth,(float)gfx.mClientWidth,0.0f,1.0f}
 {
 }
@@ -104,14 +105,6 @@ XMMATRIX RenderCamera::getProjectionXM() noexcept
 
 XMMATRIX RenderCamera::getViewProjXM() noexcept
 {
-	//std::wstring wc = L"RotationX: ";
-	//wc += std::to_wstring(mForward.x);
-	//wc += L", RotationY: ";
-	//wc += std::to_wstring(mForward.y);
-	//wc += L", RotationZ: ";
-	//wc += std::to_wstring(mForward.z);
-
-	//Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600,true);
 	return getViewXM()*getProjectionXM();
 }
 
@@ -140,6 +133,36 @@ void RenderCamera::setProjectionType(int type) noexcept
 	{
 		mProjType = ProjectionType::Perspective;
 	}
+}
+
+void RenderCamera::onUpdate(float deltaTime) noexcept
+{
+	if (nullptr == Camera::MainCamera)
+	{
+		mPosition = XMFLOAT3(0.0f, 0.0f, 0.0f);
+		mRotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
+		mProjType = ProjectionType::Perspective;
+		mFov = XM_PI / 3;
+		mAspect = (float)(WINDOW_WIDTH / WINDOW_HEIGHT);
+		mNearZ = 0.1f;
+		mFarZ = 1000.0f;
+		return;
+	}
+	mPosition = XMFLOAT3(Camera::MainCamera->Position.x, Camera::MainCamera->Position.y, Camera::MainCamera->Position.z);
+	mRotation = XMFLOAT3(Camera::MainCamera->Rotation.x, Camera::MainCamera->Rotation.y, Camera::MainCamera->Rotation.z);
+	mFov = Camera::MainCamera->Fov;
+	mAspect = Camera::MainCamera->Aspect;
+	mNearZ = Camera::MainCamera->Near;
+	mFarZ = Camera::MainCamera->Far;
+	Camera::MainCamera->IsPerpective ? setProjectionType(ProjectionType::Perspective) : 
+		setProjectionType(ProjectionType::Orthographic);
+
+	//test code
+	std::wstring wc = L"RenderCamPosition: ";
+	wc += std::to_wstring(mPosition.x);
+	wc += L"," + std::to_wstring(mPosition.y) + L"," + std::to_wstring(mPosition.z);
+
+	Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600, true);
 }
 
 void RenderCamera::calculateDirectionVector() noexcept
