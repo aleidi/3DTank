@@ -12,6 +12,10 @@
 #include "Camera.h"
 #include "CameraCtrl.h"
 
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+
 Engine* Engine::sInstance = nullptr;
 
 //test code
@@ -90,6 +94,12 @@ void Engine::onInit()
 	mSound->playBGM();
 
 	//Gui Init
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui_ImplWin32_Init(mWnd.getHwnd());
+	ImGui_ImplDX11_Init(mRendering->getGFX()->GetDevice(), mRendering->getGFX()->GetContext());
+	ImGui::StyleColorsDark();
 
 	//EUI Init
 
@@ -245,14 +255,44 @@ void Engine::run()
 		mIsGameMode = true;
 	}
 
-	//PostRender
-	mRendering.get()->onPostRender(deltaTime);
+	//start imGui frame
+	static int counter = 0;
 
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	ImGui::Begin("Transform:");
+
+	std::string gameObjectName = hq->getName();
+	Vector3 position = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->Position;
+	Vector3 rotation = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->Rotation;
+	Vector3 scale    = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->Scale;
+	std::string  positionText = "Position : "+ std::to_string(position.x) + std::to_string(position.y) + std::to_string(position.z);
+	std::string  rotationText = "Rotation : "+ std::to_string(rotation.x) + std::to_string(rotation.y) + std::to_string(rotation.z);
+	std::string  scaleText = "Scale    : "+ std::to_string(scale.x) + std::to_string(scale.y) + std::to_string(scale.z);
+	ImGui::Text(positionText.c_str());
+	ImGui::Text(rotationText.c_str());
+	ImGui::Text(scaleText.c_str());
+
+	/*ImGui::Text("This is a text.");
+	if (ImGui::Button("CLICK ME!"))
+		counter += 1;
+	std::string clickCount = "Click Count: " + std::to_string(counter);
+	ImGui::Text(clickCount.c_str());*/
+
+	ImGui::End();
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	
+	
 	/*
 	gameUI.Update();
 	eui.update();
 	*/
 
+
+	//PostRender
+	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
 
 }
 
