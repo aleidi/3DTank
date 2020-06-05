@@ -55,6 +55,7 @@ public:
 	bool createRay(const Vector3& o, const Vector3& d); //the direction of ray is unit vector
 
 	void transformCube(Cube& cube, const float& scale, const Vector3& r, const Vector3& t);
+	void transformCube(Cube& cube, const Vector3& position);
 	void transformSphere(Sphere& sphere, const float& scale, const Vector3& r, const Vector3& t);
 	void onUpdate();
 
