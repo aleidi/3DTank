@@ -168,6 +168,7 @@
     <ClCompile Include="BoundingCube.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraCtrl.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="BoundingCube.h" />
     <ClInclude Include="BoundingSphere.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraCtrl.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentBase.h" />
@@ -250,6 +252,7 @@
     <ClInclude Include="GameCommon.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="KeycodeRedefine.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="ScriptComponent.h" />
     <ClInclude Include="GeometryGenerator.h" />
     <ClInclude Include="Graphics.h" />

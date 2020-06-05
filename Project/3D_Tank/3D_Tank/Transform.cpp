@@ -3,7 +3,7 @@
 
 Transform::Transform(GameObject * obj) noexcept
 	:Component(obj),
-	Position(Vector3::zero),Rotation(Vector3::zero),Scale(Vector3::one),
+	mPosition(Vector3::zero), mRotation(Vector3::zero), mScale(Vector3::one),
 	Forward(Vector3::forward),Right(Vector3::right),Up(Vector3::up),
 	children(),parent(),
 	localToWorld()
@@ -36,29 +36,29 @@ void Transform::onUpdate(float deltaTime)
 
 void Transform::translate(const Vector3& v)
 {
-	Position += v;
+	mPosition += v;
 }
 
 void Transform::translate(float x, float y, float z)
 {
-	Position.x += x;
-	Position.y += y;
-	Position.z += z;
+	mPosition.x += x;
+	mPosition.y += y;
+	mPosition.z += z;
 }
 
 void Transform::rotateX(float angle)
 {
-	Rotation.x += DirectX::XMConvertToRadians(angle);
+	mRotation.x += DirectX::XMConvertToRadians(angle);
 }
 
 void Transform::rotateY(float angle)
 {
-	Rotation.y += DirectX::XMConvertToRadians(angle);
+	mRotation.y += DirectX::XMConvertToRadians(angle);
 }
 
 void Transform::rotateZ(float angle)
 {
-	Rotation.z += DirectX::XMConvertToRadians(angle);
+	mRotation.z += DirectX::XMConvertToRadians(angle);
 }
 
 Transform* Transform::getChild(int index)
@@ -113,11 +113,83 @@ bool Transform::removeParent() noexcept
 	{
 		return false;
 	}
+	mPosition += parent->getPosition();
+	mRotation += parent->getRotation();
+	mScale *= parent->getScale();
 	parent = nullptr;
-	Position = worldPosition;
-	Rotation = worldRotation;
-	Scale = worldScale;
 	return true;
+}
+
+Vector3 Transform::getPosition() noexcept
+{
+	if (parent != nullptr)
+	{
+		return parent->getPosition() + mPosition;
+	}
+	return mPosition;
+}
+
+Vector3 Transform::getLocalPosition() noexcept
+{
+	return mPosition;
+}
+
+void Transform::setPosition(const Vector3 & pos) noexcept
+{
+	if (parent != nullptr)
+	{
+		mPosition = pos - parent->getPosition();
+		return;
+	}
+	mPosition = pos;
+}
+
+Vector3 Transform::getRotation() noexcept
+{
+	if (parent != nullptr)
+	{
+		return parent->getRotation() + mRotation;
+	}
+	return mRotation;
+}
+
+Vector3 Transform::getLocalRotation() noexcept
+{
+	return mRotation;
+}
+
+void Transform::setRotation(const Vector3 & rot) noexcept
+{
+	if (parent != nullptr)
+	{
+		mRotation = rot - parent->getRotation();
+		return;
+	}
+	mRotation = rot;
+}
+
+Vector3 Transform::getScale() noexcept
+{
+	if (parent != nullptr)
+	{
+		return Vector3::multiply(parent->getScale(), mScale);
+	}
+	return mScale;
+}
+
+Vector3 Transform::getLocalScale() noexcept
+{
+	return mScale;
+}
+
+void Transform::setScale(const Vector3 & scale) noexcept
+{
+	if (parent != nullptr)
+	{
+		mScale = scale / parent->getScale();
+		return;
+	}
+	mScale = scale;
 }
 
 XMMATRIX Transform::getLoacalToWorldMatrix() noexcept
@@ -127,26 +199,33 @@ XMMATRIX Transform::getLoacalToWorldMatrix() noexcept
 
 void Transform::calcultateTransformMatrix() noexcept
 {
-	XMMATRIX matrix;
-	XMVECTOR v;
 	//calculate model->world matrix, world rotation and world scale
+	Vector3 pos;
+	Vector3 rot;
+	Vector3 scale;
+	XMMATRIX matrix;
+
 	if (parent != nullptr)
 	{
-		worldPosition =  parent->worldPosition + Position;
-		worldRotation = parent->worldRotation + Rotation;
-		worldScale = Vector3::multiply(parent->worldScale, Scale);
+		pos =  parent->getPosition() + mPosition;
+		rot = parent->getRotation() + mRotation;
+		scale = Vector3::multiply(parent->getScale(), mScale);
+		matrix = XMMatrixScaling(scale.x, scale.y, scale.z)*
+			XMMatrixRotationRollPitchYaw(rot.x, rot.y, rot.z)*
+			XMMatrixTranslation(pos.x, pos.y, pos.z);
 	}
 	else
 	{
-		worldPosition = Position;
-		worldRotation = Rotation;
-		worldScale = Scale;
+		pos = mPosition;
+		rot = mRotation;
+		scale = mScale;
 	}
-	matrix = XMMatrixScaling(worldScale.x, worldScale.y, worldScale.z)*
-		XMMatrixRotationRollPitchYaw(worldRotation.x, worldRotation.y, worldRotation.z)*
-		XMMatrixTranslation(worldPosition.x, worldPosition.y, worldPosition.z);
+	matrix = XMMatrixScaling(scale.x, scale.y, scale.z)*
+		XMMatrixRotationRollPitchYaw(rot.x, rot.y, rot.z)*
+		XMMatrixTranslation(pos.x, pos.y, pos.z);
 	XMStoreFloat4x4(&localToWorld, matrix);
 
+	XMVECTOR v;
 	//calculate forward vector of model
 	v = XMVectorSet(Vector3::forward.x, Vector3::forward.y, Vector3::forward.z, 0.0f);
 	v = XMVector4Transform(v, matrix);

@@ -288,6 +288,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Engine\Source\Render</Filter>
     </ClCompile>
+    <ClCompile Include="CameraCtrl.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -490,6 +493,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Engine\Header\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Engine\Header\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraCtrl.h">
+      <Filter>Game\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

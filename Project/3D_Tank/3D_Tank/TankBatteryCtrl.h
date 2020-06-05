@@ -7,4 +7,3 @@ public:
 	TankBatteryCtrl(GameObject* object) noexcept;
 	void onUpdate(float deltaTime) override;
 };
-

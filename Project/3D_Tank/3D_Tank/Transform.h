@@ -27,19 +27,21 @@ public:
 	bool removeChild(Transform* child) noexcept;
 	bool removeParent() noexcept;
 
-	XMMATRIX getLoacalToWorldMatrix() noexcept;
+	Vector3 getPosition() noexcept;
+	Vector3 getLocalPosition() noexcept;
+	void setPosition(const Vector3& pos) noexcept;
+	Vector3 getRotation() noexcept;
+	Vector3 getLocalRotation() noexcept;
+	void setRotation(const Vector3& rot) noexcept;
+	Vector3 getScale() noexcept;
+	Vector3 getLocalScale() noexcept;
+	void setScale(const Vector3& scale) noexcept;
 
+	XMMATRIX getLoacalToWorldMatrix() noexcept;
 public:
-	Vector3 Position;
-	Vector3 Rotation;
-	Vector3 Scale;
 	Vector3 Forward;
 	Vector3 Right;
 	Vector3 Up;
-
-	Vector3 worldPosition;
-	Vector3 worldRotation;
-	Vector3 worldScale;
 
 private:
 	void calcultateTransformMatrix() noexcept;
@@ -48,5 +50,8 @@ private:
 	std::list<Transform*> children;
 	Transform* parent;
 
+	Vector3 mPosition;
+	Vector3 mRotation;
+	Vector3 mScale;
 	XMFLOAT4X4 localToWorld;
 };

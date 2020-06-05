@@ -10,6 +10,7 @@
 #include "TankGamePlay.h"
 #include "TankBatteryCtrl.h"
 #include "Camera.h"
+#include "CameraCtrl.h"
 
 Engine* Engine::sInstance = nullptr;
 
@@ -111,7 +112,7 @@ void Engine::onInit()
 	Camera* maincam = new Camera(cam);
 	cam->addComponent(maincam);
 	maincam->MainCamera = maincam;
-	cam->attach(*follow);
+	cam->addComponent(new CameraCtrl(cam));
 	cam->getTransform()->rotateX(20);
 
 	tankBattery = SceneManager::sGetInstance()->createEmptyObject();
@@ -136,7 +137,7 @@ void Engine::onInit()
 	SceneManager::sGetInstance()->createModel(*tankTrackR, "Tank\\TankTrack_R", L"Tank\\TankTrack");
 	tankTrackR->attach(*hq);
 
-	hq->getTransform()->Scale = Vector3(0.1f, 0.1f, 0.1f);
+	hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 }
 
 void Engine::run()

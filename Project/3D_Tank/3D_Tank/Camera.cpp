@@ -16,6 +16,6 @@ Camera::Camera(GameObject * object, float fov, float aspect, float nearZ, float 
 
 void Camera::onUpdate(float deltaTime)
 {
-	Position = mObject->getTransform()->worldPosition;
-	Rotation = mObject->getTransform()->worldRotation;
+	Position = mObject->getTransform()->getPosition();
+	Rotation = mObject->getTransform()->getRotation();
 }

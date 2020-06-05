@@ -23,6 +23,14 @@ Vector3& Vector3::operator += (const Vector3& v)
 	return *this;
 }
 
+Vector3 & Vector3::operator*=(const Vector3 & v)
+{
+	x *= v.x;
+	y *= v.y;
+	z *= v.z;
+	return *this;
+}
+
 bool Vector3::operator==(const Vector3 &v)
 {
 	return x = v.x&&y == v.y&&z == v.z;
@@ -79,4 +87,12 @@ Vector3 operator+(Vector3 lhs, const Vector3 & rhs)
 Vector3 operator-(Vector3 lhs, const Vector3 & rhs)
 {
 	return lhs + rhs * (-1.0f);
+}
+
+Vector3 operator/(Vector3 lhs, const Vector3 & rhs)
+{
+	lhs.x /= rhs.x;
+	lhs.y /= rhs.y;
+	lhs.z /= rhs.z;
+	return lhs;
 }
