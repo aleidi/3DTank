@@ -24,6 +24,10 @@ void DazeAndRest::Exit(EnemyTank* pEnemyTank) {
 
 }
 
+bool DazeAndRest::OnMessage(EnemyTank*, const Telegram&) {
+	return false;
+}
+
 //-------------------methods for Patrol
 Patrol* Patrol::getInstance() {
 	static Patrol* m_Patrol;
@@ -40,4 +44,8 @@ void Patrol::Execute(EnemyTank* pEnemyTank) {
 
 void Patrol::Exit(EnemyTank* pEnemyTank) {
 
+}
+
+bool Patrol::OnMessage(EnemyTank*, const Telegram&) {
+	return false;
 }

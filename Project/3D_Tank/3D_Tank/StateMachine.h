@@ -39,6 +39,18 @@ public:
 	State<entity_type>* getPreviousState() const { return m_pPreviousState; }
 
 	bool isInState(const State<entity_type>& st) const;
+
+	bool handleMessage(const Telegram& msg)const {
+		if (m_pCurrentState && m_pCurrentState->OnMessage(m_pOwner, msg)) {
+			return true;
+		}
+
+		if (m_pGlobalState && m_pGlobalState->OnMessage(m_pOwner, msg)) {
+			return true;
+		}
+
+		return false;
+	}
 private:
 	entity_type* m_pOwner;
 	State<entity_type>* m_pCurrentState;
