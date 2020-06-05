@@ -8,6 +8,10 @@
 #include "Transform.h"
 #include "ModelMesh.h"
 
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+
 Engine* Engine::sInstance = nullptr;
 
 //test code
@@ -84,6 +88,12 @@ void Engine::onInit()
 
 
 	//Gui Init
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui_ImplWin32_Init(mWnd.getHwnd());
+	ImGui_ImplDX11_Init(mRendering->getGFX()->GetDevice(), mRendering->getGFX()->GetContext());
+	ImGui::StyleColorsDark();
 
 	//EUI Init
 
@@ -212,14 +222,43 @@ void Engine::run()
 		hq->getTransform()->translate(dt*x, dt*y, dt*z);
 	}
 
-	//PostRender
-	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
+	//start imGui frame
+	static int counter = 0;
 
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	ImGui::Begin("Transform:");
+
+	float position = 0.0;
+	float rotation = 0.0;
+	float scale    = 0.0;
+	std::string  positionText = "Position : "+ std::to_string(position);
+	std::string  rotationText = "Rotation : "+ std::to_string(rotation);
+	std::string  scaleText = "Scale    : "+ std::to_string(scale);
+	ImGui::Text(positionText.c_str());
+	ImGui::Text(rotationText.c_str());
+	ImGui::Text(scaleText.c_str());
+
+	/*ImGui::Text("This is a text.");
+	if (ImGui::Button("CLICK ME!"))
+		counter += 1;
+	std::string clickCount = "Click Count: " + std::to_string(counter);
+	ImGui::Text(clickCount.c_str());*/
+
+	ImGui::End();
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	
+	
 	/*
 	gameUI.Update();
 	eui.update();
 	*/
 
+
+	//PostRender
+	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
 
 }
 
