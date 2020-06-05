@@ -131,13 +131,14 @@ bool Collision::rayExamination(const Ray& ray, Cube& cube, float& dis)
 
 bool Collision::createCube(const Vector3& point1, const Vector3& point2)
 {
-	DirectX::BoundingBox out;
-	DirectX::FXMVECTOR position1{ point1.x,point1.y,point1.z };
-	DirectX::FXMVECTOR position2{ point2.x,point2.y,point2.z };
-	DirectX::BoundingBox::CreateFromPoints(out, position1, position2);
-	Vector3 cen(out.Center.x, out.Center.y, out.Center.z);
-	Vector3 ext(out.Extents.x, out.Extents.y, out.Extents.z);
-	Cube cube(cen, ext, cubeNum + 1);
+	//DirectX::BoundingBox out;
+	//DirectX::FXMVECTOR position1{ point1.x,point1.y,point1.z };
+	//DirectX::FXMVECTOR position2{ point2.x,point2.y,point2.z };
+	//DirectX::BoundingBox::CreateFromPoints(out, position1, position2);
+	//Vector3 cen(out.Center.x, out.Center.y, out.Center.z);
+	//Vector3 ext(out.Extents.x, out.Extents.y, out.Extents.z);
+	//Cube cube(cen, ext, cubeNum + 1);
+	Cube cube(point1, point2,cubeNum + 1);
 	return addCube(cube);
 }
 
@@ -164,6 +165,11 @@ void Collision::transformCube(Cube& cube, const float& scale, const Vector3& r, 
 	box.Transform(box, scale, rotation, translation);
 	cube.center.x = box.Center.x; cube.center.y = box.Center.y; cube.center.z = box.Center.z;
 	cube.extents.x = box.Extents.x; cube.extents.y = box.Extents.y; cube.extents.z = box.Extents.z;
+}
+
+void Collision::transformCube(Cube & cube, const Vector3 & position)
+{
+	cube.center = position;
 }
 
 void Collision::transformSphere(Sphere & sphere, const float & scale, const Vector3 & r, const Vector3 & t)
