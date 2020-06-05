@@ -135,20 +135,24 @@ void Engine::onInit()
 	ScriptComponent* sc2 = new TankBatteryCtrl(tankBattery);
 	tankBattery->addScriptComponent(sc2);
 
-	GameObject* tankBody = SceneManager::sGetInstance()->createEmptyObject();
+	tankBody = SceneManager::sGetInstance()->createEmptyObject();
 	tankBody->setName("tankBody");
 	SceneManager::sGetInstance()->createModel(*tankBody, "Tank\\TankBody", L"Tank\\TankTex");
 	tankBody->attach(*hq);
 
-	GameObject* tankTrackL = SceneManager::sGetInstance()->createEmptyObject();
+	tankTrackL = SceneManager::sGetInstance()->createEmptyObject();
 	tankTrackL->setName("tankTrackL");
 	SceneManager::sGetInstance()->createModel(*tankTrackL, "Tank\\TankTrack_L", L"Tank\\TankTrack");
 	tankTrackL->attach(*hq);
 
-	GameObject* tankTrackR = SceneManager::sGetInstance()->createEmptyObject();
+	tankTrackR = SceneManager::sGetInstance()->createEmptyObject();
 	tankTrackR->setName("tankTrackR");
 	SceneManager::sGetInstance()->createModel(*tankTrackR, "Tank\\TankTrack_R", L"Tank\\TankTrack");
 	tankTrackR->attach(*hq);
+
+	GameObject* ground = SceneManager::sGetInstance()->createEmptyObject();
+	ground->setName("Ground");
+	SceneManager::sGetInstance()->createModel(*ground, "Objects\\SM_ZPlane_01a", L"Objects\\TX_RockyMud_01_ALB");
 
 	GameObject* obstacle = SceneManager::sGetInstance()->createSphere();
 	obstacle->setName("obstacle");
@@ -287,21 +291,21 @@ void Engine::run()
 	//start imGui frame
 	static int counter = 0;
 
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-	ImGui::Begin("Transform:");
+	//ImGui_ImplDX11_NewFrame();
+	//ImGui_ImplWin32_NewFrame();
+	//ImGui::NewFrame();
+	//ImGui::Begin("Transform:");
 
-	std::string gameObjectName = hq->getName();
-	Vector3 position = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getPosition();
-	Vector3 rotation = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getRotation();
-	Vector3 scale    = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getScale();
-	std::string  positionText = "Position : "+ std::to_string(position.x) + std::to_string(position.y) + std::to_string(position.z);
-	std::string  rotationText = "Rotation : "+ std::to_string(rotation.x) + std::to_string(rotation.y) + std::to_string(rotation.z);
-	std::string  scaleText = "Scale    : "+ std::to_string(scale.x) + std::to_string(scale.y) + std::to_string(scale.z);
-	ImGui::Text(positionText.c_str());
-	ImGui::Text(rotationText.c_str());
-	ImGui::Text(scaleText.c_str());
+	//std::string gameObjectName = hq->getName();
+	//Vector3 position = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getPosition();
+	//Vector3 rotation = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getRotation();
+	//Vector3 scale    = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getScale();
+	//std::string  positionText = "Position : "+ std::to_string(position.x) + std::to_string(position.y) + std::to_string(position.z);
+	//std::string  rotationText = "Rotation : "+ std::to_string(rotation.x) + std::to_string(rotation.y) + std::to_string(rotation.z);
+	//std::string  scaleText = "Scale    : "+ std::to_string(scale.x) + std::to_string(scale.y) + std::to_string(scale.z);
+	//ImGui::Text(positionText.c_str());
+	//ImGui::Text(rotationText.c_str());
+	//ImGui::Text(scaleText.c_str());
 
 	/*ImGui::Text("This is a text.");
 	if (ImGui::Button("CLICK ME!"))
@@ -309,9 +313,9 @@ void Engine::run()
 	std::string clickCount = "Click Count: " + std::to_string(counter);
 	ImGui::Text(clickCount.c_str());*/
 
-	ImGui::End();
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	//ImGui::End();
+	//ImGui::Render();
+	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	
 	
 	/*

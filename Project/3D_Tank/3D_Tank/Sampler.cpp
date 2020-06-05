@@ -15,6 +15,11 @@ Sampler::Sampler(Graphics & gfx)
 	GetDevice(gfx)->CreateSamplerState(&sampDesc, pSamplerState.GetAddressOf());
 }
 
+Sampler::Sampler(Graphics & gfx, D3D11_SAMPLER_DESC desc)
+{
+	GetDevice(gfx)->CreateSamplerState(&desc, pSamplerState.GetAddressOf());
+}
+
 void Sampler::bind(Graphics & gfx) noexcept
 {
 	GetContext(gfx)->PSSetSamplers(0, 1, pSamplerState.GetAddressOf());
