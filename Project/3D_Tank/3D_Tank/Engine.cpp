@@ -11,6 +11,7 @@
 #include "TankBatteryCtrl.h"
 #include "Camera.h"
 #include "CameraCtrl.h"
+#include "Collision.h"
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -26,6 +27,8 @@ GameObject* tankTrackL;
 GameObject* tankTrackR;
 GameObject* cam;
 GameObject* follow;
+
+Collision* collision;
 
 static float dis = 0.0f;
 
@@ -91,7 +94,7 @@ void Engine::onInit()
 
 	//Sound Init
 	mSound->onInit();
-	mSound->playBGM();
+
 
 	//Gui Init
 	IMGUI_CHECKVERSION();
@@ -147,7 +150,21 @@ void Engine::onInit()
 	SceneManager::sGetInstance()->createModel(*tankTrackR, "Tank\\TankTrack_R", L"Tank\\TankTrack");
 	tankTrackR->attach(*hq);
 
+	GameObject* obstacle = SceneManager::sGetInstance()->createSphere();
+	obstacle->setName("obstacle");
+	Vector3 pos(20.f, 5.f, 5.f);
+	Vector3 scale(3.f, 3.f, 3.f);
+	obstacle->getTransform()->setPosition(pos);
+	obstacle->getTransform()->setScale(scale);
+	collision = new Collision();
+	float radius = 5.f;
+	collision->createSphere(obstacle->getTransform()->getLocalPosition(),radius);
+	Vector3 extents(10.f, 10.f, 10.f);
+	collision->createCube(hq->getTransform()->getPosition(), extents);
+
 	hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+
+	
 }
 
 void Engine::run()
@@ -167,7 +184,17 @@ void Engine::run()
 	if (mIsGameMode)
 	{
 		SceneManager::sGetInstance()->onUpdate(deltaTime);
+		mSound->playBGM();
 	}
+	collision->transformCube(collision->mCube[0], hq->getTransform()->getPosition());
+	bool isCollision = collision->cubeCollisionSphere(collision->mCube[0], collision->mSphere[0]);
+	if (isCollision) {
+		mSound->setPause(0);
+	}
+	else {
+		mSound->setReplay(0);
+	}
+
 
 	//Sound Update
 	dis += fTrans_z;
