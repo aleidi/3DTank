@@ -37,6 +37,7 @@ Engine::Engine(Window& wnd)
 	mWnd(wnd),
 	mSound(std::make_unique<Sound>()),
 	mRendering(std::make_unique<Rendering>(wnd)),
+	mGameSystem(std::make_unique<GameSystem>()),
 	mIsGameMode(false)
 {
 	onPreInit();
@@ -75,20 +76,6 @@ void Engine::onPreInit()
 
 void Engine::onInit()
 {
-
-	//test code
-	calculateFrameStats();
-
-	 fScale = 1.0f;
-	 fTrans_x = 0.0f;
-	 fTrans_y = 0.0f;
-	 fTrans_z = 0.0f;
-	 fRot_x = 0.0f;
-	 fRot_y = 0.0f;
-	 fRot_z = 0.0f;
-	 fspeed = 300.0f;
-	 rspeed = 5.0f;
-
 	//Input Init
 	DInputPC::getInstance().onInit(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
 
@@ -107,9 +94,20 @@ void Engine::onInit()
 	//EUI Init
 
 	//Game Init
-	//SceneManager::sGetInstance()
+
+#pragma region TestCode
 
 	//test code
+	 fScale = 1.0f;
+	 fTrans_x = 0.0f;
+	 fTrans_y = 0.0f;
+	 fTrans_z = 0.0f;
+	 fRot_x = 0.0f;
+	 fRot_y = 0.0f;
+	 fRot_z = 0.0f;
+	 fspeed = 300.0f;
+	 rspeed = 5.0f;
+
 	hq = SceneManager::sGetInstance()->createEmptyObject();
 	hq->setName("hq");
 	ScriptComponent* sc = new TankGamePlay(hq);
@@ -199,6 +197,8 @@ void Engine::onInit()
 	hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 	hq->setLastFramePosition(hq->getTransform()->getPosition());
 
+#pragma endregion
+
 	
 }
 
@@ -215,10 +215,12 @@ void Engine::run()
 	//Physics Update
 
 	//Game Update
+
 	SceneManager::sGetInstance()->onEngineUpdate(deltaTime);
+
 	if (mIsGameMode)
 	{
-		SceneManager::sGetInstance()->onUpdate(deltaTime);
+		mGameSystem->onUpdate(deltaTime);
 		mSound->playBGM();
 	}
 	collision->transformCube(collision->mCube[0], hq->getTransform()->getPosition());
@@ -233,6 +235,15 @@ void Engine::run()
 		hq->setLastFramePosition(hq->getTransform()->getPosition());
 	}
 
+#pragma region test code
+
+	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
+	{
+		mIsGameMode = true;
+	}
+
+#pragma endregion
+
 
 	//Sound Update
 	dis += fTrans_z;
@@ -243,15 +254,6 @@ void Engine::run()
 
 	//OnRender
 	mRendering.get()->onRender(deltaTime);
-
-#pragma region test code
-
-	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
-	{
-		mIsGameMode = true;
-	}
-
-#pragma endregion
 
 	//PostRender
 	mRendering.get()->onPostRender(mTimer.getDeltaTIme());

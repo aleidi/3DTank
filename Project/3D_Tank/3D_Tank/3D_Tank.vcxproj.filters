@@ -127,6 +127,27 @@
     <Filter Include="Engine\Source\Misc\Messaging">
       <UniqueIdentifier>{1c79f24b-ee92-4207-a969-5a10813cc1b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Header\Controller">
+      <UniqueIdentifier>{7ded3fdd-7f27-47d1-a0aa-46a5783bbdbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source\Controller">
+      <UniqueIdentifier>{1a25a85a-c22e-4312-a1ff-4a454a206aa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header\Pawn">
+      <UniqueIdentifier>{ddd35392-5587-43e9-a844-77b4254bf365}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source\Pawn">
+      <UniqueIdentifier>{d9950814-01b7-4f42-b58e-ae551ec1000e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header\Level">
+      <UniqueIdentifier>{835758a1-9cdf-430c-b83a-3064fb72e3fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source\Level">
+      <UniqueIdentifier>{1a7ebe21-ac62-45fc-ba6e-f048389ddf86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TestCode">
+      <UniqueIdentifier>{68c49376-639b-4979-bb01-89a9fd9e3f2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -285,12 +306,6 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="TankGamePlay.cpp">
-      <Filter>Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="TankBatteryCtrl.cpp">
-      <Filter>Game\Source</Filter>
-    </ClCompile>
     <ClCompile Include="imgui_widgets.cpp">
       <Filter>Engine\Source\GUI</Filter>
     </ClCompile>
@@ -309,9 +324,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Engine\Source\Render</Filter>
     </ClCompile>
-    <ClCompile Include="CameraCtrl.cpp">
-      <Filter>Game\Source</Filter>
-    </ClCompile>
     <ClCompile Include="EntityManager.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
     </ClCompile>
@@ -320,6 +332,42 @@
     </ClCompile>
     <ClCompile Include="CrudeTimer.cpp">
       <Filter>Engine\Source\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInstance.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInput.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerBase.cpp">
+      <Filter>Game\Source\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="GameModeBase.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevelBase.cpp">
+      <Filter>Game\Source\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevelManager.cpp">
+      <Filter>Game\Source\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLoop.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TankBatteryCtrl.cpp">
+      <Filter>Game\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="TankGamePlay.cpp">
+      <Filter>Game\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraCtrl.cpp">
+      <Filter>Game\TestCode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -506,9 +554,6 @@
     <ClInclude Include="Collision.h">
       <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="TankGamePlay.h">
-      <Filter>Game\Header</Filter>
-    </ClInclude>
     <ClInclude Include="imgui.h">
       <Filter>Engine\Header\GUI</Filter>
     </ClInclude>
@@ -536,9 +581,6 @@
     <ClInclude Include="GameCommon.h">
       <Filter>Game\Header</Filter>
     </ClInclude>
-    <ClInclude Include="TankBatteryCtrl.h">
-      <Filter>Game\Header</Filter>
-    </ClInclude>
     <ClInclude Include="KeycodeRedefine.h">
       <Filter>Engine\Header\Input</Filter>
     </ClInclude>
@@ -547,9 +589,6 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Engine\Header\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraCtrl.h">
-      <Filter>Game\Header</Filter>
     </ClInclude>
     <ClInclude Include="EntityManager.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
@@ -571,6 +610,42 @@
     </ClInclude>
     <ClInclude Include="CrudeTimer.h">
       <Filter>Engine\Header\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInstance.h">
+      <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInput.h">
+      <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerBase.h">
+      <Filter>Game\Header\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Pawn.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="GameModeBase.h">
+      <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevelBase.h">
+      <Filter>Game\Header\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevelManager.h">
+      <Filter>Game\Header\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLoop.h">
+      <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem.h">
+      <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TankBatteryCtrl.h">
+      <Filter>Game\TestCode</Filter>
+    </ClInclude>
+    <ClInclude Include="TankGamePlay.h">
+      <Filter>Game\TestCode</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraCtrl.h">
+      <Filter>Game\TestCode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
