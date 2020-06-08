@@ -194,6 +194,7 @@
     <ClCompile Include="GameLevelManager.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="GameModeBase.cpp" />
+    <ClCompile Include="GameStateBase.cpp" />
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
@@ -278,6 +279,7 @@
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameModeBase.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="GameStateBase.h" />
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="KeycodeRedefine.h" />
     <ClInclude Include="Math.h" />

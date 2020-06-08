@@ -369,6 +369,9 @@
     <ClCompile Include="CameraCtrl.cpp">
       <Filter>Game\TestCode</Filter>
     </ClCompile>
+    <ClCompile Include="GameStateBase.cpp">
+      <Filter>Game\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -646,6 +649,9 @@
     </ClInclude>
     <ClInclude Include="CameraCtrl.h">
       <Filter>Game\TestCode</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateBase.h">
+      <Filter>Game\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
