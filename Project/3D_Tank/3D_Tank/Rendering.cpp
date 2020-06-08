@@ -5,7 +5,7 @@
 #include "RenderCamera.h"
 
 Rendering::Rendering(Window & wnd)
-	:mhMainWnd(&wnd),mDrawings()
+	:mhMainWnd(&wnd)
 {
 }
 
@@ -40,23 +40,6 @@ void Rendering::onPostRender(float deltaTime)
 void Rendering::onEndRender(float deltaTime)
 {
 	mGraphics->EndFrame();
-}
-
-void Rendering::addDrawing(RenderComponent * drawComp) noexcept
-{
-	mDrawings.push_back(drawComp);
-}
-
-void Rendering::removeDrawing(UINT id)
-{
-	delete mDrawings[id];
-	mDrawings[id] = nullptr;
-}
-
-
-UINT Rendering::registerID() noexcept
-{
-	return 0;
 }
 
 Graphics * Rendering::getGFX()

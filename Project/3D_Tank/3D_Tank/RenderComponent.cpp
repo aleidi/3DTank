@@ -6,7 +6,6 @@
 RenderComponent::RenderComponent(GameObject* obj)
 	:Component(obj),mMesh()
 {
-	RenderManager::sGetInstance()->addMeshToPool(mMesh);
 }
 
 RenderComponent::~RenderComponent()
@@ -25,5 +24,5 @@ void RenderComponent::setMesh(Mesh * theMesh) noexcept
 
 DirectX::XMMATRIX RenderComponent::getTransformXM() noexcept
 {
-	return mObject->getTransform()->getLoacalToWorldMatrix();
+	return mObject->getTransform()->getLocalToWorldMatrix();
 }

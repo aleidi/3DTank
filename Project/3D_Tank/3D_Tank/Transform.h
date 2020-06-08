@@ -37,7 +37,7 @@ public:
 	Vector3 getLocalScale() noexcept;
 	void setScale(const Vector3& scale) noexcept;
 
-	XMMATRIX getLoacalToWorldMatrix() noexcept;
+	XMMATRIX getLocalToWorldMatrix() noexcept;
 public:
 	Vector3 Forward;
 	Vector3 Right;
