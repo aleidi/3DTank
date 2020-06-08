@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "SceneManager.h"
 #include "ComponentFactory.h"
+#include "Configuration.h"
 
 #include "GameObject.h"
 #include "Transform.h"
@@ -37,6 +38,7 @@ Engine::Engine(Window& wnd)
 	mWnd(wnd),
 	mSound(std::make_unique<Sound>()),
 	mRendering(std::make_unique<Rendering>(wnd)),
+	mGameSystem(std::make_unique<GameSystem>()),
 	mIsGameMode(false)
 {
 	onPreInit();
@@ -75,20 +77,6 @@ void Engine::onPreInit()
 
 void Engine::onInit()
 {
-
-	//test code
-	calculateFrameStats();
-
-	 fScale = 1.0f;
-	 fTrans_x = 0.0f;
-	 fTrans_y = 0.0f;
-	 fTrans_z = 0.0f;
-	 fRot_x = 0.0f;
-	 fRot_y = 0.0f;
-	 fRot_z = 0.0f;
-	 fspeed = 300.0f;
-	 rspeed = 5.0f;
-
 	//Input Init
 	DInputPC::getInstance().onInit(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
 
@@ -107,9 +95,20 @@ void Engine::onInit()
 	//EUI Init
 
 	//Game Init
-	//SceneManager::sGetInstance()
+
+#pragma region TestCode
 
 	//test code
+	 fScale = 1.0f;
+	 fTrans_x = 0.0f;
+	 fTrans_y = 0.0f;
+	 fTrans_z = 0.0f;
+	 fRot_x = 0.0f;
+	 fRot_y = 0.0f;
+	 fRot_z = 0.0f;
+	 fspeed = 300.0f;
+	 rspeed = 5.0f;
+
 	hq = SceneManager::sGetInstance()->createEmptyObject();
 	hq->setName("hq");
 	ScriptComponent* sc = new TankGamePlay(hq);
@@ -197,6 +196,9 @@ void Engine::onInit()
 	collision->createCube(hq->getTransform()->getPosition(), extents);
 
 	hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+	hq->setLastFramePosition(hq->getTransform()->getPosition());
+
+#pragma endregion
 
 	
 }
@@ -212,22 +214,37 @@ void Engine::run()
 	DInputPC::getInstance().onUpdate();
 
 	//Physics Update
+	SceneManager::sGetInstance()->onEngineFixedUpdate(FixedDeltaTime);
 
 	//Game Update
+
 	SceneManager::sGetInstance()->onEngineUpdate(deltaTime);
+
 	if (mIsGameMode)
 	{
-		SceneManager::sGetInstance()->onUpdate(deltaTime);
+		mGameSystem->onUpdate(deltaTime);
 		mSound->playBGM();
 	}
 	collision->transformCube(collision->mCube[0], hq->getTransform()->getPosition());
 	bool isCollision = collision->cubeCollisionSphere(collision->mCube[0], collision->mSphere[0]);
 	if (isCollision) {
-		mSound->setPause(0);
+		mSound->setPause(MusicIndex(BGM));
+		hq->setLastFramePosition(hq->getLastFramePosition());
+		hq->getTransform()->setPosition(hq->getLastFramePosition());
 	}
 	else {
-		mSound->setReplay(0);
+		mSound->setReplay(MusicIndex(BGM));
+		hq->setLastFramePosition(hq->getTransform()->getPosition());
 	}
+
+#pragma region test code
+
+	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
+	{
+		mIsGameMode = true;
+	}
+
+#pragma endregion
 
 
 	//Sound Update
@@ -239,81 +256,6 @@ void Engine::run()
 
 	//OnRender
 	mRendering.get()->onRender(deltaTime);
-
-#pragma region test code
-	float dt = mTimer.getDeltaTIme() * fspeed;
-	float dt2 = mTimer.getDeltaTIme() * rspeed;
-	//XMVECTOR v = mRendering.get()->getGFX()->getCamPos();
-	//if (DInputPC::getInstance().iskey(DIK_W))
-	//{
-	//	v = mRendering.get()->getGFX()->getcamForward();
-	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-	//	v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_S))
-	//{
-	//	v = mRendering.get()->getGFX()->getcamForward();
-	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-	//	v = XMVectorSubtract(mRendering.get()->getGFX()->getCamPos(),v);
-
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_A))
-	//{
-	//	v = mRendering.get()->getGFX()->getcamRight();
-	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-	//	v = XMVectorSubtract(mRendering.get()->getGFX()->getCamPos(), v);
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_D))
-	//{
-	//	v = mRendering.get()->getGFX()->getcamRight();
-	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-	//	v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_Q))
-	//{
-	//	v = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-	//	v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_E))
-	//{
-	//	v = XMVectorSet(0.0f, -1.0f, 0.0f, 0.0f);
-	//	v = XMVectorMultiply(v, XMVectorSet(dt, dt, dt, dt));
-	//	v = XMVectorAdd(mRendering.get()->getGFX()->getCamPos(), v);
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_I))
-	//{
-	//	fRot_x -= mTimer.getDeltaTIme() * rspeed;
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_K))
-	//{
-	//	fRot_x += mTimer.getDeltaTIme() * rspeed;
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_J))
-	//{
-	//	fRot_y -= mTimer.getDeltaTIme() * rspeed;
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_L))
-	//{
-	//	fRot_y += mTimer.getDeltaTIme() * rspeed;
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_U))
-	//{
-	//	fRot_z -= mTimer.getDeltaTIme() * rspeed;
-	//}
-	//if (DInputPC::getInstance().iskey(DIK_O))
-	//{
-	//	fRot_z += mTimer.getDeltaTIme() * rspeed;
-	//}
-	//mRendering.get()->getGFX()->CamSetPosition(v);
-	//mRendering.get()->getGFX()->CamSetRotation(fRot_x, fRot_y, fRot_z);
-
-	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
-	{
-		mIsGameMode = true;
-	}
-
-#pragma endregion
 
 	//PostRender
 	mRendering.get()->onPostRender(mTimer.getDeltaTIme());

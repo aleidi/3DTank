@@ -16,11 +16,7 @@ public:
 	~RenderCamera();
 
 	XMVECTOR getPosition() noexcept;
-	void setPosition(XMVECTOR pos) noexcept;
-	void setPosition(float x, float y, float z) noexcept;
 	XMVECTOR getRotation() noexcept;
-	void setRotation(XMVECTOR rot) noexcept;
-	void setRotation(float x, float y, float z) noexcept;
 	XMVECTOR getRight() noexcept;
 	XMVECTOR getUp() noexcept;
 	XMVECTOR getForward() noexcept;
@@ -35,14 +31,23 @@ public:
 	void setProjectionType(int type = 0) noexcept;
 
 	void onUpdate(float deltaTime) noexcept;
+
+private:
+	void calculateDirectionVector() noexcept;
+	void calculateViewUP() noexcept;
 	
-protected:
+	void setPosition(XMVECTOR pos) noexcept;
+	void setPosition(float x, float y, float z) noexcept;
+	void setRotation(XMVECTOR rot) noexcept;
+	void setRotation(float x, float y, float z) noexcept;
+private:
 	XMFLOAT3 mPosition;
 	XMFLOAT3 mRotation;
 	XMFLOAT3 mRight;
 	XMFLOAT3 mUp;
 	XMFLOAT3 mForward;
 	ProjectionType mProjType;
+	XMFLOAT3 mViewUp;
 	
 	//frustum
 	float mFov;
@@ -51,7 +56,4 @@ protected:
 	float mFarZ;
 
 	D3D11_VIEWPORT mViewport;
-
-private:
-	void calculateDirectionVector() noexcept;
 };

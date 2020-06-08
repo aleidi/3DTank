@@ -20,9 +20,13 @@ const std::string SOUND_FILE_PATH[7] =
 	"Resource/Sound/SE04_Shell_boom.wav"
 };
 
+enum MusicIndex { BGM, BUTTON_CLICK, TNAK_MOVE, TANK_SHOT, TANK_EXPLOSSION, SHELL_FLYBY, SHELL_BOOM };
+
 class Sound
 {
 public:
+	
+
 	Sound();
 	Sound(const Sound&);
 	~Sound();

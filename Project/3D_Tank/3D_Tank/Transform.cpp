@@ -192,7 +192,7 @@ void Transform::setScale(const Vector3 & scale) noexcept
 	mScale = scale;
 }
 
-XMMATRIX Transform::getLoacalToWorldMatrix() noexcept
+XMMATRIX Transform::getLocalToWorldMatrix() noexcept
 {
 	return XMLoadFloat4x4(&localToWorld);
 }

@@ -10,9 +10,9 @@ public:
 
 	void onUpdate(float deltaTime) override;
 public:
-	//frustum
 	Vector3 Position;
 	Vector3 Rotation;	
+	//frustum
 	float Fov;
 	float Aspect;
 	float Near;

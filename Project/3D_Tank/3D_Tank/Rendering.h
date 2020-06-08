@@ -17,19 +17,10 @@ public:
 	void onPostRender(float deltaTime);
 	void onEndRender(float deltaTime);
 
-	void addDrawing(RenderComponent* drawComp) noexcept;
-	void removeDrawing(UINT id);
-	UINT registerID() noexcept;
-
 	//test code
 	Graphics* getGFX();
 
 private:
-
-
 	Graphics* mGraphics;
 	Window* mhMainWnd;
-
-	std::vector<RenderComponent*> mDrawings;
-	UINT mDrawingID;
 };

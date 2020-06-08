@@ -22,6 +22,11 @@ GameObject::~GameObject()
 		}
 	}
 	mComps.clear();
+	if (lastFramePostion != NULL)
+	{
+		delete lastFramePostion;
+		lastFramePostion = NULL;
+	}
 }
 
 void GameObject::addComponent(Component * comp) noexcept
@@ -133,4 +138,22 @@ void GameObject::onEngineUpdate(float deltaTime)
 		(*it)->onEngineUpdate(deltaTime);
 	}
 	mTransform->onEngineUpdate(deltaTime);
+}
+
+void GameObject::onEngineFixedUpdate(float fixedDeltaTime)
+{
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		(*it)->onEngineFixedUpdate(fixedDeltaTime);
+	}
+}
+
+void GameObject::setLastFramePosition(const Vector3& position)
+{
+	lastFramePostion = new Vector3(position.x, position.y, position.z);
+}
+
+Vector3 GameObject::getLastFramePosition()
+{
+	return *lastFramePostion;
 }

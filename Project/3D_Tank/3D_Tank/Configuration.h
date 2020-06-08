@@ -10,3 +10,5 @@
 
 #define WNDCLASSNAME L"Main Window"
 #define WNDTITLE L"3D Tank"
+
+#define FixedDeltaTime 0.02f

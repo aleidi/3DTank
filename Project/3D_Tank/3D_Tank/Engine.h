@@ -2,6 +2,7 @@
 #include "Timer.h"
 #include "Sound.h"
 #include "Rendering.h"
+#include "GameSystem.h"
 
 #if defined(PS4)
 #include "DInput_PS4.h"
@@ -39,6 +40,7 @@ private:
 	std::unique_ptr<Sound> mSound;
 	std::unique_ptr<Rendering> mRendering;
 	Timer mTimer;
+	std::unique_ptr<GameSystem> mGameSystem;
 
 	bool mIsGameMode;
 

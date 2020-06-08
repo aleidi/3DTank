@@ -29,10 +29,16 @@ public:
 	void onStart();
 	void onUpdate(float deltaTime);
 	void onEngineUpdate(float deltaTime);
+	void onEngineFixedUpdate(float fixedDeltaTime);
+
+	void setLastFramePosition(const Vector3& position);
+	Vector3 getLastFramePosition();
 
 private:
 	std::list<Component*> mComps;
 	Transform* mTransform;
 
 	std::string mName;
+
+	Vector3* lastFramePostion;
 };
