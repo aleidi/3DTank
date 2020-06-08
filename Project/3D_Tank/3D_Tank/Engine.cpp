@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "SceneManager.h"
 #include "ComponentFactory.h"
+#include "Configuration.h"
 
 #include "GameObject.h"
 #include "Transform.h"
@@ -213,6 +214,7 @@ void Engine::run()
 	DInputPC::getInstance().onUpdate();
 
 	//Physics Update
+	SceneManager::sGetInstance()->onEngineFixedUpdate(FixedDeltaTime);
 
 	//Game Update
 

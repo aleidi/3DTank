@@ -140,6 +140,14 @@ void GameObject::onEngineUpdate(float deltaTime)
 	mTransform->onEngineUpdate(deltaTime);
 }
 
+void GameObject::onEngineFixedUpdate(float fixedDeltaTime)
+{
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		(*it)->onEngineFixedUpdate(fixedDeltaTime);
+	}
+}
+
 void GameObject::setLastFramePosition(const Vector3& position)
 {
 	lastFramePostion = new Vector3(position.x, position.y, position.z);

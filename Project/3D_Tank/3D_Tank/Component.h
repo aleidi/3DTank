@@ -10,6 +10,7 @@ public:
 	Component(GameObject* object) noexcept;
 	virtual ~Component();
 	virtual void onEngineUpdate(float deltaTime) {}
+	virtual void onEngineFixedUpdate(float fixeDeltaTime) {}
 
 	virtual void onAwake() {}
 	virtual void onEnable() {}
