@@ -451,37 +451,22 @@ DirectX::XMMATRIX Graphics::GetViewProj() const noexcept
 	return mRenderCamera.get()->getViewProjXM();
 }
 
-void Graphics::CamSetPosition(float x, float y, float z)
-{
-	mRenderCamera.get()->setPosition(x, y, z);
-}
-
-void Graphics::CamSetPosition(XMVECTOR v)
-{
-	mRenderCamera.get()->setPosition(v);
-}
-
-void Graphics::CamSetRotation(float x, float y, float z)
-{
-	mRenderCamera.get()->setRotation(x, y, z);
-}
-
-DirectX::XMVECTOR Graphics::getcamForward()
-{
-	return mRenderCamera.get()->getForward();
-}
-
-DirectX::XMVECTOR Graphics::getcamRight()
-{
-	return mRenderCamera.get()->getRight();
-}
-
-DirectX::XMVECTOR Graphics::getcamUp()
-{
-	return  mRenderCamera.get()->getUp();
-}
-
-DirectX::XMVECTOR Graphics::getCamPos()
-{
-	return mRenderCamera.get()->getPosition();
-}
+//DirectX::XMVECTOR Graphics::getcamForward()
+//{
+//	return mRenderCamera.get()->getForward();
+//}
+//
+//DirectX::XMVECTOR Graphics::getcamRight()
+//{
+//	return mRenderCamera.get()->getRight();
+//}
+//
+//DirectX::XMVECTOR Graphics::getcamUp()
+//{
+//	return  mRenderCamera.get()->getUp();
+//}
+//
+//DirectX::XMVECTOR Graphics::getCamPos()
+//{
+//	return mRenderCamera.get()->getPosition();
+//}
