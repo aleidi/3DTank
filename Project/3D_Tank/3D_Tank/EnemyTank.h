@@ -18,6 +18,7 @@ public:
 	void update();
 
 	StateMachine<EnemyTank>* getFSM() const;
+	bool handleMessage(const Telegram& msg);
 
 	void damageCalculaion(int damage);
 	int getHP()const;

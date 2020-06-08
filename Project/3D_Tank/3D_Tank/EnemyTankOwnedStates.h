@@ -9,6 +9,8 @@ public:
 	virtual void Enter(EnemyTank* pETank);
 	virtual void Execute(EnemyTank* pETank);
 	virtual void Exit(EnemyTank* pETank);
+
+	virtual bool OnMessage(EnemyTank*, const Telegram&);
 private:
 	DazeAndRest() {}
 	
@@ -22,6 +24,8 @@ public:
 	virtual void Enter(EnemyTank* pETank);
 	virtual void Execute(EnemyTank* pETank);
 	virtual void Exit(EnemyTank* pETank);
+
+	virtual bool OnMessage(EnemyTank*, const Telegram&);
 private:
 	Patrol() {}
 	

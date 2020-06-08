@@ -30,3 +30,7 @@ bool EnemyTank::isDying()const {
 
 	return false;
 }
+
+bool EnemyTank::handleMessage(const Telegram& msg) {
+	return m_pStateMachine->handleMessage(msg); 
+}

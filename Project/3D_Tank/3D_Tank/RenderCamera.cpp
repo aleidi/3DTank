@@ -7,9 +7,10 @@
 
 RenderCamera::RenderCamera(const Graphics& gfx)
 	: mPosition(0.0f,0.0f,0.0f), mRotation(0.0f,0.0f,0.0f),
-	mRight(1.0f,0.0f,0.0f),mUp(0.0f,0.0f,1.0f),mForward(0.0f,0.0f,1.0f),
+	mRight(1.0f,0.0f,0.0f),mUp(0.0f,1.0f,0.0f),mForward(0.0f,0.0f,1.0f),
 	mProjType(ProjectionType::Perspective),mFov(XM_PI/3),mAspect((float)WINDOW_WIDTH/WINDOW_HEIGHT),mNearZ(0.1f),mFarZ(1000.0f),
-	mViewport{ 0.0f,0.0f, (float)gfx.mClientWidth,(float)gfx.mClientWidth,0.0f,1.0f}
+	mViewport{ 0.0f,0.0f, (float)gfx.mClientWidth,(float)gfx.mClientWidth,0.0f,1.0f},
+	mViewUp(0.0f,1.0f,0.0f)
 {
 }
 
@@ -47,6 +48,7 @@ void RenderCamera::setRotation(XMVECTOR rot) noexcept
 {
 	XMStoreFloat3(&mRotation, rot);
 
+	calculateViewUP();
 	calculateDirectionVector();
 }
 
@@ -56,6 +58,7 @@ void RenderCamera::setRotation(float x, float y, float z) noexcept
 	mRotation.y = y;
 	mRotation.z = z;
 
+	calculateViewUP();
 	calculateDirectionVector();
 }
 
@@ -90,7 +93,7 @@ XMMATRIX RenderCamera::getViewXM() noexcept
 	const auto camPosition = XMLoadFloat3(&mPosition);
 	const auto camTarget = camPosition + lookVector;
 
-	return XMMatrixLookAtLH(camPosition, camTarget, XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
+	return XMMatrixLookAtLH(camPosition, camTarget, XMLoadFloat3(&mViewUp));
 }
 
 XMMATRIX RenderCamera::getProjectionXM() noexcept
@@ -148,8 +151,8 @@ void RenderCamera::onUpdate(float deltaTime) noexcept
 		mFarZ = 1000.0f;
 		return;
 	}
-	mPosition = XMFLOAT3(Camera::MainCamera->Position.x, Camera::MainCamera->Position.y, Camera::MainCamera->Position.z);
-	mRotation = XMFLOAT3(Camera::MainCamera->Rotation.x, Camera::MainCamera->Rotation.y, Camera::MainCamera->Rotation.z);
+	setPosition(Camera::MainCamera->Position.x, Camera::MainCamera->Position.y, Camera::MainCamera->Position.z);
+	setRotation(Camera::MainCamera->Rotation.x, Camera::MainCamera->Rotation.y, Camera::MainCamera->Rotation.z);
 	mFov = Camera::MainCamera->Fov;
 	mAspect = Camera::MainCamera->Aspect;
 	mNearZ = Camera::MainCamera->Near;
@@ -182,4 +185,17 @@ void RenderCamera::calculateDirectionVector() noexcept
 	v = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	v = XMVector3Transform(v, matrix);
 	XMStoreFloat3(&mUp, v);
+}
+
+void RenderCamera::calculateViewUP() noexcept
+{
+	auto result = std::fmodf(mRotation.x + XM_PIDIV2, XM_2PI);
+	if (result >= XM_PI || (result <= 0 && result >= -XM_PI))
+	{
+		mViewUp.y = -1.0f;
+	}
+	else
+	{
+		mViewUp.y = 1.0f;
+	}
 }
