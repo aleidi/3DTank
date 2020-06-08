@@ -1,12 +1,16 @@
 #pragma once
 
+#include <string>
+#include "Telegram.h"
 // desc: base class for a game object
 class BaseGameEntity {
 public:
 	BaseGameEntity(int id) { setID(id); }
 	virtual ~BaseGameEntity() {}
-	virtual void Update() = 0;
+	virtual void update() = 0;
 	int getID()const { return m_ID; }
+
+	virtual bool handleMessage(const Telegram& msg) = 0;
 
 private:
 	int m_ID; // every entity must have a unique identifying number
