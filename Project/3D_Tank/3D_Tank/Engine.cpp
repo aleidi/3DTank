@@ -197,6 +197,7 @@ void Engine::onInit()
 	collision->createCube(hq->getTransform()->getPosition(), extents);
 
 	hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+	hq->setLastFramePosition(hq->getTransform()->getPosition());
 
 	
 }
@@ -223,10 +224,13 @@ void Engine::run()
 	collision->transformCube(collision->mCube[0], hq->getTransform()->getPosition());
 	bool isCollision = collision->cubeCollisionSphere(collision->mCube[0], collision->mSphere[0]);
 	if (isCollision) {
-		mSound->setPause(0);
+		mSound->setPause(MusicIndex(BGM));
+		hq->setLastFramePosition(hq->getLastFramePosition());
+		hq->getTransform()->setPosition(hq->getLastFramePosition());
 	}
 	else {
-		mSound->setReplay(0);
+		mSound->setReplay(MusicIndex(BGM));
+		hq->setLastFramePosition(hq->getTransform()->getPosition());
 	}
 
 
