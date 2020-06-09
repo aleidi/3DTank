@@ -21,8 +21,8 @@ public:
 	void setGlobalState(State<entity_type>* s) { m_pGlobalState = s; }
 
 	void update() const {
-		if (m_pGlobalState) m_pGlobalState->Execute(m_pOwner);
-		if (m_pCurrentState) m_pCurrentState->Execute(m_pOwner);
+		if (m_pGlobalState) m_pGlobalState->execute(m_pOwner);
+		if (m_pCurrentState) m_pCurrentState->execute(m_pOwner);
 	}
 
 	void changeState(State<entity_type>* pNewState) {
