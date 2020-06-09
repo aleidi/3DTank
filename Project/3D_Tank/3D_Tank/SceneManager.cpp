@@ -73,7 +73,7 @@ void SceneManager::addGameObjectToPool(GameObject * object) noexcept
 	mObjs.push_back(object);
 }
 
-bool SceneManager::removeGameObjectToPool(GameObject * object) noexcept
+bool SceneManager::removeGameObjectFromPool(GameObject * object) noexcept
 {
 	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end();)
 	{

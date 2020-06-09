@@ -1,25 +1,23 @@
 #pragma once
 
-class GameModeBase;
+#include "GameModeBase.h"
+#include "GameLevelManager.h"
 
 class GameLevelBase
 {
 public:
-	GameLevelBase();
-	virtual ~GameLevelBase()
-	{
-		delete mCurrentGameMode;
-		mCurrentGameMode = nullptr;
-	}
+	GameLevelBase() = default;
+	virtual ~GameLevelBase() {}
 
-	virtual bool enterLevel() = 0;
-	virtual bool onUpdate(float deltaTime) = 0;
-	virtual bool leaveLevel() = 0;
+	virtual void enterLevel() = 0;
+	virtual GameLevelBase* onUpdate(float deltaTime) = 0;
+	virtual void leaveLevel() = 0;
 
 	void setGameMode(GameModeBase* gameMode)
 	{
 		mCurrentGameMode = gameMode;
 	}
+
 	GameModeBase* getGameMode()
 	{
 		return mCurrentGameMode;

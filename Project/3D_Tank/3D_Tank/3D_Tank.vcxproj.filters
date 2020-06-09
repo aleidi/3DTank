@@ -148,6 +148,12 @@
     <Filter Include="Game\TestCode">
       <UniqueIdentifier>{68c49376-639b-4979-bb01-89a9fd9e3f2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Header\Input">
+      <UniqueIdentifier>{4cd0b4ab-9aff-4627-8547-56461652246d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source\Input">
+      <UniqueIdentifier>{3c5a28f0-dc23-4be4-904e-cae321b1f36d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -342,9 +348,6 @@
     <ClCompile Include="ControllerBase.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>Game\Source\Pawn</Filter>
-    </ClCompile>
     <ClCompile Include="GameModeBase.cpp">
       <Filter>Game\Source</Filter>
     </ClCompile>
@@ -368,6 +371,21 @@
     </ClCompile>
     <ClCompile Include="GameStateBase.cpp">
       <Filter>Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevelTest.cpp">
+      <Filter>Game\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Level01.cpp">
+      <Filter>Game\Source\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultPlayerController.cpp">
+      <Filter>Game\Source\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultPlayer.cpp">
+      <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -649,6 +667,18 @@
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
       <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevelTest.h">
+      <Filter>Game\TestCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Level01.h">
+      <Filter>Game\Header\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultPlayerController.h">
+      <Filter>Game\Header\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultPlayer.h">
+      <Filter>Game\Header\Pawn</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

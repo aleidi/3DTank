@@ -160,12 +160,12 @@ void RenderCamera::onUpdate(float deltaTime) noexcept
 	Camera::MainCamera->IsPerpective ? setProjectionType(ProjectionType::Perspective) : 
 		setProjectionType(ProjectionType::Orthographic);
 
-	//test code
-	std::wstring wc = L"RenderCamPosition: ";
-	wc += std::to_wstring(mPosition.x);
-	wc += L"," + std::to_wstring(mPosition.y) + L"," + std::to_wstring(mPosition.z);
+	////test code
+	//std::wstring wc = L"RenderCamPosition: ";
+	//wc += std::to_wstring(mPosition.x);
+	//wc += L"," + std::to_wstring(mPosition.y) + L"," + std::to_wstring(mPosition.z);
 
-	Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600, true);
+	//Engine::sGetInstance()->showtText(wc.c_str(), 0, 0, 600, 600, true);
 }
 
 void RenderCamera::calculateDirectionVector() noexcept

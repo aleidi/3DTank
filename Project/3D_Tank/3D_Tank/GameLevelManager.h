@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GameCommon.h"
+
 class GameLevelBase;
 
 class GameLevelManager
@@ -11,7 +13,9 @@ public:
 
 	bool onInit();
 	bool onUpdadte(float deltaTime);
-	bool ChangeLevel(GameLevelBase* level);
+	void addLevel(int id, GameLevelBase* level);
+	GameLevelBase* changeLevel(int id);
+	void setDefaultLevel(int id);
 
 private:
 	GameLevelManager();
@@ -21,5 +25,6 @@ private:
 	static GameLevelManager* sInstance;
 	
 	GameLevelBase* mCurrentLevel;
+	std::map<int, GameLevelBase*> mLevels;
 };
 

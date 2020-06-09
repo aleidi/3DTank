@@ -95,7 +95,7 @@ void Engine::onInit()
 	ImGui::StyleColorsDark();
 
 	//Game Init
-
+	mGameSystem->onInit();
 #pragma region TestCode
 
 	//test code
@@ -114,18 +114,18 @@ void Engine::onInit()
 	ScriptComponent* sc = new TankGamePlay(hq);
 	hq->addScriptComponent(sc);
 	
-	follow = SceneManager::sGetInstance()->createEmptyObject();
-	follow->setName("follow");
-	follow->attach(*hq);
-	follow->getTransform()->translate(0.0f, 20.0f, -40.0f);
+	//follow = SceneManager::sGetInstance()->createEmptyObject();
+	//follow->setName("follow");
+	//follow->attach(*hq);
+	//follow->getTransform()->translate(0.0f, 20.0f, -40.0f);
 
-	cam = SceneManager::sGetInstance()->createEmptyObject();
-	cam->setName("camera");
-	Camera* maincam = new Camera(cam);
-	cam->addComponent(maincam);
-	maincam->MainCamera = maincam;
-	cam->addComponent(new CameraCtrl(cam));
-	cam->getTransform()->rotateX(20);
+	//cam = SceneManager::sGetInstance()->createEmptyObject();
+	//cam->setName("camera");
+	//Camera* maincam = new Camera(cam);
+	//cam->addComponent(maincam);
+	//maincam->MainCamera = maincam;
+	//cam->addComponent(new CameraCtrl(cam));
+	//cam->getTransform()->rotateX(20);
 
 	tankBattery = SceneManager::sGetInstance()->createEmptyObject();
 	tankBattery->setName("tankBattery");

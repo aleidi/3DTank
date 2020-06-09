@@ -24,31 +24,59 @@ void GameLevelManager::destroy()
 
 bool GameLevelManager::onInit()
 {
-
 	return true;
 }
 
 bool GameLevelManager::onUpdadte(float deltaTime)
 {
-	mCurrentLevel->onUpdate(deltaTime);
-	return true;
-}
-
-bool GameLevelManager::ChangeLevel(GameLevelBase * level)
-{
-	if (mCurrentLevel == level)
+	if (nullptr == mCurrentLevel)
 	{
 		return false;
 	}
 
-	mCurrentLevel->leaveLevel();
-	mCurrentLevel = level;
-	mCurrentLevel->enterLevel();
-	
+	GameLevelBase* nextLevel = mCurrentLevel->onUpdate(deltaTime);
+	if (nextLevel != mCurrentLevel)
+	{
+		mCurrentLevel->leaveLevel();
+		mCurrentLevel = nextLevel;
+		if (mCurrentLevel != nullptr)
+		{
+			mCurrentLevel->enterLevel();
+		}
+	}
+
 	return true;
 }
 
+void GameLevelManager::addLevel(int id, GameLevelBase * level)
+{
+	if (mLevels.count(id) != 0)
+	{
+		delete mLevels[id];
+	}
+	mLevels[id] = level;
+}
+
+GameLevelBase* GameLevelManager::changeLevel(int id)
+{
+	if (mLevels.at(id) != nullptr)
+	{
+		return mLevels.at(id);
+	}
+	return nullptr;
+}
+
+void GameLevelManager::setDefaultLevel(int id)
+{
+	if (mLevels.at(id) != nullptr)
+	{
+		mCurrentLevel = mLevels.at(id);
+		mCurrentLevel->enterLevel();
+	}
+}
+
 GameLevelManager::GameLevelManager()
+	:mLevels()
 {
 }
 

@@ -26,19 +26,20 @@ public:
 	bool hasParent() noexcept;
 	void deAttach() noexcept;
 
-	void onStart();
-	void onUpdate(float deltaTime);
+	virtual void onStart();
+	virtual void onUpdate(float deltaTime);
 	void onEngineUpdate(float deltaTime);
 	void onEngineFixedUpdate(float fixedDeltaTime);
 
 	void setLastFramePosition(const Vector3& position);
 	Vector3 getLastFramePosition();
 
-private:
+protected:
 	std::list<Component*> mComps;
 	Transform* mTransform;
 
 	std::string mName;
 
+private:
 	Vector3* lastFramePostion;
 };
