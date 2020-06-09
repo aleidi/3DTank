@@ -39,7 +39,6 @@ Engine::Engine(Window& wnd)
 	mSound(std::make_unique<Sound>()),
 	mRendering(std::make_unique<Rendering>(wnd)),
 	mGameSystem(std::make_unique<GameSystem>()),
-	mEUI(),
 	mIsGameMode(false)
 {
 	onPreInit();
@@ -88,7 +87,6 @@ void Engine::onInit()
 	//Gui Init
 
 	//EUI Init
-	mEUI.get()->onInit();
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
@@ -268,7 +266,6 @@ void Engine::run()
 	*/
 
 	//EUI Update
-	mEUI.get()->onUpdate(deltaTime);
 
 	//start imGui frame
 	static int counter = 0;

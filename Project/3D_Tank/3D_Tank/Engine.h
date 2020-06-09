@@ -3,7 +3,6 @@
 #include "Sound.h"
 #include "Rendering.h"
 #include "GameSystem.h"
-#include "EUI.h"
 
 #if defined(PS4)
 #include "DInput_PS4.h"
@@ -42,7 +41,6 @@ private:
 	std::unique_ptr<Rendering> mRendering;
 	Timer mTimer;
 	std::unique_ptr<GameSystem> mGameSystem;
-	std::unique_ptr<EUI> mEUI;
 
 	bool mIsGameMode;
 
