@@ -224,6 +224,7 @@
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SphereObjectFactory.cpp" />
+    <ClCompile Include="ImGuiFrame.cpp" />
     <ClCompile Include="TankBatteryCtrl.cpp" />
     <ClCompile Include="TankGamePlay.cpp" />
     <ClCompile Include="TestCube.cpp" />
@@ -316,6 +317,7 @@
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SphereObjectFactory.h" />
+    <ClInclude Include="ImGuiFrame.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="TankBatteryCtrl.h" />

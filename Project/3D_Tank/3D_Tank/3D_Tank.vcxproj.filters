@@ -372,6 +372,9 @@
     <ClCompile Include="GameStateBase.cpp">
       <Filter>Game\Source</Filter>
     </ClCompile>
+    <ClCompile Include="ImGuiFrame.cpp">
+      <Filter>Engine\Source\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -652,6 +655,9 @@
     </ClInclude>
     <ClInclude Include="GameStateBase.h">
       <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiFrame.h">
+      <Filter>Engine\Header\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
