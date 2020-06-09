@@ -1,10 +1,15 @@
 #include <sstream>
+
 #include "Engine.h"
 #include "Window.h"
 #include "SceneManager.h"
 #include "ComponentFactory.h"
 #include "Configuration.h"
 
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "dxguid.lib")
+
+//test
 #include "GameObject.h"
 #include "Transform.h"
 #include "ModelMesh.h"
@@ -13,10 +18,6 @@
 #include "Camera.h"
 #include "CameraCtrl.h"
 #include "Collision.h"
-
-#include "imgui.h"
-#include "imgui_impl_win32.h"
-#include "imgui_impl_dx11.h"
 
 Engine* Engine::sInstance = nullptr;
 
@@ -77,6 +78,10 @@ void Engine::onPreInit()
 
 	//Rendering Init
 	mRendering.get()->onInit();
+
+	//eui creation
+	mEui = std::make_unique<ImGuiFrame>(
+		mWnd.getHwnd(), mRendering->getGFX()->GetDevice(), mRendering->getGFX()->GetContext());
 }
 
 void Engine::onInit()
@@ -87,16 +92,11 @@ void Engine::onInit()
 	//Sound Init
 	mSound->onInit();
 
+	//ImGui Init
 
-	//Gui Init
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	ImGui_ImplWin32_Init(mWnd.getHwnd());
-	ImGui_ImplDX11_Init(mRendering->getGFX()->GetDevice(), mRendering->getGFX()->GetContext());
-	ImGui::StyleColorsDark();
 
 	//EUI Init
+	mEui->onInit();
 
 	//Game Init
 
@@ -276,42 +276,12 @@ void Engine::run()
 	mRendering.get()->onRender(deltaTime);
 
 	//PostRender
-	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
+	mRendering.get()->onPostRender(deltaTime);
 
-	//start imGui frame
-	static int counter = 0;
+	//gui update
 
-	//ImGui_ImplDX11_NewFrame();
-	//ImGui_ImplWin32_NewFrame();
-	//ImGui::NewFrame();
-	//ImGui::Begin("Transform:");
-
-	//std::string gameObjectName = hq->getName();
-	//Vector3 position = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getPosition();
-	//Vector3 rotation = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getRotation();
-	//Vector3 scale    = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getScale();
-	//std::string  positionText = "Position : "+ std::to_string(position.x) + std::to_string(position.y) + std::to_string(position.z);
-	//std::string  rotationText = "Rotation : "+ std::to_string(rotation.x) + std::to_string(rotation.y) + std::to_string(rotation.z);
-	//std::string  scaleText = "Scale    : "+ std::to_string(scale.x) + std::to_string(scale.y) + std::to_string(scale.z);
-	//ImGui::Text(positionText.c_str());
-	//ImGui::Text(rotationText.c_str());
-	//ImGui::Text(scaleText.c_str());
-
-	/*ImGui::Text("This is a text.");
-	if (ImGui::Button("CLICK ME!"))
-		counter += 1;
-	std::string clickCount = "Click Count: " + std::to_string(counter);
-	ImGui::Text(clickCount.c_str());*/
-
-	//ImGui::End();
-	//ImGui::Render();
-	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	
-	
-	/*
-	gameUI.Update();
-	eui.update();
-	*/
+	//eui update
+	mEui->onUpdate(deltaTime);
 
 
 	mRendering.get()->onEndRender(deltaTime);

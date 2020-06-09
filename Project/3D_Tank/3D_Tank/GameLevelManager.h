@@ -11,6 +11,7 @@ public:
 
 	bool onInit();
 	bool onUpdadte(float deltaTime);
+	bool ChangeLevel(GameLevelBase* level);
 
 private:
 	GameLevelManager();
