@@ -29,6 +29,7 @@ public:
 	void onStart();
 	void onUpdate(float deltaTime);
 	void onEngineUpdate(float deltaTime);
+	void onEngineFixedUpdate(float fixedDeltaTime);
 
 	void setLastFramePosition(const Vector3& position);
 	Vector3 getLastFramePosition();

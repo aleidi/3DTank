@@ -190,7 +190,6 @@
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="GameInstance.cpp" />
-    <ClCompile Include="GameLevelBase.cpp" />
     <ClCompile Include="GameLevelManager.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="GameModeBase.cpp" />

@@ -16,3 +16,5 @@
 #else
 #include "DInput_PC.h"
 #endif
+
+#define FixedDeltaTime 0.02f

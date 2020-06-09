@@ -214,6 +214,7 @@ void Engine::run()
 	DInputPC::getInstance().onUpdate();
 
 	//Physics Update
+	SceneManager::sGetInstance()->onEngineFixedUpdate(FixedDeltaTime);
 
 	//Game Update
 
@@ -257,7 +258,7 @@ void Engine::run()
 	mRendering.get()->onRender(deltaTime);
 
 	//PostRender
-	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
+	mRendering.get()->onPostRender(deltaTime);
 
 	//gui update
 

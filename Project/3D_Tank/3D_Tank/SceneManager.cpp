@@ -137,3 +137,14 @@ void SceneManager::onEngineUpdate(float deltaTime)
 		}
 	}
 }
+
+void SceneManager::onEngineFixedUpdate(float fixedDeltaTime)
+{
+	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)
+	{
+		if (nullptr != *it && (*it)->hasParent() != true)
+		{
+			(*it)->onEngineFixedUpdate(fixedDeltaTime);
+		}
+	}
+}

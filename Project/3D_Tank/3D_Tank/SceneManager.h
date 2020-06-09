@@ -25,6 +25,7 @@ public:
 	void onGameStart();
 	void onUpdate(float deltaTime);
 	void onEngineUpdate(float deltaTime);
+	void onEngineFixedUpdate(float fixedDeltaTime);
 private:
 	SceneManager();
 	~SceneManager();
