@@ -12,4 +12,17 @@ public:
 	{
 		return src * (1 - t) + dst * t;
 	}
+
+	template <class T>
+	static inline T MaxOf(const T& a, const T& b)
+	{
+		if (a > b) return a; return b;
+	}
+
+	//returns the minimum of two values
+	template <class T>
+	static inline T MinOf(const T& a, const T& b)
+	{
+		if (a < b) return a; return b;
+	}
 };
