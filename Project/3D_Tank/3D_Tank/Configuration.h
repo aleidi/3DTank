@@ -10,3 +10,9 @@
 
 #define WNDCLASSNAME L"Main Window"
 #define WNDTITLE L"3D Tank"
+
+#if defined(PS4)
+#include "DInput_PS4.h"
+#else
+#include "DInput_PC.h"
+#endif

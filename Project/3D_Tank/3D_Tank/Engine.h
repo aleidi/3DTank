@@ -5,15 +5,6 @@
 #include "GameSystem.h"
 #include "ImGuiFrame.h"
 
-#if defined(PS4)
-#include "DInput_PS4.h"
-#else
-#include "DInput_PC.h"
-#endif
-
-#pragma comment(lib, "dinput8.lib")
-#pragma comment(lib, "dxguid.lib")
-
 class Window;
 
 class Engine

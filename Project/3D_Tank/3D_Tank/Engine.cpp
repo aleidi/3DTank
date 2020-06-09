@@ -1,9 +1,15 @@
 #include <sstream>
+
 #include "Engine.h"
 #include "Window.h"
 #include "SceneManager.h"
 #include "ComponentFactory.h"
+#include "Configuration.h"
 
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "dxguid.lib")
+
+//test
 #include "GameObject.h"
 #include "Transform.h"
 #include "ModelMesh.h"
@@ -12,7 +18,6 @@
 #include "Camera.h"
 #include "CameraCtrl.h"
 #include "Collision.h"
-#include "ImGuiFrame.h"
 
 Engine* Engine::sInstance = nullptr;
 
@@ -254,16 +259,10 @@ void Engine::run()
 	//PostRender
 	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
 
+	//gui update
+
 	//eui update
 	mEui->onUpdate(deltaTime);
-
-	/*
-	gameUI.Update();
-	eui.update();
-	*/
-
-	//start imGui frame
-	//ImGuiFrame::startFrame(hq);
 
 
 	mRendering.get()->onEndRender(deltaTime);
