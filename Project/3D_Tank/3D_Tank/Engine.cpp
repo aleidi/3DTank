@@ -39,6 +39,7 @@ Engine::Engine(Window& wnd)
 	mSound(std::make_unique<Sound>()),
 	mRendering(std::make_unique<Rendering>(wnd)),
 	mGameSystem(std::make_unique<GameSystem>()),
+	mEUI(),
 	mIsGameMode(false)
 {
 	onPreInit();
@@ -85,14 +86,15 @@ void Engine::onInit()
 
 
 	//Gui Init
+
+	//EUI Init
+	mEUI.get()->onInit();
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui_ImplWin32_Init(mWnd.getHwnd());
 	ImGui_ImplDX11_Init(mRendering->getGFX()->GetDevice(), mRendering->getGFX()->GetContext());
 	ImGui::StyleColorsDark();
-
-	//EUI Init
 
 	//Game Init
 
@@ -258,7 +260,15 @@ void Engine::run()
 	mRendering.get()->onRender(deltaTime);
 
 	//PostRender
-	mRendering.get()->onPostRender(mTimer.getDeltaTIme());
+	mRendering.get()->onPostRender(deltaTime);
+	
+	/*
+	gameUI.Update();
+	eui.update();
+	*/
+
+	//EUI Update
+	mEUI.get()->onUpdate(deltaTime);
 
 	//start imGui frame
 	static int counter = 0;
@@ -289,11 +299,6 @@ void Engine::run()
 	//ImGui::Render();
 	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	
-	
-	/*
-	gameUI.Update();
-	eui.update();
-	*/
 
 
 	mRendering.get()->onEndRender(deltaTime);

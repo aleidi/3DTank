@@ -372,6 +372,9 @@
     <ClCompile Include="GameStateBase.cpp">
       <Filter>Game\Source</Filter>
     </ClCompile>
+    <ClCompile Include="EUI.cpp">
+      <Filter>Engine\Source\EUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -557,30 +560,6 @@
     <ClInclude Include="Collision.h">
       <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="imgui.h">
-      <Filter>Engine\Header\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_dx11.h">
-      <Filter>Engine\Header\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_win32.h">
-      <Filter>Engine\Header\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_internal.h">
-      <Filter>Engine\Header\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_rectpack.h">
-      <Filter>Engine\Header\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_textedit.h">
-      <Filter>Engine\Header\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_truetype.h">
-      <Filter>Engine\Header\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imconfig.h">
-      <Filter>Engine\Header\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="GameCommon.h">
       <Filter>Game\Header</Filter>
     </ClInclude>
@@ -607,9 +586,6 @@
     </ClInclude>
     <ClInclude Include="ConsoleUtils.h">
       <Filter>Engine\Header\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Engine\Header\GUI</Filter>
     </ClInclude>
     <ClInclude Include="CrudeTimer.h">
       <Filter>Engine\Header\Misc</Filter>
@@ -652,6 +628,36 @@
     </ClInclude>
     <ClInclude Include="GameStateBase.h">
       <Filter>Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Engine\Header\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx11.h">
+      <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EUI.h">
+      <Filter>Engine\Header\EUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
