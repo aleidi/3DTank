@@ -3,7 +3,7 @@
 #include "DefaultPlayer.h"
 
 DefaultPlayerController::DefaultPlayerController()
-	:mRspdX(0.05f),mRspdY(0.05f),mMovSpd(5.0f)
+	:mRspdX(0.2f),mRspdY(0.1f),mMovSpd(10.0f)
 {
 }
 
