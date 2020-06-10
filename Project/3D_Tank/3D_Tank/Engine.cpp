@@ -29,8 +29,12 @@ GameObject* tankTrackL;
 GameObject* tankTrackR;
 GameObject* cam;
 GameObject* follow;
+GameObject* bullet;
 
 Collision* collision;
+
+Vector3 bulletDirection;
+bool fireBullet = false;
 
 static float dis = 0.0f;
 
@@ -185,13 +189,13 @@ void Engine::onInit()
 
 	GameObject* obstacle = SceneManager::sGetInstance()->createSphere();
 	obstacle->setName("obstacle");
-	Vector3 pos(20.f, 5.f, 5.f);
-	Vector3 scale(3.f, 3.f, 3.f);
-	obstacle->getTransform()->setPosition(pos);
-	obstacle->getTransform()->setScale(scale);
+	//obstacle->getTransform()->setPosition(Vector3(20.f, 3.f, 20.f));
+	obstacle->getTransform()->translate(Vector3::right*20.f + Vector3::forward*20.f + Vector3::up*5.f);
+	obstacle->getTransform()->setScale(Vector3(3.f, 3.f, 3.f));
+
 	collision = new Collision();
 	float radius = 5.f;
-	collision->createSphere(obstacle->getTransform()->getLocalPosition(),radius);
+	collision->createSphere(obstacle->getTransform()->getPosition(),radius);
 	Vector3 extents(10.f, 10.f, 10.f);
 	collision->createCube(hq->getTransform()->getPosition(), extents);
 
@@ -242,6 +246,20 @@ void Engine::run()
 	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
 	{
 		mIsGameMode = true;
+	}
+
+	if (DInputPC::getInstance().isMouseButtonDown(0)) {
+		fireBullet = true;
+		bullet = SceneManager::sGetInstance()->createSphere();
+		bullet->setName("bullet");
+		bullet->getTransform()->setPosition(tankBattery->getTransform()->getPosition() + tankBattery->getTransform()->Forward * 30.f
+											+ tankBattery->getTransform()->Up * 10.f + tankBattery->getTransform()->Right * 2.f);  //Vector3(2.f, 10.f, 30.f)
+		bullet->getTransform()->setScale(Vector3(1.f, 1.f, 1.f));
+		bulletDirection = tankBattery->getTransform()->Forward;
+	}
+	//Bullet Update
+	if (fireBullet) {
+		bullet->getTransform()->translate(bulletDirection * deltaTime * 10.f);
 	}
 
 #pragma endregion

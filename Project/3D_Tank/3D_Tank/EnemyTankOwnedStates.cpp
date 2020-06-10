@@ -12,19 +12,19 @@ DazeAndRest* DazeAndRest::getInstance() {
 	return m_DazeAndRest;
 }
 
-void DazeAndRest::Enter(EnemyTank* pEnemyTank) {
+void DazeAndRest::enter(EnemyTank* pEnemyTank) {
 
 }
 
-void DazeAndRest::Execute(EnemyTank* pEnemyTank) {
+void DazeAndRest::execute(EnemyTank* pEnemyTank) {
 
 }
 
-void DazeAndRest::Exit(EnemyTank* pEnemyTank) {
+void DazeAndRest::exit(EnemyTank* pEnemyTank) {
 
 }
 
-bool DazeAndRest::OnMessage(EnemyTank*, const Telegram&) {
+bool DazeAndRest::onMessage(EnemyTank*, const Telegram&) {
 	return false;
 }
 
@@ -34,18 +34,18 @@ Patrol* Patrol::getInstance() {
 	return m_Patrol;
 }
 
-void Patrol::Enter(EnemyTank* pEnemyTank) {
+void Patrol::enter(EnemyTank* pEnemyTank) {
 
 }
 
-void Patrol::Execute(EnemyTank* pEnemyTank) {
+void Patrol::execute(EnemyTank* pEnemyTank) {
 
 }
 
-void Patrol::Exit(EnemyTank* pEnemyTank) {
+void Patrol::exit(EnemyTank* pEnemyTank) {
 
 }
 
-bool Patrol::OnMessage(EnemyTank*, const Telegram&) {
+bool Patrol::onMessage(EnemyTank*, const Telegram&) {
 	return false;
 }

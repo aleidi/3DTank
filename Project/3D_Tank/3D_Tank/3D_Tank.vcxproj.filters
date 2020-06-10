@@ -148,6 +148,9 @@
     <Filter Include="Game\TestCode">
       <UniqueIdentifier>{68c49376-639b-4979-bb01-89a9fd9e3f2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Header\Gameplay\AI\FSM">
+      <UniqueIdentifier>{0b0f5d0c-f4bf-48c5-98bd-fce02efcd6ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -539,12 +542,6 @@
     <ClInclude Include="EnemyTank.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="StateMachine.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyTankOwnedStates.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
@@ -652,6 +649,15 @@
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
       <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Engine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Engine\Header\Gameplay\AI\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Engine\Header\Gameplay\AI\FSM</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

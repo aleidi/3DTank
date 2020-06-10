@@ -1,7 +1,9 @@
 #pragma once
-#include <assert.h>
+#include <cassert>
+#include <string>
 
 #include "State.h"
+#include "Telegram.h"
 
 template <class entity_type>
 class StateMachine {
@@ -12,13 +14,15 @@ public:
 		                              m_pGlobalState(NULL)
 	{}
 
+	virtual ~StateMachine(){}
+
 	void setCurrentState(State<entity_type>* s) { m_pCurrentState = s; }
 	void setPreviousState(State<entity_type>* s) { m_pPreviousState = s; }
 	void setGlobalState(State<entity_type>* s) { m_pGlobalState = s; }
 
 	void update() const {
-		if (m_pGlobalState) m_pGlobalState->Execute(m_pOwner);
-		if (m_pCurrentState) m_pCurrentState->Execute(m_pOwner);
+		if (m_pGlobalState) m_pGlobalState->execute(m_pOwner);
+		if (m_pCurrentState) m_pCurrentState->execute(m_pOwner);
 	}
 
 	void changeState(State<entity_type>* pNewState) {
@@ -38,18 +42,26 @@ public:
 	State<entity_type>* getGlobalState() const { return m_pGlobalState; }
 	State<entity_type>* getPreviousState() const { return m_pPreviousState; }
 
-	bool isInState(const State<entity_type>& st) const;
+	bool isInState(const State<entity_type>& st) const {
+		if (typeid(*m_pCurrentState) == typeid(st)) return true;
+		return false;
+	}
 
 	bool handleMessage(const Telegram& msg)const {
-		if (m_pCurrentState && m_pCurrentState->OnMessage(m_pOwner, msg)) {
+		if (m_pCurrentState && m_pCurrentState->onMessage(m_pOwner, msg)) {
 			return true;
 		}
 
-		if (m_pGlobalState && m_pGlobalState->OnMessage(m_pOwner, msg)) {
+		if (m_pGlobalState && m_pGlobalState->onMessage(m_pOwner, msg)) {
 			return true;
 		}
 
 		return false;
+	}
+
+	std::string getNameOfCurrentState()const {
+		std::string s(typeid(*m_pCurrentState).name());
+		return s;
 	}
 private:
 	entity_type* m_pOwner;

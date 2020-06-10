@@ -6,11 +6,11 @@ class EnemyTank;
 class DazeAndRest : public State<EnemyTank> {
 public:
 	static DazeAndRest* getInstance();
-	virtual void Enter(EnemyTank* pETank);
-	virtual void Execute(EnemyTank* pETank);
-	virtual void Exit(EnemyTank* pETank);
+	virtual void enter(EnemyTank* pETank);
+	virtual void execute(EnemyTank* pETank);
+	virtual void exit(EnemyTank* pETank);
 
-	virtual bool OnMessage(EnemyTank*, const Telegram&);
+	virtual bool onMessage(EnemyTank*, const Telegram&);
 private:
 	DazeAndRest() {}
 	
@@ -21,11 +21,11 @@ private:
 class Patrol : public State<EnemyTank> {
 public:
 	static Patrol* getInstance();
-	virtual void Enter(EnemyTank* pETank);
-	virtual void Execute(EnemyTank* pETank);
-	virtual void Exit(EnemyTank* pETank);
+	virtual void enter(EnemyTank* pETank);
+	virtual void execute(EnemyTank* pETank);
+	virtual void exit(EnemyTank* pETank);
 
-	virtual bool OnMessage(EnemyTank*, const Telegram&);
+	virtual bool onMessage(EnemyTank*, const Telegram&);
 private:
 	Patrol() {}
 	

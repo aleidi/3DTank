@@ -14,10 +14,10 @@ BaseGameEntity* EntityManager::getEntityFromID(int ID) const {
 	return ent->second;
 }
 
-void EntityManager::RemoveEntity(BaseGameEntity* pEntity) {
+void EntityManager::removeEntity(BaseGameEntity* pEntity) {
 	m_EntityMap.erase(m_EntityMap.find(pEntity->getID()));
 }
 
-void EntityManager::RegisterEntity(BaseGameEntity* NewEntity) {
+void EntityManager::registerEntity(BaseGameEntity* NewEntity) {
 	m_EntityMap.insert(std::make_pair(NewEntity->getID(), NewEntity));
 }
