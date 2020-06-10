@@ -659,6 +659,9 @@
     <ClInclude Include="StateMachine.h">
       <Filter>Engine\Header\Gameplay\AI\FSM</Filter>
     </ClInclude>
+    <ClInclude Include="MovingEntity.h">
+      <Filter>Engine\Header\Gameplay\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

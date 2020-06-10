@@ -293,6 +293,7 @@
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="MessageTypes.h" />
+    <ClInclude Include="MovingEntity.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="ScriptComponent.h" />
     <ClInclude Include="GeometryGenerator.h" />
