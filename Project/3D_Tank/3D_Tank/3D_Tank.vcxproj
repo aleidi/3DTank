@@ -177,6 +177,7 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CubeObjectFactory.cpp" />
     <ClCompile Include="d3dUtil.cpp" />
+    <ClCompile Include="DefaultCameraCtrl.cpp" />
     <ClCompile Include="DefaultPlayer.cpp" />
     <ClCompile Include="DefaultPlayerController.cpp" />
     <ClCompile Include="DInput_PC.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CubeObjectFactory.h" />
     <ClInclude Include="d3dUtil.h" />
+    <ClInclude Include="DefaultCameraCtrl.h" />
     <ClInclude Include="DefaultPlayer.h" />
     <ClInclude Include="DefaultPlayerController.h" />
     <ClInclude Include="DInput_PC.h" />

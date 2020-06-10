@@ -2,6 +2,8 @@
 
 #include "Pawn.h"
 
+class Camera;
+
 class DefaultPlayer : public Pawn
 {
 public:
@@ -11,9 +13,8 @@ public:
 	void MoveForward(float value);
 	void MoveRight(float value);
 	void MoveUp(float value);
-	void RotateCamera(float x, float y, float z);
+	void Rotate(float x, float y, float z);
 	
 private:
-	GameObject* mCamFollow;
-	GameObject* mCamera;
+	Camera* mCamera;
 };

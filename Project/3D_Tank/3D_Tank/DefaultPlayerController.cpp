@@ -45,6 +45,6 @@ void DefaultPlayerController::onUpdate(float deltaTime)
 		reinterpret_cast<DefaultPlayer*>(mPawn)->MoveUp(-1.0f * deltaTime * mMovSpd);
 	}
 	
-	reinterpret_cast<DefaultPlayer*>(mPawn)->RotateCamera(
+	reinterpret_cast<DefaultPlayer*>(mPawn)->Rotate(
 		DInputPC::getInstance().mouseDY() * mRspdX, DInputPC::getInstance().mouseDX() * mRspdY, 0.0f);
 }

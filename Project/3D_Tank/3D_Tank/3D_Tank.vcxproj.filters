@@ -154,6 +154,12 @@
     <Filter Include="Game\Source\Input">
       <UniqueIdentifier>{3c5a28f0-dc23-4be4-904e-cae321b1f36d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Source\Camera">
+      <UniqueIdentifier>{e0f94112-fedb-4321-a904-2343ff9b8713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header\Camera">
+      <UniqueIdentifier>{203b48ea-b476-416a-8c3e-31a80f8ac5ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -386,6 +392,9 @@
     </ClCompile>
     <ClCompile Include="DefaultPlayer.cpp">
       <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultCameraCtrl.cpp">
+      <Filter>Game\Source\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -679,6 +688,9 @@
     </ClInclude>
     <ClInclude Include="DefaultPlayer.h">
       <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultCameraCtrl.h">
+      <Filter>Game\Header\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
