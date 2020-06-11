@@ -9,6 +9,7 @@
 #include "StateMachine.h"
 
 const int DyingHP = 20; // below this value the enemy tank is dying
+const int FullHP = 0;
 
 class EnemyTank : public BaseGameEntity {
 public:
@@ -22,13 +23,15 @@ public:
 
 	void damageCalculaion(int damage);
 	int getHP()const;
+
 	bool isDying()const;
-	bool isEnemyInRange()const;
+	bool isEnemyFound()const;
+	Vector3 getPosPlayer;
 
 private:
 	StateMachine<EnemyTank>* m_pStateMachine;
 	int m_HP;
-	float m_AttackRangeRadius;
-
+	float m_AttackRangeRadiusSq;
+	Vector3 m_Position;
 };
 

@@ -4,19 +4,19 @@
 class EnemyTank;
 struct Telegram;
 
-class DazeAndRest : public State<EnemyTank> {
+class Rest : public State<EnemyTank> {
 public:
-	static DazeAndRest* getInstance();
+	static Rest* getInstance();
 	virtual void enter(EnemyTank* pETank);
 	virtual void execute(EnemyTank* pETank);
 	virtual void exit(EnemyTank* pETank);
 
 	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
 private:
-	DazeAndRest() {}
+	Rest() {}
 	
-	DazeAndRest(const DazeAndRest&);
-	DazeAndRest& operator=(const DazeAndRest&);
+	Rest(const Rest&);
+	Rest& operator=(const Rest&);
 };
 
 class Patrol : public State<EnemyTank> {
@@ -34,4 +34,51 @@ private:
 	Patrol& operator=(const Patrol&);
 };
 
+class Attack : public State<EnemyTank> {
+public:
+	static Attack* getInstance();
+	virtual void enter(EnemyTank* pETank);
+	virtual void execute(EnemyTank* pETank);
+	virtual void exit(EnemyTank* pETank);
 
+	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+private:
+	Attack() {}
+
+	Attack(const Attack&);
+	Attack& operator=(const Attack&);
+};
+
+class Evade : public State<EnemyTank> {
+public:
+	static Evade* getInstance();
+	virtual void enter(EnemyTank* pETank);
+	virtual void execute(EnemyTank* pETank);
+	virtual void exit(EnemyTank* pETank);
+
+	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+private:
+	Evade() {}
+
+	Evade(const Evade&);
+	Evade& operator=(const Evade&);
+};
+
+class Avoidance : public State<EnemyTank> {
+public:
+	static Avoidance* getInstance();
+	virtual void enter(EnemyTank* pETank);
+	virtual void execute(EnemyTank* pETank);
+	virtual void exit(EnemyTank* pETank);
+
+	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+private:
+	Avoidance() {}
+
+	Avoidance(const Avoidance&);
+	Avoidance& operator=(const Avoidance&);
+};
+
+
+
+ 

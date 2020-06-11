@@ -8,11 +8,12 @@
 //#include "utils.h"
 #include <cassert>
 #include "Math.h"
+#include "GameObject.h"
 // desc: base class for a game object
 
 struct Telegram;
 
-class BaseGameEntity {
+class BaseGameEntity : public GameObject {
 public:
 	enum {default_entity_type = -1};
 
@@ -34,7 +35,7 @@ public:
 
 	Vector3 scale()const { return m_vScale; }
 	void setScale(Vector3 val) { m_dBoundingRadius *= Math::MaxOf(val.x, val.y) / Math::MaxOf(m_vScale.x, m_vScale.y); m_vScale = val; } // 2D
-	void setScale(double val) { m_dBoundingRadius *= (val / Math::MaxOf(m_vScale.x, m_vScale.y)); m_vScale = Vector3(val, val, val); }
+	void setScale(float val) { m_dBoundingRadius *= (val / Math::MaxOf(m_vScale.x, m_vScale.y)); m_vScale = Vector3(val, val, val); }
 	///////////////////////////////////////////////////////////////////////////
 	int getID()const { return m_ID; }
 	
