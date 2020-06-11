@@ -12,7 +12,7 @@ class BaseGameEntity;
 const double SEND_MSG_IMMEDIATELY = 0.0f;
 const int NO_ADDITIONAL_INFO = 0;
 
-#define Dispatch MessageDispatcher:getInstance()
+#define Dispatch MessageDispatcher::getInstance()
 
 class MessageDispatcher {
 public:
@@ -20,7 +20,7 @@ public:
 	static MessageDispatcher* getInstance();
 
 	//send a message to another agent. Receiving agent is referenced by ID.
-	void DispatchMessage(double  delay,
+	void Dispatch_Message(double  delay,
 		int    sender,
 		int    receiver,
 		int    msg,

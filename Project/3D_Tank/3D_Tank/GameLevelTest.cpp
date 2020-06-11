@@ -12,7 +12,6 @@ GameObject* tankTrackR;
 GameObject* cam;
 GameObject* follow;
 
-
 GameLevelTest::GameLevelTest()
 {
 	GameLevelManager::sGetInstance()->addLevel(0, this);
@@ -32,10 +31,10 @@ void GameLevelTest::enterLevel()
 	ScriptComponent* sc = new TankGamePlay(hq);
 	hq->addScriptComponent(sc);
 
-	//follow = SceneManager::sGetInstance()->createEmptyObject();
-	//follow->setName("follow");
-	//follow->attach(*hq);
-	//follow->getTransform()->translate(0.0f, 20.0f, -40.0f);
+	follow = SceneManager::sGetInstance()->createEmptyObject();
+	follow->setName("follow");
+	follow->attach(*hq);
+	follow->getTransform()->translate(0.0f, 20.0f, -40.0f);
 
 	//cam = SceneManager::sGetInstance()->createEmptyObject();
 	//cam->setName("camera");
@@ -70,6 +69,7 @@ void GameLevelTest::enterLevel()
 	GameObject* ground = SceneManager::sGetInstance()->createEmptyObject();
 	ground->setName("Ground");
 	SceneManager::sGetInstance()->createModel(*ground, "Objects\\SM_ZPlane_01a", L"Objects\\TX_RockyMud_01_ALB");
+	ground->getTransform()->rotateZ(180);
 
 	GameObject* freightContainer_A = SceneManager::sGetInstance()->createEmptyObject();
 	freightContainer_A->setName("freightContainer_A");

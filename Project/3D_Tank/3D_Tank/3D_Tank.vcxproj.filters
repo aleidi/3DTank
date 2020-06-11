@@ -163,6 +163,12 @@
     <Filter Include="Game\Header\Camera">
       <UniqueIdentifier>{203b48ea-b476-416a-8c3e-31a80f8ac5ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Header\Physics\BoundingBox">
+      <UniqueIdentifier>{95e1be71-b841-4e96-a379-3724d92291ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source\Physics\BoundingBox">
+      <UniqueIdentifier>{5e8c02b2-9f07-42a6-9a70-1a79f62b0f3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -258,9 +264,6 @@
     <ClCompile Include="Ray.cpp">
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="BoundingCube.cpp">
-      <Filter>Engine\Source\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="FileManager.cpp">
       <Filter>Engine\Source\Misc</Filter>
     </ClCompile>
@@ -272,9 +275,6 @@
     </ClCompile>
     <ClCompile Include="RenderCamera.cpp">
       <Filter>Engine\Source\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="BoundingSphere.cpp">
-      <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Engine\Source\Render\Graphics\Mesh</Filter>
@@ -402,6 +402,21 @@
     <ClCompile Include="ImGuiFrame.cpp">
       <Filter>Engine\Source\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="BoundingCube.cpp">
+      <Filter>Engine\Source\Physics\BoundingBox</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingSphere.cpp">
+      <Filter>Engine\Source\Physics\BoundingBox</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Engine\Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Engine\Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencil.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -503,9 +518,6 @@
     <ClInclude Include="Ray.h">
       <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="BoundingCube.h">
-      <Filter>Engine\Header\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="FileManager.h">
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
@@ -517,9 +529,6 @@
     </ClInclude>
     <ClInclude Include="RenderCamera.h">
       <Filter>Engine\Header\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="BoundingSphere.h">
-      <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Engine\Header\Render\Graphics\Mesh</Filter>
@@ -704,6 +713,21 @@
     <ClInclude Include="DefaultCameraCtrl.h">
       <Filter>Game\Header\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="BoundingCube.h">
+      <Filter>Engine\Header\Physics\BoundingBox</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingSphere.h">
+      <Filter>Engine\Header\Physics\BoundingBox</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Engine\Header\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Engine\Header\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthStencil.h">
+      <Filter>Engine\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -722,6 +746,12 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="VertexShaderTex.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="SkyBox_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="SkyBox_PS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>
