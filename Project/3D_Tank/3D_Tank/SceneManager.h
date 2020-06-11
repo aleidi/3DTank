@@ -19,7 +19,7 @@ public:
 	void createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath);
 
 	void addGameObjectToPool(GameObject* object) noexcept;
-	bool removeGameObjectToPool(GameObject* object) noexcept;
+	bool removeGameObjectFromPool(GameObject* object) noexcept;
 	GameObject* findObjectWithName(const std::string& name);
 
 	void onGameStart();

@@ -177,6 +177,9 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CubeObjectFactory.cpp" />
     <ClCompile Include="d3dUtil.cpp" />
+    <ClCompile Include="DefaultCameraCtrl.cpp" />
+    <ClCompile Include="DefaultPlayer.cpp" />
+    <ClCompile Include="DefaultPlayerController.cpp" />
     <ClCompile Include="DInput_PC.cpp" />
     <ClCompile Include="DInput_PS4.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
@@ -191,6 +194,7 @@
     <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="GameInstance.cpp" />
     <ClCompile Include="GameLevelManager.cpp" />
+    <ClCompile Include="GameLevelTest.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="GameModeBase.cpp" />
     <ClCompile Include="GameStateBase.cpp" />
@@ -200,6 +204,7 @@
     <ClCompile Include="imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="Level01.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
@@ -258,6 +263,9 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CubeObjectFactory.h" />
     <ClInclude Include="d3dUtil.h" />
+    <ClInclude Include="DefaultCameraCtrl.h" />
+    <ClInclude Include="DefaultPlayer.h" />
+    <ClInclude Include="DefaultPlayerController.h" />
     <ClInclude Include="DInput_PC.h" />
     <ClInclude Include="DInput_PS4.h" />
     <ClInclude Include="DDSTextureLoader.h" />
@@ -276,12 +284,14 @@
     <ClInclude Include="GameInstance.h" />
     <ClInclude Include="GameLevelBase.h" />
     <ClInclude Include="GameLevelManager.h" />
+    <ClInclude Include="GameLevelTest.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameModeBase.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameStateBase.h" />
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="KeycodeRedefine.h" />
+    <ClInclude Include="Level01.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />

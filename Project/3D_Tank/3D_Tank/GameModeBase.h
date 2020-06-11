@@ -10,6 +10,9 @@ public:
 	GameModeBase();
 	~GameModeBase();
 
+	virtual void onInit();
+	virtual void onUpdate(float deltaTime);
+
 	void setGameState(GameStateBase* gameState) noexcept;
 	void setPlayer(Pawn* player) noexcept;
 	void setPlayerController(ControllerBase* playerController) noexcept;
@@ -19,4 +22,3 @@ private:
 	Pawn* mPlayer;
 	ControllerBase* mPlayerController;
 };
-
