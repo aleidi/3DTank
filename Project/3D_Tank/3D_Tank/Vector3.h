@@ -22,6 +22,7 @@ public:
 	friend Vector3 operator/(Vector3, const Vector3&);
 	Vector3 operator * (float) const;
 	Vector3 normalize() const;
+	static float lengthSq(const Vector3& lhs, const Vector3& rhs);
 	static float dot(const Vector3& lhs, const Vector3& rhs);
 	static Vector3 cross(const Vector3& lhs, const Vector3& rhs);
 	static Vector3 multiply(const Vector3& lhs, const Vector3& rhs);
