@@ -17,7 +17,7 @@ public:
 	template<typename T>
 	T* getComponent(T* t) const noexcept;
 	Transform* getTransform() const noexcept;
-	const std::string& getName() const noexcept;
+	std::string getName() const noexcept;
 	void setName(const std::string& name) noexcept;
 
 	GameObject* find(const std::string& name);

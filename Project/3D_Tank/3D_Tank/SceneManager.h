@@ -21,6 +21,7 @@ public:
 	void addGameObjectToPool(GameObject* object) noexcept;
 	bool removeGameObjectFromPool(GameObject* object) noexcept;
 	GameObject* findObjectWithName(const std::string& name);
+	std::list<std::string> getAllGameobjectName();
 
 	void onGameStart();
 	void onUpdate(float deltaTime);
