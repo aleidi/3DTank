@@ -7,7 +7,6 @@
 #include "CrudeTimer.h"
 #include "EntityNames.h"
 
-Vector3 posPlayer;
 //-------------------methods for Rest-------------------//
 
 Rest* Rest::getInstance() {
@@ -20,15 +19,23 @@ void Rest::enter(EnemyTank* pEnemyTank) {
 }
 
 void Rest::execute(EnemyTank* pEnemyTank) {
-	if (pEnemyTank->isEnemyFound(posPlayer)) {
-		
+	// controller +HP
+
+	if (pEnemyTank->isEnemyFound()) {
+		if( pEnemyTank->isDying() )
+			pEnemyTank->getFSM()->changeState(Evade::getInstance());
+		else 
+			pEnemyTank->getFSM()->changeState(Attack::getInstance());
 	}
 
-	
+	if (pEnemyTank->getHP() == FullHP) {
+		pEnemyTank->getFSM()->changeState(Patrol::getInstance());
+	}
+
 }
 
 void Rest::exit(EnemyTank* pEnemyTank) {
-
+	MessageBox(0, L"I stopped resting. ", 0, 0);
 }
 
 bool Rest::onMessage(EnemyTank* agent, const Telegram& msg) {
@@ -42,7 +49,7 @@ Patrol* Patrol::getInstance() {
 }
 
 void Patrol::enter(EnemyTank* pEnemyTank) {
-	MessageBox(0, L"I'm going to Patrol. ", 0, 0);
+	MessageBox(0, L"I'm going to find bad guy. ", 0, 0);
 }
 
 void Patrol::execute(EnemyTank* pEnemyTank) {
@@ -50,7 +57,7 @@ void Patrol::execute(EnemyTank* pEnemyTank) {
 }
 
 void Patrol::exit(EnemyTank* pEnemyTank) {
-
+	MessageBox(0, L"I stopped finding bad guy. ", 0, 0);
 }
 
 bool Patrol::onMessage(EnemyTank* agent, const Telegram& msg) {
@@ -72,7 +79,7 @@ void Attack::execute(EnemyTank* pEnemyTank) {
 }
 
 void Attack::exit(EnemyTank* pEnemyTank) {
-
+	MessageBox(0, L"I stopped kicking ur ass. ", 0, 0);
 }
 
 bool Attack::onMessage(EnemyTank* agent, const Telegram& msg) {
@@ -94,7 +101,7 @@ void Evade::execute(EnemyTank* pEnemyTank) {
 }
 
 void Evade::exit(EnemyTank* pEnemyTank) {
-
+	MessageBox(0, L"I stopped running away. ", 0, 0);
 }
 
 bool Evade::onMessage(EnemyTank* agent, const Telegram& msg) {
@@ -108,7 +115,7 @@ Avoidance* Avoidance::getInstance() {
 }
 
 void Avoidance::enter(EnemyTank* pEnemyTank) {
-
+	MessageBox(0, L"There is a f cking obstacle. ", 0, 0);
 }
 
 void Avoidance::execute(EnemyTank* pEnemyTank) {
@@ -116,7 +123,7 @@ void Avoidance::execute(EnemyTank* pEnemyTank) {
 }
 
 void Avoidance::exit(EnemyTank* pEnemyTank) {
-
+	MessageBox(0, L"I avoided the damn obstacle. ", 0, 0);
 }
 
 bool Avoidance::onMessage(EnemyTank* agent, const Telegram& msg) {
