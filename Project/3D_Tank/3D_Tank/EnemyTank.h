@@ -23,8 +23,12 @@ public:
 	void damageCalculaion(int damage);
 	int getHP()const;
 	bool isDying()const;
+	bool isEnemyInRange()const;
+
 private:
 	StateMachine<EnemyTank>* m_pStateMachine;
 	int m_HP;
+	float m_AttackRangeRadius;
+
 };
 
