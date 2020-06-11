@@ -47,7 +47,7 @@ void MessageDispatcher::Discharge(BaseGameEntity* pReceiver,
 //  routes the message to the correct agent (if no delay) or stores
 //  in the message queue to be dispatched at the correct time
 //------------------------------------------------------------------------
-void MessageDispatcher::DispatchMessage(double  delay,
+void MessageDispatcher::Dispatch_Message(double  delay,
 	int    sender,
 	int    receiver,
 	int    msg,

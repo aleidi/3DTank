@@ -2,6 +2,7 @@
 // all states that can be assigned to the enemytank class
 #include "State.h"
 class EnemyTank;
+struct Telegram;
 
 class DazeAndRest : public State<EnemyTank> {
 public:
@@ -10,7 +11,7 @@ public:
 	virtual void execute(EnemyTank* pETank);
 	virtual void exit(EnemyTank* pETank);
 
-	virtual bool onMessage(EnemyTank*, const Telegram&);
+	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
 private:
 	DazeAndRest() {}
 	
@@ -25,7 +26,7 @@ public:
 	virtual void execute(EnemyTank* pETank);
 	virtual void exit(EnemyTank* pETank);
 
-	virtual bool onMessage(EnemyTank*, const Telegram&);
+	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
 private:
 	Patrol() {}
 	

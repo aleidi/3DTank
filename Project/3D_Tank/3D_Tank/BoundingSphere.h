@@ -1,23 +1,20 @@
 #pragma once
-#include "DirectXCollision.h"
 #include "Vector3.h"
+#include "Component.h"
 
-class Ray;
+class CollisionManager;
 
-class MBoundingSphere {
+class BoundingSphere : public Component {
 public:
-	MBoundingSphere();
-	MBoundingSphere(const Vector3&, const float&);
-	MBoundingSphere(const MBoundingSphere&);
-	~MBoundingSphere();
+	BoundingSphere(GameObject* obj);
+	~BoundingSphere();
 
-	void transform(MBoundingSphere&, const float&, const Vector3&, const Vector3&);
-	Vector3 getCenter();
-	DirectX::BoundingSphere getSphere();
-	bool Collision(const MBoundingSphere&);
-	bool isIntersectRay(Ray*, float&);
+	void creatBoundingSphere(const Vector3& cen, const float& r, CollisionManager*);
+
+public:
+	Vector3 center;
+	float radius;
 
 private:
-	DirectX::BoundingSphere* gameSphere;
 
 };

@@ -1,6 +1,10 @@
 #include "EnemyTankOwnedStates.h"
 #include "State.h"
 #include "EnemyTank.h"
+#include "Telegram.h"
+#include "MessageDispatcher.h"
+#include "MessageTypes.h"
+#include "CrudeTimer.h"
 #include "EntityNames.h"
 
 #include "Engine.h" // text test
@@ -24,7 +28,7 @@ void DazeAndRest::exit(EnemyTank* pEnemyTank) {
 
 }
 
-bool DazeAndRest::onMessage(EnemyTank*, const Telegram&) {
+bool DazeAndRest::onMessage(EnemyTank* agent, const Telegram& msg) {
 	return false;
 }
 
@@ -46,6 +50,6 @@ void Patrol::exit(EnemyTank* pEnemyTank) {
 
 }
 
-bool Patrol::onMessage(EnemyTank*, const Telegram&) {
+bool Patrol::onMessage(EnemyTank* agent, const Telegram& msg) {
 	return false;
 }
