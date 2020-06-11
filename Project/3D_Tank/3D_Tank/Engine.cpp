@@ -1,23 +1,28 @@
 #include <sstream>
+
 #include "Engine.h"
 #include "Window.h"
 #include "SceneManager.h"
 #include "ComponentFactory.h"
 #include "Configuration.h"
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "dxguid.lib")
+
+//test
 #include "Rendering.h"
 #include "Graphics.h"
 
 #include "Collision.h"
 
-#include "imgui.h"
-#include "imgui_impl_win32.h"
-#include "imgui_impl_dx11.h"
-
 Engine* Engine::sInstance = nullptr;
 
 //test code
+GameObject* bullet;
 
 Collision* collision;
+
+Vector3 bulletDirection;
+bool fireBullet = false;
 
 static float dis = 0.0f;
 
@@ -61,6 +66,10 @@ void Engine::onPreInit()
 
 	//Rendering Init
 	mRendering.get()->onInit();
+
+	//eui creation
+	mEui = std::make_unique<ImGuiFrame>(
+		mWnd.getHwnd(), mRendering->getGFX()->GetDevice(), mRendering->getGFX()->GetContext());
 }
 
 void Engine::onInit()
@@ -71,16 +80,11 @@ void Engine::onInit()
 	//Sound Init
 	mSound->onInit();
 
+	//ImGui Init
 
-	//Gui Init
 
 	//EUI Init
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	ImGui_ImplWin32_Init(mWnd.getHwnd());
-	ImGui_ImplDX11_Init(mRendering->getGFX()->GetDevice(), mRendering->getGFX()->GetContext());
-	ImGui::StyleColorsDark();
+	mEui->onInit();
 
 	//Game Init
 	mGameSystem->onInit();
@@ -104,7 +108,9 @@ void Engine::onInit()
 	//Vector3 pos(20.f, 5.f, 5.f);
 	//Vector3 scale(3.f, 3.f, 3.f);
 	//obstacle->getTransform()->setPosition(pos);
+	//obstacle->getTransform()->translate(Vector3::right*20.f + Vector3::forward*20.f + Vector3::up*5.f);
 	//obstacle->getTransform()->setScale(scale);
+
 	//collision = new Collision();
 	//float radius = 5.f;
 	//collision->createSphere(obstacle->getTransform()->getLocalPosition(),radius);
@@ -154,10 +160,27 @@ void Engine::run()
 
 #pragma region test code
 
-	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
+	if (!mIsGameMode)
 	{
-		mIsGameMode = true;
+		if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
+		{
+			mIsGameMode = true;
+		}
 	}
+
+	//if (DInputPC::getInstance().isMouseButtonDown(0)) {
+	//	fireBullet = true;
+	//	bullet = SceneManager::sGetInstance()->createSphere();
+	//	bullet->setName("bullet");
+	//	bullet->getTransform()->setPosition(tankBattery->getTransform()->getPosition() + tankBattery->getTransform()->Forward * 30.f
+	//										+ tankBattery->getTransform()->Up * 10.f + tankBattery->getTransform()->Right * 2.f);  //Vector3(2.f, 10.f, 30.f)
+	//	bullet->getTransform()->setScale(Vector3(1.f, 1.f, 1.f));
+	//	bulletDirection = tankBattery->getTransform()->Forward;
+	//}
+	////Bullet Update
+	//if (fireBullet) {
+	//	bullet->getTransform()->translate(bulletDirection * deltaTime * 10.f);
+	//}
 
 #pragma endregion
 
@@ -174,43 +197,11 @@ void Engine::run()
 
 	//PostRender
 	mRendering.get()->onPostRender(deltaTime);
-	
-	/*
-	gameUI.Update();
-	eui.update();
-	*/
 
-	//EUI Update
+	//gui update
 
-	//start imGui frame
-	static int counter = 0;
-
-	//ImGui_ImplDX11_NewFrame();
-	//ImGui_ImplWin32_NewFrame();
-	//ImGui::NewFrame();
-	//ImGui::Begin("Transform:");
-
-	//std::string gameObjectName = hq->getName();
-	//Vector3 position = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getPosition();
-	//Vector3 rotation = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getRotation();
-	//Vector3 scale    = SceneManager::sGetInstance()->findObjectWithName(gameObjectName)->getTransform()->getScale();
-	//std::string  positionText = "Position : "+ std::to_string(position.x) + std::to_string(position.y) + std::to_string(position.z);
-	//std::string  rotationText = "Rotation : "+ std::to_string(rotation.x) + std::to_string(rotation.y) + std::to_string(rotation.z);
-	//std::string  scaleText = "Scale    : "+ std::to_string(scale.x) + std::to_string(scale.y) + std::to_string(scale.z);
-	//ImGui::Text(positionText.c_str());
-	//ImGui::Text(rotationText.c_str());
-	//ImGui::Text(scaleText.c_str());
-
-	/*ImGui::Text("This is a text.");
-	if (ImGui::Button("CLICK ME!"))
-		counter += 1;
-	std::string clickCount = "Click Count: " + std::to_string(counter);
-	ImGui::Text(clickCount.c_str());*/
-
-	//ImGui::End();
-	//ImGui::Render();
-	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	
+	//eui update
+	mEui->onUpdate(deltaTime);
 
 
 	mRendering.get()->onEndRender(deltaTime);

@@ -8,6 +8,7 @@
 #include "Configuration.h"
 #include "Vector3.h"
 
+
 #ifndef HR
 #define HR(x) { hr = x; if( FAILED(hr) ) { return hr; } } 
 #endif // !HR

@@ -148,6 +148,9 @@
     <Filter Include="Game\TestCode">
       <UniqueIdentifier>{68c49376-639b-4979-bb01-89a9fd9e3f2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Header\Gameplay\AI\FSM">
+      <UniqueIdentifier>{0b0f5d0c-f4bf-48c5-98bd-fce02efcd6ed}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Game\Header\Input">
       <UniqueIdentifier>{4cd0b4ab-9aff-4627-8547-56461652246d}</UniqueIdentifier>
     </Filter>
@@ -396,6 +399,9 @@
     <ClCompile Include="DefaultCameraCtrl.cpp">
       <Filter>Game\Source\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="ImGuiFrame.cpp">
+      <Filter>Engine\Source\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -563,12 +569,6 @@
     <ClInclude Include="EnemyTank.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="StateMachine.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyTankOwnedStates.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
@@ -656,8 +656,8 @@
     <ClInclude Include="imconfig.h">
       <Filter>Engine\Header\EUI</Filter>
     </ClInclude>
-    <ClInclude Include="imgui.h">
-      <Filter>Engine\Header\EUI</Filter>
+    <ClInclude Include="ImGuiFrame.h">
+      <Filter>Engine\Header\GUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
       <Filter>Engine\Header\EUI</Filter>
@@ -676,6 +676,18 @@
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
       <Filter>Engine\Header\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Engine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Engine\Header\Gameplay\AI\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Engine\Header\Gameplay\AI\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingEntity.h">
+      <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
     <ClInclude Include="GameLevelTest.h">
       <Filter>Game\TestCode</Filter>

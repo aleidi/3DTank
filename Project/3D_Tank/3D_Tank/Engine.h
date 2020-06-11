@@ -3,15 +3,7 @@
 #include "Sound.h"
 #include "Rendering.h"
 #include "GameSystem.h"
-
-#if defined(PS4)
-#include "DInput_PS4.h"
-#else
-#include "DInput_PC.h"
-#endif
-
-#pragma comment(lib, "dinput8.lib")
-#pragma comment(lib, "dxguid.lib")
+#include "ImGuiFrame.h"
 
 class Window;
 
@@ -36,11 +28,14 @@ private:
 private:
 	static Engine* sInstance;
 
+	friend class ImGuiFrame;
+
 	Window& mWnd;
 	std::unique_ptr<Sound> mSound;
 	std::unique_ptr<Rendering> mRendering;
 	Timer mTimer;
 	std::unique_ptr<GameSystem> mGameSystem;
+	std::unique_ptr<ImGuiFrame> mEui;
 
 	bool mIsGameMode;
 
