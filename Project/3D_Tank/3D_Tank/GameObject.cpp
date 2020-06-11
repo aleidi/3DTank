@@ -76,7 +76,7 @@ Transform * GameObject::getTransform() const noexcept
 	return mTransform;
 }
 
-const std::string & GameObject::getName() const noexcept
+std::string GameObject::getName() const noexcept
 {
 	return mName;
 }

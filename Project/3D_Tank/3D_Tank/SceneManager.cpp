@@ -105,6 +105,18 @@ GameObject * SceneManager::findObjectWithName(const std::string & name)
 	return nullptr;
 }
 
+std::list<std::string> SceneManager::getAllGameobjectName()
+{
+	std::list<std::string> nList;
+	
+	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)
+	{
+		nList.push_back((*it)->getName());
+	}
+
+	return nList;
+}
+
 void SceneManager::onGameStart()
 {
 	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)
