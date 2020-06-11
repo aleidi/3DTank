@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Graphics.h"
 #include "RenderCamera.h"
+#include "SkyBox.h"
 #include "DXTrace.h"
 #include "d3dUtil.h"
 
@@ -35,12 +36,14 @@ namespace Colors
 Graphics::Graphics(const Window& wnd)
 	:
 	mhMainWnd(wnd.getHwnd()), mCanShowText(false),
-	m4xMsaaQuality(0),mEnable4xMsaa(false),
-	mRenderCamera(std::make_unique<RenderCamera>(*this))
+	m4xMsaaQuality(0),mEnable4xMsaa(false)
 {
 	InitD3D();
 
 	InitD2D();
+
+	mRenderCamera = std::make_unique<RenderCamera>(*this);
+	mSkyBox = std::make_unique<SkyBox>(*this);
 }
 
 Graphics::~Graphics()
@@ -69,12 +72,11 @@ bool Graphics::InitD3D()
 	mClientWidth = width;
 	mClientHeight = height;
 
-	// ´´½¨D3DÉè±¸ ºÍ D3DÉè±¸ÉÏÏÂÎÄ
 	UINT createDeviceFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 #if defined(DEBUG) || defined(_DEBUG)  
 	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
-	// Çý¶¯ÀàÐÍÊý×é
+
 	D3D_DRIVER_TYPE driverTypes[] =
 	{
 		D3D_DRIVER_TYPE_HARDWARE,
@@ -83,7 +85,6 @@ bool Graphics::InitD3D()
 	};
 	UINT numDriverTypes = ARRAYSIZE(driverTypes);
 
-	// ÌØÐÔµÈ¼¶Êý×é
 	D3D_FEATURE_LEVEL featureLevels[] =
 	{
 		D3D_FEATURE_LEVEL_11_1,
@@ -229,7 +230,7 @@ bool Graphics::InitD3D()
 	pContext->OMSetRenderTargets(1, pRenderTargetView.GetAddressOf(), pDepthStencilView.Get());
 
 	D3D11_RASTERIZER_DESC rd;
-	ZeroMemory(&rd, sizeof(D3D11_RASTERIZER_DESC));
+	ZeroMemory(&rd, sizeof(rd));
 	rd.FillMode = D3D11_FILL_SOLID;
 	rd.CullMode = D3D11_CULL_NONE;
 	rd.FrontCounterClockwise = false;
@@ -410,7 +411,15 @@ void Graphics::EndFrame()
 
 void Graphics::onUdpate(float deltaTime)
 {
-	mRenderCamera.get()->onUpdate(deltaTime);
+	mRenderCamera->onUpdate(deltaTime);
+	XMFLOAT3 pos;
+	XMStoreFloat3(&pos, mRenderCamera->getPosition());
+	mSkyBox->setPosition(pos.x, pos.y, pos.z);
+}
+
+void Graphics::DrawSkyBox()
+{
+	mSkyBox->Draw(*this);
 }
 
 void Graphics::DrawIndexed(UINT mCount) noexcept
@@ -448,7 +457,7 @@ void Graphics::showText()
 
 DirectX::XMMATRIX Graphics::GetViewProj() const noexcept
 {
-	return mRenderCamera.get()->getViewProjXM();
+	return mRenderCamera->getViewProjXM();
 }
 
 //DirectX::XMVECTOR Graphics::getcamForward()

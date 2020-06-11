@@ -402,6 +402,12 @@
     <ClCompile Include="ImGuiFrame.cpp">
       <Filter>Engine\Source\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Engine\Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencil.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -704,6 +710,12 @@
     <ClInclude Include="DefaultCameraCtrl.h">
       <Filter>Game\Header\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Engine\Header\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthStencil.h">
+      <Filter>Engine\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -722,6 +734,12 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="VertexShaderTex.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="SkyBox_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="SkyBox_PS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -180,6 +180,7 @@
     <ClCompile Include="DefaultCameraCtrl.cpp" />
     <ClCompile Include="DefaultPlayer.cpp" />
     <ClCompile Include="DefaultPlayerController.cpp" />
+    <ClCompile Include="DepthStencil.cpp" />
     <ClCompile Include="DInput_PC.cpp" />
     <ClCompile Include="DInput_PS4.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
@@ -224,6 +225,7 @@
     <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -266,6 +268,7 @@
     <ClInclude Include="DefaultCameraCtrl.h" />
     <ClInclude Include="DefaultPlayer.h" />
     <ClInclude Include="DefaultPlayerController.h" />
+    <ClInclude Include="DepthStencil.h" />
     <ClInclude Include="DInput_PC.h" />
     <ClInclude Include="DInput_PS4.h" />
     <ClInclude Include="DDSTextureLoader.h" />
@@ -323,6 +326,7 @@
     <ClInclude Include="Rendering.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="Sphere.h" />
@@ -356,6 +360,14 @@
     </FxCompile>
     <FxCompile Include="PixelShaderTex.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="SkyBox_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="SkyBox_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="SolidPixelShader.hlsl">

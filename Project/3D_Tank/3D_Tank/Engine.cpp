@@ -101,24 +101,6 @@ void Engine::onInit()
 	 fspeed = 300.0f;
 	 rspeed = 5.0f;
 
-
-
-	//GameObject* obstacle = SceneManager::sGetInstance()->createSphere();
-	//obstacle->setName("obstacle");
-	//Vector3 pos(20.f, 5.f, 5.f);
-	//Vector3 scale(3.f, 3.f, 3.f);
-	//obstacle->getTransform()->setPosition(pos);
-	//obstacle->getTransform()->translate(Vector3::right*20.f + Vector3::forward*20.f + Vector3::up*5.f);
-	//obstacle->getTransform()->setScale(scale);
-
-	//collision = new Collision();
-	//float radius = 5.f;
-	//collision->createSphere(obstacle->getTransform()->getLocalPosition(),radius);
-	//Vector3 extents(10.f, 10.f, 10.f);
-	//collision->createCube(hq->getTransform()->getPosition(), extents);
-
-	//hq->setLastFramePosition(hq->getTransform()->getPosition());
-
 #pragma endregion
 
 	
@@ -146,17 +128,6 @@ void Engine::run()
 		mGameSystem->onUpdate(deltaTime);
 		mSound->playBGM();
 	}
-	//collision->transformCube(collision->mCube[0], hq->getTransform()->getPosition());
-	//bool isCollision = collision->cubeCollisionSphere(collision->mCube[0], collision->mSphere[0]);
-	//if (isCollision) {
-	//	mSound->setPause(MusicIndex(BGM));
-	//	hq->setLastFramePosition(hq->getLastFramePosition());
-	//	hq->getTransform()->setPosition(hq->getLastFramePosition());
-	//}
-	//else {
-	//	mSound->setReplay(MusicIndex(BGM));
-	//	hq->setLastFramePosition(hq->getTransform()->getPosition());
-	//}
 
 #pragma region test code
 
@@ -167,20 +138,6 @@ void Engine::run()
 			mIsGameMode = true;
 		}
 	}
-
-	//if (DInputPC::getInstance().isMouseButtonDown(0)) {
-	//	fireBullet = true;
-	//	bullet = SceneManager::sGetInstance()->createSphere();
-	//	bullet->setName("bullet");
-	//	bullet->getTransform()->setPosition(tankBattery->getTransform()->getPosition() + tankBattery->getTransform()->Forward * 30.f
-	//										+ tankBattery->getTransform()->Up * 10.f + tankBattery->getTransform()->Right * 2.f);  //Vector3(2.f, 10.f, 30.f)
-	//	bullet->getTransform()->setScale(Vector3(1.f, 1.f, 1.f));
-	//	bulletDirection = tankBattery->getTransform()->Forward;
-	//}
-	////Bullet Update
-	//if (fireBullet) {
-	//	bullet->getTransform()->translate(bulletDirection * deltaTime * 10.f);
-	//}
 
 #pragma endregion
 

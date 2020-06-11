@@ -11,6 +11,7 @@
 
 class Window;
 class RenderCamera;
+class SkyBox;
 
 using namespace DirectX;
 
@@ -52,6 +53,7 @@ public:
 	void CleanFrame();
 	void EndFrame();
 	void onUdpate(float deltaTime);
+	void DrawSkyBox();
 
 	void DrawIndexed(UINT mCount) noexcept;
 	void setShowText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
@@ -103,4 +105,5 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> pRasterizerState;
 
 	std::unique_ptr<RenderCamera> mRenderCamera;
+	std::unique_ptr<SkyBox> mSkyBox;
 };
