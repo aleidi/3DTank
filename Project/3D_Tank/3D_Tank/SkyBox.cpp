@@ -2,6 +2,8 @@
 #include "BindableBase.h"
 
 SkyBox::SkyBox(Graphics & gfx)
+	:mPosX(0.0f),mPosY(0.0f),mPosZ(0.0f),
+	mRotX(0.0f),mRotY(0.0f),mRotZ(0.0f)
 {
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getSphere(mesh);
@@ -22,7 +24,7 @@ SkyBox::SkyBox(Graphics & gfx)
 	};
 	AddBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	AddBind(std::make_unique<Texture>(gfx, L"Skybox\\Sand"));
+	AddBind(std::make_unique<Texture>(gfx, L"Skybox\\Night"));
 
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
@@ -53,7 +55,8 @@ void SkyBox::Update(float deltaTime) noexcept
 
 DirectX::XMMATRIX SkyBox::GetTransformXM() const noexcept
 {
-	return DirectX::XMMatrixTranslation(mPosX, mPosY, mPosZ);
+	return DirectX::XMMatrixTranslation(mPosX, mPosY, mPosZ)*
+		DirectX::XMMatrixRotationRollPitchYaw(mRotX,mRotY,mRotZ);
 }
 
 void SkyBox::setPosition(float x, float y, float z)
@@ -61,4 +64,11 @@ void SkyBox::setPosition(float x, float y, float z)
 	mPosX = x;
 	mPosY = y;
 	mPosZ = z;
+}
+
+void SkyBox::setRotation(float x, float y, float z)
+{
+	mRotX = DirectX::XMConvertToDegrees(x);
+	mRotY = DirectX::XMConvertToDegrees(y);
+	mRotZ = DirectX::XMConvertToDegrees(z);
 }

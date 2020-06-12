@@ -8,10 +8,14 @@ public:
 	void Update(float deltaTime) noexcept override;
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 	void setPosition(float x, float y, float z);
+	void setRotation(float x, float y, float z);
 
 private:
 	float mPosX;
 	float mPosY;
 	float mPosZ;
+	float mRotX;
+	float mRotY;
+	float mRotZ;
 };
 
