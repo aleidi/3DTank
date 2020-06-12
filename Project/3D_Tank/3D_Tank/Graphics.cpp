@@ -419,7 +419,7 @@ void Graphics::onUdpate(float deltaTime)
 
 void Graphics::DrawSkyBox()
 {
-	mSkyBox->Draw(*this);
+	mSkyBox->draw(*this);
 }
 
 void Graphics::DrawIndexed(UINT mCount) noexcept

@@ -8,23 +8,23 @@ SkyBox::SkyBox(Graphics & gfx)
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getSphere(mesh);
 
-	AddBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
+	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"SkyBox_VS.cso");
 	auto pvsbc = pvs->GetBytecode();
-	AddBind(std::move(pvs));
+	addBind(std::move(pvs));
 
-	AddBind(std::make_unique<PixelShader>(gfx, L"SkyBox_PS.cso"));
+	addBind(std::make_unique<PixelShader>(gfx, L"SkyBox_PS.cso"));
 
-	AddIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
+	addIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
 
 	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied =
 	{
 		{ "POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
 	};
-	AddBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
+	addBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	AddBind(std::make_unique<Texture>(gfx, L"Skybox\\Night"));
+	addBind(std::make_unique<Texture>(gfx, L"Skybox\\Night"));
 
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
@@ -35,25 +35,25 @@ SkyBox::SkyBox(Graphics & gfx)
 	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-	AddBind(std::make_unique<Sampler>(gfx, sampDesc));
+	addBind(std::make_unique<Sampler>(gfx, sampDesc));
 
 	D3D11_DEPTH_STENCIL_DESC dd;
 	dd.DepthEnable = true;
 	dd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 	dd.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 	dd.StencilEnable = false;
-	AddBind(std::make_unique<DepthStencil>(gfx,dd));
+	addBind(std::make_unique<DepthStencil>(gfx,dd));
 
-	AddBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
+	addBind(std::make_unique<TransferCbuf>(gfx, *this));
 }
 
-void SkyBox::Update(float deltaTime) noexcept
+void SkyBox::onUpdate(float deltaTime) noexcept
 {
 }
 
-DirectX::XMMATRIX SkyBox::GetTransformXM() const noexcept
+DirectX::XMMATRIX SkyBox::getTransformXM() const noexcept
 {
 	return DirectX::XMMatrixTranslation(mPosX, mPosY, mPosZ)*
 		DirectX::XMMatrixRotationRollPitchYaw(mRotX,mRotY,mRotZ);

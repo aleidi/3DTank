@@ -6,8 +6,8 @@ class TestCube : public Drawable
 public:
 	TestCube(Graphics& gfx);
 	~TestCube();
-	void Update(float deltaTime) noexcept override;
-	DirectX::XMMATRIX GetTransformXM() const noexcept override;
+	void onUpdate(float deltaTime) noexcept override;
+	DirectX::XMMATRIX getTransformXM() const noexcept override;
 
 	void Translate(float x, float y, float z);
 	void Rotate(float pitch, float yaw, float roll);

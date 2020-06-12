@@ -28,7 +28,7 @@ void RenderManager::onDraw() noexcept
 		{
 			continue;
 		}
-		(*it)->Draw(mGraphics);
+		(*it)->draw(mGraphics);
 	}
 }
 

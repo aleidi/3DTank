@@ -7,42 +7,42 @@ TestCube::TestCube(Graphics & gfx)
 {
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getCube(mesh);
-	AddBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
+	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"VertexShaderTex.cso");
 	auto pvsbc = pvs->GetBytecode();
-	AddBind(std::move(pvs));
+	addBind(std::move(pvs));
 
-	AddBind(std::make_unique<PixelShader>(gfx, L"PixelShaderTex.cso"));
+	addBind(std::make_unique<PixelShader>(gfx, L"PixelShaderTex.cso"));
 
-	AddIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
+	addIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
 
 	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied =
 	{
 		{ "POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
 		{ "TEXCOORD",0,DXGI_FORMAT_R32G32_FLOAT,0,12,D3D11_INPUT_PER_VERTEX_DATA,0},
 	};
-	AddBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
+	addBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	AddBind(std::make_unique<Texture>(gfx, L"Resource\\Model\\Objects\\TX_FreightContainer_01a_ALB.dds"));
+	addBind(std::make_unique<Texture>(gfx, L"Resource\\Model\\Objects\\TX_FreightContainer_01a_ALB.dds"));
 
-	AddBind(std::make_unique<Sampler>(gfx));
+	addBind(std::make_unique<Sampler>(gfx));
 
-	AddBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
+	addBind(std::make_unique<TransferCbuf>(gfx, *this));
 }
 
 TestCube::~TestCube()
 {
 }
 
-void TestCube::Update(float deltaTime) noexcept
+void TestCube::onUpdate(float deltaTime) noexcept
 {
 	
 }
 
-DirectX::XMMATRIX TestCube::GetTransformXM() const noexcept
+DirectX::XMMATRIX TestCube::getTransformXM() const noexcept
 {
 	return DirectX::XMMatrixScaling(scale.x, scale.y, scale.z) *
 		DirectX::XMMatrixRotationRollPitchYaw(rot.x, rot.y, rot.z) *

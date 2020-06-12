@@ -6,11 +6,11 @@ Mesh::Mesh(RenderComponent * owner)
 {
 }
 
-void Mesh::Update(float deltaTime) noexcept
+void Mesh::onUpdate(float deltaTime) noexcept
 {
 }
 
-DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept
+DirectX::XMMATRIX Mesh::getTransformXM() const noexcept
 {
 	return mOwner->getWorldMatrix();
 }

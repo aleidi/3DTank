@@ -195,9 +195,6 @@
     <ClCompile Include="Topology.cpp">
       <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="TransformCbuf.cpp">
-      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
-    </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
@@ -417,6 +414,9 @@
     <ClCompile Include="SkyBox.cpp">
       <Filter>Engine\Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="TransferCbuf.cpp">
+      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -435,9 +435,6 @@
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffers.h">
-      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformCbuf.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="VertexBuffer.h">
@@ -727,6 +724,9 @@
     </ClInclude>
     <ClInclude Include="SkyBox.h">
       <Filter>Engine\Header\Render\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="TransferCbuf.h">
+      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

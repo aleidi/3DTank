@@ -32,7 +32,7 @@ public:
 		GetDevice(gfx)->CreateBuffer(&cbd, nullptr, &pConstantBuffer);
 	}
 
-	void Update(Graphics& gfx, const C& consts)
+	void onUpdate(Graphics& gfx, const C& consts)
 	{
 		D3D11_MAPPED_SUBRESOURCE msr;
 		GetContext(gfx)->Map(
