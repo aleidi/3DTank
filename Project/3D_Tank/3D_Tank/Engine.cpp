@@ -102,8 +102,7 @@ void Engine::onInit()
 	 rspeed = 5.0f;
 
 #pragma endregion
-
-	
+	 cb = new CubeForCol();
 }
 
 void Engine::run()

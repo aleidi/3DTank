@@ -26,3 +26,13 @@ DirectX::XMMATRIX RenderComponent::getWorldMatrix() noexcept
 {
 	return mObject->getTransform()->getLocalToWorldMatrix();
 }
+
+Material RenderComponent::getMaterial() const noexcept
+{
+	return mMaterial;
+}
+
+void RenderComponent::setMaterial(const Material & mat) noexcept
+{
+	mMaterial = mat;
+}

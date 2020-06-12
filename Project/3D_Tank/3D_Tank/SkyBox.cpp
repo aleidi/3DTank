@@ -37,6 +37,8 @@ SkyBox::SkyBox(Graphics & gfx)
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	addBind(std::make_unique<Sampler>(gfx, sampDesc));
 
+	addBind(std::make_unique<Rasterizer>(gfx));
+
 	D3D11_DEPTH_STENCIL_DESC dd;
 	dd.DepthEnable = true;
 	dd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
@@ -57,6 +59,11 @@ DirectX::XMMATRIX SkyBox::getTransformXM() const noexcept
 {
 	return DirectX::XMMatrixTranslation(mPosX, mPosY, mPosZ)*
 		DirectX::XMMatrixRotationRollPitchYaw(mRotX,mRotY,mRotZ);
+}
+
+Material SkyBox::getMaterial() const noexcept
+{
+	return Material();
 }
 
 void SkyBox::setPosition(float x, float y, float z)

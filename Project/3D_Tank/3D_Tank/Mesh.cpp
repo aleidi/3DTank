@@ -15,6 +15,11 @@ DirectX::XMMATRIX Mesh::getTransformXM() const noexcept
 	return mOwner->getWorldMatrix();
 }
 
+Material Mesh::getMaterial() const noexcept
+{
+	return mOwner->getMaterial();
+}
+
 Mesh::~Mesh()
 {
 	if (mOwner != nullptr)

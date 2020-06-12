@@ -229,15 +229,6 @@ bool Graphics::InitD3D()
 
 	pContext->OMSetRenderTargets(1, pRenderTargetView.GetAddressOf(), pDepthStencilView.Get());
 
-	D3D11_RASTERIZER_DESC rd;
-	ZeroMemory(&rd, sizeof(rd));
-	rd.FillMode = D3D11_FILL_SOLID;
-	rd.CullMode = D3D11_CULL_NONE;
-	rd.FrontCounterClockwise = false;
-	rd.DepthClipEnable = true;
-	pDevice->CreateRasterizerState(&rd, pRasterizerState.GetAddressOf());
-	pContext->RSSetState(pRasterizerState.Get());
-
 	D3D11_VIEWPORT vp;
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;

@@ -176,6 +176,7 @@
     <ClCompile Include="ControllerBase.cpp" />
     <ClCompile Include="CrudeTimer.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="CubeForCol.cpp" />
     <ClCompile Include="CubeObjectFactory.cpp" />
     <ClCompile Include="d3dUtil.cpp" />
     <ClCompile Include="DefaultCameraCtrl.cpp" />
@@ -209,6 +210,7 @@
     <ClCompile Include="Level01.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="Rasterizer.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
     <ClCompile Include="GeometryGenerator.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -265,6 +267,7 @@
     <ClInclude Include="ControllerBase.h" />
     <ClInclude Include="CrudeTimer.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="CubeForCol.h" />
     <ClInclude Include="CubeObjectFactory.h" />
     <ClInclude Include="d3dUtil.h" />
     <ClInclude Include="DefaultCameraCtrl.h" />
@@ -310,6 +313,7 @@
     <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="MovingEntity.h" />
     <ClInclude Include="Pawn.h" />
+    <ClInclude Include="Rasterizer.h" />
     <ClInclude Include="ScriptComponent.h" />
     <ClInclude Include="GeometryGenerator.h" />
     <ClInclude Include="Graphics.h" />

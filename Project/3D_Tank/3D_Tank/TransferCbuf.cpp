@@ -23,3 +23,8 @@ TransferCbuf::CBWVP TransferCbuf::getMVP(Graphics & gfx) noexcept
 		DirectX::XMMatrixTranspose(gfx.getProj())
 	};
 }
+
+TransferCbuf::CBPS TransferCbuf::getCBPS(Graphics & gfx) noexcept
+{
+	return CBPS();
+}

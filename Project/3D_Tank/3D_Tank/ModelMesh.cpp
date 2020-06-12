@@ -27,6 +27,8 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 	addBind(std::make_unique<Texture>(gfx, texture.c_str()));
 
 	addBind(std::make_unique<Sampler>(gfx));
+	
+	addBind(std::make_unique<Rasterizer>(gfx));
 
 	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 

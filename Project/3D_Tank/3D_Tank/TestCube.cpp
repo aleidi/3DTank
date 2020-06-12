@@ -50,19 +50,24 @@ DirectX::XMMATRIX TestCube::getTransformXM() const noexcept
 		DirectX::XMMatrixTranslation(0.0f, 0.0f, 10.0f);
 }
 
+Material TestCube::getMaterial() const noexcept
+{
+	return Material();
+}
+
 void TestCube::Translate(float x, float y, float z)
 {
-	const float deg2rad = XM_PI / 180;
-	pos.x += x * deg2rad;
-	pos.y += y * deg2rad;
-	pos.z += z * deg2rad;
+	pos.x += x;
+	pos.y += y;
+	pos.z += z;
 }
 
 void TestCube::Rotate(float pitch, float yaw, float roll)
 {
-	rot.x += pitch;
-	rot.y += yaw;
-	rot.z += roll;
+	const float deg2rad = XM_PI / 180;
+	rot.x += pitch * deg2rad;
+	rot.y += yaw * deg2rad;
+	rot.z += roll * deg2rad;
 }
 
 void TestCube::Scale(float x, float y, float z)
