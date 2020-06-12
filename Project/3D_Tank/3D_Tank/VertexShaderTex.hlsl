@@ -1,6 +1,8 @@
 cbuffer ConstantBuffer : register(b0)
 {
-	matrix transform;
+	matrix World;
+	matrix View;
+	matrix Proj;
 }
 
 struct VS_INPUT
@@ -18,7 +20,9 @@ struct PS_INPUT
 PS_INPUT main(VS_INPUT input)
 {
 	PS_INPUT output;
-	output.Pos = mul(float4(input.Pos, 1.0f), transform);
+	output.Pos = mul(float4(input.Pos, 1.0f), World);
+	output.Pos = mul(output.Pos, View);
+	output.Pos = mul(output.Pos, Proj);
 	output.Tex = input.Tex;
 	return output;
 }

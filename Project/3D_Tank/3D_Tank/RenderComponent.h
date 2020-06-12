@@ -11,7 +11,7 @@ public:
 	~RenderComponent();
 
 	void setMesh(Mesh* theMesh) noexcept;
-	DirectX::XMMATRIX getTransformXM() noexcept;
+	DirectX::XMMATRIX getWorldMatrix() noexcept;
 
 private:
 	Mesh* mMesh;

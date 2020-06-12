@@ -8,7 +8,17 @@ class TransformCbuf : public Bindable
 public:
 	TransformCbuf(Graphics& gfx, const Drawable& mParent);
 	void bind(Graphics& gfx) noexcept override;
+
+protected:
+	struct ConstantBufferWVP
+	{
+		XMMATRIX World;
+		XMMATRIX View;
+		XMMATRIX Proj;
+	};
+protected:
+	ConstantBufferWVP getMVP(Graphics& gfx) noexcept;
 private:
-	VertexConstantBuffer<DirectX::XMMATRIX> mVertexConstbuff;
+	VertexConstantBuffer<ConstantBufferWVP> mVertexConstbuff;
 	const Drawable& mParent;
 };

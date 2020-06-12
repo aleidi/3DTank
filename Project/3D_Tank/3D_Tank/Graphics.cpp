@@ -455,9 +455,19 @@ void Graphics::showText()
 	pd2dRenderTarget->EndDraw();
 }
 
-DirectX::XMMATRIX Graphics::GetViewProj() const noexcept
+DirectX::XMMATRIX Graphics::getViewProj() const noexcept
 {
 	return mRenderCamera->getViewProjXM();
+}
+
+DirectX::XMMATRIX Graphics::getView() const noexcept
+{
+	return mRenderCamera->getViewXM();
+}
+
+DirectX::XMMATRIX Graphics::getProj() const noexcept
+{
+	return mRenderCamera->getProjectionXM();
 }
 
 //DirectX::XMVECTOR Graphics::getcamForward()

@@ -22,7 +22,7 @@ void RenderComponent::setMesh(Mesh * theMesh) noexcept
 	RenderManager::sGetInstance()->addMeshToPool(mMesh);
 }
 
-DirectX::XMMATRIX RenderComponent::getTransformXM() noexcept
+DirectX::XMMATRIX RenderComponent::getWorldMatrix() noexcept
 {
 	return mObject->getTransform()->getLocalToWorldMatrix();
 }

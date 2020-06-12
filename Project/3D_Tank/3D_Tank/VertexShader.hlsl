@@ -1,6 +1,8 @@
 cbuffer CBuf
 {
-    matrix transform;
+	matrix World;
+	matrix View;
+	matrix Proj;
 };
 
 struct VertexInput
@@ -16,6 +18,8 @@ struct VertexOut
 VertexOut main(VertexInput vin)
 {
     VertexOut vout;
-    vout.pos = mul(float4(vin.pos, 1.0f), transform);
+    vout.pos = mul(float4(vin.pos, 1.0f), World);
+	vout.pos = mul(vout.pos, View);
+	vout.pos = mul(vout.pos, Proj);
     return vout;
 }

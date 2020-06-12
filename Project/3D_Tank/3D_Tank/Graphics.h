@@ -58,8 +58,9 @@ public:
 	void DrawIndexed(UINT mCount) noexcept;
 	void setShowText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
 	void showText();
-	DirectX::XMMATRIX GetViewProj() const noexcept;
-
+	DirectX::XMMATRIX getViewProj() const noexcept;
+	DirectX::XMMATRIX getView() const noexcept;
+	DirectX::XMMATRIX getProj() const noexcept;
 
 	//test code
 	//DirectX::XMVECTOR getcamForward();
