@@ -14,24 +14,39 @@ public:
 	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
 private:
 	Rest() {}
-	
+
 	Rest(const Rest&);
 	Rest& operator=(const Rest&);
 };
 
-class Patrol : public State<EnemyTank> {
+class Wander : public State<EnemyTank> {
 public:
-	static Patrol* getInstance();
+	static Wander* getInstance();
 	virtual void enter(EnemyTank* pETank);
 	virtual void execute(EnemyTank* pETank);
 	virtual void exit(EnemyTank* pETank);
 
 	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
 private:
-	Patrol() {}
+	Wander() {}
 	
-	Patrol(const Patrol&);
-	Patrol& operator=(const Patrol&);
+	Wander(const Wander&);
+	Wander& operator=(const Wander&);
+};
+
+class Avoidance : public State<EnemyTank> {
+public:
+	static Avoidance* getInstance();
+	virtual void enter(EnemyTank* pETank);
+	virtual void execute(EnemyTank* pETank);
+	virtual void exit(EnemyTank* pETank);
+
+	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+private:
+	Avoidance() {}
+
+	Avoidance(const Avoidance&);
+	Avoidance& operator=(const Avoidance&);
 };
 
 class Attack : public State<EnemyTank> {
@@ -64,21 +79,37 @@ private:
 	Evade& operator=(const Evade&);
 };
 
-class Avoidance : public State<EnemyTank> {
+class Pursuit : public State<EnemyTank> {
 public:
-	static Avoidance* getInstance();
+	static Pursuit* getInstance();
 	virtual void enter(EnemyTank* pETank);
 	virtual void execute(EnemyTank* pETank);
 	virtual void exit(EnemyTank* pETank);
 
 	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
 private:
-	Avoidance() {}
+	Pursuit() {}
 
-	Avoidance(const Avoidance&);
-	Avoidance& operator=(const Avoidance&);
+	Pursuit(const Pursuit&);
+	Pursuit& operator=(const Pursuit&);
 };
 
+
+//////////////////////////////////////
+class Patrol : public State<EnemyTank> {
+public:
+	static Patrol* getInstance();
+	virtual void enter(EnemyTank* pETank);
+	virtual void execute(EnemyTank* pETank);
+	virtual void exit(EnemyTank* pETank);
+
+	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+private:
+	Patrol() {}
+
+	Patrol(const Patrol&);
+	Patrol& operator=(const Patrol&);
+};
 
 
  

@@ -8,18 +8,18 @@
 //#include "utils.h"
 #include <cassert>
 #include "Math.h"
-#include "GameObject.h"
+#include "Pawn.h"
 // desc: base class for a game object
 
 struct Telegram;
 
-class BaseGameEntity : public GameObject {
+class BaseGameEntity : public Pawn {
 public:
 	enum {default_entity_type = -1};
 
 	virtual ~BaseGameEntity() {}
 	virtual void update() {};
-	virtual void render() = 0;
+	// virtual void render() = 0;
 
 	virtual bool handleMessage(const Telegram& msg) { return false; }
 

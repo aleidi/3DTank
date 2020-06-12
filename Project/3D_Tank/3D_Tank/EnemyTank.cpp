@@ -1,29 +1,17 @@
 #include "EnemyTank.h"
-
-EnemyTank::EnemyTank(int id) : BaseGameEntity(id),
-							   m_HP(100)                              
-{
-	m_pStateMachine = new StateMachine<EnemyTank>(this);
-	m_pStateMachine->setCurrentState( Rest::getInstance() );
-}
-
-EnemyTank::~EnemyTank() { delete m_pStateMachine; }
-							  
+						  
 void EnemyTank::update() {
 	m_pStateMachine->update();
 }
 
-StateMachine<EnemyTank>* EnemyTank::getFSM()const {
-	return m_pStateMachine;
-}
-
-void EnemyTank::damageCalculaion(int damage) {
-	m_HP -= damage;
+void EnemyTank::setHP(int changeHP) {
+	m_HP += changeHP;
 }
 
 int EnemyTank::getHP()const {
 	return m_HP;
 }
+
 
 bool EnemyTank::handleMessage(const Telegram& msg) {
 	return m_pStateMachine->handleMessage(msg); 
@@ -37,8 +25,16 @@ bool EnemyTank::isDying()const {
 	return false;
 }
 
-bool EnemyTank::isEnemyFound()const {
-	if( Vector3::lengthSq( getPosPlayer,m_Position ) <= m_AttackRangeRadiusSq ) {
+bool EnemyTank::getHPRecovered()const {
+	return this->m_HPRecovered;
+}
+
+void EnemyTank::setHPRecovered( bool isRecovered ) {
+	this->m_HPRecovered = isRecovered;
+}
+
+bool EnemyTank::isEnemyInRange()const {
+	if( Vector3::lengthSq( getPosPlayer, mTransform->getPosition() ) <= m_AttackRangeRadiusSq ) {
 		// do something here to check if there are any obstacles
 		// if no
 		return true;

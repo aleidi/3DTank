@@ -73,7 +73,7 @@ void MessageDispatcher::Dispatch_Message(double  delay,
 	//if there is no delay, route telegram immediately                       
 	if (delay <= 0.0f)
 	{
-		cout << "\nInstant telegram dispatched at time: " << Clock->GetCurrentTime()
+		cout << "\nInstant telegram dispatched at time: " << Clock->getCurrentTime()
 			<< " by " << getNameOfEntity(pSender->getID()) << " for " << getNameOfEntity(pReceiver->getID())
 			<< ". Msg is " << MsgToStr(msg);
 
@@ -84,7 +84,7 @@ void MessageDispatcher::Dispatch_Message(double  delay,
 	//else calculate the time when the telegram should be dispatched
 	else
 	{
-		double CurrentTime = Clock->GetCurrentTime();
+		double CurrentTime = Clock->getCurrentTime();
 
 		telegram.DispatchTime = CurrentTime + delay;
 
@@ -92,7 +92,7 @@ void MessageDispatcher::Dispatch_Message(double  delay,
 		PriorityQ.insert(telegram);
 
 		cout << "\nDelayed telegram from " << getNameOfEntity(pSender->getID()) << " recorded at time "
-			<< Clock->GetCurrentTime() << " for " << getNameOfEntity(pReceiver->getID())
+			<< Clock->getCurrentTime() << " for " << getNameOfEntity(pReceiver->getID())
 			<< ". Msg is " << MsgToStr(msg);
 
 	}
@@ -109,7 +109,7 @@ void MessageDispatcher::DispatchDelayedMessages()
 	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
 	//get current time
-	double CurrentTime = Clock->GetCurrentTime();
+	double CurrentTime = Clock->getCurrentTime();
 
 	//now peek at the queue to see if any telegrams need dispatching.
 	//remove all telegrams from the front of the queue that have gone

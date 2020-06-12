@@ -37,7 +37,7 @@ public:
 	static CrudeTimer* Instance();
 
 	//returns how much time has elapsed since the timer was started
-	double GetCurrentTime() { return timeGetTime() * 0.001 - m_dStartTime; }
+	double getCurrentTime() { return timeGetTime() * 0.001 - m_dStartTime; }
 
 };
 

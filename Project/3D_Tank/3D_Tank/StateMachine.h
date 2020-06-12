@@ -21,17 +21,19 @@ public:
 	void setGlobalState(State<entity_type>* s) { m_pGlobalState = s; }
 
 	void update() const {
-		if (m_pGlobalState) m_pGlobalState->execute(m_pOwner);
-		if (m_pCurrentState) m_pCurrentState->execute(m_pOwner);
+		if (m_pGlobalState)
+			m_pGlobalState->execute(m_pOwner);
+		if (m_pCurrentState)
+			m_pCurrentState->execute(m_pOwner);
 	}
 
 	void changeState(State<entity_type>* pNewState) {
 		assert(pNewState && "<StateMachine::ChangeState>: trying to change to a null state");
 
 		m_pPreviousState = m_pCurrentState;
-		m_pCurrentState->Exit(m_pOwner);
+		m_pCurrentState->exit(m_pOwner);
 		m_pCurrentState = pNewState;
-		m_pCurrentState->Enter(m_pOwner);
+		m_pCurrentState->enter(m_pOwner);
 	}
 
 	void revertToPerviousState() {
