@@ -62,7 +62,7 @@ void ComputeDirectionalLight(Material mat, DirectionalLight L,
 
 	ambient = mat.Ambient * L.Ambient;
 
-	float diffuseFactor = dot(lightVec, normal);
+	float diffuseFactor = 0.5f * dot(lightVec, normal) + 0.5f;
 
 	[flatten]
 	if (diffuseFactor > 0.0f)

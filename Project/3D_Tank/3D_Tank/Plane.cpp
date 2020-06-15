@@ -25,7 +25,7 @@ Plane::Plane(RenderComponent * owner)
 	};
 	addBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	addBind(std::make_unique<Texture>(gfx, L"Objects/Wall"));
+	addBind(std::make_unique<Texture>(gfx, L"Objects/DefaultTexture"));
 
 	addBind(std::make_unique<Sampler>(gfx));
 
