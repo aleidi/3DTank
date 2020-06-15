@@ -6,23 +6,39 @@
 
 BoundingCube::BoundingCube(GameObject* obj) :Component(obj)
 {
+	box.Center = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
+	box.Extents = DirectX::XMFLOAT3(1.f, 1.f, 1.f);
+	box.Orientation = DirectX::XMFLOAT4(0.f, 0.f, 0.f, 1.f);
+	moveable = 0;
 }
 
 BoundingCube::~BoundingCube() {
 }
 
-void BoundingCube::createBoundingCube(const Vector3 & center, const Vector3 & extents, int isMoveable)
+void BoundingCube::createBoundingCube(const DirectX::XMVECTOR & maxPoint, const DirectX::XMVECTOR & minPoint, int isMoveable)
 {
-	this->center = center;
-	this->extents = extents;
+	DirectX::BoundingBox box1;
+	DirectX::BoundingBox::CreateFromPoints(box1, maxPoint, minPoint);
+	outBox.Center = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
+	outBox.Extents = DirectX::XMFLOAT3(1.f, 1.f, 1.f);
+	outBox.Orientation = DirectX::XMFLOAT4(0.f, 0.f, 0.f, 1.f);
+	DirectX::BoundingOrientedBox::CreateFromBoundingBox(outBox, box1);
+	box = outBox;
 	if (CollisionManager::sGetInstance())
 	{
 		CollisionManager::sGetInstance()->mBoundingCube.push_back(this);
-		if (isMoveable == 1) CollisionManager::sGetInstance()->moveableBoundingCube.push_back(this);
+		if (isMoveable == 1) {
+			CollisionManager::sGetInstance()->moveableBoundingCube.push_back(this);
+			this->moveable = 1;
+		}
 	}
 }
 
 void BoundingCube::onFixedUpdate(float deltaTime)
 {
-	this->center = this->getObject()->getTransform()->getPosition();
+	//outBox.Center = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
+	//outBox.Extents = DirectX::XMFLOAT3(1.f, 1.f, 1.f);
+	//outBox.Orientation = DirectX::XMFLOAT4(0.f, 0.f, 0.f, 1.f);
+	//this->box.Transform(outBox, this->getObject()->getTransform()->getLocalToWorldMatrix());
+	//box = outBox;
 }
