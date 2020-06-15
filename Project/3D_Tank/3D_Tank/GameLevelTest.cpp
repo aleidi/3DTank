@@ -4,6 +4,9 @@
 
 #include "TankGamePlay.h"
 #include "TankBatteryCtrl.h"
+#include "RenderManager.h"
+#include "GameCharacter.h"
+#include "AIController.h"
 
 
 GameObject* hq;
@@ -13,6 +16,8 @@ GameObject* tankTrackL;
 GameObject* tankTrackR;
 GameObject* cam;
 GameObject* follow;
+GameCharacter* enemy;
+AIController* aiController;
 
 GameLevelTest::GameLevelTest()
 {
@@ -28,7 +33,8 @@ void GameLevelTest::enterLevel()
 	mCurrentGameMode = new GameModeBase();
 	mCurrentGameMode->onInit();
 
-	SceneManager::sGetInstance()->createCube()->getTransform()->setPosition(Vector3::right* 5.0f);
+	GameObject* cube = SceneManager::sGetInstance()->createCube();
+
 	//hq = SceneManager::sGetInstance()->createEmptyObject();
 	//hq->setName("hq");
 	//ScriptComponent* sc = new TankGamePlay(hq);
@@ -105,6 +111,13 @@ void GameLevelTest::enterLevel()
 	//SM_construction_fence->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 
 	//hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+
+
+	//set ai
+	enemy = new GameCharacter();
+	cube->attach(*enemy);
+	aiController = new AIController();
+	aiController->posses(enemy);
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
@@ -116,6 +129,22 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		return GameLevelManager::sGetInstance()->changeLevel(1);
 	}
 
+	if (DInputPC::getInstance().iskey(DIK_I))
+	{
+		RenderManager::sGetInstance()->rotateLight(deltaTime*100.0f, 0.0f, 0.0f);
+	}
+	if (DInputPC::getInstance().iskey(DIK_K))
+	{
+		RenderManager::sGetInstance()->rotateLight(deltaTime*-100.0f, 0.0f, 0.0f);
+	}
+	if (DInputPC::getInstance().iskey(DIK_J))
+	{
+		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*100.0f, 0.0f);
+	}
+	if (DInputPC::getInstance().iskey(DIK_L))
+	{
+		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
+	}
 	return this;
 }
 

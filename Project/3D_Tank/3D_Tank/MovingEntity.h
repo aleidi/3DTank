@@ -1,9 +1,13 @@
-#pragma once
+﻿#pragma once
 
 #include <cassert>
 
 #include "Vector3.h"
 #include "BaseGameEntity.h"
+
+//max_speed,turn_rate,mass
+//velocity,m_dMaxForce,radius
+//heading，Side,position
 
 class MovingEntity : public BaseGameEntity {
 public:

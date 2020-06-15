@@ -1,4 +1,10 @@
 #include "Pawn.h"
+#include "MovementComponent.h"
+
+Pawn::Pawn()
+{
+	mMovementComp = new MovementComponent(this);
+}
 
 Pawn::~Pawn()
 {
