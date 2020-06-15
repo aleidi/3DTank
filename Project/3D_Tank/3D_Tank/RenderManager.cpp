@@ -1,5 +1,8 @@
 #include "RenderManager.h"
 #include "Mesh.h"
+#include "LightHelper.h"
+#include "GameObject.h"
+#include "Transform.h"
 
 RenderManager* RenderManager::sInstance = nullptr;
 
@@ -61,8 +64,13 @@ Graphics & RenderManager::getGraphics() const
 	return mGraphics;
 }
 
+DirectionalLight RenderManager::getDirLight() noexcept
+{
+	return DirectionalLight();
+}
+
 RenderManager::RenderManager(Graphics & gfx)
-	:mMeshes(),mGraphics(gfx)
+	:mMeshes(), mGraphics(gfx)
 {
 }
 

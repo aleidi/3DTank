@@ -1,4 +1,6 @@
 #include <fstream>
+
+#include <DirectXMath.h>
 #include "FileManager.h"
 
 void FileManager::LoadOBJModel(GeometryGenerator::Mesh & mesh, const std::string & name)
@@ -27,6 +29,30 @@ void FileManager::LoadOBJModel(GeometryGenerator::Mesh & mesh, const std::string
 		}
 		mesh.vertices.push_back(vertex);
 		mesh.indices.push_back(index++);
+	}
+
+	for (int i = 0; i < mesh.vertices.size() - 1;)
+	{
+		
+		XMFLOAT3 p0 = mesh.vertices[i].Position;
+		XMFLOAT3 p1 = mesh.vertices[i+1].Position;
+		XMFLOAT3 p2 = mesh.vertices[i+2].Position;
+
+		XMVECTOR v0 = XMLoadFloat3(&p0);
+		XMVECTOR v1 = XMLoadFloat3(&p1);
+		XMVECTOR v2 = XMLoadFloat3(&p2);
+
+		XMVECTOR v01 = XMVectorSubtract(v1, v0);
+		XMVECTOR v12 = XMVectorSubtract(v2, v1);
+
+		XMVECTOR nor = XMVector3Cross(v01, v12);
+		nor = XMVector3Normalize(nor);
+
+		XMStoreFloat3(&mesh.vertices[i].Normal, nor);
+		XMStoreFloat3(&mesh.vertices[i+1].Normal, nor);
+		XMStoreFloat3(&mesh.vertices[i+2].Normal, nor);
+
+		i += 3;
 	}
 }
 

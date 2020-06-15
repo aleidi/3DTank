@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineCommon.h"
+#include "LightHelper.h"
 
 class GameObject;
 class RenderComponent;
@@ -11,11 +12,11 @@ public:
 	static SceneManager* sGetInstance();
 	static void createSingleton();
 
-	GameObject* createCube() const noexcept;
-	GameObject* createSphere() const noexcept;
-	GameObject* createPlane() const noexcept;
-	GameObject* createEmptyObject() const noexcept;
-	void createRenderComponent(GameObject* object) const noexcept;
+	GameObject* createCube() noexcept;
+	GameObject* createSphere() noexcept;
+	GameObject* createPlane() noexcept;
+	GameObject* createEmptyObject() noexcept;
+	void createRenderComponent(GameObject* object) noexcept;
 	void createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath);
 
 	void addGameObjectToPool(GameObject* object) noexcept;

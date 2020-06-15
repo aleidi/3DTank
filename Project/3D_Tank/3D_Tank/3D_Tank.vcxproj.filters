@@ -423,6 +423,9 @@
     <ClCompile Include="CubeForCol.cpp">
       <Filter>Engine\Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="PSTransCBuf.cpp">
+      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -740,6 +743,9 @@
     <ClInclude Include="CubeForCol.h">
       <Filter>Engine\Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="PSTransCBuf.h">
+      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -766,5 +772,16 @@
     <FxCompile Include="SkyBox_PS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
+    <FxCompile Include="Light_PS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Light_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LightHelper.hlsli">
+      <Filter>Engine\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@ public:
 	{
 		XMFLOAT3 Position;
 		XMFLOAT2 Texcoord;
+		XMFLOAT3 Normal;
 	};
 
 	struct Mesh

@@ -12,6 +12,11 @@ void Drawable::draw(Graphics& gfx) const noexcept
 	gfx.DrawIndexed(pIndexBuffer->getCount());
 }
 
+Material Drawable::GetMaterial() const
+{
+	return mMaterial;
+}
+
 void Drawable::addBind(std::unique_ptr<Bindable> bind) noexcept
 {
 	assert("*Must* use AddIndexBuffer to bind index buffer" && typeid(*bind) != typeid(IndexBuffer));

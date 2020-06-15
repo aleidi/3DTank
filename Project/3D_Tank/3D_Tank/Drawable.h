@@ -12,10 +12,12 @@ public:
 	virtual Material getMaterial() const noexcept = 0;
 	void draw(Graphics& gfx) const noexcept;
 	virtual void onUpdate(float deltaTime) noexcept = 0;
+	virtual Material GetMaterial() const;
 	void addBind(std::unique_ptr<Bindable> bind) noexcept;
 	void addIndexBuffer(std::unique_ptr<class IndexBuffer> ibuf) noexcept;
 	virtual ~Drawable() = default;
-private:
+protected:
 	const IndexBuffer* pIndexBuffer = nullptr;
 	std::list<std::unique_ptr<Bindable>> mBinds;
+	Material mMaterial;
 };

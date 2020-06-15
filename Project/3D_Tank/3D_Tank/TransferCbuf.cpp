@@ -1,6 +1,7 @@
 #include <assert.h>
 
 #include "TransferCbuf.h"
+#include "RenderManager.h"
 
 TransferCbuf::TransferCbuf(Graphics& gfx, const Drawable& mParent)
 	:
@@ -20,11 +21,7 @@ TransferCbuf::CBWVP TransferCbuf::getMVP(Graphics & gfx) noexcept
 	{
 		DirectX::XMMatrixTranspose(mParent.getTransformXM()),
 		DirectX::XMMatrixTranspose(gfx.getView()),
-		DirectX::XMMatrixTranspose(gfx.getProj())
+		DirectX::XMMatrixTranspose(gfx.getProj()),
+		DirectX::XMMatrixInverse(nullptr,mParent.getTransformXM())
 	};
-}
-
-TransferCbuf::CBPS TransferCbuf::getCBPS(Graphics & gfx) noexcept
-{
-	return CBPS();
 }

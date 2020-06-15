@@ -1,7 +1,9 @@
 #pragma once
 #include "Graphics.h"
+#include "LightHelper.h"
 
 class Mesh;
+class GameObject;
 
 class RenderManager
 {
@@ -15,6 +17,7 @@ public:
 	void addMeshToPool(Mesh* mesh) noexcept;
 	bool removeMeshFromPool(Mesh* mesh) noexcept;
 	Graphics& getGraphics() const;
+	DirectionalLight getDirLight() noexcept;
 
 private:
 	RenderManager(Graphics& gfx);
@@ -25,5 +28,6 @@ private:
 	static RenderManager* sInstance;
 
 	std::list<Mesh*> mMeshes;
+	DirectionalLight mDirLightAttr;
 	Graphics& mGraphics;
 };

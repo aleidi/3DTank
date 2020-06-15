@@ -1,8 +1,10 @@
 #include <assert.h>
+
 #include "SceneManager.h"
 #include "RenderComponent.h"
 #include "GameObject.h"
 #include "FactoryBase.h"
+#include "RenderManager.h"
 
 SceneManager* SceneManager::sInstance = nullptr;
 
@@ -39,27 +41,27 @@ void SceneManager::createSingleton()
 	sInstance = new SceneManager();
 }
 
-GameObject * SceneManager::createCube() const noexcept
+GameObject * SceneManager::createCube() noexcept
 {
 	return mFactories.at("Cube")->getObject();
 }
 
-GameObject * SceneManager::createSphere() const noexcept
+GameObject * SceneManager::createSphere() noexcept
 {
 	return mFactories.at("Sphere")->getObject();
 }
 
-GameObject * SceneManager::createPlane() const noexcept
+GameObject * SceneManager::createPlane() noexcept
 {
 	return mFactories.at("Plane")->getObject();
 }
 
-GameObject * SceneManager::createEmptyObject() const noexcept
+GameObject * SceneManager::createEmptyObject() noexcept
 {
 	return mFactories.at("Empty")->getObject();
 }
 
-void SceneManager::createRenderComponent(GameObject * object) const noexcept
+void SceneManager::createRenderComponent(GameObject * object) noexcept
 {
 }
 

@@ -461,6 +461,11 @@ DirectX::XMMATRIX Graphics::getProj() const noexcept
 	return mRenderCamera->getProjectionXM();
 }
 
+XMVECTOR Graphics::getCameraPosition() const noexcept
+{
+	return mRenderCamera->getPosition();
+}
+
 //DirectX::XMVECTOR Graphics::getcamForward()
 //{
 //	return mRenderCamera.get()->getForward();
