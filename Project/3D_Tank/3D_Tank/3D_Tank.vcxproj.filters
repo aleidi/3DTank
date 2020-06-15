@@ -408,9 +408,6 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="DepthStencil.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="SkyBox.cpp">
       <Filter>Engine\Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
@@ -424,6 +421,9 @@
       <Filter>Engine\Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
     <ClCompile Include="PSTransCBuf.cpp">
+      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencil.cpp">
       <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
   </ItemGroup>
@@ -728,9 +728,6 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="DepthStencil.h">
-      <Filter>Engine\Header</Filter>
-    </ClInclude>
     <ClInclude Include="SkyBox.h">
       <Filter>Engine\Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
@@ -744,6 +741,9 @@
       <Filter>Engine\Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="PSTransCBuf.h">
+      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthStencil.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
     </ClInclude>
   </ItemGroup>
