@@ -102,9 +102,9 @@ void CollisionManager::deleteBoundingCube(const BoundingCube* cube)
 	if (cube && mBoundingCube.size() > 0) {
 		for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
 			if (*it == cube) {
+				mBoundingCube.erase(it);
 				delete *it;
 				*it = NULL;
-				mBoundingCube.erase(it);
 			}
 		}
 	}
@@ -115,9 +115,9 @@ void CollisionManager::deleteBoundingSphere(const MBoundingSphere * sphere)
 	if (sphere && mBoundingSphere.size() > 0) {
 		for (std::vector<MBoundingSphere*>::iterator it = mBoundingSphere.begin(); it != mBoundingSphere.end(); it++) {
 			if (*it == sphere) {
+				mBoundingSphere.erase(it);
 				delete *it;
 				*it = NULL;
-				mBoundingSphere.erase(it);
 			}
 		}
 	}

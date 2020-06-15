@@ -42,6 +42,7 @@ public:
 	Vector3 Forward;
 	Vector3 Right;
 	Vector3 Up;
+	int MoveDirection;   //0:forward, 1:back
 
 private:
 	void calcultateTransformMatrix() noexcept;
