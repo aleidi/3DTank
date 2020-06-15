@@ -426,6 +426,15 @@
     <ClCompile Include="DepthStencil.cpp">
       <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
+    <ClCompile Include="GameCharacter.cpp">
+      <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AIController.cpp">
+      <Filter>Game\Source\Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -745,6 +754,15 @@
     </ClInclude>
     <ClInclude Include="DepthStencil.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCharacter.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>Engine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AIController.h">
+      <Filter>Game\Header\Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
