@@ -2,6 +2,7 @@
 #include "Vector3.h"
 #include <vector>
 
+class GameObject;
 class BoundingCube;
 class MBoundingSphere;
 
@@ -14,6 +15,7 @@ public:
 	bool collisionCheck_CubeToCube(BoundingCube* cube);
 	bool collisionCheck_SphereToCube(const MBoundingSphere* sphere, BoundingCube* cube);
 	void rayCheck(const Vector3& origin, const Vector3& direction, BoundingCube* farthestCube, BoundingCube* nearestCube, float& farthestDis, float& nearestDis);
+	void rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis);
 	bool collisionCheck(BoundingCube* cube1, BoundingCube* cube2);
 	bool collisionCheck(const BoundingCube* cube, const MBoundingSphere* sphere);
 	bool collisionCheck(const Vector3& ori, const Vector3& dir, const BoundingCube* cube, float& dis);
@@ -36,5 +38,6 @@ private:
 
 	std::vector<BoundingCube*>mBoundingCube;
 	std::vector<BoundingCube*>moveableBoundingCube;
+	std::vector<BoundingCube*>unmoveableBoundingCube;
 	std::vector<MBoundingSphere*>mBoundingSphere;
 };

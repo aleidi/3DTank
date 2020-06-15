@@ -2,6 +2,7 @@
 #include "CollisionManager.h"
 #include "BoundingCube.h"
 #include "BoundingSphere.h"
+#include "GameObject.h"
 
 CollisionManager* CollisionManager::sInstance = NULL;
 
@@ -79,6 +80,25 @@ void CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & directio
 		}
 	}
 
+}
+
+void CollisionManager::rayCheckWithObstacle(const Vector3 & origin, const Vector3 & direction, const float & farthestDis, GameObject * gameobject, float & dis)
+{
+	float d = 0.f;
+	for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
+		if (collisionCheck(origin, direction, *it, d)) {
+			if (gameobject == NULL && d < farthestDis) {
+				dis = d;
+				gameobject = (*it)->getObject();
+			}
+			else {
+				if (d < dis) {
+					dis = d;
+					gameobject = (*it)->getObject();
+				}
+			}
+		}
+	}
 }
 
 bool CollisionManager::collisionCheck(BoundingCube* cube1, BoundingCube* cube2)
