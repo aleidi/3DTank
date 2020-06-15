@@ -22,7 +22,7 @@ void Rest::enter(EnemyTank* pEnemyTank) {
 void Rest::execute(EnemyTank* pEnemyTank) {
 	if (!pEnemyTank->getHPRecovered()) {
 		pEnemyTank->setHPRecovered(true);
- 		Dispatch->Dispatch_Message(10,
+ 		Dispatch->Dispatch_Message(ReplyInterval,
 								   pEnemyTank->getID(),
 								   pEnemyTank->getID(),
 								   Msg_HPRecovered,

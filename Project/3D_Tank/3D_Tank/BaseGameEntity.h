@@ -10,7 +10,7 @@ struct Telegram;
 
 class BaseGameEntity : public Pawn {
 public:
-	enum {default_eneity_type = -1};
+	enum {default_entity_type = -1};
 
 	BaseGameEntity(int id) { setID(id); }
 	virtual ~BaseGameEntity() {}
