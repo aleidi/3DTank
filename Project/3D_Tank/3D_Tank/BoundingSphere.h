@@ -1,19 +1,19 @@
 #pragma once
 #include "Vector3.h"
 #include "Component.h"
+#include "DirectXCollision.h"
 
 class CollisionManager;
 
-class BoundingSphere : public Component {
+class MBoundingSphere : public Component {
 public:
-	BoundingSphere(GameObject* obj);
-	~BoundingSphere();
+	MBoundingSphere(GameObject* obj);
+	~MBoundingSphere();
 
-	void creatBoundingSphere(const Vector3& cen, const float& r, CollisionManager*);
+	void creatBoundingSphere(const DirectX::XMVECTOR& max, const DirectX::XMVECTOR & min, CollisionManager*);
 
 public:
-	Vector3 center;
-	float radius;
+	DirectX::BoundingSphere sphere;
 
 private:
 

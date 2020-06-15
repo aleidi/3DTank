@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineCommon.h"
+#include "DirectXMath.h"
 
 class GameObject;
 class RenderComponent;
@@ -17,6 +18,7 @@ public:
 	GameObject* createEmptyObject() const noexcept;
 	void createRenderComponent(GameObject* object) const noexcept;
 	void createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath);
+	void createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
 
 	void addGameObjectToPool(GameObject* object) noexcept;
 	bool removeGameObjectFromPool(GameObject* object) noexcept;
