@@ -66,12 +66,24 @@ Graphics & RenderManager::getGraphics() const
 
 DirectionalLight RenderManager::getDirLight() noexcept
 {
-	return DirectionalLight();
+	return mDirLight;
+}
+
+void RenderManager::rotateLight(float x, float y, float z)
+{
+	XMVECTOR dir = XMLoadFloat3(&mDirLight.Direction);
+	dir = XMVector3Rotate(dir, XMQuaternionRotationRollPitchYaw(
+		XMConvertToRadians(x),
+		XMConvertToRadians(y),
+		XMConvertToRadians(z)));
+	dir = XMVector3Normalize(dir);
+	XMStoreFloat3(&mDirLight.Direction, dir);
 }
 
 RenderManager::RenderManager(Graphics & gfx)
 	:mMeshes(), mGraphics(gfx)
 {
+	initLight();
 }
 
 RenderManager::~RenderManager()
@@ -85,4 +97,12 @@ RenderManager::~RenderManager()
 		}
 	}
 	mMeshes.clear();
+}
+
+void RenderManager::initLight() noexcept
+{
+	mDirLight.Ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
+	mDirLight.Diffuse = XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f);
+	mDirLight.Specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+	mDirLight.Direction = XMFLOAT3(-0.577f, -0.577f, 0.577f);
 }

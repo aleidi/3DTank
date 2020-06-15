@@ -12,6 +12,14 @@ void Drawable::draw(Graphics& gfx) const noexcept
 	gfx.DrawIndexed(pIndexBuffer->getCount());
 }
 
+void Drawable::initMaterial() noexcept
+{
+	mMaterial.Ambient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+	mMaterial.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mMaterial.Specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 5.0f);
+	mMaterial.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+}
+
 Material Drawable::GetMaterial() const
 {
 	return mMaterial;

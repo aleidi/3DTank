@@ -18,16 +18,20 @@ public:
 	bool removeMeshFromPool(Mesh* mesh) noexcept;
 	Graphics& getGraphics() const;
 	DirectionalLight getDirLight() noexcept;
+	void rotateLight(float x, float y, float z);
 
 private:
 	RenderManager(Graphics& gfx);
 	~RenderManager();
 	RenderManager(const RenderManager&) = delete;
 	RenderManager& operator=(const RenderManager&) = delete;
+
+	void initLight() noexcept;
+
 private:
 	static RenderManager* sInstance;
 
 	std::list<Mesh*> mMeshes;
-	DirectionalLight mDirLightAttr;
+	DirectionalLight mDirLight;
 	Graphics& mGraphics;
 };

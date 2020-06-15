@@ -12,6 +12,7 @@ public:
 	virtual Material getMaterial() const noexcept = 0;
 	void draw(Graphics& gfx) const noexcept;
 	virtual void onUpdate(float deltaTime) noexcept = 0;
+	virtual void initMaterial() noexcept;
 	virtual Material GetMaterial() const;
 	void addBind(std::unique_ptr<Bindable> bind) noexcept;
 	void addIndexBuffer(std::unique_ptr<class IndexBuffer> ibuf) noexcept;
