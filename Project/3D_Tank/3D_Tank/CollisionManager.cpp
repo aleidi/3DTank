@@ -24,7 +24,7 @@ void CollisionManager::destroy()
 	sInstance = NULL;
 }
 
-bool CollisionManager::collisionCheck_CubeToCube(const BoundingCube * cube)
+bool CollisionManager::collisionCheck_CubeToCube(BoundingCube * cube)
 {
 	if (cube && mBoundingCube.size() > 0) {
 		for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
@@ -38,7 +38,7 @@ bool CollisionManager::collisionCheck_CubeToCube(const BoundingCube * cube)
 		return false;
 }
 
-bool CollisionManager::collisionCheck_SphereToCube(const BoundingSphere * sphere, BoundingCube* cube)
+bool CollisionManager::collisionCheck_SphereToCube(const MBoundingSphere * sphere, BoundingCube* cube)
 {
 	if (sphere && mBoundingSphere.size() > 0) {
 		for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
@@ -53,23 +53,20 @@ bool CollisionManager::collisionCheck_SphereToCube(const BoundingSphere * sphere
 		return false;
 }
 
-bool CollisionManager::collisionCheck_RayToCube(const Vector3 & o, const Vector3 & d, const BoundingCube * cube, float & dis)
+bool CollisionManager::collisionCheck(const Vector3 & o, const Vector3 & d, const BoundingCube * cube, float & dis)
 {
-	DirectX::XMFLOAT3 cen(cube->center.x, cube->center.y, cube->center.z);
-	DirectX::XMFLOAT3 ext(cube->extents.x, cube->extents.y, cube->extents.z);
-	DirectX::BoundingBox box(cen, ext);
 	DirectX::XMFLOAT3 ori(o.x, o.y, o.z);
 	DirectX::XMFLOAT3 dir(d.x, d.y, d.z);
 	DirectX::XMVECTOR origin = DirectX::XMLoadFloat3(&ori);
 	DirectX::XMVECTOR direction = DirectX::XMLoadFloat3(&dir);
-	return box.Intersects(origin, direction, dis);
+	return cube->box.Intersects(origin, direction, dis);
 }
 
 void CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & direction, BoundingCube * farthestCube, BoundingCube * nearestCube, float & farthestDis, float & nearestDis)
 {
 	float maxDis = -1.f, minDis = -1.f, dis = 0.f;
 	for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
-		if (collisionCheck_RayToCube(origin, direction, *it, dis)) {
+		if (collisionCheck(origin, direction, *it, dis)) {
 			if (maxDis == -1.f && minDis == -1.f) {
 				maxDis = minDis = dis;
 				farthestCube = *it;
@@ -84,25 +81,20 @@ void CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & directio
 
 }
 
-bool CollisionManager::collisionCheck(const BoundingCube * cube1, const BoundingCube * cube2)
+bool CollisionManager::collisionCheck(BoundingCube* cube1, BoundingCube* cube2)
 {
-	DirectX::XMFLOAT3 cen(cube1->center.x, cube1->center.y, cube1->center.z);
-	DirectX::XMFLOAT3 ext(cube1->extents.x, cube1->extents.y, cube1->extents.z);
-	DirectX::BoundingBox box1(cen, ext);
-	cen.x = cube2->center.x; cen.y = cube2->center.y; cen.z = cube2->center.z;
-	ext.x = cube2->extents.x; ext.y = cube2->extents.y; ext.z = cube2->extents.z;
-	DirectX::BoundingBox box2(cen, ext);
-	return box1.Intersects(box2);
+	//DirectX::XMVECTOR ori = DirectX::XMLoadFloat4(&cube1->box.Orientation);
+	//ori = DirectX::XMVector4Normalize(ori);
+	//DirectX::XMStoreFloat4(&(cube1->box.Orientation), ori);
+	//ori = DirectX::XMLoadFloat4(&cube2->box.Orientation);
+	//ori = DirectX::XMVector4Normalize(ori);
+	//DirectX::XMStoreFloat4(&(cube2->box.Orientation), ori);
+	return cube1->box.Intersects(cube2->box);
 }
 
-bool CollisionManager::collisionCheck(const BoundingCube * cube, const BoundingSphere * sphere)
+bool CollisionManager::collisionCheck(const BoundingCube * cube, const MBoundingSphere * sphere)
 {
-	DirectX::XMFLOAT3 cen(cube->center.x, cube->center.y, cube->center.z);
-	DirectX::XMFLOAT3 ext(cube->extents.x, cube->extents.y, cube->extents.z);
-	DirectX::BoundingBox box(cen, ext);
-	cen.x = sphere->center.x; cen.y = sphere->center.y; cen.z = sphere->center.z;
-	DirectX::BoundingSphere DXSphere(cen, sphere->radius);
-	return box.Intersects(DXSphere);
+	return cube->box.Intersects(sphere->sphere);
 }
 
 void CollisionManager::deleteBoundingCube(const BoundingCube* cube)
@@ -110,22 +102,22 @@ void CollisionManager::deleteBoundingCube(const BoundingCube* cube)
 	if (cube && mBoundingCube.size() > 0) {
 		for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
 			if (*it == cube) {
+				mBoundingCube.erase(it);
 				delete *it;
 				*it = NULL;
-				mBoundingCube.erase(it);
 			}
 		}
 	}
 }
 
-void CollisionManager::deleteBoundingSphere(const BoundingSphere * sphere)
+void CollisionManager::deleteBoundingSphere(const MBoundingSphere * sphere)
 {
 	if (sphere && mBoundingSphere.size() > 0) {
-		for (std::vector<BoundingSphere*>::iterator it = mBoundingSphere.begin(); it != mBoundingSphere.end(); it++) {
+		for (std::vector<MBoundingSphere*>::iterator it = mBoundingSphere.begin(); it != mBoundingSphere.end(); it++) {
 			if (*it == sphere) {
+				mBoundingSphere.erase(it);
 				delete *it;
 				*it = NULL;
-				mBoundingSphere.erase(it);
 			}
 		}
 	}
@@ -152,7 +144,7 @@ CollisionManager::~CollisionManager()
 			*it = NULL;
 		}
 	}
-	for (std::vector<BoundingSphere*>::iterator it = mBoundingSphere.begin(); it != mBoundingSphere.end(); it++) {
+	for (std::vector<MBoundingSphere*>::iterator it = mBoundingSphere.begin(); it != mBoundingSphere.end(); it++) {
 		if (*it) {
 			delete *it;
 			*it = NULL;

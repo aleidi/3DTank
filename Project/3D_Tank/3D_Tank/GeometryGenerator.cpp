@@ -40,6 +40,15 @@ void GeometryGenerator::getModel(Mesh & mesh, const std::string & name)
 	mesh = mModels[name];
 }
 
+void GeometryGenerator::getModel(Mesh & mesh, const std::string & name, DirectX::XMVECTOR & maxPoint, DirectX::XMVECTOR & minPoint)
+{
+	if (mModels[name].vertices.size() == 0 || mModels[name].indices.size() == 0)
+	{
+		createModel(name, maxPoint, minPoint);
+	}
+	mesh = mModels[name];
+}
+
 void GeometryGenerator::createCube()
 {
 	std::vector<Vertex> vertices =
@@ -237,5 +246,12 @@ void GeometryGenerator::createModel(const std::string & name)
 {
 	Mesh m;
 	FileManager::LoadOBJModel(m, name);
+	mModels[name] = m;
+}
+
+void GeometryGenerator::createModel(const std::string & name, DirectX::XMVECTOR & maxPoint, DirectX::XMVECTOR & minPoint)
+{
+	Mesh m;
+	FileManager::LoadOBJModel(m, name, maxPoint, minPoint);
 	mModels[name] = m;
 }

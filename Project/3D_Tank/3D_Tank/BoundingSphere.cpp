@@ -1,17 +1,19 @@
 #include "BoundingSphere.h"
 #include "CollisionManager.h"
+#include "BoundingCube.h"
 
-BoundingSphere::BoundingSphere(GameObject * obj) :Component(obj)
+MBoundingSphere::MBoundingSphere(GameObject * obj) :Component(obj)
 {
 }
 
-BoundingSphere::~BoundingSphere()
+MBoundingSphere::~MBoundingSphere()
 {
 }
 
-void BoundingSphere::creatBoundingSphere(const Vector3 & cen, const float & r, CollisionManager * manager)
+void MBoundingSphere::creatBoundingSphere(const DirectX::XMVECTOR & max, const DirectX::XMVECTOR & min, CollisionManager * manager)
 {
-	this->center = cen;
-	this->radius = r;
+	DirectX::BoundingBox box;
+	box.DirectX::BoundingBox::CreateFromPoints(box, max, min);
+	DirectX::BoundingSphere::CreateFromBoundingBox(sphere, box);
 	if (manager) manager->mBoundingSphere.push_back(this);
 }

@@ -42,6 +42,38 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 	initMaterial();
 }
 
+ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const std::wstring & texture, DirectX::XMVECTOR & maxPoint, DirectX::XMVECTOR & minPoint)
+	:Mesh(owner)
+{
+	Graphics& gfx = RenderManager::sGetInstance()->getGraphics();
+	GeometryGenerator::Mesh mesh;
+	GeometryGenerator::getModel(mesh, vertex, maxPoint, minPoint);
+	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
+
+	auto pvs = std::make_unique<VertexShader>(gfx, L"VertexShaderTex.cso");
+	auto pvsbc = pvs->GetBytecode();
+	addBind(std::move(pvs));
+
+	addBind(std::make_unique<PixelShader>(gfx, L"PixelShaderTex.cso"));
+
+	addIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
+
+	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied =
+	{
+		{ "POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
+		{ "TEXCOORD",0,DXGI_FORMAT_R32G32_FLOAT,0,12,D3D11_INPUT_PER_VERTEX_DATA,0},
+	};
+	addBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
+
+	addBind(std::make_unique<Texture>(gfx, texture.c_str()));
+
+	addBind(std::make_unique<Sampler>(gfx));
+
+	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+
+	addBind(std::make_unique<TransferCbuf>(gfx, *this));
+}
+
 ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const std::wstring & texture, D3D11_SAMPLER_DESC sampDesc)
 	:Mesh(owner)
 {

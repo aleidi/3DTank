@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineCommon.h"
+#include "BoundingCube.h"
 
 class Component;
 class Transform;
@@ -33,6 +34,9 @@ public:
 
 	void setLastFramePosition(const Vector3& position);
 	Vector3 getLastFramePosition();
+
+	BoundingCube* cube;
+	DirectX::XMVECTOR Vmax, Vmin;
 
 protected:
 	std::list<Component*> mComps;

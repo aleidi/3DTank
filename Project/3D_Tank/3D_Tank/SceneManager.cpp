@@ -70,6 +70,11 @@ void SceneManager::createModel(GameObject & obj, const std::string & modelPath, 
 	ComponentFactory::createModel(obj, modelPath, texturePath);
 }
 
+void SceneManager::createModel(GameObject & obj, const std::string & modelPath, const std::wstring & texturePath, DirectX::XMVECTOR & maxPoint, DirectX::XMVECTOR & minPoint)
+{
+	ComponentFactory::createModel(obj, modelPath, texturePath, maxPoint, minPoint);
+}
+
 void SceneManager::addGameObjectToPool(GameObject * object) noexcept
 {
 	mObjs.push_back(object);
