@@ -37,6 +37,11 @@ void Transform::onUpdate(float deltaTime)
 void Transform::translate(const Vector3& v)
 {
 	mPosition += v;
+	if (this->getObject()->cube != NULL && this->getObject()->cube->moveable == 1) {
+		this->getObject()->find("hq")->cube->box.Center.x += v.x;
+		this->getObject()->find("hq")->cube->box.Center.y += v.y;
+		this->getObject()->find("hq")->cube->box.Center.z += v.z;
+	}
 }
 
 void Transform::translate(float x, float y, float z)
@@ -54,6 +59,15 @@ void Transform::rotateX(float angle)
 void Transform::rotateY(float angle)
 {
 	mRotation.y += DirectX::XMConvertToRadians(angle);
+	if (this->getObject()->cube != NULL && this->getObject()->cube->moveable == 1) {
+		DirectX::XMStoreFloat4(&(this->getObject()->find("hq")->cube->box.Orientation),
+			DirectX::XMQuaternionRotationRollPitchYaw(
+				this->getObject()->getTransform()->getRotation().x,
+				this->getObject()->getTransform()->getRotation().y,
+				this->getObject()->getTransform()->getRotation().z
+			)
+		);
+	}
 }
 
 void Transform::rotateZ(float angle)
