@@ -5,7 +5,8 @@
 #include "TankGamePlay.h"
 #include "TankBatteryCtrl.h"
 #include "RenderManager.h"
-#include "GameCharacter.h"
+#include "EnemyTank.h"
+#include "EntityNames.h"
 #include "AIController.h"
 
 
@@ -16,7 +17,7 @@ GameObject* tankTrackL;
 GameObject* tankTrackR;
 GameObject* cam;
 GameObject* follow;
-GameCharacter* enemy;
+EnemyTank* enemy;
 AIController* aiController;
 
 GameLevelTest::GameLevelTest()
@@ -114,7 +115,7 @@ void GameLevelTest::enterLevel()
 
 
 	//set ai
-	enemy = new GameCharacter();
+	enemy = new EnemyTank(ent_Tank_Enemy);
 	cube->attach(*enemy);
 	aiController = new AIController();
 	aiController->posses(enemy);
