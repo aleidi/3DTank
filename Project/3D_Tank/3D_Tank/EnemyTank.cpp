@@ -42,3 +42,10 @@ bool EnemyTank::isEnemyInRange()const {
 	}
 	return false;
 }
+
+bool EnemyTank::isLostEnemy()const {
+	if (Vector3::lengthSq(getPosPlayer, mTransform->getPosition()) > m_PursuitRangeRadiusSq) {
+		return true;
+	}
+	return false;
+}
