@@ -21,3 +21,7 @@
 #ifndef PAUSE
 #define PAUSE DIK_SPACE
 #endif // !PAUSE
+
+#ifndef HOTKEY
+#define HOTKEY DIK_F1
+#endif // !PAUSE

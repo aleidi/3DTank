@@ -15,5 +15,4 @@ public:
 
 	void onInit();
 	void onUpdate(float deltaTime);
-	void startFrame();
 };
