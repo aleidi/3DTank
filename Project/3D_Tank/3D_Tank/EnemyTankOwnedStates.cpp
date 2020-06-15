@@ -15,6 +15,7 @@ Rest* Rest::getInstance() {
 }
 
 void Rest::enter(EnemyTank* pEnemyTank) {
+	pEnemyTank->setHPRecovered(false);
 	MessageBox(0, L"I'm going to rest. ", 0, 0);
 }
 
@@ -76,6 +77,8 @@ void Wander::enter(EnemyTank* pEnemyTank) {
 }
 
 void Wander::execute(EnemyTank* pEnemyTank) {
+
+	////////////////////////changeState////////////////////////
 	if (pEnemyTank->isEnemyInRange()) {
 		pEnemyTank->getFSM()->changeState(Attack::getInstance());
 	}
@@ -108,6 +111,8 @@ void Avoidance::enter(EnemyTank* pEnemyTank) {
 }
 
 void Avoidance::execute(EnemyTank* pEnemyTank) {
+
+	////////////////////////changeState////////////////////////
 	if (!pEnemyTank->isObstacleHere()) {
 		pEnemyTank->getFSM()->revertToPerviousState();
 	}
@@ -133,6 +138,8 @@ void Attack::enter(EnemyTank* pEnemyTank) {
 }
 
 void Attack::execute(EnemyTank* pEnemyTank) {
+
+	////////////////////////changeState////////////////////////
 	if (pEnemyTank->isDying()) {
 		pEnemyTank->getFSM()->changeState(Evade::getInstance());
 	}
@@ -161,6 +168,8 @@ void Evade::enter(EnemyTank* pEnemyTank) {
 }
 
 void Evade::execute(EnemyTank* pEnemyTank) {
+
+	////////////////////////changeState////////////////////////
 	if (!pEnemyTank->isEnemyInRange() && !pEnemyTank->isAttacked()) { // safe
 		pEnemyTank->getFSM()->changeState(Rest::getInstance());
 	}
@@ -189,6 +198,8 @@ void Pursuit::enter(EnemyTank* pEnemyTank) {
 }
 
 void Pursuit::execute(EnemyTank* pEnemyTank) {
+
+	////////////////////////changeState////////////////////////
 	if (pEnemyTank->isObstacleHere()) {
 		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 	}
@@ -198,10 +209,12 @@ void Pursuit::execute(EnemyTank* pEnemyTank) {
 	}
 
 	if (pEnemyTank->isDying()) {
-		pEnemyTank->getFSM()->changeState(Evade::getInstance());
+		pEnemyTank->getFSM()->changeState(Evade::getInstance()); 
 	}
 
-	// if ( give up chasing for some reason  ) { pEnemyTank->getFSM()->changeState(Rest::getInstance()); }
+	if ( pEnemyTank->isLostEnemy() ) { 
+		pEnemyTank->getFSM()->changeState(Rest::getInstance()); 
+	}
 }
 
 void Pursuit::exit(EnemyTank* pEnemyTank) {
@@ -231,7 +244,7 @@ bool Pursuit::onMessage(EnemyTank* pEnemyTank, const Telegram& msg) {
 
 
 
-
+/*
 
 //-------------------methods for Patrol-------------------//
 Patrol* Patrol::getInstance() {
@@ -255,3 +268,4 @@ bool Patrol::onMessage(EnemyTank* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
+*/
