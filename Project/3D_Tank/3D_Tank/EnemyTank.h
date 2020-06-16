@@ -26,7 +26,7 @@ public:
 		m_pStateMachine->setCurrentState(Rest::getInstance());
 	}
 
-	~EnemyTank() { delete m_pStateMachine; }
+	~EnemyTank() { } // delete m_pStateMachine; }
 
 	void update();
 
