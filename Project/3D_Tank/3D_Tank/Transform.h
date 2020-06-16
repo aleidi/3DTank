@@ -36,6 +36,7 @@ public:
 	Vector3 getScale() noexcept;
 	Vector3 getLocalScale() noexcept;
 	void setScale(const Vector3& scale) noexcept;
+	void setScale(float x, float y, float z) noexcept;
 
 	XMMATRIX getLocalToWorldMatrix() noexcept;
 public:

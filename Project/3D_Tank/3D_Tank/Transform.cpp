@@ -206,6 +206,21 @@ void Transform::setScale(const Vector3 & scale) noexcept
 	mScale = scale;
 }
 
+void Transform::setScale(float x, float y, float z) noexcept
+{
+	if (parent != nullptr)
+	{
+		Vector3 ps = parent->getScale();
+		mScale.x = x / ps.x;
+		mScale.y = y / ps.y;
+		mScale.z = z / ps.z;
+		return;
+	}
+	mScale.x = x;
+	mScale.y = y;
+	mScale.z = z;
+}
+
 XMMATRIX Transform::getLocalToWorldMatrix() noexcept
 {
 	return XMLoadFloat4x4(&localToWorld);

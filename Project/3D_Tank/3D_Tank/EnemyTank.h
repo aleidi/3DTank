@@ -14,18 +14,17 @@ const int FullHP = 100;
 const int ReplyInterval = 10;
 
 class EnemyTank : public BaseGameEntity {
+
 public:
-	EnemyTank(int ID) :m_HP(95),
-		m_AttackRangeRadiusSq(10000),
-		m_PursuitRangeRadiusSq(20000),
-		m_HPRecovered(false),
-		BaseGameEntity(ID)
+	struct Attribute
 	{
-		// m_pStateMachine = new StateMachine<EnemyTank>(this);
+		int HP;
+		float AttackRangeRadiusSq;
+		float PursuitRangeRadiusSq;
+	};
 
-		// m_pStateMachine->setCurrentState(Rest::getInstance());
-	}
-
+public:
+	EnemyTank(int ID);
 	~EnemyTank() { } // delete m_pStateMachine; }
 
 	/*
@@ -50,9 +49,7 @@ public:
 
 private:
 	// StateMachine<EnemyTank>* m_pStateMachine;
-	int m_HP;
 	bool m_HPRecovered;
-	float m_AttackRangeRadiusSq;
-	float m_PursuitRangeRadiusSq;
+	Attribute mAttribute;
 };
 
