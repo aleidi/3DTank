@@ -8,6 +8,7 @@
 #pragma comment (lib,"fmodL_vc.lib")
 
 const int SOUND_NUM = 7;
+
 const std::string SOUND_FILE_PATH[7] =
 {
 	"Resource/Sound/BGM00_Background.wav",
@@ -35,7 +36,6 @@ public:
 	void onUpdate();
 	void setSoundPosAndVel(const Vector3& pos, const Vector3& vel, const int& soundNum);
 	void setLisenterPosition(const Vector3& pos);
-
 	FMOD_RESULT loadSoundFile(const std::string& filepath, const int& soundNum);
 
 private:
