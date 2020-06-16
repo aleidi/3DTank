@@ -25,13 +25,15 @@ void CollisionManager::destroy()
 	sInstance = NULL;
 }
 
-bool CollisionManager::collisionCheck_CubeToCube(BoundingCube * cube)
+bool CollisionManager::collisionCheck_CubeToCube(const BoundingCube * cube, GameObject* obj)
 {
 	if (cube && mBoundingCube.size() > 0) {
 		for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
 			if (*it == cube) continue;
-			if (collisionCheck(cube, *it) == true)
+			if (collisionCheck(cube, *it) == true) {
+				
 				return true;
+			}
 		}
 		return false;
 	}
@@ -39,12 +41,12 @@ bool CollisionManager::collisionCheck_CubeToCube(BoundingCube * cube)
 		return false;
 }
 
-bool CollisionManager::collisionCheck_SphereToCube(const MBoundingSphere * sphere, BoundingCube* cube)
+bool CollisionManager::collisionCheck_SphereToCube(const MBoundingSphere * sphere, GameObject* obj)
 {
 	if (sphere && mBoundingSphere.size() > 0) {
 		for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
 			if (collisionCheck(*it, sphere)) {
-				cube = *it;
+				obj = (*it)->getObject();
 				return true;
 			}
 		}
@@ -101,7 +103,7 @@ void CollisionManager::rayCheckWithObstacle(const Vector3 & origin, const Vector
 	}
 }
 
-bool CollisionManager::collisionCheck(BoundingCube* cube1, BoundingCube* cube2)
+bool CollisionManager::collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2)
 {
 	//DirectX::XMVECTOR ori = DirectX::XMLoadFloat4(&cube1->box.Orientation);
 	//ori = DirectX::XMVector4Normalize(ori);
