@@ -12,16 +12,20 @@ public:
 	static void onInit();
 	static void destroy();
 
-	bool collisionCheck_CubeToCube(BoundingCube* cube);
-	bool collisionCheck_SphereToCube(const MBoundingSphere* sphere, BoundingCube* cube);
+	bool collisionCheck_CubeToCube(const BoundingCube* cube, GameObject* obj);
+	bool collisionCheck_SphereToCube(const MBoundingSphere* sphere, GameObject* obj);
 	void rayCheck(const Vector3& origin, const Vector3& direction, BoundingCube* farthestCube, BoundingCube* nearestCube, float& farthestDis, float& nearestDis);
 	void rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis);
-	bool collisionCheck(BoundingCube* cube1, BoundingCube* cube2);
+	bool collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2);
 	bool collisionCheck(const BoundingCube* cube, const MBoundingSphere* sphere);
 	bool collisionCheck(const Vector3& ori, const Vector3& dir, const BoundingCube* cube, float& dis);
 
 	void deleteBoundingCube(const BoundingCube* cube);
 	void deleteBoundingSphere(const MBoundingSphere* sphere);
+
+	void onCollisionEnter();
+	void onCollisionStay();
+	void onCollisionExit();
 
 	void onUpdata(float);
 
