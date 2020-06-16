@@ -38,12 +38,6 @@
     <Filter Include="Engine\Header\Physics">
       <UniqueIdentifier>{8a6cb8a6-792a-4243-a9ce-eddfb6d69bb3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Header\GUI">
-      <UniqueIdentifier>{de54c582-a592-4ebd-a382-6a0e8ea94a2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Header\EUI">
-      <UniqueIdentifier>{54ede792-44f9-4d40-a5fb-1b4d11f54105}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Header\Gameplay">
       <UniqueIdentifier>{59ab0317-11f0-4324-b461-3d569adff7da}</UniqueIdentifier>
     </Filter>
@@ -83,12 +77,6 @@
     </Filter>
     <Filter Include="Engine\Source\Physics">
       <UniqueIdentifier>{3c772027-ba43-4122-89ef-605b61a58e5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Source\GUI">
-      <UniqueIdentifier>{9a9f5374-4b25-4670-9c33-f05f9a222e3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Source\EUI">
-      <UniqueIdentifier>{74fa69c3-09b4-402b-a9bc-ec87f35663d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Source\Gameplay">
       <UniqueIdentifier>{36d87a03-c4d2-4a37-9fbf-f737bdec40df}</UniqueIdentifier>
@@ -168,6 +156,18 @@
     </Filter>
     <Filter Include="Engine\Source\Physics\BoundingBox">
       <UniqueIdentifier>{5e8c02b2-9f07-42a6-9a70-1a79f62b0f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header\Render\GUI">
+      <UniqueIdentifier>{de54c582-a592-4ebd-a382-6a0e8ea94a2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header\Render\EUI">
+      <UniqueIdentifier>{54ede792-44f9-4d40-a5fb-1b4d11f54105}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source\Render\EUI">
+      <UniqueIdentifier>{74fa69c3-09b4-402b-a9bc-ec87f35663d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source\Render\GUI">
+      <UniqueIdentifier>{9a9f5374-4b25-4670-9c33-f05f9a222e3e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -319,19 +319,19 @@
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
     <ClCompile Include="imgui_widgets.cpp">
-      <Filter>Engine\Source\GUI</Filter>
+      <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_win32.cpp">
-      <Filter>Engine\Source\GUI</Filter>
+      <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>Engine\Source\GUI</Filter>
+      <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_draw.cpp">
-      <Filter>Engine\Source\GUI</Filter>
+      <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui.cpp">
-      <Filter>Engine\Source\GUI</Filter>
+      <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Engine\Source\Render</Filter>
@@ -397,7 +397,7 @@
       <Filter>Game\Source\Camera</Filter>
     </ClCompile>
     <ClCompile Include="ImGuiFrame.cpp">
-      <Filter>Engine\Source\GUI</Filter>
+      <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
     <ClCompile Include="BoundingCube.cpp">
       <Filter>Engine\Source\Physics\BoundingBox</Filter>
@@ -436,10 +436,10 @@
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
     <ClCompile Include="UICommon.cpp">
-      <Filter>Engine\Source\GUI</Filter>
+      <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
     <ClCompile Include="UIBase.cpp">
-      <Filter>Engine\Source\GUI</Filter>
+      <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
     <ClCompile Include="UIImage.cpp">
       <Filter>Engine\Source</Filter>
@@ -687,28 +687,28 @@
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
     <ClInclude Include="imconfig.h">
-      <Filter>Engine\Header\EUI</Filter>
+      <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
     <ClInclude Include="ImGuiFrame.h">
-      <Filter>Engine\Header\GUI</Filter>
+      <Filter>Engine\Header\Render\GUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
-      <Filter>Engine\Header\EUI</Filter>
+      <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_win32.h">
-      <Filter>Engine\Header\EUI</Filter>
+      <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui_internal.h">
-      <Filter>Engine\Header\EUI</Filter>
+      <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imstb_rectpack.h">
-      <Filter>Engine\Header\EUI</Filter>
+      <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imstb_textedit.h">
-      <Filter>Engine\Header\EUI</Filter>
+      <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
-      <Filter>Engine\Header\EUI</Filter>
+      <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui.h">
       <Filter>Engine\Header</Filter>
@@ -774,10 +774,10 @@
       <Filter>Game\Header\Controller</Filter>
     </ClInclude>
     <ClInclude Include="UICommon.h">
-      <Filter>Engine\Header\GUI</Filter>
+      <Filter>Engine\Header\Render\GUI</Filter>
     </ClInclude>
     <ClInclude Include="UIBase.h">
-      <Filter>Engine\Header\GUI</Filter>
+      <Filter>Engine\Header\Render\GUI</Filter>
     </ClInclude>
     <ClInclude Include="UIImage.h">
       <Filter>Engine\Header</Filter>
