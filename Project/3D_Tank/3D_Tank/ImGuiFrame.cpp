@@ -9,6 +9,7 @@ static std::map<std::string, bool> selectKey;
 static bool isNewCube = false;
 static bool isNewSphere = false;
 static bool isNewPlane = false;
+static bool isBindChanged = false;
 
 void selectObject(std::string objectName);
 void newObject(std::string gameObjectName);
@@ -38,7 +39,7 @@ void ImGuiFrame::onInit()
 void ImGuiFrame::onUpdate(float deltaTime)
 {
 	static bool isToNew = false;     // create a new object
-	static bool isVisiable = true;   // imGui window visible
+	static bool isVisiable = false;   // imGui window visible
 	static bool isNameKeyInitial = false;
 
 	//initial the nameKey
@@ -55,17 +56,16 @@ void ImGuiFrame::onUpdate(float deltaTime)
 	//visible operation by hotkey
 	if (DInputPC::getInstance().iskey(HOTKEY))
 	{
-		isVisiable = true;
+		isVisiable = false;
 	}
 
 	//is to close the frame or not
-	if (isVisiable)
+	if (!isVisiable)
 	{
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 		ImGui::Begin("Control Panel", nullptr, window_flags);
-
 
 		if (ImGui::BeginMenuBar())
 		{
@@ -85,20 +85,36 @@ void ImGuiFrame::onUpdate(float deltaTime)
 				}
 				ImGui::EndMenu();
 			}
+			if (ImGui::BeginMenu("Setting"))
+			{
+				ImGui::MenuItem("Hide the Window", NULL, &isVisiable);
+				ImGui::EndMenu();
+			}
+
 			ImGui::EndMenuBar();
 		}
 
-		//select bind operation
+		//Select operation
 		std::list<std::string> nameList = SceneManager::sGetInstance()->getAllGameobjectName();
 		for (std::list<std::string>::iterator it = nameList.begin(); it != nameList.end(); ++it)
 		{
 			if (selectKey[*it])
 			{
 				bindObjectTransform(*it);
+
+				static std::string attachNameStr;
+				static char toAttachObjectName[32];
+				ImGui::Text("Input Object name to attach:");
+				ImGui::InputText("", toAttachObjectName, IM_ARRAYSIZE(toAttachObjectName));
+				if (ImGui::Button("Attach"))
+				{
+					attachNameStr = toAttachObjectName;
+					SceneManager::sGetInstance()->findObjectWithName(*it)->attach(*SceneManager::sGetInstance()->findObjectWithName(attachNameStr));
+				}
 			}
 		}
 
-		//new operation
+		//New operation
 		isToNew = isNewCube || isNewSphere || isNewPlane;
 		if (isToNew)
 		{
@@ -106,17 +122,13 @@ void ImGuiFrame::onUpdate(float deltaTime)
 			static char toNewObjectName[32];
 
 			ImGui::Text("Set this new Object's name:");
-			ImGui::InputText("label name", toNewObjectName, IM_ARRAYSIZE(toNewObjectName));
+			ImGui::InputText("", toNewObjectName, IM_ARRAYSIZE(toNewObjectName));
 			if (ImGui::Button("Set Name"))
 			{
 				nameStr = toNewObjectName;
 				newObject(toNewObjectName);
 			}
-
 		}
-				
-		if (ImGui::Button("Finish!"))
-			isVisiable = false;
 
 		ImGui::End();
 		ImGui::Render();
@@ -130,6 +142,32 @@ void selectObject(std::string objectName)
 	char name[32];
 	strcpy_s(name, objectName.c_str());
 	ImGui::MenuItem(name, NULL, &selectKey[objectName]);
+
+	static std::string presentSelectObject = "";
+	if (presentSelectObject == "")
+	{
+		std::list<std::string> nameList = SceneManager::sGetInstance()->getAllGameobjectName();
+		for (std::list<std::string>::iterator it = nameList.begin(); it != nameList.end(); ++it)
+		{
+			if (selectKey[*it])
+			{
+				presentSelectObject = *it;
+				isBindChanged = true;
+			}	
+		}
+	}
+	else
+	{
+		std::list<std::string> nameList = SceneManager::sGetInstance()->getAllGameobjectName();
+		for (std::list<std::string>::iterator it = nameList.begin(); it != nameList.end(); ++it)
+		{
+			if (selectKey[*it] && *it != presentSelectObject)
+			{
+				selectKey[presentSelectObject] = false;
+				isBindChanged = true;
+			}
+		}
+	}
 }
 
 void newObject(std::string gameObjectName)
@@ -151,12 +189,6 @@ void newObject(std::string gameObjectName)
 		isNewPlane = false;
 	}
 	newObject->setName(gameObjectName);
-
-	/*GameObject* freightContainer_New = SceneManager::sGetInstance()->createEmptyObject();
-	freightContainer_New->setName(gameObjectName);
-	SceneManager::sGetInstance()->createModel(*freightContainer_New, "Objects\\SM_FreightContainer_01", L"Objects\\TX_FreightContainer_01a_ALB");
-	freightContainer_New->getTransform()->translate(Vector3::right*-20.0f);
-	freightContainer_New->getTransform()->setScale(Vector3(0.025f, 0.025f, 0.025f));*/
 }
 
 void bindObjectTransform(std::string gameObjectName)
@@ -164,25 +196,34 @@ void bindObjectTransform(std::string gameObjectName)
 	//search GameObject
 	GameObject* gameObj = SceneManager::sGetInstance()->findObjectWithName(gameObjectName);
 
+	static float positionOffset[3];
+	static float rotationOffset[3];
+	static float scaleOffset[3];
+	if (isBindChanged)
+	{
+		positionOffset[0] = gameObj->getTransform()->getPosition().x;
+		positionOffset[1] = gameObj->getTransform()->getPosition().y;
+		positionOffset[2] = gameObj->getTransform()->getPosition().z;
+		rotationOffset[0] = gameObj->getTransform()->getRotation().x;
+		rotationOffset[1] = gameObj->getTransform()->getRotation().y;
+		rotationOffset[2] = gameObj->getTransform()->getRotation().z;
+		scaleOffset[0] = gameObj->getTransform()->getScale().x;
+		scaleOffset[1] = gameObj->getTransform()->getScale().y;
+		scaleOffset[2] = gameObj->getTransform()->getScale().z;
+		isBindChanged = false;
+	}
+
 	//bind GameObject Transform
 	ImGui::Text("Position:");
-	static float positionOffset[3] = { gameObj->getTransform()->getPosition().x,
-									   gameObj->getTransform()->getPosition().y,
-									   gameObj->getTransform()->getPosition().z };
 	gameObj->getTransform()->setPosition(Vector3(positionOffset[0], positionOffset[1], positionOffset[2]));
 	ImGui::SliderFloat3("label 1", positionOffset, -50.0f, 50.0f);
+	//range from -50.0f to 50.0f
 
 	ImGui::Text("Rotation:");
-	static float rotationOffset[3] = { gameObj->getTransform()->getRotation().x,
-									   gameObj->getTransform()->getRotation().y,
-									   gameObj->getTransform()->getRotation().z };
 	gameObj->getTransform()->setRotation(Vector3(rotationOffset[0], rotationOffset[1], rotationOffset[2]));
 	ImGui::SliderFloat3("label 2", rotationOffset, -10.0f, 10.0f);
 	
 	ImGui::Text("Scale");
-	static float scaleOffset[3] = { gameObj->getTransform()->getScale().x,
-									gameObj->getTransform()->getScale().y,
-									gameObj->getTransform()->getScale().z };
 	gameObj->getTransform()->setScale(Vector3(scaleOffset[0], scaleOffset[1], scaleOffset[2]));
 	ImGui::SliderFloat3("label 3", scaleOffset, -10.0f, 10.0f);
 }
