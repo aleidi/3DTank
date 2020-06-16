@@ -24,9 +24,21 @@ void RenderManager::Destroy()
 	sInstance = nullptr;
 }
 
-void RenderManager::onDraw() noexcept
+void RenderManager::onDraw()
 {
 	for (std::list<Mesh*>::iterator it = mMeshes.begin(); it != mMeshes.end(); ++it)
+	{
+		if (nullptr == *it)
+		{
+			continue;
+		}
+		(*it)->draw(mGraphics);
+	}
+}
+
+void RenderManager::onPostDraw()
+{
+	for (std::list<UIBase*>::iterator it = mUIs.begin(); it != mUIs.end(); ++it)
 	{
 		if (nullptr == *it)
 		{

@@ -6,6 +6,7 @@
 #include "FactoryBase.h"
 #include "RenderManager.h"
 #include "UIImage.h"
+#include "UIButton.h"
 #include "RenderManager.h"
 
 SceneManager* SceneManager::sInstance = nullptr;
@@ -77,10 +78,18 @@ void SceneManager::createModel(GameObject & obj, const std::string & modelPath, 
 	ComponentFactory::createModel(obj, modelPath, texturePath, maxPoint, minPoint);
 }
 
-void SceneManager::createUIImage(const std::wstring& texPath)
+UIImage* SceneManager::createUIImage(const std::wstring& texPath)
 {
-	UIBase* ui = new UIImage(RenderManager::sGetInstance()->getGraphics(),texPath);
+	UIImage* ui = new UIImage(RenderManager::sGetInstance()->getGraphics(),texPath);
 	RenderManager::sGetInstance()->addUIToPool(ui);
+	return ui;
+}
+
+UIButton* SceneManager::createUIButton(const std::wstring & texPath)
+{
+	UIButton* ui = new UIButton(RenderManager::sGetInstance()->getGraphics(), texPath);
+	RenderManager::sGetInstance()->addUIToPool(ui);
+	return ui;
 }
 
 void SceneManager::addGameObjectToPool(GameObject * object) noexcept

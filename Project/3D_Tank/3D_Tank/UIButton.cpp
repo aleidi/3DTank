@@ -1,5 +1,7 @@
 #include "UIButton.h"
 #include "bindableBase.h"
+#include "Engine.h"
+#include "Configuration.h"
 
 UIButton::UIButton(Graphics& gfx)
 	:UIButton(gfx,L"")
@@ -7,6 +9,7 @@ UIButton::UIButton(Graphics& gfx)
 }
 
 UIButton::UIButton(Graphics & gfx, const std::wstring & texPath)
+	: mBtnState(State::Normal), mHasBtnPressed(0), mColors()
 {
 	mWidth = 100.0f;
 	mHeight = 100.0f;
@@ -41,13 +44,15 @@ UIButton::UIButton(Graphics & gfx, const std::wstring & texPath)
 
 	addBind(std::make_unique<UITransformCbuf>(gfx, *this));
 
-	mMaterial.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	mColors[0] = mMaterial.Color;
+	initBtnColor();
 	mPCBuf = std::make_unique<PixelConstantBuffer<XMFLOAT4>>(gfx, mMaterial.Color);
 }
 
-void UIButton::draw(Graphics& gfx) const noexcept
+void UIButton::draw(Graphics& gfx) noexcept
 {
+	POINT p = Engine::sGetInstance()->getCursorPos();
+	checkState(p.x, p.y, DInputPC::getInstance().isMouseButton(0));
+
 	mPCBuf->onUpdate(gfx, mMaterial.Color);
 
 	for (auto& b : mBinds)
@@ -58,6 +63,13 @@ void UIButton::draw(Graphics& gfx) const noexcept
 	gfx.DrawIndexed(pIndexBuffer->getCount());
 }
 
+void UIButton::initBtnColor()
+{
+	setColor({ 1.0f,1.0f,1.0f,1.0f }, Normal);
+	setColor({ 0.0f,1.0f,1.0f,1.0f }, Selected);
+	setColor({ 1.0f,0.0f,0.0f,1.0f }, Pressed);
+}
+
 void UIButton::checkState(float x, float y, bool isPressed)
 {
 	y = WINDOW_HEIGHT - y;
@@ -66,7 +78,7 @@ void UIButton::checkState(float x, float y, bool isPressed)
 	case State::Normal:
 		if (x > mX && x < mX + mWidth && y > mY && y < mY + mHeight)
 		{
-			mBtnState = State::Selected;
+			mBtnState = Selected;
 			break;
 		}
 		onNormal();
@@ -75,7 +87,7 @@ void UIButton::checkState(float x, float y, bool isPressed)
 	case State::Selected:
 		if (true == isPressed)
 		{
-			mBtnState = State::Pressed;
+			mBtnState = Pressed;
 			break;
 		}
 		if (x < mX || x > mX + mWidth || y < mY || y > mY + mHeight)
@@ -89,7 +101,12 @@ void UIButton::checkState(float x, float y, bool isPressed)
 	case State::Pressed:
 		if (false == isPressed)
 		{
-			mBtnState = State::Selected;
+			mBtnState = Selected;
+			mHasBtnPressed = false;
+			break;
+		}
+		if (mHasBtnPressed != false)
+		{
 			break;
 		}
 		onPressed();

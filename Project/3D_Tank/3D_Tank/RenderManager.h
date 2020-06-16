@@ -13,7 +13,8 @@ public:
 	static void createSingleton(Graphics& gfx);
 	static void Destroy();
 
-	void onDraw() noexcept;
+	void onDraw();
+	void onPostDraw();
 
 	void addMeshToPool(Mesh* mesh) noexcept;
 	bool removeMeshFromPool(Mesh* mesh) noexcept;

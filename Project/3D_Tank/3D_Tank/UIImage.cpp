@@ -46,7 +46,7 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 	mVCB = std::make_unique<VertexConstantBuffer<CBVS>>(gfx);
 }
 
-void UIImage::draw(Graphics& gfx) const noexcept
+void UIImage::draw(Graphics& gfx) noexcept
 {
 	mVCB->onUpdate(gfx,
 		{
@@ -64,12 +64,12 @@ void UIImage::draw(Graphics& gfx) const noexcept
 	gfx.DrawIndexed(pIndexBuffer->getCount());
 }
 
-void UIImage::SetFillAmount(float value)
+void UIImage::setFillAmount(float value)
 {
 	mFillAmount = value;
 }
 
-void UIImage::SetFillType(FillType fillType) noexcept
+void UIImage::setFillType(FillType fillType) noexcept
 {
 	switch (fillType.Method)
 	{

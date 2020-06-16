@@ -34,6 +34,8 @@ void Rendering::onRender(float deltaTime)
 
 void Rendering::onPostRender(float deltaTime)
 {
+	RenderManager::sGetInstance()->onPostDraw();
+
 	mGraphics->DrawSkyBox();
 	mGraphics->showText();
 }

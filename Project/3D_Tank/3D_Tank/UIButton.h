@@ -17,17 +17,18 @@ public:
 	UIButton(Graphics& gfx);
 	UIButton(Graphics& gfx, const std::wstring& texPath);
 
-	void draw(Graphics& gfx) const noexcept override;
-	void checkState(float x, float y, bool isPressed);
+	void draw(Graphics& gfx) noexcept override;
 	void setColor(XMFLOAT4 color, State btnState);
 
 private:
-
+	void initBtnColor();
+	void checkState(float x, float y, bool isPressed);
 	void onNormal();
 	void onSelected();
 	void onPressed();
 private:
 	State mBtnState;
+	bool mHasBtnPressed;
 	std::array<XMFLOAT4, 3> mColors;
 	std::unique_ptr<PixelConstantBuffer<XMFLOAT4>> mPCBuf;
 

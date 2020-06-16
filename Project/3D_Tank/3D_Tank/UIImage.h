@@ -10,10 +10,10 @@ public:
 	UIImage(Graphics& gfx);
 	UIImage(Graphics& gfx, const std::wstring& texPath);
 
-	void draw(Graphics& gfx) const noexcept override;
+	void draw(Graphics& gfx) noexcept override;
 
-	void SetFillAmount(float value);
-	void SetFillType(FillType fillType) noexcept;
+	void setFillAmount(float value);
+	void setFillType(FillType fillType) noexcept;
 	float getFillAmount() const noexcept;
 
 private:
