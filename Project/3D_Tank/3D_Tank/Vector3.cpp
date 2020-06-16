@@ -41,6 +41,11 @@ Vector3 Vector3::operator*(float d) const
 	return Vector3(x*d, y*d, z*d);
 }
 
+Vector3 Vector3::operator/(float d) const
+{
+	return Vector3(x/d, y/d, z/d);
+}
+
 Vector3 Vector3::normalize() const
 {
 	float magSq = x * x + y * y + z * z;
