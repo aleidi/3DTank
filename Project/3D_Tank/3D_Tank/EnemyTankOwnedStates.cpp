@@ -1,6 +1,7 @@
 #include "EnemyTankOwnedStates.h"
 #include "State.h"
 #include "EnemyTank.h"
+#include "AIController.h"
 #include "Telegram.h"
 #include "MessageDispatcher.h"
 #include "MessageTypes.h"
@@ -14,52 +15,52 @@ Rest* Rest::getInstance() {
 	return &m_Rest;
 }
 
-void Rest::enter(EnemyTank* pEnemyTank) {
-	pEnemyTank->setHPRecovered(false);
+void Rest::enter(AIController* pEnemyTank) {
+	pEnemyTank->getPawn()->setHPRecovered(false);
 	MessageBox(0, L"I'm going to rest. ", 0, 0);
 }
 
-void Rest::execute(EnemyTank* pEnemyTank) {
-	if (!pEnemyTank->getHPRecovered()) {
-		pEnemyTank->setHPRecovered(true);
+void Rest::execute(AIController* pEnemyTank) {
+	if (!pEnemyTank->getPawn()->getHPRecovered()) {
+		pEnemyTank->getPawn()->setHPRecovered(true);
  		Dispatch->Dispatch_Message(ReplyInterval,
-								   pEnemyTank->getID(),
-								   pEnemyTank->getID(),
+							       pEnemyTank->getPawn()->getID(),
+			                       pEnemyTank->getPawn()->getID(),
 								   Msg_HPRecovered,
 								   NO_ADDITIONAL_INFO);
 	}
 
 	////////////////////////changeState////////////////////////
-	if (pEnemyTank->isEnemyInRange()) {
-		if( pEnemyTank->isDying() )
+	if (pEnemyTank->getPawn()->isEnemyInRange()) {
+		if(pEnemyTank->getPawn()->isDying() )
 			pEnemyTank->getFSM()->changeState(Evade::getInstance());
 		else 
 			pEnemyTank->getFSM()->changeState(Attack::getInstance());
 	}
 
-	if (pEnemyTank->isAttacked()) {
-		if (pEnemyTank->isDying())
+	if (pEnemyTank->getPawn()->isAttacked()) {
+		if (pEnemyTank->getPawn()->isDying())
 			pEnemyTank->getFSM()->changeState(Evade::getInstance());
 		else
 			pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
 
-	if (pEnemyTank->getHP() == FullHP) {
+	if (pEnemyTank->getPawn()->getHP() == FullHP) {
 		pEnemyTank->getFSM()->changeState(Wander::getInstance());
 	}
 
 }
 
-void Rest::exit(EnemyTank* pEnemyTank) {
+void Rest::exit(AIController* pEnemyTank) {
 	MessageBox(0, L"I stopped resting. ", 0, 0);
 }
 
-bool Rest::onMessage(EnemyTank* pEnemyTank, const Telegram& msg) {
+bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 		case Msg_HPRecovered: {
-			pEnemyTank->setHP(5);
+			pEnemyTank->getPawn()->setHP(5);
 			MessageBox(0, L"HP+5 ", 0, 0);
-			pEnemyTank->setHPRecovered(false);
+			pEnemyTank->getPawn()->setHPRecovered(false);
 		}
 		return true;
 	}
@@ -72,31 +73,32 @@ Wander* Wander::getInstance() {
 	return &m_Wander;
 }
 
-void Wander::enter(EnemyTank* pEnemyTank) {
+void Wander::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"I'm going to find bad guy.(Wander) ", 0, 0);
 }
 
-void Wander::execute(EnemyTank* pEnemyTank) {
-
+void Wander::execute(AIController* pEnemyTank) {
+	
 	////////////////////////changeState////////////////////////
-	if (pEnemyTank->isEnemyInRange()) {
+	if (pEnemyTank->getPawn()->isEnemyInRange()) {
 		pEnemyTank->getFSM()->changeState(Attack::getInstance());
 	}
 
-	if (pEnemyTank->isObstacleHere()) {
+	if (pEnemyTank->getPawn()->isObstacleHere()) {
 		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 	}
 
-	if (pEnemyTank->isAttacked()) {
+	if (pEnemyTank->getPawn()->isAttacked()) {
 		pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
+	
 }
 
-void Wander::exit(EnemyTank* pEnemyTank) {
+void Wander::exit(AIController* pEnemyTank) {
 	MessageBox(0, L"I stopped finding bad guy.(wander) ", 0, 0);
 }
 
-bool Wander::onMessage(EnemyTank* pEnemyTank, const Telegram& msg) {
+bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
@@ -106,23 +108,23 @@ Avoidance* Avoidance::getInstance() {
 	return &m_Avoidance;
 }
 
-void Avoidance::enter(EnemyTank* pEnemyTank) {
+void Avoidance::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"There is a f cking obstacle. ", 0, 0);
 }
 
-void Avoidance::execute(EnemyTank* pEnemyTank) {
+void Avoidance::execute(AIController* pEnemyTank) {
 
 	////////////////////////changeState////////////////////////
-	if (!pEnemyTank->isObstacleHere()) {
+	if (!pEnemyTank->getPawn()->isObstacleHere()) {
 		pEnemyTank->getFSM()->revertToPerviousState();
 	}
 }
 
-void Avoidance::exit(EnemyTank* pEnemyTank) {
+void Avoidance::exit(AIController* pEnemyTank) {
 	MessageBox(0, L"I avoided the damn obstacle. ", 0, 0);
 }
 
-bool Avoidance::onMessage(EnemyTank* pEnemyTank, const Telegram& msg) {
+bool Avoidance::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
@@ -133,27 +135,27 @@ Attack* Attack::getInstance() {
 	return &m_Attack;
 }
 
-void Attack::enter(EnemyTank* pEnemyTank) {
+void Attack::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"I'm going to kick ur ass. ", 0, 0);
 }
 
-void Attack::execute(EnemyTank* pEnemyTank) {
+void Attack::execute(AIController* pEnemyTank) {
 
 	////////////////////////changeState////////////////////////
-	if (pEnemyTank->isDying()) {
+	if (pEnemyTank->getPawn()->isDying()) {
 		pEnemyTank->getFSM()->changeState(Evade::getInstance());
 	}
 
-	if (!pEnemyTank->isEnemyInRange()) {
+	if (!pEnemyTank->getPawn()->isEnemyInRange()) {
 		pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
 }
 
-void Attack::exit(EnemyTank* pEnemyTank) {
+void Attack::exit(AIController* pEnemyTank) {
 	MessageBox(0, L"I stopped kicking ur ass. ", 0, 0);
 }
 
-bool Attack::onMessage(EnemyTank* pEnemyTank, const Telegram& msg) {
+bool Attack::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
@@ -163,27 +165,27 @@ Evade* Evade::getInstance() {
 	return &m_Evade;
 }
 
-void Evade::enter(EnemyTank* pEnemyTank) {
+void Evade::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"I'm going to run away. ", 0, 0);
 }
 
-void Evade::execute(EnemyTank* pEnemyTank) {
+void Evade::execute(AIController* pEnemyTank) {
 
 	////////////////////////changeState////////////////////////
-	if (!pEnemyTank->isEnemyInRange() && !pEnemyTank->isAttacked()) { // safe
+	if (!pEnemyTank->getPawn()->isEnemyInRange() && !pEnemyTank->getPawn()->isAttacked()) { // safe
 		pEnemyTank->getFSM()->changeState(Rest::getInstance());
 	}
 
-	if (pEnemyTank->isObstacleHere()) {
+	if (pEnemyTank->getPawn()->isObstacleHere()) {
 		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 	}
 }
 
-void Evade::exit(EnemyTank* pEnemyTank) {
+void Evade::exit(AIController* pEnemyTank) {
 	MessageBox(0, L"I stopped running away. ", 0, 0);
 }
 
-bool Evade::onMessage(EnemyTank* pEnemyTank, const Telegram& msg) {
+bool Evade::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
@@ -193,35 +195,35 @@ Pursuit* Pursuit::getInstance() {
 	return &m_Pursuit;
 }
 
-void Pursuit::enter(EnemyTank* pEnemyTank) {
+void Pursuit::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"I'm chasing that damn bad guy.", 0, 0);
 }
 
-void Pursuit::execute(EnemyTank* pEnemyTank) {
+void Pursuit::execute(AIController* pEnemyTank) {
 
 	////////////////////////changeState////////////////////////
-	if (pEnemyTank->isObstacleHere()) {
+	if (pEnemyTank->getPawn()->isObstacleHere()) {
 		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 	}
 
-	if (pEnemyTank->isEnemyInRange()) {
+	if (pEnemyTank->getPawn()->isEnemyInRange()) {
 		pEnemyTank->getFSM()->changeState(Attack::getInstance());
 	}
 
-	if (pEnemyTank->isDying()) {
+	if (pEnemyTank->getPawn()->isDying()) {
 		pEnemyTank->getFSM()->changeState(Evade::getInstance()); 
 	}
 
-	if ( pEnemyTank->isLostEnemy() ) { 
+	if ( pEnemyTank->getPawn()->isLostEnemy() ) {
 		pEnemyTank->getFSM()->changeState(Rest::getInstance()); 
 	}
 }
 
-void Pursuit::exit(EnemyTank* pEnemyTank) {
+void Pursuit::exit(AIController* pEnemyTank) {
 	MessageBox(0, L"I stopped chasing.", 0, 0);
 }
 
-bool Pursuit::onMessage(EnemyTank* pEnemyTank, const Telegram& msg) {
+bool Pursuit::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
@@ -252,19 +254,19 @@ Patrol* Patrol::getInstance() {
 	return &m_Patrol;
 }
 
-void Patrol::enter(EnemyTank* pEnemyTank) {
+void Patrol::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"I'm going to find bad guy. ", 0, 0);
 }
 
-void Patrol::execute(EnemyTank* pEnemyTank) {
+void Patrol::execute(AIController* pEnemyTank) {
 
 }
 
-void Patrol::exit(EnemyTank* pEnemyTank) {
+void Patrol::exit(AIController* pEnemyTank) {
 	MessageBox(0, L"I stopped finding bad guy. ", 0, 0);
 }
 
-bool Patrol::onMessage(EnemyTank* pEnemyTank, const Telegram& msg) {
+bool Patrol::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
