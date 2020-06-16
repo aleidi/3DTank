@@ -8,6 +8,7 @@
 #pragma comment (lib,"fmodL_vc.lib")
 
 const int SOUND_NUM = 7;
+
 const std::string SOUND_FILE_PATH[7] =
 {
 	"Resource/Sound/BGM00_Background.wav",
