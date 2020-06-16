@@ -106,8 +106,12 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch (msg)
 	{
 	case WM_DESTROY:
-		PostQuitMessage(0);
 		break;
+	case WM_KEYDOWN:
+		if (wParam == VK_ESCAPE)
+		{
+			PostQuitMessage(0);
+		}
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
