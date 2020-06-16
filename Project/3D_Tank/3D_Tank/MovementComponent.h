@@ -9,6 +9,8 @@ public:
 	MovementComponent(GameObject* object);
 	virtual ~MovementComponent();
 
+	void onUpdate(float deltaTime);
+
 	void addVelocity(Vector3 value) noexcept;
 	void addForce(Vector3 value) noexcept;
 
