@@ -1,8 +1,10 @@
 #include "EnemyTank.h"
-						  
+					
+/*
 void EnemyTank::update() {
 	m_pStateMachine->update();
 }
+*/
 
 void EnemyTank::setHP(int changeHP) {
 	m_HP += changeHP;
@@ -12,10 +14,11 @@ int EnemyTank::getHP()const {
 	return m_HP;
 }
 
-
+/*
 bool EnemyTank::handleMessage(const Telegram& msg) {
 	return m_pStateMachine->handleMessage(msg); 
 }
+*/
 
 bool EnemyTank::isDying()const {
 	if (m_HP <= DyingHP) {
