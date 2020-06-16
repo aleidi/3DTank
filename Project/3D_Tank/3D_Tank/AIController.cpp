@@ -2,8 +2,13 @@
 #include "GameCharacter.h"
 
 AIController::AIController()
+	:AIController(-1)
 {
+}
 
+AIController::AIController(int id)
+	:mID(id)
+{
 }
 
 AIController::~AIController()
@@ -25,7 +30,7 @@ void AIController::MoveCharacter(Vector3 value)
 	reinterpret_cast<GameCharacter*>(mPawn)->Move(value);
 }
 
-void AIController::setStateMachine(StateMachine<Pawn>* new_StateMachine) {
+void AIController::setStateMachine(StateMachine<AIController>* new_StateMachine) {
 	m_pStateMachine = new_StateMachine;
 }
 

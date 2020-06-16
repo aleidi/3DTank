@@ -4,6 +4,8 @@
 #include "UIBase.h"
 #include "ConstantBuffers.h"
 
+class UIEvent;
+
 class UIButton : public UIBase
 {
 public:
@@ -19,6 +21,7 @@ public:
 
 	void draw(Graphics& gfx) noexcept override;
 	void setColor(XMFLOAT4 color, State btnState);
+	void setEvent(UIEvent* event);
 
 private:
 	void initBtnColor();
@@ -26,11 +29,12 @@ private:
 	void onNormal();
 	void onSelected();
 	void onPressed();
+	void onClick();
 private:
 	State mBtnState;
 	bool mHasBtnPressed;
 	std::array<XMFLOAT4, 3> mColors;
 	std::unique_ptr<PixelConstantBuffer<XMFLOAT4>> mPCBuf;
-
+	UIEvent* mEvent;
 };
 

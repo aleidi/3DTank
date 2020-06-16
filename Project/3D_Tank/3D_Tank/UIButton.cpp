@@ -2,6 +2,7 @@
 #include "bindableBase.h"
 #include "Engine.h"
 #include "Configuration.h"
+#include "UIEvent.h"
 
 UIButton::UIButton(Graphics& gfx)
 	:UIButton(gfx,L"")
@@ -103,6 +104,7 @@ void UIButton::checkState(float x, float y, bool isPressed)
 		{
 			mBtnState = Selected;
 			mHasBtnPressed = false;
+			onClick();
 			break;
 		}
 		if (mHasBtnPressed != false)
@@ -126,7 +128,19 @@ void UIButton::onSelected()
 
 void UIButton::onPressed()
 {
+	if (mEvent != nullptr)
+	{
+		mEvent->onPressed();
+	}
 	mMaterial.Color = mColors[2];
+}
+
+void UIButton::onClick()
+{
+	if (mEvent != nullptr)
+	{
+		mEvent->onClick();
+	}
 }
 
 void UIButton::setColor(XMFLOAT4 color, State btnState)
@@ -142,4 +156,9 @@ void UIButton::setColor(XMFLOAT4 color, State btnState)
 	case State::Pressed:
 		mColors[2] = color;
 	}
+}
+
+void UIButton::setEvent(UIEvent * event)
+{
+	mEvent = event;
 }
