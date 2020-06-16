@@ -7,6 +7,7 @@ class RenderComponent;
 class GameObjectFactory;
 class UIImage;
 class UIButton;
+class AIController;
 
 class SceneManager
 {
@@ -23,11 +24,14 @@ public:
 	void createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
 	UIImage* createUIImage(const std::wstring& texPath);
 	UIButton* createUIButton(const std::wstring& texPath);
+	AIController* createAIController(int id);
 
 	void addGameObjectToPool(GameObject* object) noexcept;
 	bool removeGameObjectFromPool(GameObject* object) noexcept;
+	bool removeAIControllerFromPool(AIController* ctrl) noexcept;
 	GameObject* findObjectWithName(const std::string& name);
 	std::list<std::string> getAllGameobjectName();
+	AIController* getAIController(int id);
 
 	void onGameStart();
 	void onUpdate(float deltaTime);
@@ -38,6 +42,7 @@ private:
 	~SceneManager();
 
 	std::list<GameObject*> mObjs;
+	std::map<int, AIController*> mAIControllers;
 	std::map<std::string,GameObjectFactory*> mFactories;
 
 	static SceneManager* sInstance;
