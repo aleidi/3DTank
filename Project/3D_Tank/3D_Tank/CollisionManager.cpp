@@ -41,12 +41,12 @@ bool CollisionManager::collisionCheck_CubeToCube(const BoundingCube * cube, Game
 		return false;
 }
 
-bool CollisionManager::collisionCheck_SphereToCube(const MBoundingSphere * sphere, BoundingCube* cube)
+bool CollisionManager::collisionCheck_SphereToCube(const MBoundingSphere * sphere, GameObject* obj)
 {
 	if (sphere && mBoundingSphere.size() > 0) {
 		for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
 			if (collisionCheck(*it, sphere)) {
-				cube = *it;
+				obj = (*it)->getObject();
 				return true;
 			}
 		}
