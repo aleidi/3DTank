@@ -7,7 +7,7 @@
 #include "ConsoleUtils.h"
 #include "Telegram.h"
 
-class BaseGameEntity;
+class AIController;
 
 const double SEND_MSG_IMMEDIATELY = 0.0f;
 const int NO_ADDITIONAL_INFO = 0;
@@ -32,7 +32,7 @@ public:
 private:
 	std::set<Telegram> PriorityQ;
 
-	void Discharge(BaseGameEntity* pReceiver, const Telegram& msg);
+	void Discharge(AIController* pReceiver, const Telegram& msg);
 
 	MessageDispatcher() {}
 

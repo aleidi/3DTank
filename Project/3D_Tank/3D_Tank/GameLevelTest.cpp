@@ -120,18 +120,14 @@ void GameLevelTest::enterLevel()
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	cube->attach(*enemy);
 	EntityMgr->registerEntity(enemy);
-	aiController = new AIController();
+	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
 	aiController->posses(enemy);
-	enemyStatemachine = new StateMachine<AIController>(aiController);
-	enemyStatemachine->setCurrentState(Rest::getInstance());
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
-	SceneManager::sGetInstance()->onUpdate(deltaTime);
-
-	aiController->onUpdate(deltaTime);
 	Dispatch->DispatchDelayedMessages();
+	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
 	if (DInputPC::getInstance().iskeyDown(DIK_F1))
 	{

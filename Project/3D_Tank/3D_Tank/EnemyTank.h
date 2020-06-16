@@ -15,7 +15,7 @@ const int ReplyInterval = 10;
 
 class EnemyTank : public BaseGameEntity {
 public:
-	EnemyTank(int ID) :m_HP(50),
+	EnemyTank(int ID) :m_HP(95),
 		m_AttackRangeRadiusSq(10000),
 		m_PursuitRangeRadiusSq(20000),
 		m_HPRecovered(false),

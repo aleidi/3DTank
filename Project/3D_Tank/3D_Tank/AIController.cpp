@@ -1,6 +1,6 @@
 #include "AIController.h"
 #include "GameCharacter.h"
-
+#include "EnemyTankOwnedStates.h" // :(
 AIController::AIController()
 	:AIController(-1)
 {
@@ -9,10 +9,13 @@ AIController::AIController()
 AIController::AIController(int id)
 	:mID(id)
 {
+	m_pStateMachine = new StateMachine<AIController>(this);
+	m_pStateMachine->setCurrentState(Rest::getInstance());
 }
 
 AIController::~AIController()
 {
+	delete m_pStateMachine;
 }
 
 void AIController::onStart()
@@ -28,10 +31,6 @@ void AIController::onUpdate(float deltaTime)
 void AIController::MoveCharacter(Vector3 value)
 {
 	reinterpret_cast<GameCharacter*>(mPawn)->Move(value);
-}
-
-void AIController::setStateMachine(StateMachine<AIController>* new_StateMachine) {
-	m_pStateMachine = new_StateMachine;
 }
 
 bool AIController::handleMessage(const Telegram& msg) {

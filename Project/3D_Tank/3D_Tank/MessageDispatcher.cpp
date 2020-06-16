@@ -4,7 +4,8 @@
 #include "EntityManager.h"
 #include "MessageTypes.h"
 #include "EntityNames.h"
-
+#include "AIController.h"
+#include "SceneManager.h"
 #include <iostream>
 using std::cout;
 
@@ -31,10 +32,10 @@ MessageDispatcher* MessageDispatcher::getInstance()
 //  
 //  see description in header
 //------------------------------------------------------------------------
-void MessageDispatcher::Discharge(BaseGameEntity* pReceiver,
+void MessageDispatcher::Discharge(AIController* pReceiverController,
 	const Telegram& telegram)
 {
-	if (!pReceiver->handleMessage(telegram))
+	if (!pReceiverController->handleMessage(telegram))
 	{
 		//telegram could not be handled
 		cout << "Message not handled";
@@ -56,11 +57,13 @@ void MessageDispatcher::Dispatch_Message(double  delay,
 	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
 	//get pointers to the sender and receiver
-	BaseGameEntity* pSender = EntityMgr->getEntityFromID(sender);
-	BaseGameEntity* pReceiver = EntityMgr->getEntityFromID(receiver);
+	//BaseGameEntity* pSender = EntityMgr->getEntityFromID(sender);
+	//BaseGameEntity* pReceiver = EntityMgr->getEntityFromID(receiver);
+	AIController* pSenderController = SceneManager::sGetInstance()->getAIController(sender);
+	AIController* pReceiverController = SceneManager::sGetInstance()->getAIController(receiver);
 
 	//make sure the receiver is valid
-	if (pReceiver == NULL)
+	if (pReceiverController == NULL)
 	{
 		cout << "\nWarning! No Receiver with ID of " << receiver << " found";
 
@@ -74,11 +77,11 @@ void MessageDispatcher::Dispatch_Message(double  delay,
 	if (delay <= 0.0f)
 	{
 		cout << "\nInstant telegram dispatched at time: " << Clock->getCurrentTime()
-			<< " by " << getNameOfEntity(pSender->getID()) << " for " << getNameOfEntity(pReceiver->getID())
+			<< " by " << getNameOfEntity(pSenderController->getID()) << " for " << getNameOfEntity(pReceiverController->getID())
 			<< ". Msg is " << MsgToStr(msg);
 
 		//send the telegram to the recipient
-		Discharge(pReceiver, telegram);
+		Discharge(pReceiverController, telegram);
 	}
 
 	//else calculate the time when the telegram should be dispatched
@@ -91,8 +94,8 @@ void MessageDispatcher::Dispatch_Message(double  delay,
 		//and put it in the queue
 		PriorityQ.insert(telegram);
 
-		cout << "\nDelayed telegram from " << getNameOfEntity(pSender->getID()) << " recorded at time "
-			<< Clock->getCurrentTime() << " for " << getNameOfEntity(pReceiver->getID())
+		cout << "\nDelayed telegram from " << getNameOfEntity(pSenderController->getID()) << " recorded at time "
+			<< Clock->getCurrentTime() << " for " << getNameOfEntity(pReceiverController->getID())
 			<< ". Msg is " << MsgToStr(msg);
 
 	}
@@ -122,13 +125,14 @@ void MessageDispatcher::DispatchDelayedMessages()
 		const Telegram& telegram = *PriorityQ.begin();
 
 		//find the recipient
-		BaseGameEntity* pReceiver = EntityMgr->getEntityFromID(telegram.Receiver);
+		//BaseGameEntity* pReceiver = EntityMgr->getEntityFromID(telegram.Receiver);
+		AIController* pReceiverController = SceneManager::sGetInstance()->getAIController(telegram.Receiver);
 
 		cout << "\nQueued telegram ready for dispatch: Sent to "
-			<< getNameOfEntity(pReceiver->getID()) << ". Msg is " << MsgToStr(telegram.Msg);
+			<< getNameOfEntity(pReceiverController->getID()) << ". Msg is " << MsgToStr(telegram.Msg);
 
 		//send the telegram to the recipient
-		Discharge(pReceiver, telegram);
+		Discharge(pReceiverController, telegram);
 
 		//remove it from the queue
 		PriorityQ.erase(PriorityQ.begin());

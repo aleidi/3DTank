@@ -16,36 +16,36 @@ Rest* Rest::getInstance() {
 }
 
 void Rest::enter(AIController* pEnemyTank) {
-	pEnemyTank->getPawn()->setHPRecovered(false);
+	reinterpret_cast<EnemyTank*>(reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn()))->setHPRecovered(false);
 	MessageBox(0, L"I'm going to rest. ", 0, 0);
 }
 
 void Rest::execute(AIController* pEnemyTank) {
-	if (!pEnemyTank->getPawn()->getHPRecovered()) {
-		pEnemyTank->getPawn()->setHPRecovered(true);
+	if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getHPRecovered()) {
+		reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setHPRecovered(true);
  		Dispatch->Dispatch_Message(ReplyInterval,
-							       pEnemyTank->getPawn()->getID(),
-			                       pEnemyTank->getPawn()->getID(),
+							       reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getID(),
+			                       reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getID(),
 								   Msg_HPRecovered,
 								   NO_ADDITIONAL_INFO);
 	}
 
 	////////////////////////changeState////////////////////////
-	if (pEnemyTank->getPawn()->isEnemyInRange()) {
-		if(pEnemyTank->getPawn()->isDying() )
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
+		if(reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying() )
 			pEnemyTank->getFSM()->changeState(Evade::getInstance());
 		else 
 			pEnemyTank->getFSM()->changeState(Attack::getInstance());
 	}
 
-	if (pEnemyTank->getPawn()->isAttacked()) {
-		if (pEnemyTank->getPawn()->isDying())
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isAttacked()) {
+		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying())
 			pEnemyTank->getFSM()->changeState(Evade::getInstance());
 		else
 			pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
 
-	if (pEnemyTank->getPawn()->getHP() == FullHP) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getHP() == FullHP) {
 		pEnemyTank->getFSM()->changeState(Wander::getInstance());
 	}
 
@@ -58,9 +58,9 @@ void Rest::exit(AIController* pEnemyTank) {
 bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 		case Msg_HPRecovered: {
-			pEnemyTank->getPawn()->setHP(5);
+			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setHP(5);
 			MessageBox(0, L"HP+5 ", 0, 0);
-			pEnemyTank->getPawn()->setHPRecovered(false);
+			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setHPRecovered(false);
 		}
 		return true;
 	}
@@ -80,15 +80,15 @@ void Wander::enter(AIController* pEnemyTank) {
 void Wander::execute(AIController* pEnemyTank) {
 	
 	////////////////////////changeState////////////////////////
-	if (pEnemyTank->getPawn()->isEnemyInRange()) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
 		pEnemyTank->getFSM()->changeState(Attack::getInstance());
 	}
 
-	if (pEnemyTank->getPawn()->isObstacleHere()) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
 		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 	}
 
-	if (pEnemyTank->getPawn()->isAttacked()) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isAttacked()) {
 		pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
 	
@@ -115,7 +115,7 @@ void Avoidance::enter(AIController* pEnemyTank) {
 void Avoidance::execute(AIController* pEnemyTank) {
 
 	////////////////////////changeState////////////////////////
-	if (!pEnemyTank->getPawn()->isObstacleHere()) {
+	if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
 		pEnemyTank->getFSM()->revertToPerviousState();
 	}
 }
@@ -142,11 +142,11 @@ void Attack::enter(AIController* pEnemyTank) {
 void Attack::execute(AIController* pEnemyTank) {
 
 	////////////////////////changeState////////////////////////
-	if (pEnemyTank->getPawn()->isDying()) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying()) {
 		pEnemyTank->getFSM()->changeState(Evade::getInstance());
 	}
 
-	if (!pEnemyTank->getPawn()->isEnemyInRange()) {
+	if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
 		pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
 }
@@ -172,11 +172,11 @@ void Evade::enter(AIController* pEnemyTank) {
 void Evade::execute(AIController* pEnemyTank) {
 
 	////////////////////////changeState////////////////////////
-	if (!pEnemyTank->getPawn()->isEnemyInRange() && !pEnemyTank->getPawn()->isAttacked()) { // safe
+	if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange() && !reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isAttacked()) { // safe
 		pEnemyTank->getFSM()->changeState(Rest::getInstance());
 	}
 
-	if (pEnemyTank->getPawn()->isObstacleHere()) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
 		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 	}
 }
@@ -202,19 +202,19 @@ void Pursuit::enter(AIController* pEnemyTank) {
 void Pursuit::execute(AIController* pEnemyTank) {
 
 	////////////////////////changeState////////////////////////
-	if (pEnemyTank->getPawn()->isObstacleHere()) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
 		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 	}
 
-	if (pEnemyTank->getPawn()->isEnemyInRange()) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
 		pEnemyTank->getFSM()->changeState(Attack::getInstance());
 	}
 
-	if (pEnemyTank->getPawn()->isDying()) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying()) {
 		pEnemyTank->getFSM()->changeState(Evade::getInstance()); 
 	}
 
-	if ( pEnemyTank->getPawn()->isLostEnemy() ) {
+	if ( reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isLostEnemy() ) {
 		pEnemyTank->getFSM()->changeState(Rest::getInstance()); 
 	}
 }

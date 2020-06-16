@@ -14,8 +14,7 @@ public:
 
 	virtual void MoveCharacter(Vector3 value);
 	//////////////////////////////////////////////
-
-	void setStateMachine(StateMachine<AIController>* new_StateMachine);
+	int getID() { return mID; }
 	StateMachine<AIController>* getFSM() const { return m_pStateMachine; }
 	bool handleMessage(const Telegram& msg);
 
