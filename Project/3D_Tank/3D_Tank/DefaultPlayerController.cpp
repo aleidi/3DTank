@@ -5,6 +5,7 @@
 DefaultPlayerController::DefaultPlayerController()
 	:mRspdX(0.2f),mRspdY(0.1f),mMovSpd(10.0f)
 {
+	mName = "DefaultPlayerController";
 }
 
 DefaultPlayerController::~DefaultPlayerController()
