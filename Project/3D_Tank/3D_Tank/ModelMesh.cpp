@@ -10,7 +10,7 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"Light_VS.cso");
-	auto pvsbc = pvs->GetBytecode();
+	auto pvsbc = pvs->getBytecode();
 	addBind(std::move(pvs));
 
 	addBind(std::make_unique<PixelShader>(gfx, L"Light_PS.cso"));
@@ -51,7 +51,7 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"VertexShaderTex.cso");
-	auto pvsbc = pvs->GetBytecode();
+	auto pvsbc = pvs->getBytecode();
 	addBind(std::move(pvs));
 
 	addBind(std::make_unique<PixelShader>(gfx, L"PixelShaderTex.cso"));
@@ -83,7 +83,7 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"Light_VS.cso");
-	auto pvsbc = pvs->GetBytecode();
+	auto pvsbc = pvs->getBytecode();
 	addBind(std::move(pvs));
 
 	addBind(std::make_unique<PixelShader>(gfx, L"Light_PS.cso"));

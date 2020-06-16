@@ -67,6 +67,32 @@ HINSTANCE Window::getHinst() const noexcept
 	return mHinst;
 }
 
+POINT Window::getCursorPosInWnd()
+{
+	POINT p;
+	GetCursorPos(&p);
+	ScreenToClient(mHwnd, &p);
+
+	if (p.x < 0.0f)
+	{
+		p.x = 0.0f;
+	}
+	if (p.x > WINDOW_WIDTH)
+	{
+		p.x = WINDOW_WIDTH;
+	}
+	if (p.y < 0)
+	{
+		p.y = 0;
+	}
+	if (p.y > WINDOW_HEIGHT)
+	{
+		p.y = WINDOW_HEIGHT;
+	}
+
+	return p;
+}
+
 
 LRESULT WINAPI Window::handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -108,6 +134,11 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+	case WM_KEYDOWN:
+		if (wParam == VK_ESCAPE)
+		{
+			DestroyWindow(hWnd);
+		}
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);

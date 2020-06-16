@@ -8,12 +8,12 @@ Rasterizer::Rasterizer(Graphics & gfx) noexcept
 	rd.CullMode = D3D11_CULL_NONE;
 	rd.FrontCounterClockwise = false;
 	rd.DepthClipEnable = true;
-	gfx.GetDevice()->CreateRasterizerState(&rd, pRasterizerState.GetAddressOf());
+	gfx.getDevice()->CreateRasterizerState(&rd, pRasterizerState.GetAddressOf());
 }
 
 Rasterizer::Rasterizer(Graphics & gfx, D3D11_RASTERIZER_DESC desc) noexcept
 {
-	gfx.GetDevice()->CreateRasterizerState(&desc, pRasterizerState.GetAddressOf());
+	gfx.getDevice()->CreateRasterizerState(&desc, pRasterizerState.GetAddressOf());
 }
 
 void Rasterizer::bind(Graphics & gfx) noexcept

@@ -51,7 +51,7 @@ Graphics::~Graphics()
 
 }
 
-ID3D11Device* Graphics::GetDevice() const
+ID3D11Device* Graphics::getDevice() const
 {
 	return pDevice.Get();
 }

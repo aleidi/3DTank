@@ -17,10 +17,10 @@ void PSTransCBuf::bind(Graphics& gfx) noexcept
 PSTransCBuf::CBPS PSTransCBuf::GetCBPS(Graphics& gfx) noexcept
 {
 	XMFLOAT3 cam;
-	XMStoreFloat3(&cam, gfx.getCameraPosition());
+ 	XMStoreFloat3(&cam, gfx.getCameraPosition());
 	return
 	{
-		mParent.GetMaterial(),
+		mParent.getMaterial(),
 		RenderManager::sGetInstance()->getDirLight(),
 		XMFLOAT4(cam.x,cam.y,cam.z,1.0f)
 	};

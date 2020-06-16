@@ -1,9 +1,11 @@
 #pragma once
 #include <cassert>
 #include <string>
-
 #include "State.h"
 #include "Telegram.h"
+
+class AIController;
+class GameObject;
 
 template <class entity_type>
 class StateMachine {
@@ -14,7 +16,10 @@ public:
 		                              m_pGlobalState(NULL)
 	{}
 
-	virtual ~StateMachine(){}
+	virtual ~StateMachine(){
+		delete mAgent;
+		mAgent = nullptr;
+	}
 
 	void setCurrentState(State<entity_type>* s) { m_pCurrentState = s; }
 	void setPreviousState(State<entity_type>* s) { m_pPreviousState = s; }
@@ -65,6 +70,23 @@ public:
 		std::string s(typeid(*m_pCurrentState).name());
 		return s;
 	}
+	/////////////AIController/////////////
+	bool setAgent(GameObject* theAgent) noexcept
+	{
+		AIController* p = reinterpret_cast<AIController*>(theAgent);
+
+		if (nullptr == p)
+		{
+			return false;
+		}
+
+		mAgent = p;
+		return true;
+	}
+
+protected:
+	AIController* mAgent;
+
 private:
 	entity_type* m_pOwner;
 	State<entity_type>* m_pCurrentState;

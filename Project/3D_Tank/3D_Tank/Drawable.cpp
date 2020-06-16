@@ -3,7 +3,7 @@
 #include <cassert>
 #include <typeinfo>
 
-void Drawable::draw(Graphics& gfx) const noexcept
+void Drawable::draw(Graphics& gfx) noexcept
 {
 	for (auto& b : mBinds)
 	{
@@ -20,7 +20,7 @@ void Drawable::initMaterial() noexcept
 	mMaterial.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
-Material Drawable::GetMaterial() const
+Material Drawable::getMaterial() const
 {
 	return mMaterial;
 }

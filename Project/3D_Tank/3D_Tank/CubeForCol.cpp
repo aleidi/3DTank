@@ -10,7 +10,7 @@ CubeForCol::CubeForCol()
 	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"SolidVertexShader.cso");
-	auto pvsbc = pvs->GetBytecode();
+	auto pvsbc = pvs->getBytecode();
 	addBind(std::move(pvs));
 
 	addBind(std::make_unique<PixelShader>(gfx, L"SolidPixelShader.cso"));

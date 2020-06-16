@@ -12,12 +12,12 @@ Sampler::Sampler(Graphics & gfx)
 	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-	GetDevice(gfx)->CreateSamplerState(&sampDesc, pSamplerState.GetAddressOf());
+	getDevice(gfx)->CreateSamplerState(&sampDesc, pSamplerState.GetAddressOf());
 }
 
 Sampler::Sampler(Graphics & gfx, D3D11_SAMPLER_DESC desc)
 {
-	GetDevice(gfx)->CreateSamplerState(&desc, pSamplerState.GetAddressOf());
+	getDevice(gfx)->CreateSamplerState(&desc, pSamplerState.GetAddressOf());
 }
 
 void Sampler::bind(Graphics & gfx) noexcept

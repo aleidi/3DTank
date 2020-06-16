@@ -41,7 +41,7 @@ public:
 	Graphics(const Window& wnd);
 	~Graphics();
 
-	ID3D11Device* GetDevice() const;
+	ID3D11Device* getDevice() const;
 	ID3D11DeviceContext* GetContext() const;
 	bool InitD3D();
 	bool InitD2D();
