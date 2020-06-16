@@ -11,6 +11,7 @@
 //test
 #include "Rendering.h"
 #include "Graphics.h"
+#include "SoundManager.h"
 
 #include "Collision.h"
 
@@ -64,6 +65,9 @@ void Engine::onPreInit()
 	//SceneManagerInit
 	SceneManager::createSingleton();
 
+	//SoundManagerInit
+	SoundManager::onInit();
+
 	//Rendering Init
 	mRendering.get()->onInit();
 
@@ -78,7 +82,7 @@ void Engine::onInit()
 	DInputPC::getInstance().onInit(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
 
 	//Sound Init
-	mSound->onInit();
+	//mSound->onInit();
 
 	//ImGui Init
 
@@ -121,10 +125,14 @@ void Engine::run()
 
 	SceneManager::sGetInstance()->onEngineUpdate(deltaTime);
 
+	//SoundManager Update
+	SoundManager::sGetInstance()->onUpdate();
+
 	if (mIsGameMode)
 	{
 		mGameSystem->onUpdate(deltaTime);
-		mSound->playBGM();
+		//mSound->playBGM();
+ 		SoundManager::sGetInstance()->playSound(0);
 	}
 
 

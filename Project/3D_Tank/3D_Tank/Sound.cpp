@@ -32,7 +32,7 @@ void Sound::playBGM() {
 	if (result == FMOD_OK)
 		return;
 
-	result = loadSoundFile(SOUND_FILE_PATH[0], 0);
+	result = loadSoundFile(SOUND_FILE_PATH_01[0], 0);
 	if (result != FMOD_OK)
 		return;
 	//mFmodSound[0]->setMode(FMOD_3D);
@@ -54,7 +54,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result == FMOD_OK)
 			return;
 
-		result = loadSoundFile(SOUND_FILE_PATH[1], numberOfSoundFile);
+		result = loadSoundFile(SOUND_FILE_PATH_01[1], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[1]->setMode(FMOD_3D);
@@ -67,7 +67,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result == FMOD_OK)
 			return;
 
-		result = loadSoundFile(SOUND_FILE_PATH[2], numberOfSoundFile);
+		result = loadSoundFile(SOUND_FILE_PATH_01[2], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[2]->setMode(FMOD_3D);
@@ -81,7 +81,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result == FMOD_OK)
 			return;
 
-		result = loadSoundFile(SOUND_FILE_PATH[3], numberOfSoundFile);
+		result = loadSoundFile(SOUND_FILE_PATH_01[3], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[3]->setMode(FMOD_3D);
@@ -94,7 +94,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result == FMOD_OK)
 			return;
 
-		result = loadSoundFile(SOUND_FILE_PATH[4], numberOfSoundFile);
+		result = loadSoundFile(SOUND_FILE_PATH_01[4], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[4]->setMode(FMOD_3D);
@@ -107,7 +107,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result == FMOD_OK)
 			return;
 
-		result = loadSoundFile(SOUND_FILE_PATH[5], numberOfSoundFile);
+		result = loadSoundFile(SOUND_FILE_PATH_01[5], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[5]->setMode(FMOD_3D);
@@ -120,7 +120,7 @@ void Sound::play(const int& numberOfSoundFile, const Vector3* position) {
 		if (result == FMOD_OK)
 			return;
 
-		result = loadSoundFile(SOUND_FILE_PATH[6], numberOfSoundFile);
+		result = loadSoundFile(SOUND_FILE_PATH_01[6], numberOfSoundFile);
 		if (result != FMOD_OK)
 			return;
 		mFmodSound[6]->setMode(FMOD_3D);
@@ -195,5 +195,4 @@ void Sound::setPosition() {
 	FMOD_VECTOR lin{ 1.0f,1.0f,1.0f };
 	mFmodSound[0]->set3DCustomRolloff(&lin, 1);
 	mFmodChannel[0]->set3DAttributes(&position, &vel);
-
 }

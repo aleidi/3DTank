@@ -169,6 +169,12 @@
     <Filter Include="Engine\Source\Physics\BoundingBox">
       <UniqueIdentifier>{5e8c02b2-9f07-42a6-9a70-1a79f62b0f3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Source\SoundManager">
+      <UniqueIdentifier>{ae224cb3-2a0e-4d18-a354-9f590aaa33ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header\SoundManager">
+      <UniqueIdentifier>{8c850f71-7a71-4df5-ba9d-d08ac045a8c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -434,6 +440,9 @@
     </ClCompile>
     <ClCompile Include="AIController.cpp">
       <Filter>Game\Source\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Engine\Source\SoundManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -763,6 +772,9 @@
     </ClInclude>
     <ClInclude Include="AIController.h">
       <Filter>Game\Header\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Engine\Header\SoundManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

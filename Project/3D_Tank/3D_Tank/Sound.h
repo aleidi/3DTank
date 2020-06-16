@@ -8,8 +8,8 @@
 #pragma comment (lib,"fmodL_vc.lib")
 
 
-const int SOUND_NUM = 7;
-const std::string SOUND_FILE_PATH[7] =
+const int SOUND_NUM_01 = 7;
+const std::string SOUND_FILE_PATH_01[7] =
 {
 	"Resource/Sound/BGM00_Background.wav",
 	"Resource/Sound/BGM01_Button_click.wav",
@@ -20,7 +20,7 @@ const std::string SOUND_FILE_PATH[7] =
 	"Resource/Sound/SE04_Shell_boom.wav"
 };
 
-enum MusicIndex { BGM, BUTTON_CLICK, TNAK_MOVE, TANK_SHOT, TANK_EXPLOSSION, SHELL_FLYBY, SHELL_BOOM };
+//enum MusicIndex { BGM, BUTTON_CLICK, TNAK_MOVE, TANK_SHOT, TANK_EXPLOSSION, SHELL_FLYBY, SHELL_BOOM };
 
 class Sound
 {
@@ -45,7 +45,7 @@ public:
 	FMOD_RESULT loadSoundFile(std::string filename, int soundidx);
 private:
 	FMOD::System *mFmodAudio;
-	FMOD::Sound *mFmodSound[SOUND_NUM];
-	FMOD::Channel *mFmodChannel[SOUND_NUM];
+	FMOD::Sound *mFmodSound[SOUND_NUM_01];
+	FMOD::Channel *mFmodChannel[SOUND_NUM_01];
 
 };

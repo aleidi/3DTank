@@ -238,6 +238,7 @@
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sampler.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SphereObjectFactory.cpp" />
     <ClCompile Include="ImGuiFrame.cpp" />
@@ -346,6 +347,7 @@
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sampler.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SphereObjectFactory.h" />
     <ClInclude Include="ImGuiFrame.h" />
