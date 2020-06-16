@@ -109,7 +109,15 @@ void ImGuiFrame::onUpdate(float deltaTime)
 				if (ImGui::Button("Attach"))
 				{
 					attachNameStr = toAttachObjectName;
-					SceneManager::sGetInstance()->findObjectWithName(*it)->attach(*SceneManager::sGetInstance()->findObjectWithName(attachNameStr));
+
+					bool isInList = false;
+					for (std::list<std::string>::iterator it2 = nameList.begin(); it2 != nameList.end(); ++it2)
+					{
+						if (attachNameStr == *it2)
+							isInList = true;
+					}
+					if (isInList == true)
+						SceneManager::sGetInstance()->findObjectWithName(*it)->attach(*SceneManager::sGetInstance()->findObjectWithName(attachNameStr));
 				}
 			}
 		}
