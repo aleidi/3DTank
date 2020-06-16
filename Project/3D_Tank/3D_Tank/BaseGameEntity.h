@@ -21,7 +21,7 @@ public:
 	virtual void Move(Vector3 value);
 	/////////////////////////////////////
 
-	virtual bool handleMessage(const Telegram& msg) { return false; }
+	// virtual bool handleMessage(const Telegram& msg) { return false; }
 
 	static int getNextValidID() { return m_iNextValidID; }
 	static void resetNextValidID() { m_iNextValidID = 0; }

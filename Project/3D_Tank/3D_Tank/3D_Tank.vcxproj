@@ -367,6 +367,7 @@
     <ClInclude Include="UIBase.h" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UICommon.h" />
+    <ClInclude Include="UIEvent.h" />
     <ClInclude Include="UIImage.h" />
     <ClInclude Include="UITransformCbuf.h" />
     <ClInclude Include="Vector3.h" />

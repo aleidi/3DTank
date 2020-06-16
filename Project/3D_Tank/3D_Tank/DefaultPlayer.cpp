@@ -4,6 +4,7 @@
 
 DefaultPlayer::DefaultPlayer()
 {
+	mName = "DefaultPlayer";
 
 	mCamera = new Camera(this);
 	this->addComponent(mCamera);

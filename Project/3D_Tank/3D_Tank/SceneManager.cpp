@@ -8,11 +8,12 @@
 #include "UIImage.h"
 #include "UIButton.h"
 #include "RenderManager.h"
+#include "AIController.h"
 
 SceneManager* SceneManager::sInstance = nullptr;
 
 SceneManager::SceneManager()
-	:mObjs(),mFactories()
+	:mObjs(),mAIControllers(),mFactories()
 {
 	mFactories["Cube"] = new CubeObjectFactory();
 	mFactories["Sphere"] = new SphereObjectFactory();
@@ -92,6 +93,13 @@ UIButton* SceneManager::createUIButton(const std::wstring & texPath)
 	return ui;
 }
 
+AIController * SceneManager::createAIController(int id)
+{
+	AIController* ac = new AIController(id);
+	mAIControllers[id] = ac;
+	return ac;
+}
+
 void SceneManager::addGameObjectToPool(GameObject * object) noexcept
 {
 	mObjs.push_back(object);
@@ -106,6 +114,25 @@ bool SceneManager::removeGameObjectFromPool(GameObject * object) noexcept
 			delete *it;
 			*it = nullptr;
 			mObjs.erase(it++);
+			return true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return false;
+}
+
+bool SceneManager::removeAIControllerFromPool(AIController * ctrl) noexcept
+{
+	for (std::map<int,AIController*>::iterator it = mAIControllers.begin(); it != mAIControllers.end();)
+	{
+		if ((*it).second == ctrl)
+		{
+			delete (*it).second;
+			(*it).second = nullptr;
+			mAIControllers.erase(it++);
 			return true;
 		}
 		else
@@ -141,6 +168,18 @@ std::list<std::string> SceneManager::getAllGameobjectName()
 	return nList;
 }
 
+AIController * SceneManager::getAIController(int id)
+{
+	for (std::map<int, AIController*>::iterator it = mAIControllers.begin(); it != mAIControllers.end(); ++it)
+	{
+		if ((*it).first == id)
+		{
+			return (*it).second;
+		}
+	}
+	return nullptr;
+}
+
 void SceneManager::onGameStart()
 {
 	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)
@@ -159,6 +198,14 @@ void SceneManager::onUpdate(float deltaTime)
 		if (nullptr != *it)
 		{
 			(*it)->onUpdate(deltaTime);
+		}
+	}
+
+	for (std::map<int, AIController*>::iterator it = mAIControllers.begin(); it != mAIControllers.end(); ++it)
+	{
+		if (nullptr != (*it).second)
+		{
+			(*it).second->onUpdate(deltaTime);
 		}
 	}
 }

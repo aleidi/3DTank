@@ -435,9 +435,6 @@
     <ClCompile Include="GameCharacter.cpp">
       <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="AIController.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
@@ -458,6 +455,9 @@
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Engine\Source\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Engine\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -805,6 +805,9 @@
     </ClInclude>
     <ClInclude Include="UITransformCbuf.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="UIEvent.h">
+      <Filter>Engine\Header\Render\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
