@@ -6,6 +6,7 @@ class AIController : public ControllerBase
 {
 public:
 	AIController();
+	AIController(int id);
 	virtual ~AIController();
 
 	virtual void onStart() override;
@@ -14,10 +15,11 @@ public:
 	virtual void MoveCharacter(Vector3 value);
 	//////////////////////////////////////////////
 
-	void setStateMachine(StateMachine<Pawn>* new_StateMachine);
-	StateMachine<Pawn>* getFSM() const { return m_pStateMachine; }
+	void setStateMachine(StateMachine<AIController>* new_StateMachine);
+	StateMachine<AIController>* getFSM() const { return m_pStateMachine; }
 	bool handleMessage(const Telegram& msg);
 
 private:
-	StateMachine<Pawn>* m_pStateMachine;
+	int mID;
+	StateMachine<AIController>* m_pStateMachine;
 };

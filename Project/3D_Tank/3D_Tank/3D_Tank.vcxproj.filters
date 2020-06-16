@@ -169,7 +169,6 @@
     <Filter Include="Engine\Source\Render\GUI">
       <UniqueIdentifier>{9a9f5374-4b25-4670-9c33-f05f9a222e3e}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="Engine\Source\SoundManager">
       <UniqueIdentifier>{ae224cb3-2a0e-4d18-a354-9f590aaa33ba}</UniqueIdentifier>
     </Filter>
@@ -436,9 +435,6 @@
     <ClCompile Include="GameCharacter.cpp">
       <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="AIController.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
@@ -459,6 +455,9 @@
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Engine\Source\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Engine\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -806,6 +805,9 @@
     </ClInclude>
     <ClInclude Include="UITransformCbuf.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="UIEvent.h">
+      <Filter>Engine\Header\Render\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
