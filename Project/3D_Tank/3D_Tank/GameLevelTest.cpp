@@ -11,7 +11,6 @@
 #include "MessageDispatcher.h"
 #include "AIController.h"
 
-
 GameObject* hq;
 GameObject* tankBattery;
 GameObject* tankBody;
@@ -20,6 +19,7 @@ GameObject* tankTrackR;
 GameObject* cam;
 GameObject* follow;
 EnemyTank* enemy;
+StateMachine<AIController>* enemyStatemachine;
 AIController* aiController;
 
 GameLevelTest::GameLevelTest()
@@ -120,15 +120,17 @@ void GameLevelTest::enterLevel()
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	cube->attach(*enemy);
 	EntityMgr->registerEntity(enemy);
-	// aiController = new AIController();
-	// aiController->posses(enemy);
+	aiController = new AIController();
+	aiController->posses(enemy);
+	enemyStatemachine = new StateMachine<AIController>(aiController);
+	enemyStatemachine->setCurrentState(Rest::getInstance());
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
-	enemy->update();
+	aiController->onUpdate(deltaTime);
 	Dispatch->DispatchDelayedMessages();
 
 	if (DInputPC::getInstance().iskeyDown(DIK_F1))

@@ -1,17 +1,17 @@
 #pragma once
 // all states that can be assigned to the enemytank class
 #include "State.h"
-class EnemyTank;
+class AIController;
 struct Telegram;
 
-class Rest : public State<EnemyTank> {
+class Rest : public State<AIController> {
 public:
 	static Rest* getInstance();
-	virtual void enter(EnemyTank* pETank);
-	virtual void execute(EnemyTank* pETank);
-	virtual void exit(EnemyTank* pETank);
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank);
+	virtual void exit(AIController* pETank);
 
-	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
 private:
 	Rest() {}
 
@@ -19,14 +19,14 @@ private:
 	Rest& operator=(const Rest&);
 };
 
-class Wander : public State<EnemyTank> {
+class Wander : public State<AIController> {
 public:
 	static Wander* getInstance();
-	virtual void enter(EnemyTank* pETank);
-	virtual void execute(EnemyTank* pETank);
-	virtual void exit(EnemyTank* pETank);
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank);
+	virtual void exit(AIController* pETank);
 
-	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
 private:
 	Wander() {}
 	
@@ -34,14 +34,14 @@ private:
 	Wander& operator=(const Wander&);
 };
 
-class Avoidance : public State<EnemyTank> {
+class Avoidance : public State<AIController> {
 public:
 	static Avoidance* getInstance();
-	virtual void enter(EnemyTank* pETank);
-	virtual void execute(EnemyTank* pETank);
-	virtual void exit(EnemyTank* pETank);
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank);
+	virtual void exit(AIController* pETank);
 
-	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
 private:
 	Avoidance() {}
 
@@ -49,14 +49,14 @@ private:
 	Avoidance& operator=(const Avoidance&);
 };
 
-class Attack : public State<EnemyTank> {
+class Attack : public State<AIController> {
 public:
 	static Attack* getInstance();
-	virtual void enter(EnemyTank* pETank);
-	virtual void execute(EnemyTank* pETank);
-	virtual void exit(EnemyTank* pETank);
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank);
+	virtual void exit(AIController* pETank);
 
-	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
 private:
 	Attack() {}
 
@@ -64,14 +64,14 @@ private:
 	Attack& operator=(const Attack&);
 };
 
-class Evade : public State<EnemyTank> {
+class Evade : public State<AIController> {
 public:
 	static Evade* getInstance();
-	virtual void enter(EnemyTank* pETank);
-	virtual void execute(EnemyTank* pETank);
-	virtual void exit(EnemyTank* pETank);
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank);
+	virtual void exit(AIController* pETank);
 
-	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
 private:
 	Evade() {}
 
@@ -79,14 +79,14 @@ private:
 	Evade& operator=(const Evade&);
 };
 
-class Pursuit : public State<EnemyTank> {
+class Pursuit : public State<AIController> {
 public:
 	static Pursuit* getInstance();
-	virtual void enter(EnemyTank* pETank);
-	virtual void execute(EnemyTank* pETank);
-	virtual void exit(EnemyTank* pETank);
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank);
+	virtual void exit(AIController* pETank);
 
-	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
 private:
 	Pursuit() {}
 
@@ -96,14 +96,14 @@ private:
 
 
 //////////////////////////////////////
-class Patrol : public State<EnemyTank> {
+class Patrol : public State<AIController> {
 public:
 	static Patrol* getInstance();
-	virtual void enter(EnemyTank* pETank);
-	virtual void execute(EnemyTank* pETank);
-	virtual void exit(EnemyTank* pETank);
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank);
+	virtual void exit(AIController* pETank);
 
-	virtual bool onMessage(EnemyTank* agent, const Telegram& msg);
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
 private:
 	Patrol() {}
 
