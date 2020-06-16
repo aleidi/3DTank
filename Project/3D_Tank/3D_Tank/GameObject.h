@@ -37,6 +37,7 @@ public:
 
 	BoundingCube* cube;
 	DirectX::XMVECTOR Vmax, Vmin;
+	bool onCollision;
 
 protected:
 	std::list<Component*> mComps;

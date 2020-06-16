@@ -16,5 +16,3 @@ void ComponentFactory::createModel(GameObject & obj, const std::string & modelPa
 	rc->setMesh(new ModelMesh(rc, modelPath, texturePath, maxPoint, minPoint));
 	obj.addComponent(rc);
 }
-
-

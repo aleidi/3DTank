@@ -5,7 +5,10 @@
 #include "TankGamePlay.h"
 #include "TankBatteryCtrl.h"
 #include "RenderManager.h"
-#include "GameCharacter.h"
+#include "EnemyTank.h"
+#include "EntityManager.h"
+#include "EntityNames.h"
+#include "MessageDispatcher.h"
 #include "AIController.h"
 
 
@@ -16,7 +19,7 @@ GameObject* tankTrackL;
 GameObject* tankTrackR;
 GameObject* cam;
 GameObject* follow;
-GameCharacter* enemy;
+EnemyTank* enemy;
 AIController* aiController;
 
 GameLevelTest::GameLevelTest()
@@ -114,15 +117,19 @@ void GameLevelTest::enterLevel()
 
 
 	//set ai
-	enemy = new GameCharacter();
+	enemy = new EnemyTank(ent_Tank_Enemy);
 	cube->attach(*enemy);
-	aiController = new AIController();
-	aiController->posses(enemy);
+	EntityMgr->registerEntity(enemy);
+	// aiController = new AIController();
+	// aiController->posses(enemy);
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
+
+	enemy->update();
+	Dispatch->DispatchDelayedMessages();
 
 	if (DInputPC::getInstance().iskeyDown(DIK_F1))
 	{
