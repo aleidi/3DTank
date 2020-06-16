@@ -19,6 +19,7 @@ public:
 	void createRenderComponent(GameObject* object) noexcept;
 	void createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath);
 	void createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
+	void createUIImage(const std::wstring& texPath);
 
 	void addGameObjectToPool(GameObject* object) noexcept;
 	bool removeGameObjectFromPool(GameObject* object) noexcept;

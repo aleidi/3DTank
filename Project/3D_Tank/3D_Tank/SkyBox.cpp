@@ -11,7 +11,7 @@ SkyBox::SkyBox(Graphics & gfx)
 	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"SkyBox_VS.cso");
-	auto pvsbc = pvs->GetBytecode();
+	auto pvsbc = pvs->getBytecode();
 	addBind(std::move(pvs));
 
 	addBind(std::make_unique<PixelShader>(gfx, L"SkyBox_PS.cso"));
@@ -24,7 +24,7 @@ SkyBox::SkyBox(Graphics & gfx)
 	};
 	addBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	addBind(std::make_unique<Texture>(gfx, L"Skybox\\Night"));
+	addBind(std::make_unique<Texture>(gfx, L"Skybox\\Sand"));
 
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));

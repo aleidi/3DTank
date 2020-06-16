@@ -1,12 +1,12 @@
 #include "Texture.h"
 #include "DDSTextureLoader.h"
 
-Texture::Texture(Graphics& gfx, const wchar_t * path)
+Texture::Texture(Graphics& gfx, const std::wstring & path)
 {
 	std::wstring str = L".\\Resource\\Model\\";
 	str += path;
 	str += L".dds";
-	CreateDDSTextureFromFile(GetDevice(gfx), str.c_str(), nullptr, pTextureRV.GetAddressOf());
+	CreateDDSTextureFromFile(getDevice(gfx), str.c_str(), nullptr, pTextureRV.GetAddressOf());
 
 	if (nullptr == pTextureRV)
 	{
@@ -22,5 +22,5 @@ void Texture::bind(Graphics & gfx) noexcept
 
 void Texture::createDefualtTexture(Graphics& gfx) noexcept
 {
-	CreateDDSTextureFromFile(GetDevice(gfx), L"./Resource/Model/Objects/DefaultTexture.dds", nullptr, pTextureRV.GetAddressOf());
+	CreateDDSTextureFromFile(getDevice(gfx), L"./Resource/Model/Objects/DefaultTexture.dds", nullptr, pTextureRV.GetAddressOf());
 }

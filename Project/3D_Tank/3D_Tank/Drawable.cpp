@@ -20,7 +20,7 @@ void Drawable::initMaterial() noexcept
 	mMaterial.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
-Material Drawable::GetMaterial() const
+Material Drawable::getMaterial() const
 {
 	return mMaterial;
 }

@@ -5,6 +5,8 @@
 #include "GameObject.h"
 #include "FactoryBase.h"
 #include "RenderManager.h"
+#include "UIImage.h"
+#include "RenderManager.h"
 
 SceneManager* SceneManager::sInstance = nullptr;
 
@@ -73,6 +75,12 @@ void SceneManager::createModel(GameObject & obj, const std::string & modelPath, 
 void SceneManager::createModel(GameObject & obj, const std::string & modelPath, const std::wstring & texturePath, DirectX::XMVECTOR & maxPoint, DirectX::XMVECTOR & minPoint)
 {
 	ComponentFactory::createModel(obj, modelPath, texturePath, maxPoint, minPoint);
+}
+
+void SceneManager::createUIImage(const std::wstring& texPath)
+{
+	UIBase* ui = new UIImage(RenderManager::sGetInstance()->getGraphics(),texPath);
+	RenderManager::sGetInstance()->addUIToPool(ui);
 }
 
 void SceneManager::addGameObjectToPool(GameObject * object) noexcept

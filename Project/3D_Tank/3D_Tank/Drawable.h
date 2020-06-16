@@ -9,11 +9,10 @@ public:
 	Drawable() = default;
 	Drawable(const Drawable&) = delete;
 	virtual DirectX::XMMATRIX getTransformXM() const noexcept = 0;
-	virtual Material getMaterial() const noexcept = 0;
-	void draw(Graphics& gfx) const noexcept;
+	virtual void draw(Graphics& gfx) const noexcept;
 	virtual void onUpdate(float deltaTime) noexcept = 0;
 	virtual void initMaterial() noexcept;
-	virtual Material GetMaterial() const;
+	virtual Material getMaterial() const;
 	void addBind(std::unique_ptr<Bindable> bind) noexcept;
 	void addIndexBuffer(std::unique_ptr<class IndexBuffer> ibuf) noexcept;
 	virtual ~Drawable() = default;

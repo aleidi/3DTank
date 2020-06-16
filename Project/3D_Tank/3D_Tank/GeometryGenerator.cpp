@@ -49,6 +49,15 @@ void GeometryGenerator::getModel(Mesh & mesh, const std::string & name, DirectX:
 	mesh = mModels[name];
 }
 
+void GeometryGenerator::getUIPanel(Mesh & mesh)
+{
+	if (mMeshes[MeshType::Panel].vertices.size() == 0 && mMeshes[MeshType::Panel].indices.size() == 0)
+	{
+		createUIPanel();
+	}
+	mesh = mMeshes[MeshType::Panel];
+}
+
 void GeometryGenerator::createCube()
 {
 	std::vector<Vertex> vertices =
@@ -254,4 +263,24 @@ void GeometryGenerator::createModel(const std::string & name, DirectX::XMVECTOR 
 	Mesh m;
 	FileManager::LoadOBJModel(m, name, maxPoint, minPoint);
 	mModels[name] = m;
+}
+
+void GeometryGenerator::createUIPanel()
+{
+	const std::vector<Vertex> v =
+	{
+		{XMFLOAT3(0.0f,0.0f,0.0f),XMFLOAT2(0.0f,0.0f)},
+		{XMFLOAT3(1.0f,0.0f,0.0f),XMFLOAT2(1.0f,0.0f)},
+		{XMFLOAT3(1.0f,1.0f,0.0f),XMFLOAT2(1.0f,1.0f)},
+		{XMFLOAT3(0.0f,1.0f,0.0f),XMFLOAT2(0.0f,1.0f)},
+	};
+
+	const std::vector<UINT> i =
+	{
+		0,2,1,
+		0,3,2
+	};
+
+	mMeshes[MeshType::Panel].vertices = v;
+	mMeshes[MeshType::Panel].indices = i;
 }

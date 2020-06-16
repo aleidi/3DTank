@@ -17,7 +17,7 @@ public:
 
 		D3D11_SUBRESOURCE_DATA csd = {};
 		csd.pSysMem = &consts;
-		GetDevice(gfx)->CreateBuffer(&cbd, &csd, &pConstantBuffer);
+		getDevice(gfx)->CreateBuffer(&cbd, &csd, &pConstantBuffer);
 	}
 
 	ConstantBuffers(Graphics& gfx)
@@ -29,7 +29,7 @@ public:
 		cbd.MiscFlags = 0u;
 		cbd.ByteWidth = sizeof(C);
 		cbd.StructureByteStride = 0u;
-		GetDevice(gfx)->CreateBuffer(&cbd, nullptr, &pConstantBuffer);
+		getDevice(gfx)->CreateBuffer(&cbd, nullptr, &pConstantBuffer);
 	}
 
 	void onUpdate(Graphics& gfx, const C& consts)

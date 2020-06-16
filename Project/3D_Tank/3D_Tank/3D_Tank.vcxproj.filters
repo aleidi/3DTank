@@ -435,6 +435,15 @@
     <ClCompile Include="AIController.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="UICommon.cpp">
+      <Filter>Engine\Source\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBase.cpp">
+      <Filter>Engine\Source\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIImage.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -764,6 +773,15 @@
     <ClInclude Include="AIController.h">
       <Filter>Game\Header\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="UICommon.h">
+      <Filter>Engine\Header\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBase.h">
+      <Filter>Engine\Header\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIImage.h">
+      <Filter>Engine\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -794,6 +812,27 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="Light_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIPixelShader.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIPSButton.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIVertexShader.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIVSHorizontalL.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIVSHorizontalR.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIVSVerticalB.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIVSVerticalT.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>

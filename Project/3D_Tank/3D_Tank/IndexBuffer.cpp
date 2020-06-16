@@ -13,7 +13,7 @@ IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<UINT>& indices)
 	ibd.StructureByteStride = sizeof(UINT);
 	D3D11_SUBRESOURCE_DATA isd = {};
 	isd.pSysMem = indices.data();
-	GetDevice(gfx)->CreateBuffer(&ibd, &isd, &pIndexBuffer);
+	getDevice(gfx)->CreateBuffer(&ibd, &isd, &pIndexBuffer);
 }
 
 void IndexBuffer::bind(Graphics& gfx) noexcept

@@ -18,6 +18,8 @@ public:
 	void setMaterial(const Material& mat) noexcept;
 
 private:
+	void initMaterial();
+private:
 	Mesh* mMesh;
 	Material mMaterial;
 };

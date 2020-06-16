@@ -24,9 +24,10 @@ public:
 
 	enum MeshType
 	{
-		Cube,
-		Sphere,
-		Plane
+		Cube = 0,
+		Sphere = 1,
+		Plane = 2,
+		Panel = 3,
 	};
 
 	static void getCube(Mesh& mesh);
@@ -34,6 +35,7 @@ public:
 	static void getPlane(Mesh& mesh);
 	static void getModel(Mesh& mesh, const std::string& name);
 	static void getModel(Mesh& mesh, const std::string& name, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
+	static void getUIPanel(Mesh& mesh);
 
 private:
 	static void createCube();
@@ -41,6 +43,7 @@ private:
 	static void createPlane();
 	static void createModel(const std::string& name);
 	static void createModel(const std::string& name, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
+	static void createUIPanel();
 	
 private:
 	static std::map<MeshType, Mesh> mMeshes;

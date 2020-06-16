@@ -3,6 +3,7 @@
 #include "LightHelper.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "UIBase.h"
 
 RenderManager* RenderManager::sInstance = nullptr;
 
@@ -49,6 +50,30 @@ bool RenderManager::removeMeshFromPool(Mesh * mesh) noexcept
 			delete *it;
 			*it = nullptr;
 			mMeshes.erase(it++);
+			return true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return false;
+}
+
+void RenderManager::addUIToPool(UIBase * ui) noexcept
+{
+	mUIs.push_back(ui);
+}
+
+bool RenderManager::removeUIFromPool(UIBase * ui) noexcept
+{
+	for (std::list<UIBase*>::iterator it = mUIs.begin(); it != mUIs.end();)
+	{
+		if (*it == ui)
+		{
+			delete *it;
+			*it = nullptr;
+			mUIs.erase(it++);
 			return true;
 		}
 		else

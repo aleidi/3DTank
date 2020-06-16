@@ -4,7 +4,7 @@
 class Texture : public Bindable
 {
 public:
-	Texture(Graphics& gfx, const wchar_t* path);
+	Texture(Graphics& gfx, const std::wstring& path);
 	void bind(Graphics& gfx) noexcept override;
 
 private:

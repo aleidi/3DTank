@@ -6,6 +6,7 @@
 RenderComponent::RenderComponent(GameObject* obj)
 	:Component(obj),mMesh()
 {
+	initMaterial();
 }
 
 RenderComponent::~RenderComponent()
@@ -35,4 +36,12 @@ Material RenderComponent::getMaterial() const noexcept
 void RenderComponent::setMaterial(const Material & mat) noexcept
 {
 	mMaterial = mat;
+}
+
+void RenderComponent::initMaterial()
+{
+	mMaterial.Ambient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+	mMaterial.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mMaterial.Specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 5.0f);
+	mMaterial.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 }
