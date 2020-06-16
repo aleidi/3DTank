@@ -10,7 +10,6 @@ public:
 	UIImage(Graphics& gfx);
 	UIImage(Graphics& gfx, const std::wstring& texPath);
 
-	void onUpdate(Graphics& gfx, float dt) noexcept override;
 	void draw(Graphics& gfx) const noexcept override;
 
 	void SetFillAmount(float value);

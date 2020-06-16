@@ -442,7 +442,13 @@
       <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
     <ClCompile Include="UIImage.cpp">
-      <Filter>Engine\Source</Filter>
+      <Filter>Engine\Source\Render\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>Engine\Source\Render\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="UITransformCbuf.cpp">
+      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -780,7 +786,13 @@
       <Filter>Engine\Header\Render\GUI</Filter>
     </ClInclude>
     <ClInclude Include="UIImage.h">
-      <Filter>Engine\Header</Filter>
+      <Filter>Engine\Header\Render\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>Engine\Header\Render\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="UITransformCbuf.h">
+      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

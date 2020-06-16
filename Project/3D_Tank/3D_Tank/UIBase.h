@@ -8,11 +8,10 @@ public:
 	UIBase(const UIBase&) = delete;
 
 	void onUpdate(float deltaTime) noexcept override;
-	virtual void onUpdate(Graphics& gfx, float dt) noexcept;
 	virtual DirectX::XMMATRIX getTransformXM() const noexcept override;
 
-	void SetSize(float width, float height) noexcept;
-	void SetPosition(float x, float y) noexcept;
+	void setSize(float width, float height) noexcept;
+	void setPosition(float x, float y) noexcept;
 
 protected:
 	float mWidth;

@@ -46,7 +46,7 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 	mVCB = std::make_unique<VertexConstantBuffer<CBVS>>(gfx);
 }
 
-void UIImage::onUpdate(Graphics& gfx, float dt) noexcept
+void UIImage::draw(Graphics& gfx) const noexcept
 {
 	mVCB->onUpdate(gfx,
 		{
@@ -54,10 +54,7 @@ void UIImage::onUpdate(Graphics& gfx, float dt) noexcept
 			getFillAmount()
 		}
 	);
-}
 
-void UIImage::draw(Graphics& gfx) const noexcept
-{
 	for (auto& b : mBinds)
 	{
 		b->bind(gfx);

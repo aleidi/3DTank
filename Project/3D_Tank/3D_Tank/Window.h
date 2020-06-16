@@ -12,6 +12,7 @@ public:
 	bool processMessage();
 	HWND getHwnd() const noexcept;
 	HINSTANCE getHinst() const noexcept;
+	POINT getCursorPosInWnd();
 
 private:
 	static LRESULT WINAPI handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

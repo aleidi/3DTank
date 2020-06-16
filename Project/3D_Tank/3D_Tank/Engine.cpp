@@ -163,6 +163,11 @@ void Engine::run()
 	mRendering.get()->onEndRender(deltaTime);
 }
 
+POINT Engine::getCursorPos()
+{
+	return mWnd.getCursorPosInWnd();
+}
+
 void Engine::showtText(const std::wstring & str = L"", float leftTopX=0, float leftTopY=0, float width=0, float height=0, bool canShow = false)
 {
 	mRendering->getGFX()->setShowText(str, leftTopX, leftTopY, width, height, canShow);

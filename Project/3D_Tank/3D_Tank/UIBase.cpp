@@ -4,11 +4,6 @@ void UIBase::onUpdate(float deltaTime) noexcept
 {
 }
 
-void UIBase::onUpdate(Graphics& gfx, float dt) noexcept
-{
-
-}
-
 DirectX::XMMATRIX UIBase::getTransformXM() const noexcept
 {
 	return XMMatrixScaling(mWidth, mHeight, 0.0f)*
@@ -17,13 +12,13 @@ DirectX::XMMATRIX UIBase::getTransformXM() const noexcept
 		XMMatrixTranslation(-1.0f, -1.0f, 0.0f);
 }
 
-void UIBase::SetSize(float width, float height) noexcept
+void UIBase::setSize(float width, float height) noexcept
 {
 	mWidth = width;
 	mHeight = height;
 }
 
-void UIBase::SetPosition(float x, float y) noexcept
+void UIBase::setPosition(float x, float y) noexcept
 {
 	mX = x;
 	mY = y;
