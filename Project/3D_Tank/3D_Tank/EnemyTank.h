@@ -16,7 +16,8 @@ const int ReplyInterval = 10;
 class EnemyTank : public BaseGameEntity {
 public:
 	EnemyTank(int ID);
-	~EnemyTank() { } // delete m_pStateMachine; }
+	~EnemyTank();
+	// delete m_pStateMachine; }
 
 	/*
 	void update();
@@ -43,5 +44,6 @@ private:
 	// StateMachine<EnemyTank>* m_pStateMachine;
 	bool m_HPRecovered;
 	bool m_Attacked = false;
+	std::vector<RenderComponent*> mRCs;
 };
 
