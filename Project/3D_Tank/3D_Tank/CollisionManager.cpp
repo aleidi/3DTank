@@ -31,7 +31,7 @@ bool CollisionManager::collisionCheck_CubeToCube(const BoundingCube * cube, Game
 		for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
 			if (*it == cube) continue;
 			if (collisionCheck(cube, *it) == true) {
-				
+				obj = (*it)->getObject();
 				return true;
 			}
 		}
@@ -65,22 +65,24 @@ bool CollisionManager::collisionCheck(const Vector3 & o, const Vector3 & d, cons
 	return cube->box.Intersects(origin, direction, dis);
 }
 
-void CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & direction, BoundingCube * farthestCube, BoundingCube * nearestCube, float & farthestDis, float & nearestDis)
+bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & direction, BoundingCube * farthestCube, BoundingCube * nearestCube, float & farthestDis, float & nearestDis)
 {
-	float maxDis = -1.f, minDis = -1.f, dis = 0.f;
-	for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
+	float dis = -1.f;
+	for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
 		if (collisionCheck(origin, direction, *it, dis)) {
-			if (maxDis == -1.f && minDis == -1.f) {
-				maxDis = minDis = dis;
+			if (farthestCube == NULL && nearestCube == NULL) {
+				farthestDis = nearestDis = dis;
 				farthestCube = *it;
 				nearestCube = *it;
 			}
 			else {
-				if (dis > maxDis) { maxDis = dis; farthestCube = *it; }
-				if (dis < minDis) { minDis = dis; nearestCube = *it; }
+				if (dis > farthestDis) { farthestDis = dis; farthestCube = *it; }
+				if (dis < nearestDis) { nearestDis = dis; nearestCube = *it; }
 			}
+			return true;
 		}
 	}
+	return false;
 
 }
 
