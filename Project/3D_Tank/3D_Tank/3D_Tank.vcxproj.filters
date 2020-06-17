@@ -459,6 +459,12 @@
     <ClCompile Include="MovementComponent.cpp">
       <Filter>Engine\Source</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerTank.cpp">
+      <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Level02.cpp">
+      <Filter>Game\Source\Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -808,6 +814,12 @@
     </ClInclude>
     <ClInclude Include="UIEvent.h">
       <Filter>Engine\Header\Render\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTank.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Level02.h">
+      <Filter>Game\Header\Level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

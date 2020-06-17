@@ -11,6 +11,11 @@ RenderComponent::RenderComponent(GameObject* obj)
 
 RenderComponent::~RenderComponent()
 {
+	if (mMesh != nullptr)
+	{
+		RenderManager::sGetInstance()->removeMeshFromPool(mMesh);
+	}
+	mMesh = nullptr;
 }
 
 void RenderComponent::setMesh(Mesh * theMesh) noexcept
@@ -33,7 +38,7 @@ Material RenderComponent::getMaterial() const noexcept
 	return mMaterial;
 }
 
-void RenderComponent::setMaterial(const Material & mat) noexcept
+void RenderComponent::setMaterial(Material mat) noexcept
 {
 	mMaterial = mat;
 }

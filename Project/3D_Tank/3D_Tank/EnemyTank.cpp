@@ -1,23 +1,49 @@
 #include "EnemyTank.h"
+#include "Telegram.h"
+#include "MessageDispatcher.h"
+#include "MessageTypes.h"
+#include "ComponentBase.h"
+
 /*
 void EnemyTank::update() {
 	m_pStateMachine->update();
 }
 */
+struct Telegram;
 
 EnemyTank::EnemyTank(int ID)
-	:mAttribute({95,1000.0f,2000.0f}),
-	m_HPRecovered(false),
+	:m_HPRecovered(false),
 	BaseGameEntity(ID)
 {
-	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex");
-	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex");
-	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack");
-	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack");
+
+	mAttribute = {50,1000.0f,2000.0f};
+	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex"));
+	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex"));
+	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack"));
+	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack"));
+
+	Material mat; 
+	mat.Ambient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+	mat.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mat.Specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 5.0f);
+	mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+	for (std::vector<RenderComponent*>::iterator it = mRCs.begin(); it != mRCs.end(); ++it)
+	{
+		if (*it != nullptr)
+		{
+			(*it)->setMaterial(mat);
+		}
+	}
 
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);
 	// m_pStateMachine->setCurrentState(Rest::getInstance());
+}
+
+EnemyTank::~EnemyTank()
+{
+	mRCs.clear();
+	std::vector<RenderComponent*>().swap(mRCs);
 }
 
 
@@ -65,5 +91,17 @@ bool EnemyTank::isLostEnemy()const {
 	if (Vector3::lengthSq(getPosPlayer, mTransform->getPosition()) > mAttribute.PursuitRangeRadiusSq) {
 		return true;
 	}
+	return false;
+}
+
+void EnemyTank::setAttacked(bool isAttacked) {
+	this->m_Attacked = isAttacked;
+}
+
+bool EnemyTank::getAttacked()const {
+	return this->m_Attacked;
+}
+
+bool EnemyTank::isObstacleHere()const {
 	return false;
 }

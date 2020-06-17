@@ -213,9 +213,11 @@
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="Level01.cpp" />
+    <ClCompile Include="Level02.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="PlayerTank.cpp" />
     <ClCompile Include="PSTransCBuf.cpp" />
     <ClCompile Include="Rasterizer.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
@@ -315,6 +317,7 @@
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="KeycodeRedefine.h" />
     <ClInclude Include="Level01.h" />
+    <ClInclude Include="Level02.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
@@ -329,6 +332,7 @@
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="MovingEntity.h" />
     <ClInclude Include="Pawn.h" />
+    <ClInclude Include="PlayerTank.h" />
     <ClInclude Include="PSTransCBuf.h" />
     <ClInclude Include="Rasterizer.h" />
     <ClInclude Include="ScriptComponent.h" />

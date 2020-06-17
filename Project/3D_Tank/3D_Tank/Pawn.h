@@ -7,6 +7,14 @@ class MovementComponent;
 class Pawn : public GameObject
 {
 public:
+	struct Attribute
+	{
+		int HP;
+		float AttackRangeRadiusSq;
+		float PursuitRangeRadiusSq;
+	};
+
+public:
 	Pawn();
 	virtual ~Pawn();
 
@@ -27,4 +35,5 @@ public:
 	void setHPRecovered(bool isRecovered);
 protected:
 	MovementComponent* mMovementComp;
+	Attribute mAttribute;
 };

@@ -7,7 +7,6 @@ Component::Component(GameObject * object) noexcept
 
 Component::~Component()
 {
-	delete mObject;
 	mObject = nullptr;
 }
 

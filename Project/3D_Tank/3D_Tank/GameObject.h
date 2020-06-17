@@ -15,8 +15,13 @@ public:
 	void addComponent(Component* comp) noexcept;
 	void addScriptComponent(ScriptComponent* comp) noexcept;
 	bool removeComponent(Component* comp);
+
+	template<typename T = Component>
+	T* getComponent();
+
 	template<typename T>
-	T* getComponent(T* t) const noexcept;
+	std::vector<T*> getComponents();
+
 	Transform* getTransform() const noexcept;
 	std::string getName() const noexcept;
 	void setName(const std::string& name) noexcept;

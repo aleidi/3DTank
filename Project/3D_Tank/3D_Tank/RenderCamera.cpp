@@ -92,6 +92,12 @@ XMMATRIX RenderCamera::getViewXM() noexcept
 
 	const auto camPosition = XMLoadFloat3(&mPosition);
 	const auto camTarget = camPosition + lookVector;
+	
+	auto vec = XMVector3LengthSq(XMVectorSubtract(camTarget, camPosition));
+	if (XMVector3Equal(vec,XMVectorZero()))
+	{
+		return XMMatrixLookAtLH(camPosition, XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f), XMLoadFloat3(&mViewUp));
+	}
 
 	return XMMatrixLookAtLH(camPosition, camTarget, XMLoadFloat3(&mViewUp));
 }

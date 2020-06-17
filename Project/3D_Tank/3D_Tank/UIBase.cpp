@@ -23,3 +23,8 @@ void UIBase::setPosition(float x, float y) noexcept
 	mX = x;
 	mY = y;
 }
+
+void UIBase::setEnable(bool value) noexcept
+{
+	mIsEnable = value;
+}
