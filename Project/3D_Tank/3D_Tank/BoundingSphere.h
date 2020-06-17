@@ -11,6 +11,7 @@ public:
 	~MBoundingSphere();
 
 	void creatBoundingSphere(const DirectX::XMVECTOR& max, const DirectX::XMVECTOR & min, CollisionManager*);
+	void createBoundingSphere(const Vector3& cen, const float& r, CollisionManager* manager);
 
 public:
 	DirectX::BoundingSphere sphere;

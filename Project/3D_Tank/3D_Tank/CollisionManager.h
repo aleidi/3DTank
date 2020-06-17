@@ -14,7 +14,7 @@ public:
 
 	bool collisionCheck_CubeToCube(const BoundingCube* cube, GameObject* obj);
 	bool collisionCheck_SphereToCube(const MBoundingSphere* sphere, GameObject* obj);
-	void rayCheck(const Vector3& origin, const Vector3& direction, BoundingCube* farthestCube, BoundingCube* nearestCube, float& farthestDis, float& nearestDis);
+	bool rayCheck(const Vector3& origin, const Vector3& direction, BoundingCube* farthestCube, BoundingCube* nearestCube, float& farthestDis, float& nearestDis);
 	void rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis);
 	bool collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2);
 	bool collisionCheck(const BoundingCube* cube, const MBoundingSphere* sphere);
@@ -23,11 +23,16 @@ public:
 	void deleteBoundingCube(const BoundingCube* cube);
 	void deleteBoundingSphere(const MBoundingSphere* sphere);
 
-	void onCollisionEnter();
-	void onCollisionStay();
-	void onCollisionExit();
-
 	void onUpdata(float);
+
+protected:
+	//virtual void onCollisionEnter();
+	//virtual void onCollisionStay();
+	//virtual void onCollisionExit();
+
+	//virtual void onTriggerEnter();
+	//virtual void onTriggerStay();
+	//virtual void onTriggerExit();
 
 private:
 	static CollisionManager* sInstance;
