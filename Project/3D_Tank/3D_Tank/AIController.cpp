@@ -1,6 +1,9 @@
 #include "AIController.h"
 #include "GameCharacter.h"
 #include "EnemyTankOwnedStates.h" // :(
+#include "Pawn.h"
+#include "Transform.h"
+
 AIController::AIController()
 	:AIController(-1)
 {
@@ -35,4 +38,9 @@ void AIController::MoveCharacter(Vector3 value)
 
 bool AIController::handleMessage(const Telegram& msg) {
 	return m_pStateMachine->handleMessage(msg);
+}
+
+void AIController::Move(Vector3 force)
+{
+	mPawn->getTransform()->translate(force);
 }

@@ -36,7 +36,7 @@ void GameLevelTest::enterLevel()
 	mCurrentGameMode = new GameModeBase();
 	mCurrentGameMode->onInit();
 
-	GameObject* cube = SceneManager::sGetInstance()->createCube();
+	SceneManager::sGetInstance()->createCube()->getTransform()->setPosition(Vector3::right * 1.0f);
 
 	//hq = SceneManager::sGetInstance()->createEmptyObject();
 	//hq->setName("hq");
@@ -118,7 +118,6 @@ void GameLevelTest::enterLevel()
 
 	//set ai
 	enemy = new EnemyTank(ent_Tank_Enemy);
-	cube->attach(*enemy);
 	EntityMgr->registerEntity(enemy);
 	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
 	aiController->posses(enemy);

@@ -15,7 +15,7 @@ EnemyTank::EnemyTank(int ID)
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack");
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack");
 
-	mTransform->setScale(0.001f, 0.001f, 0.001f);
+	mTransform->setScale(0.002f, 0.002f, 0.002f);
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);
 	// m_pStateMachine->setCurrentState(Rest::getInstance());
 }
