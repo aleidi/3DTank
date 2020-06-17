@@ -69,14 +69,14 @@ void SceneManager::createRenderComponent(GameObject * object) noexcept
 {
 }
 
-void SceneManager::createModel(GameObject & obj, const std::string & modelPath, const std::wstring & texturePath)
+RenderComponent* SceneManager::createModel(GameObject & obj, const std::string & modelPath, const std::wstring & texturePath)
 {
-	ComponentFactory::createModel(obj, modelPath, texturePath);
+	return ComponentFactory::createModel(obj, modelPath, texturePath);
 }
 
-void SceneManager::createModel(GameObject & obj, const std::string & modelPath, const std::wstring & texturePath, DirectX::XMVECTOR & maxPoint, DirectX::XMVECTOR & minPoint)
+RenderComponent* SceneManager::createModel(GameObject & obj, const std::string & modelPath, const std::wstring & texturePath, DirectX::XMVECTOR & maxPoint, DirectX::XMVECTOR & minPoint)
 {
-	ComponentFactory::createModel(obj, modelPath, texturePath, maxPoint, minPoint);
+	return ComponentFactory::createModel(obj, modelPath, texturePath, maxPoint, minPoint);
 }
 
 UIImage* SceneManager::createUIImage(const std::wstring& texPath)

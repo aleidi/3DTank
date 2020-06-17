@@ -20,8 +20,8 @@ public:
 	GameObject* createPlane() noexcept;
 	GameObject* createEmptyObject() noexcept;
 	void createRenderComponent(GameObject* object) noexcept;
-	void createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath);
-	void createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
+	RenderComponent* createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath);
+	RenderComponent* createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
 	UIImage* createUIImage(const std::wstring& texPath);
 	UIButton* createUIButton(const std::wstring& texPath);
 	AIController* createAIController(int id);

@@ -58,17 +58,31 @@ bool GameObject::removeComponent(Component * comp)
 	return false;
 }
 
-template<class T>
-T * GameObject::getComponent(T* t) const noexcept
+template<typename T>
+T * GameObject::getComponent()
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
 	{
-		if (*it == t)
+		if (typeid(*it) == typeid(T))
 		{
-			return *it;
+			return reinterpret_cast<T*>(*it);
 		}
 	}
 	return nullptr;
+}
+
+template<typename T>
+std::vector<T*> GameObject::getComponents()
+{
+	std::vector<T*>list;
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		if (typeid(*it).name == typeid(T*).name)
+		{
+			list.push_back(*it);
+		}
+	}
+	return list;
 }
 
 Transform * GameObject::getTransform() const noexcept
