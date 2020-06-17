@@ -15,7 +15,7 @@ public:
 	void setMesh(Mesh* theMesh) noexcept;
 	DirectX::XMMATRIX getWorldMatrix() noexcept;
 	Material getMaterial() const noexcept;
-	void setMaterial(const Material& mat) noexcept;
+	void setMaterial(Material mat) noexcept;
 
 private:
 	void initMaterial();

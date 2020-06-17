@@ -38,7 +38,7 @@ Material RenderComponent::getMaterial() const noexcept
 	return mMaterial;
 }
 
-void RenderComponent::setMaterial(const Material & mat) noexcept
+void RenderComponent::setMaterial(Material mat) noexcept
 {
 	mMaterial = mat;
 }
