@@ -15,7 +15,7 @@ public:
 	void onFixedUpdate(float deltaTime) override;
 
 	int moveable;
-
+	bool onTrigger;
 	DirectX::BoundingOrientedBox box;
 	DirectX::BoundingOrientedBox outBox;
 private:
