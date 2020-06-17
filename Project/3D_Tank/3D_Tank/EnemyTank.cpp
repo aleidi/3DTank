@@ -10,14 +10,18 @@ void EnemyTank::update() {
 struct Telegram;
 
 EnemyTank::EnemyTank(int ID)
-	:mAttribute({50,1000.0f,2000.0f}),
-	m_HPRecovered(false),
+	:m_HPRecovered(false),
 	BaseGameEntity(ID)
 {
+
+	mAttribute = {50,1000.0f,2000.0f};
+
+
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex");
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex");
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack");
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack");
+
 
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);

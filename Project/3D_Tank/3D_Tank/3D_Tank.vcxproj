@@ -216,6 +216,7 @@
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="PlayerTank.cpp" />
     <ClCompile Include="PSTransCBuf.cpp" />
     <ClCompile Include="Rasterizer.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
@@ -329,6 +330,7 @@
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="MovingEntity.h" />
     <ClInclude Include="Pawn.h" />
+    <ClInclude Include="PlayerTank.h" />
     <ClInclude Include="PSTransCBuf.h" />
     <ClInclude Include="Rasterizer.h" />
     <ClInclude Include="ScriptComponent.h" />
