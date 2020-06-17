@@ -38,7 +38,8 @@ void Rest::execute(AIController* pEnemyTank) {
 			pEnemyTank->getFSM()->changeState(Attack::getInstance());
 	}
 
-	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isAttacked()) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getAttacked()) {
+		reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(false);
 		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying())
 			pEnemyTank->getFSM()->changeState(Evade::getInstance());
 		else
@@ -61,8 +62,15 @@ bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setHP(5);
 			MessageBox(0, L"HP+5 ", 0, 0);
 			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setHPRecovered(false);
+			return true;
 		}
-		return true;
+
+		case Msg_IsAttacked: {
+			MessageBox(0, L"nmsl(rest", 0, 0);
+			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(true);
+			return true;
+		}
+							 
 	}
 	return false;
 }
@@ -88,7 +96,8 @@ void Wander::execute(AIController* pEnemyTank) {
 		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 	}
 
-	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isAttacked()) {
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getAttacked()) {
+		reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(false);
 		pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
 	
@@ -99,7 +108,16 @@ void Wander::exit(AIController* pEnemyTank) {
 }
 
 bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
+	switch (msg.Msg) {
+		case Msg_IsAttacked: {
+			MessageBox(0, L"nmsl(wander", 0, 0);
+			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(true);
+		}
+
+		return true;
+	}
 	return false;
+
 }
 
 //-------------------methods for Avoidance-------------------//
@@ -172,7 +190,10 @@ void Evade::enter(AIController* pEnemyTank) {
 void Evade::execute(AIController* pEnemyTank) {
 
 	////////////////////////changeState////////////////////////
-	if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange() && !reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isAttacked()) { // safe
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getAttacked()) {
+		reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(false);
+	}
+	else if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange() ) { // safe
 		pEnemyTank->getFSM()->changeState(Rest::getInstance());
 	}
 
@@ -186,6 +207,14 @@ void Evade::exit(AIController* pEnemyTank) {
 }
 
 bool Evade::onMessage(AIController* pEnemyTank, const Telegram& msg) {
+	switch (msg.Msg) {
+	case Msg_IsAttacked: {
+		MessageBox(0, L"nmsl(evade", 0, 0);
+		reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(true);
+	}
+
+	return true;
+	}
 	return false;
 }
 

@@ -40,16 +40,18 @@ public:
 	bool isDying()const;
 	bool isEnemyInRange()const;
 	bool isLostEnemy()const;
-	bool isAttacked()const { return false; }
-	bool isObstacleHere()const { return false; }
+	bool isObstacleHere()const;
 	bool getHPRecovered()const;
 	void setHPRecovered(bool isRecovered);
+	void setAttacked(bool isAttacked);
+	bool getAttacked()const;
 	Vector3 getPosPlayer = Vector3(100.0f, 0.0f, 100.0f);
 
 
 private:
 	// StateMachine<EnemyTank>* m_pStateMachine;
 	bool m_HPRecovered;
+	bool m_Attacked = false;
 	Attribute mAttribute;
 };
 
