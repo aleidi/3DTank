@@ -1,12 +1,16 @@
 #include "EnemyTank.h"
+#include "Telegram.h"
+#include "MessageDispatcher.h"
+#include "MessageTypes.h"
 /*
 void EnemyTank::update() {
 	m_pStateMachine->update();
 }
 */
+struct Telegram;
 
 EnemyTank::EnemyTank(int ID)
-	:mAttribute({95,1000.0f,2000.0f}),
+	:mAttribute({50,1000.0f,2000.0f}),
 	m_HPRecovered(false),
 	BaseGameEntity(ID)
 {
@@ -65,5 +69,17 @@ bool EnemyTank::isLostEnemy()const {
 	if (Vector3::lengthSq(getPosPlayer, mTransform->getPosition()) > mAttribute.PursuitRangeRadiusSq) {
 		return true;
 	}
+	return false;
+}
+
+void EnemyTank::setAttacked(bool isAttacked) {
+	this->m_Attacked = isAttacked;
+}
+
+bool EnemyTank::getAttacked()const {
+	return this->m_Attacked;
+}
+
+bool EnemyTank::isObstacleHere()const {
 	return false;
 }
