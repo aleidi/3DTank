@@ -18,6 +18,8 @@ public:
 	StateMachine<AIController>* getFSM() const { return m_pStateMachine; }
 	bool handleMessage(const Telegram& msg);
 
+	void Move(Vector3 Force);
+
 private:
 	int mID;
 	StateMachine<AIController>* m_pStateMachine;

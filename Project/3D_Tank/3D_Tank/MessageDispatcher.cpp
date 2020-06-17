@@ -1,7 +1,7 @@
 #include "MessageDispatcher.h"
 #include "BaseGameEntity.h"
 #include "CrudeTimer.h"
-#include "EntityManager.h"
+// #include "EntityManager.h"
 #include "MessageTypes.h"
 #include "EntityNames.h"
 #include "AIController.h"
