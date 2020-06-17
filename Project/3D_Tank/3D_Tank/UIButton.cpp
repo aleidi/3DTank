@@ -51,6 +51,11 @@ UIButton::UIButton(Graphics & gfx, const std::wstring & texPath)
 
 void UIButton::draw(Graphics& gfx) noexcept
 {
+	if (mIsEnable != true)
+	{
+		return;
+	}
+
 	POINT p = Engine::sGetInstance()->getCursorPos();
 	checkState(p.x, p.y, DInputPC::getInstance().isMouseButton(0));
 
@@ -67,7 +72,7 @@ void UIButton::draw(Graphics& gfx) noexcept
 void UIButton::initBtnColor()
 {
 	setColor({ 1.0f,1.0f,1.0f,1.0f }, Normal);
-	setColor({ 0.0f,1.0f,1.0f,1.0f }, Selected);
+	setColor({ 0.0f,1.0f,0.0f,1.0f }, Selected);
 	setColor({ 1.0f,0.0f,0.0f,1.0f }, Pressed);
 }
 

@@ -7,6 +7,7 @@ class Camera : public Component
 public:
 	Camera(GameObject* object) noexcept;
 	Camera(GameObject* object, float fov, float aspect, float nearZ, float farZ) noexcept;
+	virtual ~Camera();
 
 	void onUpdate(float deltaTime) override;
 public:

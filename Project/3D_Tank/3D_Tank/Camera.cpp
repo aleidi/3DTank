@@ -14,6 +14,11 @@ Camera::Camera(GameObject * object, float fov, float aspect, float nearZ, float 
 	Fov(fov),Aspect(aspect),Near(nearZ),Far(farZ)
 {}
 
+Camera::~Camera()
+{
+	MainCamera = nullptr;
+}
+
 void Camera::onUpdate(float deltaTime)
 {
 	Position = mObject->getTransform()->getPosition();

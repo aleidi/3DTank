@@ -50,7 +50,7 @@ bool GameLevelManager::onUpdadte(float deltaTime)
 
 void GameLevelManager::addLevel(int id, GameLevelBase * level)
 {
-	if (mLevels.count(id) != 0)
+	if (mLevels.find(id) != mLevels.end())
 	{
 		delete mLevels[id];
 	}
@@ -59,7 +59,7 @@ void GameLevelManager::addLevel(int id, GameLevelBase * level)
 
 GameLevelBase* GameLevelManager::changeLevel(int id)
 {
-	if (mLevels.at(id) != nullptr)
+	if (mLevels.find(id) != mLevels.end())
 	{
 		return mLevels.at(id);
 	}
@@ -68,7 +68,7 @@ GameLevelBase* GameLevelManager::changeLevel(int id)
 
 void GameLevelManager::setDefaultLevel(int id)
 {
-	if (mLevels.at(id) != nullptr)
+	if (mLevels.find(id) != mLevels.end())
 	{
 		mCurrentLevel = mLevels.at(id);
 		mCurrentLevel->enterLevel();
