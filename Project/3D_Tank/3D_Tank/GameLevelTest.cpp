@@ -10,6 +10,7 @@
 #include "EntityNames.h"
 #include "MessageDispatcher.h"
 #include "AIController.h"
+#include "MessageTypes.h"
 
 GameObject* hq;
 GameObject* tankBattery;
@@ -125,6 +126,17 @@ void GameLevelTest::enterLevel()
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
+
+	////////////////put in bullet class int the future /////////////////
+	if (DInputPC::getInstance().iskeyDown(DIK_O))
+	{
+		Dispatch->Dispatch_Message(0,
+			reinterpret_cast<EnemyTank*>(aiController->getPawn())->getID(),
+			reinterpret_cast<EnemyTank*>(aiController->getPawn())->getID(),
+			Msg_IsAttacked,
+			NO_ADDITIONAL_INFO);
+	}
+
 	Dispatch->DispatchDelayedMessages();
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 

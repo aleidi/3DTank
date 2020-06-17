@@ -459,6 +459,9 @@
     <ClCompile Include="MovementComponent.cpp">
       <Filter>Engine\Source</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerTank.cpp">
+      <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -808,6 +811,9 @@
     </ClInclude>
     <ClInclude Include="UIEvent.h">
       <Filter>Engine\Header\Render\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTank.h">
+      <Filter>Game\Header\Pawn</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

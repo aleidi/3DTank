@@ -48,6 +48,11 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 
 void UIImage::draw(Graphics& gfx) noexcept
 {
+	if (mIsEnable != true)
+	{
+		return;
+	}
+
 	mVCB->onUpdate(gfx,
 		{
 			DirectX::XMMatrixTranspose(getTransformXM()),

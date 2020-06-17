@@ -12,11 +12,13 @@ public:
 
 	void setSize(float width, float height) noexcept;
 	void setPosition(float x, float y) noexcept;
+	void setEnable(bool value) noexcept;
 
 protected:
 	float mWidth;
 	float mHeight;
 	float mX;
 	float mY;
+	bool mIsEnable;
 };
 
