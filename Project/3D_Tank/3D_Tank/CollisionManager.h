@@ -15,7 +15,7 @@ public:
 	bool collisionCheck_CubeToCube(const BoundingCube* cube, GameObject* obj);
 	bool collisionCheck_SphereToCube(const MBoundingSphere* sphere, GameObject* obj);
 	bool rayCheck(const Vector3& origin, const Vector3& direction, BoundingCube* farthestCube, BoundingCube* nearestCube, float& farthestDis, float& nearestDis);
-	void rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis);
+	bool rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis);
 	bool collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2);
 	bool collisionCheck(const BoundingCube* cube, const MBoundingSphere* sphere);
 	bool collisionCheck(const Vector3& ori, const Vector3& dir, const BoundingCube* cube, float& dis);
