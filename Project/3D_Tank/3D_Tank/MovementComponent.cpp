@@ -14,9 +14,9 @@ MovementComponent::~MovementComponent()
 
 void MovementComponent::onUpdate(float deltaTime)
 {
-	Vector3 force, acceleration, velocity, position;
-	float mass = 10.f;
-
+	float mass = 10.f; 
+	Vector3 acceleration, velocity, position;
+	
 	acceleration = force / mass;
 	velocity += acceleration * deltaTime;
 	position += velocity * deltaTime;
@@ -30,4 +30,5 @@ void MovementComponent::addVelocity(Vector3 value) noexcept
 
 void MovementComponent::addForce(Vector3 value) noexcept
 {
+	force = value;
 }

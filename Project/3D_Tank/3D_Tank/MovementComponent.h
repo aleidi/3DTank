@@ -15,6 +15,7 @@ public:
 	void addForce(Vector3 value) noexcept;
 
 protected:
+	Vector3 force;
 	Transform* mTransform;
 };
 
