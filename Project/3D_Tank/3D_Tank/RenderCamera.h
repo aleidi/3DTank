@@ -35,11 +35,12 @@ public:
 private:
 	void calculateDirectionVector() noexcept;
 	void calculateViewUP() noexcept;
-	
+
 	void setPosition(XMVECTOR pos) noexcept;
 	void setPosition(float x, float y, float z) noexcept;
 	void setRotation(XMVECTOR rot) noexcept;
 	void setRotation(float x, float y, float z) noexcept;
+
 private:
 	XMFLOAT3 mPosition;
 	XMFLOAT3 mRotation;
