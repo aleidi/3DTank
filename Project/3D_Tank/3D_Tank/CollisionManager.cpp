@@ -86,14 +86,16 @@ bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & directio
 
 }
 
-void CollisionManager::rayCheckWithObstacle(const Vector3 & origin, const Vector3 & direction, const float & farthestDis, GameObject * gameobject, float & dis)
+bool CollisionManager::rayCheckWithObstacle(const Vector3 & origin, const Vector3 & direction, const float & farthestDis, GameObject * gameobject, float & dis)
 {
 	float d = 0.f;
+	int flag = 0;
 	for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
 		if (collisionCheck(origin, direction, *it, d)) {
-			if (gameobject == NULL && d < farthestDis) {
+			if (flag == 0 && d < farthestDis) {
 				dis = d;
 				gameobject = (*it)->getObject();
+				flag++;
 			}
 			else {
 				if (d < dis) {
@@ -101,8 +103,10 @@ void CollisionManager::rayCheckWithObstacle(const Vector3 & origin, const Vector
 					gameobject = (*it)->getObject();
 				}
 			}
+			return true;
 		}
 	}
+	return false;
 }
 
 bool CollisionManager::collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2)
