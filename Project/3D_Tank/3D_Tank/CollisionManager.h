@@ -12,9 +12,10 @@ public:
 	static void onInit();
 	static void destroy();
 
-	bool collisionCheck_CubeToCube(const BoundingCube* cube, GameObject* obj);
-	bool collisionCheck_SphereToCube(const MBoundingSphere* sphere, GameObject* obj);
+	bool collisionCheck_CubeToCube(const BoundingCube* cube, GameObject** obj);
+	bool collisionCheck_SphereToCube(const MBoundingSphere* sphere, GameObject** cube);
 	bool rayCheck(const Vector3& origin, const Vector3& direction, BoundingCube* farthestCube, BoundingCube* nearestCube, float& farthestDis, float& nearestDis);
+	bool rayCheck(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis);
 	bool rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis);
 	bool collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2);
 	bool collisionCheck(const BoundingCube* cube, const MBoundingSphere* sphere);
@@ -25,14 +26,13 @@ public:
 
 	void onUpdata(float);
 
-protected:
-	//virtual void onCollisionEnter();
-	//virtual void onCollisionStay();
-	//virtual void onCollisionExit();
+	//void onCollisionEnter(GameObject* obj);
+	//void onCollisionStay();
+	//void onCollisionExit(GameObject* obj);
 
-	//virtual void onTriggerEnter();
-	//virtual void onTriggerStay();
-	//virtual void onTriggerExit();
+	//void onTriggerEnter(BoundingCube* cube1, BoundingCube* cube2);
+	//void onTriggerStay();
+	//void onTriggerExit(BoundingCube* cube1, BoundingCube* cube2);
 
 private:
 	static CollisionManager* sInstance;
