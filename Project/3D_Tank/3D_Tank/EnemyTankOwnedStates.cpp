@@ -7,6 +7,7 @@
 #include "MessageTypes.h"
 #include "CrudeTimer.h"
 #include "EntityNames.h"
+#include "Math.h"
 
 //-------------------methods for Rest-------------------//
 
@@ -86,7 +87,30 @@ void Wander::enter(AIController* pEnemyTank) {
 }
 
 void Wander::execute(AIController* pEnemyTank) {
+
+	float jitterThisTimeSlice = m_WanderJitter * pEnemyTank->deltaTime();
+	m_WanderTarget += Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
+							  Math::RandomClamped() * jitterThisTimeSlice);
+
+	m_WanderTarget.normalize();
+	m_WanderTarget = m_WanderTarget * m_WanderRadius;
+
+	Vector3 target = m_WanderTarget + ( pEnemyTank->getTransform()->Forward * m_WanderDistance );
+
+	pEnemyTank->Move(target);
 	
+	
+	/*
+	timer += pEnemyTank->deltaTime();
+	if (timer > 2) {
+		rotate = Math::RandomClamped() * 15;
+		timer = 0;
+		pEnemyTank->Rotate(0, rotate, 0);
+	}
+	
+	Vector3 target = pEnemyTank->getTransform()->Forward * speed;
+	pEnemyTank->Move(target);
+	*/
 	////////////////////////changeState////////////////////////
 	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
 		pEnemyTank->getFSM()->changeState(Attack::getInstance());

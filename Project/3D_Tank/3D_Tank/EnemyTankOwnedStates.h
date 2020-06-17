@@ -1,6 +1,7 @@
 #pragma once
 // all states that can be assigned to the enemytank class
 #include "State.h"
+#include "Math.h"
 class AIController;
 struct Telegram;
 
@@ -28,8 +29,19 @@ public:
 
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
 private:
-	Wander() {}
+	Wander() {
+		float theta = Math::RandFloat() * 2 * 3.1415926;
+		m_WanderTarget = Vector3(m_WanderRadius * cos(theta), 0, m_WanderRadius * sin(theta));
+	}
 	
+	float m_WanderRadius = 0.12;
+	float m_WanderDistance = 1.0*0.0001;
+	float m_WanderJitter = 40.0;
+	Vector3 m_WanderTarget;
+
+	float timer = 0;
+	float speed = 1.0*0.0001;
+	float rotate = 0;
 	Wander(const Wander&);
 	Wander& operator=(const Wander&);
 };

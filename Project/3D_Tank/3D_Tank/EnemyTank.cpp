@@ -14,7 +14,7 @@ EnemyTank::EnemyTank(int ID)
 	BaseGameEntity(ID)
 {
 
-	mAttribute = {50,1000.0f,2000.0f};
+	mAttribute = {100,1000.0f,2000.0f};
 
 
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex");
@@ -30,11 +30,11 @@ EnemyTank::EnemyTank(int ID)
 
 
 void EnemyTank::setHP(int changeHP) {
-	mAttribute.HP += changeHP;
+	mAttribute.m_HP += changeHP;
 }
 
 int EnemyTank::getHP()const {
-	return mAttribute.HP;
+	return mAttribute.m_HP;
 }
 
 /*
@@ -44,7 +44,7 @@ bool EnemyTank::handleMessage(const Telegram& msg) {
 */
 
 bool EnemyTank::isDying()const {
-	if (mAttribute.HP <= DyingHP) {
+	if (mAttribute.m_HP <= DyingHP) {
 		return true;
 	}
 
@@ -60,7 +60,7 @@ void EnemyTank::setHPRecovered( bool isRecovered ) {
 }
 
 bool EnemyTank::isEnemyInRange()const {
-	if( Vector3::lengthSq( getPosPlayer, mTransform->getPosition() ) <= mAttribute.AttackRangeRadiusSq ) {
+	if( Vector3::lengthSq( getPosPlayer, mTransform->getPosition() ) <= mAttribute.m_AttackRangeRadiusSq ) {
 		// do something here to check if there are any obstacles
 		// if no
 		return true;
@@ -70,7 +70,7 @@ bool EnemyTank::isEnemyInRange()const {
 }
 
 bool EnemyTank::isLostEnemy()const {
-	if (Vector3::lengthSq(getPosPlayer, mTransform->getPosition()) > mAttribute.PursuitRangeRadiusSq) {
+	if (Vector3::lengthSq(getPosPlayer, mTransform->getPosition()) > mAttribute.m_PursuitRangeRadiusSq) {
 		return true;
 	}
 	return false;

@@ -9,9 +9,16 @@ class Pawn : public GameObject
 public:
 	struct Attribute
 	{
-		int HP;
-		float AttackRangeRadiusSq;
-		float PursuitRangeRadiusSq;
+		int m_HP;
+		float m_AttackRangeRadiusSq;
+		float m_PursuitRangeRadiusSq;
+
+		float m_Mass;
+		float m_MaxSpeed;
+		float m_MaxForce;
+		float m_MaxTurnRate;
+
+		Vector3 m_Velocity;
 	};
 
 public:
