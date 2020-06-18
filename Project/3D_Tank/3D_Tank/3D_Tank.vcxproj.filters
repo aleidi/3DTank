@@ -465,15 +465,8 @@
     <ClCompile Include="Level02.cpp">
       <Filter>Game\Source\Level</Filter>
     </ClCompile>
-    <ClCompile Include="FreeType.cpp">
-      <Filter>Engine\Source\Misc</Filter>
-    </ClCompile>
     <ClCompile Include="ShellFlyComponent.cpp">
       <Filter>Engine\Source\Physics</Filter>
-    </ClCompile>
-    </ClCompile>
-    <ClCompile Include="UIText.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -831,15 +824,8 @@
     <ClInclude Include="Level02.h">
       <Filter>Game\Header\Level</Filter>
     </ClInclude>
-    <ClInclude Include="FreeType.h">
-      <Filter>Engine\Header\Misc</Filter>
-    </ClInclude>
-    <ClCompile Include="ShellFlyComponent.cpp">
-      <Filter>Engine\Source\Physics</Filter>
-    </ClCompile>
-    </ClInclude>
-    <ClInclude Include="UIText.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
+    <ClInclude Include="ShellFlyComponent.h">
+      <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -892,9 +878,6 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="UIVSVerticalT.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIPSText.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>

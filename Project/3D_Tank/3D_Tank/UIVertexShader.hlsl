@@ -20,5 +20,6 @@ VS_Out main(VS_In vin)
 	VS_Out vout;
 	vout.Pos = mul(float4(vin.Pos, 1.0f), Transform);
 	vout.Tex = vin.Tex;
+
 	return vout;
 }

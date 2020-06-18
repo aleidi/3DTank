@@ -22,5 +22,5 @@ Sampler::Sampler(Graphics & gfx, D3D11_SAMPLER_DESC desc)
 
 void Sampler::bind(Graphics & gfx) noexcept
 {
-	getContext(gfx)->PSSetSamplers(0, 1, pSamplerState.GetAddressOf());
+	GetContext(gfx)->PSSetSamplers(0, 1, pSamplerState.GetAddressOf());
 }

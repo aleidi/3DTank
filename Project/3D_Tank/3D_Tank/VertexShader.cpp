@@ -31,7 +31,7 @@ VertexShader::VertexShader(Graphics & gfx, std::vector<std::wstring>& pathes)
 
 void VertexShader::bind(Graphics& gfx) noexcept
 {
-	getContext(gfx)->VSSetShader(pVertexShader[mCurrentShader].Get(), nullptr, 0u);
+	GetContext(gfx)->VSSetShader(pVertexShader[mCurrentShader].Get(), nullptr, 0u);
 }
 
 ID3DBlob* VertexShader::getBytecode() const noexcept

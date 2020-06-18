@@ -56,7 +56,7 @@ ID3D11Device* Graphics::getDevice() const
 	return pDevice.Get();
 }
 
-ID3D11DeviceContext* Graphics::getContext() const
+ID3D11DeviceContext* Graphics::GetContext() const
 {
 	return pContext.Get();
 }
