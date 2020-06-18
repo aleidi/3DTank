@@ -38,9 +38,9 @@ void Transform::translate(const Vector3& v)
 {
 	mPosition += v;
 	if (this->getObject()->cube != NULL && this->getObject()->cube->moveable == 1) {
-		this->getObject()->find("hq")->cube->box.Center.x += v.x;
-		this->getObject()->find("hq")->cube->box.Center.y += v.y;
-		this->getObject()->find("hq")->cube->box.Center.z += v.z;
+		this->getObject()->cube->box.Center.x += v.x;
+		this->getObject()->cube->box.Center.y += v.y;
+		this->getObject()->cube->box.Center.z += v.z;
 	}
 }
 
@@ -60,7 +60,7 @@ void Transform::rotateY(float angle)
 {
 	mRotation.y += DirectX::XMConvertToRadians(angle);
 	if (this->getObject()->cube != NULL && this->getObject()->cube->moveable == 1) {
-		DirectX::XMStoreFloat4(&(this->getObject()->find("hq")->cube->box.Orientation),
+		DirectX::XMStoreFloat4(&(this->getObject()->cube->box.Orientation),
 			DirectX::XMQuaternionRotationRollPitchYaw(
 				this->getObject()->getTransform()->getRotation().x,
 				this->getObject()->getTransform()->getRotation().y,
