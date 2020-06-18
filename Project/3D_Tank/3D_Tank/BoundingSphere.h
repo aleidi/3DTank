@@ -10,10 +10,13 @@ public:
 	MBoundingSphere(GameObject* obj);
 	~MBoundingSphere();
 
-	void creatBoundingSphere(const DirectX::XMVECTOR& max, const DirectX::XMVECTOR & min);
-	void createBoundingSphere(const Vector3& cen, const float& r);
+	void createBoundingSphere(const DirectX::XMVECTOR& max, const DirectX::XMVECTOR & min, const int& moveable);
+	void createBoundingSphere(const Vector3& cen, const float& r, const int& moveable);
 
 public:
+	int moveable;
+	bool onTrigger;
+
 	DirectX::BoundingSphere sphere;
 
 private:
