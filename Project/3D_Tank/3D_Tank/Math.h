@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineCommon.h"
+#include <math.h>
 
 class Math
 {
@@ -26,4 +27,10 @@ public:
 	{
 		if (a < b) return a; return b;
 	}
+
+	static inline float RandFloat() {
+		return ((rand()) / (RAND_MAX + 1.0));
+	}
+
+	static inline float RandomClamped() { return RandFloat() - RandFloat(); }
 };

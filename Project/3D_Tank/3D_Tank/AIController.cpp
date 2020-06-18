@@ -27,6 +27,7 @@ void AIController::onStart()
 
 void AIController::onUpdate(float deltaTime)
 {
+	m_deltaTime = deltaTime;
 	m_pStateMachine->update();
 	// MoveCharacter(Vector3::right * deltaTime);
 }
@@ -43,4 +44,12 @@ bool AIController::handleMessage(const Telegram& msg) {
 void AIController::Move(Vector3 force)
 {
 	mPawn->getTransform()->translate(force);
+}
+
+void AIController::Rotate(float x, float y, float z)
+{
+	mPawn->getTransform()->rotateX(x);
+	mPawn->getTransform()->rotateY(y);
+	mPawn->getTransform()->rotateZ(z);
+
 }

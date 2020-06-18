@@ -7,8 +7,10 @@
 #include "MessageTypes.h"
 #include "CrudeTimer.h"
 #include "EntityNames.h"
+#include "Math.h"
 
 //-------------------methods for Rest-------------------//
+float count;
 
 Rest* Rest::getInstance() {
 	static Rest m_Rest;
@@ -86,7 +88,43 @@ void Wander::enter(AIController* pEnemyTank) {
 }
 
 void Wander::execute(AIController* pEnemyTank) {
+
+	// problem 1. RamdpClamped return 0?
+	// problem 2. pEnemyTank is controller, pEnemyTank->getPawn() is the tank
+	// problem 3. execute function had better pass deltaTime as argument
+
+	//float jitterThisTimeSlice = m_WanderJitter * pEnemyTank->deltaTime();
+	//m_WanderTarget += Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
+	//						  Math::RandomClamped() * jitterThisTimeSlice);
+
+	//m_WanderTarget.normalize();
+	//m_WanderTarget = m_WanderTarget * m_WanderRadius;
+
+	//Vector3 target = m_WanderTarget + ( pEnemyTank->getTransform()->Forward * m_WanderDistance );
+	count += 0.01f;
+
+	if (count > 50)
+	{
+		pEnemyTank->Rotate(0, 30, 0);
+		count = 0;
+	}
+
+	Vector3 target = pEnemyTank->getPawn()->getTransform()->Forward * 0.0001f;
+
+	pEnemyTank->Move(target);
 	
+	
+	/*
+	timer += pEnemyTank->deltaTime();
+	if (timer > 2) {
+		rotate = Math::RandomClamped() * 15;
+		timer = 0;
+		pEnemyTank->Rotate(0, rotate, 0);
+	}
+	
+	Vector3 target = pEnemyTank->getTransform()->Forward * speed;
+	pEnemyTank->Move(target);
+	*/
 	////////////////////////changeState////////////////////////
 	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
 		pEnemyTank->getFSM()->changeState(Attack::getInstance());

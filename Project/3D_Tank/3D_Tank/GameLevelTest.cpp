@@ -161,6 +161,13 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	{
 		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
 	}
+
+
+	std::wstring wstr = L"EnemyX:";
+	wstr += std::to_wstring(enemy->getTransform()->getPosition().x);
+	wstr += L", EnemyZ:" + std::to_wstring(enemy->getTransform()->getPosition().z);
+	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
+
 	return this;
 }
 
