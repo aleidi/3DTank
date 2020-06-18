@@ -166,7 +166,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	std::wstring wstr = L"EnemyX:";
 	wstr += std::to_wstring(enemy->getTransform()->getPosition().x);
 	wstr += L", EnemyZ:" + std::to_wstring(enemy->getTransform()->getPosition().z);
-	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
+	// Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
 
 	return this;
 }

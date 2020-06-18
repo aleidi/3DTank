@@ -30,18 +30,21 @@ public:
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
 private:
 	Wander() {
-		float theta = Math::RandFloat() * 2 * 3.1415926;
+		float theta = Math::RandFloat() * 2 * Pi ;
 		m_WanderTarget = Vector3(m_WanderRadius * cos(theta), 0, m_WanderRadius * sin(theta));
 	}
-	
-	float m_WanderRadius = 0.12;
-	float m_WanderDistance = 1.0*0.0001;
-	float m_WanderJitter = 40.0;
+	float maxspeed = 0.5;
+	float mass = 50;
+	Vector3 velocity;
+
+	float m_WanderRadius = 10.0;
+	float m_WanderDistance = 20;
+	float m_WanderJitter = 800;
 	Vector3 m_WanderTarget;
 
 	float timer = 0;
 	float speed = 1.0*0.0001;
-	float rotate = 0;
+	float rotate = 0.0f;
 	Wander(const Wander&);
 	Wander& operator=(const Wander&);
 };
