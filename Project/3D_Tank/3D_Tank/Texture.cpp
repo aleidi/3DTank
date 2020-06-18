@@ -17,7 +17,7 @@ Texture::Texture(Graphics& gfx, const std::wstring & path)
 
 void Texture::bind(Graphics & gfx) noexcept
 {
-	GetContext(gfx)->PSSetShaderResources(0, 1, pTextureRV.GetAddressOf());
+	getContext(gfx)->PSSetShaderResources(0, 1, pTextureRV.GetAddressOf());
 }
 
 void Texture::createDefualtTexture(Graphics& gfx) noexcept

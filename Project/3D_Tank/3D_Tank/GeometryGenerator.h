@@ -28,6 +28,7 @@ public:
 		Sphere = 1,
 		Plane = 2,
 		Panel = 3,
+		Text = 4,
 	};
 
 	static void getCube(Mesh& mesh);
@@ -36,6 +37,7 @@ public:
 	static void getModel(Mesh& mesh, const std::string& name);
 	static void getModel(Mesh& mesh, const std::string& name, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
 	static void getUIPanel(Mesh& mesh);
+	static void getUIText(Mesh& mesh) noexcept;
 
 private:
 	static void createCube();
@@ -44,6 +46,7 @@ private:
 	static void createModel(const std::string& name);
 	static void createModel(const std::string& name, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
 	static void createUIPanel();
+	static void createUIText() noexcept;
 	
 private:
 	static std::map<MeshType, Mesh> mMeshes;
