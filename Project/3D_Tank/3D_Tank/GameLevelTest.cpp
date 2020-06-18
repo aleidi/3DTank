@@ -121,8 +121,8 @@ void GameLevelTest::enterLevel()
 	//set ai
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	EntityMgr->registerEntity(enemy);
-	/*aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
-	aiController->posses(enemy);*/
+	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
+	aiController->posses(enemy);
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
