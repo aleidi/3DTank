@@ -31,6 +31,8 @@ EnemyTank* enemy;
 StateMachine<AIController>* enemyStatemachine;
 AIController* aiController;
 
+bool tankFire = false;
+
 GameLevelTest::GameLevelTest()
 {
 	GameLevelManager::sGetInstance()->addLevel(0, this);
@@ -156,6 +158,8 @@ void GameLevelTest::enterLevel()
 	//shellBoundingSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1, 1);
 	//shell->addComponent(shellBoundingSphere);
 	//shell->sphere = shellBoundingSphere;
+
+	SoundManager::sGetInstance()->setLisenterPosition(enemy->getTransform()->getPosition());
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
@@ -173,9 +177,14 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		shellBoundingSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1, 1);
 		shell->addComponent(shellBoundingSphere);
 		shell->sphere = shellBoundingSphere;
+		tankFire = true;
+	}
+	if (shell) {
+		SoundManager::sGetInstance()->setSoundPosAndVel(shell->getTransform()->getPosition()*0.5, shell->getTransform()->Forward, 0);
+		SoundManager::sGetInstance()->onUpdate();
 	}
 
- 	if (shell != NULL && CollisionManager::sGetInstance()->collisionCheck_SphereToCube(shell->sphere, &collider) == true) {
+ 	if (tankFire == true && shell != NULL && CollisionManager::sGetInstance()->collisionCheck_SphereToCube(shell->sphere, &collider) == true) {
 		SoundManager::sGetInstance()->playSound(6);
 	}
 
