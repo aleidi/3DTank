@@ -465,6 +465,9 @@
     <ClCompile Include="Level02.cpp">
       <Filter>Game\Source\Level</Filter>
     </ClCompile>
+    <ClCompile Include="ShellFlyComponent.cpp">
+      <Filter>Engine\Source\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -820,6 +823,9 @@
     </ClInclude>
     <ClInclude Include="Level02.h">
       <Filter>Game\Header\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellFlyComponent.h">
+      <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

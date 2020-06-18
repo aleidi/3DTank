@@ -11,6 +11,7 @@
 #include "MessageDispatcher.h"
 #include "AIController.h"
 #include "MessageTypes.h"
+#include "ShellFlyComponent.h"
 
 GameObject* hq;
 GameObject* tankBattery;
@@ -120,12 +121,21 @@ void GameLevelTest::enterLevel()
 	//set ai
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	EntityMgr->registerEntity(enemy);
-	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
-	aiController->posses(enemy);
+	/*aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
+	aiController->posses(enemy);*/
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
+	if (DInputPC::getInstance().iskeyDown(DIK_F)){
+		GameObject* shell = SceneManager::sGetInstance()->createSphere();
+		shell->getTransform()->Forward = enemy->getTransform()->Forward;
+		shell->getTransform()->setPosition(enemy->getTransform()->getPosition() + enemy->getTransform()->Forward*0.6f + enemy->getTransform()->Up*0.18f+enemy->getTransform()->Right*0.04f);
+		shell->getTransform()->setScale(Vector3(0.02f, 0.02f, 0.02f));
+		SceneManager::sGetInstance()->addGameObjectToPool(shell);
+		ShellFlyComponent* shellFly = new ShellFlyComponent(shell);
+		shell->addComponent(shellFly);
+	}
 
 	////////////////put in bullet class int the future /////////////////
 	if (DInputPC::getInstance().iskeyDown(DIK_O))
