@@ -65,7 +65,7 @@ void Engine::onPreInit()
 
 	//eui creation
 	mEui = std::make_unique<ImGuiFrame>(
-		mWnd.getHwnd(), mRendering->getGFX()->getDevice(), mRendering->getGFX()->GetContext());
+		mWnd.getHwnd(), mRendering->getGFX()->getDevice(), mRendering->getGFX()->getContext());
 }
 
 void Engine::onInit()
