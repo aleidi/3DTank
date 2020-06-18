@@ -12,20 +12,22 @@ MBoundingSphere::~MBoundingSphere()
 {
 }
 
-void MBoundingSphere::creatBoundingSphere(const DirectX::XMVECTOR & max, const DirectX::XMVECTOR & min, CollisionManager * manager)
+void MBoundingSphere::creatBoundingSphere(const DirectX::XMVECTOR & max, const DirectX::XMVECTOR & min)
 {
 	DirectX::BoundingBox box;
 	box.DirectX::BoundingBox::CreateFromPoints(box, max, min);
 	DirectX::BoundingSphere::CreateFromBoundingBox(sphere, box);
-	if (manager) manager->mBoundingSphere.push_back(this);
+	if (CollisionManager::sGetInstance())
+		CollisionManager::sGetInstance()->mBoundingSphere.push_back(this);
 }
 
-void MBoundingSphere::createBoundingSphere(const Vector3 & cen, const float & r, CollisionManager * manager)
+void MBoundingSphere::createBoundingSphere(const Vector3 & cen, const float & r)
 {
 	DirectX::XMFLOAT3 center;
 	center.x = cen.x; center.y = cen.y; center.z = cen.z;
 	this->sphere.Center = center;
 	this->sphere.Radius = r;
-	if (manager) manager->mBoundingSphere.push_back(this);
+	if (CollisionManager::sGetInstance())
+		CollisionManager::sGetInstance()->mBoundingSphere.push_back(this);
 }
 

@@ -10,8 +10,8 @@ public:
 	MBoundingSphere(GameObject* obj);
 	~MBoundingSphere();
 
-	void creatBoundingSphere(const DirectX::XMVECTOR& max, const DirectX::XMVECTOR & min, CollisionManager*);
-	void createBoundingSphere(const Vector3& cen, const float& r, CollisionManager* manager);
+	void creatBoundingSphere(const DirectX::XMVECTOR& max, const DirectX::XMVECTOR & min);
+	void createBoundingSphere(const Vector3& cen, const float& r);
 
 public:
 	DirectX::BoundingSphere sphere;
