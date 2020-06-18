@@ -11,14 +11,6 @@ void BaseGameEntity::setID(int val) {
 	m_iNextValidID = m_ID + 1;
 }
 
-void BaseGameEntity::onStart()
-{
-}
-
-void BaseGameEntity::onUpdate(float deltaTime)
-{
-}
-
 void BaseGameEntity::Move(Vector3 value)
 {
 	mMovementComp->addVelocity(value);
