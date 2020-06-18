@@ -4,10 +4,6 @@
 #include "RenderManager.h"
 #include "RenderCamera.h"
 
-#include "UIText.h"
-
-UIText* txt;
-
 Rendering::Rendering(Window & wnd)
 	:mhMainWnd(&wnd)
 {
@@ -22,8 +18,6 @@ void Rendering::onInit()
 	mGraphics = new Graphics(*mhMainWnd);
 
 	RenderManager::createSingleton(*mGraphics);
-
-	txt = new UIText(*mGraphics);
 }
 
 void Rendering::onPreRender(float deltaTime)
@@ -43,7 +37,6 @@ void Rendering::onPostRender(float deltaTime)
 	mGraphics->DrawSkyBox();
 
 	RenderManager::sGetInstance()->onPostDraw();
-	txt->draw(*mGraphics);
 
 	//mGraphics->showText();
 }
