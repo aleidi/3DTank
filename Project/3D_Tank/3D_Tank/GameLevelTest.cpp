@@ -201,6 +201,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	Dispatch->DispatchDelayedMessages();
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
+
 	if (DInputPC::getInstance().iskeyDown(DIK_F1))
 	{
 		return GameLevelManager::sGetInstance()->changeLevel(1);

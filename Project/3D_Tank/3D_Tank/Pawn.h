@@ -27,7 +27,7 @@ public:
 
 	virtual void onStart() override;
 	virtual void onUpdate(float deltaTime) override;
-
+	virtual void Move(Vector3 value);
 
 	int getID()const;
 
