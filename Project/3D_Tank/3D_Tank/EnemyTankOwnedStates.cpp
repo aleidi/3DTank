@@ -1,3 +1,4 @@
+#pragma once
 #include "EnemyTankOwnedStates.h"
 #include "State.h"
 #include "EnemyTank.h"
@@ -55,7 +56,7 @@ void Rest::execute(AIController* pEnemyTank) {
 }
 
 void Rest::exit(AIController* pEnemyTank) {
-	MessageBox(0, L"I stopped resting. ", 0, 0);
+	// MessageBox(0, L"I stopped resting. ", 0, 0);
 }
 
 bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
@@ -84,84 +85,59 @@ Wander* Wander::getInstance() {
 }
 
 void Wander::enter(AIController* pEnemyTank) {
-	MessageBox(0, L"I'm going to find bad guy.(Wander) ", 0, 0);
+	// MessageBox(0, L"I'm going to find bad guy.(Wander) ", 0, 0);
 }
 
 void Wander::execute(AIController* pEnemyTank) {
-	float jitterThisTimeSlice = pEnemyTank->m_WanderJitter * pEnemyTank->deltaTime();
-	pEnemyTank->m_WanderTarget += Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
-							  Math::RandomClamped() * jitterThisTimeSlice);
-	pEnemyTank->m_WanderTarget = pEnemyTank->m_WanderTarget.normalize();
-	pEnemyTank->m_WanderTarget = pEnemyTank->m_WanderTarget * pEnemyTank->m_WanderRadius;
-
-	Vector3 forward = pEnemyTank->getPawn()->getTransform()->Forward;
-	Vector3 forward_normalize = forward.normalize();
-	Vector3 target = pEnemyTank->m_WanderTarget + (forward_normalize * pEnemyTank->m_WanderDistance );
-  	Vector3 target_normalize = target.normalize();
-
-	float dot = Vector3::dot(target_normalize, forward_normalize);
-	dot = Math::Clamp(1.0f, -1.0f, dot );
-
-	rotate = acosf(dot);
-	rotate *= 180 / Pi;
-	
-	Vector3 acceleraion = target / mass;
-	velocity += acceleraion * pEnemyTank->deltaTime();
-
-	if (Vector3::lengthSq(velocity, Vector3(0, 0, 0)) > (pEnemyTank->maxspeed*pEnemyTank->maxspeed ) )
-		velocity = velocity.normalize() * pEnemyTank->maxspeed;
-
-	Vector3 newPos = velocity * pEnemyTank->deltaTime();
-
-	pEnemyTank->Move(newPos);
-
-	if(Vector3::lengthSq(velocity, Vector3(0, 0, 0)) > 0 )
-		pEnemyTank->Rotate(0, rotate, 0);
-
-
-	if (pEnemyTank->getID() == ent_Tank_Enemy) {
-		std::wstring wstr;
-		wstr += std::to_wstring(pEnemyTank->getID()) + L":_Tank X:" + std::to_wstring(pEnemyTank->getPawn()->getTransform()->getPosition().x);
-		wstr += +L"_Tank Z:" + std::to_wstring(pEnemyTank->getPawn()->getTransform()->getPosition().z);
-		wstr += +L"_Tank Vtarget: ( " + std::to_wstring(target.x) + L"," + std::to_wstring(target.y) + L"," + std::to_wstring(target.z);
-		Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
-	}
-	/*if (pEnemyTank->getID() == ent_Tank_SuperEnemy) {
-		std::wstring wstr2;
-		wstr2 += L"\n\n\n\n";	
-		wstr2 += std::to_wstring(pEnemyTank->getID()) + L":_Tank X:" + std::to_wstring(pEnemyTank->getPawn()->getTransform()->getPosition().x);
-		wstr2 += +L"_Tank Z:" + std::to_wstring(pEnemyTank->getPawn()->getTransform()->getPosition().z);
-		wstr2 += +L"_Tank Vtarget: ( " + std::to_wstring(target.x) + L"," + std::to_wstring(target.y) + L"," + std::to_wstring(target.z);
-		Engine::sGetInstance()->showtText(wstr2.c_str(), 0, 0, 500, 500, true);
-	}*/
-	/*
-	timer += pEnemyTank->deltaTime();
-	if (timer > 0.5) {
-		timer = 0;
-		pEnemyTank->Rotate(0, rotate, 0);
-		pEnemyTank->Move(target);
-	}
-	else { pEnemyTank->Move(forward*0.001); }
-	*/
-	/*
-	count += 0.01f;
-
-	if (count > 50)
-	{
-		pEnemyTank->Rotate(0, 30* Math::RandomClamped(), 0);
+	count += 1;
+	if (count > 1) {
 		count = 0;
+		float jitterThisTimeSlice = pEnemyTank->m_WanderJitter * pEnemyTank->deltaTime();
+		pEnemyTank->m_WanderTarget += Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
+			Math::RandomClamped() * jitterThisTimeSlice);
+		pEnemyTank->m_WanderTarget = pEnemyTank->m_WanderTarget.normalize();
+		pEnemyTank->m_WanderTarget = pEnemyTank->m_WanderTarget * pEnemyTank->m_WanderRadius;
+
+		Vector3 forward = pEnemyTank->getPawn()->getTransform()->Forward;
+		Vector3 forward_normalize = forward.normalize();
+
+		Vector3 target = pEnemyTank->m_WanderTarget + (forward_normalize * pEnemyTank->m_WanderDistance);
+		Vector3 acceleraion = target / mass;
+		pEnemyTank->velocity += acceleraion * pEnemyTank->deltaTime();
+
+		if (Vector3::lengthSq(pEnemyTank->velocity, Vector3(0, 0, 0)) > (pEnemyTank->maxspeed*pEnemyTank->maxspeed))
+			pEnemyTank->velocity = pEnemyTank->velocity.normalize() * pEnemyTank->maxspeed;
+
+		Vector3 newPos = pEnemyTank->velocity * pEnemyTank->deltaTime();
+		Vector3 newPos_normalize = target.normalize();
+
+		float dot = Vector3::dot(pEnemyTank->velocity.normalize(), forward_normalize);
+		dot = Math::Clamp(1.0f, -1.0f, dot);
+
+		rotate = acosf(dot);
+		rotate *= 180 / Pi;
+
+		// if(Vector3::lengthSq(velocity, Vector3(0, 0, 0)) > 0 )
+
+		pEnemyTank->Move(newPos*1);
+
+
+		if (Vector3::lengthSq(pEnemyTank->velocity, Vector3(0, 0, 0)) > 0.00000000001) {
+			pEnemyTank->Rotate(0, rotate, 0);
+		}
+
 	}
-	*/
 	/*
+	pEnemyTank->Rotate(0, pEnemyTank->getID() * 90, 0);
+
 	timer += pEnemyTank->deltaTime();
-	if (timer > 10) {
+	if (timer > 3) {
 		rotate = Math::RandomClamped() * 15;
 		timer = 0;
 		pEnemyTank->Rotate(0, rotate, 0);
 	}
-	
-	Vector3 target = pEnemyTank->getPawn()->getTransform()->Forward * 0.0001f;
 	*/
+	// Vector3 abc = pEnemyTank->getPawn()->getTransform()->Forward * 0.0001f * ( pEnemyTank->getID() + 10 ) ;
 	
 	////////////////////////changeState////////////////////////
 	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {

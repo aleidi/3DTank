@@ -33,12 +33,7 @@ private:
 	Wander() {}
 
 	float mass = 50;
-	Vector3 velocity;
-
-	/*
-	float timer = 0;
-	float speed = 1.0*0.0001;
-	*/
+	
 	float rotate = 0.0f;
 	Wander(const Wander&);
 	Wander& operator=(const Wander&);

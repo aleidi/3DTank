@@ -37,6 +37,7 @@ public:
 	float m_WanderJitter;
 	Vector3 m_WanderTarget;
 
+	Vector3 velocity;
 	float maxspeed;
 private:
 	int mID;
