@@ -29,8 +29,6 @@ public:
 	virtual void onUpdate(float deltaTime) override;
 	virtual void Move(Vector3 value);
 
-	virtual void Move(Vector3 value);
-
 	void setHP(int changeHP);
 	int getHP()const;
 	bool isDying()const;

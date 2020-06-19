@@ -238,11 +238,6 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
 	}
 
-	if (DInputPC::getInstance().iskey(DIK_1))
-	{
-		enemy->move(Vector3::forward);
-	}
-
 	std::wstring wstr = L"EnemyX:";
 	std::wstring s = L"/";
 	wstr += (std::to_wstring(SM_WaterTank->cube->box.Center.x) + s + std::to_wstring(SM_WaterTank->cube->box.Center.y) + s + std::to_wstring(SM_WaterTank->cube->box.Center.z));
