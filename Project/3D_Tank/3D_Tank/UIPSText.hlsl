@@ -9,5 +9,5 @@ struct PS_Input
 
 float4 main(PS_Input input) :SV_Target
 {
-	return float4(tex.Sample(texSamp, input.Tex).rrr, 1.0f);
+	return float4(tex.Sample(texSamp, input.Tex).rrr,1.0f);
 }

@@ -171,6 +171,11 @@ void Engine::run()
 	mRendering.get()->onEndRender(deltaTime);
 }
 
+HWND Engine::getHWND()
+{
+	return mWnd.getHwnd();
+}
+
 POINT Engine::getCursorPos()
 {
 	return mWnd.getCursorPosInWnd();

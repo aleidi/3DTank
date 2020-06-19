@@ -16,6 +16,7 @@ UIButton::UIButton(Graphics & gfx, const std::wstring & texPath)
 	mHeight = 100.0f;
 	mX = 0.0f;
 	mY = 0.0f;
+	setEnable(true);
 
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getUIPanel(mesh);
@@ -51,13 +52,14 @@ UIButton::UIButton(Graphics & gfx, const std::wstring & texPath)
 
 void UIButton::draw(Graphics& gfx) noexcept
 {
+	POINT p = Engine::sGetInstance()->getCursorPos();
+	checkState(p.x, p.y, DInputPC::getInstance().isMouseButton(0));
+
 	if (mIsEnable != true)
 	{
 		return;
 	}
 
-	POINT p = Engine::sGetInstance()->getCursorPos();
-	checkState(p.x, p.y, DInputPC::getInstance().isMouseButton(0));
 
 	mPCBuf->onUpdate(gfx, mMaterial.Color);
 
@@ -71,9 +73,9 @@ void UIButton::draw(Graphics& gfx) noexcept
 
 void UIButton::initBtnColor()
 {
-	setColor({ 1.0f,1.0f,1.0f,1.0f }, Normal);
-	setColor({ 0.0f,1.0f,0.0f,1.0f }, Selected);
-	setColor({ 1.0f,0.0f,0.0f,1.0f }, Pressed);
+	setColor({ 0.6f,0.6f,0.6f,0.6f }, Normal);
+	setColor({ 0.0f,1.0f,0.0f,0.6f }, Selected);
+	setColor({ 1.0f,0.0f,0.0f,0.6f }, Pressed);
 }
 
 void UIButton::checkState(float x, float y, bool isPressed)
@@ -82,6 +84,11 @@ void UIButton::checkState(float x, float y, bool isPressed)
 	switch (mBtnState)
 	{
 	case State::Normal:
+		if (isPressed == true)
+		{
+			return;
+		}
+
 		if (x > mX && x < mX + mWidth && y > mY && y < mY + mHeight)
 		{
 			mBtnState = Selected;
@@ -133,6 +140,11 @@ void UIButton::onSelected()
 
 void UIButton::onPressed()
 {
+	if (mIsEnable != true)
+	{
+		return;
+	}
+
 	if (mEvent != nullptr)
 	{
 		mEvent->onPressed();
@@ -142,6 +154,11 @@ void UIButton::onPressed()
 
 void UIButton::onClick()
 {
+	if (mIsEnable != true)
+	{
+		return;
+	}
+
 	if (mEvent != nullptr)
 	{
 		mEvent->onClick();
@@ -160,6 +177,7 @@ void UIButton::setColor(XMFLOAT4 color, State btnState)
 		break;
 	case State::Pressed:
 		mColors[2] = color;
+		break;
 	}
 }
 

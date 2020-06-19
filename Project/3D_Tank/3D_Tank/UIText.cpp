@@ -10,7 +10,6 @@ UIText::UIText(Graphics& gfx, std::wstring text)
 {
 	mX =  WINDOW_WIDTH /2;
 	mY = WINDOW_HEIGHT /2;
-
 	setEnable(true);
 
 	GeometryGenerator::Mesh mesh;
@@ -56,11 +55,15 @@ UIText::UIText(Graphics& gfx, std::wstring text)
 	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	addBind(std::make_unique<UITransformCbuf>(gfx, *this));
-
 }
 
 void UIText::draw(Graphics& gfx) noexcept
 {
+	if (mIsEnable != true)
+	{
+		return;
+	}
+
 	int storeX = (int)mX;
 	int x = (int)mX;
 	int index = 0;
@@ -123,7 +126,7 @@ void UIText::setBlendTransparent(Graphics& gfx)
 	bd.AlphaToCoverageEnable = true;
 	bd.IndependentBlendEnable = false;
 	bd.RenderTarget[0].BlendEnable = true;
-	bd.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	bd.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
 	bd.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
 	bd.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 	bd.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;

@@ -11,6 +11,7 @@
 #include "MessageDispatcher.h"
 #include "AIController.h"
 #include "MessageTypes.h"
+#include "UIText.h"
 
 GameObject* hq;
 GameObject* tankBattery;
@@ -38,7 +39,6 @@ void GameLevelTest::enterLevel()
 	mCurrentGameMode->onInit();
 
 	SceneManager::sGetInstance()->createCube()->getTransform()->setPosition(Vector3::right * 1.0f);
-
 	//hq = SceneManager::sGetInstance()->createEmptyObject();
 	//hq->setName("hq");
 	//ScriptComponent* sc = new TankGamePlay(hq);
