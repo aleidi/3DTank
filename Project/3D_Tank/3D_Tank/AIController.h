@@ -28,6 +28,8 @@ public:
 private:
 	int mID;
 	float m_deltaTime;
+	float mAccumulateRot;
+
 	StateMachine<AIController>* m_pStateMachine;
 
 	Pawn m_target;

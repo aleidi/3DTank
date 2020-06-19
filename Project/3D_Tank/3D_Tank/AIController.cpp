@@ -10,7 +10,7 @@ AIController::AIController()
 }
 
 AIController::AIController(int id)
-	:mID(id)
+	:mID(id),mAccumulateRot(0)
 {
 	m_pStateMachine = new StateMachine<AIController>(this);
 	m_pStateMachine->setCurrentState(Rest::getInstance());
@@ -48,5 +48,8 @@ void AIController::Move(Vector3 force)
 
 void AIController::Rotate(float x, float y, float z)
 {
-	mPawn->getTransform()->rotateY(y);
+	mAccumulateRot += y;
+	mAccumulateRot = Math::lerp(mAccumulateRot, 0.0f, 0.999f);
+
+	mPawn->getTransform()->rotateY(mAccumulateRot);
 }
