@@ -7,6 +7,7 @@ class RenderComponent;
 class GameObjectFactory;
 class UIImage;
 class UIButton;
+class UIText;
 class AIController;
 
 class SceneManager
@@ -24,6 +25,7 @@ public:
 	RenderComponent* createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
 	UIImage* createUIImage(const std::wstring& texPath);
 	UIButton* createUIButton(const std::wstring& texPath);
+	UIText* createUIText();
 	AIController* createAIController(int id);
 
 	void addGameObjectToPool(GameObject* object) noexcept;

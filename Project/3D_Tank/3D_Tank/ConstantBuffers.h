@@ -35,13 +35,13 @@ public:
 	void onUpdate(Graphics& gfx, const C& consts)
 	{
 		D3D11_MAPPED_SUBRESOURCE msr;
-		GetContext(gfx)->Map(
+		getContext(gfx)->Map(
 			pConstantBuffer.Get(), 0u,
 			D3D11_MAP_WRITE_DISCARD, 0u,
 			&msr
 		);
 		memcpy(msr.pData, &consts, sizeof(consts));
-		GetContext(gfx)->Unmap(pConstantBuffer.Get(), 0u);
+		getContext(gfx)->Unmap(pConstantBuffer.Get(), 0u);
 	}
 
 protected:
@@ -52,12 +52,12 @@ template<typename C>
 class VertexConstantBuffer : public ConstantBuffers<C>
 {
 	using ConstantBuffers<C>::pConstantBuffer;
-	using Bindable::GetContext;
+	using Bindable::getContext;
 public:
 	using ConstantBuffers<C>::ConstantBuffers;
 	void bind(Graphics& gfx) noexcept override
 	{
-		GetContext(gfx)->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+		getContext(gfx)->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 	}
 };
 
@@ -65,11 +65,11 @@ template<typename C>
 class PixelConstantBuffer : public ConstantBuffers<C>
 {
 	using ConstantBuffers<C>::pConstantBuffer;
-	using Bindable::GetContext;
+	using Bindable::getContext;
 public:
 	using ConstantBuffers<C>::ConstantBuffers;
 	void bind(Graphics& gfx) noexcept override
 	{
-		GetContext(gfx)->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+		getContext(gfx)->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 	}
 };

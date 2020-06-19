@@ -18,5 +18,5 @@ Rasterizer::Rasterizer(Graphics & gfx, D3D11_RASTERIZER_DESC desc) noexcept
 
 void Rasterizer::bind(Graphics & gfx) noexcept
 {
-	GetContext(gfx)->RSSetState(pRasterizerState.Get());
+	getContext(gfx)->RSSetState(pRasterizerState.Get());
 }

@@ -1,4 +1,8 @@
 #pragma once
+
+class Pawn;
+class ControllerBase;
+
 class GameInstance
 {
 public:
@@ -8,6 +12,10 @@ public:
 
 	bool onInit();
 	bool onUpdate(float deltaTime);
+
+	Pawn* getPlayer();
+	ControllerBase* getPlayerController();
+
 private:
 	GameInstance();
 	~GameInstance();

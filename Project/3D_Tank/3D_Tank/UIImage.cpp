@@ -12,6 +12,7 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 	mHeight = 100.0f;
 	mX = 0.0f;
 	mY = 0.0f;
+	setEnable(true);
 
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getUIPanel(mesh);

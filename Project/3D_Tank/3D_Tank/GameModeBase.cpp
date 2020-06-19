@@ -4,9 +4,12 @@
 #include "DefaultPlayerController.h"
 #include "GameCommon.h"
 
+GameModeBase* GameModeBase::MainGameMode = nullptr;
+
 GameModeBase::GameModeBase()
 	:mGameState(),mPlayer(),mPlayerController()
 {
+	MainGameMode = this;
 }
 
 GameModeBase::~GameModeBase()
@@ -15,6 +18,8 @@ GameModeBase::~GameModeBase()
 	mPlayer = nullptr;
 	SceneManager::sGetInstance()->removeGameObjectFromPool(mPlayerController);
 	mPlayerController = nullptr;
+
+	MainGameMode = nullptr;
 }
 
 void GameModeBase::onInit()
@@ -23,8 +28,8 @@ void GameModeBase::onInit()
 	{
 		mPlayer = new DefaultPlayer();
 		mPlayerController = new DefaultPlayerController();
+		mPlayerController->posses(mPlayer);
 	}
-	mPlayerController->posses(mPlayer);
 }
 
 void GameModeBase::onUpdate(float deltaTime)
@@ -44,4 +49,14 @@ void GameModeBase::setPlayer(Pawn * player) noexcept
 void GameModeBase::setPlayerController(ControllerBase * playerController) noexcept
 {
 	mPlayerController = playerController;
+}
+
+Pawn * GameModeBase::getPlayer() const
+{
+	return mPlayer;
+}
+
+ControllerBase * GameModeBase::getPlayerController() const
+{
+	return mPlayerController;
 }

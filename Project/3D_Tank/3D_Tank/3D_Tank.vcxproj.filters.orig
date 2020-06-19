@@ -175,6 +175,24 @@
     <Filter Include="Engine\Header\SoundManager">
       <UniqueIdentifier>{8c850f71-7a71-4df5-ba9d-d08ac045a8c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Header\UI">
+      <UniqueIdentifier>{fd68edb3-c72c-46f1-a2f7-fcb150fe2c2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source\UI">
+      <UniqueIdentifier>{87fec3a4-8029-4c73-a2b5-aaddfb99baba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source\Level\Level01">
+      <UniqueIdentifier>{6064b374-cf72-41a0-a1d2-aa2a8d89b771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source\Level\Level02">
+      <UniqueIdentifier>{77fcf5c0-d318-4cf9-865e-9b7bbfd361bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header\Level\Level01">
+      <UniqueIdentifier>{d23d1bde-f3c5-4efd-a344-44b11d4c0031}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header\Level\Level02">
+      <UniqueIdentifier>{21384772-5f64-416a-beba-dc88d5d0bc7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -387,9 +405,6 @@
     <ClCompile Include="GameLevelTest.cpp">
       <Filter>Game\TestCode</Filter>
     </ClCompile>
-    <ClCompile Include="Level01.cpp">
-      <Filter>Game\Source\Level</Filter>
-    </ClCompile>
     <ClCompile Include="Pawn.cpp">
       <Filter>Engine\Source</Filter>
     </ClCompile>
@@ -462,19 +477,31 @@
     <ClCompile Include="PlayerTank.cpp">
       <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
-    <ClCompile Include="Level02.cpp">
-      <Filter>Game\Source\Level</Filter>
-    </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="ShellFlyComponent.cpp">
       <Filter>Engine\Source\Physics</Filter>
+    </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="SoundComponent.cpp">
+      <Filter>Engine\Source\SoundManager</Filter>
 =======
     <ClCompile Include="FreeType.cpp">
       <Filter>Engine\Source\Misc</Filter>
     </ClCompile>
     <ClCompile Include="UIText.cpp">
       <Filter>Engine\Source\Render\GUI</Filter>
->>>>>>> abf01a174e03c1fa61ba5ab9057e943904ce3219
+    </ClCompile>
+    <ClCompile Include="GameButton.cpp">
+      <Filter>Game\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Level01.cpp">
+      <Filter>Game\Source\Level\Level01</Filter>
+    </ClCompile>
+    <ClCompile Include="Level02.cpp">
+      <Filter>Game\Source\Level\Level02</Filter>
+    </ClCompile>
+    <ClCompile Include="ULevelEvent.cpp">
+      <Filter>Game\Source\Level</Filter>
+>>>>>>> bf50c35a52ba9a7e0e75200fba3f1ffa9de780ae
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -757,9 +784,6 @@
     <ClInclude Include="GameLevelTest.h">
       <Filter>Game\TestCode</Filter>
     </ClInclude>
-    <ClInclude Include="Level01.h">
-      <Filter>Game\Header\Level</Filter>
-    </ClInclude>
     <ClInclude Include="DefaultPlayerController.h">
       <Filter>Game\Header\Controller</Filter>
     </ClInclude>
@@ -829,19 +853,31 @@
     <ClInclude Include="PlayerTank.h">
       <Filter>Game\Header\Pawn</Filter>
     </ClInclude>
-    <ClInclude Include="Level02.h">
-      <Filter>Game\Header\Level</Filter>
-    </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="ShellFlyComponent.h">
       <Filter>Engine\Header\Physics</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="SoundComponent.h">
+      <Filter>Engine\Header\SoundManager</Filter>
 =======
     <ClInclude Include="FreeType.h">
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
     <ClInclude Include="UIText.h">
       <Filter>Engine\Header\Render\GUI</Filter>
->>>>>>> abf01a174e03c1fa61ba5ab9057e943904ce3219
+    </ClInclude>
+    <ClInclude Include="GameButton.h">
+      <Filter>Game\Header\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Level01.h">
+      <Filter>Game\Header\Level\Level01</Filter>
+    </ClInclude>
+    <ClInclude Include="Level02.h">
+      <Filter>Game\Header\Level\Level02</Filter>
+    </ClInclude>
+    <ClInclude Include="ULevelEvent.h">
+      <Filter>Game\Header\Level</Filter>
+>>>>>>> bf50c35a52ba9a7e0e75200fba3f1ffa9de780ae
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -894,9 +930,6 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="UIVSVerticalT.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIPSText.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -58,6 +58,15 @@ void GeometryGenerator::getUIPanel(Mesh & mesh)
 	mesh = mMeshes[MeshType::Panel];
 }
 
+void GeometryGenerator::getUIText(Mesh & mesh) noexcept
+{
+	if (mMeshes[MeshType::Text].vertices.size() == 0 && mMeshes[MeshType::Text].indices.size() == 0)
+	{
+		createUIText();
+	}
+	mesh = mMeshes[MeshType::Text];
+}
+
 void GeometryGenerator::createCube()
 {
 	std::vector<Vertex> vertices =
@@ -283,4 +292,24 @@ void GeometryGenerator::createUIPanel()
 
 	mMeshes[MeshType::Panel].vertices = v;
 	mMeshes[MeshType::Panel].indices = i;
+}
+
+void GeometryGenerator::createUIText() noexcept
+{
+	const std::vector<Vertex> v =
+	{
+		{XMFLOAT3(0.0f,0.0f,0.0f),XMFLOAT2(0.0f,1.0f)},
+		{XMFLOAT3(1.0f,0.0f,0.0f),XMFLOAT2(1.0f,1.0f)},
+		{XMFLOAT3(1.0f,1.0f,0.0f),XMFLOAT2(1.0f,0.0f)},
+		{XMFLOAT3(0.0f,1.0f,0.0f),XMFLOAT2(0.0f,0.0f)},
+	};
+
+	const std::vector<UINT> i =
+	{
+		0,2,1,
+		0,3,2
+	};
+
+	mMeshes[MeshType::Text].vertices = v;
+	mMeshes[MeshType::Text].indices = i;
 }

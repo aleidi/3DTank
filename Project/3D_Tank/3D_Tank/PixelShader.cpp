@@ -9,5 +9,5 @@ PixelShader::PixelShader(Graphics& gfx, const std::wstring& path)
 
 void PixelShader::bind(Graphics& gfx) noexcept
 {
-	GetContext(gfx)->PSSetShader(pPixelShader.Get(), nullptr, 0u);
+	getContext(gfx)->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 }

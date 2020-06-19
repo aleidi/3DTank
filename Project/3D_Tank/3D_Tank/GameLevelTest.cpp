@@ -229,7 +229,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	wstr += (std::to_wstring(SM_WaterTank->cube->box.Center.x) + s + std::to_wstring(SM_WaterTank->cube->box.Center.y) + s + std::to_wstring(SM_WaterTank->cube->box.Center.z));
 	//wstr += (std::to_wstring(shell->sphere->sphere.Center.x) + s + std::to_wstring(shell->sphere->sphere.Center.y) + s + std::to_wstring(shell->sphere->sphere.Center.z));
 	wstr += L", EnemyZ:" + std::to_wstring(enemy->getTransform()->getPosition().z);
-	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
+	// Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
 
 	return this;
 }
