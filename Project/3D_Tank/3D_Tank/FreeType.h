@@ -25,5 +25,4 @@ private:
 private:
 	std::map<std::wstring, Character> mCharacters;
 	unsigned int mFontSize;
-
 };
