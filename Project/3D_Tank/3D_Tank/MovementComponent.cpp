@@ -1,5 +1,6 @@
 #include "MovementComponent.h"
 #include "GameObject.h"
+#include <cmath>
 
 MovementComponent::MovementComponent(GameObject * object)
 	:Component(object)
@@ -14,11 +15,19 @@ MovementComponent::~MovementComponent()
 
 void MovementComponent::onUpdate(float deltaTime)
 {
-	float mass = 10.f; 
-	Vector3 acceleration, velocity, position;
-	
+	float dot, angle;
+
 	acceleration = force / mass;
-	velocity += acceleration * deltaTime;
+	if (!(force == Vector3::zero))
+	{
+		dot = Vector3::dot(force.normalize(), mTransform->Forward.normalize());
+		angle = acos(dot);
+		mTransform->rotateY(angle);
+	}
+
+	Vector3 tempVelocity = velocity + acceleration * deltaTime;
+	if (tempVelocity.z <= 0.001)
+		velocity += acceleration * deltaTime;
 	position += velocity * deltaTime;
 	mTransform->translate(position);
 }
