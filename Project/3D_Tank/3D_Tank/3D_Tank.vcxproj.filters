@@ -468,6 +468,9 @@
     <ClCompile Include="ShellFlyComponent.cpp">
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="SoundComponent.cpp">
+      <Filter>Engine\Source\SoundManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -826,6 +829,9 @@
     </ClInclude>
     <ClInclude Include="ShellFlyComponent.h">
       <Filter>Engine\Header\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundComponent.h">
+      <Filter>Engine\Header\SoundManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

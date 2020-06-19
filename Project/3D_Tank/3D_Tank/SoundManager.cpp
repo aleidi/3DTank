@@ -121,6 +121,21 @@ void SoundManager::playSound(const int & soundNum)
 	}
 }
 
+void SoundManager::palySound(FMOD::Sound* sound, FMOD::Channel* channel, const int& soundNum)
+{
+	bool isPlaying = false;
+	FMOD_RESULT result;
+	result = channel->isPlaying(&isPlaying);
+	if (result == FMOD_OK)
+		return;
+
+	result = loadSoundFile(SOUND_FILE_PATH[soundNum], soundNum);
+	if (result != FMOD_OK)
+		return;
+	//mFmodSound[0]->setMode(FMOD_LOOP_NORMAL);
+	mFmodSystem->playSound(sound, NULL, false, &channel);
+}
+
 void SoundManager::setPause(const int & soundNum)
 {
 	bool isPaused = false;
