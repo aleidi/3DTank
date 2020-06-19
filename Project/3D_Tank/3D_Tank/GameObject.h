@@ -1,6 +1,7 @@
 #pragma once
 #include "EngineCommon.h"
 #include "BoundingCube.h"
+#include "BoundingSphere.h"
 
 class Component;
 class Transform;
@@ -41,6 +42,7 @@ public:
 	Vector3 getLastFramePosition();
 
 	BoundingCube* cube;
+	MBoundingSphere* sphere;
 	DirectX::XMVECTOR Vmax, Vmin;
 	bool onCollision;
 

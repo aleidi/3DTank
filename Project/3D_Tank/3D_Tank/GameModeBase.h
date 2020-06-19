@@ -16,6 +16,11 @@ public:
 	void setGameState(GameStateBase* gameState) noexcept;
 	void setPlayer(Pawn* player) noexcept;
 	void setPlayerController(ControllerBase* playerController) noexcept;
+	Pawn* getPlayer() const;
+	ControllerBase* getPlayerController() const;
+
+public:
+	static GameModeBase* MainGameMode;
 
 private:
 	GameStateBase* mGameState;

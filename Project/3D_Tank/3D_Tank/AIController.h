@@ -1,6 +1,7 @@
 #pragma once
 #include "ControllerBase.h"
 #include "StateMachine.h"
+#include "Pawn.h"
 
 class AIController : public ControllerBase
 {
@@ -22,8 +23,14 @@ public:
 	void Move(Vector3 Force);
 	void Rotate(float x, float y, float z);
 
+	void setTarget(Pawn& targetTank) { m_target = targetTank; }
+	Pawn getTarget() { return m_target; }
 private:
 	int mID;
 	float m_deltaTime;
+	float mAccumulateRot;
+
 	StateMachine<AIController>* m_pStateMachine;
+
+	Pawn m_target;
 };

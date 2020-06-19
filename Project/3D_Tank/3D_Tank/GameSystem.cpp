@@ -1,10 +1,15 @@
 #include "GameSystem.h"
 #include "SceneManager.h"
 #include "GameLevelTest.h"
+#include "Level01.h"
 #include "GameLevelManager.h"
+#include "GameInstance.h"
 
 GameSystem::GameSystem()
 {
+	GameInstance::createSingleton();
+	GameInstance::sGetInstance()->onInit();
+
 	GameLevelManager::sGetInstance()->createSingleton();
 }
 
@@ -14,7 +19,9 @@ GameSystem::~GameSystem()
 
 void GameSystem::onInit()
 {
+
 	GameLevelTest* level = new GameLevelTest();
+	new Level01();
 	GameLevelManager::sGetInstance()->setDefaultLevel(0);
 	
 }
