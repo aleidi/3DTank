@@ -16,6 +16,9 @@ public:
 
 protected:
 	Vector3 force;
+	float mass = 100.f;
+	Vector3 position = Vector3::zero;
+	Vector3 acceleration, velocity;
 	Transform* mTransform;
 };
 
