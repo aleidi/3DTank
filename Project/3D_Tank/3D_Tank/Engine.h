@@ -18,6 +18,8 @@ public:
 	void onInit();
 	void run();
 
+	float getTotalTime() noexcept;
+	float getDeltaTIme() noexcept;
 	HWND getHWND();
 	POINT getCursorPos();
 	void showtText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);

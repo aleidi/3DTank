@@ -10,9 +10,8 @@
 #include "Engine.h"
 #include <assert.h>
 
-//-------------------methods for Rest-------------------//
 float count;
-
+//-------------------methods for Rest-------------------//
 Rest* Rest::getInstance() {
 	static Rest m_Rest;
 	return &m_Rest;
@@ -56,7 +55,7 @@ void Rest::execute(AIController* pEnemyTank) {
 }
 
 void Rest::exit(AIController* pEnemyTank) {
-	//MessageBox(0, L"I stopped resting. ", 0, 0);
+	MessageBox(0, L"I stopped resting. ", 0, 0);
 }
 
 bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
@@ -85,50 +84,32 @@ Wander* Wander::getInstance() {
 }
 
 void Wander::enter(AIController* pEnemyTank) {
-	//MessageBox(0, L"I'm going to find bad guy.(Wander) ", 0, 0);
+	MessageBox(0, L"I'm going to find bad guy.(Wander) ", 0, 0);
 }
 
 void Wander::execute(AIController* pEnemyTank) {
-	float jitterThisTimeSlice = m_WanderJitter* pEnemyTank->deltaTime();
-	m_WanderTarget += Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
+	float jitterThisTimeSlice = pEnemyTank->m_WanderJitter * pEnemyTank->deltaTime();
+	pEnemyTank->m_WanderTarget += Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
 							  Math::RandomClamped() * jitterThisTimeSlice);
-	m_WanderTarget = m_WanderTarget.normalize();
-	m_WanderTarget = m_WanderTarget * m_WanderRadius;
+	pEnemyTank->m_WanderTarget = pEnemyTank->m_WanderTarget.normalize();
+	pEnemyTank->m_WanderTarget = pEnemyTank->m_WanderTarget * pEnemyTank->m_WanderRadius;
 
 	Vector3 forward = pEnemyTank->getPawn()->getTransform()->Forward;
 	Vector3 forward_normalize = forward.normalize();
-	Vector3 target = m_WanderTarget + (forward_normalize * m_WanderDistance );
+	Vector3 target = pEnemyTank->m_WanderTarget + (forward_normalize * pEnemyTank->m_WanderDistance );
   	Vector3 target_normalize = target.normalize();
-
-	/*
-	std::wstring wstr = L"target_normalize_X:";
-	wstr += std::to_wstring(target_normalize.x);
-	wstr += L", target_normalize_Z:" + std::to_wstring(target_normalize.z);
-	wstr += L", forward_normalize_X:" + std::to_wstring(forward_normalize.x);
-	wstr += L", forward_normalize_Z:" + std::to_wstring(forward_normalize.z); */
-	// wstr += L", dot:" + std::to_wstring(dot);
-	// Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
 
 	float dot = Vector3::dot(target_normalize, forward_normalize);
 	dot = Math::Clamp(1.0f, -1.0f, dot );
-	
-	/*
-	count += 0.01f;
-	if (count > 5) {
-		dot = dot * -1.0f;
-		count = 0;
-	}
-	*/
+
 	rotate = acosf(dot);
 	rotate *= 180 / Pi;
 	
-
-
 	Vector3 acceleraion = target / mass;
 	velocity += acceleraion * pEnemyTank->deltaTime();
 
-	if (Vector3::lengthSq(velocity, Vector3(0, 0, 0)) > (maxspeed*maxspeed ) )
-		velocity = velocity.normalize() * maxspeed;
+	if (Vector3::lengthSq(velocity, Vector3(0, 0, 0)) > (pEnemyTank->maxspeed*pEnemyTank->maxspeed ) )
+		velocity = velocity.normalize() * pEnemyTank->maxspeed;
 
 	Vector3 newPos = velocity * pEnemyTank->deltaTime();
 
@@ -137,6 +118,22 @@ void Wander::execute(AIController* pEnemyTank) {
 	if(Vector3::lengthSq(velocity, Vector3(0, 0, 0)) > 0 )
 		pEnemyTank->Rotate(0, rotate, 0);
 
+
+	if (pEnemyTank->getID() == ent_Tank_Enemy) {
+		std::wstring wstr;
+		wstr += std::to_wstring(pEnemyTank->getID()) + L":_Tank X:" + std::to_wstring(pEnemyTank->getPawn()->getTransform()->getPosition().x);
+		wstr += +L"_Tank Z:" + std::to_wstring(pEnemyTank->getPawn()->getTransform()->getPosition().z);
+		wstr += +L"_Tank Vtarget: ( " + std::to_wstring(target.x) + L"," + std::to_wstring(target.y) + L"," + std::to_wstring(target.z);
+		Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
+	}
+	/*if (pEnemyTank->getID() == ent_Tank_SuperEnemy) {
+		std::wstring wstr2;
+		wstr2 += L"\n\n\n\n";	
+		wstr2 += std::to_wstring(pEnemyTank->getID()) + L":_Tank X:" + std::to_wstring(pEnemyTank->getPawn()->getTransform()->getPosition().x);
+		wstr2 += +L"_Tank Z:" + std::to_wstring(pEnemyTank->getPawn()->getTransform()->getPosition().z);
+		wstr2 += +L"_Tank Vtarget: ( " + std::to_wstring(target.x) + L"," + std::to_wstring(target.y) + L"," + std::to_wstring(target.z);
+		Engine::sGetInstance()->showtText(wstr2.c_str(), 0, 0, 500, 500, true);
+	}*/
 	/*
 	timer += pEnemyTank->deltaTime();
 	if (timer > 0.5) {
@@ -146,13 +143,6 @@ void Wander::execute(AIController* pEnemyTank) {
 	}
 	else { pEnemyTank->Move(forward*0.001); }
 	*/
-	std::wstring wstr;
-	wstr += L"X:" + std::to_wstring(pEnemyTank->getPawn()->getTransform()->getPosition().x);
-	wstr += L",Z:" + std::to_wstring(pEnemyTank->getPawn()->getTransform()->getPosition().z);
-	wstr += L",velocity:" + std::to_wstring(Vector3::lengthSq(velocity, Vector3(0, 0, 0)));
-	wstr += L", DOT:" + std::to_wstring(dot);
-	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
-
 	/*
 	count += 0.01f;
 
@@ -275,6 +265,8 @@ void Evade::enter(AIController* pEnemyTank) {
 
 void Evade::execute(AIController* pEnemyTank) {
 
+
+
 	////////////////////////changeState////////////////////////
 	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getAttacked()) {
 		reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(false);
@@ -285,6 +277,10 @@ void Evade::execute(AIController* pEnemyTank) {
 
 	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
 		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
+	} 
+
+	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getHP() <= 0) {
+		pEnemyTank->getFSM()->changeState(Death::getInstance());
 	}
 }
 
@@ -316,6 +312,8 @@ void Pursuit::enter(AIController* pEnemyTank) {
 
 void Pursuit::execute(AIController* pEnemyTank) {
 
+
+
 	////////////////////////changeState////////////////////////
 	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
 		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
@@ -342,7 +340,30 @@ bool Pursuit::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
+//-------------------methods for Death-------------------//
+Death* Death::getInstance() {
+	static Death m_Death;
+	return &m_Death;
+}
 
+void Death::enter(AIController* pEnemyTank) {
+	MessageBox(0, L"awsl", 0, 0);
+}
+
+void Death::execute(AIController* pEnemyTank) {
+
+	MessageBox(0, L"BOW! I DEAD", 0, 0);
+	////////////////////////changeState////////////////////////
+	// Dead is end//
+}
+
+void Death::exit(AIController* pEnemyTank) {
+	MessageBox(0, L"slsl", 0, 0);
+}
+
+bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
+	return false;
+}
 
 
 

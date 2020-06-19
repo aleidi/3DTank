@@ -163,6 +163,16 @@ void Engine::run()
 	mRendering.get()->onEndRender(deltaTime);
 }
 
+float Engine::getTotalTime() noexcept
+{
+	return mTimer.getTotalTime();
+}
+
+float Engine::getDeltaTIme() noexcept
+{
+	return mTimer.getDeltaTIme();
+}
+
 HWND Engine::getHWND()
 {
 	return mWnd.getHwnd();
