@@ -16,9 +16,9 @@ public:
 
 	void translate(const Vector3&);
 	void translate(float x, float y, float z);
-	void rotateX(float);
-	void rotateY(float);
-	void rotateZ(float);
+	void rotateX(float, bool isDeg = true);
+	void rotateY(float, bool isDeg = true);
+	void rotateZ(float, bool isDeg = true);
 
 	Transform* getChild(int);
 	Transform* getParent();

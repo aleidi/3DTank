@@ -20,8 +20,9 @@ public:
 	float Near;
 	float Far;
 	bool IsPerpective;
-	
-	float targetFov;
 
 	static Camera* MainCamera;
+private:
+	float targetFov;
+
 };

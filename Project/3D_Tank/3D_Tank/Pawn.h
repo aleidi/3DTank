@@ -29,7 +29,7 @@ public:
 	virtual void onUpdate(float deltaTime) override;
 	virtual void Move(Vector3 value);
 
-	int getID()const;
+	virtual void Move(Vector3 value);
 
 	void setHP(int changeHP);
 	int getHP()const;

@@ -16,6 +16,7 @@
 #include "BoundingSphere.h"
 #include "BoundingCube.h"
 #include "SoundManager.h"
+#include <windows.h>
 
 GameObject* hq;
 GameObject* tankBattery;
@@ -28,8 +29,9 @@ GameObject* SM_WaterTank;
 GameObject* shell;
 GameObject* collider;
 EnemyTank* enemy;
-StateMachine<AIController>* enemyStatemachine;
+EnemyTank* enemytarget;
 AIController* aiController;
+AIController* aiController2;
 
 bool tankFire = false;
 
@@ -139,12 +141,24 @@ void GameLevelTest::enterLevel()
 
 	//hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 
-
+	// SceneManager::sGetInstance()->createUIText();
 	//set ai
+	
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	EntityMgr->registerEntity(enemy);
-	//aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
-	//aiController->posses(enemy);
+	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
+	aiController->posses(enemy);
+	aiController->setWanderData(10.0, 20.0, 800.0);
+	aiController->maxspeed = 1.0;
+	
+	///*
+	enemytarget = new EnemyTank(ent_Tank_SuperEnemy);
+	EntityMgr->registerEntity(enemytarget);
+	aiController2 = SceneManager::sGetInstance()->createAIController(ent_Tank_SuperEnemy);
+	aiController2->posses(enemytarget);
+	aiController2->setWanderData(50.0, 100.0, 400.0);
+	aiController2->maxspeed = 0.5;
+	//*/
 
 	//SoundManager::sGetInstance()->playSound(3);
 	//shell = SceneManager::sGetInstance()->createSphere();
@@ -159,7 +173,7 @@ void GameLevelTest::enterLevel()
 	//shell->addComponent(shellBoundingSphere);
 	//shell->sphere = shellBoundingSphere;
 
-	SoundManager::sGetInstance()->setLisenterPosition(enemy->getTransform()->getPosition());
+	//SoundManager::sGetInstance()->setLisenterPosition(enemy->getTransform()->getPosition());
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
@@ -174,7 +188,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		ShellFlyComponent* shellFly = new ShellFlyComponent(shell);
 		shell->addComponent(shellFly);
 		MBoundingSphere* shellBoundingSphere = new MBoundingSphere(shell);
-		shellBoundingSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1, 1);
+		shellBoundingSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1f, 1);
 		shell->addComponent(shellBoundingSphere);
 		shell->sphere = shellBoundingSphere;
 		tankFire = true;

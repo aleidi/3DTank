@@ -25,6 +25,19 @@ public:
 
 	void setTarget(Pawn& targetTank) { m_target = targetTank; }
 	Pawn getTarget() { return m_target; }
+
+	void setWanderData(float r, float d, float j) {
+		m_WanderRadius = r;
+		m_WanderDistance = d;
+		m_WanderJitter = j;
+	}
+
+	float m_WanderRadius;
+	float m_WanderDistance;
+	float m_WanderJitter;
+	Vector3 m_WanderTarget;
+
+	float maxspeed;
 private:
 	int mID;
 	float m_deltaTime;
@@ -33,4 +46,5 @@ private:
 	StateMachine<AIController>* m_pStateMachine;
 
 	Pawn m_target;
+
 };
