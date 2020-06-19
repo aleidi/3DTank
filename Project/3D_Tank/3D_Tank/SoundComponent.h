@@ -16,15 +16,14 @@ public:
 	//void playSound();
 	//void setPause();
 	//void setReplay();
-	void onUpdate();
-	FMOD::Sound* getSound();
+	void onUpdate(float detalTime) override;
+	//FMOD::Sound* getSound();
 	FMOD::Channel* getChannel();
+	void setChannel(FMOD::Channel* ch);
 
 	//FMOD_RESULT loadSoundFile(const std::string& filePath);
 
 private:
-	//friend class SoundManager;
-
-	FMOD::Sound* mSound;
+	//FMOD::Sound* mSound;
 	FMOD::Channel* mChannel;
 };

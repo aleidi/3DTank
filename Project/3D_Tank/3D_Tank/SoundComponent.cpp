@@ -10,7 +10,12 @@ SoundComponent::~SoundComponent()
 {
 }
 
-void SoundComponent::onUpdate()
+//FMOD::Sound* SoundComponent::getSound()
+//{
+//	return this->mSound;
+//}
+
+void SoundComponent::onUpdate(float detalTime)
 {
 	FMOD_VECTOR position;
 	position.x = this->getObject()->getTransform()->getPosition().x;
@@ -19,12 +24,13 @@ void SoundComponent::onUpdate()
 	this->mChannel->set3DAttributes(&position, NULL);
 }
 
-FMOD::Sound* SoundComponent::getSound()
-{
-	return this->mSound;
-}
-
 FMOD::Channel* SoundComponent::getChannel()
 {
-	return this->mChannel;
+	return mChannel;
+}
+
+void SoundComponent::setChannel(FMOD::Channel * ch)
+{
+	if(ch)
+		this->mChannel = ch;
 }
