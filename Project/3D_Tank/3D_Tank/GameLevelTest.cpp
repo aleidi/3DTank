@@ -150,59 +150,23 @@ void GameLevelTest::enterLevel()
 
 	//hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 	//set ai
+	
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	EntityMgr->registerEntity(enemy);
 	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
 	aiController->posses(enemy);
-	aiController->setWanderData(10.0, 20.0, 800.0);
-	aiController->maxspeed = 1;
+	aiController->setWanderData(10.0, 2.0f, 800.0);
+	aiController->maxspeed = 1.0;
+	
 	//
-	///*
+	/*
 	enemytarget = new EnemyTank(ent_Tank_SuperEnemy);
 	EntityMgr->registerEntity(enemytarget);
 	aiControllertarget = SceneManager::sGetInstance()->createAIController(ent_Tank_SuperEnemy);
 	aiControllertarget->posses(enemytarget);
 	aiControllertarget->setWanderData(10.0, 20.0, 800.0);
-	aiControllertarget->maxspeed = 0.9;
 	//*/
 
-
-
-	/////////////////little joke/////////////////
-	enemy1 = new EnemyTank(ent_Tank_Enemy1);
-	EntityMgr->registerEntity(enemy1);
-	aiController1 = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy1);
-	aiController1->posses(enemy1);
-	aiController1->setWanderData(10.0, 20.0, 800.0);
-	aiController1->maxspeed = 1;
-
-	enemy2 = new EnemyTank(ent_Tank_Enemy2);
-	EntityMgr->registerEntity(enemy2);
-	aiController1 = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy2);
-	aiController1->posses(enemy2);
-	aiController1->setWanderData(10.0, 20.0, 800.0);
-	aiController1->maxspeed = 1;
-
-	enemy3 = new EnemyTank(ent_Tank_Enemy3);
-	EntityMgr->registerEntity(enemy3);
-	aiController3 = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy3);
-	aiController3->posses(enemy3);
-	aiController3->setWanderData(10.0, 20.0, 800.0);
-	aiController3->maxspeed = 1;
-
-	enemy4 = new EnemyTank(ent_Tank_Enemy4);
-	EntityMgr->registerEntity(enemy4);
-	aiController4 = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy4);
-	aiController4->posses(enemy4);
-	aiController4->setWanderData(10.0, 20.0, 800.0);
-	aiController4->maxspeed = 1;
-
-	enemy5 = new EnemyTank(ent_Tank_Enemy5);
-	EntityMgr->registerEntity(enemy5);
-	aiController5 = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy5);
-	aiController5->posses(enemy5);
-	aiController5->setWanderData(10.0, 20.0, 800.0);
-	aiController5->maxspeed = 1;
 	//SoundManager::sGetInstance()->playSound(3);
 	//shell = SceneManager::sGetInstance()->createSphere();
 	//shell->getTransform()->Forward = enemy->getTransform()->Forward;
@@ -281,12 +245,6 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
 	}
 
-	std::wstring wstr = L"EnemyX:";
-	std::wstring s = L"/";
-	wstr += (std::to_wstring(SM_WaterTank->cube->box.Center.x) + s + std::to_wstring(SM_WaterTank->cube->box.Center.y) + s + std::to_wstring(SM_WaterTank->cube->box.Center.z));
-	//wstr += (std::to_wstring(shell->sphere->sphere.Center.x) + s + std::to_wstring(shell->sphere->sphere.Center.y) + s + std::to_wstring(shell->sphere->sphere.Center.z));
-	wstr += L", EnemyZ:" + std::to_wstring(enemy->getTransform()->getPosition().z);
-	// Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
 
 	return this;
 }

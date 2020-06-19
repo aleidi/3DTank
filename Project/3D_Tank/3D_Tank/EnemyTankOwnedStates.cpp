@@ -89,9 +89,10 @@ void Wander::enter(AIController* pEnemyTank) {
 }
 
 void Wander::execute(AIController* pEnemyTank) {
-	count += 1;
-	if (count > 1) {
+	count += pEnemyTank->deltaTime();
+	if (count > 0.001) {
 		count = 0;
+
 		float jitterThisTimeSlice = pEnemyTank->m_WanderJitter * pEnemyTank->deltaTime();
 		pEnemyTank->m_WanderTarget += Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
 			Math::RandomClamped() * jitterThisTimeSlice);
@@ -102,6 +103,9 @@ void Wander::execute(AIController* pEnemyTank) {
 		Vector3 forward_normalize = forward.normalize();
 
 		Vector3 target = pEnemyTank->m_WanderTarget + (forward_normalize * pEnemyTank->m_WanderDistance);
+
+		// Vector3 target = Vector3(10, 0, 10);
+		/////////////////////////beginning of movement/////////////////////////////
 		Vector3 acceleraion = target / mass;
 		pEnemyTank->velocity += acceleraion * pEnemyTank->deltaTime();
 
@@ -113,46 +117,63 @@ void Wander::execute(AIController* pEnemyTank) {
 
 		float dot = Vector3::dot(pEnemyTank->velocity.normalize(), forward_normalize);
 		dot = Math::Clamp(1.0f, -1.0f, dot);
+		rotate = acosf(dot) * 180 / Pi;
 
-		rotate = acosf(dot);
-		rotate *= 180 / Pi;
+		
+		Vector3 cross = Vector3::cross(pEnemyTank->velocity.normalize(), forward_normalize);
+		if (cross.y > 0) {
+			rotate = -rotate;
+		}
+		
+
 
 		// if(Vector3::lengthSq(velocity, Vector3(0, 0, 0)) > 0 )
 
-		pEnemyTank->Move(newPos*1);
+		pEnemyTank->Move(newPos);
 
-
-		if (Vector3::lengthSq(pEnemyTank->velocity, Vector3(0, 0, 0)) > 0.00000000001) {
+		if (rotate >= 1.0f || rotate <= -1.0f )
 			pEnemyTank->Rotate(0, rotate, 0);
+
+
+		std::wstring wstr;
+		wstr += L"velocity: (" + std::to_wstring(pEnemyTank->velocity.normalize().x) + L"," +
+			std::to_wstring(pEnemyTank->velocity.normalize().y) + L"," +
+			std::to_wstring(pEnemyTank->velocity.normalize().z) + L") \n";
+		wstr += L"forward: (" + std::to_wstring(forward_normalize.x) + L"," +
+			std::to_wstring(forward_normalize.y) + L"," +
+			std::to_wstring(forward_normalize.z) + L") \n";
+		wstr += L"rotate: " + std::to_wstring(rotate);
+		wstr += L",prerotate: " + std::to_wstring(prerotate);
+		Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
+
+		/*
+		pEnemyTank->Rotate(0, pEnemyTank->getID() * 90, 0);
+
+		timer += pEnemyTank->deltaTime();
+		if (timer > 3) {
+			rotate = Math::RandomClamped() * 15;
+			timer = 0;
+			pEnemyTank->Rotate(0, rotate, 0);
+		}
+		*/
+		// Vector3 abc = pEnemyTank->getPawn()->getTransform()->Forward * 0.0001f * ( pEnemyTank->getID() + 10 ) ;
+
+		////////////////////////changeState////////////////////////
+		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
+			// pEnemyTank->getFSM()->changeState(Attack::getInstance());
+		}
+
+		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
+			pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
+		}
+
+		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getAttacked()) {
+			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(false);
+			pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 		}
 
 	}
-	/*
-	pEnemyTank->Rotate(0, pEnemyTank->getID() * 90, 0);
 
-	timer += pEnemyTank->deltaTime();
-	if (timer > 3) {
-		rotate = Math::RandomClamped() * 15;
-		timer = 0;
-		pEnemyTank->Rotate(0, rotate, 0);
-	}
-	*/
-	// Vector3 abc = pEnemyTank->getPawn()->getTransform()->Forward * 0.0001f * ( pEnemyTank->getID() + 10 ) ;
-	
-	////////////////////////changeState////////////////////////
-	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
-		// pEnemyTank->getFSM()->changeState(Attack::getInstance());
-	}
-
-	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
-		pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
-	}
-
-	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getAttacked()) {
-		reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(false);
-		pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
-	}
-	
 }
 
 void Wander::exit(AIController* pEnemyTank) {

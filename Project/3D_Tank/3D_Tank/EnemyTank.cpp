@@ -39,10 +39,11 @@ EnemyTank::EnemyTank(int ID)
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);
 	// m_pStateMachine->setCurrentState(Rest::getInstance());
-
+	
 	mMovementComp = new AIMovementComponent(this);
 	addComponent(mMovementComp);
-}
+	
+}	
 
 EnemyTank::~EnemyTank()
 {

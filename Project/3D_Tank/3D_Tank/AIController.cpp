@@ -51,7 +51,7 @@ void AIController::Move(Vector3 force)
 void AIController::Rotate(float x, float y, float z)
 {
 	mAccumulateRot = y;
-	mAccumulateRot = Math::lerp(mAccumulateRot, 0.0f, 0.999);
+	// mAccumulateRot = Math::lerp(mAccumulateRot, 0.0f, 0.999);
 
 	mPawn->getTransform()->rotateY(mAccumulateRot);
 }

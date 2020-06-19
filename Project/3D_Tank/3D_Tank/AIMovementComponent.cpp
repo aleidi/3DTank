@@ -13,7 +13,8 @@ AIMovementComponent::~AIMovementComponent()
 
 void AIMovementComponent::onUpdate(float deltaTime)
 {
-	float dot, angle;
+	/*
+	float dot = 0.0f, angle = 0.0f;
 
 	acceleration = force / mass;
 	if (!(force == Vector3::zero))
@@ -24,10 +25,11 @@ void AIMovementComponent::onUpdate(float deltaTime)
 	}
 
 	Vector3 tempVelocity = velocity + acceleration * deltaTime;
-	if (tempVelocity.z <= 0.001)
+	if (Vector3::lengthSq(velocity, Vector3(0, 0, 0)) <= 0.0001)
 		velocity += acceleration * deltaTime;
 	position += velocity * deltaTime;
 	mTransform->translate(position);
+	*/
 }
 
 void AIMovementComponent::addVelocity(Vector3 value)
