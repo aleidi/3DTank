@@ -42,7 +42,7 @@ public:
 	~Graphics();
 
 	ID3D11Device* getDevice() const;
-	ID3D11DeviceContext* GetContext() const;
+	ID3D11DeviceContext* getContext() const;
 	bool InitD3D();
 	bool InitD2D();
 	void BindD2DResource();

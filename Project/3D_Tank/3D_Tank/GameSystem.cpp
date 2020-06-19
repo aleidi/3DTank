@@ -1,6 +1,7 @@
 #include "GameSystem.h"
 #include "SceneManager.h"
 #include "GameLevelTest.h"
+#include "Level01.h"
 #include "GameLevelManager.h"
 
 GameSystem::GameSystem()
@@ -15,6 +16,7 @@ GameSystem::~GameSystem()
 void GameSystem::onInit()
 {
 	GameLevelTest* level = new GameLevelTest();
+	new Level01();
 	GameLevelManager::sGetInstance()->setDefaultLevel(0);
 	
 }

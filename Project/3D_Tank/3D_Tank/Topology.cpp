@@ -7,5 +7,5 @@ Topology::Topology(Graphics& gfx, D3D11_PRIMITIVE_TOPOLOGY mType)
 
 void Topology::bind(Graphics& gfx) noexcept
 {
-	GetContext(gfx)->IASetPrimitiveTopology(mType);
+	getContext(gfx)->IASetPrimitiveTopology(mType);
 }

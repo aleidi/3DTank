@@ -18,6 +18,7 @@ public:
 	void onInit();
 	void run();
 
+	HWND getHWND();
 	POINT getCursorPos();
 	void showtText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
 private:

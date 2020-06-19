@@ -25,6 +25,11 @@ Material Drawable::getMaterial() const
 	return mMaterial;
 }
 
+void Drawable::setMaterial(Material mat)
+{
+	mMaterial = mat;
+}
+
 void Drawable::addBind(std::unique_ptr<Bindable> bind) noexcept
 {
 	assert("*Must* use AddIndexBuffer to bind index buffer" && typeid(*bind) != typeid(IndexBuffer));

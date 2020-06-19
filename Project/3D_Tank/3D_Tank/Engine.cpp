@@ -65,7 +65,7 @@ void Engine::onPreInit()
 
 	//eui creation
 	mEui = std::make_unique<ImGuiFrame>(
-		mWnd.getHwnd(), mRendering->getGFX()->getDevice(), mRendering->getGFX()->GetContext());
+		mWnd.getHwnd(), mRendering->getGFX()->getDevice(), mRendering->getGFX()->getContext());
 }
 
 void Engine::onInit()
@@ -161,6 +161,11 @@ void Engine::run()
 
 
 	mRendering.get()->onEndRender(deltaTime);
+}
+
+HWND Engine::getHWND()
+{
+	return mWnd.getHwnd();
 }
 
 POINT Engine::getCursorPos()

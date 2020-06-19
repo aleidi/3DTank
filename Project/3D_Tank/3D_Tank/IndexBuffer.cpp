@@ -18,7 +18,7 @@ IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<UINT>& indices)
 
 void IndexBuffer::bind(Graphics& gfx) noexcept
 {
-	GetContext(gfx)->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
+	getContext(gfx)->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
 }
 
 UINT IndexBuffer::getCount() const noexcept
