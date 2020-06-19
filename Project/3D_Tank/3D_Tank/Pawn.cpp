@@ -19,3 +19,7 @@ void Pawn::onUpdate(float deltaTime)
 {
 	GameObject::onUpdate(deltaTime);
 }
+
+void Pawn::Move(Vector3 value)
+{
+}

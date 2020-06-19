@@ -405,9 +405,6 @@
     <ClCompile Include="GameLevelTest.cpp">
       <Filter>Game\TestCode</Filter>
     </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="DefaultPlayerController.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
@@ -497,6 +494,12 @@
     </ClCompile>
     <ClCompile Include="ULevelEvent.cpp">
       <Filter>Game\Source\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Game\Source\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -869,6 +872,9 @@
     <ClInclude Include="ULevelEvent.h">
       <Filter>Game\Header\Level</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Game\Header\Controller</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -920,6 +926,9 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="UIVSVerticalT.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIPSText.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>

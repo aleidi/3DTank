@@ -51,14 +51,28 @@ void Transform::translate(float x, float y, float z)
 	mPosition.z += z;
 }
 
-void Transform::rotateX(float angle)
+void Transform::rotateX(float angle, bool isDeg)
 {
-	mRotation.x += DirectX::XMConvertToRadians(angle);
+	if (isDeg == false)
+	{
+		mRotation.x += angle;
+	}
+	else
+	{
+		mRotation.x += DirectX::XMConvertToRadians(angle);
+	}
 }
 
-void Transform::rotateY(float angle)
+void Transform::rotateY(float angle, bool isDeg)
 {
-	mRotation.y += DirectX::XMConvertToRadians(angle);
+	if (isDeg == false)
+	{
+		mRotation.y += angle;
+	}
+	else
+	{
+		mRotation.y += DirectX::XMConvertToRadians(angle);
+	}
 	if (this->getObject()->cube != NULL && this->getObject()->cube->moveable == 1) {
 		DirectX::XMStoreFloat4(&(this->getObject()->cube->box.Orientation),
 			DirectX::XMQuaternionRotationRollPitchYaw(
@@ -70,9 +84,16 @@ void Transform::rotateY(float angle)
 	}
 }
 
-void Transform::rotateZ(float angle)
+void Transform::rotateZ(float angle, bool isDeg)
 {
-	mRotation.z += DirectX::XMConvertToRadians(angle);
+	if (isDeg == false)
+	{
+		mRotation.z += angle;
+	}
+	else
+	{
+		mRotation.z += DirectX::XMConvertToRadians(angle);
+	}
 }
 
 Transform* Transform::getChild(int index)

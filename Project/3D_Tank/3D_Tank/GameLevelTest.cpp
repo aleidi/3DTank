@@ -143,8 +143,8 @@ void GameLevelTest::enterLevel()
 	//set ai
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	EntityMgr->registerEntity(enemy);
-	//aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
-	//aiController->posses(enemy);
+	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
+	aiController->posses(enemy);
 
 	//SoundManager::sGetInstance()->playSound(3);
 	//shell = SceneManager::sGetInstance()->createSphere();
@@ -164,6 +164,8 @@ void GameLevelTest::enterLevel()
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
+	SceneManager::sGetInstance()->onUpdate(deltaTime);
+
 	if (DInputPC::getInstance().iskeyDown(DIK_F)){
 		SoundManager::sGetInstance()->playSound(3);
 		shell = SceneManager::sGetInstance()->createSphere();
@@ -199,7 +201,6 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	}
 
 	Dispatch->DispatchDelayedMessages();
-	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
 	if (DInputPC::getInstance().iskeyDown(DIK_F1))
 	{
