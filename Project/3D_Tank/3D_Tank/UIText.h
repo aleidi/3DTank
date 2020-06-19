@@ -11,9 +11,11 @@ public:
 
 	void draw(Graphics& gfx) noexcept override;
 	void setText(Graphics& gfx, std::wstring wstr);
+
 private:
 	void setBlendTransparent(Graphics& gfx);
 	void resetBlendState(Graphics& gfx);
+
 private:
 	Graphics& mgfx;
 	std::wstring mText;
