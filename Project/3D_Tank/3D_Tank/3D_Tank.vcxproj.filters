@@ -357,9 +357,6 @@
     <ClCompile Include="imgui.cpp">
       <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Engine\Source\Render</Filter>
-    </ClCompile>
     <ClCompile Include="EntityManager.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
     </ClCompile>
@@ -468,9 +465,6 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Engine\Source\SoundManager</Filter>
     </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerTank.cpp">
       <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
@@ -495,11 +489,11 @@
     <ClCompile Include="ULevelEvent.cpp">
       <Filter>Game\Source\Level</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerController.cpp">
-      <Filter>Game\Source\Controller</Filter>
+    <ClCompile Include="AIMovementComponent.cpp">
+      <Filter>Engine\Source\Gameplay\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>Game\Source\Pawn</Filter>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Engine\Source\Gameplay\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -677,9 +671,6 @@
     <ClInclude Include="KeycodeRedefine.h">
       <Filter>Engine\Header\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Engine\Header\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
@@ -821,9 +812,6 @@
     <ClInclude Include="GameCharacter.h">
       <Filter>Game\Header\Pawn</Filter>
     </ClInclude>
-    <ClInclude Include="MovementComponent.h">
-      <Filter>Engine\Header</Filter>
-    </ClInclude>
     <ClInclude Include="AIController.h">
       <Filter>Game\Header\Controller</Filter>
     </ClInclude>
@@ -872,8 +860,11 @@
     <ClInclude Include="ULevelEvent.h">
       <Filter>Game\Header\Level</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerController.h">
-      <Filter>Game\Header\Controller</Filter>
+    <ClInclude Include="AIMovementComponent.h">
+      <Filter>Engine\Header\Gameplay\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>Engine\Header\Gameplay\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

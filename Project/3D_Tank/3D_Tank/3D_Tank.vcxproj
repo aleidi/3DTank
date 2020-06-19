@@ -173,6 +173,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AIController.cpp" />
+    <ClCompile Include="AIMovementComponent.cpp" />
     <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BoundingCube.cpp" />
@@ -225,6 +226,7 @@
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerTank.cpp" />
     <ClCompile Include="PSTransCBuf.cpp" />
@@ -277,6 +279,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIController.h" />
+    <ClInclude Include="AIMovementComponent.h" />
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
@@ -346,6 +349,7 @@
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="MovingEntity.h" />
     <ClInclude Include="Pawn.h" />
+    <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerTank.h" />
     <ClInclude Include="PSTransCBuf.h" />

@@ -7,7 +7,7 @@
 GameCharacter::GameCharacter()
 {
 	//test code
-	movecomp = new MovementComponent(SceneManager::sGetInstance()->findObjectWithName("DefaultPlayer"));
+	//movecomp = new MovementComponent(SceneManager::sGetInstance()->findObjectWithName("DefaultPlayer"));
 }
 
 GameCharacter::~GameCharacter()

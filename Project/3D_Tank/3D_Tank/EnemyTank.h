@@ -29,6 +29,7 @@ public:
 	void setHP(int changeHP);
 	int getHP()const;
 
+	void move(Vector3 value);
 	bool isDying()const;
 	bool isEnemyInRange()const;
 	bool isLostEnemy()const;
