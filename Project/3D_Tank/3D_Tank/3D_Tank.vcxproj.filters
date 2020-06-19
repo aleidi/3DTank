@@ -357,9 +357,6 @@
     <ClCompile Include="imgui.cpp">
       <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Engine\Source\Render</Filter>
-    </ClCompile>
     <ClCompile Include="EntityManager.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
     </ClCompile>
@@ -500,6 +497,12 @@
     </ClCompile>
     <ClCompile Include="Pawn.cpp">
       <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCamera.cpp">
+      <Filter>Game\Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Source\Gameplay\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -676,9 +679,6 @@
     </ClInclude>
     <ClInclude Include="KeycodeRedefine.h">
       <Filter>Engine\Header\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Engine\Header\Render</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Engine\Header\Misc</Filter>
@@ -874,6 +874,12 @@
     </ClInclude>
     <ClInclude Include="PlayerController.h">
       <Filter>Game\Header\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCamera.h">
+      <Filter>Game\Header\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Header\Gameplay\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

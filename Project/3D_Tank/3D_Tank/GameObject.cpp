@@ -128,6 +128,11 @@ void GameObject::deAttach() noexcept
 	mTransform->removeParent();
 }
 
+void GameObject::destroy()
+{
+	SceneManager::sGetInstance()->removeGameObjectFromPool(this);
+}
+
 void GameObject::onStart()
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)

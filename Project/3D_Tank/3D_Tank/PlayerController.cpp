@@ -22,6 +22,7 @@ void PlayerController::Move(Vector3 value)
 
 void PlayerController::Rotate(float valueX, float valueY)
 {
+	reinterpret_cast<PlayerTank*>(mPawn)->RotateCamera(valueX, valueY);
 	reinterpret_cast<PlayerTank*>(mPawn)->RotateBattery(valueX,valueY);
 }
 
