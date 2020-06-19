@@ -48,8 +48,5 @@ void AIController::Move(Vector3 force)
 
 void AIController::Rotate(float x, float y, float z)
 {
-	mPawn->getTransform()->rotateX(x);
 	mPawn->getTransform()->rotateY(y);
-	mPawn->getTransform()->rotateZ(z);
-
 }

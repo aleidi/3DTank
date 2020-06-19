@@ -31,6 +31,10 @@ void BoundingCube::createBoundingCube(const DirectX::XMVECTOR & maxPoint, const 
 			CollisionManager::sGetInstance()->moveableBoundingCube.push_back(this);
 			this->moveable = 1;
 		}
+		else {
+			CollisionManager::sGetInstance()->unmoveableBoundingCube.push_back(this);
+			this->moveable = 0;
+		}
 	}
 }
 

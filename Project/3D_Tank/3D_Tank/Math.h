@@ -2,6 +2,8 @@
 #include "EngineCommon.h"
 #include <math.h>
 
+const float Pi = 3.1415926;
+
 class Math
 {
 public:
@@ -29,8 +31,16 @@ public:
 	}
 
 	static inline float RandFloat() {
-		return ((rand()) / (RAND_MAX + 1.0));
+		return (float)(rand() / (RAND_MAX + 1.0f));
 	}
 
 	static inline float RandomClamped() { return RandFloat() - RandFloat(); }
+
+
+	static inline float Clamp(float max, float min, float& num) {
+		if (num > max) num = max;
+		if (num < min) num = min;
+		return num;
+	}
+
 };
