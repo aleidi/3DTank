@@ -357,6 +357,9 @@
     <ClCompile Include="imgui.cpp">
       <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Source\Render</Filter>
+    </ClCompile>
     <ClCompile Include="EntityManager.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
     </ClCompile>
@@ -401,6 +404,9 @@
     </ClCompile>
     <ClCompile Include="GameLevelTest.cpp">
       <Filter>Game\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Engine\Source</Filter>
     </ClCompile>
     <ClCompile Include="DefaultPlayerController.cpp">
       <Filter>Game\Source\Controller</Filter>
@@ -493,6 +499,9 @@
       <Filter>Engine\Source\Gameplay\Component</Filter>
     </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
+      <Filter>Engine\Source\Gameplay\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundComponent.cpp">
       <Filter>Engine\Source\Gameplay\Component</Filter>
     </ClCompile>
   </ItemGroup>
@@ -670,6 +679,9 @@
     </ClInclude>
     <ClInclude Include="KeycodeRedefine.h">
       <Filter>Engine\Header\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Header\Render</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Engine\Header\Misc</Filter>
@@ -864,6 +876,9 @@
       <Filter>Engine\Header\Gameplay\Component</Filter>
     </ClInclude>
     <ClInclude Include="MovementComponent.h">
+      <Filter>Engine\Header\Gameplay\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundComponent.h">
       <Filter>Engine\Header\Gameplay\Component</Filter>
     </ClInclude>
   </ItemGroup>
