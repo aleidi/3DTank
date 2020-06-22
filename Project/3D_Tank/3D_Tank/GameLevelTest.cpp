@@ -15,6 +15,7 @@
 #include "CollisionManager.h"
 #include "BoundingSphere.h"
 #include "BoundingCube.h"
+#include "SoundComponent.h"
 #include "SoundManager.h"
 #include <windows.h>
 
@@ -26,8 +27,10 @@ GameObject* tankTrackR;
 GameObject* cam;
 GameObject* follow;
 GameObject* SM_WaterTank;
+GameObject* SM_Crate;
 GameObject* shell;
 GameObject* collider;
+SoundComponent* sound;
 EnemyTank* enemy;
 EnemyTank* enemytarget;
 EnemyTank* enemy1;
@@ -131,16 +134,22 @@ void GameLevelTest::enterLevel()
 	SM_WaterTank_BoundingCube->createBoundingCube(maxPoint, minPoint,0);
 	SM_WaterTank->addComponent(SM_WaterTank_BoundingCube);
 	DirectX::BoundingOrientedBox out;
-	//SM_WaterTank->getTransform()->calcultateTransformMatrix();
+	SM_WaterTank->getTransform()->calcultateTransformMatrix();
 	SM_WaterTank_BoundingCube->box.Transform(out, SM_WaterTank->getTransform()->getLocalToWorldMatrix());
 	SM_WaterTank_BoundingCube->box = out;
 	SM_WaterTank->cube = SM_WaterTank_BoundingCube;
 
-	//GameObject* SM_Crate = SceneManager::sGetInstance()->createEmptyObject();
-	//SM_Crate->setName("SM_Crate");
-	//SceneManager::sGetInstance()->createModel(*SM_Crate, "Objects\\SM_Crate_01a", L"Objects\\TX_Crates_01a_ALB");
-	//SM_Crate->getTransform()->translate(Vector3::forward*50.0f);
-	//SM_Crate->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+	SM_Crate = SceneManager::sGetInstance()->createEmptyObject();
+	SM_Crate->setName("SM_Crate");
+	SceneManager::sGetInstance()->createModel(*SM_Crate, "Objects\\SM_Crate_01a", L"Objects\\TX_Crates_01a_ALB", maxPoint, minPoint);
+	SM_Crate->getTransform()->translate(Vector3::right*50.0f + Vector3::forward*100.f);
+	SM_Crate->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+	SM_Crate->getTransform()->calcultateTransformMatrix();
+	BoundingCube* SM_Crate_BoundingCube = new BoundingCube(SM_Crate);
+	SM_Crate_BoundingCube->createBoundingCube(maxPoint, minPoint, 0);
+	SM_Crate->addComponent(SM_Crate_BoundingCube);
+	SM_Crate_BoundingCube->box.Transform(SM_Crate_BoundingCube->box, SM_Crate->getTransform()->getLocalToWorldMatrix());
+	SM_Crate->cube = SM_Crate_BoundingCube;
 
 	//GameObject* SM_construction_fence = SceneManager::sGetInstance()->createEmptyObject();
 	//SM_construction_fence->setName("SM_construction_fence");
@@ -153,10 +162,10 @@ void GameLevelTest::enterLevel()
 	
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	EntityMgr->registerEntity(enemy);
-	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
-	aiController->posses(enemy);
-	aiController->setWanderData(10.0, 2.0f, 800.0);
-	aiController->maxspeed = 1.0;
+	//aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
+	//aiController->posses(enemy);
+	//aiController->setWanderData(10.0, 2.0f, 800.0);
+	//aiController->maxspeed = 1.0;
 	
 	//
 	/*
@@ -180,13 +189,12 @@ void GameLevelTest::enterLevel()
 	//shell->addComponent(shellBoundingSphere);
 	//shell->sphere = shellBoundingSphere;
 
-	//SoundManager::sGetInstance()->setLisenterPosition(enemy->getTransform()->getPosition());
+	SoundManager::sGetInstance()->setLisenterPosition(enemy->getTransform()->getPosition());
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
 	if (DInputPC::getInstance().iskeyDown(DIK_F)){
-		SoundManager::sGetInstance()->playSound(3);
 		shell = SceneManager::sGetInstance()->createSphere();
 		shell->getTransform()->Forward = enemy->getTransform()->Forward;
 		shell->getTransform()->setPosition(enemy->getTransform()->getPosition() + enemy->getTransform()->Forward*0.6f + enemy->getTransform()->Up*0.18f+enemy->getTransform()->Right*0.04f);
@@ -198,15 +206,22 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		shellBoundingSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1f, 1);
 		shell->addComponent(shellBoundingSphere);
 		shell->sphere = shellBoundingSphere;
+		shellFly->setTarget(SM_Crate);
 		tankFire = true;
+		sound = new SoundComponent(shell);
+		sound->setPosition();
+		shell->addComponent(sound);
+		SoundManager::sGetInstance()->playSound(sound->mChannel, 0);
 	}
 	if (shell) {
-		SoundManager::sGetInstance()->setSoundPosAndVel(shell->getTransform()->getPosition()*0.5, shell->getTransform()->Forward, 0);
+		//SoundManager::sGetInstance()->setSoundPosAndVel(shell->getTransform()->getPosition()*0.5, shell->getTransform()->Forward, 0);
 		SoundManager::sGetInstance()->onUpdate();
 	}
 
  	if (tankFire == true && shell != NULL && CollisionManager::sGetInstance()->collisionCheck_SphereToCube(shell->sphere, &collider) == true) {
-		SoundManager::sGetInstance()->playSound(6);
+		SoundManager::sGetInstance()->stop(sound->mChannel);
+		tankFire = false;
+		SoundManager::sGetInstance()->playSound(sound->mChannel,6);
 	}
 
 	////////////////put in bullet class int the future /////////////////
