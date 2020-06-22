@@ -172,6 +172,18 @@ void SoundManager::stop(const int & soundNum)
 	return;
 }
 
+void SoundManager::stop(FMOD::Channel* channel)
+{
+	bool isPlaying = false;
+	FMOD_RESULT result;
+	result = channel->isPlaying(&isPlaying);
+	if (result == FMOD_ERR_INVALID_HANDLE || result == FMOD_ERR_CHANNEL_STOLEN)
+		return;
+
+	channel->stop();
+	return;
+}
+
 void SoundManager::onUpdate()
 {
 	mFmodSystem->update();
@@ -217,7 +229,7 @@ FMOD_RESULT SoundManager::loadALLSoundFile()
 		result = mFmodSystem->createSound(soundfilename, FMOD_3D, NULL, &mFmodSound[i]);
 		if (result != FMOD_OK) return result;
 		if (i == 0) mFmodSound[0]->setMode(FMOD_LOOP_NORMAL);
-		mFmodSound[i]->set3DMinMaxDistance(10.f, 1000.f);
+		mFmodSound[i]->set3DMinMaxDistance(10.f, 100.f);
 		/*mFmodSound[i]->setMode(FMOD_3D_CUSTOMROLLOFF);
 		mFmodSound[i]->set3DCustomRolloff(points, 3);*/
 	}

@@ -34,6 +34,7 @@ public:
 	void setPause(const int& soundNum);
 	void setReplay(const int& soundNum);
 	void stop(const int& soundNum);
+	void stop(FMOD::Channel* channel);
 	void onUpdate();
 	void setSoundPosAndVel(const Vector3& pos, const Vector3& vel, const int& soundNum);
 	void setLisenterPosition(const Vector3& pos);
