@@ -357,9 +357,6 @@
     <ClCompile Include="imgui.cpp">
       <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Engine\Source\Render</Filter>
-    </ClCompile>
     <ClCompile Include="EntityManager.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
     </ClCompile>
@@ -404,9 +401,6 @@
     </ClCompile>
     <ClCompile Include="GameLevelTest.cpp">
       <Filter>Game\TestCode</Filter>
-    </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>Engine\Source</Filter>
     </ClCompile>
     <ClCompile Include="DefaultPlayerController.cpp">
       <Filter>Game\Source\Controller</Filter>
@@ -471,19 +465,12 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Engine\Source\SoundManager</Filter>
     </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerTank.cpp">
       <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
     <ClCompile Include="ShellFlyComponent.cpp">
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="SoundComponent.cpp">
-      <Filter>Engine\Source\SoundManager</Filter>
-=======
     <ClCompile Include="FreeType.cpp">
       <Filter>Engine\Source\Misc</Filter>
     </ClCompile>
@@ -501,7 +488,16 @@
     </ClCompile>
     <ClCompile Include="ULevelEvent.cpp">
       <Filter>Game\Source\Level</Filter>
->>>>>>> bf50c35a52ba9a7e0e75200fba3f1ffa9de780ae
+    </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="SoundComponent.cpp">
+=======
+    <ClCompile Include="AIMovementComponent.cpp">
+      <Filter>Engine\Source\Gameplay\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+>>>>>>> b5b1628090ba252828ba9ff20391b0a8ce0a1e1b
+      <Filter>Engine\Source\Gameplay\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -679,9 +675,6 @@
     <ClInclude Include="KeycodeRedefine.h">
       <Filter>Engine\Header\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Engine\Header\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
@@ -823,9 +816,6 @@
     <ClInclude Include="GameCharacter.h">
       <Filter>Game\Header\Pawn</Filter>
     </ClInclude>
-    <ClInclude Include="MovementComponent.h">
-      <Filter>Engine\Header</Filter>
-    </ClInclude>
     <ClInclude Include="AIController.h">
       <Filter>Game\Header\Controller</Filter>
     </ClInclude>
@@ -856,10 +846,6 @@
     <ClInclude Include="ShellFlyComponent.h">
       <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="SoundComponent.h">
-      <Filter>Engine\Header\SoundManager</Filter>
-=======
     <ClInclude Include="FreeType.h">
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
@@ -877,7 +863,16 @@
     </ClInclude>
     <ClInclude Include="ULevelEvent.h">
       <Filter>Game\Header\Level</Filter>
->>>>>>> bf50c35a52ba9a7e0e75200fba3f1ffa9de780ae
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="SoundComponent.h">
+=======
+    <ClInclude Include="AIMovementComponent.h">
+      <Filter>Engine\Header\Gameplay\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+>>>>>>> b5b1628090ba252828ba9ff20391b0a8ce0a1e1b
+      <Filter>Engine\Header\Gameplay\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -930,6 +925,9 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="UIVSVerticalT.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIPSText.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>

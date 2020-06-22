@@ -30,18 +30,8 @@ GameObject* shell;
 GameObject* collider;
 EnemyTank* enemy;
 EnemyTank* enemytarget;
-EnemyTank* enemy1;
-EnemyTank* enemy2;
-EnemyTank* enemy3;
-EnemyTank* enemy4;
-EnemyTank* enemy5;
 AIController* aiController;
-AIController* aiControllertarget;
-AIController* aiController1;
 AIController* aiController2;
-AIController* aiController3;
-AIController* aiController4;
-AIController* aiController5;
 
 bool tankFire = false;
 
@@ -58,6 +48,7 @@ void GameLevelTest::enterLevel()
 {
 	mCurrentGameMode = new GameModeBase();
 	mCurrentGameMode->onInit();
+
 	SceneManager::sGetInstance()->createCube()->getTransform()->setPosition(Vector3::right * 1.0f);
 
 	SoundManager::sGetInstance()->onInit();
@@ -149,23 +140,28 @@ void GameLevelTest::enterLevel()
 	//SM_construction_fence->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 
 	//hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+
+	// SceneManager::sGetInstance()->createUIText();
 	//set ai
 	
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	EntityMgr->registerEntity(enemy);
 	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
 	aiController->posses(enemy);
-	aiController->setWanderData(10.0, 2.0f, 800.0);
+<<<<<<< HEAD
+	aiController->setWanderData(10.0, 20.0, 800.0);
 	aiController->maxspeed = 1.0;
 	
-	//
-	/*
+	///*
 	enemytarget = new EnemyTank(ent_Tank_SuperEnemy);
 	EntityMgr->registerEntity(enemytarget);
-	aiControllertarget = SceneManager::sGetInstance()->createAIController(ent_Tank_SuperEnemy);
-	aiControllertarget->posses(enemytarget);
-	aiControllertarget->setWanderData(10.0, 20.0, 800.0);
+	aiController2 = SceneManager::sGetInstance()->createAIController(ent_Tank_SuperEnemy);
+	aiController2->posses(enemytarget);
+	aiController2->setWanderData(50.0, 100.0, 400.0);
+	aiController2->maxspeed = 0.5;
 	//*/
+=======
+>>>>>>> 056e60f6821be2d26129540f39e9773e3f04e3c7
 
 	//SoundManager::sGetInstance()->playSound(3);
 	//shell = SceneManager::sGetInstance()->createSphere();
@@ -185,6 +181,8 @@ void GameLevelTest::enterLevel()
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
+	SceneManager::sGetInstance()->onUpdate(deltaTime);
+
 	if (DInputPC::getInstance().iskeyDown(DIK_F)){
 		SoundManager::sGetInstance()->playSound(3);
 		shell = SceneManager::sGetInstance()->createSphere();
@@ -220,8 +218,6 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	}
 
 	Dispatch->DispatchDelayedMessages();
-	SceneManager::sGetInstance()->onUpdate(deltaTime);
-
 
 	if (DInputPC::getInstance().iskeyDown(DIK_F1))
 	{
@@ -244,7 +240,6 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	{
 		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
 	}
-
 
 	return this;
 }

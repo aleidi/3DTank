@@ -2,7 +2,7 @@
 #include "EngineCommon.h"
 #include <math.h>
 
-const float Pi = 3.1415926;
+const float Pi = 3.1415926f;
 
 class Math
 {

@@ -9,10 +9,10 @@ public:
 	MovementComponent(GameObject* object);
 	virtual ~MovementComponent();
 
-	void onUpdate(float deltaTime);
+	virtual void onUpdate(float deltaTime);
 
-	void addVelocity(Vector3 value) noexcept;
-	void addForce(Vector3 value) noexcept;
+	virtual void addVelocity(Vector3 value) = 0;
+	virtual void addForce(Vector3 value) = 0;
 
 protected:
 	Transform* mTransform;

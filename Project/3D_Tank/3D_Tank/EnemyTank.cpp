@@ -3,6 +3,7 @@
 #include "MessageDispatcher.h"
 #include "MessageTypes.h"
 #include "ComponentBase.h"
+#include "AIMovementComponent.h"
 
 /*
 void EnemyTank::update() {
@@ -38,7 +39,11 @@ EnemyTank::EnemyTank(int ID)
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);
 	// m_pStateMachine->setCurrentState(Rest::getInstance());
-}
+	
+	mMovementComp = new AIMovementComponent(this);
+	addComponent(mMovementComp);
+	
+}	
 
 EnemyTank::~EnemyTank()
 {
@@ -60,6 +65,11 @@ bool EnemyTank::handleMessage(const Telegram& msg) {
 	return m_pStateMachine->handleMessage(msg); 
 }
 */
+
+void EnemyTank::move(Vector3 value)
+{
+	mMovementComp->addForce(value);
+}
 
 bool EnemyTank::isDying()const {
 	if (mAttribute.m_HP <= DyingHP) {

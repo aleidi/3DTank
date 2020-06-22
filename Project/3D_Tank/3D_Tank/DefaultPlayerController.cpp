@@ -21,19 +21,19 @@ void DefaultPlayerController::onUpdate(float deltaTime)
 {
 	ControllerBase::onUpdate(deltaTime);
 
-	if (DInputPC::getInstance().iskey(DIK_W))
+	if (DInputPC::getInstance().iskey(MOVEFORWARD))
 	{
 		reinterpret_cast<DefaultPlayer*>(mPawn)->MoveForward(1.0f * deltaTime * mMovSpd);
 	}
-	if (DInputPC::getInstance().iskey(DIK_S))
+	if (DInputPC::getInstance().iskey(MOVEBACK))
 	{
 		reinterpret_cast<DefaultPlayer*>(mPawn)->MoveForward(-1.0f * deltaTime * mMovSpd);
 	}
-	if (DInputPC::getInstance().iskey(DIK_A))
+	if (DInputPC::getInstance().iskey(TURNLEFT))
 	{
 		reinterpret_cast<DefaultPlayer*>(mPawn)->MoveRight(-1.0f * deltaTime * mMovSpd);
 	}
-	if (DInputPC::getInstance().iskey(DIK_D))
+	if (DInputPC::getInstance().iskey(TURNRIGHT))
 	{
 		reinterpret_cast<DefaultPlayer*>(mPawn)->MoveRight(1.0f * deltaTime * mMovSpd);
 	}

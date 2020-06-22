@@ -3,6 +3,7 @@
 Component::Component(GameObject * object) noexcept
 	:mObject(object)
 {
+	
 }
 
 Component::~Component()
