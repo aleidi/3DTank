@@ -499,7 +499,7 @@
       <Filter>Game\Source\Level</Filter>
     </ClCompile>
     <ClCompile Include="SoundComponent.cpp">
-      <Filter>Engine\Source\SoundManager</Filter>
+      <Filter>Engine\Source\Gameplay\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -873,7 +873,7 @@
       <Filter>Game\Header\Level</Filter>
     </ClInclude>
     <ClInclude Include="SoundComponent.h">
-      <Filter>Engine\Header\SoundManager</Filter>
+      <Filter>Engine\Header\Gameplay\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

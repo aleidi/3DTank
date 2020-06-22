@@ -13,17 +13,8 @@ public:
 	SoundComponent(GameObject* obj);
 	~SoundComponent();
 
-	//void playSound();
-	//void setPause();
-	//void setReplay();
+	void setPosition();
 	void onUpdate(float detalTime) override;
-	//FMOD::Sound* getSound();
-	FMOD::Channel* getChannel();
-	void setChannel(FMOD::Channel* ch);
 
-	//FMOD_RESULT loadSoundFile(const std::string& filePath);
-
-private:
-	//FMOD::Sound* mSound;
 	FMOD::Channel* mChannel;
 };

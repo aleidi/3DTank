@@ -4,18 +4,21 @@
 
 SoundComponent::SoundComponent(GameObject * obj) : Component(obj)
 {
+	//mChannel->set3DMinMaxDistance(10.f,20.f);
+	//FMOD_VECTOR points[3] = {
+	//	{1.f,0.8f,0.f},
+	//	{20.f,0.5f,0.f},
+	//	{50.f,0.2f,0.f}
+	//};
+	//mChannel->set3DCustomRolloff(points,3);
+	//mChannel->setMode(FMOD_3D_CUSTOMROLLOFF);
 }
 
 SoundComponent::~SoundComponent()
 {
 }
 
-//FMOD::Sound* SoundComponent::getSound()
-//{
-//	return this->mSound;
-//}
-
-void SoundComponent::onUpdate(float detalTime)
+void SoundComponent::setPosition()
 {
 	FMOD_VECTOR position;
 	position.x = this->getObject()->getTransform()->getPosition().x;
@@ -24,13 +27,11 @@ void SoundComponent::onUpdate(float detalTime)
 	this->mChannel->set3DAttributes(&position, NULL);
 }
 
-FMOD::Channel* SoundComponent::getChannel()
+void SoundComponent::onUpdate(float detalTime)
 {
-	return mChannel;
-}
-
-void SoundComponent::setChannel(FMOD::Channel * ch)
-{
-	if(ch)
-		this->mChannel = ch;
+	FMOD_VECTOR position;
+	position.x = this->getObject()->getTransform()->getPosition().x;
+	position.y = this->getObject()->getTransform()->getPosition().y;
+	position.z = this->getObject()->getTransform()->getPosition().z;
+	this->mChannel->set3DAttributes(&position, NULL);
 }

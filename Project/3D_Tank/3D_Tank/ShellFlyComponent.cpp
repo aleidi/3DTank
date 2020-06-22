@@ -5,7 +5,7 @@
 
 ShellFlyComponent::ShellFlyComponent(GameObject * obj):Component(obj)
 {
-	this->velocity = this->getObject()->getTransform()->Forward;
+	this->velocity = this->getObject()->getTransform()->Forward.normalize() * 2.f;
 	this->gracity = Vector3(0.f, 0.f, 0.f);
 }
 
