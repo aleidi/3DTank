@@ -17,7 +17,7 @@ EnemyTank::EnemyTank(int ID)
 	BaseGameEntity(ID)
 {
 
-	mAttribute = {100,1000.0f,2000.0f};
+	mAttribute = {100,1000.0f,2000.0f,50.0f};
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack"));
@@ -60,11 +60,30 @@ int EnemyTank::getHP()const {
 	return mAttribute.m_HP;
 }
 
-/*
-bool EnemyTank::handleMessage(const Telegram& msg) {
-	return m_pStateMachine->handleMessage(msg); 
+void EnemyTank::setMass(float mass) {
+	mAttribute.m_Mass = mass;
 }
-*/
+
+
+float EnemyTank::getMass()const {
+	return mAttribute.m_Mass;
+}
+
+void EnemyTank::setMaxSpeed(float maxspeed) {
+	mAttribute.m_MaxSpeed = maxspeed;
+}
+
+float EnemyTank::getMaxSpeed()const {
+	return mAttribute.m_MaxSpeed;
+}
+
+void EnemyTank::setVelocity(Vector3 newVelocity) {
+	mAttribute.m_Velocity = newVelocity;
+}
+
+Vector3 EnemyTank::getVelocity()const {
+	return mAttribute.m_Velocity;
+}
 
 void EnemyTank::move(Vector3 value)
 {

@@ -32,10 +32,6 @@ public:
 private:
 	Wander() {}
 
-	float mass = 50;
-	
-	float rotate = 0.0f;
-	float prerotate = 0.0f;
 	Wander(const Wander&);
 	Wander& operator=(const Wander&);
 };
