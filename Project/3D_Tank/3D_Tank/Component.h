@@ -16,6 +16,7 @@ public:
 	virtual void onEnable() {}
 	virtual void onStart() {}
 	virtual void onUpdate(float deltaTime) {}
+	virtual void onLateUpdate(float deltaTime) {}
 	virtual void onFixedUpdate(float deltaTime) {}
 
 	GameObject* getObject() const noexcept;

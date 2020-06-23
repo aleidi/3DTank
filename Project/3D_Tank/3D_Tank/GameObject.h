@@ -36,6 +36,7 @@ public:
 
 	virtual void onStart();
 	virtual void onUpdate(float deltaTime);
+	virtual void onLateUpdate(float deltaTime);
 	void onEngineUpdate(float deltaTime);
 	void onEngineFixedUpdate(float fixedDeltaTime);
 

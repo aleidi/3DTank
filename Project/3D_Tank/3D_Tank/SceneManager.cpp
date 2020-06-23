@@ -218,6 +218,25 @@ void SceneManager::onUpdate(float deltaTime)
 	}
 }
 
+void SceneManager::onLateUpdate(float deltaTime)
+{
+	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)
+	{
+		if (nullptr != *it && (*it)->hasParent() != true)
+		{
+			(*it)->onLateUpdate(deltaTime);
+		}
+	}
+
+	for (std::map<int, AIController*>::iterator it = mAIControllers.begin(); it != mAIControllers.end(); ++it)
+	{
+		if (nullptr != (*it).second)
+		{
+			(*it).second->onLateUpdate(deltaTime);
+		}
+	}
+}
+
 void SceneManager::onEngineUpdate(float deltaTime)
 {
 	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)

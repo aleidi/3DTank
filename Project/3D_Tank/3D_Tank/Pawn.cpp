@@ -20,6 +20,6 @@ void Pawn::onUpdate(float deltaTime)
 	GameObject::onUpdate(deltaTime);
 }
 
-void Pawn::Move(Vector3 value)
+void Pawn::move(Vector3 value)
 {
 }

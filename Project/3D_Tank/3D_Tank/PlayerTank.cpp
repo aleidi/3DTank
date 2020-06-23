@@ -1,8 +1,15 @@
+#include <DirectXMath.h>
 #include "PlayerTank.h"
 #include "ComponentBase.h"
 #include "GameCommon.h"
+#include "PlayerCamera.h"
 
 PlayerTank::PlayerTank()
+	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
+	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
+	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
+	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
+	mFPToTPThreshold(0.7f), mMinDisToCam(0.0f),mMaxDisToCam(1.0f)
 {
 	mName = "PlayerTank";
 
@@ -10,21 +17,27 @@ PlayerTank::PlayerTank()
 
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
-	mBattery->addComponent(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex"));
+	mBattery->addComponent(SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex"));
 	mBattery->attach(*this);
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex");
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack");
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack");
 
-	mCamFollower = SceneManager::sGetInstance()->createEmptyObject();
+	mCamFollower = SceneManager::sGetInstance()->createCube();
+	mCamFollower->getTransform()->setScale(0.1f, 0.1f, 0.1f);
 	mCamFollower->setName("CameraFollower");
-	mCamFollower->attach(*this);
-	Vector3 trans = Vector3::right * 20.0f + Vector3::forward * -20.0f;
-	mCamFollower->getTransform()->translate(trans);
-	mCamera = new Camera(mCamFollower);
-	mCamFollower->addComponent(mCamera);
-
+	mCamera = SceneManager::sGetInstance()->createEmptyObject();
+	mCamera->setName("CameraObj");
+	mCameraComp = new PlayerCamera(mCamera);
+	mCamera->addComponent(mCameraComp);
+	mCamera->attach(*mCamFollower);
+	mCamera->getTransform()->translate(mTransform->getPosition() + 
+		mCamFollower->getTransform()->Forward * mCamFollowFactorX + mCamFollower->getTransform()->Up * mCamFollowFactorY * mDisToCam);
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
+
+	//t1 = SceneManager::sGetInstance()->createSphere();
+	//t1->attach(*mCamFollower);
+	//t1->getTransform()->translate(Vector3::right * 2.0f);
 }
 
 PlayerTank::~PlayerTank()
@@ -32,39 +45,91 @@ PlayerTank::~PlayerTank()
 	mBattery = nullptr;
 	mCamFollower = nullptr;
 	mCamera = nullptr;
+	mCameraComp = nullptr;
 }
 
-void PlayerTank::Move(Vector3 value)
+void PlayerTank::onUpdate(float deltaTime)
 {
-	mAccumulateSpd += value;
-	mAccumulateSpd = Math::lerp(mAccumulateSpd, Vector3::zero, 0.5f);
-	mTransform->translate(mAccumulateSpd);
+	Pawn::onUpdate(deltaTime);
 
-	value = value.normalize();
-	float rad = Vector3::dot(mTransform->Forward, value);
-	mAccumulateRot += acosf(rad);
-	mAccumulateRot = Math::lerp(mAccumulateRot, 0.0f, 0.5f);
-	mTransform->rotateY(mAccumulateRot, false);
+	//std::wstring wstr = L"Position:";
+	//wstr += std::to_wstring(v.x) + L"," + std::to_wstring(v.y) +
+	//	L"," + std::to_wstring(v.z);
+	//Engine::sGetInstance()->showtText(wstr, 100, 100, 500, 500, true);
 }
 
-void PlayerTank::RotateBattery(float valueX, float valueY)
+void PlayerTank::onLateUpdate(float deltaTime)
 {
-	mAccumulateRotBX += valueX;
-	mAccumulateRotBX = Math::lerp(mAccumulateRotBX, 0.0f, 0.5f);
-	mBattery->getTransform()->rotateX(mAccumulateRotBX, false);
+	Vector3 v = Math::lerp(mBattery->getTransform()->getRotation(), mCamFollower->getTransform()->getRotation(), deltaTime*mBatteryRotSpd);
+	mBattery->getTransform()->setRotation(v);
+	Vector3 rot = mBattery->getTransform()->getRotation();
+	if (rot.x > XMConvertToRadians(mBatteryMaxPitch))
+	{
+		rot.x = XMConvertToRadians(mBatteryMaxPitch);
+		mBattery->getTransform()->setRotation(rot);
+	}
+	if (rot.x < XMConvertToRadians(mBatteryMinPitch))
+	{
+		rot.x = XMConvertToRadians(mBatteryMinPitch);
+		mBattery->getTransform()->setRotation(rot);
+	}
 
-	mAccumulateRotBY += valueY;
-	mAccumulateRotBY = Math::lerp(mAccumulateRotBY, 0.0f, 0.5f);
-	mBattery->getTransform()->rotateY(mAccumulateRotBY, false);
+	Engine::sGetInstance()->showtText(std::to_wstring(rot.x), 100, 100, 500, 500, true);
 }
 
-void PlayerTank::RotateCamera(float valueX, float valueY)
+void PlayerTank::move(Vector3 value)
 {
-	mAccumulateRotCX += valueX;
-	mAccumulateRotCX = Math::lerp(mAccumulateRotCX, 0.0f, 0.9f);
-	mCamFollower->getTransform()->rotateX(mAccumulateRotCX, false);
+	mTransform->translate(value * mMoveSped);
+	mCamFollower->getTransform()->setPosition(mTransform->getPosition() + mFPCameraOffset);
+}
 
-	mAccumulateRotCY += valueY;
-	mAccumulateRotCY = Math::lerp(mAccumulateRotCY, 0.0f, 0.9f);
-	mCamFollower->getTransform()->rotateY(mAccumulateRotCY, false);
+void PlayerTank::rotate(float value)
+{
+	mTransform->rotateY(value * mRotateSpd);
+}
+
+void PlayerTank::rotateCamera(float valueX, float valueY)
+{
+	float angle = mCamFollower->getTransform()->getRotation().x;
+	if (angle > mMaxPitchAngle)
+	{
+		valueX = -0.01f;
+	}
+	else if (angle < mMinPitchAngle)
+	{
+		valueX = 0.01f;
+	}
+	mCamFollower->getTransform()->rotate(valueX*60.0f, valueY*60.0f,0.0f);
+
+
+	std::wstring wstr = L"Rotation:";
+	wstr += std::to_wstring(mCamFollower->getTransform()->getRotation().x) + L"," + std::to_wstring(mCamFollower->getTransform()->getRotation().y) +
+		L"," + std::to_wstring(mCamFollower->getTransform()->getRotation().z);
+	//Engine::sGetInstance()->showtText(wstr, 100, 100, 500, 500, true);
+
+}
+
+void PlayerTank::adjustDisToCam(float value)
+{
+	mDisToCam += value;
+	Math::Clamp(mMaxDisToCam, mMinDisToCam, mDisToCam);
+	Vector3 dir = mCamFollower->getTransform()->Forward * mCamFollowFactorX + mCamFollower->getTransform()->Up * mCamFollowFactorY;
+	if (mDisToCam > mFPToTPThreshold)
+	{
+		mCamera->getTransform()->setPosition(mTransform->getPosition() + dir * mDisToCam);
+	}
+	else if (mDisToCam <= mFPToTPThreshold)
+	{
+		mFPCameraOffset = mTransform->Forward * mFPOfssetFactorX + mTransform->Up * mFPOfssetFactorY;
+		mCamera->getTransform()->setPosition(mTransform->getPosition() + mFPCameraOffset + dir * mDisToCam);
+	}
+
+	//std::wstring wstr = L"Position:";
+	//wstr += std::to_wstring(mBattery->getTransform()->getRotation().x) + L"," + std::to_wstring(mBattery->getTransform()->getRotation().y) +
+	//	L"," + std::to_wstring(mBattery->getTransform()->getRotation().z);
+}
+
+void PlayerTank::setCameraFov(float value)
+{
+	mCameraComp->setFov(value);
 }

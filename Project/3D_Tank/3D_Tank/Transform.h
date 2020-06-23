@@ -13,12 +13,14 @@ public:
 	Transform(GameObject* obj) noexcept;
 	void onEngineUpdate(float deltaTime) override;
 	void onUpdate(float deltaTime) override;
+	void onLateUpdate(float deltaTime) override;
 
 	void translate(const Vector3&);
 	void translate(float x, float y, float z);
 	void rotateX(float, bool isDeg = true);
 	void rotateY(float, bool isDeg = true);
 	void rotateZ(float, bool isDeg = true);
+	void rotate(float x, float y, float z, bool isDeg = true);
 
 	Transform* getChild(int);
 	Transform* getParent();
@@ -47,6 +49,7 @@ public:
 
 private:
 	void calcultateTransformMatrix() noexcept;
+	void calculateRotForChildren(float angleX, float angleY, float angleZ) noexcept;
 
 private:
 	std::list<Transform*> children;

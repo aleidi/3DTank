@@ -9,16 +9,17 @@ public:
 	~PlayerCamera();
 
 	void onUpdate(float deltaTime) override;
+	void onLateUpdate(float deltaTime) override;
 
 	void setSpdForPos(float value);
 	void setSpdForRot(float value);
+	void setFov(float value);
 
 private:
 	float mTargetFov;
-	Vector3 mTargetPosition;
-	Vector3 mTargetRotation;
 
 	float mSpdForPos;
 	float mSpdForRot;
+	float mSpdForFov;
 };
 

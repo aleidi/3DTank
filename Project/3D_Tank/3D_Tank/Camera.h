@@ -10,7 +10,7 @@ public:
 	virtual ~Camera();
 
 	void onUpdate(float deltaTime) override;
-	void setFov(float value);
+	virtual void setFov(float value);
 public:
 	Vector3 Position;
 	Vector3 Rotation;	
