@@ -19,7 +19,7 @@ public:
 	virtual void onLateUpdate(float deltaTime) {}
 	virtual void onFixedUpdate(float deltaTime) {}
 
-	GameObject* getObject() const noexcept;
+	GameObject* getObject() noexcept;
 
 protected:
 	GameObject* mObject;

@@ -2,7 +2,12 @@
 #include "BindableBase.h"
 
 Sphere::Sphere(RenderComponent * owner)
-	:Mesh(owner)
+	:Sphere(owner,L"")
+{
+}
+
+Sphere::Sphere(RenderComponent * owner, const std::wstring & texture)
+	: Mesh(owner)
 {
 	Graphics& gfx = RenderManager::sGetInstance()->getGraphics();
 	GeometryGenerator::Mesh mesh;

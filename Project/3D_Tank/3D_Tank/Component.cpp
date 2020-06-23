@@ -11,7 +11,7 @@ Component::~Component()
 	mObject = nullptr;
 }
 
-GameObject * Component::getObject() const noexcept
+GameObject * Component::getObject() noexcept
 {
 	return mObject;
 }

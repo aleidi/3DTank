@@ -12,6 +12,7 @@ class GameObject
 public:
 	GameObject();
 	virtual ~GameObject();
+	GameObject(GameObject& obj);
 
 	void addComponent(Component* comp) noexcept;
 	void addScriptComponent(ScriptComponent* comp) noexcept;
