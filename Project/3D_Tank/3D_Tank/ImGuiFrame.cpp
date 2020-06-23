@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "KeycodeRedefine.h"
+#include "Engine.h"
 
 static std::map<std::string, bool> selectKey;
 static bool isNewCube = false;
@@ -138,6 +139,16 @@ void ImGuiFrame::onUpdate(float deltaTime)
 			}
 		}
 
+		ImGui::Text(" --------------------------------- ");
+		if (ImGui::Button("Strat"))
+		{
+			Engine::sGetInstance()->enableGameMode(true);
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Stop"))
+		{
+			Engine::sGetInstance()->enableGameMode(false);
+		}
 		ImGui::End();
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

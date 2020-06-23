@@ -30,6 +30,8 @@ Engine::Engine(Window& wnd)
 	onPreInit();
 
 	onInit();
+
+	mIsEditMode = true;
 }
 
 Engine * Engine::sGetInstance()
@@ -188,6 +190,11 @@ POINT Engine::getCursorPos()
 void Engine::enableEditMode(bool value)
 {
 	mIsEditMode = value;
+}
+
+void Engine::enableGameMode(bool value)
+{
+	mIsGameMode = value;
 }
 
 void Engine::showtText(const std::wstring & str = L"", float leftTopX=0, float leftTopY=0, float width=0, float height=0, bool canShow = false)
