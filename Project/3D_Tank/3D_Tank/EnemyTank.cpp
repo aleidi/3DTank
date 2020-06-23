@@ -108,11 +108,12 @@ bool EnemyTank::isEnemyInRange()const {
 	if( Vector3::lengthSq( getPlayerPos, mTransform->getPosition() ) <= mAttribute.m_AttackRangeRadiusSq ) {
 		//check if there are any obstacles
 		float distance = 0.0f;
-		bool isObstacle = CollisionManager::sGetInstance()->rayCheckWithObstacle(mTransform->getPosition(),
-															   (getPlayerPos - mTransform->getPosition()).normalize(),
-															   sqrt(Vector3::lengthSq(getPlayerPos, mTransform->getPosition())),
-															   nullptr, distance);
-		if( !isObstacle ) return true;
+		//bool isObstacle = CollisionManager::sGetInstance()->rayCheckWithObstacle(mTransform->getPosition(),
+			//												   (getPlayerPos - mTransform->getPosition()).normalize(),
+			//												   sqrt(Vector3::lengthSq(getPlayerPos, mTransform->getPosition())),
+			//												   nullptr, distance);
+		if(0)//if( !isObstacle ) 
+			return true;
 		else return false;
 		// else return false;return true; 
 	}
