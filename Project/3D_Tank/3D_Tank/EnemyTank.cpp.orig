@@ -16,8 +16,9 @@ EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
 	BaseGameEntity(ID)
 {
+<<<<<<< HEAD
 	DirectX::XMVECTOR maxPoint, minPoint;
-	mAttribute = {100,1000.0f,2000.0f,50.0f};
+	mAttribute = {100,1000.0f,2000.0f};
 	GameObject* tankBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	tankBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
@@ -37,6 +38,12 @@ EnemyTank::EnemyTank(int ID)
 
 	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex"));
+=======
+
+	mAttribute = {100,1000.0f,2000.0f,50.0f};
+	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex"));
+	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex"));
+>>>>>>> 29f7e43427425fdbbee84390007df27dfa77f667
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack"));
 

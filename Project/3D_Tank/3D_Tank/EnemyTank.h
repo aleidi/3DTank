@@ -28,6 +28,12 @@ public:
 	//////////////////////////////////////////////////////accessors
 	void setHP(int changeHP);
 	int getHP()const;
+	void setMass(float mass);
+	float getMass()const;
+	void setMaxSpeed(float maxspeed);
+	float getMaxSpeed()const;
+	void setVelocity(Vector3 newVelocity);
+	Vector3 getVelocity()const;
 
 	void move(Vector3 value);
 	bool isDying()const;

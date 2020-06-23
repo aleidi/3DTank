@@ -25,3 +25,7 @@
 #ifndef HOTKEY
 #define HOTKEY DIK_F1
 #endif // !PAUSE
+
+#ifndef MIRROR
+#define MIRROR 1
+#endif // !1

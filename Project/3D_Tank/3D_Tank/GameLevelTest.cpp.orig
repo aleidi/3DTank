@@ -15,6 +15,7 @@
 #include "CollisionManager.h"
 #include "BoundingSphere.h"
 #include "BoundingCube.h"
+#include "SoundComponent.h"
 #include "SoundManager.h"
 #include <windows.h>
 
@@ -26,12 +27,24 @@ GameObject* tankTrackR;
 GameObject* cam;
 GameObject* follow;
 GameObject* SM_WaterTank;
+GameObject* SM_Crate;
 GameObject* shell;
 GameObject* collider;
+SoundComponent* sound;
 EnemyTank* enemy;
 EnemyTank* enemytarget;
+EnemyTank* enemy1;
+EnemyTank* enemy2;
+EnemyTank* enemy3;
+EnemyTank* enemy4;
+EnemyTank* enemy5;
 AIController* aiController;
+AIController* aiControllertarget;
+AIController* aiController1;
 AIController* aiController2;
+AIController* aiController3;
+AIController* aiController4;
+AIController* aiController5;
 
 bool tankFire = false;
 
@@ -48,7 +61,6 @@ void GameLevelTest::enterLevel()
 {
 	mCurrentGameMode = new GameModeBase();
 	mCurrentGameMode->onInit();
-
 	SceneManager::sGetInstance()->createCube()->getTransform()->setPosition(Vector3::right * 1.0f);
 
 	SoundManager::sGetInstance()->onInit();
@@ -118,20 +130,26 @@ void GameLevelTest::enterLevel()
 	SceneManager::sGetInstance()->createModel(*SM_WaterTank, "Objects\\SM_WaterTank_01a", L"Objects\\TX_PortableWaterTank_01_ALB",maxPoint,minPoint);
 	SM_WaterTank->getTransform()->translate(Vector3::forward*20.0f + Vector3::up*-10.f + Vector3::right*-5.f);
 	SM_WaterTank->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
-	BoundingCube* SM_WaterTank_BoundingCube = new BoundingCube(SM_WaterTank);
+	/*BoundingCube* SM_WaterTank_BoundingCube = new BoundingCube(SM_WaterTank);
 	SM_WaterTank_BoundingCube->createBoundingCube(maxPoint, minPoint,0);
 	SM_WaterTank->addComponent(SM_WaterTank_BoundingCube);
 	DirectX::BoundingOrientedBox out;
-	//SM_WaterTank->getTransform()->calcultateTransformMatrix();
+	SM_WaterTank->getTransform()->calcultateTransformMatrix();
 	SM_WaterTank_BoundingCube->box.Transform(out, SM_WaterTank->getTransform()->getLocalToWorldMatrix());
 	SM_WaterTank_BoundingCube->box = out;
-	SM_WaterTank->cube = SM_WaterTank_BoundingCube;
+	SM_WaterTank->cube = SM_WaterTank_BoundingCube;*/
 
-	//GameObject* SM_Crate = SceneManager::sGetInstance()->createEmptyObject();
-	//SM_Crate->setName("SM_Crate");
-	//SceneManager::sGetInstance()->createModel(*SM_Crate, "Objects\\SM_Crate_01a", L"Objects\\TX_Crates_01a_ALB");
-	//SM_Crate->getTransform()->translate(Vector3::forward*50.0f);
-	//SM_Crate->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+	SM_Crate = SceneManager::sGetInstance()->createEmptyObject();
+	SM_Crate->setName("SM_Crate");
+	SceneManager::sGetInstance()->createModel(*SM_Crate, "Objects\\SM_Crate_01a", L"Objects\\TX_Crates_01a_ALB", maxPoint, minPoint);
+	SM_Crate->getTransform()->translate(Vector3::right*50.0f + Vector3::forward*50.f);
+	SM_Crate->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+	SM_Crate->getTransform()->calcultateTransformMatrix();
+	BoundingCube* SM_Crate_BoundingCube = new BoundingCube(SM_Crate);
+	SM_Crate_BoundingCube->createBoundingCube(maxPoint, minPoint, 0);
+	SM_Crate->addComponent(SM_Crate_BoundingCube);
+	SM_Crate_BoundingCube->box.Transform(SM_Crate_BoundingCube->box, SM_Crate->getTransform()->getLocalToWorldMatrix());
+	SM_Crate->cube = SM_Crate_BoundingCube;
 
 	//GameObject* SM_construction_fence = SceneManager::sGetInstance()->createEmptyObject();
 	//SM_construction_fence->setName("SM_construction_fence");
@@ -140,29 +158,35 @@ void GameLevelTest::enterLevel()
 	//SM_construction_fence->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 
 	//hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
-
-	// SceneManager::sGetInstance()->createUIText();
 	//set ai
 	
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	EntityMgr->registerEntity(enemy);
+<<<<<<< HEAD
 	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
 	aiController->posses(enemy);
-<<<<<<< HEAD
-	aiController->setWanderData(10.0, 20.0, 800.0);
+	aiController->setWanderData(10.0, 2.0f, 800.0);
 	aiController->maxspeed = 1.0;
-	
-	///*
-	enemytarget = new EnemyTank(ent_Tank_SuperEnemy);
-	EntityMgr->registerEntity(enemytarget);
-	aiController2 = SceneManager::sGetInstance()->createAIController(ent_Tank_SuperEnemy);
-	aiController2->posses(enemytarget);
-	aiController2->setWanderData(50.0, 100.0, 400.0);
-	aiController2->maxspeed = 0.5;
-	//*/
 =======
->>>>>>> 056e60f6821be2d26129540f39e9773e3f04e3c7
-
+	enemy->setMaxSpeed(1.5f);
+	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
+	aiController->posses(enemy);
+	aiController->setWanderData(10.0, 20.0f, 800.0);
+	
+>>>>>>> 29f7e43427425fdbbee84390007df27dfa77f667
+	//
+	
+	enemytarget = new EnemyTank(ent_Tank_SuperEnemy);
+	enemytarget->getTransform()->setPosition(Vector3(10, 0, 10));
+	EntityMgr->registerEntity(enemytarget);
+	enemytarget->setMaxSpeed(1.0f);
+	aiControllertarget = SceneManager::sGetInstance()->createAIController(ent_Tank_SuperEnemy);
+	aiControllertarget->getFSM()->setCurrentState(Evade::getInstance());
+	aiControllertarget->posses(enemytarget);
+	aiControllertarget->setWanderData(10.0, 20.0, 800.0);
+	//*/
+	aiController->setTarget(aiControllertarget);
+	aiControllertarget->setTarget(aiController);
 	//SoundManager::sGetInstance()->playSound(3);
 	//shell = SceneManager::sGetInstance()->createSphere();
 	//shell->getTransform()->Forward = enemy->getTransform()->Forward;
@@ -176,18 +200,15 @@ void GameLevelTest::enterLevel()
 	//shell->addComponent(shellBoundingSphere);
 	//shell->sphere = shellBoundingSphere;
 
-	//SoundManager::sGetInstance()->setLisenterPosition(enemy->getTransform()->getPosition());
+	SoundManager::sGetInstance()->setLisenterPosition(enemy->getTransform()->getPosition());
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
-	SceneManager::sGetInstance()->onUpdate(deltaTime);
-
 	if (DInputPC::getInstance().iskeyDown(DIK_F)){
-		SoundManager::sGetInstance()->playSound(3);
 		shell = SceneManager::sGetInstance()->createSphere();
-		shell->getTransform()->Forward = enemy->getTransform()->Forward;
-		shell->getTransform()->setPosition(enemy->getTransform()->getPosition() + enemy->getTransform()->Forward*0.6f + enemy->getTransform()->Up*0.18f+enemy->getTransform()->Right*0.04f);
+		shell->getTransform()->Forward = SM_WaterTank->getTransform()->Forward * -1;
+		shell->getTransform()->setPosition(SM_WaterTank->getTransform()->getPosition() + SM_WaterTank->getTransform()->Forward*0.6f + enemy->getTransform()->Up*0.18f+enemy->getTransform()->Right*0.04f);
 		shell->getTransform()->setScale(Vector3(0.02f, 0.02f, 0.02f));
 		SceneManager::sGetInstance()->addGameObjectToPool(shell);
 		ShellFlyComponent* shellFly = new ShellFlyComponent(shell);
@@ -196,15 +217,22 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		shellBoundingSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1f, 1);
 		shell->addComponent(shellBoundingSphere);
 		shell->sphere = shellBoundingSphere;
+		shellFly->setTarget(enemy);
 		tankFire = true;
+		sound = new SoundComponent(shell);
+		sound->setPosition();
+		shell->addComponent(sound);
+		SoundManager::sGetInstance()->playSound(sound->mChannel, 0);
 	}
 	if (shell) {
-		SoundManager::sGetInstance()->setSoundPosAndVel(shell->getTransform()->getPosition()*0.5, shell->getTransform()->Forward, 0);
+		//SoundManager::sGetInstance()->setSoundPosAndVel(shell->getTransform()->getPosition()*0.5, shell->getTransform()->Forward, 0);
 		SoundManager::sGetInstance()->onUpdate();
 	}
 
  	if (tankFire == true && shell != NULL && CollisionManager::sGetInstance()->collisionCheck_SphereToCube(shell->sphere, &collider) == true) {
-		SoundManager::sGetInstance()->playSound(6);
+		SoundManager::sGetInstance()->stop(sound->mChannel);
+		tankFire = false;
+		SoundManager::sGetInstance()->playSound(sound->mChannel,6);
 	}
 
 	////////////////put in bullet class int the future /////////////////
@@ -218,6 +246,8 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	}
 
 	Dispatch->DispatchDelayedMessages();
+	SceneManager::sGetInstance()->onUpdate(deltaTime);
+
 
 	if (DInputPC::getInstance().iskeyDown(DIK_F1))
 	{
@@ -240,6 +270,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	{
 		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
 	}
+
 
 	return this;
 }

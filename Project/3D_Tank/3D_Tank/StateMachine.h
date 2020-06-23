@@ -25,11 +25,11 @@ public:
 	void setPreviousState(State<entity_type>* s) { m_pPreviousState = s; }
 	void setGlobalState(State<entity_type>* s) { m_pGlobalState = s; }
 
-	void update() const {
+	void update(float deltaTime) const {
 		if (m_pGlobalState)
-			m_pGlobalState->execute(m_pOwner);
+			m_pGlobalState->execute(m_pOwner,deltaTime);
 		if (m_pCurrentState)
-			m_pCurrentState->execute(m_pOwner);
+			m_pCurrentState->execute(m_pOwner, deltaTime);
 	}
 
 	void changeState(State<entity_type>* pNewState) {

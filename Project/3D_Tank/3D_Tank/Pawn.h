@@ -27,10 +27,19 @@ public:
 
 	virtual void onStart() override;
 	virtual void onUpdate(float deltaTime) override;
-	virtual void Move(Vector3 value);
+
+
+	virtual void move(Vector3 value);
 
 	void setHP(int changeHP);
 	int getHP()const;
+	void setMass(float mass);
+	float getMass()const;
+	void setMaxSpeed(float maxspeed);
+	float getMaxSpeed()const;
+	void setVelocity( Vector3 newVelocity );
+	Vector3 getVelocity()const;
+
 	bool isDying()const;
 	bool isEnemyInRange()const;
 	bool isLostEnemy()const;

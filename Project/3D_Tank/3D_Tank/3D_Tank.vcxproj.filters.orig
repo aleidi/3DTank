@@ -38,6 +38,12 @@
     <Filter Include="Engine\Header\Physics">
       <UniqueIdentifier>{8a6cb8a6-792a-4243-a9ce-eddfb6d69bb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Header\GUI">
+      <UniqueIdentifier>{de54c582-a592-4ebd-a382-6a0e8ea94a2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header\EUI">
+      <UniqueIdentifier>{54ede792-44f9-4d40-a5fb-1b4d11f54105}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Engine\Header\Gameplay">
       <UniqueIdentifier>{59ab0317-11f0-4324-b461-3d569adff7da}</UniqueIdentifier>
     </Filter>
@@ -77,6 +83,12 @@
     </Filter>
     <Filter Include="Engine\Source\Physics">
       <UniqueIdentifier>{3c772027-ba43-4122-89ef-605b61a58e5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source\GUI">
+      <UniqueIdentifier>{9a9f5374-4b25-4670-9c33-f05f9a222e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source\EUI">
+      <UniqueIdentifier>{74fa69c3-09b4-402b-a9bc-ec87f35663d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Source\Gameplay">
       <UniqueIdentifier>{36d87a03-c4d2-4a37-9fbf-f737bdec40df}</UniqueIdentifier>
@@ -136,9 +148,7 @@
     <Filter Include="Game\TestCode">
       <UniqueIdentifier>{68c49376-639b-4979-bb01-89a9fd9e3f2c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Header\Gameplay\AI\FSM">
-      <UniqueIdentifier>{0b0f5d0c-f4bf-48c5-98bd-fce02efcd6ed}</UniqueIdentifier>
-    </Filter>
+<<<<<<< HEAD
     <Filter Include="Game\Header\Input">
       <UniqueIdentifier>{4cd0b4ab-9aff-4627-8547-56461652246d}</UniqueIdentifier>
     </Filter>
@@ -150,48 +160,10 @@
     </Filter>
     <Filter Include="Game\Header\Camera">
       <UniqueIdentifier>{203b48ea-b476-416a-8c3e-31a80f8ac5ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Header\Physics\BoundingBox">
-      <UniqueIdentifier>{95e1be71-b841-4e96-a379-3724d92291ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Source\Physics\BoundingBox">
-      <UniqueIdentifier>{5e8c02b2-9f07-42a6-9a70-1a79f62b0f3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Header\Render\GUI">
-      <UniqueIdentifier>{de54c582-a592-4ebd-a382-6a0e8ea94a2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Header\Render\EUI">
-      <UniqueIdentifier>{54ede792-44f9-4d40-a5fb-1b4d11f54105}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Source\Render\EUI">
-      <UniqueIdentifier>{74fa69c3-09b4-402b-a9bc-ec87f35663d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Source\Render\GUI">
-      <UniqueIdentifier>{9a9f5374-4b25-4670-9c33-f05f9a222e3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Source\SoundManager">
-      <UniqueIdentifier>{ae224cb3-2a0e-4d18-a354-9f590aaa33ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Header\SoundManager">
-      <UniqueIdentifier>{8c850f71-7a71-4df5-ba9d-d08ac045a8c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Header\UI">
-      <UniqueIdentifier>{fd68edb3-c72c-46f1-a2f7-fcb150fe2c2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Source\UI">
-      <UniqueIdentifier>{87fec3a4-8029-4c73-a2b5-aaddfb99baba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Source\Level\Level01">
-      <UniqueIdentifier>{6064b374-cf72-41a0-a1d2-aa2a8d89b771}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Source\Level\Level02">
-      <UniqueIdentifier>{77fcf5c0-d318-4cf9-865e-9b7bbfd361bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Header\Level\Level01">
-      <UniqueIdentifier>{d23d1bde-f3c5-4efd-a344-44b11d4c0031}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Header\Level\Level02">
-      <UniqueIdentifier>{21384772-5f64-416a-beba-dc88d5d0bc7a}</UniqueIdentifier>
+=======
+    <Filter Include="Engine\Header\Gameplay\AI\FSM">
+      <UniqueIdentifier>{0b0f5d0c-f4bf-48c5-98bd-fce02efcd6ed}</UniqueIdentifier>
+>>>>>>> 09b7629f3bffe4c76fabdc5410493813fce7aa06
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +189,9 @@
       <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
     <ClCompile Include="Topology.cpp">
+      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformCbuf.cpp">
       <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
@@ -285,6 +260,9 @@
     <ClCompile Include="Ray.cpp">
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="BoundingCube.cpp">
+      <Filter>Engine\Source\Physics</Filter>
+    </ClCompile>
     <ClCompile Include="FileManager.cpp">
       <Filter>Engine\Source\Misc</Filter>
     </ClCompile>
@@ -296,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="RenderCamera.cpp">
       <Filter>Engine\Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingSphere.cpp">
+      <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Engine\Source\Render\Graphics\Mesh</Filter>
@@ -343,19 +324,22 @@
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
     <ClCompile Include="imgui_widgets.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
+      <Filter>Engine\Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_win32.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
+      <Filter>Engine\Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
+      <Filter>Engine\Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_draw.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
+      <Filter>Engine\Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
+      <Filter>Engine\Source\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Source\Render</Filter>
     </ClCompile>
     <ClCompile Include="EntityManager.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
@@ -399,8 +383,15 @@
     <ClCompile Include="GameStateBase.cpp">
       <Filter>Game\Source</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="GameLevelTest.cpp">
       <Filter>Game\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Level01.cpp">
+      <Filter>Game\Source\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Engine\Source</Filter>
     </ClCompile>
     <ClCompile Include="DefaultPlayerController.cpp">
       <Filter>Game\Source\Controller</Filter>
@@ -410,94 +401,10 @@
     </ClCompile>
     <ClCompile Include="DefaultCameraCtrl.cpp">
       <Filter>Game\Source\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGuiFrame.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="BoundingCube.cpp">
-      <Filter>Engine\Source\Physics\BoundingBox</Filter>
-    </ClCompile>
-    <ClCompile Include="BoundingSphere.cpp">
-      <Filter>Engine\Source\Physics\BoundingBox</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Engine\Source\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="SkyBox.cpp">
-      <Filter>Engine\Source\Render\Graphics\Drawable</Filter>
-    </ClCompile>
-    <ClCompile Include="TransferCbuf.cpp">
-      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
-    </ClCompile>
-    <ClCompile Include="Rasterizer.cpp">
-      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeForCol.cpp">
-      <Filter>Engine\Source\Render\Graphics\Drawable</Filter>
-    </ClCompile>
-    <ClCompile Include="PSTransCBuf.cpp">
-      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
-    </ClCompile>
-    <ClCompile Include="DepthStencil.cpp">
-      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
-    </ClCompile>
-    <ClCompile Include="GameCharacter.cpp">
-      <Filter>Game\Source\Pawn</Filter>
-    </ClCompile>
-    <ClCompile Include="AIController.cpp">
-      <Filter>Game\Source\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="UICommon.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIBase.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIImage.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIButton.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="UITransformCbuf.cpp">
-      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundManager.cpp">
-      <Filter>Engine\Source\SoundManager</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerTank.cpp">
-      <Filter>Game\Source\Pawn</Filter>
-    </ClCompile>
-    <ClCompile Include="ShellFlyComponent.cpp">
-      <Filter>Engine\Source\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="FreeType.cpp">
-      <Filter>Engine\Source\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="UIText.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GameButton.cpp">
-      <Filter>Game\Source\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Level01.cpp">
-      <Filter>Game\Source\Level\Level01</Filter>
-    </ClCompile>
-    <ClCompile Include="Level02.cpp">
-      <Filter>Game\Source\Level\Level02</Filter>
-    </ClCompile>
-    <ClCompile Include="ULevelEvent.cpp">
-      <Filter>Game\Source\Level</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="SoundComponent.cpp">
 =======
-    <ClCompile Include="AIMovementComponent.cpp">
-      <Filter>Engine\Source\Gameplay\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
->>>>>>> b5b1628090ba252828ba9ff20391b0a8ce0a1e1b
-      <Filter>Engine\Source\Gameplay\Component</Filter>
+    <ClCompile Include="ImGuiFrame.cpp">
+      <Filter>Engine\Source\GUI</Filter>
+>>>>>>> 09b7629f3bffe4c76fabdc5410493813fce7aa06
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -517,6 +424,9 @@
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffers.h">
+      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformCbuf.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="VertexBuffer.h">
@@ -597,6 +507,9 @@
     <ClInclude Include="Ray.h">
       <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="BoundingCube.h">
+      <Filter>Engine\Header\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="FileManager.h">
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
@@ -608,6 +521,9 @@
     </ClInclude>
     <ClInclude Include="RenderCamera.h">
       <Filter>Engine\Header\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingSphere.h">
+      <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Engine\Header\Render\Graphics\Mesh</Filter>
@@ -675,6 +591,9 @@
     <ClInclude Include="KeycodeRedefine.h">
       <Filter>Engine\Header\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Header\Render</Filter>
+    </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
@@ -739,29 +658,45 @@
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
     <ClInclude Include="imconfig.h">
-      <Filter>Engine\Header\Render\EUI</Filter>
+      <Filter>Engine\Header\EUI</Filter>
     </ClInclude>
     <ClInclude Include="ImGuiFrame.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
+      <Filter>Engine\Header\GUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
-      <Filter>Engine\Header\Render\EUI</Filter>
+      <Filter>Engine\Header\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_win32.h">
-      <Filter>Engine\Header\Render\EUI</Filter>
+      <Filter>Engine\Header\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui_internal.h">
-      <Filter>Engine\Header\Render\EUI</Filter>
+      <Filter>Engine\Header\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imstb_rectpack.h">
-      <Filter>Engine\Header\Render\EUI</Filter>
+      <Filter>Engine\Header\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imstb_textedit.h">
-      <Filter>Engine\Header\Render\EUI</Filter>
+      <Filter>Engine\Header\EUI</Filter>
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
-      <Filter>Engine\Header\Render\EUI</Filter>
+      <Filter>Engine\Header\EUI</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="GameLevelTest.h">
+      <Filter>Game\TestCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Level01.h">
+      <Filter>Game\Header\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultPlayerController.h">
+      <Filter>Game\Header\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultPlayer.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultCameraCtrl.h">
+      <Filter>Game\Header\Camera</Filter>
+=======
     <ClInclude Include="imgui.h">
       <Filter>Engine\Header</Filter>
     </ClInclude>
@@ -773,106 +708,7 @@
     </ClInclude>
     <ClInclude Include="MovingEntity.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLevelTest.h">
-      <Filter>Game\TestCode</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultPlayerController.h">
-      <Filter>Game\Header\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultPlayer.h">
-      <Filter>Game\Header\Pawn</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultCameraCtrl.h">
-      <Filter>Game\Header\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="BoundingCube.h">
-      <Filter>Engine\Header\Physics\BoundingBox</Filter>
-    </ClInclude>
-    <ClInclude Include="BoundingSphere.h">
-      <Filter>Engine\Header\Physics\BoundingBox</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Engine\Header\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyBox.h">
-      <Filter>Engine\Header\Render\Graphics\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="TransferCbuf.h">
-      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="Rasterizer.h">
-      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeForCol.h">
-      <Filter>Engine\Header\Render\Graphics\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="PSTransCBuf.h">
-      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="DepthStencil.h">
-      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="GameCharacter.h">
-      <Filter>Game\Header\Pawn</Filter>
-    </ClInclude>
-    <ClInclude Include="AIController.h">
-      <Filter>Game\Header\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundManager.h">
-      <Filter>Engine\Header\SoundManager</Filter>
-    </ClInclude>
-    <ClInclude Include="UICommon.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIBase.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIImage.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIButton.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="UITransformCbuf.h">
-      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="UIEvent.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerTank.h">
-      <Filter>Game\Header\Pawn</Filter>
-    </ClInclude>
-    <ClInclude Include="ShellFlyComponent.h">
-      <Filter>Engine\Header\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="FreeType.h">
-      <Filter>Engine\Header\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="UIText.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GameButton.h">
-      <Filter>Game\Header\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Level01.h">
-      <Filter>Game\Header\Level\Level01</Filter>
-    </ClInclude>
-    <ClInclude Include="Level02.h">
-      <Filter>Game\Header\Level\Level02</Filter>
-    </ClInclude>
-    <ClInclude Include="ULevelEvent.h">
-      <Filter>Game\Header\Level</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="SoundComponent.h">
-=======
-    <ClInclude Include="AIMovementComponent.h">
-      <Filter>Engine\Header\Gameplay\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="MovementComponent.h">
->>>>>>> b5b1628090ba252828ba9ff20391b0a8ce0a1e1b
-      <Filter>Engine\Header\Gameplay\Component</Filter>
+>>>>>>> 09b7629f3bffe4c76fabdc5410493813fce7aa06
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -894,46 +730,5 @@
     <FxCompile Include="VertexShaderTex.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="SkyBox_VS.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="SkyBox_PS.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Light_PS.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Light_VS.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIPixelShader.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIPSButton.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIVertexShader.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIVSHorizontalL.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIVSHorizontalR.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIVSVerticalB.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIVSVerticalT.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIPSText.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LightHelper.hlsli">
-      <Filter>Engine\Shader</Filter>
-    </None>
   </ItemGroup>
 </Project>
