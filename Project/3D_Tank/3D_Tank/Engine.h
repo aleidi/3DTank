@@ -22,6 +22,8 @@ public:
 	float getDeltaTIme() noexcept;
 	HWND getHWND();
 	POINT getCursorPos();
+	void enableEditMode(bool value);
+
 	void showtText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
 private:
 	Engine(Window& wnd);
@@ -42,6 +44,7 @@ private:
 	std::unique_ptr<ImGuiFrame> mEui;
 
 	bool mIsGameMode;
+	bool mIsEditMode;
 
 	//testcode
 	float fScale;

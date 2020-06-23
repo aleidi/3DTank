@@ -25,7 +25,7 @@ Engine::Engine(Window& wnd)
 	mSound(std::make_unique<Sound>()),
 	mRendering(std::make_unique<Rendering>(wnd)),
 	mGameSystem(std::make_unique<GameSystem>()),
-	mIsGameMode(false)
+	mIsGameMode(false), mIsEditMode(false)
 {
 	onPreInit();
 
@@ -157,8 +157,10 @@ void Engine::run()
 	//gui update
 
 	//eui update
-	mEui->onUpdate(deltaTime);
-
+	if (mIsEditMode)
+	{
+		mEui->onUpdate(deltaTime);
+	}
 
 	mRendering.get()->onEndRender(deltaTime);
 }
@@ -181,6 +183,11 @@ HWND Engine::getHWND()
 POINT Engine::getCursorPos()
 {
 	return mWnd.getCursorPosInWnd();
+}
+
+void Engine::enableEditMode(bool value)
+{
+	mIsEditMode = value;
 }
 
 void Engine::showtText(const std::wstring & str = L"", float leftTopX=0, float leftTopY=0, float width=0, float height=0, bool canShow = false)
