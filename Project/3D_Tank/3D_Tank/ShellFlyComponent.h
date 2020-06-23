@@ -13,7 +13,7 @@ public:
 private:
 	GameObject* target;
 	Vector3 finalForward;
-	int rotateSpeed;
+	float rotateSpeed;
 	float angle;
 	//float angle;
 
