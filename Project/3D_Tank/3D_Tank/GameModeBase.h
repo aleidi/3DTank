@@ -8,7 +8,7 @@ class GameModeBase
 {
 public:
 	GameModeBase();
-	~GameModeBase();
+	virtual ~GameModeBase();
 
 	virtual void onInit();
 	virtual void onUpdate(float deltaTime);
@@ -22,7 +22,7 @@ public:
 public:
 	static GameModeBase* MainGameMode;
 
-private:
+protected:
 	GameStateBase* mGameState;
 	Pawn* mPlayer;
 	ControllerBase* mPlayerController;

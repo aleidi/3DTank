@@ -193,6 +193,12 @@
     <Filter Include="Game\Header\Level\Level02">
       <UniqueIdentifier>{21384772-5f64-416a-beba-dc88d5d0bc7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Source\GameMode">
+      <UniqueIdentifier>{d7f4dfa3-3733-4495-aaeb-a9c7039f86ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header\GameMode">
+      <UniqueIdentifier>{1cb2ffb9-def9-4761-9f24-05ab05450345}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -378,9 +384,6 @@
     <ClCompile Include="ControllerBase.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="GameModeBase.cpp">
-      <Filter>Game\Source</Filter>
-    </ClCompile>
     <ClCompile Include="GameLevelManager.cpp">
       <Filter>Game\Source\Level</Filter>
     </ClCompile>
@@ -503,6 +506,18 @@
     </ClCompile>
     <ClCompile Include="SoundComponent.cpp">
       <Filter>Engine\Source\Gameplay\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameModeBase.cpp">
+      <Filter>Game\Source\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Game\Source\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCamera.cpp">
+      <Filter>Game\Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameModeTP.cpp">
+      <Filter>Game\Source\GameMode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -716,9 +731,6 @@
     <ClInclude Include="Pawn.h">
       <Filter>Game\Header\Pawn</Filter>
     </ClInclude>
-    <ClInclude Include="GameModeBase.h">
-      <Filter>Game\Header</Filter>
-    </ClInclude>
     <ClInclude Include="GameLevelBase.h">
       <Filter>Game\Header\Level</Filter>
     </ClInclude>
@@ -880,6 +892,18 @@
     </ClInclude>
     <ClInclude Include="SoundComponent.h">
       <Filter>Engine\Header\Gameplay\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameModeBase.h">
+      <Filter>Game\Header\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCamera.h">
+      <Filter>Game\Header\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Game\Header\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="GameModeTP.h">
+      <Filter>Game\Header\GameMode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
