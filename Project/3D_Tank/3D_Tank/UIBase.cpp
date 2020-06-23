@@ -18,6 +18,13 @@ void UIBase::setSize(float width, float height) noexcept
 	mHeight = height;
 }
 
+void UIBase::setPosition(float x, float y, float z) noexcept
+{
+	mX = x;
+	mY = y;
+	mZ = z;
+}
+
 void UIBase::setPosition(float x, float y) noexcept
 {
 	mX = x;

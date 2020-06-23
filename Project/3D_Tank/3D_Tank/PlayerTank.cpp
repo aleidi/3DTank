@@ -74,13 +74,14 @@ void PlayerTank::onLateUpdate(float deltaTime)
 		mBattery->getTransform()->setRotation(rot);
 	}
 
+	mCamFollower->getTransform()->setPosition(mTransform->getPosition() + mFPCameraOffset);
+
 	Engine::sGetInstance()->showtText(std::to_wstring(rot.x), 100, 100, 500, 500, true);
 }
 
 void PlayerTank::move(Vector3 value)
 {
 	mTransform->translate(value * mMoveSped);
-	mCamFollower->getTransform()->setPosition(mTransform->getPosition() + mFPCameraOffset);
 }
 
 void PlayerTank::rotate(float value)
@@ -116,6 +117,7 @@ void PlayerTank::adjustDisToCam(float value)
 	Vector3 dir = mCamFollower->getTransform()->Forward * mCamFollowFactorX + mCamFollower->getTransform()->Up * mCamFollowFactorY;
 	if (mDisToCam > mFPToTPThreshold)
 	{
+		mFPCameraOffset = Vector3::zero;
 		mCamera->getTransform()->setPosition(mTransform->getPosition() + dir * mDisToCam);
 	}
 	else if (mDisToCam <= mFPToTPThreshold)

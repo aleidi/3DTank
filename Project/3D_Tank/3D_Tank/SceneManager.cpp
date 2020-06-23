@@ -8,6 +8,7 @@
 #include "UIImage.h"
 #include "UIButton.h"
 #include "UIText.h"
+#include "UIImage3D.h"
 #include "RenderManager.h"
 #include "AIController.h"
 
@@ -98,6 +99,13 @@ UIText * SceneManager::createUIText()
 {
 	UIText* ui = new UIText(RenderManager::sGetInstance()->getGraphics());
 	RenderManager::sGetInstance()->addUIToPool(ui);
+	return ui;
+}
+
+UIImage3D * SceneManager::createUIImage3D(const std::wstring & texPath)
+{
+	UIImage3D* ui = new UIImage3D(RenderManager::sGetInstance()->getGraphics(), texPath);
+	RenderManager::sGetInstance()->addUI3DToPool(ui);
 	return ui;
 }
 

@@ -48,7 +48,6 @@ EnemyTank::EnemyTank(int ID)
 
 	mMovementComp = new AIMovementComponent(this);
 	addComponent(mMovementComp);
-	
 }	
 
 EnemyTank::~EnemyTank()

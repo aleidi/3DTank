@@ -8,6 +8,7 @@ class GameObjectFactory;
 class UIImage;
 class UIButton;
 class UIText;
+class UIImage3D;
 class AIController;
 
 class SceneManager
@@ -26,6 +27,8 @@ public:
 	UIImage* createUIImage(const std::wstring& texPath);
 	UIButton* createUIButton(const std::wstring& texPath);
 	UIText* createUIText();
+	UIImage3D* createUIImage3D(const std::wstring& texPath);
+	
 	AIController* createAIController(int id);
 
 	void addGameObjectToPool(GameObject* object) noexcept;

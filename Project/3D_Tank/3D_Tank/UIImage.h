@@ -7,16 +7,17 @@
 class UIImage : public UIBase
 {
 public:
+	UIImage() = default;
 	UIImage(Graphics& gfx);
 	UIImage(Graphics& gfx, const std::wstring& texPath);
 
 	void draw(Graphics& gfx) noexcept override;
 
 	void setFillAmount(float value);
-	void setFillType(FillType fillType) noexcept;
+	virtual void setFillType(FillType fillType) noexcept;
 	float getFillAmount() const noexcept;
 
-private:
+protected:
 	struct CBVS
 	{
 		XMMATRIX World;

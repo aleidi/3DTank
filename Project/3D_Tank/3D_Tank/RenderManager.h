@@ -20,6 +20,8 @@ public:
 	bool removeMeshFromPool(Mesh* mesh) noexcept;
 	void addUIToPool(UIBase* ui) noexcept;
 	bool removeUIFromPool(UIBase* ui) noexcept;
+	void addUI3DToPool(UIBase* ui) noexcept;
+	bool reemoveUI3DFromPool(UIBase* ui) noexcept;
 
 	Graphics& getGraphics() const;
 	DirectionalLight getDirLight() noexcept;
@@ -37,6 +39,7 @@ private:
 	static RenderManager* sInstance;
 
 	std::list<Mesh*> mMeshes;
+	std::list<UIBase*> mUI3Ds;
 	std::list<UIBase*> mUIs;
 	DirectionalLight mDirLight;
 	Graphics& mGraphics;
