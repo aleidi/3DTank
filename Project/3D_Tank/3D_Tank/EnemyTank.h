@@ -34,6 +34,12 @@ public:
 	float getMaxSpeed()const;
 	void setVelocity(Vector3 newVelocity);
 	Vector3 getVelocity()const;
+	float getWanderRadius()const;
+	float getWanderDistance()const;
+	float getWanderJitter()const;
+	void setWanderValue(float radius, float distance, float jitter);
+	Vector3 getWanderTarget()const;
+	void setWanderTarget(Vector3 wandertarget);
 
 	void move(Vector3 value);
 	bool isDying()const;
@@ -44,13 +50,11 @@ public:
 	void setHPRecovered(bool isRecovered);
 	void setAttacked(bool isAttacked);
 	bool getAttacked()const;
-	Vector3 getPosPlayer = Vector3(100.0f, 0.0f, 100.0f);
-
 
 private:
 	// StateMachine<EnemyTank>* m_pStateMachine;
 	bool m_HPRecovered;
-	bool m_Attacked = false;
+	bool m_Attacked;
+
 	std::vector<RenderComponent*> mRCs;
 };
-

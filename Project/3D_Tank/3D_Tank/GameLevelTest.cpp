@@ -165,17 +165,13 @@ void GameLevelTest::enterLevel()
 	enemy->setMaxSpeed(1.5f);
 	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
 	aiController->posses(enemy);
-	aiController->setWanderData(10.0, 2.0f, 800.0);
-	//
-	
 	enemytarget = new EnemyTank(ent_Tank_SuperEnemy);
 	enemytarget->getTransform()->setPosition(Vector3(10, 0, 10));
 	EntityMgr->registerEntity(enemytarget);
-	enemytarget->setMaxSpeed(1.0f);
 	aiControllertarget = SceneManager::sGetInstance()->createAIController(ent_Tank_SuperEnemy);
-	aiControllertarget->getFSM()->setCurrentState(Evade::getInstance());
+	aiControllertarget->getFSM()->setCurrentState(Wander::getInstance());
 	aiControllertarget->posses(enemytarget);
-	aiControllertarget->setWanderData(10.0, 20.0, 800.0);
+
 	//*/
 	aiController->setTarget(aiControllertarget);
 	aiControllertarget->setTarget(aiController);

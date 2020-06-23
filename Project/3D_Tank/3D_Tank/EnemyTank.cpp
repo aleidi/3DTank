@@ -1,23 +1,25 @@
+#pragma once
 #include "EnemyTank.h"
 #include "Telegram.h"
 #include "MessageDispatcher.h"
 #include "MessageTypes.h"
 #include "ComponentBase.h"
 #include "AIMovementComponent.h"
-
+#include "GameInstance.h"
 /*
 void EnemyTank::update() {
 	m_pStateMachine->update();
 }
 */
 struct Telegram;
-
+#define getPlayerPos GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition()
 EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
+	m_Attacked(false),
 	BaseGameEntity(ID)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
-	mAttribute = {100,1000.0f,2000.0f,50.0f};
+	mAttribute = {100,1000.0f,2000.0f,50.0f,1.0f,10.0f,20.0f,800.0f};
 	GameObject* tankBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	tankBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
@@ -56,7 +58,10 @@ EnemyTank::EnemyTank(int ID)
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);
 	// m_pStateMachine->setCurrentState(Rest::getInstance());
-	
+
+	float theta = Math::RandFloat() * 2 * Pi;
+	mAttribute.m_WanderTarget = Vector3(mAttribute.m_WanderRadius * cos(theta), 0, mAttribute.m_WanderRadius * sin(theta));
+
 	mMovementComp = new AIMovementComponent(this);
 	addComponent(mMovementComp);
 	
@@ -81,7 +86,6 @@ void EnemyTank::setMass(float mass) {
 	mAttribute.m_Mass = mass;
 }
 
-
 float EnemyTank::getMass()const {
 	return mAttribute.m_Mass;
 }
@@ -95,11 +99,11 @@ float EnemyTank::getMaxSpeed()const {
 }
 
 void EnemyTank::setVelocity(Vector3 newVelocity) {
-	mAttribute.m_Velocity = newVelocity;
+	m_Velocity = newVelocity;
 }
 
 Vector3 EnemyTank::getVelocity()const {
-	return mAttribute.m_Velocity;
+	return m_Velocity;
 }
 
 void EnemyTank::move(Vector3 value)
@@ -124,7 +128,7 @@ void EnemyTank::setHPRecovered( bool isRecovered ) {
 }
 
 bool EnemyTank::isEnemyInRange()const {
-	if( Vector3::lengthSq( getPosPlayer, mTransform->getPosition() ) <= mAttribute.m_AttackRangeRadiusSq ) {
+	if( Vector3::lengthSq( getPlayerPos, mTransform->getPosition() ) <= mAttribute.m_AttackRangeRadiusSq ) {
 		// do something here to check if there are any obstacles
 		// if no
 		return true;
@@ -134,7 +138,7 @@ bool EnemyTank::isEnemyInRange()const {
 }
 
 bool EnemyTank::isLostEnemy()const {
-	if (Vector3::lengthSq(getPosPlayer, mTransform->getPosition()) > mAttribute.m_PursuitRangeRadiusSq) {
+	if (Vector3::lengthSq(getPlayerPos, mTransform->getPosition()) > mAttribute.m_PursuitRangeRadiusSq) {
 		return true;
 	}
 	return false;
@@ -150,4 +154,30 @@ bool EnemyTank::getAttacked()const {
 
 bool EnemyTank::isObstacleHere()const {
 	return false;
+}
+
+float EnemyTank::getWanderRadius()const {
+	return mAttribute.m_WanderRadius;
+}
+
+float EnemyTank::getWanderDistance()const {
+	return mAttribute.m_WanderDistance;
+}
+
+float EnemyTank::getWanderJitter()const {
+	return mAttribute.m_WanderJitter;
+}
+
+Vector3 EnemyTank::getWanderTarget()const{
+	return mAttribute.m_WanderTarget;
+}
+
+void EnemyTank::setWanderTarget(Vector3 wandertarget) {
+	mAttribute.m_WanderTarget = wandertarget;
+}
+
+void EnemyTank::setWanderValue(float radius, float distance, float jitter) {
+	mAttribute.m_WanderRadius = radius;
+	mAttribute.m_WanderDistance = distance;
+	mAttribute.m_WanderJitter = jitter;
 }
