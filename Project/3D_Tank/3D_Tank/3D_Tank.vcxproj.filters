@@ -348,21 +348,6 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_win32.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Engine\Source\Render</Filter>
     </ClCompile>
@@ -419,9 +404,6 @@
     </ClCompile>
     <ClCompile Include="DefaultCameraCtrl.cpp">
       <Filter>Game\Source\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGuiFrame.cpp">
-      <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
     <ClCompile Include="BoundingCube.cpp">
       <Filter>Engine\Source\Physics\BoundingBox</Filter>
@@ -518,6 +500,24 @@
     </ClCompile>
     <ClCompile Include="GameModeTP.cpp">
       <Filter>Game\Source\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>Engine\Source\Render\EUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Engine\Source\Render\EUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <Filter>Engine\Source\Render\EUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>Engine\Source\Render\EUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Engine\Source\Render\EUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuiFrame.cpp">
+      <Filter>Engine\Source\Render\EUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
