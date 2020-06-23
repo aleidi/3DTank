@@ -9,11 +9,17 @@ public:
 
 	virtual void onUpdate(float deltaTime) override;
 private:
-	void Move(Vector3 value);
-	void Rotate(float valueX, float valueY);
-	void Attack1();
-	void Skill1();
+	void move(Vector3 value);
+	void rotate(float value);
+	void rotateView(float valueX, float valueY);
+	void adjustDistanceToCam(float value);
+	void setCameraFov(float value);
 
 	void checkInput(float deltaTime);
+
+private:
+	float mDisToCamFactor;
+	float mMirrorMax;
+	float mMirrorMin;
 };
 

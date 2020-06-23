@@ -150,6 +150,15 @@ void GameObject::onUpdate(float deltaTime)
 	mTransform->onUpdate(deltaTime);
 }
 
+void GameObject::onLateUpdate(float deltaTime)
+{
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		(*it)->onLateUpdate(deltaTime);
+	}
+	mTransform->onLateUpdate(deltaTime);
+}
+
 void GameObject::onEngineUpdate(float deltaTime)
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
