@@ -3,6 +3,7 @@
 #include "EnemyTankOwnedStates.h" // :(
 #include "Pawn.h"
 #include "Transform.h"
+#include "EnemyTank.h"
 
 AIController::AIController()
 	:AIController(-1)
@@ -41,7 +42,7 @@ bool AIController::handleMessage(const Telegram& msg) {
 
 void AIController::Move(Vector3 force)
 {
-	mPawn->getTransform()->translate(force);
+	reinterpret_cast<EnemyTank*>(mPawn)->move(force);
 }
 
 void AIController::Rotate(float x, float y, float z)

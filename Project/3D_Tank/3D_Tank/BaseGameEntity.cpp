@@ -10,8 +10,3 @@ void BaseGameEntity::setID(int val) {
 
 	m_iNextValidID = m_ID + 1;
 }
-
-void BaseGameEntity::Move(Vector3 value)
-{
-	mMovementComp->addVelocity(value);
-}

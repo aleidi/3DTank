@@ -15,8 +15,6 @@ public:
 	BaseGameEntity(int id) { setID(id); }
 	virtual ~BaseGameEntity() {}
 
-	////////From GameCharacter///////////
-	virtual void Move(Vector3 value);
 	/////////////////////////////////////
 
 	// virtual bool handleMessage(const Telegram& msg) { return false; }
