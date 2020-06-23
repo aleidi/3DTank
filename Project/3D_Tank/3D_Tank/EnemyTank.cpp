@@ -16,10 +16,27 @@ EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
 	BaseGameEntity(ID)
 {
-
+	DirectX::XMVECTOR maxPoint, minPoint;
 	mAttribute = {100,1000.0f,2000.0f};
-	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex"));
-	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex"));
+	GameObject* tankBattery = SceneManager::sGetInstance()->createEmptyObject();
+	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
+	tankBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
+	BoundingCube* tankBatteryBoundingCube = new BoundingCube(tankBattery);
+	tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
+	tankBattery->addComponent(tankBatteryBoundingCube);
+	//tankBattery->getTransform()->calcultateTransformMatrix();
+	tankBatteryBoundingCube->box.Transform(tankBatteryBoundingCube->box, tankBattery->getTransform()->getLocalToWorldMatrix());
+	GameObject* tankBody = SceneManager::sGetInstance()->createEmptyObject();
+	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint));
+	tankBody->getTransform()->setScale(0.002f, 0.002f, 0.002f);
+	BoundingCube* tankBodyBoundingCube = new BoundingCube(tankBody);
+	tankBodyBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
+	tankBody->addComponent(tankBodyBoundingCube);
+	tankBodyBoundingCube->box.Transform(tankBodyBoundingCube->box, tankBody->getTransform()->getLocalToWorldMatrix());
+	this->cube = tankBodyBoundingCube;
+
+	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
+	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack"));
 

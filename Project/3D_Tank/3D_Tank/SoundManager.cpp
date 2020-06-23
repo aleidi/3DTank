@@ -229,7 +229,7 @@ FMOD_RESULT SoundManager::loadALLSoundFile()
 		result = mFmodSystem->createSound(soundfilename, FMOD_3D, NULL, &mFmodSound[i]);
 		if (result != FMOD_OK) return result;
 		if (i == 0) mFmodSound[0]->setMode(FMOD_LOOP_NORMAL);
-		mFmodSound[i]->set3DMinMaxDistance(10.f, 100.f);
+		mFmodSound[i]->set3DMinMaxDistance(10.f, 1000.f);
 		/*mFmodSound[i]->setMode(FMOD_3D_CUSTOMROLLOFF);
 		mFmodSound[i]->set3DCustomRolloff(points, 3);*/
 	}

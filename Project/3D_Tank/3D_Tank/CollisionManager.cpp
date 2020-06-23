@@ -44,7 +44,7 @@ bool CollisionManager::collisionCheck_CubeToCube(const BoundingCube * cube, Game
 bool CollisionManager::collisionCheck_SphereToCube(const MBoundingSphere * sphere, GameObject** obj)
 {
 	if (sphere != NULL) {
-		for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
+		for (std::vector<BoundingCube*>::iterator it = moveableBoundingCube.begin(); it != moveableBoundingCube.end(); it++) {
 			if (collisionCheck(*it, sphere)) {
 				*obj = (*it)->getObject();
 				return true;
@@ -125,12 +125,6 @@ bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3
 
 bool CollisionManager::collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2)
 {
-	//DirectX::XMVECTOR ori = DirectX::XMLoadFloat4(&cube1->box.Orientation);
-	//ori = DirectX::XMVector4Normalize(ori);
-	//DirectX::XMStoreFloat4(&(cube1->box.Orientation), ori);
-	//ori = DirectX::XMLoadFloat4(&cube2->box.Orientation);
-	//ori = DirectX::XMVector4Normalize(ori);
-	//DirectX::XMStoreFloat4(&(cube2->box.Orientation), ori);
 	return cube1->box.Intersects(cube2->box);
 }
 

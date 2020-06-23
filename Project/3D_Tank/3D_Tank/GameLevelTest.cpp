@@ -130,19 +130,19 @@ void GameLevelTest::enterLevel()
 	SceneManager::sGetInstance()->createModel(*SM_WaterTank, "Objects\\SM_WaterTank_01a", L"Objects\\TX_PortableWaterTank_01_ALB",maxPoint,minPoint);
 	SM_WaterTank->getTransform()->translate(Vector3::forward*20.0f + Vector3::up*-10.f + Vector3::right*-5.f);
 	SM_WaterTank->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
-	BoundingCube* SM_WaterTank_BoundingCube = new BoundingCube(SM_WaterTank);
+	/*BoundingCube* SM_WaterTank_BoundingCube = new BoundingCube(SM_WaterTank);
 	SM_WaterTank_BoundingCube->createBoundingCube(maxPoint, minPoint,0);
 	SM_WaterTank->addComponent(SM_WaterTank_BoundingCube);
 	DirectX::BoundingOrientedBox out;
 	SM_WaterTank->getTransform()->calcultateTransformMatrix();
 	SM_WaterTank_BoundingCube->box.Transform(out, SM_WaterTank->getTransform()->getLocalToWorldMatrix());
 	SM_WaterTank_BoundingCube->box = out;
-	SM_WaterTank->cube = SM_WaterTank_BoundingCube;
+	SM_WaterTank->cube = SM_WaterTank_BoundingCube;*/
 
 	SM_Crate = SceneManager::sGetInstance()->createEmptyObject();
 	SM_Crate->setName("SM_Crate");
 	SceneManager::sGetInstance()->createModel(*SM_Crate, "Objects\\SM_Crate_01a", L"Objects\\TX_Crates_01a_ALB", maxPoint, minPoint);
-	SM_Crate->getTransform()->translate(Vector3::right*50.0f + Vector3::forward*100.f);
+	SM_Crate->getTransform()->translate(Vector3::right*50.0f + Vector3::forward*50.f);
 	SM_Crate->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 	SM_Crate->getTransform()->calcultateTransformMatrix();
 	BoundingCube* SM_Crate_BoundingCube = new BoundingCube(SM_Crate);
@@ -162,11 +162,10 @@ void GameLevelTest::enterLevel()
 	
 	enemy = new EnemyTank(ent_Tank_Enemy);
 	EntityMgr->registerEntity(enemy);
-	//aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
-	//aiController->posses(enemy);
-	//aiController->setWanderData(10.0, 2.0f, 800.0);
-	//aiController->maxspeed = 1.0;
-	
+	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
+	aiController->posses(enemy);
+	aiController->setWanderData(10.0, 2.0f, 800.0);
+	aiController->maxspeed = 1.0;
 	//
 	/*
 	enemytarget = new EnemyTank(ent_Tank_SuperEnemy);
@@ -196,8 +195,8 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
 	if (DInputPC::getInstance().iskeyDown(DIK_F)){
 		shell = SceneManager::sGetInstance()->createSphere();
-		shell->getTransform()->Forward = enemy->getTransform()->Forward;
-		shell->getTransform()->setPosition(enemy->getTransform()->getPosition() + enemy->getTransform()->Forward*0.6f + enemy->getTransform()->Up*0.18f+enemy->getTransform()->Right*0.04f);
+		shell->getTransform()->Forward = SM_WaterTank->getTransform()->Forward * -1;
+		shell->getTransform()->setPosition(SM_WaterTank->getTransform()->getPosition() + SM_WaterTank->getTransform()->Forward*0.6f + enemy->getTransform()->Up*0.18f+enemy->getTransform()->Right*0.04f);
 		shell->getTransform()->setScale(Vector3(0.02f, 0.02f, 0.02f));
 		SceneManager::sGetInstance()->addGameObjectToPool(shell);
 		ShellFlyComponent* shellFly = new ShellFlyComponent(shell);
@@ -206,7 +205,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		shellBoundingSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1f, 1);
 		shell->addComponent(shellBoundingSphere);
 		shell->sphere = shellBoundingSphere;
-		shellFly->setTarget(SM_Crate);
+		shellFly->setTarget(enemy);
 		tankFire = true;
 		sound = new SoundComponent(shell);
 		sound->setPosition();
