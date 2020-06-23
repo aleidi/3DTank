@@ -19,23 +19,11 @@ public:
 	StateMachine<AIController>* getFSM() const { return m_pStateMachine; }
 	bool handleMessage(const Telegram& msg);
 
-	float deltaTime() { return m_deltaTime; }
 	void Move(Vector3 Force);
 	void Rotate(float x, float y, float z);
 
 	void setTarget(AIController* targetTank) { m_target = targetTank; }
 	AIController* getTarget() { return m_target; }
-
-	void setWanderData(float r, float d, float j) {
-		m_WanderRadius = r;
-		m_WanderDistance = d;
-		m_WanderJitter = j;
-	}
-
-	float m_WanderRadius;
-	float m_WanderDistance;
-	float m_WanderJitter;
-	Vector3 m_WanderTarget;
 
 private:
 	int mID;

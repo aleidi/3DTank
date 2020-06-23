@@ -10,7 +10,7 @@ class Rest : public State<AIController> {
 public:
 	static Rest* getInstance();
 	virtual void enter(AIController* pETank);
-	virtual void execute(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
 	virtual void exit(AIController* pETank);
 
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
@@ -25,7 +25,7 @@ class Wander : public State<AIController> {
 public:
 	static Wander* getInstance();
 	virtual void enter(AIController* pETank);
-	virtual void execute(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
 	virtual void exit(AIController* pETank);
 
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
@@ -40,7 +40,7 @@ class Avoidance : public State<AIController> {
 public:
 	static Avoidance* getInstance();
 	virtual void enter(AIController* pETank);
-	virtual void execute(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
 	virtual void exit(AIController* pETank);
 
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
@@ -55,7 +55,7 @@ class Attack : public State<AIController> {
 public:
 	static Attack* getInstance();
 	virtual void enter(AIController* pETank);
-	virtual void execute(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
 	virtual void exit(AIController* pETank);
 
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
@@ -70,7 +70,7 @@ class Evade : public State<AIController> {
 public:
 	static Evade* getInstance();
 	virtual void enter(AIController* pETank);
-	virtual void execute(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
 	virtual void exit(AIController* pETank);
 
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
@@ -85,7 +85,7 @@ class Pursuit : public State<AIController> {
 public:
 	static Pursuit* getInstance();
 	virtual void enter(AIController* pETank);
-	virtual void execute(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
 	virtual void exit(AIController* pETank);
 
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
@@ -100,7 +100,7 @@ class Death : public State<AIController> {
 public:
 	static Death* getInstance();
 	virtual void enter(AIController* pETank);
-	virtual void execute(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
 	virtual void exit(AIController* pETank);
 
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
@@ -118,7 +118,7 @@ class Patrol : public State<AIController> {
 public:
 	static Patrol* getInstance();
 	virtual void enter(AIController* pETank);
-	virtual void execute(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
 	virtual void exit(AIController* pETank);
 
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
