@@ -62,7 +62,8 @@ bool CollisionManager::collisionCheck(const Vector3 & o, const Vector3 & d, cons
 	DirectX::XMFLOAT3 dir(d.x, d.y, d.z);
 	DirectX::XMVECTOR origin = DirectX::XMLoadFloat3(&ori);
 	DirectX::XMVECTOR direction = DirectX::XMLoadFloat3(&dir);
-	return cube->box.Intersects(origin, direction, dis);
+	DirectX::XMVECTOR unit = DirectX::XMVector3Normalize(direction);
+	return cube->box.Intersects(origin, unit, dis);
 }
 
 bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & direction, BoundingCube * farthestCube, BoundingCube * nearestCube, float & farthestDis, float & nearestDis)
