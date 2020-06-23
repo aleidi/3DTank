@@ -34,7 +34,7 @@ void Rest::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"I'm going to rest. ", 0, 0);
 }
 
-void Rest::execute(AIController* pEnemyTank) {
+void Rest::execute(AIController* pEnemyTank, float deltaTime) {
 	if (!AITank->getHPRecovered()) {
 		AITank->setHPRecovered(true);
  		Dispatch->Dispatch_Message(ReplyInterval,
@@ -99,13 +99,13 @@ void Wander::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"I'm going to find bad guy.(Wander) ", 0, 0);
 }
 
-void Wander::execute(AIController* pEnemyTank) {
+void Wander::execute(AIController* pEnemyTank, float deltaTime) {
 	float count = 0.0f;
-	count += pEnemyTank->deltaTime();
+	count += deltaTime;
 	if (count > 0.0001) {
 		count = 0;
 
-		float jitterThisTimeSlice = pEnemyTank->m_WanderJitter * pEnemyTank->deltaTime();
+		float jitterThisTimeSlice = pEnemyTank->m_WanderJitter * deltaTime;
 		pEnemyTank->m_WanderTarget += Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
 			Math::RandomClamped() * jitterThisTimeSlice);
 		pEnemyTank->m_WanderTarget = pEnemyTank->m_WanderTarget.normalize();
@@ -119,14 +119,14 @@ void Wander::execute(AIController* pEnemyTank) {
 		// Vector3 target = Vector3(10, 0, 10);
 		/////////////////////////beginning of movement/////////////////////////////
 		Vector3 acceleraion = target / AITank->getMass();
-		AITank->setVelocity(AITank->getVelocity() + acceleraion * pEnemyTank->deltaTime());
+		AITank->setVelocity(AITank->getVelocity() + acceleraion * deltaTime);
 		// pEnemyTank->velocity += acceleraion * pEnemyTank->deltaTime();
 
 		if (Vector3::lengthSq(AITank->getVelocity(), Vector3(0, 0, 0)) > (AITank->getMaxSpeed()*AITank->getMaxSpeed()))
 			AITank->setVelocity(AITank->getVelocity().normalize() * AITank->getMaxSpeed());
 			//pEnemyTank->velocity = pEnemyTank->velocity.normalize() * pEnemyTank->maxspeed;
 
-		Vector3 newPos = AITank->getVelocity() * pEnemyTank->deltaTime();
+		Vector3 newPos = AITank->getVelocity() * deltaTime;
 		Vector3 newPos_normalize = target.normalize();
 
 		float dot = Vector3::dot(AITank->getVelocity().normalize(), forward_normalize);
@@ -213,7 +213,7 @@ void Avoidance::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"There is a f cking obstacle. ", 0, 0);
 }
 
-void Avoidance::execute(AIController* pEnemyTank) {
+void Avoidance::execute(AIController* pEnemyTank, float deltaTime) {
 
 	////////////////////////changeState////////////////////////
 	if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
@@ -240,7 +240,7 @@ void Attack::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"I'm going to kick ur ass. ", 0, 0);
 }
 
-void Attack::execute(AIController* pEnemyTank) {
+void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 
 	////////////////////////changeState////////////////////////
 	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying()) {
@@ -270,9 +270,9 @@ void Evade::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"I'm going to run away. ", 0, 0);
 }
 
-void Evade::execute(AIController* pEnemyTank) {
+void Evade::execute(AIController* pEnemyTank, float deltaTime) {
 	float count = 0.0f;
-	count += pEnemyTank->deltaTime();
+	count += deltaTime;
 	if (count > 0.0001) {
 		count = 0.0f;
 		Vector3 target = Vector3(0,0,0);
@@ -284,12 +284,12 @@ void Evade::execute(AIController* pEnemyTank) {
 		target = desiredVelocity - AITank->getVelocity();
 		/////////////////////////beginning of movement/////////////////////////////
 		Vector3 acceleraion = target / AITank->getMass();
-		AITank->setVelocity(AITank->getVelocity() + acceleraion * pEnemyTank->deltaTime());
+		AITank->setVelocity(AITank->getVelocity() + acceleraion * deltaTime);
 
 		if (Vector3::lengthSq(AITank->getVelocity(), Vector3(0, 0, 0)) > (AITank->getMaxSpeed()*AITank->getMaxSpeed()))
 			AITank->setVelocity(AITank->getVelocity().normalize() * AITank->getMaxSpeed());
 
-		Vector3 newPos = AITank->getVelocity() * pEnemyTank->deltaTime();
+		Vector3 newPos = AITank->getVelocity() * deltaTime;
 		Vector3 newPos_normalize = target.normalize();
 
 		Vector3 forward = getAIHeading;
@@ -366,9 +366,9 @@ void Pursuit::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"I'm chasing that damn bad guy.", 0, 0);
 }
 
-void Pursuit::execute(AIController* pEnemyTank) {
+void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
 	float count = 0.0f;
-	count += pEnemyTank->deltaTime();
+	count += deltaTime;
 	if (count > 0.0001) {
 		count = 0.0f;
 
@@ -397,12 +397,12 @@ void Pursuit::execute(AIController* pEnemyTank) {
 
 		/////////////////////////beginning of movement/////////////////////////////
 		Vector3 acceleraion = target / AITank->getMass();
-		AITank->setVelocity(AITank->getVelocity() + acceleraion * pEnemyTank->deltaTime());
+		AITank->setVelocity(AITank->getVelocity() + acceleraion * deltaTime);
 
 		if (Vector3::lengthSq(AITank->getVelocity(), Vector3(0, 0, 0)) > (AITank->getMaxSpeed()*AITank->getMaxSpeed()))
 			AITank->setVelocity(AITank->getVelocity().normalize() * AITank->getMaxSpeed());
 
-		Vector3 newPos = AITank->getVelocity() * pEnemyTank->deltaTime();
+		Vector3 newPos = AITank->getVelocity() * deltaTime;
 		Vector3 newPos_normalize = target.normalize();
 
 		Vector3 forward = getAIHeading;
@@ -473,7 +473,7 @@ void Death::enter(AIController* pEnemyTank) {
 	MessageBox(0, L"awsl", 0, 0);
 }
 
-void Death::execute(AIController* pEnemyTank) {
+void Death::execute(AIController* pEnemyTank, float deltaTime) {
 
 	MessageBox(0, L"BOW! I DEAD", 0, 0);
 	////////////////////////changeState////////////////////////

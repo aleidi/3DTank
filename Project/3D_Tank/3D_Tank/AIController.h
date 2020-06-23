@@ -19,7 +19,6 @@ public:
 	StateMachine<AIController>* getFSM() const { return m_pStateMachine; }
 	bool handleMessage(const Telegram& msg);
 
-	float deltaTime() { return m_deltaTime; }
 	void Move(Vector3 Force);
 	void Rotate(float x, float y, float z);
 
