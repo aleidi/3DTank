@@ -19,4 +19,3 @@ private:
 	float mRotY;
 	float mRotZ;
 };
-

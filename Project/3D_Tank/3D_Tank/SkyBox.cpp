@@ -24,7 +24,7 @@ SkyBox::SkyBox(Graphics & gfx)
 	};
 	addBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	addBind(std::make_unique<Texture>(gfx, L"Skybox\\Sand"));
+	addBind(std::make_unique<Texture>(gfx, L"Skybox/Sand"));
 
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
@@ -37,7 +37,7 @@ SkyBox::SkyBox(Graphics & gfx)
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	addBind(std::make_unique<Sampler>(gfx, sampDesc));
 
-	addBind(std::make_unique<Rasterizer>(gfx));
+	//addBind(std::make_unique<Rasterizer>(gfx));
 
 	D3D11_DEPTH_STENCIL_DESC dd;
 	dd.DepthEnable = true;
