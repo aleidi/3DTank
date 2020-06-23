@@ -15,10 +15,13 @@ public:
 
 		float m_Mass;
 		float m_MaxSpeed;
-		float m_MaxForce;
-		float m_MaxTurnRate;
+		//float m_MaxForce;
+		//float m_MaxTurnRate;
 
-		Vector3 m_Velocity;
+		float m_WanderRadius;
+		float m_WanderDistance;
+		float m_WanderJitter;
+		Vector3 m_WanderTarget;
 	};
 
 public:
@@ -50,4 +53,5 @@ public:
 protected:
 	MovementComponent* mMovementComp;
 	Attribute mAttribute;
+	Vector3 m_Velocity;
 };

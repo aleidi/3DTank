@@ -105,16 +105,16 @@ void Wander::execute(AIController* pEnemyTank, float deltaTime) {
 	if (count > 0.0001) {
 		count = 0;
 
-		float jitterThisTimeSlice = pEnemyTank->m_WanderJitter * deltaTime;
-		pEnemyTank->m_WanderTarget += Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
-			Math::RandomClamped() * jitterThisTimeSlice);
-		pEnemyTank->m_WanderTarget = pEnemyTank->m_WanderTarget.normalize();
-		pEnemyTank->m_WanderTarget = pEnemyTank->m_WanderTarget * pEnemyTank->m_WanderRadius;
+		float jitterThisTimeSlice = AITank->getWanderJitter() * deltaTime;
+		AITank->setWanderTarget( AITank->getWanderTarget() + Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
+			Math::RandomClamped() * jitterThisTimeSlice) );
+		AITank->setWanderTarget( AITank->getWanderTarget().normalize() );
+		AITank->setWanderTarget(AITank->getWanderTarget() * AITank->getWanderRadius());
 
 		Vector3 forward = getAIHeading;
 		Vector3 forward_normalize = forward.normalize();
 
-		Vector3 target = pEnemyTank->m_WanderTarget + (forward_normalize * pEnemyTank->m_WanderDistance);
+		Vector3 target = AITank->getWanderTarget() + (forward_normalize * AITank->getWanderDistance());
 
 		// Vector3 target = Vector3(10, 0, 10);
 		/////////////////////////beginning of movement/////////////////////////////

@@ -11,9 +11,6 @@ AIController::AIController()
 AIController::AIController(int id)
 	:mID(id),mAccumulateRot(0)
 {
-	float theta = Math::RandFloat() * 2 * Pi;
-	m_WanderTarget = Vector3(m_WanderRadius * cos(theta), 0, m_WanderRadius * sin(theta));
-
 	m_pStateMachine = new StateMachine<AIController>(this);
 	m_pStateMachine->setCurrentState(Pursuit::getInstance());
 }
