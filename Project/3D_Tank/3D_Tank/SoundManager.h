@@ -30,13 +30,17 @@ public:
 
 	void playBGM();
 	void playSound(const int& soundNum);
+	void playSound(FMOD::Channel*& channel, int soundNum);
 	void setPause(const int& soundNum);
 	void setReplay(const int& soundNum);
 	void stop(const int& soundNum);
+	void stop(FMOD::Channel* channel);
 	void onUpdate();
 	void setSoundPosAndVel(const Vector3& pos, const Vector3& vel, const int& soundNum);
 	void setLisenterPosition(const Vector3& pos);
 	FMOD_RESULT loadSoundFile(const std::string& filepath, const int& soundNum);
+	FMOD_RESULT loadALLSoundFile();
+	//FMOD_RESULT loadSoundFile(const std::string& filepath, const int& soundNum);
 
 private:
 	static SoundManager* sInstance;

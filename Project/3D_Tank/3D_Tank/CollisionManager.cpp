@@ -147,6 +147,27 @@ void CollisionManager::deleteBoundingCube(const BoundingCube* cube)
 				delete *it;
 				*it = NULL;
 				mBoundingCube.erase(it);
+				break;
+			}
+		}
+		if (cube->moveable == 1) {
+			for (std::vector<BoundingCube*>::iterator it = moveableBoundingCube.begin(); it != moveableBoundingCube.end(); it++) {
+				if (*it == cube){
+					delete *it;
+					*it = NULL;
+					moveableBoundingCube.erase(it);
+					break;
+				}
+			}
+		}
+		else {
+			for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
+				if (*it == cube) {
+					delete *it;
+					*it = NULL;
+					unmoveableBoundingCube.erase(it);
+					break;
+				}
 			}
 		}
 	}
@@ -160,6 +181,27 @@ void CollisionManager::deleteBoundingSphere(const MBoundingSphere * sphere)
 				delete *it;
 				*it = NULL;
 				mBoundingSphere.erase(it);
+				break;
+			}
+		}
+		if (sphere->moveable == 1) {
+			for (std::vector<MBoundingSphere*>::iterator it = moveableBoundingSphere.begin(); it != moveableBoundingSphere.end(); it++) {
+				if (*it == sphere) {
+					delete *it;
+					*it = NULL;
+					moveableBoundingSphere.erase(it);
+					break;
+				}
+			}
+		}
+		else {
+			for (std::vector<MBoundingSphere*>::iterator it = unmoveableBoundingSphere.begin(); it != unmoveableBoundingSphere.end(); it++) {
+				if (*it == sphere) {
+					delete *it;
+					*it = NULL;
+					unmoveableBoundingSphere.erase(it);
+					break;
+				}
 			}
 		}
 	}
@@ -212,14 +254,32 @@ CollisionManager::~CollisionManager()
 {
 	for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
 		if (*it) {
-			delete *it;
-			*it = NULL;
+			delete *it; *it = NULL;
+		}
+	}
+	for (std::vector<BoundingCube*>::iterator it = moveableBoundingCube.begin(); it != moveableBoundingCube.end(); it++) {
+		if (*it) {
+			delete *it; *it = NULL;
+		}
+	}
+	for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
+		if (*it) {
+			delete *it; *it = NULL;
 		}
 	}
 	for (std::vector<MBoundingSphere*>::iterator it = mBoundingSphere.begin(); it != mBoundingSphere.end(); it++) {
 		if (*it) {
-			delete *it;
-			*it = NULL;
+			delete *it; *it = NULL;
+		}
+	}
+	for (std::vector<MBoundingSphere*>::iterator it = moveableBoundingSphere.begin(); it != moveableBoundingSphere.end(); it++) {
+		if (*it) {
+			delete *it; *it = NULL;
+		}
+	}
+	for (std::vector<MBoundingSphere*>::iterator it = unmoveableBoundingSphere.begin(); it != unmoveableBoundingSphere.end(); it++) {
+		if (*it) {
+			delete *it; *it = NULL;
 		}
 	}
 }

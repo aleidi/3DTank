@@ -3,7 +3,7 @@
 
 Pawn::Pawn()
 {
-	mMovementComp = new MovementComponent(this);
+	//mMovementComp = new MovementComponent(this);
 }
 
 Pawn::~Pawn()

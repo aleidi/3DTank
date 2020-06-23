@@ -47,7 +47,7 @@ public:
 	Vector3 Up;
 	int MoveDirection;   //0:forward, 1:back
 
-private:
+//private:
 	void calcultateTransformMatrix() noexcept;
 	void calculateRotForChildren(float angleX, float angleY, float angleZ) noexcept;
 

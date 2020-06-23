@@ -124,7 +124,7 @@ void Engine::run()
 	{
 		mGameSystem->onUpdate(deltaTime);
 		//mSound->playBGM();
- 		SoundManager::sGetInstance()->playSound(0);
+ 		//SoundManager::sGetInstance()->playSound(0);
 	}
 
 

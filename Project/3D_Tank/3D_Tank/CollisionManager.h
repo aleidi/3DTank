@@ -48,5 +48,8 @@ private:
 	std::vector<BoundingCube*>mBoundingCube;
 	std::vector<BoundingCube*>moveableBoundingCube;
 	std::vector<BoundingCube*>unmoveableBoundingCube;
+
 	std::vector<MBoundingSphere*>mBoundingSphere;
+	std::vector<MBoundingSphere*>moveableBoundingSphere;
+	std::vector<MBoundingSphere*>unmoveableBoundingSphere;
 };
