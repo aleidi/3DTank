@@ -4,7 +4,7 @@
 
 Window::Window(HINSTANCE hInst)
 	:
-	mWndClassName(WNDCLASSNAME), mHinst(hInst)
+	mWndClassName(WNDCLASSNAME), mHinst(hInst), mCanShowCursor(false)
 {
 	//define window class and register
 	WNDCLASSEX wndClass = { 0 };
@@ -149,6 +149,11 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			DestroyWindow(hWnd);
 			ClipCursor(NULL);
+		}
+		if (wParam == VK_F8)
+		{
+			ShowCursor(mCanShowCursor);
+			mCanShowCursor = !mCanShowCursor;
 		}
 	}
 

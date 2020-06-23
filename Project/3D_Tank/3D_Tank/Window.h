@@ -23,5 +23,6 @@ private:
 	const wchar_t* mWndClassName;
 	HWND mHwnd;
 	HINSTANCE mHinst;
+	bool mCanShowCursor;
 };
 
