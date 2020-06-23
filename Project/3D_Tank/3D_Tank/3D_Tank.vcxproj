@@ -218,6 +218,7 @@
     <ClCompile Include="GameStateBase.cpp" />
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="GeometryShader.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_dx11.cpp" />
@@ -338,6 +339,7 @@
     <ClInclude Include="GameStateBase.h" />
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="GeometryShader.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="KeycodeRedefine.h" />
     <ClInclude Include="Level01.h" />
     <ClInclude Include="Level02.h" />

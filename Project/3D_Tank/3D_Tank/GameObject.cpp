@@ -29,6 +29,12 @@ GameObject::~GameObject()
 	}
 }
 
+GameObject::GameObject(GameObject & obj)
+{
+	mName = obj.mName;
+	mTransform = new Transform(this);
+}
+
 void GameObject::addComponent(Component * comp) noexcept
 {
 	mComps.push_back(comp);

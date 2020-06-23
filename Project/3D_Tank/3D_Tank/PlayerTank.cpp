@@ -51,11 +51,6 @@ PlayerTank::~PlayerTank()
 void PlayerTank::onUpdate(float deltaTime)
 {
 	Pawn::onUpdate(deltaTime);
-
-	//std::wstring wstr = L"Position:";
-	//wstr += std::to_wstring(v.x) + L"," + std::to_wstring(v.y) +
-	//	L"," + std::to_wstring(v.z);
-	//Engine::sGetInstance()->showtText(wstr, 100, 100, 500, 500, true);
 }
 
 void PlayerTank::onLateUpdate(float deltaTime)
@@ -75,8 +70,6 @@ void PlayerTank::onLateUpdate(float deltaTime)
 	}
 
 	mCamFollower->getTransform()->setPosition(mTransform->getPosition() + mFPCameraOffset);
-
-	Engine::sGetInstance()->showtText(std::to_wstring(rot.x), 100, 100, 500, 500, true);
 }
 
 void PlayerTank::move(Vector3 value)

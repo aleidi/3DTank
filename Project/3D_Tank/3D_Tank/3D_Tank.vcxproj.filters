@@ -199,6 +199,9 @@
     <Filter Include="Game\Header\GameMode">
       <UniqueIdentifier>{1cb2ffb9-def9-4761-9f24-05ab05450345}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Prefabs">
+      <UniqueIdentifier>{707aea49-93b0-4ff5-89ab-fbc9ab1de991}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -524,6 +527,9 @@
     </ClCompile>
     <ClCompile Include="GeometryShader.cpp">
       <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Engine\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -866,9 +872,6 @@
     <ClInclude Include="UIEvent.h">
       <Filter>Engine\Header\Render\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerTank.h">
-      <Filter>Game\Header\Pawn</Filter>
-    </ClInclude>
     <ClInclude Include="ShellFlyComponent.h">
       <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
@@ -908,14 +911,20 @@
     <ClInclude Include="PlayerController.h">
       <Filter>Game\Header\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="GameModeTP.h">
-      <Filter>Game\Header\GameMode</Filter>
-    </ClInclude>
     <ClInclude Include="UIImage3D.h">
       <Filter>Engine\Header\Render\GUI</Filter>
     </ClInclude>
     <ClInclude Include="GeometryShader.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GameModeTP.h">
+      <Filter>Game\Header\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTank.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Engine\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

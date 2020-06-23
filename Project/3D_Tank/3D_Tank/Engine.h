@@ -23,6 +23,7 @@ public:
 	HWND getHWND();
 	POINT getCursorPos();
 	void enableEditMode(bool value);
+	void enableGameMode(bool value);
 
 	void showtText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
 private:
