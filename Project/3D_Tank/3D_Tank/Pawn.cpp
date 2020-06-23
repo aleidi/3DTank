@@ -23,3 +23,11 @@ void Pawn::onUpdate(float deltaTime)
 void Pawn::move(Vector3 value)
 {
 }
+
+void Pawn::setVelocity(Vector3 newVelocity) {
+	m_Velocity = newVelocity;
+}
+
+Vector3 Pawn::getVelocity()const {
+	return m_Velocity;
+}

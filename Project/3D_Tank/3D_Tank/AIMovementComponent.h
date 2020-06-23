@@ -18,4 +18,6 @@ protected:
 	float maxSpeed = 0.0f;
 	Vector3 position = Vector3::zero;
 	Vector3 acceleration = Vector3::zero, velocity = Vector3::zero;
+
+	Pawn* m_enemy;
 };
