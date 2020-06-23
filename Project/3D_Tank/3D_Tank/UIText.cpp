@@ -6,7 +6,7 @@ UIText::UIText(Graphics& gfx)
 }
 
 UIText::UIText(Graphics& gfx, std::wstring text)
-	: mgfx(gfx), mText(text)
+	:mText(text)
 {
 	mX =  WINDOW_WIDTH /2;
 	mY = WINDOW_HEIGHT /2;
@@ -55,6 +55,9 @@ UIText::UIText(Graphics& gfx, std::wstring text)
 	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	addBind(std::make_unique<UITransformCbuf>(gfx, *this));
+
+	mMaterial.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mPCBuf = std::make_unique<PixelConstantBuffer<DirectX::XMFLOAT4>>(gfx, mMaterial.Color);
 }
 
 void UIText::draw(Graphics& gfx) noexcept
@@ -64,9 +67,13 @@ void UIText::draw(Graphics& gfx) noexcept
 		return;
 	}
 
+	mPCBuf->onUpdate(gfx, mMaterial.Color);
+	mPCBuf->bind(gfx);
+	setBlendTransparent(gfx);
+
+	int index = 0;
 	int storeX = (int)mX;
 	int x = (int)mX;
-	int index = 0;
 	int y = (int)mY;
 	for (std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>::iterator it = pSRVs.begin();
 		it != pSRVs.end(); ++it)
@@ -76,19 +83,17 @@ void UIText::draw(Graphics& gfx) noexcept
 		mWidth = mChars[index].SizeX;
 		mHeight = mChars[index].SizeY;
 		gfx.getContext()->PSSetShaderResources(0, 1, it->GetAddressOf());
-		setBlendTransparent(gfx);
 		for (auto& b : mBinds)
 		{
 			b->bind(gfx);
 		}
 		gfx.DrawIndexed(pIndexBuffer->getCount());
-		resetBlendState(gfx);
 		x += (mChars[index].Advance >> 6);
 		++index;
 	}
 	mX = storeX;
 	mY = y;
-
+	resetBlendState(gfx);
 }
 
 void UIText::setText(Graphics& gfx, std::wstring wstr)
@@ -126,7 +131,7 @@ void UIText::setBlendTransparent(Graphics& gfx)
 	bd.AlphaToCoverageEnable = true;
 	bd.IndependentBlendEnable = false;
 	bd.RenderTarget[0].BlendEnable = true;
-	bd.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	bd.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 	bd.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
 	bd.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 	bd.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
