@@ -78,6 +78,10 @@ void PlayerController::checkInput(float deltaTime)
 	{
 		adjustDistanceToCam(mDisToCamFactor);
 	}
+	else
+	{
+		adjustDistanceToCam(0.0f);
+	}
 
 	rotateView(DInputPC::getInstance().mouseDY() * deltaTime, DInputPC::getInstance().mouseDX() * deltaTime);
 }

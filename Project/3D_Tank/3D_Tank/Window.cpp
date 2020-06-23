@@ -129,6 +129,16 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
 		return true;
 
+	RECT rc;
+	POINT tl{ 0,0 };
+	ClientToScreen(mHwnd, &tl);
+	GetClientRect(mHwnd, &rc);
+	rc.left += tl.x;
+	rc.right += tl.x;
+	rc.top += tl.y;
+	rc.bottom += tl.y;
+	ClipCursor(&rc);
+
 	switch (msg)
 	{
 	case WM_DESTROY:
@@ -138,6 +148,7 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		if (wParam == VK_ESCAPE)
 		{
 			DestroyWindow(hWnd);
+			ClipCursor(NULL);
 		}
 	}
 
