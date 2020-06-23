@@ -37,5 +37,7 @@ Cube::Cube(RenderComponent * owner)
 
 	addBind(std::make_unique<PSTransCBuf>(gfx, *this));
 
+	addBind(std::make_unique<GeometryShader>());
+
 	initMaterial();
 }

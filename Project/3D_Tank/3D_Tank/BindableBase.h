@@ -10,6 +10,7 @@
 #include "PSTransCBuf.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
+#include "GeometryShader.h"
 #include "Texture.h"
 #include "Sampler.h"
 #include "DepthStencil.h"

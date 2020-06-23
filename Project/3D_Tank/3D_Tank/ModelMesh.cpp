@@ -39,6 +39,8 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 
 	addBind(std::make_unique<PSTransCBuf>(gfx, *this));
 
+	addBind(std::make_unique<GeometryShader>());
+
 	initMaterial();
 }
 
@@ -72,6 +74,8 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	addBind(std::make_unique<TransferCbuf>(gfx, *this));
+
+	addBind(std::make_unique<GeometryShader>());
 }
 
 ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const std::wstring & texture, D3D11_SAMPLER_DESC sampDesc)
@@ -109,6 +113,8 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 	addBind(std::make_unique<TransferCbuf>(gfx, *this));
 
 	addBind(std::make_unique<PSTransCBuf>(gfx, *this));
+
+	addBind(std::make_unique<GeometryShader>());
 
 	initMaterial();
 }

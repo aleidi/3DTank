@@ -49,6 +49,8 @@ SkyBox::SkyBox(Graphics & gfx)
 	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	addBind(std::make_unique<TransferCbuf>(gfx, *this));
+	
+	addBind(std::make_unique<GeometryShader>());
 }
 
 void SkyBox::onUpdate(float deltaTime) noexcept

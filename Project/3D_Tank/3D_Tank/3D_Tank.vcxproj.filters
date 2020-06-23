@@ -519,6 +519,12 @@
     <ClCompile Include="ImGuiFrame.cpp">
       <Filter>Engine\Source\Render\EUI</Filter>
     </ClCompile>
+    <ClCompile Include="UIImage3D.cpp">
+      <Filter>Engine\Source\Render\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryShader.cpp">
+      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -905,6 +911,12 @@
     <ClInclude Include="GameModeTP.h">
       <Filter>Game\Header\GameMode</Filter>
     </ClInclude>
+    <ClInclude Include="UIImage3D.h">
+      <Filter>Engine\Header\Render\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryShader.h">
+      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -961,9 +973,30 @@
     <FxCompile Include="UIPSText.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
+    <FxCompile Include="UI3DGSHorizontalL.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UI3DGSHorizontalR.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UI3DGSVerticalB.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UI3DGSVerticalT.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Billboard_PS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Billboard_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="LightHelper.hlsli">
+      <Filter>Engine\Shader</Filter>
+    </None>
+    <None Include="Basic.hlsli">
       <Filter>Engine\Shader</Filter>
     </None>
   </ItemGroup>

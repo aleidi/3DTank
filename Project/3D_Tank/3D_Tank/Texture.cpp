@@ -1,6 +1,11 @@
 #include "Texture.h"
 #include "DDSTextureLoader.h"
 
+Texture::Texture(Graphics & gfx)
+{
+	createDefualtTexture(gfx);
+}
+
 Texture::Texture(Graphics& gfx, const std::wstring & path)
 {
 	std::wstring str = L".\\Resource\\Model\\";
