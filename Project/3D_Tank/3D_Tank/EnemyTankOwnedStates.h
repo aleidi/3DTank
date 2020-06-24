@@ -34,6 +34,7 @@ private:
 
 	Wander(const Wander&);
 	Wander& operator=(const Wander&);
+	float count = 0.0f;
 };
 
 class Avoidance : public State<AIController> {
@@ -49,6 +50,7 @@ private:
 
 	Avoidance(const Avoidance&);
 	Avoidance& operator=(const Avoidance&);
+	float count = 0.0f;
 };
 
 class Attack : public State<AIController> {
@@ -64,6 +66,7 @@ private:
 
 	Attack(const Attack&);
 	Attack& operator=(const Attack&);
+	float count = 0.0f;
 };
 
 class Evade : public State<AIController> {
@@ -79,6 +82,7 @@ private:
 
 	Evade(const Evade&);
 	Evade& operator=(const Evade&);
+	float count = 0.0f;
 };
 
 class Pursuit : public State<AIController> {
@@ -94,6 +98,7 @@ private:
 
 	Pursuit(const Pursuit&);
 	Pursuit& operator=(const Pursuit&);
+	float count = 0.0f;
 };
 
 class Death : public State<AIController> {

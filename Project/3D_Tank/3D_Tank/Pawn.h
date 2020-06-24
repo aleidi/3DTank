@@ -36,7 +36,7 @@ public:
 	virtual void onLateUpdate(float deltaTime) override;
 
 	virtual void move(Vector3 value);
-	virtual void attack(Vector3 direction);
+	virtual void attack(Vector3 battery_position, Vector3 shot_direction);
 
 	void setHP(int changeHP);
 	int getHP()const;
