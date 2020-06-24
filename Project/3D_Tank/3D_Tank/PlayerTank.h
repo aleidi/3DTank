@@ -22,7 +22,7 @@ public:
 private:
 	//tank move and rotate
 	float mRotateSpd;
-	float mMoveSped ;
+	float mMoveSped;
 	float mBatteryRotSpd;
 	float mBatteryMaxPitch;
 	float mBatteryMinPitch;

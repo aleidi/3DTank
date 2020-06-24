@@ -14,7 +14,7 @@ PlayerTank::PlayerTank()
 {
 	mName = "PlayerTank";
 
-	mAttribute = { 100,1000.0f,2000.0f };
+	mAttribute.m_MaxSpeed = mMoveSped;
 
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
@@ -52,6 +52,7 @@ PlayerTank::~PlayerTank()
 void PlayerTank::onUpdate(float deltaTime)
 {
 	Pawn::onUpdate(deltaTime);
+
 }
 
 void PlayerTank::onLateUpdate(float deltaTime)
@@ -78,6 +79,7 @@ void PlayerTank::onLateUpdate(float deltaTime)
 void PlayerTank::move(Vector3 value)
 {
 	mTransform->translate(value * mMoveSped);
+	m_Velocity = value;
 }
 
 void PlayerTank::rotate(float value)
