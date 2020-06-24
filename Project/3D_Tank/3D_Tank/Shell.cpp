@@ -12,7 +12,7 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	shell->getTransform()->setScale(0.02f, 0.02f, 0.02f);
 
 	mCollisionSphere = new MBoundingSphere(shell);
-	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1f, 1);
+	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.5f, 1);
 	shell->addComponent(mCollisionSphere);
 	mShellFly = new ShellFlyComponent(shell, direction);
 	shell->addComponent(mShellFly);
@@ -43,7 +43,18 @@ MBoundingSphere * Shell::getCollisionSphere()
 	return this->mCollisionSphere;
 }
 
+ShellFlyComponent * Shell::getShellComponent()
+{
+	if(this->shellType == 1)
+		return this->mShellFly;
+	else return NULL;
+}
+
 int Shell::getShelltype()
 {
 	return this->shellType;
+}
+
+void Shell::onTriggerEnter()
+{
 }

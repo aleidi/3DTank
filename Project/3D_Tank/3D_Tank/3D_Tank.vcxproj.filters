@@ -537,6 +537,9 @@
     <ClCompile Include="Shell.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="FreightContainer_A.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -934,6 +937,12 @@
     </ClInclude>
     <ClInclude Include="Shell.h">
       <Filter>Game\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="FreightContainer_A.h">
+      <Filter>Game\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionEvent.h">
+      <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
