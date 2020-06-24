@@ -35,7 +35,7 @@ public:
 	void setWanderTarget(Vector3 wandertarget);
 
 	void move(Vector3 value);
-	void setBatteryRotation(Vector3 value);
+	void rotateBattery(float x,float y,float z);
 	bool isDying()const;
 	bool isEnemyInRange()const;
 	bool isLostEnemy()const;

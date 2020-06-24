@@ -113,9 +113,9 @@ void EnemyTank::move(Vector3 value)
 	mMovementComp->addForce(value);
 }
 
-void EnemyTank::setBatteryRotation(Vector3 value)
+void EnemyTank::rotateBattery(float x, float y, float z)
 {
-	mBattery->getTransform()->setRotation(value);
+	mBattery->getTransform()->rotate(x, y, z);
 }
 
 bool EnemyTank::isDying()const {
