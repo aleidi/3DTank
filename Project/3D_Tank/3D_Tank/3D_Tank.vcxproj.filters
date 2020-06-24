@@ -534,6 +534,9 @@
     <ClCompile Include="Ground.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="UIHP.cpp">
+      <Filter>Game\Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -928,6 +931,9 @@
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Game\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="UIHP.h">
+      <Filter>Game\Header\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

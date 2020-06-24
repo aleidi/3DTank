@@ -268,6 +268,7 @@
     <ClCompile Include="UIBase.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UICommon.cpp" />
+    <ClCompile Include="UIHP.cpp" />
     <ClCompile Include="UIImage.cpp" />
     <ClCompile Include="UIImage3D.cpp" />
     <ClCompile Include="UIText.cpp" />
@@ -401,6 +402,7 @@
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UICommon.h" />
     <ClInclude Include="UIEvent.h" />
+    <ClInclude Include="UIHP.h" />
     <ClInclude Include="UIImage.h" />
     <ClInclude Include="UIImage3D.h" />
     <ClInclude Include="UIText.h" />
