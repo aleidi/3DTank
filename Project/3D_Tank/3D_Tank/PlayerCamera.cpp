@@ -38,7 +38,7 @@ void PlayerCamera::onLateUpdate(float deltaTime)
 	float length = 0.02f;
 
 	float dis = 0.0f;
-	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(origin, dir, length, *mCol, dis))
+	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(origin, dir, length, &mCol, dis))
 	{
 		Position.y = 0.02f;
 	}

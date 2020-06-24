@@ -112,13 +112,9 @@ bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & directio
 	else return false;
 }
 
-bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis)
+bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject** gameobject, float& dis)
 {
 	Vector3 dir = direction;
-	if (dir == Vector3::zero)
-	{
-		return false;
-	}
 	if (dir == Vector3::zero)
 	{
 		return false;
@@ -139,9 +135,9 @@ bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3
 			else {
 				if (flag != 0 && d < dis) {
 					dis = d;
-					GameObject obj(*(*it)->getObject());
-					gameobject = obj;
-					gameobject = (*it)->getObject();
+					//GameObject obj(*(*it)->getObject());
+					//gameobject = obj;
+					*gameobject = (*it)->getObject();
 				}
 			}
 		}
