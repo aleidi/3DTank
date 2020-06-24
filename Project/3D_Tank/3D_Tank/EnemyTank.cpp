@@ -29,7 +29,7 @@ EnemyTank::EnemyTank(int ID)
 	tankBattery->cube = tankBatteryBoundingCube;
 	tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
 	tankBattery->addComponent(tankBatteryBoundingCube);
-	//tankBattery->getTransform()->calcultateTransformMatrix();
+	tankBattery->getTransform()->calcultateTransformMatrix();
 	tankBatteryBoundingCube->box.Transform(tankBatteryBoundingCube->box, tankBattery->getTransform()->getLocalToWorldMatrix());
 	GameObject* tankBody = SceneManager::sGetInstance()->createEmptyObject();
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint));
@@ -38,7 +38,8 @@ EnemyTank::EnemyTank(int ID)
 	tankBody->cube = tankBodyBoundingCube;
 	tankBodyBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
 	tankBody->addComponent(tankBodyBoundingCube);
-	tankBodyBoundingCube->box.Transform(tankBodyBoundingCube->box, tankBody->getTransform()->getLocalToWorldMatrix());
+	tankBody->getTransform()->calcultateTransformMatrix();
+ 	tankBodyBoundingCube->box.Transform(tankBodyBoundingCube->box, tankBody->getTransform()->getLocalToWorldMatrix());
 	this->cube = tankBodyBoundingCube;
 
 	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));

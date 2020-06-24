@@ -16,6 +16,7 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	shell->addComponent(mCollisionSphere);
 	mShellFly = new ShellFlyComponent(shell, direction);
 	shell->addComponent(mShellFly);
+	shell->sphere = mCollisionSphere;
 }
 
 Shell::Shell(GameObject* obj, const int& type)
@@ -32,6 +33,7 @@ Shell::Shell(GameObject* obj, const int& type)
 	shell->addComponent(mCollisionSphere);
 	mShellFly = new ShellFlyComponent(shell, obj->getTransform()->Forward);
 	shell->addComponent(mShellFly);
+	shell->sphere = mCollisionSphere;
 }
 
 Shell::~Shell()
