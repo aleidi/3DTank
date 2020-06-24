@@ -7,12 +7,15 @@ class ShellFlyComponent;
 class Shell : GameObject {
 public:
 	Shell(const Vector3& origin, const Vector3& direction, const int& shellType);
+	Shell(GameObject* obj, const int& shellType);
 	~Shell();
 
 	MBoundingSphere* getCollisionSphere();
 	int getShelltype();
 
 	GameObject* shell;
+
+	GameObject* fireTank;
 
 private:
 	MBoundingSphere* mCollisionSphere;
