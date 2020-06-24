@@ -35,8 +35,10 @@ void ShellFlyComponent::onUpdate(float detaTime)
 		this->getObject()->sphere->sphere.Center.y += velocity.y*detaTime;
 		this->getObject()->sphere->sphere.Center.z += velocity.z*detaTime;
 	}
-	//updateForward(detaTime);
-	//this->velocity = this->getObject()->getTransform()->Forward.normalize() * 5.f;
+	if (target) {
+		updateForward(detaTime);
+		this->velocity = this->getObject()->getTransform()->Forward.normalize() * 5.f;
+	}
 }
 
 void ShellFlyComponent::updateForward(float detaTime)
