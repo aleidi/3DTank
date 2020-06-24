@@ -4,6 +4,7 @@
 #include "Pawn.h"
 #include "Transform.h"
 #include "EnemyTank.h"
+#include "GameInstance.h"
 
 AIController::AIController()
 	:AIController(-1)
@@ -14,6 +15,8 @@ AIController::AIController(int id)
 {
 	m_pStateMachine = new StateMachine<AIController>(this);
 	m_pStateMachine->setCurrentState(Pursuit::getInstance());
+
+	m_target = GameInstance::sGetInstance()->getPlayer();
 }
 
 AIController::~AIController()
@@ -38,6 +41,10 @@ void AIController::MoveCharacter(Vector3 value)
 
 bool AIController::handleMessage(const Telegram& msg) {
 	return m_pStateMachine->handleMessage(msg);
+}
+
+void AIController::Attack() {
+	// mPawn->attack();
 }
 
 void AIController::Move(Vector3 force)

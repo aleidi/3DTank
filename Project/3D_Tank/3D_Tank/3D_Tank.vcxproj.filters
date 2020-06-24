@@ -357,9 +357,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Engine\Source\Render</Filter>
     </ClCompile>
-    <ClCompile Include="EntityManager.cpp">
-      <Filter>Engine\Source\Gameplay\AI</Filter>
-    </ClCompile>
     <ClCompile Include="MessageDispatcher.cpp">
       <Filter>Engine\Source\Misc\Messaging</Filter>
     </ClCompile>
@@ -533,6 +530,9 @@
     </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="UIHP.cpp">
+      <Filter>Game\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="Shell.cpp">
       <Filter>Game\Source\Prefabs</Filter>
@@ -721,9 +721,6 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Engine\Header\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityManager.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
     <ClInclude Include="MessageDispatcher.h">
       <Filter>Engine\Header\Misc\Messaging</Filter>
@@ -934,6 +931,9 @@
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Game\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="UIHP.h">
+      <Filter>Game\Header\UI</Filter>
     </ClInclude>
     <ClInclude Include="Shell.h">
       <Filter>Game\Prefabs</Filter>

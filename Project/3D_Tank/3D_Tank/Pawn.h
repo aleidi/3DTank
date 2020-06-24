@@ -12,6 +12,7 @@ public:
 		int m_HP;
 		float m_AttackRangeRadiusSq;
 		float m_PursuitRangeRadiusSq;
+		float m_WanderRangeRadiusSq;
 
 		float m_Mass;
 		float m_MaxSpeed;
@@ -21,6 +22,8 @@ public:
 		float m_WanderRadius;
 		float m_WanderDistance;
 		float m_WanderJitter;
+
+		Vector3 m_ResetPoint;
 		Vector3 m_WanderTarget;
 	};
 
@@ -30,9 +33,10 @@ public:
 
 	virtual void onStart() override;
 	virtual void onUpdate(float deltaTime) override;
-
+	virtual void onLateUpdate(float deltaTime) override;
 
 	virtual void move(Vector3 value);
+	virtual void attack(Vector3 direction);
 
 	void setHP(int changeHP);
 	int getHP()const;
@@ -54,4 +58,6 @@ protected:
 	MovementComponent* mMovementComp;
 	Attribute mAttribute;
 	Vector3 m_Velocity;
+
+	GameObject* mUIHP;
 };

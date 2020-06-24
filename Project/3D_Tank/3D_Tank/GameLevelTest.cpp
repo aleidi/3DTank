@@ -1,12 +1,12 @@
 #include "GameLevelTest.h"
 #include "GameCommon.h"
 #include "GameModeBase.h"
+#include "GameModeTP.h"
 
 #include "TankGamePlay.h"
 #include "TankBatteryCtrl.h"
 #include "RenderManager.h"
 #include "EnemyTank.h"
-#include "EntityManager.h"
 #include "EntityNames.h"
 #include "MessageDispatcher.h"
 #include "AIController.h"
@@ -34,18 +34,10 @@ GameObject* collider;
 SoundComponent* sound;
 EnemyTank* enemy;
 EnemyTank* enemytarget;
-EnemyTank* enemy1;
-EnemyTank* enemy2;
-EnemyTank* enemy3;
-EnemyTank* enemy4;
-EnemyTank* enemy5;
+
 AIController* aiController;
 AIController* aiControllertarget;
-AIController* aiController1;
-AIController* aiController2;
-AIController* aiController3;
-AIController* aiController4;
-AIController* aiController5;
+
 
 bool tankFire = false;
 
@@ -60,8 +52,9 @@ GameLevelTest::~GameLevelTest()
 
 void GameLevelTest::enterLevel()
 {
-	mCurrentGameMode = new GameModeBase();
-	mCurrentGameMode->onInit();
+	// mCurrentGameMode = new GameModeBase();
+	mCurrentGameMode = new GameModeTP();
+	// mCurrentGameMode->onInit();
 	SceneManager::sGetInstance()->createCube()->getTransform()->setPosition(Vector3::right * 1.0f);
 
 	SoundManager::sGetInstance()->onInit();
@@ -162,19 +155,17 @@ void GameLevelTest::enterLevel()
 	//set ai
 	
 	enemy = new EnemyTank(ent_Tank_Enemy);
-	EntityMgr->registerEntity(enemy);
 	enemy->setMaxSpeed(1.5f);
 	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
 	aiController->posses(enemy);
 	enemytarget = new EnemyTank(ent_Tank_SuperEnemy);
 	enemytarget->getTransform()->setPosition(Vector3(10, 0, 10));
-	EntityMgr->registerEntity(enemytarget);
 	aiControllertarget = SceneManager::sGetInstance()->createAIController(ent_Tank_SuperEnemy);
 	aiControllertarget->getFSM()->setCurrentState(Wander::getInstance());
 	aiControllertarget->posses(enemytarget);
 
 	aiController->setTarget(enemytarget);
-	aiControllertarget->setTarget(enemy);
+	//aiControllertarget->setTarget(enemy);
 	//SoundManager::sGetInstance()->playSound(3);
 	//shell = SceneManager::sGetInstance()->createSphere();
 	//shell->getTransform()->Forward = enemy->getTransform()->Forward;
@@ -261,7 +252,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
 	}
 
-
+	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 	return this;
 }
 

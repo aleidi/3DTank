@@ -8,7 +8,6 @@
 PlayerCamera::PlayerCamera(GameObject * object)
 	:PlayerCamera(object, DirectX::XM_PI / 3, (float)WINDOW_WIDTH / WINDOW_HEIGHT, 0.01f, 100.0f)
 {
-	mCol = new GameObject();
 }
 
 PlayerCamera::PlayerCamera(GameObject * object, float fov, float aspect, float nearZ, float farZ) noexcept
@@ -36,7 +35,7 @@ void PlayerCamera::onLateUpdate(float deltaTime)
 	Vector3 origin = Position;
 	Vector3 dir = Vector3::up * - 1.0f;
 	float length = 0.02f;
-
+	GameObject* mCol;
 	float dis = 0.0f;
 	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(origin, dir, length, &mCol, dis))
 	{

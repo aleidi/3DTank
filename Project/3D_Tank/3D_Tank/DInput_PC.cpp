@@ -1,6 +1,9 @@
 #include "DInput_PC.h"
 #include "Engine.h"
 
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "dxguid.lib")
+
 DInputPC::DInputPC() {
 	m_pDirectInput = NULL;
 	m_KeyboardDevice = NULL;

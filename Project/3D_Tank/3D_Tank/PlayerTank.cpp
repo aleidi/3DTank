@@ -9,11 +9,12 @@ PlayerTank::PlayerTank()
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
 	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
 	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
-	mFPToTPThreshold(0.7f), mMinDisToCam(0.0f),mMaxDisToCam(1.0f)
+	mFPToTPThreshold(0.7f), mMinDisToCam(0.0f),mMaxDisToCam(1.0f),
+	Pawn()
 {
 	mName = "PlayerTank";
 
-	mAttribute = { 100,1000.0f,2000.0f };
+	mAttribute.m_MaxSpeed = mMoveSped;
 
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
@@ -51,10 +52,13 @@ PlayerTank::~PlayerTank()
 void PlayerTank::onUpdate(float deltaTime)
 {
 	Pawn::onUpdate(deltaTime);
+
 }
 
 void PlayerTank::onLateUpdate(float deltaTime)
 {
+	Pawn::onLateUpdate(deltaTime);
+
 	Vector3 v = Math::lerp(mBattery->getTransform()->getRotation(), mCamFollower->getTransform()->getRotation(), deltaTime*mBatteryRotSpd);
 	mBattery->getTransform()->setRotation(v);
 	Vector3 rot = mBattery->getTransform()->getRotation();
@@ -75,6 +79,7 @@ void PlayerTank::onLateUpdate(float deltaTime)
 void PlayerTank::move(Vector3 value)
 {
 	mTransform->translate(value * mMoveSped);
+	m_Velocity = value;
 }
 
 void PlayerTank::rotate(float value)

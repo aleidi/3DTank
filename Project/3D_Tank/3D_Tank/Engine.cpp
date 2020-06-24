@@ -5,8 +5,8 @@
 #include "SceneManager.h"
 #include "ComponentFactory.h"
 #include "Configuration.h"
-#pragma comment(lib, "dinput8.lib")
-#pragma comment(lib, "dxguid.lib")
+#include "FileManager.h"
+
 
 //test
 #include "Rendering.h"
@@ -32,6 +32,8 @@ Engine::Engine(Window& wnd)
 	onInit();
 
 	mIsEditMode = true;
+
+	//FileManager::loadPlayerAttribute();
 }
 
 Engine * Engine::sGetInstance()

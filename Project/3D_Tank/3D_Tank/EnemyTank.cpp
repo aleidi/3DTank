@@ -21,7 +21,7 @@ EnemyTank::EnemyTank(int ID)
 	BaseGameEntity(ID)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
-	mAttribute = {100,1000.0f,2000.0f,50.0f,1.0f,10.0f,20.0f,800.0f};
+	mAttribute = {100,1000.0f,2000.0f,1000.0f,50.0f,1.0f,10.0f,20.0f,800.0f,Vector3(0,0,0) };
 	GameObject* tankBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	tankBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
@@ -92,6 +92,22 @@ int EnemyTank::getHP()const {
 	return mAttribute.m_HP;
 }
 
+void EnemyTank::setResetPoint(Vector3 mResetPoint) {
+	mAttribute.m_ResetPoint = mResetPoint;
+}
+
+Vector3 EnemyTank::getResetPoint()const {
+	return mAttribute.m_ResetPoint;
+}
+
+void EnemyTank::setWanderRangeRadiusSq(float mWanderRangeRadiusSq) {
+	mAttribute.m_WanderRangeRadiusSq = mWanderRangeRadiusSq;
+}
+
+float EnemyTank::getWanderRangeRadiusSq()const {
+	return mAttribute.m_WanderRangeRadiusSq;
+}
+
 void EnemyTank::setMass(float mass) {
 	mAttribute.m_Mass = mass;
 }
@@ -99,15 +115,6 @@ void EnemyTank::setMass(float mass) {
 float EnemyTank::getMass()const {
 	return mAttribute.m_Mass;
 }
-
-void EnemyTank::setMaxSpeed(float maxspeed) {
-	mAttribute.m_MaxSpeed = maxspeed;
-}
-
-float EnemyTank::getMaxSpeed()const {
-	return mAttribute.m_MaxSpeed;
-}
-
 
 void EnemyTank::move(Vector3 value)
 {
