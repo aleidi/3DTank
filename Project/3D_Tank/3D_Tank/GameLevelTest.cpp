@@ -17,6 +17,7 @@
 #include "BoundingCube.h"
 #include "SoundComponent.h"
 #include "SoundManager.h"
+#include "Shell.h"
 #include <windows.h>
 
 GameObject* hq;
@@ -184,6 +185,8 @@ void GameLevelTest::enterLevel()
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
 	if (DInputPC::getInstance().iskeyDown(DIK_F)){
+		Shell* sh = new Shell(enemy->getTransform()->getPosition() + enemy->getTransform()->Forward*0.6f + enemy->getTransform()->Up*0.18f + enemy->getTransform()->Right*0.04f, enemy->getTransform()->Forward, 0);
+
 		shell = SceneManager::sGetInstance()->createSphere();
 		shell->getTransform()->Forward = SM_WaterTank->getTransform()->Forward * -1;
 		shell->getTransform()->setPosition(SM_WaterTank->getTransform()->getPosition() + SM_WaterTank->getTransform()->Forward*0.6f + enemy->getTransform()->Up*0.18f+enemy->getTransform()->Right*0.04f);

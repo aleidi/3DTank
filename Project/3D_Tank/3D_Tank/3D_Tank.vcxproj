@@ -250,6 +250,7 @@
     <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Shell.cpp" />
     <ClCompile Include="ShellFlyComponent.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Sound.cpp" />
@@ -267,6 +268,7 @@
     <ClCompile Include="UIBase.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UICommon.cpp" />
+    <ClCompile Include="UIHP.cpp" />
     <ClCompile Include="UIImage.cpp" />
     <ClCompile Include="UIImage3D.cpp" />
     <ClCompile Include="UIText.cpp" />
@@ -378,6 +380,7 @@
     <ClInclude Include="Rendering.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Shell.h" />
     <ClInclude Include="ShellFlyComponent.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Sound.h" />
@@ -399,6 +402,7 @@
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UICommon.h" />
     <ClInclude Include="UIEvent.h" />
+    <ClInclude Include="UIHP.h" />
     <ClInclude Include="UIImage.h" />
     <ClInclude Include="UIImage3D.h" />
     <ClInclude Include="UIText.h" />

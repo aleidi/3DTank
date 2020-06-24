@@ -531,6 +531,12 @@
     <ClCompile Include="Ground.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="UIHP.cpp">
+      <Filter>Game\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Shell.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -921,6 +927,12 @@
       <Filter>Game\Header\Pawn</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
+      <Filter>Game\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="UIHP.h">
+      <Filter>Game\Header\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Shell.h">
       <Filter>Game\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>

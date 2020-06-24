@@ -1,9 +1,12 @@
 #include "Pawn.h"
 #include "MovementComponent.h"
+#include "UIHP.h"
 
 Pawn::Pawn()
 {
-	//mMovementComp = new MovementComponent(this);
+	mUIHP = new UIHP();
+	mUIHP->attach(*this);
+	mUIHP->getTransform()->translate(0.0f, 0.4f, 0.0f);
 }
 
 Pawn::~Pawn()
@@ -18,6 +21,11 @@ void Pawn::onStart()
 void Pawn::onUpdate(float deltaTime)
 {
 	GameObject::onUpdate(deltaTime);
+}
+
+void Pawn::onLateUpdate(float deltaTime)
+{
+	mUIHP->onLateUpdate(deltaTime);
 }
 
 void Pawn::move(Vector3 value)

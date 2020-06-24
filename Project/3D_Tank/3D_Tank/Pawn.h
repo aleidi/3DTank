@@ -32,7 +32,7 @@ public:
 
 	virtual void onStart() override;
 	virtual void onUpdate(float deltaTime) override;
-
+	virtual void onLateUpdate(float deltaTime) override;
 
 	virtual void move(Vector3 value);
 
@@ -56,4 +56,6 @@ protected:
 	MovementComponent* mMovementComp;
 	Attribute mAttribute;
 	Vector3 m_Velocity;
+
+	GameObject* mUIHP;
 };
