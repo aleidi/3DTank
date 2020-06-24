@@ -43,6 +43,10 @@ bool AIController::handleMessage(const Telegram& msg) {
 	return m_pStateMachine->handleMessage(msg);
 }
 
+void AIController::Attack() {
+	// mPawn->attack();
+}
+
 void AIController::Move(Vector3 force)
 {
 	reinterpret_cast<EnemyTank*>(mPawn)->move(force);

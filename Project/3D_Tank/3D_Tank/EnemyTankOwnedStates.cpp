@@ -107,19 +107,25 @@ void Wander::execute(AIController* pEnemyTank, float deltaTime) {
 	if (count > 0.0001) {
 		count = 0;
 
-		float jitterThisTimeSlice = AITank->getWanderJitter() * deltaTime;
-		AITank->setWanderTarget( AITank->getWanderTarget() + Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
-			Math::RandomClamped() * jitterThisTimeSlice) );
-		AITank->setWanderTarget( AITank->getWanderTarget().normalize() );
-		AITank->setWanderTarget(AITank->getWanderTarget() * AITank->getWanderRadius());
+		float disToBornSq = Vector3::lengthSq(getAIPos, AITank->getResetPoint());
+		if ( disToBornSq > AITank->getWanderRangeRadiusSq() ) {
+			Vector3 goBack = AITank->getResetPoint() - getAIPos;
+			pEnemyTank->Move(goBack);
+		}
+		else {
+			float jitterThisTimeSlice = AITank->getWanderJitter() * deltaTime;
+			AITank->setWanderTarget(AITank->getWanderTarget() + Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
+				Math::RandomClamped() * jitterThisTimeSlice));
+			AITank->setWanderTarget(AITank->getWanderTarget().normalize());
+			AITank->setWanderTarget(AITank->getWanderTarget() * AITank->getWanderRadius());
 
-		Vector3 forward = getAIHeading;
-		Vector3 forward_normalize = forward.normalize();
+			Vector3 forward = getAIHeading;
+			Vector3 forward_normalize = forward.normalize();
 
-		Vector3 target = AITank->getWanderTarget() + (forward_normalize * AITank->getWanderDistance());
+			Vector3 target = AITank->getWanderTarget() + (forward_normalize * AITank->getWanderDistance());
 
-		pEnemyTank->Move(target);
-
+			pEnemyTank->Move(target);
+		}
 		////////////////////////changeState////////////////////////
 		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
 			// pEnemyTank->getFSM()->changeState(Attack::getInstance());
@@ -193,7 +199,7 @@ void Attack::enter(AIController* pEnemyTank) {
 }
 
 void Attack::execute(AIController* pEnemyTank, float deltaTime) {
-
+	pEnemyTank->Attack();
 	////////////////////////changeState////////////////////////
 	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying()) {
 		pEnemyTank->getFSM()->changeState(Evade::getInstance());
