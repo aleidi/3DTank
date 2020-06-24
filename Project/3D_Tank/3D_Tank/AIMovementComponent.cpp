@@ -7,6 +7,8 @@ AIMovementComponent::AIMovementComponent(EnemyTank* enemy) : MovementComponent(e
 	maxSpeed = enemy->getMaxSpeed();
 	velocity = Vector3::zero;
 	position = Vector3::zero;
+
+	m_enemy = enemy;
 }
 
 AIMovementComponent::~AIMovementComponent()
@@ -17,9 +19,11 @@ void AIMovementComponent::onUpdate(float deltaTime)
 {
 	Vector3 acceleraion = force / mass;
 	velocity += acceleraion * deltaTime;
-
+	
 	if (Vector3::lengthSq(velocity, Vector3(0, 0, 0)) > (maxSpeed*maxSpeed))
 		velocity = velocity.normalize() * maxSpeed;
+
+	m_enemy->setVelocity(velocity);
 
 	Vector3 newPos = velocity * deltaTime;
 	Vector3 newPos_normalize = force.normalize();

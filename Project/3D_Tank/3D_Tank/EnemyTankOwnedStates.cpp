@@ -12,9 +12,10 @@
 #include "GameInstance.h"
 #include <assert.h>
 
-#define getTargetPos pEnemyTank->getTarget()->getPawn()->getTransform()->getPosition()
-#define getTargetHeading pEnemyTank->getTarget()->getPawn()->getTransform()->Forward
-#define TargetTank reinterpret_cast<EnemyTank*>(pEnemyTank->getTarget()->getPawn())
+#define getTargetVelocity pEnemyTank->getTarget()->getVelocity()
+#define getTargetPos pEnemyTank->getTarget()->getTransform()->getPosition()
+#define getTargetHeading pEnemyTank->getTarget()->getTransform()->Forward
+#define TargetTank reinterpret_cast<EnemyTank*>(pEnemyTank->getTarget())
 
 #define getPlayerPos GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition()
 #define getPlayerSpeed	GameInstance::sGetInstance()->getPlayer()->getSpeed() /////////////////
@@ -23,6 +24,7 @@
 #define AITank reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())
 #define getAIPos pEnemyTank->getPawn()->getTransform()->getPosition()
 #define getAIHeading pEnemyTank->getPawn()->getTransform()->Forward
+#define getAIVelocity  pEnemyTank->getPawn()->getVelocity()
 //-------------------methods for Rest-------------------//
 Rest* Rest::getInstance() {
 	static Rest m_Rest;
@@ -30,8 +32,10 @@ Rest* Rest::getInstance() {
 }
 
 void Rest::enter(AIController* pEnemyTank) {
+	std::wstring wstr;
+	wstr += std::to_wstring(AITank->getID()) + L"I'm going to rest. ";
 	AITank->setHPRecovered(false);
-	MessageBox(0, L"I'm going to rest. ", 0, 0);
+	MessageBox(0, wstr.c_str(), 0, 0);
 }
 
 void Rest::execute(AIController* pEnemyTank, float deltaTime) {
@@ -229,9 +233,9 @@ void Evade::execute(AIController* pEnemyTank, float deltaTime) {
 		Vector3 toPursuer = getTargetPos - getAIPos;
 
 		float lookAheadTime = sqrt(Vector3::lengthSq(toPursuer, Vector3(0, 0, 0))) / (AITank->getMaxSpeed() + TargetTank->getMaxSpeed());
-		Vector3 targetPos = getTargetPos + TargetTank->getVelocity() * lookAheadTime;
+		Vector3 targetPos = getTargetPos + getTargetVelocity * lookAheadTime;
 		Vector3 desiredVelocity = (getAIPos - targetPos).normalize() * AITank->getMaxSpeed();
-		target = desiredVelocity - AITank->getVelocity();
+		target = desiredVelocity - getAIVelocity;
 		/////////////////////////beginning of movement/////////////////////////////
 		pEnemyTank->Move(target);
 	
@@ -293,7 +297,7 @@ void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
 		if ((Vector3::dot(toEvader, getAIHeading) > 0) && (relativeHeading < -0.95)) { // acos(0.95)=18degs
 			Vector3 targetPos = getTargetPos;
 			Vector3 desiredVelocity = (targetPos - getAIPos).normalize() * AITank->getMaxSpeed();
-			target = desiredVelocity - AITank->getVelocity();
+			target = desiredVelocity - getAIVelocity;
 		}
 		
 		else {
@@ -301,16 +305,25 @@ void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
 			float lookAheadTime = sqrt(Vector3::lengthSq(toEvader, Vector3(0, 0, 0))) / (AITank->getMaxSpeed() + TargetTank->getMaxSpeed());
 			float m_dot = Vector3::dot(getAIHeading, toEvader.normalize());
 			const float coefficient = 0.005f;
-			lookAheadTime += (m_dot - 1.0) * -coefficient;
+			lookAheadTime += (m_dot - 1.0f) * -coefficient;
 
 			/////////////////////////////////////////
-			Vector3 targetPos = getTargetPos + (TargetTank->getVelocity() * lookAheadTime);
+			Vector3 targetPos = getTargetPos + (getTargetVelocity * lookAheadTime);
 			Vector3 desiredVelocity = (targetPos - getAIPos).normalize() * AITank->getMaxSpeed();
-			target = desiredVelocity - AITank->getVelocity();
+			target = desiredVelocity - getAIVelocity;
 		} 
 
 		/////////////////////////beginning of movement/////////////////////////////
 		pEnemyTank->Move(target);
+
+		std::wstring wstr;
+		wstr += L"velocity: (" + std::to_wstring(getAIVelocity.x) + L"," +
+			std::to_wstring(getAIVelocity.y) + L"," +
+			std::to_wstring(getAIVelocity.z) + L") \n";
+		wstr += L"Target velocity: (" + std::to_wstring(getTargetVelocity.x) + L"," +
+			std::to_wstring(getTargetVelocity.y) + L"," +
+			std::to_wstring(getTargetVelocity.z) + L") \n";
+		Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
 		////////////////////////changeState////////////////////////
 		/*
 		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {

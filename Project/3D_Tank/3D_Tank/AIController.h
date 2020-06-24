@@ -22,8 +22,8 @@ public:
 	void Move(Vector3 Force);
 	void Rotate(float x, float y, float z);
 
-	void setTarget(AIController* targetTank) { m_target = targetTank; }
-	AIController* getTarget() { return m_target; }
+	void setTarget(Pawn* targetTank) { m_target = targetTank; }
+	Pawn* getTarget() { return m_target; }
 
 private:
 	int mID;
@@ -32,6 +32,6 @@ private:
 
 	StateMachine<AIController>* m_pStateMachine;
 
-	AIController* m_target;
+	Pawn* m_target;
 
 };

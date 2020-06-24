@@ -17,14 +17,7 @@ class EnemyTank : public BaseGameEntity {
 public:
 	EnemyTank(int ID);
 	~EnemyTank();
-	// delete m_pStateMachine; }
 
-	/*
-	void update();
-
-	StateMachine<EnemyTank>* getFSM() const { return m_pStateMachine; }
-	bool handleMessage(const Telegram& msg);
-	*/
 	//////////////////////////////////////////////////////accessors
 	void setHP(int changeHP);
 	int getHP()const;
@@ -52,7 +45,6 @@ public:
 	bool getAttacked()const;
 
 private:
-	// StateMachine<EnemyTank>* m_pStateMachine;
 	bool m_HPRecovered;
 	bool m_Attacked;
 

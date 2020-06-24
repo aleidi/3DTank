@@ -14,6 +14,7 @@ void EnemyTank::update() {
 */
 struct Telegram;
 #define getPlayerPos GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition()
+
 EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
 	m_Attacked(false),
@@ -81,13 +82,6 @@ float EnemyTank::getMaxSpeed()const {
 	return mAttribute.m_MaxSpeed;
 }
 
-void EnemyTank::setVelocity(Vector3 newVelocity) {
-	m_Velocity = newVelocity;
-}
-
-Vector3 EnemyTank::getVelocity()const {
-	return m_Velocity;
-}
 
 void EnemyTank::move(Vector3 value)
 {
@@ -114,11 +108,12 @@ bool EnemyTank::isEnemyInRange()const {
 	if( Vector3::lengthSq( getPlayerPos, mTransform->getPosition() ) <= mAttribute.m_AttackRangeRadiusSq ) {
 		//check if there are any obstacles
 		float distance = 0.0f;
-		bool isObstacle = CollisionManager::sGetInstance()->rayCheckWithObstacle(mTransform->getPosition(),
-															   (getPlayerPos - mTransform->getPosition()).normalize(),
-															   sqrt(Vector3::lengthSq(getPlayerPos, mTransform->getPosition())),
-															   nullptr, distance);
-		if( !isObstacle ) return true;
+		//bool isObstacle = CollisionManager::sGetInstance()->rayCheckWithObstacle(mTransform->getPosition(),
+			//												   (getPlayerPos - mTransform->getPosition()).normalize(),
+			//												   sqrt(Vector3::lengthSq(getPlayerPos, mTransform->getPosition())),
+			//												   nullptr, distance);
+		if(0)//if( !isObstacle ) 
+			return true;
 		else return false;
 		// else return false;return true; 
 	}
