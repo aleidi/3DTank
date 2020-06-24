@@ -18,10 +18,12 @@ struct Telegram;
 EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
 	m_Attacked(false),
-	BaseGameEntity(ID)
+	BaseGameEntity(ID),
+	mBatteryDirection(Vector3::forward),mBatteryRotSpd(1.0f)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
 	mAttribute = {100,1000.0f,2000.0f,50.0f,1.0f,10.0f,20.0f,800.0f};
+<<<<<<< HEAD
 	GameObject* tankBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	tankBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
@@ -43,6 +45,9 @@ EnemyTank::EnemyTank(int ID)
 
 	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex"));
+=======
+	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex"));
+>>>>>>> c9c768ea44aabf3dcda63c3e458e28476d7dc4ea
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack"));
 
@@ -70,7 +75,7 @@ EnemyTank::EnemyTank(int ID)
 	// m_pStateMachine->setCurrentState(Rest::getInstance());
 
 	float theta = Math::RandFloat() * 2 * Pi;
-	mAttribute.m_WanderTarget = Vector3(mAttribute.m_WanderRadius * cos(theta), 0, mAttribute.m_WanderRadius * sin(theta));
+	//mAttribute.m_WanderTarget = Vector3(mAttribute.m_WanderRadius * cos(theta), 0, mAttribute.m_WanderRadius * sin(theta));
 
 	mMovementComp = new AIMovementComponent(this);
 	addComponent(mMovementComp);
@@ -115,7 +120,7 @@ void EnemyTank::move(Vector3 value)
 
 void EnemyTank::setBatteryRotation(Vector3 value)
 {
-	mBattery->getTransform()->setRotation(value);
+	mBatteryDirection = value;
 }
 
 bool EnemyTank::isDying()const {
@@ -163,6 +168,11 @@ void EnemyTank::setAttacked(bool isAttacked) {
 
 bool EnemyTank::getAttacked()const {
 	return this->m_Attacked;
+}
+
+void EnemyTank::onLateUpdate(float deltaTime)
+{
+	mBattery->getTransform()->setRotation(Math::lerp(mBattery->getTransform()->getRotation(), mBatteryDirection, deltaTime*mBatteryRotSpd));
 }
 
 bool EnemyTank::isObstacleHere()const {

@@ -15,10 +15,15 @@ public:
 	bool collisionCheck_CubeToCube(const BoundingCube* cube, GameObject** obj);
 	bool collisionCheck_SphereToCube(const MBoundingSphere* sphere, GameObject** cube);
 	bool rayCheck(const Vector3& origin, const Vector3& direction, BoundingCube* farthestCube, BoundingCube* nearestCube, float& farthestDis, float& nearestDis);
+<<<<<<< HEAD
 	bool rayCheck(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject** gameobject, float& dis);
-	bool rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis);
+	bool rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject** gameobject, float& dis);
 	bool rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject** gameobject);
 	bool rayCheckWithTank(const Vector3& origin, const Vector3& direction, float farthestDis, GameObject** gameobject);
+=======
+	bool rayCheck(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis);
+	bool rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject& gameobject, float& dis);
+>>>>>>> c9c768ea44aabf3dcda63c3e458e28476d7dc4ea
 	bool collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2);
 	bool collisionCheck(const BoundingCube* cube, const MBoundingSphere* sphere);
 	bool collisionCheck(const Vector3& ori, const Vector3& dir, const BoundingCube* cube, float& dis);

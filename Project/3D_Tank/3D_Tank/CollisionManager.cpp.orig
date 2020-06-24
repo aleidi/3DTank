@@ -112,17 +112,19 @@ bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & directio
 	else return false;
 }
 
-bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis)
+<<<<<<< HEAD
+bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject** gameobject, float& dis)
+{
+	if (direction.x == 0.f && direction.y == 0.f && direction.z == 0.f) return false;
+=======
+bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject& gameobject, float& dis)
 {
 	Vector3 dir = direction;
 	if (dir == Vector3::zero)
 	{
 		return false;
 	}
-	if (dir == Vector3::zero)
-	{
-		return false;
-	}
+>>>>>>> c9c768ea44aabf3dcda63c3e458e28476d7dc4ea
 	float d = 0.f;
 	int flag = 0;
 	for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
@@ -133,16 +135,28 @@ bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3
 			}
 			if (flag == 0 && d < farthestDis) {
 				dis = d;
+<<<<<<< HEAD
 				*gameobject = (*it)->getObject();
+=======
+				GameObject obj(*(*it)->getObject());
+				gameobject = obj;
+				//gameobject = (*it)->getObject();
+>>>>>>> c9c768ea44aabf3dcda63c3e458e28476d7dc4ea
 				flag++;
+				return true;
 			}
 			else {
 				if (flag != 0 && d < dis) {
 					dis = d;
+<<<<<<< HEAD
+					*gameobject = (*it)->getObject();
+=======
 					GameObject obj(*(*it)->getObject());
 					gameobject = obj;
-					gameobject = (*it)->getObject();
+					//gameobject = *(*it)->getObject();
+>>>>>>> c9c768ea44aabf3dcda63c3e458e28476d7dc4ea
 				}
+				return true;
 			}
 		}
 	}
