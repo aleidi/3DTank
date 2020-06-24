@@ -357,9 +357,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Engine\Source\Render</Filter>
     </ClCompile>
-    <ClCompile Include="EntityManager.cpp">
-      <Filter>Engine\Source\Gameplay\AI</Filter>
-    </ClCompile>
     <ClCompile Include="MessageDispatcher.cpp">
       <Filter>Engine\Source\Misc\Messaging</Filter>
     </ClCompile>
@@ -715,9 +712,6 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Engine\Header\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityManager.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
     <ClInclude Include="MessageDispatcher.h">
       <Filter>Engine\Header\Misc\Messaging</Filter>
