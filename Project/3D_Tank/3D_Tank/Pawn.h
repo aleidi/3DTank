@@ -12,7 +12,6 @@ public:
 		int m_HP;
 		float m_AttackRangeRadiusSq;
 		float m_PursuitRangeRadiusSq;
-		Vector3 m_ResetPoint;
 		float m_WanderRangeRadiusSq;
 
 		float m_Mass;
@@ -23,6 +22,8 @@ public:
 		float m_WanderRadius;
 		float m_WanderDistance;
 		float m_WanderJitter;
+
+		Vector3 m_ResetPoint;
 		Vector3 m_WanderTarget;
 	};
 
