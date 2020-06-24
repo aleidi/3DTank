@@ -73,3 +73,16 @@ public:
 		getContext(gfx)->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 	}
 };
+
+template<typename C>
+class GeometryConstantBuffer : public ConstantBuffers<C>
+{
+	using ConstantBuffers<C>::pConstantBuffer;
+	using Bindable::getContext;
+public:
+	using ConstantBuffers<C>::ConstantBuffers;
+	void bind(Graphics& gfx) noexcept override
+	{
+		getContext(gfx)->GSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+	}
+};

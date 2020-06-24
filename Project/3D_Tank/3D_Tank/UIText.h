@@ -6,6 +6,7 @@
 class UIText : public UIBase
 {
 public:
+	UIText() = default;
 	UIText(Graphics& gfx);
 	UIText(Graphics& gfx, std::wstring text);
 
@@ -17,9 +18,9 @@ private:
 	void resetBlendState(Graphics& gfx);
 
 private:
-	Graphics& mgfx;
 	std::wstring mText;
 	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> pSRVs;
+	std::unique_ptr<PixelConstantBuffer<DirectX::XMFLOAT4>> mPCBuf;
 	std::vector<FreeType::Character> mChars;
 };
 

@@ -1,10 +1,10 @@
 #pragma once
 #include "MovementComponent.h"
-
+#include "EnemyTank.h"
 class AIMovementComponent : public MovementComponent
 {
 public:
-	AIMovementComponent(GameObject* object);
+	AIMovementComponent(EnemyTank* enemy);
 	~AIMovementComponent();
 
 	void onUpdate(float deltaTime);
@@ -12,8 +12,12 @@ public:
 	void addForce(Vector3 value);
 
 protected:
+	bool isStart = false;
 	Vector3 force;
-	float mass;
-	Vector3 position;
-	Vector3 acceleration, velocity;
+	float mass = 1.0f;
+	float maxSpeed = 0.0f;
+	Vector3 position = Vector3::zero;
+	Vector3 acceleration = Vector3::zero, velocity = Vector3::zero;
+
+	Pawn* m_enemy;
 };

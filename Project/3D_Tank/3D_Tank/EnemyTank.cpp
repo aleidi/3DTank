@@ -6,6 +6,7 @@
 #include "ComponentBase.h"
 #include "AIMovementComponent.h"
 #include "GameInstance.h"
+#include "CollisionManager.h"
 /*
 void EnemyTank::update() {
 	m_pStateMachine->update();
@@ -13,10 +14,12 @@ void EnemyTank::update() {
 */
 struct Telegram;
 #define getPlayerPos GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition()
+
 EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
 	m_Attacked(false),
-	BaseGameEntity(ID)
+	BaseGameEntity(ID),
+	mBatteryDirection(Vector3::forward),mBatteryRotSpd(1.0f)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
 	mAttribute = {100,1000.0f,2000.0f,50.0f,1.0f,10.0f,20.0f,800.0f};
@@ -56,17 +59,22 @@ EnemyTank::EnemyTank(int ID)
 			(*it)->setMaterial(mat);
 		}
 	}
+	mBattery = SceneManager::sGetInstance()->createEmptyObject();
+	mBattery->setName("Battery");
+	RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
+	rc->setMaterial(mat);
+	mBattery->addComponent(rc);
+	mBattery->attach(*this);
 
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);
 	// m_pStateMachine->setCurrentState(Rest::getInstance());
 
 	float theta = Math::RandFloat() * 2 * Pi;
-	//mAttribute.m_WanderTarget = Vector3(mAttribute.m_WanderRadius * cos(theta), 0, mAttribute.m_WanderRadius * sin(theta));
+	mAttribute.m_WanderTarget = Vector3(mAttribute.m_WanderRadius * cos(theta), 0, mAttribute.m_WanderRadius * sin(theta));
 
 	mMovementComp = new AIMovementComponent(this);
 	addComponent(mMovementComp);
-	
 }	
 
 EnemyTank::~EnemyTank()
@@ -100,17 +108,15 @@ float EnemyTank::getMaxSpeed()const {
 	return mAttribute.m_MaxSpeed;
 }
 
-void EnemyTank::setVelocity(Vector3 newVelocity) {
-	m_Velocity = newVelocity;
-}
-
-Vector3 EnemyTank::getVelocity()const {
-	return m_Velocity;
-}
 
 void EnemyTank::move(Vector3 value)
 {
 	mMovementComp->addForce(value);
+}
+
+void EnemyTank::setBatteryRotation(Vector3 value)
+{
+	mBatteryDirection = value;
 }
 
 bool EnemyTank::isDying()const {
@@ -131,9 +137,15 @@ void EnemyTank::setHPRecovered( bool isRecovered ) {
 
 bool EnemyTank::isEnemyInRange()const {
 	if( Vector3::lengthSq( getPlayerPos, mTransform->getPosition() ) <= mAttribute.m_AttackRangeRadiusSq ) {
-		// do something here to check if there are any obstacles
-		// if no
-		return true;
+		//check if there are any obstacles
+		float distance = 0.0f;
+		//bool isObstacle = CollisionManager::sGetInstance()->rayCheckWithObstacle(mTransform->getPosition(),
+			//												   (getPlayerPos - mTransform->getPosition()).normalize(),
+			//												   sqrt(Vector3::lengthSq(getPlayerPos, mTransform->getPosition())),
+			//												   nullptr, distance);
+		if(0)//if( !isObstacle ) 
+			return true;
+		else return false;
 		// else return false;return true; 
 	}
 	return false;
@@ -152,6 +164,11 @@ void EnemyTank::setAttacked(bool isAttacked) {
 
 bool EnemyTank::getAttacked()const {
 	return this->m_Attacked;
+}
+
+void EnemyTank::onLateUpdate(float deltaTime)
+{
+	mBattery->getTransform()->setRotation(Math::lerp(mBattery->getTransform()->getRotation(), mBatteryDirection, deltaTime*mBatteryRotSpd));
 }
 
 bool EnemyTank::isObstacleHere()const {

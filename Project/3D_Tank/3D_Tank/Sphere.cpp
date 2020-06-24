@@ -2,7 +2,12 @@
 #include "BindableBase.h"
 
 Sphere::Sphere(RenderComponent * owner)
-	:Mesh(owner)
+	:Sphere(owner,L"")
+{
+}
+
+Sphere::Sphere(RenderComponent * owner, const std::wstring & texture)
+	: Mesh(owner)
 {
 	Graphics& gfx = RenderManager::sGetInstance()->getGraphics();
 	GeometryGenerator::Mesh mesh;
@@ -36,6 +41,8 @@ Sphere::Sphere(RenderComponent * owner)
 	addBind(std::make_unique<TransferCbuf>(gfx, *this));
 
 	addBind(std::make_unique<PSTransCBuf>(gfx, *this));
+
+	addBind(std::make_unique<GeometryShader>());
 
 	initMaterial();
 }

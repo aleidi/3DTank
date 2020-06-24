@@ -5,5 +5,6 @@ class Cube : public Mesh
 {
 public:
 	Cube(RenderComponent* owner);
+	Cube(RenderComponent* owner, const std::wstring& texture);
 };
 

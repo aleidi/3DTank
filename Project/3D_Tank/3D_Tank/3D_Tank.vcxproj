@@ -217,6 +217,8 @@
     <ClCompile Include="GameModeTP.cpp" />
     <ClCompile Include="GameStateBase.cpp" />
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="GeometryShader.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_dx11.cpp" />
@@ -267,6 +269,7 @@
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UICommon.cpp" />
     <ClCompile Include="UIImage.cpp" />
+    <ClCompile Include="UIImage3D.cpp" />
     <ClCompile Include="UIText.cpp" />
     <ClCompile Include="UITransformCbuf.cpp" />
     <ClCompile Include="ULevelEvent.cpp" />
@@ -335,6 +338,8 @@
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameStateBase.h" />
     <ClInclude Include="GameSystem.h" />
+    <ClInclude Include="GeometryShader.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="KeycodeRedefine.h" />
     <ClInclude Include="Level01.h" />
     <ClInclude Include="Level02.h" />
@@ -397,6 +402,7 @@
     <ClInclude Include="UICommon.h" />
     <ClInclude Include="UIEvent.h" />
     <ClInclude Include="UIImage.h" />
+    <ClInclude Include="UIImage3D.h" />
     <ClInclude Include="UIText.h" />
     <ClInclude Include="UITransformCbuf.h" />
     <ClInclude Include="ULevelEvent.h" />
@@ -410,6 +416,14 @@
     <ClInclude Include="VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Billboard_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Billboard_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="Light_PS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
     </FxCompile>
@@ -456,6 +470,24 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
     </FxCompile>
+    <FxCompile Include="UI3DGSHorizontalL.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="UI3DGSHorizontalR.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="UI3DGSVerticalB.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="UI3DGSVerticalT.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="UIPixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
     </FxCompile>
@@ -498,6 +530,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Basic.hlsli" />
     <None Include="LightHelper.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

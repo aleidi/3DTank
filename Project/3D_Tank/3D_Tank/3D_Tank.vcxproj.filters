@@ -199,6 +199,12 @@
     <Filter Include="Game\Header\GameMode">
       <UniqueIdentifier>{1cb2ffb9-def9-4761-9f24-05ab05450345}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Prefabs">
+      <UniqueIdentifier>{707aea49-93b0-4ff5-89ab-fbc9ab1de991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source\Prefabs">
+      <UniqueIdentifier>{7d8fdc58-2599-4ca2-84e5-d27c5103cf7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -518,6 +524,15 @@
     </ClCompile>
     <ClCompile Include="ImGuiFrame.cpp">
       <Filter>Engine\Source\Render\EUI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIImage3D.cpp">
+      <Filter>Engine\Source\Render\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryShader.cpp">
+      <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -860,9 +875,6 @@
     <ClInclude Include="UIEvent.h">
       <Filter>Engine\Header\Render\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerTank.h">
-      <Filter>Game\Header\Pawn</Filter>
-    </ClInclude>
     <ClInclude Include="ShellFlyComponent.h">
       <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
@@ -902,8 +914,20 @@
     <ClInclude Include="PlayerController.h">
       <Filter>Game\Header\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="UIImage3D.h">
+      <Filter>Engine\Header\Render\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryShader.h">
+      <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
     <ClInclude Include="GameModeTP.h">
       <Filter>Game\Header\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTank.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Game\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -961,9 +985,30 @@
     <FxCompile Include="UIPSText.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
+    <FxCompile Include="UI3DGSHorizontalL.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UI3DGSHorizontalR.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UI3DGSVerticalB.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UI3DGSVerticalT.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Billboard_PS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Billboard_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="LightHelper.hlsli">
+      <Filter>Engine\Shader</Filter>
+    </None>
+    <None Include="Basic.hlsli">
       <Filter>Engine\Shader</Filter>
     </None>
   </ItemGroup>

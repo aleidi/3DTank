@@ -172,7 +172,6 @@ void GameLevelTest::enterLevel()
 	aiControllertarget->getFSM()->setCurrentState(Wander::getInstance());
 	aiControllertarget->posses(enemytarget);
 
-	//*/
 	aiController->setTarget(aiControllertarget);
 	aiControllertarget->setTarget(aiController);
 	//SoundManager::sGetInstance()->playSound(3);

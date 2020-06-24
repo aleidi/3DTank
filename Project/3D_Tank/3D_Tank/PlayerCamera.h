@@ -21,5 +21,7 @@ private:
 	float mSpdForPos;
 	float mSpdForRot;
 	float mSpdForFov;
+
+	GameObject* mCol;
 };
 

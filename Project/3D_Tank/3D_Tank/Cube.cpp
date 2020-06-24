@@ -2,6 +2,11 @@
 #include "BindableBase.h"
 
 Cube::Cube(RenderComponent * owner)
+	:Cube(owner,L"")
+{	
+}
+
+Cube::Cube(RenderComponent * owner, const std::wstring & texture)
 	:Mesh(owner)
 {
 	Graphics& gfx = RenderManager::sGetInstance()->getGraphics();
@@ -25,7 +30,7 @@ Cube::Cube(RenderComponent * owner)
 	};
 	addBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	addBind(std::make_unique<Texture>(gfx, L"Objects/DefaultTexture"));
+	addBind(std::make_unique<Texture>(gfx, texture));
 
 	addBind(std::make_unique<Sampler>(gfx));
 
@@ -36,6 +41,8 @@ Cube::Cube(RenderComponent * owner)
 	addBind(std::make_unique<TransferCbuf>(gfx, *this));
 
 	addBind(std::make_unique<PSTransCBuf>(gfx, *this));
+
+	addBind(std::make_unique<GeometryShader>());
 
 	initMaterial();
 }

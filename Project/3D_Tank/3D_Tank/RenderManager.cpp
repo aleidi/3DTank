@@ -38,6 +38,15 @@ void RenderManager::onDraw()
 
 void RenderManager::onPostDraw()
 {
+	for (std::list<UIBase*>::iterator it = mUI3Ds.begin(); it != mUI3Ds.end(); ++it)
+	{
+		if (nullptr == *it)
+		{
+			continue;
+		}
+		(*it)->draw(mGraphics);
+	}
+
 	for (std::list<UIBase*>::iterator it = mUIs.begin(); it != mUIs.end(); ++it)
 	{
 		if (nullptr == *it)
@@ -96,6 +105,30 @@ bool RenderManager::removeUIFromPool(UIBase * ui) noexcept
 	return false;
 }
 
+void RenderManager::addUI3DToPool(UIBase * ui) noexcept
+{
+	mUI3Ds.push_back(ui);
+}
+
+bool RenderManager::reemoveUI3DFromPool(UIBase * ui) noexcept
+{
+	for (std::list<UIBase*>::iterator it = mUI3Ds.begin(); it != mUI3Ds.end();)
+	{
+		if (*it == ui)
+		{
+			delete *it;
+			*it = nullptr;
+			mUIs.erase(it++);
+			return true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return false;
+}
+
 Graphics & RenderManager::getGraphics() const
 {
 	return mGraphics;
@@ -118,7 +151,7 @@ void RenderManager::rotateLight(float x, float y, float z)
 }
 
 RenderManager::RenderManager(Graphics & gfx)
-	:mMeshes(), mGraphics(gfx)
+	:mMeshes(), mUI3Ds(), mUIs(), mGraphics(gfx)
 {
 	initLight();
 }
