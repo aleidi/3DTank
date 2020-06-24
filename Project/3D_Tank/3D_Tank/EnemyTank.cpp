@@ -18,8 +18,7 @@ struct Telegram;
 EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
 	m_Attacked(false),
-	BaseGameEntity(ID),
-	mBatteryDirection(Vector3::forward),mBatteryRotSpd(1.0f)
+	BaseGameEntity(ID)
 {
 
 	mAttribute = {100,1000.0f,2000.0f,50.0f,1.0f,10.0f,20.0f,800.0f};
@@ -96,7 +95,7 @@ void EnemyTank::move(Vector3 value)
 
 void EnemyTank::setBatteryRotation(Vector3 value)
 {
-	mBatteryDirection = value;
+	mBattery->getTransform()->setRotation(value);
 }
 
 bool EnemyTank::isDying()const {
@@ -144,11 +143,6 @@ void EnemyTank::setAttacked(bool isAttacked) {
 
 bool EnemyTank::getAttacked()const {
 	return this->m_Attacked;
-}
-
-void EnemyTank::onLateUpdate(float deltaTime)
-{
-	mBattery->getTransform()->setRotation(Math::lerp(mBattery->getTransform()->getRotation(), mBatteryDirection, deltaTime*mBatteryRotSpd));
 }
 
 bool EnemyTank::isObstacleHere()const {
