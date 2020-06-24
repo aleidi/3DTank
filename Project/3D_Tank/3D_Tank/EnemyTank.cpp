@@ -21,7 +21,7 @@ EnemyTank::EnemyTank(int ID)
 	BaseGameEntity(ID)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
-	mAttribute = {100,1000.0f,2000.0f,Vector3(0,0,0),1000.0f,50.0f,1.0f,10.0f,20.0f,800.0f};
+	mAttribute = {100,1000.0f,2000.0f,1000.0f,50.0f,1.0f,10.0f,20.0f,800.0f,Vector3(0,0,0) };
 	GameObject* tankBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	tankBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
