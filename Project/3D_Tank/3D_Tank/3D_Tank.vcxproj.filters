@@ -202,6 +202,9 @@
     <Filter Include="Game\Prefabs">
       <UniqueIdentifier>{707aea49-93b0-4ff5-89ab-fbc9ab1de991}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Source\Prefabs">
+      <UniqueIdentifier>{7d8fdc58-2599-4ca2-84e5-d27c5103cf7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -529,7 +532,7 @@
       <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
-      <Filter>Engine\Source</Filter>
+      <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -924,7 +927,7 @@
       <Filter>Game\Header\Pawn</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
-      <Filter>Engine\Header</Filter>
+      <Filter>Game\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

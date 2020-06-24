@@ -5,7 +5,7 @@ Ground::Ground()
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
 	setName("Ground");
-	SceneManager::sGetInstance()->createModel(*this, "Objects\\SM_ZPlane_01a", L"Objects\\TX_RockyMud_01_ALB", maxPoint, minPoint);
+	SceneManager::sGetInstance()->createModel(*this, "Objects\\Ground", L"Objects\\TX_RockyMud_01_ALB", maxPoint, minPoint);
 	mTransform->rotateZ(180);
 
 	mCollisionBox = new BoundingCube(this);
