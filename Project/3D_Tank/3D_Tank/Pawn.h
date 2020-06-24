@@ -12,6 +12,8 @@ public:
 		int m_HP;
 		float m_AttackRangeRadiusSq;
 		float m_PursuitRangeRadiusSq;
+		Vector3 m_ResetPoint;
+		float m_WanderRangeRadiusSq;
 
 		float m_Mass;
 		float m_MaxSpeed;

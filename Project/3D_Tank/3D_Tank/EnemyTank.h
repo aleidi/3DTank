@@ -21,12 +21,14 @@ public:
 	//////////////////////////////////////////////////////accessors
 	void setHP(int changeHP);
 	int getHP()const;
+	
+	void setResetPoint(Vector3 mResetPoint);
+	Vector3 getResetPoint()const;
+	void setWanderRangeRadiusSq(float mWanderRange);
+	float getWanderRangeRadiusSq()const;
+
 	void setMass(float mass);
 	float getMass()const;
-	void setMaxSpeed(float maxspeed);
-	float getMaxSpeed()const;
-	void setVelocity(Vector3 newVelocity);
-	Vector3 getVelocity()const;
 	float getWanderRadius()const;
 	float getWanderDistance()const;
 	float getWanderJitter()const;
