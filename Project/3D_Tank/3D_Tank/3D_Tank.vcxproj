@@ -203,7 +203,6 @@
     <ClCompile Include="EnemyTank.cpp" />
     <ClCompile Include="EnemyTankOwnedStates.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FreeType.cpp" />
     <ClCompile Include="GameButton.cpp" />
@@ -321,7 +320,6 @@
     <ClInclude Include="EnemyTank.h" />
     <ClInclude Include="EnemyTankOwnedStates.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntityNames.h" />
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FileManager.h" />

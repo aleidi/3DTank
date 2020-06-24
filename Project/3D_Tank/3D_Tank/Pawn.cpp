@@ -36,6 +36,14 @@ void Pawn::attack(Vector3 direction)
 {
 }
 
+void Pawn::setMaxSpeed(float maxspeed) {
+	mAttribute.m_MaxSpeed = maxspeed;
+}
+
+float Pawn::getMaxSpeed()const {
+	return mAttribute.m_MaxSpeed;
+}
+
 void Pawn::setVelocity(Vector3 newVelocity) {
 	m_Velocity = newVelocity;
 }

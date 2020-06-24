@@ -4,6 +4,7 @@
 #include "Pawn.h"
 #include "Transform.h"
 #include "EnemyTank.h"
+#include "GameInstance.h"
 
 AIController::AIController()
 	:AIController(-1)
@@ -14,6 +15,8 @@ AIController::AIController(int id)
 {
 	m_pStateMachine = new StateMachine<AIController>(this);
 	m_pStateMachine->setCurrentState(Pursuit::getInstance());
+
+	m_target = GameInstance::sGetInstance()->getPlayer();
 }
 
 AIController::~AIController()
