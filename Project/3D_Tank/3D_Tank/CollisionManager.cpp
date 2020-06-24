@@ -25,7 +25,7 @@ void CollisionManager::destroy()
 	sInstance = NULL;
 }
 
-bool CollisionManager::collisionCheck_CubeToCube(const BoundingCube * cube, GameObject** obj)
+bool CollisionManager::collisionCheck_CubeToCube(const BoundingCube* cube, GameObject** obj)
 {
 	if (cube && mBoundingCube.size() > 0) {
 		for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
@@ -41,10 +41,10 @@ bool CollisionManager::collisionCheck_CubeToCube(const BoundingCube * cube, Game
 		return false;
 }
 
-bool CollisionManager::collisionCheck_SphereToCube(const MBoundingSphere * sphere, GameObject** obj)
+bool CollisionManager::collisionCheck_SphereToCube(const MBoundingSphere* sphere, GameObject** obj)
 {
 	if (sphere != NULL) {
-		for (std::vector<BoundingCube*>::iterator it = moveableBoundingCube.begin(); it != moveableBoundingCube.end(); it++) {
+		for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
 			if (collisionCheck(*it, sphere)) {
 				*obj = (*it)->getObject();
 				return true;
@@ -62,11 +62,13 @@ bool CollisionManager::collisionCheck(const Vector3 & o, const Vector3 & d, cons
 	DirectX::XMFLOAT3 dir(d.x, d.y, d.z);
 	DirectX::XMVECTOR origin = DirectX::XMLoadFloat3(&ori);
 	DirectX::XMVECTOR direction = DirectX::XMLoadFloat3(&dir);
-	return cube->box.Intersects(origin, direction, dis);
+	DirectX::XMVECTOR unit = DirectX::XMVector3Normalize(direction);
+	return cube->box.Intersects(origin, unit, dis);
 }
 
 bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & direction, BoundingCube * farthestCube, BoundingCube * nearestCube, float & farthestDis, float & nearestDis)
 {
+	if (direction.x == 0.f && direction.y == 0.f && direction.z == 0.f) return false;
 	float dis = -1.f;
 	for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
 		if (collisionCheck(origin, direction, *it, dis)) {
@@ -86,41 +88,102 @@ bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & directio
 
 }
 
-bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & direction, const float & farthestDis, GameObject * gameobject, float & dis)
+bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & direction, const float & farthestDis, GameObject** gameobject, float & dis)
 {
+	if (direction.x == 0.f && direction.y == 0.f && direction.z == 0.f) return false;
 	float d = -1.f;
 	int flag = 0;
-	for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
-		if (collisionCheck(origin, direction, *it, dis)) {
-			if (flag == 0) {
-
+	for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
+		if (collisionCheck(origin, direction, *it, d)) {
+			if (flag == 0 && d < farthestDis) {
+				dis = d;
+				*gameobject = (*it)->getObject();
+				flag++;
+			}
+			else {
+				if (flag != 0 && d < dis) {
+					dis = d;
+					*gameobject = (*it)->getObject();
+				}
 			}
 		}
 	}
-	return true;
+	if(flag != 0) return true;
+	else return false;
 }
 
-bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject* gameobject, float& dis)
+bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject** gameobject, float& dis)
 {
+	if (direction.x == 0.f && direction.y == 0.f && direction.z == 0.f) return false;
 	float d = 0.f;
 	int flag = 0;
 	for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
 		if (collisionCheck(origin, direction, *it, d)) {
 			if (flag == 0 && d < farthestDis) {
 				dis = d;
-				gameobject = (*it)->getObject();
+				*gameobject = (*it)->getObject();
 				flag++;
 			}
 			else {
-				if (d < dis) {
+				if (flag != 0 && d < dis) {
 					dis = d;
-					gameobject = (*it)->getObject();
+					*gameobject = (*it)->getObject();
 				}
 			}
-			return true;
 		}
 	}
-	return false;
+	if (flag != 0) return true;
+	else return false;
+}
+
+bool CollisionManager::rayCheckWithObstacle(const Vector3 & origin, const Vector3 & direction, const float & farthestDis, GameObject** gameobject)
+{
+	if (direction.x == 0.f && direction.y == 0.f && direction.z == 0.f) return false;
+	float d = 0.f; float minD = 0.f;
+	int flag = 0;
+	for (std::vector<BoundingCube*>::iterator it = unmoveableBoundingCube.begin(); it != unmoveableBoundingCube.end(); it++) {
+		if (collisionCheck(origin, direction, *it, d)) {
+			if (flag == 0 && d < farthestDis) {
+				minD = d;
+				*gameobject = (*it)->getObject();
+				flag++;
+			}
+			else {
+				if (flag != 0 && d < minD) {
+					minD = d;
+					*gameobject = (*it)->getObject();
+				}
+			}
+		}
+	}
+	if (flag != 0) return true;
+	else return false;
+}
+
+bool CollisionManager::rayCheckWithTank(const Vector3 & origin, const Vector3 & direction, float farthestDis, GameObject ** gameobject)
+{
+	if (direction.x == 0.f && direction.y == 0.f && direction.z == 0.f) return false;
+	if (farthestDis == 0.f) farthestDis = FLT_MAX;
+	float d = 0.f; float minD = 0.f;
+	int flag = 0;
+	for (std::vector<BoundingCube*>::iterator it = moveableBoundingCube.begin(); it != moveableBoundingCube.end(); it++) {
+		if (collisionCheck(origin, direction, *it, d)) {
+			if (flag == 0 && d < farthestDis) {
+				minD = d;
+				*gameobject = (*it)->getObject();
+				flag++;
+			}
+			else {
+				if (flag != 0 && d < minD) {
+					minD = d;
+					*gameobject = (*it)->getObject();
+				}
+			}
+		}
+	}
+	if (flag != 0) return true;
+	else return false;
+
 }
 
 bool CollisionManager::collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2)
@@ -241,7 +304,6 @@ void CollisionManager::onUpdata(float deltaTime)
 
 CollisionManager::CollisionManager()
 {
-
 }
 
 CollisionManager::~CollisionManager()

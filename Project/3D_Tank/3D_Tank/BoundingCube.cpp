@@ -24,18 +24,24 @@ void BoundingCube::createBoundingCube(const DirectX::XMVECTOR & maxPoint, const 
 	outBox.Orientation = DirectX::XMFLOAT4(0.f, 0.f, 0.f, 1.f);
 	DirectX::BoundingOrientedBox::CreateFromBoundingBox(outBox, box1);
 	box = outBox;
-	if (CollisionManager::sGetInstance())
-	{
-		CollisionManager::sGetInstance()->mBoundingCube.push_back(this);
-		if (isMoveable == 1) {
-			CollisionManager::sGetInstance()->moveableBoundingCube.push_back(this);
-			this->moveable = 1;
-		}
-		else {
-			CollisionManager::sGetInstance()->unmoveableBoundingCube.push_back(this);
-			this->moveable = 0;
+	if (isMoveable != -1) {
+		if (CollisionManager::sGetInstance())
+		{
+			if (isMoveable == 1) {
+				CollisionManager::sGetInstance()->moveableBoundingCube.push_back(this);
+			}
+			else {
+				CollisionManager::sGetInstance()->unmoveableBoundingCube.push_back(this);
+			}
+			CollisionManager::sGetInstance()->mBoundingCube.push_back(this);
+			this->moveable = isMoveable;
 		}
 	}
+}
+
+void BoundingCube::createBoundingCube(const BoundingCube * cube1, const BoundingCube * cube2)
+{
+
 }
 
 void BoundingCube::onFixedUpdate(float deltaTime)
