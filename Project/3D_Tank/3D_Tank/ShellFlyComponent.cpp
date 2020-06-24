@@ -6,7 +6,15 @@
 
 ShellFlyComponent::ShellFlyComponent(GameObject * obj):Component(obj)
 {
-	this->velocity = this->getObject()->getTransform()->Forward.normalize();
+	this->velocity = this->getObject()->getTransform()->Forward.normalize() * 5.f;
+	this->gracity = Vector3(0.f, 0.f, 0.f);
+	this->rotateSpeed = 90.f;
+	angle = 0.f;
+}
+
+ShellFlyComponent::ShellFlyComponent(GameObject * obj, const Vector3 & direction) :Component(obj)
+{
+	this->velocity = direction.normalize() * 5.f;
 	this->gracity = Vector3(0.f, 0.f, 0.f);
 	this->rotateSpeed = 90.f;
 	angle = 0.f;
@@ -27,8 +35,8 @@ void ShellFlyComponent::onUpdate(float detaTime)
 		this->getObject()->sphere->sphere.Center.y += velocity.y*detaTime;
 		this->getObject()->sphere->sphere.Center.z += velocity.z*detaTime;
 	}
-	updateForward(detaTime);
-	this->velocity = this->getObject()->getTransform()->Forward.normalize() * 5.f;
+	//updateForward(detaTime);
+	//this->velocity = this->getObject()->getTransform()->Forward.normalize() * 5.f;
 }
 
 void ShellFlyComponent::updateForward(float detaTime)

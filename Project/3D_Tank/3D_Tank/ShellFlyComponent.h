@@ -4,6 +4,7 @@
 class ShellFlyComponent : public Component {
 public:
 	ShellFlyComponent(GameObject* obj);
+	ShellFlyComponent(GameObject* obj, const Vector3& direction);
 	~ShellFlyComponent();
 
 	void onUpdate(float detaTime) override;
