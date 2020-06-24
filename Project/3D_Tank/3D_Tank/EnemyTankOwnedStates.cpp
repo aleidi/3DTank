@@ -9,18 +9,16 @@
 #include "CrudeTimer.h"
 #include "EntityNames.h"
 #include "Engine.h"
-#include "GameInstance.h"
 #include <assert.h>
 
 #define getTargetVelocity pEnemyTank->getTarget()->getVelocity()
+#define getTargetSpeed pEnemyTank->getTarget()->getMaxSpeed()
 #define getTargetPos pEnemyTank->getTarget()->getTransform()->getPosition()
 #define getTargetHeading pEnemyTank->getTarget()->getTransform()->Forward
-#define TargetTank reinterpret_cast<EnemyTank*>(pEnemyTank->getTarget())
 
-#define getPlayerPos GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition()
 #define getPlayerSpeed	GameInstance::sGetInstance()->getPlayer()->getSpeed() /////////////////
 #define getPlayerVelocity	GameInstance::sGetInstance()->getPlayer()->getVelocity() /////////////////
-#define getPlayerHeading GameInstance::sGetInstance()->getPlayer()->getTransform()->Forward
+
 #define AITank reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())
 #define getAIPos pEnemyTank->getPawn()->getTransform()->getPosition()
 #define getAIHeading pEnemyTank->getPawn()->getTransform()->Forward
@@ -232,7 +230,7 @@ void Evade::execute(AIController* pEnemyTank, float deltaTime) {
 		Vector3 target = Vector3(0,0,0);
 		Vector3 toPursuer = getTargetPos - getAIPos;
 
-		float lookAheadTime = sqrt(Vector3::lengthSq(toPursuer, Vector3(0, 0, 0))) / (AITank->getMaxSpeed() + TargetTank->getMaxSpeed());
+		float lookAheadTime = sqrt(Vector3::lengthSq(toPursuer, Vector3(0, 0, 0))) / (AITank->getMaxSpeed() + getTargetSpeed);
 		Vector3 targetPos = getTargetPos + getTargetVelocity * lookAheadTime;
 		Vector3 desiredVelocity = (getAIPos - targetPos).normalize() * AITank->getMaxSpeed();
 		target = desiredVelocity - getAIVelocity;
@@ -302,7 +300,7 @@ void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
 		
 		else {
 			/////////////////////////////////////////
-			float lookAheadTime = sqrt(Vector3::lengthSq(toEvader, Vector3(0, 0, 0))) / (AITank->getMaxSpeed() + TargetTank->getMaxSpeed());
+			float lookAheadTime = sqrt(Vector3::lengthSq(toEvader, Vector3(0, 0, 0))) / (AITank->getMaxSpeed() + getTargetSpeed);
 			float m_dot = Vector3::dot(getAIHeading, toEvader.normalize());
 			const float coefficient = 0.005f;
 			lookAheadTime += (m_dot - 1.0f) * -coefficient;
