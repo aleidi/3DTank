@@ -3,7 +3,7 @@
 #include "GameCommon.h"
 
 PlayerController::PlayerController()
-	:mDisToCamFactor(0.05f), mMirrorMax(XM_PI / 20), mMirrorMin(XM_PI / 3)
+	:mDisToCamFactor(0.15f), mMirrorMax(XM_PI / 20), mMirrorMin(XM_PI / 3)
 {
 }
 

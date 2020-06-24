@@ -35,12 +35,12 @@ void PlayerCamera::onLateUpdate(float deltaTime)
 	//raycast test
 	Vector3 origin = Position;
 	Vector3 dir = Vector3::up * - 1.0f;
-	float length = 0.01f;
+	float length = 0.02f;
 
 	float dis = 0.0f;
 	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(origin, dir, length, *mCol, dis))
 	{
-		Position.y = 0.01f;
+		Position.y = 0.02f;
 	}
 
 }
