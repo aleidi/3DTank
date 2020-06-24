@@ -18,11 +18,11 @@ struct Telegram;
 EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
 	m_Attacked(false),
-	BaseGameEntity(ID)
+	BaseGameEntity(ID),
+	mBatteryDirection(Vector3::forward),mBatteryRotSpd(1.0f)
 {
 
 	mAttribute = {100,1000.0f,2000.0f,50.0f,1.0f,10.0f,20.0f,800.0f};
-	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack"));
@@ -39,6 +39,12 @@ EnemyTank::EnemyTank(int ID)
 			(*it)->setMaterial(mat);
 		}
 	}
+	mBattery = SceneManager::sGetInstance()->createEmptyObject();
+	mBattery->setName("Battery");
+	RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
+	rc->setMaterial(mat);
+	mBattery->addComponent(rc);
+	mBattery->attach(*this);
 
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);
@@ -88,6 +94,11 @@ void EnemyTank::move(Vector3 value)
 	mMovementComp->addForce(value);
 }
 
+void EnemyTank::setBatteryRotation(Vector3 value)
+{
+	mBatteryDirection = value;
+}
+
 bool EnemyTank::isDying()const {
 	if (mAttribute.m_HP <= DyingHP) {
 		return true;
@@ -133,6 +144,11 @@ void EnemyTank::setAttacked(bool isAttacked) {
 
 bool EnemyTank::getAttacked()const {
 	return this->m_Attacked;
+}
+
+void EnemyTank::onLateUpdate(float deltaTime)
+{
+	mBattery->getTransform()->setRotation(Math::lerp(mBattery->getTransform()->getRotation(), mBatteryDirection, deltaTime*mBatteryRotSpd));
 }
 
 bool EnemyTank::isObstacleHere()const {

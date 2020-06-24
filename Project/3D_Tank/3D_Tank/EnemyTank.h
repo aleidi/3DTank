@@ -35,6 +35,7 @@ public:
 	void setWanderTarget(Vector3 wandertarget);
 
 	void move(Vector3 value);
+	void setBatteryRotation(Vector3 value);
 	bool isDying()const;
 	bool isEnemyInRange()const;
 	bool isLostEnemy()const;
@@ -44,9 +45,14 @@ public:
 	void setAttacked(bool isAttacked);
 	bool getAttacked()const;
 
+	void onLateUpdate(float deltaTime) override;
+
 private:
 	bool m_HPRecovered;
 	bool m_Attacked;
+	float mBatteryRotSpd;
 
+	GameObject* mBattery;
 	std::vector<RenderComponent*> mRCs;
+	Vector3 mBatteryDirection;
 };
