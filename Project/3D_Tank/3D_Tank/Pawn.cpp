@@ -32,6 +32,10 @@ void Pawn::move(Vector3 value)
 {
 }
 
+void Pawn::attack(Vector3 direction)
+{
+}
+
 void Pawn::setVelocity(Vector3 newVelocity) {
 	m_Velocity = newVelocity;
 }
