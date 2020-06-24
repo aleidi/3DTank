@@ -24,6 +24,7 @@ EnemyTank::EnemyTank(int ID)
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	tankBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
 	BoundingCube* tankBatteryBoundingCube = new BoundingCube(tankBattery);
+	tankBattery->cube = tankBatteryBoundingCube;
 	tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
 	tankBattery->addComponent(tankBatteryBoundingCube);
 	//tankBattery->getTransform()->calcultateTransformMatrix();
@@ -32,6 +33,7 @@ EnemyTank::EnemyTank(int ID)
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint));
 	tankBody->getTransform()->setScale(0.002f, 0.002f, 0.002f);
 	BoundingCube* tankBodyBoundingCube = new BoundingCube(tankBody);
+	tankBody->cube = tankBodyBoundingCube;
 	tankBodyBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
 	tankBody->addComponent(tankBodyBoundingCube);
 	tankBodyBoundingCube->box.Transform(tankBodyBoundingCube->box, tankBody->getTransform()->getLocalToWorldMatrix());
@@ -60,7 +62,7 @@ EnemyTank::EnemyTank(int ID)
 	// m_pStateMachine->setCurrentState(Rest::getInstance());
 
 	float theta = Math::RandFloat() * 2 * Pi;
-	mAttribute.m_WanderTarget = Vector3(mAttribute.m_WanderRadius * cos(theta), 0, mAttribute.m_WanderRadius * sin(theta));
+	//mAttribute.m_WanderTarget = Vector3(mAttribute.m_WanderRadius * cos(theta), 0, mAttribute.m_WanderRadius * sin(theta));
 
 	mMovementComp = new AIMovementComponent(this);
 	addComponent(mMovementComp);

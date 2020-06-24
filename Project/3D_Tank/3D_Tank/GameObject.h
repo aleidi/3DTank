@@ -6,6 +6,7 @@
 class Component;
 class Transform;
 class ScriptComponent;
+class SoundComponent;
 
 class GameObject
 {
@@ -45,6 +46,7 @@ public:
 
 	BoundingCube* cube;
 	MBoundingSphere* sphere;
+	SoundComponent* sound;
 	DirectX::XMVECTOR Vmax, Vmin;
 	bool onCollision;
 
