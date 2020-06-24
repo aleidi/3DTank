@@ -12,7 +12,7 @@ class BaseGameEntity : public Pawn {
 public:
 	enum {default_entity_type = -1};
 
-	BaseGameEntity(int id) { setID(id); }
+	BaseGameEntity(int id): Pawn() { setID(id); }
 	virtual ~BaseGameEntity() {}
 
 	/////////////////////////////////////
