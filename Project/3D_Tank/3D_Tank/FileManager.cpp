@@ -1,4 +1,6 @@
 #include <fstream>
+#include <sstream>
+#include <string>
 
 #include <DirectXMath.h>
 #include "FileManager.h"
@@ -107,4 +109,53 @@ wchar_t * FileManager::GetTexture(const std::string & name)
 	wchar_t* wc = new wchar_t[path.size() + 1];
 	std::swprintf(wc, path.size() + 1, L"%S", path.c_str());
 	return wc;
+}
+
+void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
+{
+	std::ifstream fin(".\\Resource\\Configuration\\AIConfig.csv");
+	std::string line;
+	float config[13];
+
+	if (fin.is_open())
+	{
+		fin >> line;
+		while (fin >> line)
+		{
+			size_t position = 0;
+			for (int i = 0; i < 13; ++i)
+			{
+				std::string str = line.substr(position, line.find(',', position));
+				config[i] = (float)atof(str.c_str());
+				position = line.find(',', position) + 1;
+			}
+
+			struct AIAttribute temp;
+			temp.m_HP = (int)config[1];
+			temp.m_AttackRangeRadiusSq = config[2];
+			temp.m_PursuitRangeRadiusSq = config[3];
+			temp.m_WanderRangeRadiusSq = config[4];
+			temp.m_Mass = config[5];
+			temp.m_MaxSpeed = config[6];
+			temp.m_WanderRadius = config[7];
+			temp.m_WanderDistance = config[8];
+			temp.m_WanderJitter = config[9];
+			temp.m_ResetPoint.x = config[10];
+			temp.m_ResetPoint.y = config[11];
+			temp.m_ResetPoint.z = config[12];
+			int index = (int)config[0];
+
+			//FileManager::AIAtrributes[index] = temp;
+			map.insert(std::pair<int, AIAttribute>(index, temp));
+		}
+	}
+}
+
+std::map<int, AIAttribute> FileManager::AIAttributes = FileManager::createAttributesMap();
+
+std::map<int, AIAttribute> FileManager::createAttributesMap()
+{
+	std::map<int, AIAttribute> map;
+	FileManager::LoadAIAttribute(map);
+	return map;
 }

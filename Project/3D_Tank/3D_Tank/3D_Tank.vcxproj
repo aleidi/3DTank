@@ -206,6 +206,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FreeType.cpp" />
+    <ClCompile Include="FreightContainer_A.cpp" />
     <ClCompile Include="GameButton.cpp" />
     <ClCompile Include="GameCharacter.cpp" />
     <ClCompile Include="GameInput.cpp" />
@@ -228,6 +229,7 @@
     <ClCompile Include="Level02.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="PlayerController.cpp" />
@@ -296,6 +298,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraCtrl.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CollisionEvent.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentBase.h" />
@@ -326,6 +329,7 @@
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="FreeType.h" />
+    <ClInclude Include="FreightContainer_A.h" />
     <ClInclude Include="GameButton.h" />
     <ClInclude Include="GameCharacter.h" />
     <ClInclude Include="GameCommon.h" />
@@ -358,6 +362,7 @@
     <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="MovingEntity.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="PlayerController.h" />

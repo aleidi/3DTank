@@ -1,4 +1,5 @@
 #pragma once
+#include <DirectXMath.h>
 #include "EnemyTank.h"
 #include "Telegram.h"
 #include "MessageDispatcher.h"
@@ -22,25 +23,13 @@ EnemyTank::EnemyTank(int ID)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
 	mAttribute = {100,100.0f,200.0f,100.0f,50.0f,1.0f,10.0f,20.0f,800.0f,Vector3(0,0,0) };
-	//GameObject* tankBattery = SceneManager::sGetInstance()->createEmptyObject();
-	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
-	//tankBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
-	//BoundingCube* tankBatteryBoundingCube = new BoundingCube(tankBattery);
-	//tankBattery->cube = tankBatteryBoundingCube;
-	//tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
-	//tankBattery->addComponent(tankBatteryBoundingCube);
-	////tankBattery->getTransform()->calcultateTransformMatrix();
-	//tankBatteryBoundingCube->box.Transform(tankBatteryBoundingCube->box, tankBattery->getTransform()->getLocalToWorldMatrix());
-	GameObject* tankBody = SceneManager::sGetInstance()->createEmptyObject();
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint));
-	tankBody->getTransform()->setScale(0.002f, 0.002f, 0.002f);
-	BoundingCube* tankBodyBoundingCube = new BoundingCube(tankBody);
-	tankBody->cube = tankBodyBoundingCube;
-	tankBodyBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
-	tankBody->addComponent(tankBodyBoundingCube);
-	tankBodyBoundingCube->box.Transform(tankBodyBoundingCube->box, tankBody->getTransform()->getLocalToWorldMatrix());
-	this->cube = tankBodyBoundingCube;
-
+	DirectX::XMFLOAT3 maxP0(108.550003f, 97.2149963f, 177.554993f);
+	DirectX::XMFLOAT3 minP0(-86.8899994f, 3.51500010f, -191.240005f);
+	maxPoint = DirectX::XMLoadFloat3(&maxP0); minPoint = DirectX::XMLoadFloat3(&minP0);
+	BoundingCube* bodyBoundingCube = new BoundingCube(this);
+	bodyBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
+	this->addComponent(bodyBoundingCube);
 	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack"));
@@ -61,25 +50,36 @@ EnemyTank::EnemyTank(int ID)
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
 	RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint);
+	DirectX::XMFLOAT3 maxP(93.4250031f, 210.244995f, 299.684998f);
+	DirectX::XMFLOAT3 minP(-71.5699997f, 70.3600006f, -106.195000f);
+	maxPoint = DirectX::XMLoadFloat3(&maxP); minPoint = DirectX::XMLoadFloat3(&minP);
 	BoundingCube* tankBatteryBoundingCube = new BoundingCube(mBattery);
-	mBattery->cube = tankBatteryBoundingCube;
+	//mBattery->cube = tankBatteryBoundingCube;
 	tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
 	mBattery->addComponent(tankBatteryBoundingCube);
-	//tankBattery->getTransform()->calcultateTransformMatrix();
-	tankBatteryBoundingCube->box.Transform(tankBatteryBoundingCube->box, mBattery->getTransform()->getLocalToWorldMatrix());
 	rc->setMaterial(mat);
 	mBattery->addComponent(rc);
 	mBattery->attach(*this);
 
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
+	mTransform->calcultateTransformMatrix();
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);
 	// m_pStateMachine->setCurrentState(Rest::getInstance());
+	DirectX::BoundingOrientedBox out;
+	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
+	bodyBoundingCube->box = out;
+	this->cube = bodyBoundingCube;
+	DirectX::BoundingOrientedBox out1;
+	tankBatteryBoundingCube->box.Transform(out1, mTransform->getLocalToWorldMatrix());
+	tankBatteryBoundingCube->box = out1;
+	mBattery->cube = tankBatteryBoundingCube;
 
 	float theta = Math::RandFloat() * 2 * Pi;
 	mAttribute.m_WanderTarget = Vector3(mAttribute.m_WanderRadius * cos(theta), 0, mAttribute.m_WanderRadius * sin(theta));
 
 	mMovementComp = new AIMovementComponent(this);
 	addComponent(mMovementComp);
+	moveDirection = FORWARD;
 }	
 
 EnemyTank::~EnemyTank()
@@ -161,8 +161,7 @@ bool EnemyTank::isEnemyInRange()const {
 		float distance = 0.0f;
 		bool isObstacle = CollisionManager::sGetInstance()->rayCheckWithObstacle(mTransform->getPosition(),
 															   (getPlayerPos - mTransform->getPosition()).normalize(),
-															   sqrt(Vector3::lengthSq(getPlayerPos, mTransform->getPosition())),
-															   nullptr, distance);
+															   sqrt(Vector3::lengthSq(getPlayerPos, mTransform->getPosition())));
 		if( !isObstacle ) 
 			return true;
 		else return false;

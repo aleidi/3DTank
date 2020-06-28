@@ -10,8 +10,8 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 {
 	mWidth = 100.0f;
 	mHeight = 100.0f;
-	mX = 0.0f;
-	mY = 0.0f;
+	mX = WINDOW_WIDTH;
+	mY = WINDOW_HEIGHT;
 	setEnable(true);
 
 	GeometryGenerator::Mesh mesh;
@@ -45,6 +45,9 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	mVCB = std::make_unique<VertexConstantBuffer<CBVS>>(gfx);
+
+	addBind(std::make_unique<GeometryShader>());
+
 }
 
 void UIImage::draw(Graphics& gfx) noexcept

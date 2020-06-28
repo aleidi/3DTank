@@ -540,6 +540,12 @@
     <ClCompile Include="AITank.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="FreightContainer_A.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Engine\Source\Render\Graphics\Drawable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -940,6 +946,15 @@
     </ClInclude>
     <ClInclude Include="AITank.h">
       <Filter>Game\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="FreightContainer_A.h">
+      <Filter>Game\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionEvent.h">
+      <Filter>Engine\Header\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Engine\Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

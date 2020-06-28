@@ -12,6 +12,8 @@ Pawn::Pawn()
 
 Pawn::~Pawn()
 {
+	mUIHP->destroy();
+	mUIHP = nullptr;
 }
 
 void Pawn::onStart()
