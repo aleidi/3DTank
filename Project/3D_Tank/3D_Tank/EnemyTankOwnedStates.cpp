@@ -1,4 +1,5 @@
 #pragma once
+#include "CollisionManager.h"
 #include "EnemyTankOwnedStates.h"
 #include "State.h"
 #include "EnemyTank.h"
@@ -16,9 +17,6 @@
 #define getTargetPos pEnemyTank->getTarget()->getTransform()->getPosition()
 #define getTargetHeading pEnemyTank->getTarget()->getTransform()->Forward
 
-#define getPlayerSpeed	GameInstance::sGetInstance()->getPlayer()->getSpeed() /////////////////
-#define getPlayerVelocity	GameInstance::sGetInstance()->getPlayer()->getVelocity() /////////////////
-
 #define AITank reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())
 #define getAIPos pEnemyTank->getPawn()->getTransform()->getPosition()
 #define getAIHeading pEnemyTank->getPawn()->getTransform()->Forward
@@ -34,7 +32,7 @@ void Rest::enter(AIController* pEnemyTank) {
 	std::wstring wstr;
 	wstr += std::to_wstring(AITank->getID()) + L"I'm going to rest. ";
 	AITank->setHPRecovered(false);
-	MessageBox(0, wstr.c_str(), 0, 0);
+	//MessageBox(0, wstr.c_str(), 0, 0);
 }
 
 void Rest::execute(AIController* pEnemyTank, float deltaTime) {
@@ -70,20 +68,20 @@ void Rest::execute(AIController* pEnemyTank, float deltaTime) {
 }
 
 void Rest::exit(AIController* pEnemyTank) {
-	MessageBox(0, L"I stopped resting. ", 0, 0);
+	//MessageBox(0, L"I stopped resting. ", 0, 0);
 }
 
 bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 		case Msg_HPRecovered: {
 			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setHP(5);
-			MessageBox(0, L"HP+5 ", 0, 0);
+			//MessageBox(0, L"HP+5 ", 0, 0);
 			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setHPRecovered(false);
 			return true;
 		}
 
 		case Msg_IsAttacked: {
-			MessageBox(0, L"nmsl(rest", 0, 0);
+			//MessageBox(0, L"nmsl(rest", 0, 0);
 			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(true);
 			return true;
 		}
@@ -99,7 +97,7 @@ Wander* Wander::getInstance() {
 }
 
 void Wander::enter(AIController* pEnemyTank) {
-	MessageBox(0, L"I'm going to find bad guy.(Wander) ", 0, 0);
+	//MessageBox(0, L"I'm going to find bad guy.(Wander) ", 0, 0);
 }
 
 void Wander::execute(AIController* pEnemyTank, float deltaTime) {
@@ -146,13 +144,13 @@ void Wander::execute(AIController* pEnemyTank, float deltaTime) {
 }
 
 void Wander::exit(AIController* pEnemyTank) {
-	MessageBox(0, L"I stopped finding bad guy.(wander) ", 0, 0);
+	//MessageBox(0, L"I stopped finding bad guy.(wander) ", 0, 0);
 }
 
 bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 		case Msg_IsAttacked: {
-			MessageBox(0, L"nmsl(wander", 0, 0);
+			//MessageBox(0, L"nmsl(wander", 0, 0);
 			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(true);
 		}
 
@@ -169,11 +167,43 @@ Avoidance* Avoidance::getInstance() {
 }
 
 void Avoidance::enter(AIController* pEnemyTank) {
-	MessageBox(0, L"There is a f cking obstacle. ", 0, 0);
+	//MessageBox(0, L"There is a f cking obstacle. ", 0, 0);
 }
 
 void Avoidance::execute(AIController* pEnemyTank, float deltaTime) {
+	Vector3 feelersForward = getAIHeading;
+	Vector3 feelersRight = (getAIHeading + pEnemyTank->getPawn()->getTransform()->Right).normalize();
+	Vector3 feelersLeft = (getAIHeading + pEnemyTank->getPawn()->getTransform()->Right * -1).normalize();
+	Vector3 target = Vector3::zero;
 
+	if (AITank->isObstacleRight()) {
+		target = feelersLeft * AITank->getMaxSpeed();
+	}
+
+	if (AITank->isObstacleLeft()) {
+		target = feelersRight * AITank->getMaxSpeed();
+	}
+
+	if (AITank->isObstacleForward()) {
+		if (AITank->isObstacleRight()) {
+			target = feelersLeft * AITank->getMaxSpeed();
+		}
+
+		else if (AITank->isObstacleLeft()) {
+			target = feelersRight * AITank->getMaxSpeed();
+		}
+
+		else {
+			target = getAIHeading * -1 * AITank->getMaxSpeed();
+		}
+	}
+
+	if (AITank->isCollision()) {
+		pEnemyTank->getPawn()->getTransform()->translate(getAIHeading * -0.1);
+		target = getAIHeading * -1 * AITank->getMaxSpeed();
+	}
+
+	pEnemyTank->Move(target);
 	////////////////////////changeState////////////////////////
 	if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
 		pEnemyTank->getFSM()->revertToPerviousState();
@@ -181,7 +211,7 @@ void Avoidance::execute(AIController* pEnemyTank, float deltaTime) {
 }
 
 void Avoidance::exit(AIController* pEnemyTank) {
-	MessageBox(0, L"I avoided the damn obstacle. ", 0, 0);
+	//MessageBox(0, L"I avoided the damn obstacle. ", 0, 0);
 }
 
 bool Avoidance::onMessage(AIController* pEnemyTank, const Telegram& msg) {
@@ -253,7 +283,7 @@ Evade* Evade::getInstance() {
 }
 
 void Evade::enter(AIController* pEnemyTank) {
-	MessageBox(0, L"I'm going to run away. ", 0, 0);
+	//MessageBox(0, L"I'm going to run away. ", 0, 0);
 }
 
 void Evade::execute(AIController* pEnemyTank, float deltaTime) {
@@ -290,13 +320,13 @@ void Evade::execute(AIController* pEnemyTank, float deltaTime) {
 }
 
 void Evade::exit(AIController* pEnemyTank) {
-	MessageBox(0, L"I stopped running away. ", 0, 0);
+	//MessageBox(0, L"I stopped running away. ", 0, 0);
 }
 
 bool Evade::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 	case Msg_IsAttacked: {
-		MessageBox(0, L"nmsl(evade", 0, 0);
+		//MessageBox(0, L"nmsl(evade", 0, 0);
 		reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(true);
 	}
 
@@ -382,7 +412,7 @@ Death* Death::getInstance() {
 }
 
 void Death::enter(AIController* pEnemyTank) {
-	MessageBox(0, L"awsl", 0, 0);
+	//MessageBox(0, L"awsl", 0, 0);
 }
 
 void Death::execute(AIController* pEnemyTank, float deltaTime) {
@@ -393,7 +423,7 @@ void Death::execute(AIController* pEnemyTank, float deltaTime) {
 }
 
 void Death::exit(AIController* pEnemyTank) {
-	MessageBox(0, L"slsl", 0, 0);
+	//MessageBox(0, L"slsl", 0, 0);
 }
 
 bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
