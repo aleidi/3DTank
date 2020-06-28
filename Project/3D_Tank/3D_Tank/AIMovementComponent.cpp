@@ -20,8 +20,9 @@ void AIMovementComponent::onUpdate(float deltaTime)
 	if (isStart)
 	{
 		Vector3 acceleraion = force / mass;
-		if(velocity == Vector3(0, 0, 0))
+		if(Vector3::lengthSq(velocity, Vector3(0, 0, 0)) < 0.001 )
 			velocity = mTransform->Forward * 0.1f;
+
 		velocity += acceleraion * deltaTime;
 	
 		if (Vector3::lengthSq(velocity, Vector3(0, 0, 0)) > (maxSpeed*maxSpeed))
@@ -69,7 +70,7 @@ void AIMovementComponent::addVelocity(Vector3 value)
 void AIMovementComponent::addForce(Vector3 value)
 {
 	force = value;
-	if( force != Vector3(0,0,0) )
+	if( force != Vector3::zero )
 		isStart = true;
 	else isStart = false;
 }
