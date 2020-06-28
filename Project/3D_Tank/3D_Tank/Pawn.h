@@ -4,6 +4,11 @@
 
 class MovementComponent;
 
+enum MoveDirection
+{
+	FORWARD, MBACK, RIGHT, LEFT
+};
+
 class Pawn : public GameObject
 {
 public:
@@ -38,6 +43,7 @@ public:
 	virtual void move(Vector3 value);
 	virtual void attack(Vector3 battery_position, Vector3 shot_direction);
 
+	enum MoveDirection moveDirection;
 	void setHP(int changeHP);
 	int getHP()const;
 	void setMass(float mass);
