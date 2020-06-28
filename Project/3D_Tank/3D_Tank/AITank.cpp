@@ -6,7 +6,7 @@
 AITank::AITank(int ID) {
 	m_Tank = new EnemyTank(ID);
 	m_Tank->setResetPoint(Vector3(0, 0, 10));
-	m_Tank->getTransform()->setPosition(m_Tank->getResetPoint());
+	m_Tank->getTransform()->translate(m_Tank->getResetPoint());
 	m_Tank->setMaxSpeed(1.5f);
 	m_AICtrl = SceneManager::sGetInstance()->createAIController(ID);
 	m_AICtrl->posses(m_Tank);
