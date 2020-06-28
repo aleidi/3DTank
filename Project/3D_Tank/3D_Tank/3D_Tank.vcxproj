@@ -228,6 +228,7 @@
     <ClCompile Include="Level02.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="PlayerController.cpp" />
@@ -358,6 +359,7 @@
     <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="MovingEntity.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="PlayerController.h" />
