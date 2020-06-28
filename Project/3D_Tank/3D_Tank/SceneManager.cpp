@@ -11,6 +11,7 @@
 #include "UIImage3D.h"
 #include "RenderManager.h"
 #include "AIController.h"
+#include "ParticleSystem.h"
 
 SceneManager* SceneManager::sInstance = nullptr;
 
@@ -109,6 +110,13 @@ UIImage3D * SceneManager::createUIImage3D(const std::wstring & texPath)
 	return ui;
 }
 
+ParticleSystem * SceneManager::createParticleSystem(const std::wstring & texPath)
+{
+	ParticleSystem* p = new ParticleSystem(RenderManager::sGetInstance()->getGraphics(), texPath);
+	RenderManager::sGetInstance()->addParticleToPool(p);
+	return p;
+}
+
 AIController * SceneManager::createAIController(int id)
 {
 	AIController* ac = new AIController(id);
@@ -168,7 +176,13 @@ bool SceneManager::removreUIFromPool(UIBase * ui)
 bool SceneManager::removeUI3DFromPool(UIBase * ui)
 {
 	RenderManager::sGetInstance()->removeUI3DFromPool(ui);
-	return false;
+	return true;
+}
+
+bool SceneManager::removeParticleFromPool(ParticleSystem * particle)
+{
+	RenderManager::sGetInstance()->removeParticleFromPool(particle);
+	return true;
 }
 
 GameObject * SceneManager::findObjectWithName(const std::string & name)

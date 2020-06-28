@@ -1021,6 +1021,15 @@
     <FxCompile Include="Billboard_VS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
+    <FxCompile Include="Particle_GS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle_PS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="LightHelper.hlsli">
