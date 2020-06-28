@@ -169,6 +169,7 @@ void ParticleSystem::ResetParticle(PAttribute* p)
 		p->Position = pos;
 		p->Rotation = mStartRotation;
 		p->Size = mStartScale;
+		mStartSpeed = ((float)rand() / RAND_MAX)*(mMaxSpeed - mMinSpeed) + mMinSpeed;
 		XMVECTOR vel = XMVectorSet(0.0f, 1.0f * mStartSpeed, 0.0f, 0.0f);
 		vel = XMVector3Rotate(vel, XMQuaternionRotationRollPitchYaw(
 			XMConvertToRadians(mRotation.x), XMConvertToRadians(mRotation.y), XMConvertToRadians(mRotation.z)));
@@ -245,4 +246,10 @@ void ParticleSystem::setPosition(float x, float y, float z)
 	mPosition.x = x;
 	mPosition.y = y;
 	mPosition.z = z;
+}
+
+void ParticleSystem::setMaxMinSpeed(float max, float min)
+{
+	mMaxSpeed = max;
+	mMinSpeed = min;
 }

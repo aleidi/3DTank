@@ -26,6 +26,7 @@ public:
 	void setStartRotation(float x, float y, float z);
 	void setStartScale(float x, float y, float z);
 	void setPosition(float x, float y, float z);
+	void setMaxMinSpeed(float max, float min);
 
 protected:
 	struct VertexPosSize
@@ -66,6 +67,8 @@ protected:
 	float mDuration;
 	float mIsLoop;
 	float mStartSpeed = 1.0f;
+	float mMaxSpeed = 3.0f;
+	float mMinSpeed = 1.0f;
 	Emitter mEmitter;
 	XMFLOAT3 mPosition = XMFLOAT3(0.0f, 0.0f, 5.0f);
 	XMFLOAT3 mRotation = XMFLOAT3(90.0f, 0.0f, 0.0f);
