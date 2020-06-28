@@ -34,6 +34,7 @@ public:
 		getDevice(gfx)->CreateBuffer(&bd, &sd, &pVertexBuffer);
 	}
 	void bind(Graphics& gfx) noexcept override;
+	ID3D11Buffer* getBuffer();
 protected:
 	UINT stride;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;

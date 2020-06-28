@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "UIBase.h"
+#include "ParticleSystem.h"
 
 RenderManager* RenderManager::sInstance = nullptr;
 
@@ -36,8 +37,17 @@ void RenderManager::onDraw()
 	}
 }
 
-void RenderManager::onPostDraw()
+void RenderManager::onPostDraw(float deltaTime)
 {
+	for (std::list<ParticleSystem*>::iterator it = mParticles.begin(); it != mParticles.end(); ++it)
+	{
+		if (nullptr == *it)
+		{
+			continue;
+		}
+		(*it)->draw(mGraphics, deltaTime);
+	}
+
 	for (std::list<UIBase*>::iterator it = mUI3Ds.begin(); it != mUI3Ds.end(); ++it)
 	{
 		if (nullptr == *it)
@@ -129,6 +139,30 @@ bool RenderManager::removeUI3DFromPool(UIBase * ui) noexcept
 	return false;
 }
 
+void RenderManager::addParticleToPool(ParticleSystem * p) noexcept
+{
+	mParticles.push_back(p);
+}
+
+bool RenderManager::removeParticleFromPool(ParticleSystem * p) noexcept
+{
+	for (std::list<ParticleSystem*>::iterator it = mParticles.begin(); it != mParticles.end();)
+	{
+		if (*it == p)
+		{
+			delete *it;
+			*it = nullptr;
+			mParticles.erase(it++);
+			return true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return false;
+}
+
 Graphics & RenderManager::getGraphics() const
 {
 	return mGraphics;
@@ -151,7 +185,7 @@ void RenderManager::rotateLight(float x, float y, float z)
 }
 
 RenderManager::RenderManager(Graphics & gfx)
-	:mMeshes(), mUI3Ds(), mUIs(), mGraphics(gfx)
+	:mMeshes(), mUI3Ds(), mUIs(), mParticles(), mGraphics(gfx)
 {
 	initLight();
 }

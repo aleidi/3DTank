@@ -20,7 +20,7 @@ PlayerTank::PlayerTank()
 	DirectX::XMVECTOR maxPoint, minPoint;
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
-	mBattery->addComponent(SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex"));
+	SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
 	mBattery->attach(*this);
 	DirectX::XMFLOAT3 maxP(93.4250031f, 210.244995f, 299.684998f);
 	DirectX::XMFLOAT3 minP(-71.5699997f, 70.3600006f, -106.195000f);
