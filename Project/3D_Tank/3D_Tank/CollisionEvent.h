@@ -5,10 +5,11 @@ public:
 	CollisionEvent(){}
 	virtual ~CollisionEvent(){}
 
+	virtual void onTriggerEnter(const GameObject* obj){}
 	virtual void onTriggerEnter(){}
 	virtual void onTriggerStay(){}
 	virtual void onTriggerExit(){}
-	virtual void onCollisionEnter(){}
+	virtual void onCollisionEnter(const GameObject* obj){}
 	virtual void onCollisionStay(){}
 	virtual void onCollisionExit(){}
 

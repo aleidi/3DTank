@@ -1,6 +1,9 @@
 #include "PlayerController.h"
 #include "PlayerTank.h"
 #include "GameCommon.h"
+#include "CollisionManager.h"
+
+GameObject* obj;
 
 PlayerController::PlayerController()
 	:mDisToCamFactor(0.15f), mMirrorMax(XM_PI / 20), mMirrorMin(XM_PI / 3)
@@ -14,6 +17,9 @@ PlayerController::~PlayerController()
 void PlayerController::onUpdate(float deltaTime)
 {
 	checkInput(deltaTime);
+	if (CollisionManager::sGetInstance()->collisionCheck_CubeToCube(reinterpret_cast<PlayerTank*>(mPawn)->cube,&obj) == true) {
+		reinterpret_cast<PlayerTank*>(mPawn)->onTriggerEnter(obj);
+	}
 }
 
 void PlayerController::move(Vector3 value)
@@ -54,19 +60,31 @@ void PlayerController::checkInput(float deltaTime)
 
 	if (DInputPC::getInstance().iskey(MOVEFORWARD))
 	{
-		move(mPawn->getTransform()->Forward * deltaTime);
+		if (reinterpret_cast<PlayerTank*>(mPawn)->onTrigger == false) {
+			reinterpret_cast<PlayerTank*>(mPawn)->moveDirection = FORWARD;
+			move(mPawn->getTransform()->Forward * deltaTime);
+		}
 	}
 	if (DInputPC::getInstance().iskey(MOVEBACK))
 	{
-		move(mPawn->getTransform()->Forward * -deltaTime);
+		if (reinterpret_cast<PlayerTank*>(mPawn)->onTrigger == false) {
+			reinterpret_cast<PlayerTank*>(mPawn)->moveDirection = (MoveDirection)1;
+			move(mPawn->getTransform()->Forward * -deltaTime);
+		}
 	}
 	if (DInputPC::getInstance().iskey(TURNLEFT))
 	{
-		rotate(-deltaTime);
+		if (reinterpret_cast<PlayerTank*>(mPawn)->onTrigger == false) {
+			reinterpret_cast<PlayerTank*>(mPawn)->moveDirection = LEFT;
+			rotate(-deltaTime);
+		}
 	}
 	if (DInputPC::getInstance().iskey(TURNRIGHT))
 	{
-		rotate(deltaTime);
+		if (reinterpret_cast<PlayerTank*>(mPawn)->onTrigger == false) {
+			reinterpret_cast<PlayerTank*>(mPawn)->moveDirection = RIGHT;
+			rotate(deltaTime);
+		}
 	}
 
 	float dz = DInputPC::getInstance().mouseDZ();

@@ -2,6 +2,7 @@
 #include "PlayerTank.h"
 #include "ComponentBase.h"
 #include "GameCommon.h"
+#include "CollisionManager.h"
 #include "PlayerCamera.h"
 
 PlayerTank::PlayerTank()
@@ -21,10 +22,19 @@ PlayerTank::PlayerTank()
 	mBattery->setName("Battery");
 	mBattery->addComponent(SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	mBattery->attach(*this);
+	DirectX::XMFLOAT3 maxP(93.4250031f, 210.244995f, 299.684998f);
+	DirectX::XMFLOAT3 minP(-71.5699997f, 70.3600006f, -106.195000f);
+	maxPoint = DirectX::XMLoadFloat3(&maxP); minPoint = DirectX::XMLoadFloat3(&minP);
+	BoundingCube* batteryBoundingCube = new BoundingCube(mBattery);
+	batteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
+	mBattery->addComponent(batteryBoundingCube);
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint);
-	BoundingCube* boundingCube = new BoundingCube(this);
-	boundingCube->createBoundingCube(maxPoint, minPoint, 1);
-	this->addComponent(boundingCube);
+	DirectX::XMFLOAT3 maxP0(108.550003f, 97.2149963f, 177.554993f);
+	DirectX::XMFLOAT3 minP0(-86.8899994f, 3.51500010f, -191.240005f);
+	maxPoint = DirectX::XMLoadFloat3(&maxP0); minPoint = DirectX::XMLoadFloat3(&minP0);
+	BoundingCube* bodyBoundingCube = new BoundingCube(this);
+	bodyBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
+	this->addComponent(bodyBoundingCube);
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack");
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack");
 
@@ -41,12 +51,17 @@ PlayerTank::PlayerTank()
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
 	mTransform->calcultateTransformMatrix();
 	DirectX::BoundingOrientedBox out;
-	boundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
-	boundingCube->box = out;
-	this->cube = boundingCube;
+	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
+	bodyBoundingCube->box = out;
+	this->cube = bodyBoundingCube;
+	DirectX::BoundingOrientedBox out1;
+	batteryBoundingCube->box.Transform(out1, mTransform->getLocalToWorldMatrix());
+	batteryBoundingCube->box = out1;
+	mBattery->cube = batteryBoundingCube;
 	//t1 = SceneManager::sGetInstance()->createSphere();
 	//t1->attach(*mCamFollower);
 	//t1->getTransform()->translate(Vector3::right * 2.0f);
+	moveDirection = FORWARD;
 }
 
 PlayerTank::~PlayerTank()
@@ -60,7 +75,6 @@ PlayerTank::~PlayerTank()
 void PlayerTank::onUpdate(float deltaTime)
 {
 	Pawn::onUpdate(deltaTime);
-
 }
 
 void PlayerTank::onLateUpdate(float deltaTime)
@@ -142,9 +156,39 @@ void PlayerTank::setCameraFov(float value)
 	mCameraComp->setFov(value);
 }
 
-void PlayerTank::onCollisionEnter()
+void PlayerTank::onTriggerEnter(const GameObject* obj)
 {
+	this->onTrigger = true;
+	switch (moveDirection) {
+	case FORWARD: {
+		move(mTransform->Forward * -0.01f);
+		break;
+	}
+	case MBACK: {
+		move(mTransform->Forward * 0.01f);
+		break;
+	}
+	case LEFT: {
+		rotate(0.001f);
+		break;
+	}
+	case RIGHT: {
+		rotate(-0.001f);
+		break;
+	}
+	}
+	if (CollisionManager::sGetInstance()->collisionCheck(this->cube, obj->cube) == false)
+		onTriggerExit();
+}
 
+void PlayerTank::onTriggerExit()
+{
+	this->onTrigger = false;
+}
+
+void PlayerTank::onCollisionEnter(const GameObject* obj)
+{
+	
 }
 
 void PlayerTank::onCollisionExit()

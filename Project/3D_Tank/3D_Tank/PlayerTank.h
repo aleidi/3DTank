@@ -20,9 +20,9 @@ public:
 	void adjustDisToCam(float value);
 	void setCameraFov(float value);
 
-	//void onTriggerEnter() override;
-	//void onTriggerExit() override;
-	void onCollisionEnter() override;
+	void onTriggerEnter(const GameObject* obj) override;
+	void onTriggerExit() override;
+	void onCollisionEnter(const GameObject* obj) override;
 	void onCollisionExit() override;
 
 private:
@@ -51,8 +51,5 @@ private:
 	GameObject* mCamera;
 	GameObject* mTrack;
 	Camera* mCameraComp;
-
-	BoundingCube* tankBody_BoundingCube;
-	BoundingCube* tankBattery_BoundingCube;
 };
 
