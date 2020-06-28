@@ -21,7 +21,7 @@ public:
 	void addUIToPool(UIBase* ui) noexcept;
 	bool removeUIFromPool(UIBase* ui) noexcept;
 	void addUI3DToPool(UIBase* ui) noexcept;
-	bool reemoveUI3DFromPool(UIBase* ui) noexcept;
+	bool removeUI3DFromPool(UIBase* ui) noexcept;
 
 	Graphics& getGraphics() const;
 	DirectionalLight getDirLight() noexcept;

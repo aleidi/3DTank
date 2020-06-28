@@ -110,7 +110,7 @@ void RenderManager::addUI3DToPool(UIBase * ui) noexcept
 	mUI3Ds.push_back(ui);
 }
 
-bool RenderManager::reemoveUI3DFromPool(UIBase * ui) noexcept
+bool RenderManager::removeUI3DFromPool(UIBase * ui) noexcept
 {
 	for (std::list<UIBase*>::iterator it = mUI3Ds.begin(); it != mUI3Ds.end();)
 	{
@@ -118,7 +118,7 @@ bool RenderManager::reemoveUI3DFromPool(UIBase * ui) noexcept
 		{
 			delete *it;
 			*it = nullptr;
-			mUIs.erase(it++);
+			mUI3Ds.erase(it++);
 			return true;
 		}
 		else

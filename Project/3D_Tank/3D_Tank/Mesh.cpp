@@ -24,7 +24,6 @@ Mesh::~Mesh()
 {
 	if (mOwner != nullptr)
 	{
-		delete mOwner;
 		mOwner = nullptr;
 	}
 }

@@ -1,6 +1,7 @@
 #include "Pawn.h"
 #include "MovementComponent.h"
 #include "UIHP.h"
+#include "SceneManager.h"
 
 Pawn::Pawn()
 {
@@ -11,6 +12,8 @@ Pawn::Pawn()
 
 Pawn::~Pawn()
 {
+	mUIHP->destroy();
+	mUIHP = nullptr;
 }
 
 void Pawn::onStart()

@@ -43,7 +43,6 @@ private:
 	GameObject* mBattery;
 	GameObject* mCamFollower;
 	GameObject* mCamera;
-	GameObject* mTrack;
 	Camera* mCameraComp;
 };
 

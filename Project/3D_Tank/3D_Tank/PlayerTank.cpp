@@ -18,7 +18,7 @@ PlayerTank::PlayerTank()
 
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
-	mBattery->addComponent(SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex"));
+	SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
 	mBattery->attach(*this);
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex");
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack");
@@ -43,8 +43,11 @@ PlayerTank::PlayerTank()
 
 PlayerTank::~PlayerTank()
 {
+	mBattery->destroy();
 	mBattery = nullptr;
+	mCamFollower->destroy();
 	mCamFollower = nullptr;
+	mCamera->destroy();
 	mCamera = nullptr;
 	mCameraComp = nullptr;
 }
