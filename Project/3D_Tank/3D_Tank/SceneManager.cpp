@@ -159,6 +159,18 @@ bool SceneManager::removeAIControllerFromPool(AIController * ctrl) noexcept
 	return false;
 }
 
+bool SceneManager::removreUIFromPool(UIBase * ui)
+{
+	RenderManager::sGetInstance()->removeUIFromPool(ui);
+	return true;
+}
+
+bool SceneManager::removeUI3DFromPool(UIBase * ui)
+{
+	RenderManager::sGetInstance()->removeUI3DFromPool(ui);
+	return false;
+}
+
 GameObject * SceneManager::findObjectWithName(const std::string & name)
 {
 	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)

@@ -48,6 +48,9 @@ UIButton::UIButton(Graphics & gfx, const std::wstring & texPath)
 
 	initBtnColor();
 	mPCBuf = std::make_unique<PixelConstantBuffer<XMFLOAT4>>(gfx, mMaterial.Color);
+
+	addBind(std::make_unique<GeometryShader>());
+
 }
 
 void UIButton::draw(Graphics& gfx) noexcept

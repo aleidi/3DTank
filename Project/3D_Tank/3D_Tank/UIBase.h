@@ -14,6 +14,8 @@ public:
 	void setPosition(float x, float y, float z) noexcept;
 	void setPosition(float x, float y) noexcept;
 	void setEnable(bool value) noexcept;
+	void setRotation(float pitch, float yaw, float roll);
+	void rotate(float x, float y, float z);
 
 protected:
 	float mWidth;
@@ -21,6 +23,9 @@ protected:
 	float mX;
 	float mY;
 	float mZ;
+	float mPitch;
+	float mYaw;
+	float mRoll;
 	bool mIsEnable;
 };
 

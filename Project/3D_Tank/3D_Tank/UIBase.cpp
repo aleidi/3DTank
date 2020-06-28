@@ -6,7 +6,9 @@ void UIBase::onUpdate(float deltaTime) noexcept
 
 DirectX::XMMATRIX UIBase::getTransformXM() const noexcept
 {
-	return XMMatrixScaling(mWidth, mHeight, 0.0f)*
+	return XMMatrixRotationRollPitchYaw(mPitch, mYaw, mRoll)*
+		XMMatrixTranslation(0.5f, 0.5f, 0.0f)*
+		XMMatrixScaling(mWidth, mHeight, 0.0f)*
 		XMMatrixTranslation(mX, mY, 0.0f)*
 		XMMatrixScaling(2.0f / (float)WINDOW_WIDTH, 2.0f / (float)WINDOW_HEIGHT, 0.0f)*
 		XMMatrixTranslation(-1.0f, -1.0f, 0.0f);
@@ -34,4 +36,18 @@ void UIBase::setPosition(float x, float y) noexcept
 void UIBase::setEnable(bool value) noexcept
 {
 	mIsEnable = value;
+}
+
+void UIBase::setRotation(float pitch, float yaw, float roll)
+{
+	mPitch = pitch;
+	mYaw = yaw;
+	mRoll = roll;
+}
+
+void UIBase::rotate(float x, float y, float z)
+{
+	mPitch += x;
+	mYaw += y;
+	mRoll += z;
 }

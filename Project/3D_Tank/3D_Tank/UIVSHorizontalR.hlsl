@@ -27,9 +27,9 @@ VS_Out main(VS_In vin)
 	fill = clamp(FillAmount, 0.0f, 1.0f);
 
 	[flatten]
-	if (vin.Pos.x > 0.5f)
+	if (vin.Pos.x > 0)
 	{
-		pos.x = fill;
+		pos.x = fill - 0.5f;
 		pos.y = vin.Pos.y;
 		tex.x = fill;
 		tex.y = vin.Tex.y;
