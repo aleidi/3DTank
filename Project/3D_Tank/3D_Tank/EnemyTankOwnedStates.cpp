@@ -23,6 +23,7 @@
 #define getAIPos pEnemyTank->getPawn()->getTransform()->getPosition()
 #define getAIHeading pEnemyTank->getPawn()->getTransform()->Forward
 #define getAIVelocity  pEnemyTank->getPawn()->getVelocity()
+
 //-------------------methods for Rest-------------------//
 Rest* Rest::getInstance() {
 	static Rest m_Rest;
@@ -102,10 +103,10 @@ void Wander::enter(AIController* pEnemyTank) {
 }
 
 void Wander::execute(AIController* pEnemyTank, float deltaTime) {
-	float count = 0.0f;
 	count += deltaTime;
-	if (count > 0.0001) {
-		count = 0;
+
+	if (count > 0.001f) {
+		count = 0.0f;
 
 		float disToBornSq = Vector3::lengthSq(getAIPos, AITank->getResetPoint());
 		if ( disToBornSq > AITank->getWanderRangeRadiusSq() ) {
@@ -128,7 +129,7 @@ void Wander::execute(AIController* pEnemyTank, float deltaTime) {
 		}
 		////////////////////////changeState////////////////////////
 		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
-			// pEnemyTank->getFSM()->changeState(Attack::getInstance());
+			pEnemyTank->getFSM()->changeState(Attack::getInstance());
 		}
 
 		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
@@ -195,11 +196,28 @@ Attack* Attack::getInstance() {
 }
 
 void Attack::enter(AIController* pEnemyTank) {
-	MessageBox(0, L"I'm going to kick ur ass. ", 0, 0);
+	// MessageBox(0, L"I'm going to kick ur ass. ", 0, 0);
+	pEnemyTank->Move(Vector3(0,0,0));
 }
 
 void Attack::execute(AIController* pEnemyTank, float deltaTime) {
-	pEnemyTank->Attack();
+	Vector3 targetDirection = (getTargetPos - getAIPos).normalize();
+	float dot = Vector3::dot(targetDirection, AITank->batteryForward());
+	dot = Math::Clamp(1.0f, -1.0f, dot);
+	float rotate = acosf(dot) * 180 / Pi;
+	Vector3 cross = Vector3::cross(targetDirection, AITank->batteryForward());
+	if (cross.y > 0)
+		rotate = -rotate;
+
+	if (rotate >= 1.0f || rotate <= -1.0f)
+		AITank->rotateBattery(0, rotate, 0);
+
+	count += deltaTime;
+	if (count > 5.0f) {
+		count = 0.0f;
+		pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+	}
+
 	////////////////////////changeState////////////////////////
 	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying()) {
 		pEnemyTank->getFSM()->changeState(Evade::getInstance());
@@ -211,7 +229,17 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 }
 
 void Attack::exit(AIController* pEnemyTank) {
-	MessageBox(0, L"I stopped kicking ur ass. ", 0, 0);
+	//MessageBox(0, L"I stopped kicking ur ass. ", 0, 0);
+
+	float dot = Vector3::dot(getAIHeading, AITank->batteryForward());
+	dot = Math::Clamp(1.0f, -1.0f, dot);
+	float rotate = acosf(dot) * 180 / Pi;
+	Vector3 cross = Vector3::cross(getAIHeading, AITank->batteryForward());
+	if (cross.y > 0)
+		rotate = -rotate;
+
+	if (rotate >= 1.0f || rotate <= -1.0f)
+		AITank->rotateBattery(0, rotate, 0);
 }
 
 bool Attack::onMessage(AIController* pEnemyTank, const Telegram& msg) {
@@ -229,9 +257,8 @@ void Evade::enter(AIController* pEnemyTank) {
 }
 
 void Evade::execute(AIController* pEnemyTank, float deltaTime) {
-	float count = 0.0f;
 	count += deltaTime;
-	if (count > 0.0001) {
+	if (count > 0.001) {
 		count = 0.0f;
 		Vector3 target = Vector3(0,0,0);
 		Vector3 toPursuer = getTargetPos - getAIPos;
@@ -244,7 +271,7 @@ void Evade::execute(AIController* pEnemyTank, float deltaTime) {
 		pEnemyTank->Move(target);
 	
 		////////////////////////changeState////////////////////////
-		/*
+		
 		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getAttacked()) {
 			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(false);
 		}
@@ -258,7 +285,7 @@ void Evade::execute(AIController* pEnemyTank, float deltaTime) {
 
 		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getHP() <= 0) {
 			pEnemyTank->getFSM()->changeState(Death::getInstance());
-		} */
+		} 
 	}
 }
 
@@ -285,13 +312,12 @@ Pursuit* Pursuit::getInstance() {
 }
 
 void Pursuit::enter(AIController* pEnemyTank) {
-	MessageBox(0, L"I'm chasing that damn bad guy.", 0, 0);
+	//MessageBox(0, L"I'm chasing that damn bad guy.", 0, 0);
 }
 
 void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
-	float count = 0.0f;
 	count += deltaTime;
-	if (count > 0.0001) {
+	if (count > 0.001) {
 		count = 0.0f;
 
 		Vector3 target = Vector3(0, 0, 0);
@@ -308,7 +334,7 @@ void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
 			/////////////////////////////////////////
 			float lookAheadTime = sqrt(Vector3::lengthSq(toEvader, Vector3(0, 0, 0))) / (AITank->getMaxSpeed() + getTargetSpeed);
 			float m_dot = Vector3::dot(getAIHeading, toEvader.normalize());
-			const float coefficient = 0.005f;
+			const float coefficient = 0.05f;
 			lookAheadTime += (m_dot - 1.0f) * -coefficient;
 
 			/////////////////////////////////////////
@@ -320,16 +346,8 @@ void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
 		/////////////////////////beginning of movement/////////////////////////////
 		pEnemyTank->Move(target);
 
-		std::wstring wstr;
-		wstr += L"velocity: (" + std::to_wstring(getAIVelocity.x) + L"," +
-			std::to_wstring(getAIVelocity.y) + L"," +
-			std::to_wstring(getAIVelocity.z) + L") \n";
-		wstr += L"Target velocity: (" + std::to_wstring(getTargetVelocity.x) + L"," +
-			std::to_wstring(getTargetVelocity.y) + L"," +
-			std::to_wstring(getTargetVelocity.z) + L") \n";
-		Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 500, 500, true);
 		////////////////////////changeState////////////////////////
-		/*
+		
 		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
 			pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 		}
@@ -345,12 +363,12 @@ void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
 		if ( reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isLostEnemy() ) {
 			pEnemyTank->getFSM()->changeState(Rest::getInstance());
 		}
-		*/
+		
 	}
 }
 
 void Pursuit::exit(AIController* pEnemyTank) {
-	MessageBox(0, L"I stopped chasing.", 0, 0);
+	//MessageBox(0, L"I stopped chasing.", 0, 0);
 }
 
 bool Pursuit::onMessage(AIController* pEnemyTank, const Telegram& msg) {
@@ -369,7 +387,7 @@ void Death::enter(AIController* pEnemyTank) {
 
 void Death::execute(AIController* pEnemyTank, float deltaTime) {
 
-	MessageBox(0, L"BOW! I DEAD", 0, 0);
+	//MessageBox(0, L"BOW! I DEAD", 0, 0);
 	////////////////////////changeState////////////////////////
 	// Dead is end//
 }

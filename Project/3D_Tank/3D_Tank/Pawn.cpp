@@ -1,6 +1,7 @@
 #include "Pawn.h"
 #include "MovementComponent.h"
 #include "UIHP.h"
+#include "Shell.h"
 
 Pawn::Pawn()
 {
@@ -32,8 +33,9 @@ void Pawn::move(Vector3 value)
 {
 }
 
-void Pawn::attack(Vector3 direction)
+void Pawn::attack(Vector3 batteryposition, Vector3 shot_direction)
 {
+	Shell* shell = new Shell(batteryposition, shot_direction, 0);
 }
 
 void Pawn::setMaxSpeed(float maxspeed) {
