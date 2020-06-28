@@ -9,11 +9,17 @@ FreightContainer_A::FreightContainer_A(const Vector3& position, const Vector3& s
 	mTransform->translate(position);
 	mTransform->setScale(scale);
 
+	DirectX::XMFLOAT3 maxP(293.290009f, 261.213013f, 121.915001f);
+	DirectX::XMFLOAT3 minP(-330.609009f, -0.0293269996f, -123.653000f);
+	maxPoint = DirectX::XMLoadFloat3(&maxP); minPoint = DirectX::XMLoadFloat3(&minP);
 	mCollisionBox = new BoundingCube(this);
 	mCollisionBox->createBoundingCube(maxPoint, minPoint, 0);
 	addComponent(mCollisionBox);
 	mTransform->calcultateTransformMatrix();
-	mCollisionBox->box.Transform(mCollisionBox->box, mTransform->getLocalToWorldMatrix());
+	DirectX::BoundingOrientedBox out;
+	mCollisionBox->box.Transform(out, mTransform->getLocalToWorldMatrix());
+	mCollisionBox->box = out;
+	this->cube = mCollisionBox;
 }
 
 FreightContainer_A::~FreightContainer_A()
