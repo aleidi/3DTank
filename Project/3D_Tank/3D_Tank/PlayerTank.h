@@ -1,10 +1,11 @@
 #pragma once
 #include "Pawn.h"
+#include "CollisionEvent.h"
 
 class RenderComponent;
 class Camera;
 
-class PlayerTank : public Pawn
+class PlayerTank : public Pawn, public CollisionEvent
 {
 public:
 	PlayerTank();
@@ -18,6 +19,11 @@ public:
 	void rotateCamera(float valueX, float valueY);
 	void adjustDisToCam(float value);
 	void setCameraFov(float value);
+
+	//void onTriggerEnter() override;
+	//void onTriggerExit() override;
+	void onCollisionEnter() override;
+	void onCollisionExit() override;
 
 private:
 	//tank move and rotate
@@ -45,5 +51,8 @@ private:
 	GameObject* mCamera;
 	GameObject* mTrack;
 	Camera* mCameraComp;
+
+	BoundingCube* tankBody_BoundingCube;
+	BoundingCube* tankBattery_BoundingCube;
 };
 

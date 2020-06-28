@@ -16,11 +16,15 @@ PlayerTank::PlayerTank()
 
 	mAttribute.m_MaxSpeed = mMoveSped;
 
+	DirectX::XMVECTOR maxPoint, minPoint;
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
-	mBattery->addComponent(SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex"));
+	mBattery->addComponent(SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
 	mBattery->attach(*this);
-	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex");
+	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint);
+	BoundingCube* boundingCube = new BoundingCube(this);
+	boundingCube->createBoundingCube(maxPoint, minPoint, 1);
+	this->addComponent(boundingCube);
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack");
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack");
 
@@ -35,7 +39,11 @@ PlayerTank::PlayerTank()
 	mCamera->getTransform()->translate(mTransform->getPosition() + 
 		mCamFollower->getTransform()->Forward * mCamFollowFactorX + mCamFollower->getTransform()->Up * mCamFollowFactorY * mDisToCam);
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
-
+	mTransform->calcultateTransformMatrix();
+	DirectX::BoundingOrientedBox out;
+	boundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
+	boundingCube->box = out;
+	this->cube = boundingCube;
 	//t1 = SceneManager::sGetInstance()->createSphere();
 	//t1->attach(*mCamFollower);
 	//t1->getTransform()->translate(Vector3::right * 2.0f);
@@ -132,4 +140,14 @@ void PlayerTank::adjustDisToCam(float value)
 void PlayerTank::setCameraFov(float value)
 {
 	mCameraComp->setFov(value);
+}
+
+void PlayerTank::onCollisionEnter()
+{
+
+}
+
+void PlayerTank::onCollisionExit()
+{
+
 }
