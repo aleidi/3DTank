@@ -21,16 +21,16 @@ EnemyTank::EnemyTank(int ID)
 	BaseGameEntity(ID)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
-	mAttribute = {100,1000.0f,2000.0f,1000.0f,50.0f,1.0f,10.0f,20.0f,800.0f,Vector3(0,0,0) };
-	GameObject* tankBattery = SceneManager::sGetInstance()->createEmptyObject();
-	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
-	tankBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
-	BoundingCube* tankBatteryBoundingCube = new BoundingCube(tankBattery);
-	tankBattery->cube = tankBatteryBoundingCube;
-	tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
-	tankBattery->addComponent(tankBatteryBoundingCube);
-	//tankBattery->getTransform()->calcultateTransformMatrix();
-	tankBatteryBoundingCube->box.Transform(tankBatteryBoundingCube->box, tankBattery->getTransform()->getLocalToWorldMatrix());
+	mAttribute = {100,100.0f,200.0f,100.0f,50.0f,1.0f,10.0f,20.0f,800.0f,Vector3(0,0,0) };
+	//GameObject* tankBattery = SceneManager::sGetInstance()->createEmptyObject();
+	//mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint));
+	//tankBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
+	//BoundingCube* tankBatteryBoundingCube = new BoundingCube(tankBattery);
+	//tankBattery->cube = tankBatteryBoundingCube;
+	//tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
+	//tankBattery->addComponent(tankBatteryBoundingCube);
+	////tankBattery->getTransform()->calcultateTransformMatrix();
+	//tankBatteryBoundingCube->box.Transform(tankBatteryBoundingCube->box, tankBattery->getTransform()->getLocalToWorldMatrix());
 	GameObject* tankBody = SceneManager::sGetInstance()->createEmptyObject();
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint));
 	tankBody->getTransform()->setScale(0.002f, 0.002f, 0.002f);
@@ -60,7 +60,13 @@ EnemyTank::EnemyTank(int ID)
 	}
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
-	RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
+	RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint);
+	BoundingCube* tankBatteryBoundingCube = new BoundingCube(mBattery);
+	mBattery->cube = tankBatteryBoundingCube;
+	tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
+	mBattery->addComponent(tankBatteryBoundingCube);
+	//tankBattery->getTransform()->calcultateTransformMatrix();
+	tankBatteryBoundingCube->box.Transform(tankBatteryBoundingCube->box, mBattery->getTransform()->getLocalToWorldMatrix());
 	rc->setMaterial(mat);
 	mBattery->addComponent(rc);
 	mBattery->attach(*this);
@@ -123,6 +129,14 @@ void EnemyTank::move(Vector3 value)
 void EnemyTank::rotateBattery(float x, float y, float z)
 {
 	mBattery->getTransform()->rotate(x, y, z);
+}
+
+Vector3 EnemyTank::batteryForward() const {
+	return mBattery->getTransform()->Forward;
+}
+
+Vector3 EnemyTank::batteryPosition() const {
+	return mBattery->getTransform()->getPosition();
 }
 
 bool EnemyTank::isDying()const {

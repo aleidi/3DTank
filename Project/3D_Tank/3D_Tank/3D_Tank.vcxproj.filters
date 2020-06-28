@@ -537,6 +537,9 @@
     <ClCompile Include="Shell.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="AITank.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -933,6 +936,9 @@
       <Filter>Game\Header\UI</Filter>
     </ClInclude>
     <ClInclude Include="Shell.h">
+      <Filter>Game\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="AITank.h">
       <Filter>Game\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>

@@ -37,7 +37,6 @@ public:
 	void setWanderTarget(Vector3 wandertarget);
 
 	void move(Vector3 value);
-	void rotateBattery(float x,float y,float z);
 	bool isDying()const;
 	bool isEnemyInRange()const;
 	bool isLostEnemy()const;
@@ -46,6 +45,10 @@ public:
 	void setHPRecovered(bool isRecovered);
 	void setAttacked(bool isAttacked);
 	bool getAttacked()const;
+
+	Vector3 batteryForward()const;
+	Vector3 batteryPosition()const;
+	void rotateBattery(float x, float y, float z);
 
 private:
 	bool m_HPRecovered;
