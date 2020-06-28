@@ -10,6 +10,7 @@ class UIButton;
 class UIText;
 class UIImage3D;
 class AIController;
+class UIBase;
 
 class SceneManager
 {
@@ -34,6 +35,8 @@ public:
 	void addGameObjectToPool(GameObject* object) noexcept;
 	bool removeGameObjectFromPool(GameObject* object) noexcept;
 	bool removeAIControllerFromPool(AIController* ctrl) noexcept;
+	bool removreUIFromPool(UIBase* ui);
+	bool removeUI3DFromPool(UIBase* ui);
 	GameObject* findObjectWithName(const std::string& name);
 	std::list<std::string> getAllGameobjectName();
 	AIController* getAIController(int id);

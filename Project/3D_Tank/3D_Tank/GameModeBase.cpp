@@ -14,9 +14,9 @@ GameModeBase::GameModeBase()
 
 GameModeBase::~GameModeBase()
 {
-	SceneManager::sGetInstance()->removeGameObjectFromPool(mPlayer);
+	mPlayer->destroy();
 	mPlayer = nullptr;
-	SceneManager::sGetInstance()->removeGameObjectFromPool(mPlayerController);
+	mPlayerController->destroy();
 	mPlayerController = nullptr;
 
 	MainGameMode = nullptr;

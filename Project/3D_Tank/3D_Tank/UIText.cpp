@@ -58,6 +58,9 @@ UIText::UIText(Graphics& gfx, std::wstring text)
 
 	mMaterial.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	mPCBuf = std::make_unique<PixelConstantBuffer<DirectX::XMFLOAT4>>(gfx, mMaterial.Color);
+
+	addBind(std::make_unique<GeometryShader>());
+
 }
 
 void UIText::draw(Graphics& gfx) noexcept
