@@ -18,6 +18,7 @@ public:
 	bool rayCheck(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject** gameobject, float& dis);
 	bool rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject** gameobject, float& dis);
 	bool rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject** gameobject);
+	bool rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis);
 	bool rayCheckWithTank(const Vector3& origin, const Vector3& direction, float farthestDis, GameObject** gameobject);
 	bool collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2);
 	bool collisionCheck(const BoundingCube* cube, const MBoundingSphere* sphere);
