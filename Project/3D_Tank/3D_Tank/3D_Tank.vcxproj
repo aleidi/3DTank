@@ -266,6 +266,7 @@
     <ClCompile Include="TankBatteryCtrl.cpp" />
     <ClCompile Include="TankGamePlay.cpp" />
     <ClCompile Include="TestCube.cpp" />
+    <ClCompile Include="UIText3D.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIBase.cpp" />
@@ -403,6 +404,7 @@
     <ClInclude Include="TankGamePlay.h" />
     <ClInclude Include="Telegram.h" />
     <ClInclude Include="TestCube.h" />
+    <ClInclude Include="UIText3D.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIBase.h" />
@@ -490,6 +492,12 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="UIText3D_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="UIText3D_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="UI3DGSHorizontalL.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

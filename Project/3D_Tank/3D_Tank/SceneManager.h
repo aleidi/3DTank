@@ -11,7 +11,8 @@ class UIText;
 class UIImage3D;
 class AIController;
 class UIBase;
-class 	ParticleSystem;
+class ParticleSystem;
+class UIText3D;
 
 class SceneManager
 {
@@ -30,6 +31,7 @@ public:
 	UIButton* createUIButton(const std::wstring& texPath);
 	UIText* createUIText();
 	UIImage3D* createUIImage3D(const std::wstring& texPath);
+	UIText3D* createUIText3D();
 	ParticleSystem* createParticleSystem(const std::wstring& texPath);
 	
 	AIController* createAIController(int id);

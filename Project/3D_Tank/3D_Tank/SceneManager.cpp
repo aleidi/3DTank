@@ -12,6 +12,7 @@
 #include "RenderManager.h"
 #include "AIController.h"
 #include "ParticleSystem.h"
+#include "UIText3D.h"
 
 SceneManager* SceneManager::sInstance = nullptr;
 
@@ -106,6 +107,13 @@ UIText * SceneManager::createUIText()
 UIImage3D * SceneManager::createUIImage3D(const std::wstring & texPath)
 {
 	UIImage3D* ui = new UIImage3D(RenderManager::sGetInstance()->getGraphics(), texPath);
+	RenderManager::sGetInstance()->addUI3DToPool(ui);
+	return ui;
+}
+
+UIText3D * SceneManager::createUIText3D()
+{
+	UIText3D* ui = new UIText3D(RenderManager::sGetInstance()->getGraphics());
 	RenderManager::sGetInstance()->addUI3DToPool(ui);
 	return ui;
 }

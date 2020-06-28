@@ -546,6 +546,9 @@
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Engine\Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="UIText3D.cpp">
+      <Filter>Engine\Source\Render\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -785,9 +788,6 @@
     <ClInclude Include="imconfig.h">
       <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
-    <ClInclude Include="ImGuiFrame.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
       <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
@@ -805,9 +805,6 @@
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
       <Filter>Engine\Header\Render\EUI</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui.h">
-      <Filter>Engine\Header</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Engine\Header\Gameplay\AI\FSM</Filter>
@@ -956,6 +953,15 @@
     <ClInclude Include="ParticleSystem.h">
       <Filter>Engine\Header\Render\Graphics\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="UIText3D.h">
+      <Filter>Engine\Header\Render\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Engine\Header\Render\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiFrame.h">
+      <Filter>Engine\Header\Render\EUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -1037,6 +1043,12 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="Particle_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIText3D_PS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIText3D_VS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>
