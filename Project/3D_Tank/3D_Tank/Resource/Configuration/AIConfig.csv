@@ -1,3 +1,3 @@
-ID,HP,AttackRangeRadiusSq,PursuitRangeRadiusSq,WanderRangeRadiusSq,Mass,MaxSpeed,WanderRadius,WanderDistance,WanderJitter,ResetPoint.x,ResetPoint.y,ResetPoint.z
-0,100,100,200,100,5,1.5,10,20,800,0,0,10
-1,100,100,200,100,5,1,10,20,800,10,0,0
+ID,HP,AttackRangeRadiusSq,PursuitRangeRadiusSq,WanderRangeRadiusSq,Mass,MaxSpeed,AttackTimeDelay,WanderRadius,WanderDistance,WanderJitter,ResetPoint.x,ResetPoint.y,ResetPoint.z
+0,100,100,200,100,5,1.5,5,10,20,800,0,0,10
+1,100,100,200,100,5,1,5,10,20,800,10,0,0

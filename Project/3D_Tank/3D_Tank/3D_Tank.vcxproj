@@ -177,6 +177,7 @@
     <ClCompile Include="AITank.cpp" />
     <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="BossOwnedStates.cpp" />
     <ClCompile Include="BoundingCube.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
+    <ClInclude Include="BossOwnedStates.h" />
     <ClInclude Include="BoundingCube.h" />
     <ClInclude Include="BoundingSphere.h" />
     <ClInclude Include="Camera.h" />
@@ -364,7 +366,6 @@
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="MovementComponent.h" />
-    <ClInclude Include="MovingEntity.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="PlayerCamera.h" />

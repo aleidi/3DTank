@@ -5,8 +5,6 @@
 #include <cassert>
 
 #include "BaseGameEntity.h"
-#include "EnemyTankOwnedStates.h"
-// #include "StateMachine.h"
 #include "SceneManager.h"
 #include "Transform.h"
 const int DyingHP = 20; // below this value the enemy tank is dying

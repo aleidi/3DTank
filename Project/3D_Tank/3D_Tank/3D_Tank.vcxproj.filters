@@ -339,13 +339,7 @@
     <ClCompile Include="ComponentFactory.cpp">
       <Filter>Engine\Source\Gameplay\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyTank.cpp">
-      <Filter>Engine\Source\Gameplay\AI</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyTankOwnedStates.cpp">
-      <Filter>Engine\Source\Gameplay\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseGameEntity.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
     </ClCompile>
     <ClCompile Include="ScriptComponent.cpp">
@@ -549,8 +543,14 @@
     <ClCompile Include="UIText3D.cpp">
       <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Game\Source\UI</Filter>
+    <ClCompile Include="EnemyTank.cpp">
+      <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseGameEntity.cpp">
+      <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="BossOwnedStates.cpp">
+      <Filter>Engine\Source\Gameplay\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -704,16 +704,7 @@
     <ClInclude Include="ComponentFactory.h">
       <Filter>Engine\Header\Gameplay\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="BaseGameEntity.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyTank.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyTankOwnedStates.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityNames.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
     <ClInclude Include="ScriptComponent.h">
@@ -814,9 +805,6 @@
     </ClInclude>
     <ClInclude Include="StateMachine.h">
       <Filter>Engine\Header\Gameplay\AI\FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="MovingEntity.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
     <ClInclude Include="GameLevelTest.h">
       <Filter>Game\TestCode</Filter>
@@ -965,11 +953,17 @@
     <ClInclude Include="ImGuiFrame.h">
       <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Engine\Header</Filter>
+    <ClInclude Include="EnemyTank.h">
+      <Filter>Game\Header\Pawn</Filter>
     </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>Game\Header\UI</Filter>
+    <ClInclude Include="EntityNames.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGameEntity.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="BossOwnedStates.h">
+      <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

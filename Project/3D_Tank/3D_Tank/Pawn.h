@@ -21,6 +21,7 @@ public:
 
 		float m_Mass;
 		float m_MaxSpeed;
+		float m_AttackTimeDelay;
 		//float m_MaxForce;
 		//float m_MaxTurnRate;
 
