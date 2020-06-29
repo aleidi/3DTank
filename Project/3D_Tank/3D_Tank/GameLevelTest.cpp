@@ -3,6 +3,7 @@
 #include "GameModeBase.h"
 #include "GameModeTP.h"
 
+#include "AITank.h"
 #include "TankGamePlay.h"
 #include "TankBatteryCtrl.h"
 #include "RenderManager.h"
@@ -32,12 +33,8 @@ GameObject* SM_Crate;
 GameObject* shell;
 GameObject* collider;
 SoundComponent* sound;
-EnemyTank* enemy;
-EnemyTank* enemytarget;
-
-AIController* aiController;
-AIController* aiControllertarget;
-
+AITank* enemy;
+AITank* enemytarget;
 
 bool tankFire = false;
 
@@ -153,18 +150,9 @@ void GameLevelTest::enterLevel()
 
 	//hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 	//set ai
+	enemy = new AITank(ent_Tank_Enemy);
+	enemytarget = new AITank(ent_Tank_EnemyTarget);
 	
-	enemy = new EnemyTank(ent_Tank_Enemy);
-	enemy->setMaxSpeed(1.5f);
-	aiController = SceneManager::sGetInstance()->createAIController(ent_Tank_Enemy);
-	aiController->posses(enemy);
-	enemytarget = new EnemyTank(ent_Tank_SuperEnemy);
-	enemytarget->getTransform()->setPosition(Vector3(10, 0, 10));
-	aiControllertarget = SceneManager::sGetInstance()->createAIController(ent_Tank_SuperEnemy);
-	aiControllertarget->getFSM()->setCurrentState(Wander::getInstance());
-	aiControllertarget->posses(enemytarget);
-
-	aiController->setTarget(enemytarget);
 	//aiControllertarget->setTarget(enemy);
 	//SoundManager::sGetInstance()->playSound(3);
 	//shell = SceneManager::sGetInstance()->createSphere();
@@ -179,17 +167,17 @@ void GameLevelTest::enterLevel()
 	//shell->addComponent(shellBoundingSphere);
 	//shell->sphere = shellBoundingSphere;
 
-	SoundManager::sGetInstance()->setLisenterPosition(enemy->getTransform()->getPosition());
+	SoundManager::sGetInstance()->setLisenterPosition(enemy->getTank()->getTransform()->getPosition());
 }
 
 GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 {
 	if (DInputPC::getInstance().iskeyDown(DIK_F)){
-		Shell* sh = new Shell(enemy->getTransform()->getPosition() + enemy->getTransform()->Forward*0.6f + enemy->getTransform()->Up*0.18f + enemy->getTransform()->Right*0.04f, enemy->getTransform()->Forward, 0);
+		Shell* sh = new Shell(enemy->getTank()->getTransform()->getPosition() + enemy->getTank()->getTransform()->Forward*0.6f + enemy->getTank()->getTransform()->Up*0.18f + enemy->getTank()->getTransform()->Right*0.04f, enemy->getTank()->getTransform()->Forward, 0);
 
 		shell = SceneManager::sGetInstance()->createSphere();
 		shell->getTransform()->Forward = SM_WaterTank->getTransform()->Forward * -1;
-		shell->getTransform()->setPosition(SM_WaterTank->getTransform()->getPosition() + SM_WaterTank->getTransform()->Forward*0.6f + enemy->getTransform()->Up*0.18f+enemy->getTransform()->Right*0.04f);
+		shell->getTransform()->setPosition(SM_WaterTank->getTransform()->getPosition() + SM_WaterTank->getTransform()->Forward*0.6f + enemy->getTank()->getTransform()->Up*0.18f+enemy->getTank()->getTransform()->Right*0.04f);
 		shell->getTransform()->setScale(Vector3(0.02f, 0.02f, 0.02f));
 		SceneManager::sGetInstance()->addGameObjectToPool(shell);
 		ShellFlyComponent* shellFly = new ShellFlyComponent(shell);
@@ -198,7 +186,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		shellBoundingSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1f, 1);
 		shell->addComponent(shellBoundingSphere);
 		shell->sphere = shellBoundingSphere;
-		shellFly->setTarget(enemy);
+		shellFly->setTarget(enemy->getTank());
 		tankFire = true;
 		sound = new SoundComponent(shell);
 		sound->setPosition();
@@ -220,8 +208,8 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	if (DInputPC::getInstance().iskeyDown(DIK_O))
 	{
 		Dispatch->Dispatch_Message(0,
-			reinterpret_cast<EnemyTank*>(aiController->getPawn())->getID(),
-			reinterpret_cast<EnemyTank*>(aiController->getPawn())->getID(),
+			reinterpret_cast<EnemyTank*>(enemy->getCtrl()->getPawn())->getID(),
+			reinterpret_cast<EnemyTank*>(enemy->getCtrl()->getPawn())->getID(),
 			Msg_IsAttacked,
 			NO_ADDITIONAL_INFO);
 	}

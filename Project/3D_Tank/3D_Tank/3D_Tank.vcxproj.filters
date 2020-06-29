@@ -390,9 +390,6 @@
     <ClCompile Include="GameLevelTest.cpp">
       <Filter>Game\TestCode</Filter>
     </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="DefaultPlayerController.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
@@ -551,6 +548,12 @@
     </ClCompile>
     <ClCompile Include="BossOwnedStates.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
     <ClCompile Include="SM_WaterTank.cpp">
       <Filter>Game\Source\Prefabs</Filter>
@@ -983,6 +986,12 @@
     </ClInclude>
     <ClInclude Include="BossOwnedStates.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Engine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Engine\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

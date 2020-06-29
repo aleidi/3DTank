@@ -10,6 +10,7 @@ struct AIAttribute
 
 	float m_Mass;
 	float m_MaxSpeed;
+	float m_AttackTimeDelay;
 	//float m_MaxForce;
 	//float m_MaxTurnRate;
 
@@ -27,8 +28,14 @@ public:
 	static void LoadOBJModel(GeometryGenerator::Mesh& mesh, const std::string& name, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
 
 	static wchar_t* GetTexture(const std::string& name);
-	
+
+	// AI configuration map
 	static void LoadAIAttribute(std::map<int, AIAttribute>& map);
 	static std::map<int, AIAttribute> createAttributesMap();
 	static std::map<int, AIAttribute> AIAttributes;
+
+	// Localization configuration map
+	//static void LoadLocalization(std::map<int, std::string>& map);
+	//static std::map<int, std::string> createLocalization();
+	//static std::map<int, std::string> localization;
 };

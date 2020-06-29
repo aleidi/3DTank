@@ -115,7 +115,7 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 {
 	std::ifstream fin(".\\Resource\\Configuration\\AIConfig.csv");
 	std::string line;
-	float config[13];
+	float config[14];
 
 	if (fin.is_open())
 	{
@@ -123,7 +123,7 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 		while (fin >> line)
 		{
 			size_t position = 0;
-			for (int i = 0; i < 13; ++i)
+			for (int i = 0; i < 14; ++i)
 			{
 				std::string str = line.substr(position, line.find(',', position));
 				config[i] = (float)atof(str.c_str());
@@ -137,12 +137,13 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 			temp.m_WanderRangeRadiusSq = config[4];
 			temp.m_Mass = config[5];
 			temp.m_MaxSpeed = config[6];
-			temp.m_WanderRadius = config[7];
-			temp.m_WanderDistance = config[8];
-			temp.m_WanderJitter = config[9];
-			temp.m_ResetPoint.x = config[10];
-			temp.m_ResetPoint.y = config[11];
-			temp.m_ResetPoint.z = config[12];
+			temp.m_AttackTimeDelay = config[7];
+			temp.m_WanderRadius = config[8];
+			temp.m_WanderDistance = config[9];
+			temp.m_WanderJitter = config[10];
+			temp.m_ResetPoint.x = config[11];
+			temp.m_ResetPoint.y = config[12];
+			temp.m_ResetPoint.z = config[13];
 			int index = (int)config[0];
 
 			//FileManager::AIAtrributes[index] = temp;

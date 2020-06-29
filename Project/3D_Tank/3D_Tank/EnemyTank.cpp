@@ -22,11 +22,13 @@ EnemyTank::EnemyTank(int ID)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
 	mAttribute = { FileManager::AIAttributes[ID].m_HP,
+				   FullHP,
 				   FileManager::AIAttributes[ID].m_AttackRangeRadiusSq,
 				   FileManager::AIAttributes[ID].m_PursuitRangeRadiusSq,
 				   FileManager::AIAttributes[ID].m_WanderRangeRadiusSq,
 				   FileManager::AIAttributes[ID].m_Mass,
 				   FileManager::AIAttributes[ID].m_MaxSpeed,
+				   FileManager::AIAttributes[ID].m_AttackTimeDelay,
 				   FileManager::AIAttributes[ID].m_WanderRadius,
 				   FileManager::AIAttributes[ID].m_WanderDistance,
 				   FileManager::AIAttributes[ID].m_WanderJitter,

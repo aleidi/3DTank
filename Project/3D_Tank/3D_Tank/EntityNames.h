@@ -5,15 +5,12 @@
 enum {
 	ent_Tank_Enemy,
 
+	ent_Tank_EnemyTarget,
+
 	ent_Tank_SuperEnemy,
 
 	ent_Debug,
 
-	ent_Tank_Enemy1,
-	ent_Tank_Enemy2,
-	ent_Tank_Enemy3,
-	ent_Tank_Enemy4, 
-	ent_Tank_Enemy5
 };
 
 inline std::string getNameOfEntity(int n) {
