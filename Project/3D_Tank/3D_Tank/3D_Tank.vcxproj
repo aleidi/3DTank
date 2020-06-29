@@ -256,6 +256,9 @@
     <ClCompile Include="Shell.cpp" />
     <ClCompile Include="ShellFlyComponent.cpp" />
     <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="SM_construction_fence.cpp" />
+    <ClCompile Include="SM_Crate.cpp" />
+    <ClCompile Include="SM_WaterTank.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="SoundComponent.cpp" />
@@ -390,6 +393,9 @@
     <ClInclude Include="Shell.h" />
     <ClInclude Include="ShellFlyComponent.h" />
     <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="SM_construction_fence.h" />
+    <ClInclude Include="SM_Crate.h" />
+    <ClInclude Include="SM_WaterTank.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="SoundComponent.h" />
