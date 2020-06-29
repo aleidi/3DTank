@@ -102,10 +102,10 @@ void Wander::enter(AIController* pEnemyTank) {
 }
 
 void Wander::execute(AIController* pEnemyTank, float deltaTime) {
-	count += deltaTime;
+	AITank->aiCount += deltaTime;
 
-	if (count > 0.001f) {
-		count = 0.0f;
+	if (AITank->aiCount > 0.001f) {
+		AITank->aiCount = 0.0f;
 
 		float disToBornSq = Vector3::lengthSq(getAIPos, AITank->getResetPoint());
 		if ( disToBornSq > AITank->getWanderRangeRadiusSq() ) {
@@ -243,9 +243,9 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 	if (rotate >= 1.0f || rotate <= -1.0f)
 		AITank->rotateBattery(0, rotate, 0);
 
-	count += deltaTime;
-	if (count > 5.0f) {
-		count = 0.0f;
+	AITank->aiCount += deltaTime;
+	if (AITank->aiCount > AITank->attackTimeDelay()) {
+		AITank->aiCount = 0.0f;
 		pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
 	}
 
@@ -288,9 +288,9 @@ void Evade::enter(AIController* pEnemyTank) {
 }
 
 void Evade::execute(AIController* pEnemyTank, float deltaTime) {
-	count += deltaTime;
-	if (count > 0.001) {
-		count = 0.0f;
+	AITank->aiCount += deltaTime;
+	if (AITank->aiCount > 0.001) {
+		AITank->aiCount = 0.0f;
 		Vector3 target = Vector3(0,0,0);
 		Vector3 toPursuer = getTargetPos - getAIPos;
 
@@ -347,9 +347,9 @@ void Pursuit::enter(AIController* pEnemyTank) {
 }
 
 void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
-	count += deltaTime;
-	if (count > 0.001) {
-		count = 0.0f;
+	AITank->aiCount += deltaTime;
+	if (AITank->aiCount > 0.001) {
+		AITank->aiCount = 0.0f;
 
 		Vector3 target = Vector3(0, 0, 0);
 		Vector3 toEvader = getTargetPos - getAIPos;
@@ -430,46 +430,3 @@ void Death::exit(AIController* pEnemyTank) {
 bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-//-------------------methods for Patrol-------------------//
-Patrol* Patrol::getInstance() {
-	static Patrol m_Patrol;
-	return &m_Patrol;
-}
-
-void Patrol::enter(AIController* pEnemyTank) {
-	MessageBox(0, L"I'm going to find bad guy. ", 0, 0);
-}
-
-void Patrol::execute(AIController* pEnemyTank) {
-
-}
-
-void Patrol::exit(AIController* pEnemyTank) {
-	MessageBox(0, L"I stopped finding bad guy. ", 0, 0);
-}
-
-bool Patrol::onMessage(AIController* pEnemyTank, const Telegram& msg) {
-	return false;
-}
-
-*/

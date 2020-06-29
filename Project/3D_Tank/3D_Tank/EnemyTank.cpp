@@ -132,6 +132,10 @@ float EnemyTank::getMass()const {
 	return mAttribute.m_Mass;
 }
 
+int EnemyTank::attackTimeDelay ()const {
+	return mAttribute.m_AttackTimeDelay;
+}
+
 void EnemyTank::move(Vector3 value)
 {
 	mMovementComp->addForce(value);
