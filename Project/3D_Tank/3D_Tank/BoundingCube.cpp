@@ -13,6 +13,7 @@ BoundingCube::BoundingCube(GameObject* obj) :Component(obj)
 }
 
 BoundingCube::~BoundingCube() {
+	CollisionManager::sGetInstance()->deleteBoundingCube(this);
 }
 
 void BoundingCube::createBoundingCube(const DirectX::XMVECTOR & maxPoint, const DirectX::XMVECTOR & minPoint, int isMoveable)
@@ -51,4 +52,11 @@ void BoundingCube::onFixedUpdate(float deltaTime)
 	//outBox.Orientation = DirectX::XMFLOAT4(0.f, 0.f, 0.f, 1.f);
 	//this->box.Transform(outBox, this->getObject()->getTransform()->getLocalToWorldMatrix());
 	//box = outBox;
+}
+
+void BoundingCube::translate(const Vector3 & translate)
+{
+	this->box.Center.x += translate.x;
+	this->box.Center.y += translate.y;
+	this->box.Center.z += translate.z;
 }

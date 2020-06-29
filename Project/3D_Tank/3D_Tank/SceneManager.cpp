@@ -129,7 +129,7 @@ bool SceneManager::removeGameObjectFromPool(GameObject * object) noexcept
 		{
 			delete *it;
 			*it = nullptr;
-			mObjs.erase(it++);
+			//mObjs.erase(it);
 			return true;
 		}
 		else
@@ -227,6 +227,14 @@ void SceneManager::onUpdate(float deltaTime)
 		{
 			(*it)->onUpdate(deltaTime);
 		}
+	}
+
+	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end();)
+	{
+		if (*it == nullptr)
+			it = mObjs.erase(it);
+		else
+			it++;
 	}
 }
 
