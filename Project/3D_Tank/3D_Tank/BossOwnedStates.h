@@ -5,19 +5,67 @@
 class AIController;
 struct Telegram;
 
-class Rest : public State<AIController> {
+class Alert : public State<AIController> {
 public:
-	static Rest* getInstance();
+	static Alert* getInstance();
 	virtual void enter(AIController* pETank);
 	virtual void execute(AIController* pETank, float deltaTime);
 	virtual void exit(AIController* pETank);
 
 	virtual bool onMessage(AIController* agent, const Telegram& msg);
 private:
-	Rest() {}
+	Alert() {}
 
-	Rest(const Rest&);
-	Rest& operator=(const Rest&);
+	Alert(const Alert&);
+	Alert& operator=(const Alert&);
+};
+
+class Battle : public State<AIController> {
+public:
+	static Battle* getInstance();
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
+	virtual void exit(AIController* pETank);
+
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
+private:
+	Battle() {}
+
+	Battle(const Battle&);
+	Battle& operator=(const Battle&);
+	float count = 0.0f;
+};
+
+class Missile : public State<AIController> {
+public:
+	static Missile* getInstance();
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
+	virtual void exit(AIController* pETank);
+
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
+private:
+	Missile() {}
+
+	Missile(const Missile&);
+	Missile& operator=(const Missile&);
+	float count = 0.0f;
+};
+
+class Violent : public State<AIController> {
+public:
+	static Violent* getInstance();
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
+	virtual void exit(AIController* pETank);
+
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
+private:
+	Violent() {}
+
+	Violent(const Violent&);
+	Violent& operator=(const Violent&);
+	float count = 0.0f;
 };
 
 
