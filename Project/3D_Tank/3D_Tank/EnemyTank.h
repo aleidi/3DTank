@@ -13,7 +13,9 @@ const int DyingHP = 20; // below this value the enemy tank is dying
 const int FullHP = 100;
 const int ReplyInterval = 10;
 
-class EnemyTank : public BaseGameEntity {
+class Shell;
+
+class EnemyTank : public BaseGameEntity{
 public:
 	EnemyTank(int ID);
 	~EnemyTank();
@@ -45,10 +47,16 @@ public:
 	void setHPRecovered(bool isRecovered);
 	void setAttacked(bool isAttacked);
 	bool getAttacked()const;
+	GameObject* getBattery();
 
 	Vector3 batteryForward()const;
 	Vector3 batteryPosition()const;
 	void rotateBattery(float x, float y, float z);
+
+	void onTriggerEnter(const GameObject* obj) override;
+	void onTriggerExit() override;
+	void onCollisionEnter() override;
+	void onCollisionExit() override;
 
 private:
 	bool m_HPRecovered;
@@ -56,4 +64,5 @@ private:
 
 	GameObject* mBattery;
 	std::vector<RenderComponent*> mRCs;
+
 };

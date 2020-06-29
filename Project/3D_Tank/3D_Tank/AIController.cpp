@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "EnemyTank.h"
 #include "GameInstance.h"
+#include "CollisionManager.h"
 
 AIController::AIController()
 	:AIController(-1)

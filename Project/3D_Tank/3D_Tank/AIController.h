@@ -26,6 +26,8 @@ public:
 	void setTarget(Pawn* targetTank) { m_target = targetTank; }
 	Pawn* getTarget() { return m_target; }
 
+	GameObject* obj;
+
 private:
 	int mID;
 	float m_deltaTime;
