@@ -40,6 +40,14 @@ void Pawn::attack(Vector3 batteryposition, Vector3 shot_direction)
 	Shell* shell = new Shell(batteryposition, shot_direction, 0);
 }
 
+void Pawn::onTriggerEnter(const GameObject * obj)
+{
+}
+
+void Pawn::onCollisionEnter()
+{
+}
+
 void Pawn::setMaxSpeed(float maxspeed) {
 	mAttribute.m_MaxSpeed = maxspeed;
 }
