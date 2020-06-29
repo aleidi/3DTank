@@ -26,6 +26,7 @@ EnemyTank::EnemyTank(int ID)
 				   FileManager::AIAttributes[ID].m_WanderRangeRadiusSq,
 				   FileManager::AIAttributes[ID].m_Mass,
 				   FileManager::AIAttributes[ID].m_MaxSpeed,
+				   FileManager::AIAttributes[ID].m_AttackTimeDelay,
 				   FileManager::AIAttributes[ID].m_WanderRadius,
 				   FileManager::AIAttributes[ID].m_WanderDistance,
 				   FileManager::AIAttributes[ID].m_WanderJitter,
