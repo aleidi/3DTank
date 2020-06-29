@@ -13,9 +13,6 @@ public:
 	virtual void draw(Graphics& gfx) noexcept override;
 	void setText(Graphics& gfx, std::wstring wstr);
 
-protected:
-	virtual void setBlendTransparent(Graphics& gfx);
-	void resetBlendState(Graphics& gfx);
 
 protected:
 	std::wstring mText;

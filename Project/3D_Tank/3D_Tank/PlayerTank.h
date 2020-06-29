@@ -14,6 +14,8 @@ public:
 	void onUpdate(float deltaTime) override;
 	void onLateUpdate(float deltaTime) override;
 
+	void attack();
+	void stopAttack();
 	void move(Vector3 value) override;
 	void rotate(float value);
 	void rotateCamera(float valueX, float valueY);
@@ -50,5 +52,6 @@ private:
 	GameObject* mCamFollower;
 	GameObject* mCamera;
 	Camera* mCameraComp;
+	GameObject* mHUD;
 };
 

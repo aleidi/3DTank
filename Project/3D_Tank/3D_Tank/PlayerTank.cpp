@@ -4,6 +4,7 @@
 #include "GameCommon.h"
 #include "CollisionManager.h"
 #include "PlayerCamera.h"
+#include "HUD.h"
 
 PlayerTank::PlayerTank()
 	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
@@ -22,12 +23,12 @@ PlayerTank::PlayerTank()
 	mBattery->setName("Battery");
 	SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
 	mBattery->attach(*this);
-	DirectX::XMFLOAT3 maxP(93.4250031f, 210.244995f, 299.684998f);
+	/*DirectX::XMFLOAT3 maxP(93.4250031f, 210.244995f, 299.684998f);
 	DirectX::XMFLOAT3 minP(-71.5699997f, 70.3600006f, -106.195000f);
 	maxPoint = DirectX::XMLoadFloat3(&maxP); minPoint = DirectX::XMLoadFloat3(&minP);
 	BoundingCube* batteryBoundingCube = new BoundingCube(mBattery);
 	batteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
-	mBattery->addComponent(batteryBoundingCube);
+	mBattery->addComponent(batteryBoundingCube);*/
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint);
 	DirectX::XMFLOAT3 maxP0(108.550003f, 97.2149963f, 177.554993f);
 	DirectX::XMFLOAT3 minP0(-86.8899994f, 3.51500010f, -191.240005f);
@@ -54,14 +55,16 @@ PlayerTank::PlayerTank()
 	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
 	bodyBoundingCube->box = out;
 	this->cube = bodyBoundingCube;
-	DirectX::BoundingOrientedBox out1;
-	batteryBoundingCube->box.Transform(out1, mTransform->getLocalToWorldMatrix());
-	batteryBoundingCube->box = out1;
-	mBattery->cube = batteryBoundingCube;
+	//DirectX::BoundingOrientedBox out1;
+	//batteryBoundingCube->box.Transform(out1, mTransform->getLocalToWorldMatrix());
+	//batteryBoundingCube->box = out1;
+	//mBattery->cube = batteryBoundingCube;
 	//t1 = SceneManager::sGetInstance()->createSphere();
 	//t1->attach(*mCamFollower);
 	//t1->getTransform()->translate(Vector3::right * 2.0f);
 	moveDirection = FORWARD;
+
+	mHUD = new HUD();
 }
 
 PlayerTank::~PlayerTank()
@@ -99,6 +102,16 @@ void PlayerTank::onLateUpdate(float deltaTime)
 	}
 
 	mCamFollower->getTransform()->setPosition(mTransform->getPosition() + mFPCameraOffset);
+}
+
+void PlayerTank::attack()
+{
+	reinterpret_cast<HUD*>(mHUD)->setAccelator(130.0f, 20.0f);
+}
+
+void PlayerTank::stopAttack()
+{
+	reinterpret_cast<HUD*>(mHUD)->setAccelator(1.0f, 1.0f);
 }
 
 void PlayerTank::move(Vector3 value)

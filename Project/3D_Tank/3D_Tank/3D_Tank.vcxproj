@@ -221,6 +221,7 @@
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="GeometryShader.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_dx11.cpp" />
@@ -349,6 +350,7 @@
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="GeometryShader.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="KeycodeRedefine.h" />
     <ClInclude Include="Level01.h" />
     <ClInclude Include="Level02.h" />
@@ -371,6 +373,7 @@
     <ClInclude Include="PlayerTank.h" />
     <ClInclude Include="PSTransCBuf.h" />
     <ClInclude Include="Rasterizer.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ScriptComponent.h" />
     <ClInclude Include="GeometryGenerator.h" />
     <ClInclude Include="Graphics.h" />
