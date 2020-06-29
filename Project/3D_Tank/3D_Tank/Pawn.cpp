@@ -30,6 +30,7 @@ void Pawn::onUpdate(float deltaTime)
 
 void Pawn::onLateUpdate(float deltaTime)
 {
+	reinterpret_cast<UIHP*>(mUIHP)->setFillAmount((float)mAttribute.m_HP / (float)mAttribute.FullHP);
 	mUIHP->onLateUpdate(deltaTime);
 }
 
