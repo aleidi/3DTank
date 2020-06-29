@@ -65,6 +65,9 @@ PlayerTank::PlayerTank()
 	moveDirection = FORWARD;
 
 	mHUD = new HUD();
+
+	mAttribute.m_HP = 1000;
+	mAttribute.FullHP = 1000;
 }
 
 PlayerTank::~PlayerTank()
