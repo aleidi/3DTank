@@ -40,11 +40,16 @@ public:
 	bool isDying()const;
 	bool isEnemyInRange()const;
 	bool isLostEnemy()const;
-	bool isObstacleHere()const;
+	bool isObstacleHere();
 	bool getHPRecovered()const;
 	void setHPRecovered(bool isRecovered);
 	void setAttacked(bool isAttacked);
 	bool getAttacked()const;
+
+	bool isObstacleForward()const;
+	bool isObstacleRight()const;
+	bool isObstacleLeft()const;
+	bool isCollision()const;
 
 	Vector3 batteryForward()const;
 	Vector3 batteryPosition()const;
@@ -53,7 +58,12 @@ public:
 private:
 	bool m_HPRecovered;
 	bool m_Attacked;
+	bool m_isObstacleForward;
+	bool m_isObstacleRight;
+	bool m_isObstacleLeft;
+	bool m_isCollision;
 
+	GameObject* mObstacle;
 	GameObject* mBattery;
 	std::vector<RenderComponent*> mRCs;
 };
