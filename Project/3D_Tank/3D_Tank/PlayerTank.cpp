@@ -120,6 +120,7 @@ void PlayerTank::stopAttack()
 void PlayerTank::move(Vector3 value)
 {
 	mTransform->translate(value * mMoveSped);
+	//this->getBattery()->cube->box.Center.x += value.x * mMoveSped; this->getBattery()->cube->box.Center.y += value.y * mMoveSped; this->getBattery()->cube->box.Center.z += value.z * mMoveSped;
 	m_Velocity = value;
 }
 
@@ -180,11 +181,11 @@ void PlayerTank::onTriggerEnter(const GameObject* obj)
 	this->onTrigger = true;
 	switch (moveDirection) {
 	case FORWARD: {
-		move(mTransform->Forward * -0.01f);
+		move(mTransform->Forward * -0.001f);
 		break;
 	}
 	case MBACK: {
-		move(mTransform->Forward * 0.01f);
+		move(mTransform->Forward * 0.001f);
 		break;
 	}
 	case LEFT: {
@@ -205,12 +206,17 @@ void PlayerTank::onTriggerExit()
 	this->onTrigger = false;
 }
 
-void PlayerTank::onCollisionEnter(const GameObject* obj)
+void PlayerTank::onCollisionEnter()
 {
-	
+	move(mTransform->Forward * -1.f);
 }
 
 void PlayerTank::onCollisionExit()
 {
+	
+}
 
+GameObject* PlayerTank::getBattery()
+{
+	return mBattery;
 }

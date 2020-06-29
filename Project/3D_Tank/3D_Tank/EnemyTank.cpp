@@ -8,6 +8,7 @@
 #include "AIMovementComponent.h"
 #include "GameInstance.h"
 #include "CollisionManager.h"
+#include "Shell.h"
 #include "FileManager.h"
 #include "Math.h"
 
@@ -64,7 +65,7 @@ EnemyTank::EnemyTank(int ID)
 	//DirectX::XMFLOAT3 minP(-71.5699997f, 70.3600006f, -106.195000f);
 	//maxPoint = DirectX::XMLoadFloat3(&maxP); minPoint = DirectX::XMLoadFloat3(&minP);
 	//BoundingCube* tankBatteryBoundingCube = new BoundingCube(mBattery);
-	////mBattery->cube = tankBatteryBoundingCube;
+	//mBattery->cube = tankBatteryBoundingCube;
 	//tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
 	//mBattery->addComponent(tankBatteryBoundingCube);
 	rc->setMaterial(mat);
@@ -141,6 +142,25 @@ void EnemyTank::rotateBattery(float x, float y, float z)
 	mBattery->getTransform()->rotate(x, y, z);
 }
 
+void EnemyTank::onTriggerEnter(const GameObject * obj)
+{
+
+}
+
+void EnemyTank::onTriggerExit()
+{
+
+}
+
+void EnemyTank::onCollisionEnter()
+{
+	this->setHP(-10);
+}
+
+void EnemyTank::onCollisionExit()
+{
+}
+
 Vector3 EnemyTank::batteryForward() const {
 	return mBattery->getTransform()->Forward;
 }
@@ -193,6 +213,11 @@ void EnemyTank::setAttacked(bool isAttacked) {
 
 bool EnemyTank::getAttacked()const {
 	return this->m_Attacked;
+}
+
+GameObject * EnemyTank::getBattery()
+{
+	return mBattery;
 }
 
 bool EnemyTank::isObstacleHere() {

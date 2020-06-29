@@ -12,7 +12,7 @@
 #include "Rendering.h"
 #include "Graphics.h"
 #include "SoundManager.h"
-
+#include "CollisionManager.h"
 #include "Collision.h"
 
 Engine* Engine::sInstance = nullptr;
@@ -63,6 +63,8 @@ void Engine::onPreInit()
 
 	//SoundManagerInit
 	SoundManager::onInit();
+
+	CollisionManager::onInit();
 
 	//Rendering Init
 	mRendering.get()->onInit();

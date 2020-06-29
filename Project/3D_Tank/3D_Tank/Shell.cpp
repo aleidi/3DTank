@@ -1,39 +1,50 @@
 #include "Shell.h"
 #include "GameCommon.h"
 #include "ShellFlyComponent.h"
+#include "CollisionManager.h"
+#include "SoundManager.h"
+#include "SoundComponent.h"
+#include "Pawn.h"
+#include "PlayerTank.h"
 
 Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	:shellType(type), origin(ori)
 {
-	this->getTransform()->Forward = direction;
+	//this->getTransform()->Forward = direction;
 	this->getTransform()->setPosition(ori);
 	shell = SceneManager::sGetInstance()->createSphere();
-	shell->getTransform()->setPosition(this->origin);
+	shell->getTransform()->setPosition(this->origin + direction * 0.6f + Vector3::up * 0.18f);
 	shell->getTransform()->setScale(0.02f, 0.02f, 0.02f);
 
 	mCollisionSphere = new MBoundingSphere(shell);
-	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.5f, 1);
+	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.001f, 1);
 	shell->addComponent(mCollisionSphere);
 	mShellFly = new ShellFlyComponent(shell, direction);
 	shell->addComponent(mShellFly);
 	shell->sphere = mCollisionSphere;
+	mSound = new SoundComponent(shell);
+	shell->addComponent(mSound);
+	attactTank = new GameObject();
 }
 
 Shell::Shell(GameObject* obj, const int& type)
 	:shellType(type), origin(obj->getTransform()->Forward), fireTank(obj)
 {
-	this->getTransform()->Forward = obj->getTransform()->Forward;
-	this->getTransform()->setPosition(obj->getTransform()->getPosition() + obj->getTransform()->Forward*0.6f + obj->getTransform()->Up*0.18f + obj->getTransform()->Right*0.04f);
+	//this->getTransform()->Forward = obj->getTransform()->Forward;
+	//this->getTransform()->setPosition(obj->getTransform()->getPosition() + obj->getTransform()->Forward*0.6f + obj->getTransform()->Up*0.18f + obj->getTransform()->Right*0.04f);
 	shell = SceneManager::sGetInstance()->createSphere();
 	shell->getTransform()->setPosition(obj->getTransform()->getPosition() + obj->getTransform()->Forward*0.6f + obj->getTransform()->Up*0.18f + obj->getTransform()->Right*0.04f);
 	shell->getTransform()->setScale(0.02f, 0.02f, 0.02f);
 
 	mCollisionSphere = new MBoundingSphere(shell);
-	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1f, 1);
+	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.01f, 1);
 	shell->addComponent(mCollisionSphere);
 	mShellFly = new ShellFlyComponent(shell, obj->getTransform()->Forward);
 	shell->addComponent(mShellFly);
 	shell->sphere = mCollisionSphere;
+	mSound = new SoundComponent(shell);
+	shell->addComponent(mSound);
+	attactTank = new GameObject();
 }
 
 Shell::~Shell()
@@ -57,6 +68,24 @@ int Shell::getShelltype()
 	return this->shellType;
 }
 
+void Shell::onUpdate(float deltaTime)
+{
+	if (CollisionManager::sGetInstance()->collisionCheck_SphereToCube(this->shell->sphere, &attactTank) == true) {
+		if (attactTank->cube->moveable == 1) {
+			reinterpret_cast<Pawn*>(attactTank)->onCollisionEnter();
+		}
+		this->onTriggerEnter();
+	}
+
+}
+
 void Shell::onTriggerEnter()
 {
+	mSound->setPosition();
+	SoundManager::sGetInstance()->playSound(mSound->mChannel, 6);
+	//shell->~GameObject();
+	shell->destroy();
+	
+	this->destroy();
+	//this->shell->destroy();
 }

@@ -1,12 +1,14 @@
 #include "FreightContainer_A.h"
 #include "GameCommon.h"
 
-FreightContainer_A::FreightContainer_A(const Vector3& position, const Vector3& scale)
+FreightContainer_A::FreightContainer_A(const Vector3& position, const Vector3& rotate, const Vector3& scale, const int& textureNum)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
-	setName("Ground");
-	SceneManager::sGetInstance()->createModel(*this, "Objects\\SM_FreightContainer_01", L"Objects\\TX_FreightContainer_01a_ALB", maxPoint, minPoint);
-	mTransform->translate(position);
+	if(textureNum == 0)
+		SceneManager::sGetInstance()->createModel(*this, "Objects\\SM_FreightContainer_01", L"Objects\\TX_FreightContainer_01a_ALB", maxPoint, minPoint);
+	else
+		SceneManager::sGetInstance()->createModel(*this, "Objects\\SM_FreightContainer_01", L"Objects\\TX_FreightContainer_01b_ALB", maxPoint, minPoint);
+	mTransform->setPosition(position);
 	mTransform->setScale(scale);
 
 	DirectX::XMFLOAT3 maxP(293.290009f, 261.213013f, 121.915001f);

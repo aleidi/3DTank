@@ -2,6 +2,7 @@
 #include "PlayerTank.h"
 #include "GameCommon.h"
 #include "CollisionManager.h"
+#include "Shell.h"
 
 GameObject* obj;
 
@@ -65,6 +66,10 @@ void PlayerController::checkInput(float deltaTime)
 	if (DInputPC::getInstance().isMouseButtonUp(MIRROR))
 	{
 		reinterpret_cast<PlayerTank*>(mPawn)->setCameraFov(mMirrorMin);
+	}
+	if (DInputPC::getInstance().isMouseButtonDown(0))
+	{
+		Shell* shell = new Shell(reinterpret_cast<PlayerTank*>(mPawn)->getBattery()->getTransform()->getPosition(), reinterpret_cast<PlayerTank*>(mPawn)->getBattery()->getTransform()->Forward, 0);
 	}
 
 	if (DInputPC::getInstance().iskey(MOVEFORWARD))
