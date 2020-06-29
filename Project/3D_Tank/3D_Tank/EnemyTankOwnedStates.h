@@ -1,7 +1,6 @@
 #pragma once
 // all states that can be assigned to the enemytank class
 #include "State.h"
-#include "Math.h"
 
 class AIController;
 struct Telegram;

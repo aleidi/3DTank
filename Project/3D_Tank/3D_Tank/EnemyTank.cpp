@@ -9,6 +9,7 @@
 #include "GameInstance.h"
 #include "CollisionManager.h"
 #include "FileManager.h"
+#include "Math.h"
 
 struct Telegram;
 #define getPlayerPos GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition()
@@ -57,13 +58,13 @@ EnemyTank::EnemyTank(int ID)
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
 	RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex", maxPoint, minPoint);
-	DirectX::XMFLOAT3 maxP(93.4250031f, 210.244995f, 299.684998f);
-	DirectX::XMFLOAT3 minP(-71.5699997f, 70.3600006f, -106.195000f);
-	maxPoint = DirectX::XMLoadFloat3(&maxP); minPoint = DirectX::XMLoadFloat3(&minP);
-	BoundingCube* tankBatteryBoundingCube = new BoundingCube(mBattery);
-	//mBattery->cube = tankBatteryBoundingCube;
-	tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
-	mBattery->addComponent(tankBatteryBoundingCube);
+	//DirectX::XMFLOAT3 maxP(93.4250031f, 210.244995f, 299.684998f);
+	//DirectX::XMFLOAT3 minP(-71.5699997f, 70.3600006f, -106.195000f);
+	//maxPoint = DirectX::XMLoadFloat3(&maxP); minPoint = DirectX::XMLoadFloat3(&minP);
+	//BoundingCube* tankBatteryBoundingCube = new BoundingCube(mBattery);
+	////mBattery->cube = tankBatteryBoundingCube;
+	//tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
+	//mBattery->addComponent(tankBatteryBoundingCube);
 	rc->setMaterial(mat);
 	mBattery->addComponent(rc);
 	mBattery->attach(*this);
@@ -76,10 +77,10 @@ EnemyTank::EnemyTank(int ID)
 	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
 	bodyBoundingCube->box = out;
 	this->cube = bodyBoundingCube;
-	DirectX::BoundingOrientedBox out1;
+	/*DirectX::BoundingOrientedBox out1;
 	tankBatteryBoundingCube->box.Transform(out1, mTransform->getLocalToWorldMatrix());
 	tankBatteryBoundingCube->box = out1;
-	mBattery->cube = tankBatteryBoundingCube;
+	mBattery->cube = tankBatteryBoundingCube;*/
 
 	float theta = Math::RandFloat() * 2 * Pi;
 	mAttribute.m_WanderTarget = Vector3(mAttribute.m_WanderRadius * cos(theta), 0, mAttribute.m_WanderRadius * sin(theta));

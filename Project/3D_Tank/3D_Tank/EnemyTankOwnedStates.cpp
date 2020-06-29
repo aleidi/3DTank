@@ -9,7 +9,8 @@
 #include "MessageTypes.h"
 #include "CrudeTimer.h"
 #include "EntityNames.h"
-#include "Engine.h"
+// #include "Engine.h"
+#include "Math.h"
 #include <assert.h>
 
 #define getTargetVelocity pEnemyTank->getTarget()->getVelocity()
@@ -199,7 +200,7 @@ void Avoidance::execute(AIController* pEnemyTank, float deltaTime) {
 	}
 
 	if (AITank->isCollision()) {
-		pEnemyTank->getPawn()->getTransform()->translate(getAIHeading * -0.1);
+		pEnemyTank->getPawn()->getTransform()->translate(getAIHeading * -0.1f);
 		target = getAIHeading * -1 * AITank->getMaxSpeed();
 	}
 
