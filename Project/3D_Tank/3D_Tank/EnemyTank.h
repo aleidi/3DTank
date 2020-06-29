@@ -29,6 +29,7 @@ public:
 
 	void setMass(float mass);
 	float getMass()const;
+	int attackTimeDelay()const;
 	float getWanderRadius()const;
 	float getWanderDistance()const;
 	float getWanderJitter()const;
@@ -60,6 +61,8 @@ public:
 	void onTriggerExit() override;
 	void onCollisionEnter() override;
 	void onCollisionExit() override;
+
+	float aiCount = 0.0f;
 
 private:
 	bool m_HPRecovered;
