@@ -29,3 +29,8 @@
 #ifndef MIRROR
 #define MIRROR 1
 #endif // !1
+
+#ifndef ATTACK
+#define ATTACK 0
+#endif // !ATTACK
+

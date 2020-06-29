@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "GameLevelTest.h"
 #include "Level01.h"
+#include "Level02.h"
 #include "GameLevelManager.h"
 #include "GameInstance.h"
 
@@ -22,6 +23,7 @@ void GameSystem::onInit()
 
 	GameLevelTest* level = new GameLevelTest();
 	new Level01();
+	new Level02();
 	GameLevelManager::sGetInstance()->setDefaultLevel(0);
 	
 }

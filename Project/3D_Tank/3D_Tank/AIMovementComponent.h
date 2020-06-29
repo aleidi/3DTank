@@ -14,8 +14,8 @@ public:
 protected:
 	bool isStart = false;
 	Vector3 force;
-	float mass = 1.0f;
-	float maxSpeed = 0.0f;
+	float mass;
+	float maxSpeed;
 	Vector3 position = Vector3::zero;
 	Vector3 acceleration = Vector3::zero, velocity = Vector3::zero;
 

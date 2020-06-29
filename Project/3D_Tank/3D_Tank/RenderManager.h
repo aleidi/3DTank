@@ -5,6 +5,7 @@
 class Mesh;
 class UIBase;
 class GameObject;
+class ParticleSystem;
 
 class RenderManager
 {
@@ -14,7 +15,7 @@ public:
 	static void Destroy();
 
 	void onDraw();
-	void onPostDraw();
+	void onPostDraw(float deltaTime);
 
 	void addMeshToPool(Mesh* mesh) noexcept;
 	bool removeMeshFromPool(Mesh* mesh) noexcept;
@@ -22,6 +23,8 @@ public:
 	bool removeUIFromPool(UIBase* ui) noexcept;
 	void addUI3DToPool(UIBase* ui) noexcept;
 	bool removeUI3DFromPool(UIBase* ui) noexcept;
+	void addParticleToPool(ParticleSystem* p) noexcept;
+	bool removeParticleFromPool(ParticleSystem* p) noexcept;
 
 	Graphics& getGraphics() const;
 	DirectionalLight getDirLight() noexcept;
@@ -41,6 +44,7 @@ private:
 	std::list<Mesh*> mMeshes;
 	std::list<UIBase*> mUI3Ds;
 	std::list<UIBase*> mUIs;
+	std::list<ParticleSystem*> mParticles;
 	DirectionalLight mDirLight;
 	Graphics& mGraphics;
 };

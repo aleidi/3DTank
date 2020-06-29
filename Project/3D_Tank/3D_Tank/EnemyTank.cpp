@@ -9,11 +9,9 @@
 #include "GameInstance.h"
 #include "CollisionManager.h"
 #include "Shell.h"
-/*
-void EnemyTank::update() {
-	m_pStateMachine->update();
-}
-*/
+#include "FileManager.h"
+#include "Math.h"
+
 struct Telegram;
 #define getPlayerPos GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition()
 
@@ -23,7 +21,17 @@ EnemyTank::EnemyTank(int ID)
 	BaseGameEntity(ID)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
-	mAttribute = {100,100.0f,200.0f,100.0f,50.0f,1.0f,10.0f,20.0f,800.0f,Vector3(0,0,0) };
+	mAttribute = { FileManager::AIAttributes[ID].m_HP,
+				   FileManager::AIAttributes[ID].m_AttackRangeRadiusSq,
+				   FileManager::AIAttributes[ID].m_PursuitRangeRadiusSq,
+				   FileManager::AIAttributes[ID].m_WanderRangeRadiusSq,
+				   FileManager::AIAttributes[ID].m_Mass,
+				   FileManager::AIAttributes[ID].m_MaxSpeed,
+				   FileManager::AIAttributes[ID].m_WanderRadius,
+				   FileManager::AIAttributes[ID].m_WanderDistance,
+				   FileManager::AIAttributes[ID].m_WanderJitter,
+				   FileManager::AIAttributes[ID].m_ResetPoint };
+				   
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint));
 	DirectX::XMFLOAT3 maxP0(108.550003f, 97.2149963f, 177.554993f);
 	DirectX::XMFLOAT3 minP0(-86.8899994f, 3.51500010f, -191.240005f);
@@ -55,6 +63,7 @@ EnemyTank::EnemyTank(int ID)
 	//DirectX::XMFLOAT3 minP(-71.5699997f, 70.3600006f, -106.195000f);
 	//maxPoint = DirectX::XMLoadFloat3(&maxP); minPoint = DirectX::XMLoadFloat3(&minP);
 	//BoundingCube* tankBatteryBoundingCube = new BoundingCube(mBattery);
+	//mBattery->cube = tankBatteryBoundingCube;
 	//tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
 	//mBattery->addComponent(tankBatteryBoundingCube);
 	rc->setMaterial(mat);
@@ -209,8 +218,53 @@ GameObject * EnemyTank::getBattery()
 	return mBattery;
 }
 
-bool EnemyTank::isObstacleHere()const {
+bool EnemyTank::isObstacleHere() {
+	Vector3 feelersForward = this->getTransform()->Forward;
+	Vector3 feelersRight = (this->getTransform()->Forward + this->getTransform()->Right).normalize();
+	Vector3 feelersLeft = (this->getTransform()->Forward + this->getTransform()->Right * -1).normalize();
+
+	m_isObstacleForward = false;
+	m_isObstacleLeft = false;
+	m_isObstacleRight = false;
+	m_isCollision = false;
+
+	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(this->getTransform()->getPosition(), feelersRight, 2.0f)) {
+		m_isObstacleRight = true;
+		return true;
+	}
+
+	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(this->getTransform()->getPosition(), feelersLeft, 2.0f)) {
+		m_isObstacleLeft = true;
+		return true;
+	}
+
+	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(this->getTransform()->getPosition(), feelersForward, 2.0f)) {
+		m_isObstacleForward = true;
+		return true;
+	}
+
+	if (CollisionManager::sGetInstance()->collisionCheck_CubeToCube(this->cube, &mObstacle)) {
+		m_isCollision = true;
+		return true;
+	}
+
 	return false;
+}
+
+bool EnemyTank::isObstacleForward()const {
+	return m_isObstacleForward;
+}
+
+bool EnemyTank::isObstacleRight()const {
+	return m_isObstacleRight;
+}
+
+bool EnemyTank::isObstacleLeft()const {
+	return m_isObstacleLeft;
+}
+
+bool EnemyTank::isCollision()const {
+	return m_isCollision;
 }
 
 float EnemyTank::getWanderRadius()const {

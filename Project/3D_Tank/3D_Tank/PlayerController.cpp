@@ -50,6 +50,15 @@ void PlayerController::setCameraFov(float value)
 
 void PlayerController::checkInput(float deltaTime)
 {
+	if (DInputPC::getInstance().isMouseButtonDown(ATTACK))
+	{
+		reinterpret_cast<PlayerTank*>(mPawn)->attack();
+	}
+	if (DInputPC::getInstance().isMouseButtonUp(ATTACK))
+	{
+		reinterpret_cast<PlayerTank*>(mPawn)->stopAttack();
+	}
+
 	if (DInputPC::getInstance().isMouseButtonDown(MIRROR))
 	{
 		reinterpret_cast<PlayerTank*>(mPawn)->setCameraFov(mMirrorMax);

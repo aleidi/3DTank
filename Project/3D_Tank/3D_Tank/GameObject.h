@@ -11,6 +11,15 @@ class SoundComponent;
 class GameObject
 {
 public:
+	enum CollisionLayer
+	{
+		StaticObject = 0,
+		DynamicObject = 1,
+		AttackAble = 2,
+	};
+
+public:
+
 	GameObject();
 	virtual ~GameObject();
 	GameObject(GameObject& obj);
@@ -44,6 +53,7 @@ public:
 
 	void setLastFramePosition(const Vector3& position);
 	Vector3 getLastFramePosition();
+	CollisionLayer getCollisionLayer();
 
 	BoundingCube* cube;
 	MBoundingSphere* sphere;
@@ -56,7 +66,7 @@ protected:
 	Transform* mTransform;
 
 	std::string mName;
-
+	CollisionLayer mColLayer;
 private:
 	Vector3* lastFramePostion;
 };

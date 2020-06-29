@@ -177,6 +177,7 @@
     <ClCompile Include="AITank.cpp" />
     <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="BossOwnedStates.cpp" />
     <ClCompile Include="BoundingCube.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -220,6 +221,7 @@
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="GeometryShader.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_dx11.cpp" />
@@ -269,6 +271,7 @@
     <ClCompile Include="TankBatteryCtrl.cpp" />
     <ClCompile Include="TankGamePlay.cpp" />
     <ClCompile Include="TestCube.cpp" />
+    <ClCompile Include="UIText3D.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIBase.cpp" />
@@ -296,6 +299,7 @@
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
+    <ClInclude Include="BossOwnedStates.h" />
     <ClInclude Include="BoundingCube.h" />
     <ClInclude Include="BoundingSphere.h" />
     <ClInclude Include="Camera.h" />
@@ -349,6 +353,7 @@
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="GeometryShader.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="KeycodeRedefine.h" />
     <ClInclude Include="Level01.h" />
     <ClInclude Include="Level02.h" />
@@ -364,7 +369,6 @@
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="MovementComponent.h" />
-    <ClInclude Include="MovingEntity.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="PlayerCamera.h" />
@@ -372,6 +376,7 @@
     <ClInclude Include="PlayerTank.h" />
     <ClInclude Include="PSTransCBuf.h" />
     <ClInclude Include="Rasterizer.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ScriptComponent.h" />
     <ClInclude Include="GeometryGenerator.h" />
     <ClInclude Include="Graphics.h" />
@@ -409,6 +414,7 @@
     <ClInclude Include="TankGamePlay.h" />
     <ClInclude Include="Telegram.h" />
     <ClInclude Include="TestCube.h" />
+    <ClInclude Include="UIText3D.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIBase.h" />
@@ -444,6 +450,18 @@
     </FxCompile>
     <FxCompile Include="Light_VS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Particle_GS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Particle_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Particle_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="PixelShader.hlsl">
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
@@ -484,6 +502,12 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="UIText3D_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="UIText3D_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="UI3DGSHorizontalL.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

@@ -17,5 +17,6 @@ public:
 
 private:
 	UIImage3D* mImage;
+	UIImage3D* mFrame;
 };
 

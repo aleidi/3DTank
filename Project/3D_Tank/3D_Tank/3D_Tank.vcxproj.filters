@@ -339,13 +339,7 @@
     <ClCompile Include="ComponentFactory.cpp">
       <Filter>Engine\Source\Gameplay\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyTank.cpp">
-      <Filter>Engine\Source\Gameplay\AI</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyTankOwnedStates.cpp">
-      <Filter>Engine\Source\Gameplay\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseGameEntity.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
     </ClCompile>
     <ClCompile Include="ScriptComponent.cpp">
@@ -546,6 +540,18 @@
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Engine\Source\Render\Graphics\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="UIText3D.cpp">
+      <Filter>Engine\Source\Render\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyTank.cpp">
+      <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseGameEntity.cpp">
+      <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="BossOwnedStates.cpp">
+      <Filter>Engine\Source\Gameplay\AI</Filter>
+    </ClCompile>
     <ClCompile Include="SM_WaterTank.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
@@ -555,6 +561,7 @@
     <ClCompile Include="SM_construction_fence.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -707,16 +714,7 @@
     <ClInclude Include="ComponentFactory.h">
       <Filter>Engine\Header\Gameplay\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="BaseGameEntity.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyTank.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyTankOwnedStates.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityNames.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
     <ClInclude Include="ScriptComponent.h">
@@ -794,9 +792,6 @@
     <ClInclude Include="imconfig.h">
       <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
-    <ClInclude Include="ImGuiFrame.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
       <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
@@ -815,17 +810,11 @@
     <ClInclude Include="imstb_truetype.h">
       <Filter>Engine\Header\Render\EUI</Filter>
     </ClInclude>
-    <ClInclude Include="imgui.h">
-      <Filter>Engine\Header</Filter>
-    </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Engine\Header\Gameplay\AI\FSM</Filter>
     </ClInclude>
     <ClInclude Include="StateMachine.h">
       <Filter>Engine\Header\Gameplay\AI\FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="MovingEntity.h">
-      <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
     <ClInclude Include="GameLevelTest.h">
       <Filter>Game\TestCode</Filter>
@@ -974,6 +963,27 @@
     <ClInclude Include="SM_construction_fence.h">
       <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
+    <ClInclude Include="UIText3D.h">
+      <Filter>Engine\Header\Render\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Engine\Header\Render\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiFrame.h">
+      <Filter>Engine\Header\Render\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyTank.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityNames.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGameEntity.h">
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="BossOwnedStates.h">
+      <Filter>Engine\Header\Gameplay\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -1046,6 +1056,21 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="Billboard_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle_GS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle_PS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIText3D_PS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="UIText3D_VS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>

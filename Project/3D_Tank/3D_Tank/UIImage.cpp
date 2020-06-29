@@ -10,8 +10,8 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 {
 	mWidth = 100.0f;
 	mHeight = 100.0f;
-	mX = WINDOW_WIDTH;
-	mY = WINDOW_HEIGHT;
+	mX = WINDOW_WIDTH*0.5f - 0.5f*mWidth;
+	mY = WINDOW_HEIGHT * 0.5f - 0.5f*mHeight;
 	setEnable(true);
 
 	GeometryGenerator::Mesh mesh;
@@ -57,6 +57,11 @@ void UIImage::draw(Graphics& gfx) noexcept
 		return;
 	}
 
+	if (mCanBlend)
+	{
+		setBlendTransparent(gfx);
+	}
+
 	mVCB->onUpdate(gfx,
 		{
 			DirectX::XMMatrixTranspose(getTransformXM()),
@@ -71,6 +76,11 @@ void UIImage::draw(Graphics& gfx) noexcept
 	mVCB->bind(gfx);
 	mVS->bind(gfx);
 	gfx.DrawIndexed(pIndexBuffer->getCount());
+
+	if (mCanBlend)
+	{
+		resetBlendState(gfx);
+	}
 }
 
 void UIImage::setFillAmount(float value)

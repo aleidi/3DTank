@@ -10,14 +10,11 @@ public:
 	UIText(Graphics& gfx);
 	UIText(Graphics& gfx, std::wstring text);
 
-	void draw(Graphics& gfx) noexcept override;
+	virtual void draw(Graphics& gfx) noexcept override;
 	void setText(Graphics& gfx, std::wstring wstr);
 
-private:
-	void setBlendTransparent(Graphics& gfx);
-	void resetBlendState(Graphics& gfx);
 
-private:
+protected:
 	std::wstring mText;
 	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> pSRVs;
 	std::unique_ptr<PixelConstantBuffer<DirectX::XMFLOAT4>> mPCBuf;

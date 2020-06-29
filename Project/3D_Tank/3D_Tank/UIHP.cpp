@@ -6,9 +6,12 @@ UIHP::UIHP()
 {
 	mName = "UIHP";
 
+	mFrame = SceneManager::sGetInstance()->createUIImage3D(L"UI/HpFrame");
+	mFrame->setSize(0.42f, 0.057f);
+
 	mImage = SceneManager::sGetInstance()->createUIImage3D(L"");
 	Material mat;
-	mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+	mat.Color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	mImage->setMaterial(mat);
 	mImage->setSize(0.4f, 0.05f);
 }
@@ -21,6 +24,7 @@ UIHP::~UIHP()
 void UIHP::onLateUpdate(float deltaTime)
 {
 	Vector3 pos = mTransform->getPosition();
+	mFrame->setPosition(pos.x, pos.y, pos.z);
 	mImage->setPosition(pos.x, pos.y, pos.z);
 }
 
