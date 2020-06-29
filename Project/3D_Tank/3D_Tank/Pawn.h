@@ -15,6 +15,7 @@ public:
 	struct Attribute
 	{
 		int m_HP;
+		int FullHP;
 		float m_AttackRangeRadiusSq;
 		float m_PursuitRangeRadiusSq;
 		float m_WanderRangeRadiusSq;

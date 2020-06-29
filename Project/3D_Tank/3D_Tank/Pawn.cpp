@@ -2,8 +2,10 @@
 #include "MovementComponent.h"
 #include "UIHP.h"
 #include "Shell.h"
+#include "FileManager.h"
 
 Pawn::Pawn()
+	:mAttribute{}
 {
 	mUIHP = new UIHP();
 	mUIHP->attach(*this);

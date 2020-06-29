@@ -19,7 +19,7 @@
 
 #define BOSS reinterpret_cast<EnemyTank*>(pBoss->getPawn())
 #define getBOSSPos pBoss->getPawn()->getTransform()->getPosition()
-
+/*
 //-------------------methods for Alert-------------------//
 Alert* Alert::getInstance() {
 	static Alert m_Alert;
@@ -86,6 +86,7 @@ bool Alert::onMessage(AIController* pBoss, const Telegram& msg) {
 }
 
 
+
 //-------------------methods for Attack-------------------//
 Battle* Battle::getInstance() {
 	static Battle m_Battle;
@@ -97,47 +98,38 @@ void Battle::enter(AIController* pBoss) {
 }
 
 void Battle::execute(AIController* pBoss, float deltaTime) {
-	Vector3 targetDirection = (getTargetPos - getAIPos).normalize();
-	float dot = Vector3::dot(targetDirection, AITank->batteryForward());
+	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
+	float dot = Vector3::dot(targetDirection, BOSS->batteryForward());
 	dot = Math::Clamp(1.0f, -1.0f, dot);
 	float rotate = acosf(dot) * 180 / Pi;
-	Vector3 cross = Vector3::cross(targetDirection, AITank->batteryForward());
+	Vector3 cross = Vector3::cross(targetDirection, BOSS->batteryForward());
 	if (cross.y > 0)
 		rotate = -rotate;
 
 	if (rotate >= 1.0f || rotate <= -1.0f)
-		AITank->rotateBattery(0, rotate, 0);
+		BOSS->rotateBattery(0, rotate, 0);
 
 	count += deltaTime;
 	if (count > 5.0f) {
 		count = 0.0f;
-		pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+		pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
 	}
 
 	////////////////////////changeState////////////////////////
-	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying()) {
-		pEnemyTank->getFSM()->changeState(Evade::getInstance());
+	if (BOSS->isDying()) {
+		pBoss->getFSM()->changeState(Violent::getInstance());
 	}
 
-	if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
-		pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
+	if (!BOSS->isEnemyInRange()) {
+		pBoss->getFSM()->changeState(Alert::getInstance());
 	}
 }
 
 void Battle::exit(AIController* pBoss) {
 	//MessageBox(0, L"I stopped kicking ur ass. ", 0, 0);
-
-	float dot = Vector3::dot(getAIHeading, AITank->batteryForward());
-	dot = Math::Clamp(1.0f, -1.0f, dot);
-	float rotate = acosf(dot) * 180 / Pi;
-	Vector3 cross = Vector3::cross(getAIHeading, AITank->batteryForward());
-	if (cross.y > 0)
-		rotate = -rotate;
-
-	if (rotate >= 1.0f || rotate <= -1.0f)
-		AITank->rotateBattery(0, rotate, 0);
 }
 
 bool Battle::onMessage(AIController* pBoss, const Telegram& msg) {
 	return false;
 }
+*/
