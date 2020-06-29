@@ -1,11 +1,10 @@
 #pragma once
 #include "Pawn.h"
-#include "CollisionEvent.h"
 
 class RenderComponent;
 class Camera;
 
-class PlayerTank : public Pawn, public CollisionEvent
+class PlayerTank : public Pawn
 {
 public:
 	PlayerTank();
@@ -22,8 +21,9 @@ public:
 
 	void onTriggerEnter(const GameObject* obj) override;
 	void onTriggerExit() override;
-	void onCollisionEnter(const GameObject* obj) override;
+	void onCollisionEnter() override;
 	void onCollisionExit() override;
+	GameObject* getBattery();
 
 private:
 	//tank move and rotate

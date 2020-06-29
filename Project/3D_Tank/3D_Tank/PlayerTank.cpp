@@ -22,12 +22,12 @@ PlayerTank::PlayerTank()
 	mBattery->setName("Battery");
 	mBattery->addComponent(SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex"));
 	mBattery->attach(*this);
-	DirectX::XMFLOAT3 maxP(93.4250031f, 210.244995f, 299.684998f);
+	/*DirectX::XMFLOAT3 maxP(93.4250031f, 210.244995f, 299.684998f);
 	DirectX::XMFLOAT3 minP(-71.5699997f, 70.3600006f, -106.195000f);
 	maxPoint = DirectX::XMLoadFloat3(&maxP); minPoint = DirectX::XMLoadFloat3(&minP);
 	BoundingCube* batteryBoundingCube = new BoundingCube(mBattery);
 	batteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
-	mBattery->addComponent(batteryBoundingCube);
+	mBattery->addComponent(batteryBoundingCube);*/
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint);
 	DirectX::XMFLOAT3 maxP0(108.550003f, 97.2149963f, 177.554993f);
 	DirectX::XMFLOAT3 minP0(-86.8899994f, 3.51500010f, -191.240005f);
@@ -54,10 +54,10 @@ PlayerTank::PlayerTank()
 	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
 	bodyBoundingCube->box = out;
 	this->cube = bodyBoundingCube;
-	DirectX::BoundingOrientedBox out1;
-	batteryBoundingCube->box.Transform(out1, mTransform->getLocalToWorldMatrix());
-	batteryBoundingCube->box = out1;
-	mBattery->cube = batteryBoundingCube;
+	//DirectX::BoundingOrientedBox out1;
+	//batteryBoundingCube->box.Transform(out1, mTransform->getLocalToWorldMatrix());
+	//batteryBoundingCube->box = out1;
+	//mBattery->cube = batteryBoundingCube;
 	//t1 = SceneManager::sGetInstance()->createSphere();
 	//t1->attach(*mCamFollower);
 	//t1->getTransform()->translate(Vector3::right * 2.0f);
@@ -104,6 +104,7 @@ void PlayerTank::onLateUpdate(float deltaTime)
 void PlayerTank::move(Vector3 value)
 {
 	mTransform->translate(value * mMoveSped);
+	//this->getBattery()->cube->box.Center.x += value.x * mMoveSped; this->getBattery()->cube->box.Center.y += value.y * mMoveSped; this->getBattery()->cube->box.Center.z += value.z * mMoveSped;
 	m_Velocity = value;
 }
 
@@ -164,11 +165,11 @@ void PlayerTank::onTriggerEnter(const GameObject* obj)
 	this->onTrigger = true;
 	switch (moveDirection) {
 	case FORWARD: {
-		move(mTransform->Forward * -0.01f);
+		move(mTransform->Forward * -0.001f);
 		break;
 	}
 	case MBACK: {
-		move(mTransform->Forward * 0.01f);
+		move(mTransform->Forward * 0.001f);
 		break;
 	}
 	case LEFT: {
@@ -189,12 +190,17 @@ void PlayerTank::onTriggerExit()
 	this->onTrigger = false;
 }
 
-void PlayerTank::onCollisionEnter(const GameObject* obj)
+void PlayerTank::onCollisionEnter()
 {
-	
+	move(mTransform->Forward * -1.f);
 }
 
 void PlayerTank::onCollisionExit()
 {
+	
+}
 
+GameObject* PlayerTank::getBattery()
+{
+	return mBattery;
 }
