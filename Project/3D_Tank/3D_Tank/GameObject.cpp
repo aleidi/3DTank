@@ -191,3 +191,8 @@ Vector3 GameObject::getLastFramePosition()
 {
 	return *lastFramePostion;
 }
+
+GameObject::CollisionLayer GameObject::getCollisionLayer()
+{
+	return mColLayer;
+}
