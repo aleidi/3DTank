@@ -29,4 +29,5 @@ private:
 	SoundComponent* mSound;
 	Vector3 origin;
 	int shellType;
+	float mCount;
 };

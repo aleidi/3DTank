@@ -43,6 +43,11 @@ void Pawn::attack(Vector3 batteryposition, Vector3 shot_direction)
 	Shell* shell = new Shell(batteryposition, shot_direction, 0);
 }
 
+void Pawn::hited(int value)
+{
+	mAttribute.m_HP -= value;
+}
+
 void Pawn::onTriggerEnter(const GameObject * obj)
 {
 }
