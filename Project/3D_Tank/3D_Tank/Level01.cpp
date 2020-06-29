@@ -95,6 +95,11 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 	{
 	}
 
+	if (DInputPC::getInstance().iskeyDown(DIK_F2))
+	{
+		return GameLevelManager::sGetInstance()->changeLevel(2);
+	}
+
 	switch (mState)
 	{
 		case MainMenu:

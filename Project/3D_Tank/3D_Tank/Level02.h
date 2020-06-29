@@ -10,5 +10,8 @@ public:
 	void enterLevel() override;
 	GameLevelBase* onUpdate(float deltaTime) override;
 	void leaveLevel() override;
+
+private:
+	GameObject* mMap;
 };
 
