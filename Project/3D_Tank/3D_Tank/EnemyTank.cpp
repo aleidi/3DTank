@@ -13,7 +13,7 @@
 #include "Math.h"
 
 struct Telegram;
-#define getPlayerPos GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition()
+#define getTargetPos m_target->getTransform()->getPosition()
 
 EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
@@ -29,6 +29,8 @@ EnemyTank::EnemyTank(int ID)
 				   FileManager::AIAttributes[ID].m_Mass,
 				   FileManager::AIAttributes[ID].m_MaxSpeed,
 				   FileManager::AIAttributes[ID].m_AttackTimeDelay,
+				   20.0f,	
+				   4,
 				   FileManager::AIAttributes[ID].m_WanderRadius,
 				   FileManager::AIAttributes[ID].m_WanderDistance,
 				   FileManager::AIAttributes[ID].m_WanderJitter,
@@ -91,6 +93,8 @@ EnemyTank::EnemyTank(int ID)
 	mMovementComp = new AIMovementComponent(this);
 	addComponent(mMovementComp);
 	moveDirection = FORWARD;
+
+	m_target = GameInstance::sGetInstance()->getPlayer();
 }	
 
 EnemyTank::~EnemyTank()
@@ -132,8 +136,16 @@ float EnemyTank::getMass()const {
 	return mAttribute.m_Mass;
 }
 
-int EnemyTank::attackTimeDelay ()const {
+float EnemyTank::attackTimeDelay ()const {
 	return mAttribute.m_AttackTimeDelay;
+}
+
+float EnemyTank::offset()const {
+	return mAttribute.m_Offset;
+}
+
+int EnemyTank::hitRate()const {
+	return mAttribute.m_HitRate;
 }
 
 void EnemyTank::move(Vector3 value)
@@ -190,22 +202,20 @@ void EnemyTank::setHPRecovered( bool isRecovered ) {
 }
 
 bool EnemyTank::isEnemyInRange()const {
-	if( Vector3::lengthSq( getPlayerPos, mTransform->getPosition() ) <= mAttribute.m_AttackRangeRadiusSq ) {
+	if( Vector3::lengthSq( getTargetPos, mTransform->getPosition() ) <= mAttribute.m_AttackRangeRadiusSq ) {
 		//check if there are any obstacles
-		float distance = 0.0f;
 		bool isObstacle = CollisionManager::sGetInstance()->rayCheckWithObstacle(mTransform->getPosition(),
-															   (getPlayerPos - mTransform->getPosition()).normalize(),
-															   sqrt(Vector3::lengthSq(getPlayerPos, mTransform->getPosition())));
+															   (getTargetPos - mTransform->getPosition()).normalize(),
+															   sqrt(Vector3::lengthSq(getTargetPos, mTransform->getPosition())));
 		if( !isObstacle ) 
 			return true;
 		else return false;
-		// else return false;return true; 
 	}
 	return false;
 }
 
 bool EnemyTank::isLostEnemy()const {
-	if (Vector3::lengthSq(getPlayerPos, mTransform->getPosition()) > mAttribute.m_PursuitRangeRadiusSq) {
+	if (Vector3::lengthSq(getTargetPos, mTransform->getPosition()) > mAttribute.m_PursuitRangeRadiusSq) {
 		return true;
 	}
 	return false;

@@ -29,7 +29,9 @@ public:
 
 	void setMass(float mass);
 	float getMass()const;
-	int attackTimeDelay()const;
+	float attackTimeDelay()const;
+	float offset()const;
+	int hitRate()const;
 	float getWanderRadius()const;
 	float getWanderDistance()const;
 	float getWanderJitter()const;
@@ -62,6 +64,8 @@ public:
 	void onCollisionEnter() override;
 	void onCollisionExit() override;
 
+	void target(Pawn* targetTank) { m_target = targetTank; }
+
 	float aiCount = 0.0f;
 
 private:
@@ -75,5 +79,5 @@ private:
 	GameObject* mObstacle;
 	GameObject* mBattery;
 	std::vector<RenderComponent*> mRCs;
-
+	Pawn* m_target;
 };
