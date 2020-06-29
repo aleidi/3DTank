@@ -7,14 +7,23 @@ class Camera;
 class PlayerTank : public Pawn
 {
 public:
+	enum WeaponType
+	{
+		Light = 0,
+		Heavy = 1,
+	};
+public:
 	PlayerTank();
 	~PlayerTank();
 
 	void onUpdate(float deltaTime) override;
 	void onLateUpdate(float deltaTime) override;
 
-	void attack();
+	
+	void onAttack(float deltaTime);
+	void setAttack();
 	void stopAttack();
+	void setWeaponType(WeaponType type);
 	void move(Vector3 value) override;
 	void rotate(float value);
 	void rotateCamera(float valueX, float valueY);
@@ -47,6 +56,12 @@ private:
 	float mFPToTPThreshold;
 	float mMinDisToCam;
 	float mMaxDisToCam;
+
+	//Weapon
+	int mWeaponType;
+	float mAttackCount;
+	float mLightInterval;
+	float mHeavyInterval;
 
 	GameObject* mBattery;
 	GameObject* mCamFollower;

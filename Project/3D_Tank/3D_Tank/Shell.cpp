@@ -76,7 +76,13 @@ void Shell::onUpdate(float deltaTime)
 		}
 		this->onTriggerEnter();
 	}
-
+	
+	mCount += deltaTime;
+	if (mCount > 5.0f)
+	{
+		shell->destroy();
+		destroy();
+	}
 }
 
 void Shell::onTriggerEnter()
