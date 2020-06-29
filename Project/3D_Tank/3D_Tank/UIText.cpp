@@ -32,12 +32,11 @@ UIText::UIText(Graphics& gfx, std::wstring text)
 	};
 	addBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	int index = 0;
 	FreeType ft(gfx);
 	for (std::wstring::iterator it = mText.begin(); it != mText.end(); ++it)
 	{
 		FreeType::Character charInfo;
-		charInfo = ft.getChar(gfx, mText.c_str() + index);
+		charInfo = ft.getChar(gfx, *it);
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> srv;
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 		srvDesc.Format = DXGI_FORMAT_R8_UNORM;
@@ -47,7 +46,6 @@ UIText::UIText(Graphics& gfx, std::wstring text)
 		gfx.getDevice()->CreateShaderResourceView(charInfo.Texture.Get(), &srvDesc, srv.GetAddressOf());
 		pSRVs.push_back(srv);
 		mChars.push_back(charInfo);
-		++index;
 	}
 
 	addBind(std::make_unique<Sampler>(gfx));
@@ -107,12 +105,11 @@ void UIText::setText(Graphics& gfx, std::wstring wstr)
 	std::vector<FreeType::Character>().swap(mChars);
 	mText = wstr;
 
-	int index = 0;
 	FreeType ft(gfx);
 	for (std::wstring::iterator it = mText.begin(); it != mText.end(); ++it)
 	{
 		FreeType::Character charInfo;
-		charInfo = ft.getChar(gfx, mText.c_str() + index);
+		charInfo = ft.getChar(gfx, *it);
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> srv;
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 		srvDesc.Format = DXGI_FORMAT_R8_UNORM;
@@ -122,7 +119,6 @@ void UIText::setText(Graphics& gfx, std::wstring wstr)
 		gfx.getDevice()->CreateShaderResourceView(charInfo.Texture.Get(), &srvDesc, srv.GetAddressOf());
 		pSRVs.push_back(srv);
 		mChars.push_back(charInfo);
-		++index;
 	}
 }
 

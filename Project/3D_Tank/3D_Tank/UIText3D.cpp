@@ -6,14 +6,15 @@ UIText3D::UIText3D(Graphics& gfx)
 }
 
 UIText3D::UIText3D(Graphics& gfx, std::wstring text)
+	:mInterval(0.06f)
 {
 	mText = text;
 
 	mX = 0.0f;
 	mY = 0.0f;
 	mZ = 0.0;
-	mWidth = 2.0f;
-	mHeight = 1.0f;
+	mWidth = 0.05f;
+	mHeight = 0.05f;
 	setEnable(true);
 
 	GeometryGenerator::Mesh mesh;
@@ -41,7 +42,7 @@ UIText3D::UIText3D(Graphics& gfx, std::wstring text)
 	for (std::wstring::iterator it = mText.begin(); it != mText.end(); ++it)
 	{
 		FreeType::Character charInfo;
-		charInfo = ft.getChar(gfx, mText.c_str() + index);
+		charInfo = ft.getChar(gfx, *it);
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> srv;
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 		srvDesc.Format = DXGI_FORMAT_R8_UNORM;
@@ -71,7 +72,8 @@ UIText3D::UIText3D(Graphics& gfx, std::wstring text)
 
 DirectX::XMMATRIX UIText3D::getTransformXM() const noexcept
 {
-	return DirectX::XMMatrixRotationRollPitchYaw(mPitch, mYaw, mRoll)*
+	return DirectX::XMMatrixScaling(mWidth,mHeight,0.0f)*
+		DirectX::XMMatrixRotationRollPitchYaw(mPitch, mYaw, mRoll)*
 		DirectX::XMMatrixTranslation(mX, mY, mZ);
 }
 
@@ -88,26 +90,26 @@ void UIText3D::draw(Graphics& gfx) noexcept
 
 	int index = 0;
 	int storeX = (int)mX;
-	int x = (int)mX;
-	int y = (int)mY;
+	float x = (int)mX;
 	for (std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>::iterator it = pSRVs.begin();
 		it != pSRVs.end(); ++it)
 	{
-		mX = x + mChars[index].BearingX;
-		//mY = y - ((int)mChars[index].SizeY - (int)mChars[index].BearingY);
-		mWidth = mChars[index].SizeX;
-		mHeight = mChars[index].SizeY;
+		mX = x;
 		gfx.getContext()->PSSetShaderResources(0, 1, it->GetAddressOf());
 		for (auto& b : mBinds)
 		{
 			b->bind(gfx);
 		}
 		gfx.DrawIndexed(pIndexBuffer->getCount());
-		x += mWidth / 28;
+		x += mInterval;
 		++index;
 	}
 	mX = storeX;
-	mY = y;
 	resetBlendState(gfx);
 
+}
+
+void UIText3D::setInterval(float value)
+{
+	mInterval = value;
 }

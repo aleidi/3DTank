@@ -9,17 +9,19 @@
 
 #include FT_FREETYPE_H
 
+std::map<wchar_t, FreeType::Character> FreeType::mCharacters;
+
 FreeType::FreeType(Graphics& gfx)
-	:mCharacters(), mFontSize(30)
+	:mFontSize(30)
 {
 }
 
-void FreeType::SetFontSize(unsigned int value)
+void FreeType::setFontSize(unsigned int value)
 {
 	mFontSize = value;
 }
 
-FreeType::Character FreeType::getChar(Graphics& gfx, std::wstring key)
+FreeType::Character FreeType::getChar(Graphics& gfx, wchar_t key)
 {
 	if (mCharacters.find(key) == mCharacters.end())
 	{
@@ -28,19 +30,19 @@ FreeType::Character FreeType::getChar(Graphics& gfx, std::wstring key)
 	return mCharacters[key];
 }
 
-void FreeType::LoadChar(Graphics& gfx, std::wstring wstr)
+void FreeType::LoadChar(Graphics& gfx, wchar_t wstr)
 {
 	FT_Library library;
 	FT_Init_FreeType(&library);
 
 	FT_Face face;
-	FT_New_Face(library, "./Resource/Fonts/simhei.ttf", 0, &face);
+	FT_New_Face(library, "./Resource/Fonts/msyh.ttc", 0, &face);
 
 	FT_Set_Pixel_Sizes(face, 0, mFontSize);
 
 	// Load character glyph 
 
-	if (FT_Load_Char(face, *wstr.c_str(), FT_LOAD_RENDER))
+	if (FT_Load_Char(face, wstr, FT_LOAD_RENDER))
 	{
 		return;
 	}
@@ -48,7 +50,7 @@ void FreeType::LoadChar(Graphics& gfx, std::wstring wstr)
 	// Generate texture
 	FT_Bitmap bitmap = face->glyph->bitmap;
 
-	if (*wstr.c_str() == L' ')
+	if (wstr == L' ')
 	{
 		Character ch;
 		ch.SizeX = mFontSize;
@@ -56,7 +58,7 @@ void FreeType::LoadChar(Graphics& gfx, std::wstring wstr)
 		ch.BearingX = 0;
 		ch.BearingY = 0;
 		ch.Advance = face->glyph->advance.x;
-		mCharacters.insert(std::pair<std::wstring, Character>(wstr, ch));
+		mCharacters.insert(std::pair<wchar_t, Character>(wstr, ch));
 		FT_Done_Face(face);
 		return;
 	}
@@ -88,7 +90,7 @@ void FreeType::LoadChar(Graphics& gfx, std::wstring wstr)
 	HRD(gfx.getDevice()->CreateTexture2D(&texDesc, &sd, ch.Texture.GetAddressOf()));
 
 	// Now store character for later use
-	mCharacters.insert(std::pair<std::wstring, Character>(wstr, ch));
+	mCharacters.insert(std::pair<wchar_t, Character>(wstr, ch));
 
 	FT_Done_Face(face);
 }

@@ -16,14 +16,14 @@ public:
 
 	FreeType(Graphics& gfx);
 
-	void SetFontSize(unsigned int value);
-	Character getChar(Graphics& gfx, std::wstring key);
+	void setFontSize(unsigned int value);
+	Character getChar(Graphics& gfx, wchar_t key);
 
 private:
-	void LoadChar(Graphics& gfx, std::wstring wstr);
+	void LoadChar(Graphics& gfx, wchar_t wstr);
 
 private:
-	std::map<std::wstring, Character> mCharacters;
+	static std::map<wchar_t, Character> mCharacters;
 	unsigned int mFontSize;
 
 };
