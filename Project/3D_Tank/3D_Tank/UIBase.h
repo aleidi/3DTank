@@ -16,6 +16,11 @@ public:
 	void setEnable(bool value) noexcept;
 	void setRotation(float pitch, float yaw, float roll);
 	void rotate(float x, float y, float z);
+	void setBlend(bool value);
+
+protected:
+	virtual void setBlendTransparent(Graphics& gfx);
+	void resetBlendState(Graphics& gfx);
 
 protected:
 	float mWidth;
@@ -27,5 +32,6 @@ protected:
 	float mYaw;
 	float mRoll;
 	bool mIsEnable;
+	bool mCanBlend;
 };
 

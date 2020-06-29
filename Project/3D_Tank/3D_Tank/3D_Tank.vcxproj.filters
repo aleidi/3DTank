@@ -549,6 +549,9 @@
     <ClCompile Include="UIText3D.cpp">
       <Filter>Engine\Source\Render\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Game\Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -961,6 +964,12 @@
     </ClInclude>
     <ClInclude Include="ImGuiFrame.h">
       <Filter>Engine\Header\Render\EUI</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Engine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Game\Header\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

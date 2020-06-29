@@ -8,7 +8,7 @@ UIHP::UIHP()
 
 	mImage = SceneManager::sGetInstance()->createUIImage3D(L"");
 	Material mat;
-	mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+	mat.Color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	mImage->setMaterial(mat);
 	mImage->setSize(0.4f, 0.05f);
 }
