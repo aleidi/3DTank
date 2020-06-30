@@ -6,7 +6,8 @@ enum message_type {
 	Msg_INeedRest,
 	Msg_ThereisBadGuy,
 	Msg_HPRecovered,
-	Msg_IsAttacked
+	Msg_IsAttacked,
+	Msg_DeathDelay
 };
 
 inline std::string MsgToStr(int msg) {
@@ -19,6 +20,8 @@ inline std::string MsgToStr(int msg) {
 		return"HP has recovered.";
 	case 4:
 		return"ImAttacked";
+	case 5:
+		return"IwillDeathSoon";
 	default:
 		return"Not recognized";
 	}

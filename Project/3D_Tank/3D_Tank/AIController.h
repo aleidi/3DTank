@@ -2,6 +2,7 @@
 #include "ControllerBase.h"
 #include "StateMachine.h"
 #include "Pawn.h"
+#include "AITank.h"
 
 class AIController : public ControllerBase
 {
@@ -21,11 +22,15 @@ public:
 	bool handleMessage(const Telegram& msg);
 
 	void Attack(Vector3 battery_position, Vector3 direction);
+	void Attack(Vector3 battery_position, Vector3 direction, Pawn* target);
 	void Move(Vector3 Force);
 	void Rotate(float x, float y, float z);
 
 	void setTarget(Pawn* targetTank);
 	Pawn* getTarget() { return m_target; }
+
+	void setPrefabs(AITank* prefab) { m_Prefabs = prefab; }
+	AITank* getPrefabs() { return m_Prefabs; }
 
 	GameObject* obj;
 
@@ -38,4 +43,5 @@ private:
 
 	Pawn* m_target;
 
+	AITank* m_Prefabs;
 };
