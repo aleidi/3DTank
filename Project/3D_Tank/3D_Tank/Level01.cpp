@@ -25,12 +25,12 @@ void Level01::enterLevel()
 	mExitEvent = new UExitEvent(this);
 	mBtnExit->setBtnEvent(mExitEvent);
 
-	mBtnGameMode = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[3]);
-	mGameModeEvent = new UGmeModeEvent();
+	mBtnGameMode = new GameButton(L"", 200.0f, 100.0f, FileManager::localization[3]);
+	mGameModeEvent = new UGmeModeEvent(this);
 	mBtnGameMode->setBtnEvent(mGameModeEvent);
 
-	mBtnEditMode = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[4]);
-	mEditEvent = new UEditModeEvent();
+	mBtnEditMode = new GameButton(L"", 200.0f, 100.0f, FileManager::localization[4]);
+	mEditEvent = new UEditModeEvent(this);
 	mBtnEditMode->setBtnEvent(mEditEvent);
 
 	mBtnCN = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[5]);
@@ -154,12 +154,61 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			mBtnReturn->setEnable(true);
 			mBtnCancel->setEnable(false);
 			break;
+		case GameStart:
+			return GameLevelManager::sGetInstance()->changeLevel(2);
+			break;
+		case EditStart:
+			return GameLevelManager::sGetInstance()->changeLevel(3);
+			break;
 		}
 	return this;
 }
 
 void Level01::leaveLevel()
 {
+	Engine::sGetInstance()->enableGameMode(false);
+
+	mBtnStart->destroy();
+	mBtnStart = nullptr;
+	mBtnSetting->destroy();
+	mBtnSetting = nullptr;
+	mBtnExit->destroy();
+	mBtnExit = nullptr;
+	mBtnGameMode->destroy();
+	mBtnGameMode = nullptr;
+	mBtnEditMode->destroy();
+	mBtnEditMode = nullptr;
+	mBtnCN->destroy();
+	mBtnCN = nullptr;
+	mBtnEN->destroy();
+	mBtnCN = nullptr;
+	mBtnShutDown->destroy();
+	mBtnShutDown = nullptr;
+	mBtnReturn->destroy();;
+	mBtnReturn = nullptr;
+	mBtnCancel->destroy();
+	mBtnCancel = nullptr;
+
+	delete mStartEvent;
+	mStartEvent = nullptr;
+	delete mSettingEvent;
+	mSettingEvent = nullptr;
+	delete mExitEvent;
+	mExitEvent = nullptr;
+	delete mGameModeEvent;
+	mGameModeEvent = nullptr;
+	delete mEditEvent;
+	mEditEvent = nullptr;
+	delete mCNEvent;
+	mCNEvent = nullptr;
+	delete mENEvent;
+	mENEvent = nullptr;
+	delete mShutDownEvent;
+	mShutDownEvent = nullptr;
+	delete mReturnEvent;
+	mReturnEvent = nullptr;
+	delete mCancelEvent;
+	mCancelEvent = nullptr;
 }
 
 void Level01::changeState(State s)

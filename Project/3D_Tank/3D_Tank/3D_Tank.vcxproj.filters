@@ -205,6 +205,12 @@
     <Filter Include="Game\Header\Prefabs">
       <UniqueIdentifier>{707aea49-93b0-4ff5-89ab-fbc9ab1de991}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Source\Level\Level03">
+      <UniqueIdentifier>{c251e7ce-44c2-4ba8-9061-408b6c94e8c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header\Level\Level03">
+      <UniqueIdentifier>{0ae2fcf8-855f-4bbd-9cfd-71c3df0828fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -387,9 +393,6 @@
     <ClCompile Include="GameLevelTest.cpp">
       <Filter>Game\TestCode</Filter>
     </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="DefaultPlayerController.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
@@ -561,11 +564,17 @@
     <ClCompile Include="DamageDisplay.cpp">
       <Filter>Game\Source\UI</Filter>
     </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="AirWall.cpp">
       <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Game\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Level03.cpp">
+      <Filter>Game\Source\Level\Level03</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -986,9 +995,6 @@
     <ClInclude Include="BossOwnedStates.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
     </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>Engine\Header</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Engine\Header</Filter>
     </ClInclude>
@@ -997,6 +1003,12 @@
     </ClInclude>
     <ClInclude Include="AirWall.h">
       <Filter>Game\Header\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Game\Header\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Level03.h">
+      <Filter>Game\Header\Level\Level03</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

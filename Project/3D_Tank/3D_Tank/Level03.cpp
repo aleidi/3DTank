@@ -1,30 +1,26 @@
-#include "Level02.h"
+#include "Level03.h"
 #include "AITank.h"
 #include "GameModeTP.h"
 #include "RenderManager.h"
 
-Level02::Level02()
+Level03::Level03()
 {
-	GameLevelManager::sGetInstance()->addLevel(2, this);
+	GameLevelManager::sGetInstance()->addLevel(3, this);
 }
 
-Level02::~Level02()
+Level03::~Level03()
 {
 }
 
-void Level02::enterLevel()
+void Level03::enterLevel()
 {
-	//mCurrentGameMode = new GameModeBase();
-	//mCurrentGameMode->onInit();
-	mCurrentGameMode = new GameModeTP();
+	mCurrentGameMode = new GameModeBase();
+	mCurrentGameMode->onInit();
 
-	mMap = SceneManager::sGetInstance()->createEmptyObject();
-	SceneManager::sGetInstance()->createModel(*mMap, "Objects/TownStreet", L"Objects/Wall");
-	mMap->getTransform()->setScale(0.1f, 0.1f, 0.1f);
-	new AITank(0);
+	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Night");
 }
 
-GameLevelBase * Level02::onUpdate(float deltaTime)
+GameLevelBase * Level03::onUpdate(float deltaTime)
 {
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
@@ -50,7 +46,7 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 	return this;
 }
 
-void Level02::leaveLevel()
+void Level03::leaveLevel()
 {
 	Engine::sGetInstance()->enableGameMode(false);
 

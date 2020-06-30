@@ -3,6 +3,7 @@
 #include "GameLevelTest.h"
 #include "Level01.h"
 #include "Level02.h"
+#include "Level03.h"
 #include "GameLevelManager.h"
 #include "GameInstance.h"
 
@@ -24,6 +25,7 @@ void GameSystem::onInit()
 	GameLevelTest* level = new GameLevelTest();
 	new Level01();
 	new Level02();
+	new Level03();
 	GameLevelManager::sGetInstance()->setDefaultLevel(0);
 	
 }

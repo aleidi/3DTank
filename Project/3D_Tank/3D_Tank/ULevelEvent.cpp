@@ -21,12 +21,12 @@ void UExitEvent::onClick()
 
 void UGmeModeEvent::onClick()
 {
-	GameLevelManager::sGetInstance()->changeLevel(1);
+	reinterpret_cast<Level01*>(mLevel)->changeState(Level01::State::GameStart);
 }
 
 void UEditModeEvent::onClick()
 {
-	GameLevelManager::sGetInstance()->changeLevel(2);
+	reinterpret_cast<Level01*>(mLevel)->changeState(Level01::State::EditStart);
 }
 
 void UCNEvent::onClick()

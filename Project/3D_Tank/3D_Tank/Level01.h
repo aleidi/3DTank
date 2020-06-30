@@ -15,6 +15,8 @@ public:
 		GameMode,
 		Setting,
 		Exit,
+		GameStart,
+		EditStart
 	};
 
 public :

@@ -5,7 +5,7 @@
 class UIText;
 class UIEvent;
 
-class GameButton : GameObject
+class GameButton : public GameObject
 {
 public:
 	GameButton(const std::wstring& texPath, float width, float height, const std::wstring& text);

@@ -44,16 +44,18 @@ public:
 	void onClick() override;
 };
 
-class UGmeModeEvent : public UIEvent
+class UGmeModeEvent : public ULevelEvent
 {
 public:
+	UGmeModeEvent(GameLevelBase* level) : ULevelEvent(level) {}
 	void onClick() override;
 	void onPressed() override {}
 };
 
-class UEditModeEvent : public UIEvent
+class UEditModeEvent : public ULevelEvent
 {
 public:
+	UEditModeEvent(GameLevelBase* level) : ULevelEvent(level) {}
 	void onClick() override;
 	void onPressed() override {}
 };
