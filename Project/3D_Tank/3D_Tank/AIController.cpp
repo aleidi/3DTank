@@ -36,6 +36,11 @@ void AIController::onUpdate(float deltaTime)
 	// MoveCharacter(Vector3::right * deltaTime);
 }
 
+void AIController::destroy()
+{
+	SceneManager::sGetInstance()->removeAIControllerFromPool(this);
+}
+
 void AIController::MoveCharacter(Vector3 value)
 {
 	reinterpret_cast<GameCharacter*>(mPawn)->Move(value);
