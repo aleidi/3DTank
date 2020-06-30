@@ -185,7 +185,7 @@ void Violent::execute(AIController* pBoss, float deltaTime) {
 		if (cross.y > 0)
 			rotate = -rotate;
 
-		rotate = Math::Clamp(0.5f, -0.5f, rotate);
+		rotate = Math::Clamp( 2 * BOSS->maxTurnRate(), -2 * BOSS->maxTurnRate(), rotate);
 		BOSS->rotateBattery(0, rotate, 0);
 
 		BOSS->aiCount += deltaTime;
