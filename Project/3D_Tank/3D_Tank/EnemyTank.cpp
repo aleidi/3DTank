@@ -72,7 +72,7 @@ EnemyTank::EnemyTank(int ID)
 	//tankBatteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
 	//mBattery->addComponent(tankBatteryBoundingCube);
 	rc->setMaterial(mat);
-	mBattery->addComponent(rc);
+	//mBattery->addComponent(rc);
 	mBattery->attach(*this);
 
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
@@ -100,6 +100,7 @@ EnemyTank::EnemyTank(int ID)
 
 EnemyTank::~EnemyTank()
 {
+	mBattery->destroy();
 	mRCs.clear();
 	std::vector<RenderComponent*>().swap(mRCs);
 }

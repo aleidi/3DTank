@@ -431,6 +431,12 @@ Death* Death::getInstance() {
 }
 
 void Death::enter(AIController* pEnemyTank) {
+	Dispatch->Dispatch_Message(deathdelay,
+		AITank->getID(),
+		AITank->getID(),
+		Msg_DeathDelay,
+		NO_ADDITIONAL_INFO);
+
 	//MessageBox(0, L"awsl", 0, 0);
 }
 
@@ -446,5 +452,13 @@ void Death::exit(AIController* pEnemyTank) {
 }
 
 bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
+	switch (msg.Msg) {
+	case Msg_DeathDelay: {
+		int id = pEnemyTank->getID();
+		delete pEnemyTank->getPrefabs();
+		return true;
+	}
+
+	}
 	return false;
 }

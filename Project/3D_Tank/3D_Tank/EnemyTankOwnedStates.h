@@ -108,6 +108,7 @@ private:
 
 	Death(const Death&);
 	Death& operator=(const Death&);
+	int deathdelay = 5;
 };
 
 

@@ -16,7 +16,7 @@ AIController::AIController(int id)
 	:mID(id),mAccumulateRot(0)
 {
 	m_pStateMachine = new StateMachine<AIController>(this);
-	m_pStateMachine->setCurrentState(Rest::getInstance());
+	m_pStateMachine->setCurrentState(Alert::getInstance());
 
 	m_target = GameInstance::sGetInstance()->getPlayer();
 }
@@ -47,6 +47,10 @@ bool AIController::handleMessage(const Telegram& msg) {
 
 void AIController::Attack(Vector3 battery_position, Vector3 direction) {
 	mPawn->attack(battery_position, direction);
+}
+
+void AIController::Attack(Vector3 battery_position, Vector3 direction, Pawn* target) {
+	mPawn->attack(battery_position, direction, target);
 }
 
 void AIController::Move(Vector3 force)

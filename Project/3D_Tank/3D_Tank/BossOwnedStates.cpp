@@ -109,7 +109,7 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 		}
 
 		else {
-			MessageBox(0, L"bang!", 0, 0);
+			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward(),pBoss->getTarget());
 			normalshot = 0;
 		}
 	}
@@ -190,7 +190,7 @@ void Violent::execute(AIController* pBoss, float deltaTime) {
 
 		BOSS->aiCount += deltaTime;
 		if (BOSS->aiCount > BOSS->attackTimeDelay()*0.5) {  
-			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward()); // missile
+			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward(), pBoss->getTarget());
 			BOSS->aiCount = 0.0f;
 		}
 	} // stage 2
