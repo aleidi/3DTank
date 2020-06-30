@@ -33,6 +33,7 @@ private:
 
 	Battle(const Battle&);
 	Battle& operator=(const Battle&);
+	int normalshot = 0;
 };
 
 class Violent : public State<AIController> {

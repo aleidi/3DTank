@@ -31,7 +31,7 @@ public:
 		float m_Offset;
 		int m_HitRate;
 		//float m_MaxForce;
-		//float m_MaxTurnRate;
+		float m_MaxTurnRate;
 
 		float m_WanderRadius;
 		float m_WanderDistance;

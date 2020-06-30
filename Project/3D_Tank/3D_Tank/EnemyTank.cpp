@@ -29,8 +29,9 @@ EnemyTank::EnemyTank(int ID)
 				   FileManager::AIAttributes[ID].m_Mass,
 				   FileManager::AIAttributes[ID].m_MaxSpeed,
 				   FileManager::AIAttributes[ID].m_AttackTimeDelay,
-				   20.0f,	
+				   10.0f,	
 				   4,
+				   0.1f,
 				   FileManager::AIAttributes[ID].m_WanderRadius,
 				   FileManager::AIAttributes[ID].m_WanderDistance,
 				   FileManager::AIAttributes[ID].m_WanderJitter,
@@ -146,6 +147,10 @@ float EnemyTank::offset()const {
 
 int EnemyTank::hitRate()const {
 	return mAttribute.m_HitRate;
+}
+
+float EnemyTank::maxTurnRate()const {
+	return mAttribute.m_MaxTurnRate;
 }
 
 void EnemyTank::move(Vector3 value)
