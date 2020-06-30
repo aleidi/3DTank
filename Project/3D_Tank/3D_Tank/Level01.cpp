@@ -1,5 +1,6 @@
 #include "Level01.h"
 #include "GameButton.h"
+#include "FileManager.h"
 
 Level01::Level01()
 {
@@ -12,43 +13,43 @@ Level01::~Level01()
 
 void Level01::enterLevel()
 {
-	mBtnStart = new GameButton(L"", 150.0f, 100.0f, L"Start");
+	mBtnStart = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[0]);
 	mStartEvent = new UStartEvent(this);
 	mBtnStart->setBtnEvent(mStartEvent);
 
-	mBtnSetting = new GameButton(L"", 150.0f, 100.0f, L"Setting");
+	mBtnSetting = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[1]);
 	mSettingEvent = new USetEvent(this);
 	mBtnSetting->setBtnEvent(mSettingEvent);
 
-	mBtnExit = new GameButton(L"", 150.0f, 100.0f, L"Exit");
+	mBtnExit = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[2]);
 	mExitEvent = new UExitEvent(this);
 	mBtnExit->setBtnEvent(mExitEvent);
 
-	mBtnGameMode = new GameButton(L"", 150.0f, 100.0f, L"GameMode");
+	mBtnGameMode = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[3]);
 	mGameModeEvent = new UGmeModeEvent();
 	mBtnGameMode->setBtnEvent(mGameModeEvent);
 
-	mBtnEditMode = new GameButton(L"", 150.0f, 100.0f, L"EditMode");
+	mBtnEditMode = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[4]);
 	mEditEvent = new UEditModeEvent();
 	mBtnEditMode->setBtnEvent(mEditEvent);
 
-	mBtnCN = new GameButton(L"", 150.0f, 100.0f, L"Chinese");
-	mCNEvent = new UCNEvent();
+	mBtnCN = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[5]);
+	mCNEvent = new UCNEvent(this);
 	mBtnCN->setBtnEvent(mCNEvent);
 
-	mBtnEN = new GameButton(L"", 150.0f, 100.0f, L"English");
-	mENEvent = new UENEvent();
+	mBtnEN = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[6]);
+	mENEvent = new UENEvent(this);
 	mBtnEN->setBtnEvent(mENEvent);
 
-	mBtnShutDown = new GameButton(L"", 75.0f, 75.0, L"Yes");
+	mBtnShutDown = new GameButton(L"", 75.0f, 75.0, FileManager::localization[7]);
 	mShutDownEvent = new UShutDownEvent();
 	mBtnShutDown->setBtnEvent(mShutDownEvent);
 
-	mBtnReturn = new GameButton(L"", 75.0f, 75.0, L"No");
+	mBtnReturn = new GameButton(L"", 75.0f, 75.0, FileManager::localization[8]);
 	mReturnEvent = new UReturnEvent(this);
 	mBtnReturn->setBtnEvent(mReturnEvent);
 
-	mBtnCancel = new GameButton(L"", 150.0f, 75.0, L"Return");
+	mBtnCancel = new GameButton(L"", 150.0f, 75.0, FileManager::localization[9]);
 	mCancelEvent = new UCancelEvent(this);
 	mBtnCancel->setBtnEvent(mCancelEvent);
 
@@ -164,4 +165,18 @@ void Level01::leaveLevel()
 void Level01::changeState(State s)
 {
 	mState = s;
+}
+
+void Level01::changeLanguage()
+{
+	mBtnStart->setText(FileManager::localization[0]);
+	mBtnSetting->setText(FileManager::localization[1]);
+	mBtnExit->setText(FileManager::localization[2]);
+	mBtnGameMode->setText(FileManager::localization[3]);
+	mBtnEditMode->setText(FileManager::localization[4]);
+	mBtnCN->setText(FileManager::localization[5]);
+	mBtnEN->setText(FileManager::localization[6]);
+	mBtnShutDown->setText(FileManager::localization[7]);
+	mBtnReturn->setText(FileManager::localization[8]);
+	mBtnCancel->setText(FileManager::localization[9]);
 }

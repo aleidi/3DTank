@@ -6,7 +6,7 @@ UIText3D::UIText3D(Graphics& gfx)
 }
 
 UIText3D::UIText3D(Graphics& gfx, std::wstring text)
-	:mInterval(0.06f)
+	:mInterval(0.06f),mSizeFactorX(1.0f),mSizeFactorY(1.0f)
 {
 	mText = text;
 
@@ -72,7 +72,7 @@ UIText3D::UIText3D(Graphics& gfx, std::wstring text)
 
 DirectX::XMMATRIX UIText3D::getTransformXM() const noexcept
 {
-	return DirectX::XMMatrixScaling(mWidth,mHeight,0.0f)*
+	return DirectX::XMMatrixScaling(mWidth*mSizeFactorX,mHeight*mSizeFactorY,0.0f)*
 		DirectX::XMMatrixRotationRollPitchYaw(mPitch, mYaw, mRoll)*
 		DirectX::XMMatrixTranslation(mX, mY, mZ);
 }
@@ -89,8 +89,8 @@ void UIText3D::draw(Graphics& gfx) noexcept
 	setBlendTransparent(gfx);
 
 	int index = 0;
-	int storeX = (int)mX;
-	float x = (int)mX;
+	float storeX = (float)mX;
+	float x = (float)mX;
 	for (std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>::iterator it = pSRVs.begin();
 		it != pSRVs.end(); ++it)
 	{
@@ -101,15 +101,20 @@ void UIText3D::draw(Graphics& gfx) noexcept
 			b->bind(gfx);
 		}
 		gfx.DrawIndexed(pIndexBuffer->getCount());
-		x += mInterval;
+		x += mInterval*mSizeFactorX;
 		++index;
 	}
 	mX = storeX;
 	resetBlendState(gfx);
-
 }
 
 void UIText3D::setInterval(float value)
 {
 	mInterval = value;
+}
+
+void UIText3D::setSizeScale(float x, float y)
+{
+	mSizeFactorX = x;
+	mSizeFactorY = y;
 }
