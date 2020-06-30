@@ -9,7 +9,7 @@
 #include "Shell.h"
 
 PlayerTank::PlayerTank()
-	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
+	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(2.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
 	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
 	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
@@ -173,13 +173,6 @@ void PlayerTank::rotateCamera(float valueX, float valueY)
 		valueX = 0.01f;
 	}
 	mCamFollower->getTransform()->rotate(valueX*60.0f, valueY*60.0f,0.0f);
-
-
-	std::wstring wstr = L"Rotation:";
-	wstr += std::to_wstring(mCamFollower->getTransform()->getRotation().x) + L"," + std::to_wstring(mCamFollower->getTransform()->getRotation().y) +
-		L"," + std::to_wstring(mCamFollower->getTransform()->getRotation().z);
-	//Engine::sGetInstance()->showtText(wstr, 100, 100, 500, 500, true);
-
 }
 
 void PlayerTank::adjustDisToCam(float value)
