@@ -4,7 +4,7 @@
 struct AIAttribute
 {
 	int m_HP;
-	int FullHP;
+
 	float m_AttackRangeRadiusSq;
 	float m_PursuitRangeRadiusSq;
 	float m_WanderRangeRadiusSq;
@@ -23,7 +23,6 @@ struct AIAttribute
 	float m_WanderJitter;
 
 	Vector3 m_ResetPoint;
-	Vector3 m_WanderTarget;
 };
 
 enum Language { CN, US };

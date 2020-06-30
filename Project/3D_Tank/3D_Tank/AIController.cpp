@@ -15,8 +15,8 @@ AIController::AIController()
 AIController::AIController(int id)
 	:mID(id),mAccumulateRot(0)
 {
-	m_pStateMachine = new StateMachine<AIController>(this);
-	m_pStateMachine->setCurrentState(Alert::getInstance());
+ 	m_pStateMachine = new StateMachine<AIController>(this);
+  	m_pStateMachine->setCurrentState(Rest::getInstance());
 
 	m_target = GameInstance::sGetInstance()->getPlayer();
 }

@@ -7,9 +7,9 @@ enum {
 
 	ent_Tank_EnemyTarget,
 
-	ent_Tank_SuperEnemy,
+	ent_Tank_SuperEnemy = 10,
 
-	ent_Debug,
+	ent_Debug = 99,
 
 };
 

@@ -33,7 +33,7 @@ void Alert::enter(AIController* pBoss) {
 void Alert::execute(AIController* pBoss, float deltaTime) {
 	if (!BOSS->getHPRecovered()) {
 		BOSS->setHPRecovered(true);
-		Dispatch->Dispatch_Message(ReplyInterval,
+		Dispatch->Dispatch_Message(BOSS->ReplyInterval,
 									BOSS->getID(),
 									BOSS->getID(),
 									Msg_HPRecovered,
@@ -65,10 +65,10 @@ void Alert::exit(AIController* pBoss) {
 bool Alert::onMessage(AIController* pBoss, const Telegram& msg) {
 	switch (msg.Msg) {
 	case Msg_HPRecovered: {
-		if (BOSS->getHP() <= FullHP) {
+		if (BOSS->getHP() <= BOSS->FullHP) {
 			BOSS->setHP(5);
-			if(BOSS->getHP() > FullHP)
-				BOSS->setHP(FullHP - BOSS->getHP());
+			if(BOSS->getHP() > BOSS->FullHP)
+				BOSS->setHP(BOSS->FullHP - BOSS->getHP());
 		}
 		//MessageBox(0, L"HP+5 ", 0, 0);
 		BOSS->setHPRecovered(false);

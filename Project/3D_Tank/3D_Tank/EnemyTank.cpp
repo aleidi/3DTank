@@ -23,21 +23,24 @@ EnemyTank::EnemyTank(int ID)
 {
 	DirectX::XMVECTOR maxPoint, minPoint;
 	mAttribute = { FileManager::AIAttributes[ID].m_HP,
-				   FullHP,
+				   FileManager::AIAttributes[ID].m_HP,
 				   FileManager::AIAttributes[ID].m_AttackRangeRadiusSq,
 				   FileManager::AIAttributes[ID].m_PursuitRangeRadiusSq,
 				   FileManager::AIAttributes[ID].m_WanderRangeRadiusSq,
 				   FileManager::AIAttributes[ID].m_Mass,
 				   FileManager::AIAttributes[ID].m_MaxSpeed,
 				   FileManager::AIAttributes[ID].m_AttackTimeDelay,
-				   10.0f,	
-				   4,
-				   0.1f,
+				   FileManager::AIAttributes[ID].m_Offset,
+				   FileManager::AIAttributes[ID].m_HitRate,
+				   FileManager::AIAttributes[ID].m_MaxTurnRate,
 				   FileManager::AIAttributes[ID].m_WanderRadius,
 				   FileManager::AIAttributes[ID].m_WanderDistance,
 				   FileManager::AIAttributes[ID].m_WanderJitter,
 				   FileManager::AIAttributes[ID].m_ResetPoint };
-				   
+			
+	FullHP = mAttribute.FullHP;
+	DyingHP = FullHP * 0.2; // below this value the enemy tank is dying
+
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint));
 	DirectX::XMFLOAT3 maxP0(108.550003f, 97.2149963f, 177.554993f);
 	DirectX::XMFLOAT3 minP0(-86.8899994f, 3.51500010f, -191.240005f);

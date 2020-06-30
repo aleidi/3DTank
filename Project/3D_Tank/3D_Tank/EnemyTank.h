@@ -7,10 +7,6 @@
 #include "BaseGameEntity.h"
 #include "SceneManager.h"
 #include "Transform.h"
-const int DyingHP = 20; // below this value the enemy tank is dying
-const int FullHP = 100;
-const int ReplyInterval = 10;
-
 class Shell;
 
 class EnemyTank : public BaseGameEntity{
@@ -19,6 +15,10 @@ public:
 	~EnemyTank();
 
 	//////////////////////////////////////////////////////accessors
+	int FullHP;
+	int DyingHP; // below this value the enemy tank is dying
+	int ReplyInterval = 10;
+
 	void setHP(int changeHP);
 	int getHP()const;
 	

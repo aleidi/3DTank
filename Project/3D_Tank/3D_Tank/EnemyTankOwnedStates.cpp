@@ -33,13 +33,16 @@ void Rest::enter(AIController* pEnemyTank) {
 	std::wstring wstr;
 	wstr += std::to_wstring(AITank->getID()) + L"I'm going to rest. ";
 	AITank->setHPRecovered(false);
-	//MessageBox(0, wstr.c_str(), 0, 0);
+	// MessageBox(0, wstr.c_str(), 0, 0);
 }
 
 void Rest::execute(AIController* pEnemyTank, float deltaTime) {
+	//std::wstring wstr;
+	//wstr += std::to_wstring(getAIPos.x) + L"," + std::to_wstring(getAIPos.z);
+	//MessageBox(0, wstr.c_str(), 0, 0);
 	if (!AITank->getHPRecovered()) {
 		AITank->setHPRecovered(true);
- 		Dispatch->Dispatch_Message(ReplyInterval,
+ 		Dispatch->Dispatch_Message(AITank->ReplyInterval,
 								   AITank->getID(),
 								   AITank->getID(),
 								   Msg_HPRecovered,
@@ -62,10 +65,9 @@ void Rest::execute(AIController* pEnemyTank, float deltaTime) {
 			pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
 
-	if (AITank->getHP() == FullHP) {
+	if (AITank->getHP() == AITank->FullHP) {
 		pEnemyTank->getFSM()->changeState(Wander::getInstance());
 	}
-
 }
 
 void Rest::exit(AIController* pEnemyTank) {
@@ -279,16 +281,15 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 
 void Attack::exit(AIController* pEnemyTank) {
 	//MessageBox(0, L"I stopped kicking ur ass. ", 0, 0);
+		float dot = Vector3::dot(getAIHeading, AITank->batteryForward());
+		dot = Math::Clamp(1.0f, -1.0f, dot);
+		float rotate = acosf(dot) * 180 / Pi;
+		Vector3 cross = Vector3::cross(getAIHeading, AITank->batteryForward());
+		if (cross.y > 0)
+			rotate = -rotate;
 
-	float dot = Vector3::dot(getAIHeading, AITank->batteryForward());
-	dot = Math::Clamp(1.0f, -1.0f, dot);
-	float rotate = acosf(dot) * 180 / Pi;
-	Vector3 cross = Vector3::cross(getAIHeading, AITank->batteryForward());
-	if (cross.y > 0)
-		rotate = -rotate;
-
-	rotate = Math::Clamp(AITank->maxTurnRate(), -1 * AITank->maxTurnRate(), rotate);
-	AITank->rotateBattery(0, rotate, 0);
+		// rotate = Math::Clamp(AITank->maxTurnRate(), -1 * AITank->maxTurnRate(), rotate);
+		AITank->rotateBattery(0, rotate, 0);
 }
 
 bool Attack::onMessage(AIController* pEnemyTank, const Telegram& msg) {
