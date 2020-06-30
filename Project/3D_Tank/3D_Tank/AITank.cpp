@@ -8,6 +8,7 @@ AITank::AITank(int ID) {
 	m_Tank->getTransform()->translate(m_Tank->getResetPoint());
 	m_AICtrl = SceneManager::sGetInstance()->createAIController(ID);
 	m_AICtrl->posses(m_Tank);
+	m_Tank->linkAICtrl(m_AICtrl);
 	m_AICtrl->setPrefabs(this);
 }
 

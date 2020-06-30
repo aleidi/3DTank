@@ -68,6 +68,10 @@ void Rest::execute(AIController* pEnemyTank, float deltaTime) {
 	if (AITank->getHP() == AITank->FullHP) {
 		pEnemyTank->getFSM()->changeState(Wander::getInstance());
 	}
+
+	if (AITank->getHP() <= 0) {
+		pEnemyTank->getFSM()->changeState(Death::getInstance());
+	}
 }
 
 void Rest::exit(AIController* pEnemyTank) {
@@ -258,16 +262,16 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 
 
 	AITank->rotateBattery(0, rotate, 0);
-	
+
 	AITank->aiCount += deltaTime;
 	if (AITank->aiCount > AITank->attackTimeDelay()) {    // AITank->attackTimeDelay()
 		int hitRate = AITank->hitRate();
 		if (0 == rand() % hitRate);
 		else {
 			AITank->rotateBattery(0, Math::RandomClamped() * AITank->offset(), 0);
-			// pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+				// pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
 		}
-	} 
+	}
 
 	////////////////////////changeState////////////////////////
 	if (AITank->isDying()) {
@@ -455,7 +459,6 @@ void Death::exit(AIController* pEnemyTank) {
 bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 	case Msg_DeathDelay: {
-		int id = pEnemyTank->getID();
 		delete pEnemyTank->getPrefabs();
 		return true;
 	}

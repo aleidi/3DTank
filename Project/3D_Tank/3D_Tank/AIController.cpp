@@ -24,6 +24,7 @@ AIController::AIController(int id)
 AIController::~AIController()
 {
 	delete m_pStateMachine;
+	m_pStateMachine = NULL;
 }
 
 void AIController::onStart()
@@ -73,5 +74,13 @@ void AIController::Rotate(float x, float y, float z)
 
 void AIController::setTarget(Pawn* targetTank) {
 	m_target = targetTank;
-	reinterpret_cast<EnemyTank*>(mPawn)->target(m_target);
+}
+
+Pawn * AIController::getTarget()
+{
+	if ( !m_target->isAlive() ) {
+		setTarget(GameInstance::sGetInstance()->getPlayer());
+	}
+
+	return m_target;
 }

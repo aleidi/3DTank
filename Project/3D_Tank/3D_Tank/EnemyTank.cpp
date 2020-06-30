@@ -12,9 +12,10 @@
 #include "FileManager.h"
 #include "Math.h"
 #include "DamageDisplay.h"
+#include "AIController.h"
 
 struct Telegram;
-#define getTargetPos m_target->getTransform()->getPosition()
+#define getTargetPos mAICtrl->getTarget()->getTransform()->getPosition()
 
 EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
@@ -99,7 +100,6 @@ EnemyTank::EnemyTank(int ID)
 	addComponent(mMovementComp);
 	moveDirection = FORWARD;
 
-	m_target = GameInstance::sGetInstance()->getPlayer();
 }	
 
 EnemyTank::~EnemyTank()
@@ -193,6 +193,11 @@ void EnemyTank::onCollisionEnter()
 
 void EnemyTank::onCollisionExit()
 {
+}
+
+void EnemyTank::linkAICtrl(AIController * aiController)
+{
+	mAICtrl = aiController;
 }
 
 Vector3 EnemyTank::batteryForward() const {
@@ -326,3 +331,4 @@ void EnemyTank::setWanderValue(float radius, float distance, float jitter) {
 	mAttribute.m_WanderDistance = distance;
 	mAttribute.m_WanderJitter = jitter;
 }
+

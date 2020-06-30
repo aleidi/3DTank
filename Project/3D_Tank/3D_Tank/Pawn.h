@@ -68,6 +68,7 @@ public:
 	void setVelocity( Vector3 newVelocity );
 	Vector3 getVelocity()const;
 
+	bool isAlive()const { if (mAttribute.m_HP > 0) return true; else return false; }
 	bool isDying()const;
 	bool isEnemyInRange()const;
 	bool isLostEnemy()const;
