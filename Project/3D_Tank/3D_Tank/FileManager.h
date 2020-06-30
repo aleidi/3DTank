@@ -4,22 +4,29 @@
 struct AIAttribute
 {
 	int m_HP;
+	int FullHP;
 	float m_AttackRangeRadiusSq;
 	float m_PursuitRangeRadiusSq;
 	float m_WanderRangeRadiusSq;
 
 	float m_Mass;
 	float m_MaxSpeed;
+
 	float m_AttackTimeDelay;
+	float m_Offset;
+	int m_HitRate;
 	//float m_MaxForce;
-	//float m_MaxTurnRate;
+	float m_MaxTurnRate;
 
 	float m_WanderRadius;
 	float m_WanderDistance;
 	float m_WanderJitter;
 
 	Vector3 m_ResetPoint;
+	Vector3 m_WanderTarget;
 };
+
+enum Language { CN, US };
 
 class FileManager
 {
@@ -37,5 +44,6 @@ public:
 	// Localization configuration map
 	static std::map<int, std::wstring> LoadLocalization_US();
 	static std::map<int, std::wstring> LoadLocalization_CN();
+	static void changeLanguage(Language l);
 	static std::map<int, std::wstring> localization;
 };
