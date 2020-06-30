@@ -75,15 +75,15 @@ void Rest::exit(AIController* pEnemyTank) {
 bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 		case Msg_HPRecovered: {
-			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setHP(5);
+			AITank->setHP(5);
 			//MessageBox(0, L"HP+5 ", 0, 0);
-			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setHPRecovered(false);
+			AITank->setHPRecovered(false);
 			return true;
 		}
 
 		case Msg_IsAttacked: {
 			//MessageBox(0, L"nmsl(rest", 0, 0);
-			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(true);
+			AITank->setAttacked(true);
 			return true;
 		}
 							 
@@ -102,10 +102,10 @@ void Wander::enter(AIController* pEnemyTank) {
 }
 
 void Wander::execute(AIController* pEnemyTank, float deltaTime) {
-	count += deltaTime;
+	AITank->aiCount += deltaTime;
 
-	if (count > 0.001f) {
-		count = 0.0f;
+	if (AITank->aiCount > 0.001f) {
+		AITank->aiCount = 0.0f;
 
 		float disToBornSq = Vector3::lengthSq(getAIPos, AITank->getResetPoint());
 		if ( disToBornSq > AITank->getWanderRangeRadiusSq() ) {
@@ -127,16 +127,16 @@ void Wander::execute(AIController* pEnemyTank, float deltaTime) {
 			pEnemyTank->Move(target);
 		}
 		////////////////////////changeState////////////////////////
-		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
+		if (AITank->isEnemyInRange()) {
 			pEnemyTank->getFSM()->changeState(Attack::getInstance());
 		}
 
-		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
+		if (AITank->isObstacleHere()) {
 			pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 		}
 
-		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getAttacked()) {
-			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(false);
+		if (AITank->getAttacked()) {
+			AITank->setAttacked(false);
 			pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 		}
 
@@ -152,7 +152,7 @@ bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 		case Msg_IsAttacked: {
 			//MessageBox(0, L"nmsl(wander", 0, 0);
-			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(true);
+			AITank->setAttacked(true);
 		}
 
 		return true;
@@ -206,7 +206,7 @@ void Avoidance::execute(AIController* pEnemyTank, float deltaTime) {
 
 	pEnemyTank->Move(target);
 	////////////////////////changeState////////////////////////
-	if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
+	if (!AITank->isObstacleHere()) {
 		pEnemyTank->getFSM()->revertToPerviousState();
 	}
 }
@@ -232,6 +232,19 @@ void Attack::enter(AIController* pEnemyTank) {
 }
 
 void Attack::execute(AIController* pEnemyTank, float deltaTime) {
+	if (AITank->aiCount > AITank->attackTimeDelay()) {
+		AITank->aiCount = 0.0f;
+	/////////////////////////////////////////////////////////////////////
+		GameObject* pTarget;
+		bool isHit = CollisionManager::sGetInstance()->rayCheckWithTank(AITank->batteryPosition(),
+																		AITank->batteryForward(),
+																		sqrt(Vector3::lengthSq(getTargetPos, AITank->batteryPosition())),
+																		&pTarget);
+		if( !isHit )
+			pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+		else;
+	} 
+	//////////////////////////////////////////////////////////////////////
 	Vector3 targetDirection = (getTargetPos - getAIPos).normalize();
 	float dot = Vector3::dot(targetDirection, AITank->batteryForward());
 	dot = Math::Clamp(1.0f, -1.0f, dot);
@@ -240,21 +253,24 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 	if (cross.y > 0)
 		rotate = -rotate;
 
-	if (rotate >= 1.0f || rotate <= -1.0f)
-		AITank->rotateBattery(0, rotate, 0);
-
-	count += deltaTime;
-	if (count > 5.0f) {
-		count = 0.0f;
-		pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
-	}
+	AITank->rotateBattery(0, rotate, 0);
+	
+	AITank->aiCount += deltaTime;
+	if (AITank->aiCount > AITank->attackTimeDelay()) {    // AITank->attackTimeDelay()
+		int hitRate = AITank->hitRate();
+		if (0 == rand() % hitRate);
+		else {
+			AITank->rotateBattery(0, Math::RandomClamped() * AITank->offset(), 0);
+			// pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+		}
+	} 
 
 	////////////////////////changeState////////////////////////
-	if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying()) {
+	if (AITank->isDying()) {
 		pEnemyTank->getFSM()->changeState(Evade::getInstance());
 	}
 
-	if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
+	if (!AITank->isEnemyInRange()) {
 		pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
 }
@@ -288,9 +304,9 @@ void Evade::enter(AIController* pEnemyTank) {
 }
 
 void Evade::execute(AIController* pEnemyTank, float deltaTime) {
-	count += deltaTime;
-	if (count > 0.001) {
-		count = 0.0f;
+	AITank->aiCount += deltaTime;
+	if (AITank->aiCount > 0.001) {
+		AITank->aiCount = 0.0f;
 		Vector3 target = Vector3(0,0,0);
 		Vector3 toPursuer = getTargetPos - getAIPos;
 
@@ -303,18 +319,18 @@ void Evade::execute(AIController* pEnemyTank, float deltaTime) {
 	
 		////////////////////////changeState////////////////////////
 		
-		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getAttacked()) {
-			reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(false);
+		if (AITank->getAttacked()) {
+			AITank->setAttacked(false);
 		}
-		else if (!reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) { // safe
+		else if (!AITank->isEnemyInRange()) { // safe
 			pEnemyTank->getFSM()->changeState(Rest::getInstance());
 		}
 
-		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
+		if (AITank->isObstacleHere()) {
 			pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 		}
 
-		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->getHP() <= 0) {
+		if (AITank->getHP() <= 0) {
 			pEnemyTank->getFSM()->changeState(Death::getInstance());
 		} 
 	}
@@ -328,7 +344,7 @@ bool Evade::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 	case Msg_IsAttacked: {
 		//MessageBox(0, L"nmsl(evade", 0, 0);
-		reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->setAttacked(true);
+		AITank->setAttacked(true);
 	}
 
 	return true;
@@ -347,9 +363,9 @@ void Pursuit::enter(AIController* pEnemyTank) {
 }
 
 void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
-	count += deltaTime;
-	if (count > 0.001) {
-		count = 0.0f;
+	AITank->aiCount += deltaTime;
+	if (AITank->aiCount > 0.001) {
+		AITank->aiCount = 0.0f;
 
 		Vector3 target = Vector3(0, 0, 0);
 		Vector3 toEvader = getTargetPos - getAIPos;
@@ -379,19 +395,19 @@ void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
 
 		////////////////////////changeState////////////////////////
 		
-		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isObstacleHere()) {
+		if (AITank->isObstacleHere()) {
 			pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
 		}
 
-		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isEnemyInRange()) {
+		if (AITank->isEnemyInRange()) {
 			pEnemyTank->getFSM()->changeState(Attack::getInstance());
 		}
 
-		if (reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isDying()) {
+		if (AITank->isDying()) {
 			pEnemyTank->getFSM()->changeState(Evade::getInstance());
 		}
 
-		if ( reinterpret_cast<EnemyTank*>(pEnemyTank->getPawn())->isLostEnemy() ) {
+		if (AITank->isLostEnemy() ) {
 			pEnemyTank->getFSM()->changeState(Rest::getInstance());
 		}
 		
@@ -430,46 +446,3 @@ void Death::exit(AIController* pEnemyTank) {
 bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-//-------------------methods for Patrol-------------------//
-Patrol* Patrol::getInstance() {
-	static Patrol m_Patrol;
-	return &m_Patrol;
-}
-
-void Patrol::enter(AIController* pEnemyTank) {
-	MessageBox(0, L"I'm going to find bad guy. ", 0, 0);
-}
-
-void Patrol::execute(AIController* pEnemyTank) {
-
-}
-
-void Patrol::exit(AIController* pEnemyTank) {
-	MessageBox(0, L"I stopped finding bad guy. ", 0, 0);
-}
-
-bool Patrol::onMessage(AIController* pEnemyTank, const Telegram& msg) {
-	return false;
-}
-
-*/

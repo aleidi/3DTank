@@ -11,7 +11,9 @@ const int DyingHP = 20; // below this value the enemy tank is dying
 const int FullHP = 100;
 const int ReplyInterval = 10;
 
-class EnemyTank : public BaseGameEntity {
+class Shell;
+
+class EnemyTank : public BaseGameEntity{
 public:
 	EnemyTank(int ID);
 	~EnemyTank();
@@ -27,6 +29,9 @@ public:
 
 	void setMass(float mass);
 	float getMass()const;
+	float attackTimeDelay()const;
+	float offset()const;
+	int hitRate()const;
 	float getWanderRadius()const;
 	float getWanderDistance()const;
 	float getWanderJitter()const;
@@ -43,6 +48,7 @@ public:
 	void setHPRecovered(bool isRecovered);
 	void setAttacked(bool isAttacked);
 	bool getAttacked()const;
+	GameObject* getBattery();
 
 	bool isObstacleForward()const;
 	bool isObstacleRight()const;
@@ -52,6 +58,15 @@ public:
 	Vector3 batteryForward()const;
 	Vector3 batteryPosition()const;
 	void rotateBattery(float x, float y, float z);
+
+	void onTriggerEnter(const GameObject* obj) override;
+	void onTriggerExit() override;
+	void onCollisionEnter() override;
+	void onCollisionExit() override;
+
+	void target(Pawn* targetTank) { m_target = targetTank; }
+
+	float aiCount = 0.0f;
 
 private:
 	bool m_HPRecovered;
@@ -64,4 +79,5 @@ private:
 	GameObject* mObstacle;
 	GameObject* mBattery;
 	std::vector<RenderComponent*> mRCs;
+	Pawn* m_target;
 };

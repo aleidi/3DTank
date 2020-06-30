@@ -2,6 +2,7 @@
 #include "PlayerTank.h"
 #include "GameCommon.h"
 #include "CollisionManager.h"
+#include "Shell.h"
 
 GameObject* obj;
 
@@ -51,11 +52,15 @@ void PlayerController::checkInput(float deltaTime)
 {
 	if (DInputPC::getInstance().isMouseButtonDown(ATTACK))
 	{
-		reinterpret_cast<PlayerTank*>(mPawn)->attack();
+		reinterpret_cast<PlayerTank*>(mPawn)->setAttack();
 	}
 	if (DInputPC::getInstance().isMouseButtonUp(ATTACK))
 	{
 		reinterpret_cast<PlayerTank*>(mPawn)->stopAttack();
+	}
+	if (DInputPC::getInstance().isMouseButton(ATTACK))
+	{
+		reinterpret_cast<PlayerTank*>(mPawn)->onAttack(deltaTime);
 	}
 
 	if (DInputPC::getInstance().isMouseButtonDown(MIRROR))
@@ -66,6 +71,10 @@ void PlayerController::checkInput(float deltaTime)
 	{
 		reinterpret_cast<PlayerTank*>(mPawn)->setCameraFov(mMirrorMin);
 	}
+	//if (DInputPC::getInstance().isMouseButtonDown(0))
+	//{
+	//	Shell* shell = new Shell(reinterpret_cast<PlayerTank*>(mPawn)->getBattery()->getTransform()->getPosition(), reinterpret_cast<PlayerTank*>(mPawn)->getBattery()->getTransform()->Forward, 0);
+	//}
 
 	if (DInputPC::getInstance().iskey(MOVEFORWARD))
 	{
@@ -94,6 +103,16 @@ void PlayerController::checkInput(float deltaTime)
 			reinterpret_cast<PlayerTank*>(mPawn)->moveDirection = RIGHT;
 			rotate(deltaTime);
 		}
+	}
+
+	if (DInputPC::getInstance().iskeyDown(LIGHTWEAPON))
+	{
+		reinterpret_cast<PlayerTank*>(mPawn)->setWeaponType(PlayerTank::WeaponType::Light);
+	}
+
+	if (DInputPC::getInstance().iskeyDown(HEAVYWEAPON))
+	{
+		reinterpret_cast<PlayerTank*>(mPawn)->setWeaponType(PlayerTank::WeaponType::Heavy);
 	}
 
 	float dz = DInputPC::getInstance().mouseDZ();

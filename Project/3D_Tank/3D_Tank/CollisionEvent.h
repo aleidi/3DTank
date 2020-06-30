@@ -10,6 +10,7 @@ public:
 	virtual void onTriggerStay(){}
 	virtual void onTriggerExit(){}
 	virtual void onCollisionEnter(const GameObject* obj){}
+	virtual void onCollisionEnter(){}
 	virtual void onCollisionStay(){}
 	virtual void onCollisionExit(){}
 

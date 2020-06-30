@@ -23,8 +23,10 @@ public:
 	void Move(Vector3 Force);
 	void Rotate(float x, float y, float z);
 
-	void setTarget(Pawn* targetTank) { m_target = targetTank; }
+	void setTarget(Pawn* targetTank);
 	Pawn* getTarget() { return m_target; }
+
+	GameObject* obj;
 
 private:
 	int mID;

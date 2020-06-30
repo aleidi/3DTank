@@ -1,10 +1,12 @@
 #include "AIController.h"
 #include "GameCharacter.h"
 #include "EnemyTankOwnedStates.h" // :(
+#include "BossOwnedStates.h"
 #include "Pawn.h"
 #include "Transform.h"
 #include "EnemyTank.h"
 #include "GameInstance.h"
+#include "CollisionManager.h"
 
 AIController::AIController()
 	:AIController(-1)
@@ -58,4 +60,9 @@ void AIController::Rotate(float x, float y, float z)
 	// mAccumulateRot = Math::lerp(mAccumulateRot, 0.0f, 0.999);
 
 	mPawn->getTransform()->rotateY(mAccumulateRot);
+}
+
+void AIController::setTarget(Pawn* targetTank) {
+	m_target = targetTank;
+	reinterpret_cast<EnemyTank*>(mPawn)->target(m_target);
 }

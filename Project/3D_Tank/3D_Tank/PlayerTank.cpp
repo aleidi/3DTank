@@ -6,6 +6,8 @@
 #include "PlayerCamera.h"
 #include "HUD.h"
 
+#include "Shell.h"
+
 PlayerTank::PlayerTank()
 	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
@@ -65,6 +67,13 @@ PlayerTank::PlayerTank()
 	moveDirection = FORWARD;
 
 	mHUD = new HUD();
+
+	mAttribute.m_HP = 1000;
+	mAttribute.FullHP = 1000;
+
+	mLightInterval = 0.3f;
+	mHeavyInterval = 2.0f;
+	mAttackCount = mLightInterval;
 }
 
 PlayerTank::~PlayerTank()
@@ -104,7 +113,27 @@ void PlayerTank::onLateUpdate(float deltaTime)
 	mCamFollower->getTransform()->setPosition(mTransform->getPosition() + mFPCameraOffset);
 }
 
-void PlayerTank::attack()
+void PlayerTank::onAttack(float deltaTime)
+{
+	if (mAttackCount <= 0.0f)
+	{
+		Shell* shell = new Shell(mBattery->getTransform()->getPosition(), mBattery->getTransform()->Forward, 0);
+		if (mWeaponType == WeaponType::Light)
+		{
+			//do light attack
+			mAttackCount = mLightInterval;
+		}
+		else if (mWeaponType == WeaponType::Heavy)
+		{
+			//do heavy attack
+			mAttackCount = mHeavyInterval;
+		}
+	}
+	mAttackCount -= deltaTime;
+
+}
+
+void PlayerTank::setAttack()
 {
 	reinterpret_cast<HUD*>(mHUD)->setAccelator(130.0f, 20.0f);
 }
@@ -114,9 +143,15 @@ void PlayerTank::stopAttack()
 	reinterpret_cast<HUD*>(mHUD)->setAccelator(1.0f, 1.0f);
 }
 
+void PlayerTank::setWeaponType(WeaponType type)
+{
+	mWeaponType = type;
+}
+
 void PlayerTank::move(Vector3 value)
 {
 	mTransform->translate(value * mMoveSped);
+	//this->getBattery()->cube->box.Center.x += value.x * mMoveSped; this->getBattery()->cube->box.Center.y += value.y * mMoveSped; this->getBattery()->cube->box.Center.z += value.z * mMoveSped;
 	m_Velocity = value;
 }
 
@@ -174,14 +209,15 @@ void PlayerTank::setCameraFov(float value)
 
 void PlayerTank::onTriggerEnter(const GameObject* obj)
 {
+	hited(10);
 	this->onTrigger = true;
 	switch (moveDirection) {
 	case FORWARD: {
-		move(mTransform->Forward * -0.01f);
+		move(mTransform->Forward * -0.001f);
 		break;
 	}
 	case MBACK: {
-		move(mTransform->Forward * 0.01f);
+		move(mTransform->Forward * 0.001f);
 		break;
 	}
 	case LEFT: {
@@ -202,12 +238,17 @@ void PlayerTank::onTriggerExit()
 	this->onTrigger = false;
 }
 
-void PlayerTank::onCollisionEnter(const GameObject* obj)
+void PlayerTank::onCollisionEnter()
 {
-	
+	move(mTransform->Forward * -1.f);
 }
 
 void PlayerTank::onCollisionExit()
 {
+	
+}
 
+GameObject* PlayerTank::getBattery()
+{
+	return mBattery;
 }

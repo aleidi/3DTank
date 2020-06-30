@@ -1,12 +1,17 @@
 #pragma once
 #include "Pawn.h"
-#include "CollisionEvent.h"
 
 class RenderComponent;
 class Camera;
 
-class PlayerTank : public Pawn, public CollisionEvent
+class PlayerTank : public Pawn
 {
+public:
+	enum WeaponType
+	{
+		Light = 0,
+		Heavy = 1,
+	};
 public:
 	PlayerTank();
 	~PlayerTank();
@@ -14,8 +19,11 @@ public:
 	void onUpdate(float deltaTime) override;
 	void onLateUpdate(float deltaTime) override;
 
-	void attack();
+	
+	void onAttack(float deltaTime);
+	void setAttack();
 	void stopAttack();
+	void setWeaponType(WeaponType type);
 	void move(Vector3 value) override;
 	void rotate(float value);
 	void rotateCamera(float valueX, float valueY);
@@ -24,8 +32,9 @@ public:
 
 	void onTriggerEnter(const GameObject* obj) override;
 	void onTriggerExit() override;
-	void onCollisionEnter(const GameObject* obj) override;
+	void onCollisionEnter() override;
 	void onCollisionExit() override;
+	GameObject* getBattery();
 
 private:
 	//tank move and rotate
@@ -47,6 +56,12 @@ private:
 	float mFPToTPThreshold;
 	float mMinDisToCam;
 	float mMaxDisToCam;
+
+	//Weapon
+	int mWeaponType;
+	float mAttackCount;
+	float mLightInterval;
+	float mHeavyInterval;
 
 	GameObject* mBattery;
 	GameObject* mCamFollower;

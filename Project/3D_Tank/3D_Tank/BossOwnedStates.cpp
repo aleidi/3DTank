@@ -1,5 +1,6 @@
 #include "CollisionManager.h"
 #include "BossOwnedStates.h"
+#include "EnemyTankOwnedStates.h"
 #include "State.h"
 #include "EnemyTank.h"
 #include "AIController.h"
@@ -8,7 +9,6 @@
 #include "MessageTypes.h"
 #include "CrudeTimer.h"
 #include "EntityNames.h"
-// #include "Engine.h"
 #include "Math.h"
 #include <assert.h>
 
@@ -19,7 +19,7 @@
 
 #define BOSS reinterpret_cast<EnemyTank*>(pBoss->getPawn())
 #define getBOSSPos pBoss->getPawn()->getTransform()->getPosition()
-/*
+
 //-------------------methods for Alert-------------------//
 Alert* Alert::getInstance() {
 	static Alert m_Alert;
@@ -34,10 +34,10 @@ void Alert::execute(AIController* pBoss, float deltaTime) {
 	if (!BOSS->getHPRecovered()) {
 		BOSS->setHPRecovered(true);
 		Dispatch->Dispatch_Message(ReplyInterval,
-			BOSS->getID(),
-			BOSS->getID(),
-			Msg_HPRecovered,
-			NO_ADDITIONAL_INFO);
+									BOSS->getID(),
+									BOSS->getID(),
+									Msg_HPRecovered,
+									NO_ADDITIONAL_INFO);
 	}
 
 	////////////////////////changeState////////////////////////
@@ -77,7 +77,7 @@ bool Alert::onMessage(AIController* pBoss, const Telegram& msg) {
 
 	case Msg_IsAttacked: {
 		//MessageBox(0, L"nmsl(rest", 0, 0);
-		reinterpret_cast<EnemyTank*>(pBoss->getPawn())->setAttacked(true);
+		BOSS->setAttacked(true);
 		return true;
 	}
 
@@ -85,37 +85,22 @@ bool Alert::onMessage(AIController* pBoss, const Telegram& msg) {
 	return false;
 }
 
-
-
-//-------------------methods for Attack-------------------//
+//-------------------methods for Battle-------------------//
 Battle* Battle::getInstance() {
 	static Battle m_Battle;
 	return &m_Battle;
 }
 
 void Battle::enter(AIController* pBoss) {
-	// MessageBox(0, L"I'm going to kick ur ass. ", 0, 0);
+	//MessageBox(0, L"awsl", 0, 0);
 }
 
 void Battle::execute(AIController* pBoss, float deltaTime) {
-	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
-	float dot = Vector3::dot(targetDirection, BOSS->batteryForward());
-	dot = Math::Clamp(1.0f, -1.0f, dot);
-	float rotate = acosf(dot) * 180 / Pi;
-	Vector3 cross = Vector3::cross(targetDirection, BOSS->batteryForward());
-	if (cross.y > 0)
-		rotate = -rotate;
-
-	if (rotate >= 1.0f || rotate <= -1.0f)
-		BOSS->rotateBattery(0, rotate, 0);
-
-	count += deltaTime;
-	if (count > 5.0f) {
-		count = 0.0f;
-		pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
-	}
-
-	////////////////////////changeState////////////////////////
+	////////////////////////////////////////////////////////////
+	////     Similar to normal enemy tank attack state      ////
+	////           5 missiles every 3 normal shot           ////
+	//// Wait for the attack state of enemytank to be fixed ////
+	////////////////////////changeState/////////////////////////
 	if (BOSS->isDying()) {
 		pBoss->getFSM()->changeState(Violent::getInstance());
 	}
@@ -126,10 +111,63 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 }
 
 void Battle::exit(AIController* pBoss) {
-	//MessageBox(0, L"I stopped kicking ur ass. ", 0, 0);
+
 }
 
 bool Battle::onMessage(AIController* pBoss, const Telegram& msg) {
 	return false;
 }
-*/
+
+//-------------------methods for Violent-------------------//
+Violent* Violent::getInstance() {
+	static Violent m_Violent;
+	return &m_Violent;
+}
+
+void Violent::enter(AIController* pBoss) {
+	violentTime = 20.0f;
+}
+
+void Violent::execute(AIController* pBoss, float deltaTime) {
+	if (violentTime >= 0.0f) {
+		violentTime -= deltaTime;
+
+		BOSS->rotateBattery(0, 0.1f, 0);
+		BOSS->aiCount += deltaTime;
+		if (BOSS->aiCount > BOSS->attackTimeDelay()*0.1) {
+			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
+			BOSS->aiCount = 0.0f;
+		}
+	} // stage 1
+
+	else {
+		Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
+		float dot = Vector3::dot(targetDirection, BOSS->batteryForward());
+		dot = Math::Clamp(1.0f, -1.0f, dot);
+		float rotate = acosf(dot) * 180 / Pi;
+		Vector3 cross = Vector3::cross(targetDirection, BOSS->batteryForward());
+		if (cross.y > 0)
+			rotate = -rotate;
+
+		rotate = Math::Clamp(0.5f, -0.5f, rotate);
+		BOSS->rotateBattery(0, rotate, 0);
+
+		BOSS->aiCount += deltaTime;
+		if (BOSS->aiCount > BOSS->attackTimeDelay()*0.5) {  
+			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward()); // missile
+			BOSS->aiCount = 0.0f;
+		}
+	} // stage 2
+	////////////////////////changeState////////////////////////
+	if (BOSS->getHP() <= 0) {
+		pBoss->getFSM()->changeState(Death::getInstance());
+	}
+}
+
+void Violent::exit(AIController* pBoss) {
+
+}
+
+bool Violent::onMessage(AIController* pBoss, const Telegram& msg) {
+	return false;
+}

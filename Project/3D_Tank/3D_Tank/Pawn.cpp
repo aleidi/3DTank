@@ -30,6 +30,7 @@ void Pawn::onUpdate(float deltaTime)
 
 void Pawn::onLateUpdate(float deltaTime)
 {
+	reinterpret_cast<UIHP*>(mUIHP)->setFillAmount((float)mAttribute.m_HP / (float)mAttribute.FullHP);
 	mUIHP->onLateUpdate(deltaTime);
 }
 
@@ -40,6 +41,19 @@ void Pawn::move(Vector3 value)
 void Pawn::attack(Vector3 batteryposition, Vector3 shot_direction)
 {
 	Shell* shell = new Shell(batteryposition, shot_direction, 0);
+}
+
+void Pawn::hited(int value)
+{
+	mAttribute.m_HP -= value;
+}
+
+void Pawn::onTriggerEnter(const GameObject * obj)
+{
+}
+
+void Pawn::onCollisionEnter()
+{
 }
 
 void Pawn::setMaxSpeed(float maxspeed) {

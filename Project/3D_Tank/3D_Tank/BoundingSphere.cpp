@@ -14,6 +14,7 @@ MBoundingSphere::MBoundingSphere(GameObject * obj) :Component(obj)
 
 MBoundingSphere::~MBoundingSphere()
 {
+	CollisionManager::sGetInstance()->deleteBoundingSphere(this);
 }
 
 void MBoundingSphere::createBoundingSphere(const DirectX::XMVECTOR & max, const DirectX::XMVECTOR & min, const int& isMoveable)

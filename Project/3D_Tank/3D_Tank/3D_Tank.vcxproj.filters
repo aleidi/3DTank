@@ -199,11 +199,11 @@
     <Filter Include="Game\Header\GameMode">
       <UniqueIdentifier>{1cb2ffb9-def9-4761-9f24-05ab05450345}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Prefabs">
-      <UniqueIdentifier>{707aea49-93b0-4ff5-89ab-fbc9ab1de991}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Source\Prefabs">
       <UniqueIdentifier>{7d8fdc58-2599-4ca2-84e5-d27c5103cf7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header\Prefabs">
+      <UniqueIdentifier>{707aea49-93b0-4ff5-89ab-fbc9ab1de991}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -555,6 +555,16 @@
     <ClCompile Include="Pawn.cpp">
       <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
+    <ClCompile Include="SM_WaterTank.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="SM_Crate.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="SM_construction_fence.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -927,25 +937,34 @@
       <Filter>Game\Header\Pawn</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
-      <Filter>Game\Prefabs</Filter>
+      <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="UIHP.h">
       <Filter>Game\Header\UI</Filter>
     </ClInclude>
     <ClInclude Include="Shell.h">
-      <Filter>Game\Prefabs</Filter>
+      <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="AITank.h">
-      <Filter>Game\Prefabs</Filter>
+      <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="FreightContainer_A.h">
-      <Filter>Game\Prefabs</Filter>
+      <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="CollisionEvent.h">
       <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
     <ClInclude Include="ParticleSystem.h">
       <Filter>Engine\Header\Render\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="SM_WaterTank.h">
+      <Filter>Game\Header\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="SM_Crate.h">
+      <Filter>Game\Header\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="SM_construction_fence.h">
+      <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="UIText3D.h">
       <Filter>Engine\Header\Render\GUI</Filter>
