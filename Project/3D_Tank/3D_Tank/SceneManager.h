@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "EngineCommon.h"
 #include "DirectXMath.h"
 
@@ -29,9 +29,9 @@ public:
 	RenderComponent* createModel(GameObject& obj, const std::string& modelPath, const std::wstring& texturePath, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
 	UIImage* createUIImage(const std::wstring& texPath);
 	UIButton* createUIButton(const std::wstring& texPath);
-	UIText* createUIText();
+	UIText* createUIText(const std::wstring& text = L"未设置文本");
 	UIImage3D* createUIImage3D(const std::wstring& texPath);
-	UIText3D* createUIText3D();
+	UIText3D* createUIText3D(const std::wstring& text = L"未设置文本");
 	ParticleSystem* createParticleSystem(const std::wstring& texPath);
 	void setSkyBox(const std::wstring& texPath);
 	

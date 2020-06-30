@@ -360,9 +360,6 @@
     <ClCompile Include="GameInstance.cpp">
       <Filter>Game\Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameInput.cpp">
-      <Filter>Game\Source</Filter>
-    </ClCompile>
     <ClCompile Include="ControllerBase.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
@@ -564,7 +561,9 @@
     <ClCompile Include="SM_construction_fence.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
-
+    <ClCompile Include="DamageDisplay.cpp">
+      <Filter>Game\Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -754,9 +753,6 @@
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
     <ClInclude Include="GameInstance.h">
-      <Filter>Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameInput.h">
       <Filter>Game\Header</Filter>
     </ClInclude>
     <ClInclude Include="ControllerBase.h">
@@ -992,6 +988,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Engine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageDisplay.h">
+      <Filter>Game\Header\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

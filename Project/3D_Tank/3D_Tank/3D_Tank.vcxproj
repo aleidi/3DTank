@@ -192,6 +192,7 @@
     <ClCompile Include="CubeForCol.cpp" />
     <ClCompile Include="CubeObjectFactory.cpp" />
     <ClCompile Include="d3dUtil.cpp" />
+    <ClCompile Include="DamageDisplay.cpp" />
     <ClCompile Include="DefaultCameraCtrl.cpp" />
     <ClCompile Include="DefaultPlayer.cpp" />
     <ClCompile Include="DefaultPlayerController.cpp" />
@@ -210,7 +211,6 @@
     <ClCompile Include="FreightContainer_A.cpp" />
     <ClCompile Include="GameButton.cpp" />
     <ClCompile Include="GameCharacter.cpp" />
-    <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="GameInstance.cpp" />
     <ClCompile Include="GameLevelManager.cpp" />
     <ClCompile Include="GameLevelTest.cpp" />
@@ -319,6 +319,7 @@
     <ClInclude Include="CubeForCol.h" />
     <ClInclude Include="CubeObjectFactory.h" />
     <ClInclude Include="d3dUtil.h" />
+    <ClInclude Include="DamageDisplay.h" />
     <ClInclude Include="DefaultCameraCtrl.h" />
     <ClInclude Include="DefaultPlayer.h" />
     <ClInclude Include="DefaultPlayerController.h" />
@@ -340,7 +341,6 @@
     <ClInclude Include="GameButton.h" />
     <ClInclude Include="GameCharacter.h" />
     <ClInclude Include="GameCommon.h" />
-    <ClInclude Include="GameInput.h" />
     <ClInclude Include="GameInstance.h" />
     <ClInclude Include="GameLevelBase.h" />
     <ClInclude Include="GameLevelManager.h" />
