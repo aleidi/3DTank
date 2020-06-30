@@ -1,4 +1,5 @@
 ﻿#include "UIText.h"
+#include "RenderManager.h"
 
 UIText::UIText(Graphics& gfx)
 	:UIText(gfx, L"未设置文本")
@@ -97,8 +98,9 @@ void UIText::draw(Graphics& gfx) noexcept
 	resetBlendState(gfx);
 }
 
-void UIText::setText(Graphics& gfx, std::wstring wstr)
+void UIText::setText(std::wstring wstr)
 {
+	Graphics& gfx = RenderManager::sGetInstance()->getGraphics();
 	pSRVs.clear();
 	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>().swap(pSRVs);
 	mChars.clear();

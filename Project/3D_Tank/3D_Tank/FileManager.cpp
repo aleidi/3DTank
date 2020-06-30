@@ -115,7 +115,7 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 {
 	std::ifstream fin(".\\Resource\\Configuration\\AIConfig.csv");
 	std::string line;
-	float config[14];
+	float config[21]; // 20 attributes of AI and 1 id
 
 	if (fin.is_open())
 	{
@@ -123,28 +123,36 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 		while (fin >> line)
 		{
 			size_t position = 0;
-			for (int i = 0; i < 14; ++i)
+			for (int i = 0; i < 21; ++i)
 			{
 				std::string str = line.substr(position, line.find(',', position));
 				config[i] = (float)atof(str.c_str());
 				position = line.find(',', position) + 1;
 			}
 
-			struct AIAttribute temp;
-			temp.m_HP = (int)config[1];
-			temp.m_AttackRangeRadiusSq = config[2];
-			temp.m_PursuitRangeRadiusSq = config[3];
-			temp.m_WanderRangeRadiusSq = config[4];
-			temp.m_Mass = config[5];
-			temp.m_MaxSpeed = config[6];
-			temp.m_AttackTimeDelay = config[7];
-			temp.m_WanderRadius = config[8];
-			temp.m_WanderDistance = config[9];
-			temp.m_WanderJitter = config[10];
-			temp.m_ResetPoint.x = config[11];
-			temp.m_ResetPoint.y = config[12];
-			temp.m_ResetPoint.z = config[13];
 			int index = (int)config[0];
+			struct AIAttribute temp;
+			
+			temp.m_HP = (int)config[1];
+			temp.FullHP = (int)config[2];
+			temp.m_AttackRangeRadiusSq = config[3];
+			temp.m_PursuitRangeRadiusSq = config[4];
+			temp.m_WanderRangeRadiusSq = config[5];
+			temp.m_Mass = config[6];
+			temp.m_MaxSpeed = config[7];
+			temp.m_AttackTimeDelay = config[8];
+			temp.m_Offset = config[9];
+			temp.m_HitRate = (int)config[10];
+			temp.m_MaxTurnRate = config[11];
+			temp.m_WanderRadius = config[12];
+			temp.m_WanderDistance = config[13];
+			temp.m_WanderJitter = config[14];
+			temp.m_ResetPoint.x = config[15];
+			temp.m_ResetPoint.y = config[16];
+			temp.m_ResetPoint.z = config[17];
+			temp.m_WanderTarget.x = config[18];
+			temp.m_WanderTarget.y = config[19];
+			temp.m_WanderTarget.z = config[20];
 
 			//FileManager::AIAtrributes[index] = temp;
 			map.insert(std::pair<int, AIAttribute>(index, temp));
@@ -160,7 +168,6 @@ std::map<int, AIAttribute> FileManager::createAttributesMap()
 }
 
 std::map<int, AIAttribute> FileManager::AIAttributes = FileManager::createAttributesMap();
-
 
 
 std::map<int, std::wstring> FileManager::LoadLocalization_US()
@@ -205,6 +212,18 @@ std::map<int, std::wstring> FileManager::LoadLocalization_CN()
 	map[8] = std::wstring(L"否");
 	map[9] = std::wstring(L"返回");
 	return map;
+}
+
+void FileManager::changeLanguage(Language l)
+{
+	if (l == CN)
+	{
+		FileManager::localization = FileManager::LoadLocalization_CN();
+	}
+	else if (l == US)
+	{
+		FileManager::localization = FileManager::LoadLocalization_US();
+	}
 }
 
 std::map<int, std::wstring> FileManager::localization = FileManager::LoadLocalization_US();

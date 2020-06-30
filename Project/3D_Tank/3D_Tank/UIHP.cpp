@@ -19,6 +19,7 @@ UIHP::UIHP()
 UIHP::~UIHP()
 {
 	SceneManager::sGetInstance()->removeUI3DFromPool(mImage);
+	SceneManager::sGetInstance()->removeUI3DFromPool(mFrame);
 }
 
 void UIHP::onLateUpdate(float deltaTime)

@@ -13,6 +13,8 @@ public:
 	void setSize(float width, float height) noexcept;
 	void setPosition(float x, float y, float z) noexcept;
 	void setPosition(float x, float y) noexcept;
+	void getPosition(float& x, float& y, float& z) noexcept;
+	void getPosition(float& x, float& y) noexcept;
 	void setEnable(bool value) noexcept;
 	void setRotation(float pitch, float yaw, float roll);
 	void rotate(float x, float y, float z);

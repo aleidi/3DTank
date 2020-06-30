@@ -25,6 +25,7 @@ public :
 	GameLevelBase* onUpdate(float deltaTime) override;
 	void leaveLevel() override;
 	void changeState(State s);
+	void changeLanguage();
 
 private:
 	State mState;

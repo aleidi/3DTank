@@ -97,9 +97,9 @@ UIButton* SceneManager::createUIButton(const std::wstring & texPath)
 	return ui;
 }
 
-UIText * SceneManager::createUIText()
+UIText * SceneManager::createUIText(const std::wstring& text)
 {
-	UIText* ui = new UIText(RenderManager::sGetInstance()->getGraphics());
+	UIText* ui = new UIText(RenderManager::sGetInstance()->getGraphics(), text);
 	RenderManager::sGetInstance()->addUIToPool(ui);
 	return ui;
 }
@@ -111,9 +111,9 @@ UIImage3D * SceneManager::createUIImage3D(const std::wstring & texPath)
 	return ui;
 }
 
-UIText3D * SceneManager::createUIText3D()
+UIText3D * SceneManager::createUIText3D(const std::wstring& text)
 {
-	UIText3D* ui = new UIText3D(RenderManager::sGetInstance()->getGraphics());
+	UIText3D* ui = new UIText3D(RenderManager::sGetInstance()->getGraphics(), text);
 	RenderManager::sGetInstance()->addUI3DToPool(ui);
 	return ui;
 }
@@ -123,6 +123,11 @@ ParticleSystem * SceneManager::createParticleSystem(const std::wstring & texPath
 	ParticleSystem* p = new ParticleSystem(RenderManager::sGetInstance()->getGraphics(), texPath);
 	RenderManager::sGetInstance()->addParticleToPool(p);
 	return p;
+}
+
+void SceneManager::setSkyBox(const std::wstring & texPath)
+{
+	RenderManager::sGetInstance()->setSkyBox(texPath);
 }
 
 AIController * SceneManager::createAIController(int id)
@@ -212,7 +217,10 @@ std::list<std::string> SceneManager::getAllGameobjectName()
 	
 	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)
 	{
-		nList.push_back((*it)->getName());
+		if (*it != nullptr)
+		{
+			nList.push_back((*it)->getName());
+		}
 	}
 
 	return nList;

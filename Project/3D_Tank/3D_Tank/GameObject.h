@@ -43,7 +43,7 @@ public:
 	void attach(Transform& transform) noexcept;
 	bool hasParent() noexcept;
 	void deAttach() noexcept;
-	void destroy();
+	virtual void destroy();
 
 	virtual void onStart();
 	virtual void onUpdate(float deltaTime);

@@ -8,7 +8,7 @@ class UIEvent;
 class GameButton : GameObject
 {
 public:
-	GameButton(const std::wstring& texPath, float width, float height, std::wstring text);
+	GameButton(const std::wstring& texPath, float width, float height, const std::wstring& text);
 	~GameButton();
 
 	void setPosition(float x, float y);
@@ -18,6 +18,7 @@ public:
 	void setButtonColor(XMFLOAT4 color, UIButton::State btnState);
 	void setButtonSize(float x, float y);
 	void setBtnEvent(UIEvent* event);
+	void setText(const std::wstring& text);
 
 private:
 	UIText* mText;

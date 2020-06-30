@@ -398,6 +398,12 @@ void Graphics::DrawSkyBox()
 	mSkyBox->draw(*this);
 }
 
+void Graphics::SetSkyBox(const std::wstring & texture)
+{
+	mSkyBox.reset();
+	mSkyBox = std::make_unique<SkyBox>(*this, texture);
+}
+
 void Graphics::DrawIndexed(UINT mCount) noexcept
 {
 	pContext->DrawIndexed(mCount, 0u, 0u);
