@@ -21,6 +21,8 @@ struct AIAttribute
 	Vector3 m_ResetPoint;
 };
 
+enum Language { CN, US };
+
 class FileManager
 {
 public:
@@ -37,5 +39,6 @@ public:
 	// Localization configuration map
 	static std::map<int, std::wstring> LoadLocalization_US();
 	static std::map<int, std::wstring> LoadLocalization_CN();
+	static void changeLanguage(Language l);
 	static std::map<int, std::wstring> localization;
 };

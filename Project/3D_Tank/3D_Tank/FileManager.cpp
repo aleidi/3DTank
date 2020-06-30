@@ -207,4 +207,16 @@ std::map<int, std::wstring> FileManager::LoadLocalization_CN()
 	return map;
 }
 
+void FileManager::changeLanguage(Language l)
+{
+	if (l == CN)
+	{
+		FileManager::localization = FileManager::LoadLocalization_CN();
+	}
+	else if (l == US)
+	{
+		FileManager::localization = FileManager::LoadLocalization_CN();
+	}
+}
+
 std::map<int, std::wstring> FileManager::localization = FileManager::LoadLocalization_US();
