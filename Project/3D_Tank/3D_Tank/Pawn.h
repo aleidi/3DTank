@@ -51,6 +51,7 @@ public:
 
 	virtual void move(Vector3 value);
 	virtual void attack(Vector3 battery_position, Vector3 shot_direction);
+	virtual void attack(Vector3 battery_position, Vector3 shot_direction,Pawn* target);
 	virtual void hited(int value);
 
 	virtual void onTriggerEnter(const GameObject* obj) override;
