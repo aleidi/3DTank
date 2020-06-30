@@ -65,6 +65,7 @@ PlayerTank::PlayerTank()
 	//t1->attach(*mCamFollower);
 	//t1->getTransform()->translate(Vector3::right * 2.0f);
 	moveDirection = FORWARD;
+	rotateDirection = MRIGHT;
 
 	mHUD = new HUD();
 
@@ -209,7 +210,6 @@ void PlayerTank::setCameraFov(float value)
 
 void PlayerTank::onTriggerEnter(const GameObject* obj)
 {
-	hited(10);
 	this->onTrigger = true;
 	switch (moveDirection) {
 	case FORWARD: {
@@ -220,15 +220,39 @@ void PlayerTank::onTriggerEnter(const GameObject* obj)
 		move(mTransform->Forward * 0.001f);
 		break;
 	}
-	case LEFT: {
+	}
+	switch (rotateDirection) {
+	case MLEFT: {
 		rotate(0.001f);
-		break;
+		if (CollisionManager::sGetInstance()->collisionCheck(this->mTransform->getPosition(), this->mTransform->Forward, obj->cube) == true) {
+			move(mTransform->Forward * -0.001f);
+			break;
+		}
+		else {
+			move(mTransform->Forward * 0.001f);
+			break;
+		}
 	}
-	case RIGHT: {
+	case MRIGHT: {
 		rotate(-0.001f);
-		break;
+		if (CollisionManager::sGetInstance()->collisionCheck(this->mTransform->getPosition(), this->mTransform->Forward, obj->cube) == true) {
+			move(mTransform->Forward * -0.001f);
+			break;
+		}
+		else {
+			move(mTransform->Forward * 0.001f);
+			break;
+		}
 	}
 	}
+	//case LEFT: {
+	//	rotate(0.001f);
+	//	break;
+	//}
+	//case RIGHT: {
+	//	rotate(-0.001f);
+	//	break;
+	//}
 	if (CollisionManager::sGetInstance()->collisionCheck(this->cube, obj->cube) == false)
 		onTriggerExit();
 }
@@ -240,7 +264,7 @@ void PlayerTank::onTriggerExit()
 
 void PlayerTank::onCollisionEnter()
 {
-	move(mTransform->Forward * -1.f);
+	hited(100);
 }
 
 void PlayerTank::onCollisionExit()
