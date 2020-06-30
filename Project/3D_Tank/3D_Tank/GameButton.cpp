@@ -3,7 +3,7 @@
 #include "SceneManager.h"
 #include "UIText.h"
 
-GameButton::GameButton(const std::wstring & texPath, float width, float height, std::wstring text)
+GameButton::GameButton(const std::wstring & texPath, float width, float height, const std::wstring& text)
 	:mWidth(width),mHeight(height)
 {
 	Graphics& gfx = RenderManager::sGetInstance()->getGraphics();
@@ -49,6 +49,11 @@ void GameButton::setButtonSize(float x, float y)
 void GameButton::setBtnEvent(UIEvent * event)
 {
 	mButton->setEvent(event);
+}
+
+void GameButton::setText(const std::wstring & text)
+{
+	mText->setText(text);
 }
 
 void GameButton::setPosition(float x, float y)

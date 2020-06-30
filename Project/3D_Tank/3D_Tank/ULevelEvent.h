@@ -7,7 +7,7 @@ class GameLevelBase;
 class ULevelEvent : public UIEvent
 {
 public:
-	ULevelEvent() = default;
+	ULevelEvent() = delete;
 	ULevelEvent(GameLevelBase* level) : mLevel(level)
 	{}
 	virtual ~ULevelEvent() {}
@@ -58,17 +58,19 @@ public:
 	void onPressed() override {}
 };
 
-class UCNEvent : public UIEvent
+class UCNEvent : public ULevelEvent
 {
 public:
+	UCNEvent(GameLevelBase* level) : ULevelEvent(level) {};
 	void onClick() override;
 	
 	void onPressed() override {}
 };
 
-class UENEvent : public UIEvent
+class UENEvent : public ULevelEvent
 {
 public:
+	UENEvent(GameLevelBase* level) : ULevelEvent(level) {};
 	void onClick() override;
 	
 	void onPressed() override {}

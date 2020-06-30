@@ -2,6 +2,7 @@
 #include "Level01.h"
 #include "GameLevelManager.h"
 #include "Engine.h"
+#include "FileManager.h"
 
 void UStartEvent::onClick()
 {
@@ -30,12 +31,14 @@ void UEditModeEvent::onClick()
 
 void UCNEvent::onClick()
 {
-	//change language to chinese
+	FileManager::changeLanguage(Language::CN);
+	reinterpret_cast<Level01*>(mLevel)->changeLanguage();
 }
 
 void UENEvent::onClick()
 {
-	//change language to english
+	FileManager::changeLanguage(Language::US);
+	reinterpret_cast<Level01*>(mLevel)->changeLanguage();
 }
 
 void UShutDownEvent::onClick()
