@@ -184,6 +184,11 @@ void RenderManager::rotateLight(float x, float y, float z)
 	XMStoreFloat3(&mDirLight.Direction, dir);
 }
 
+void RenderManager::setSkyBox(const std::wstring & texture)
+{
+	mGraphics.SetSkyBox(texture);
+}
+
 RenderManager::RenderManager(Graphics & gfx)
 	:mMeshes(), mUI3Ds(), mUIs(), mParticles(), mGraphics(gfx)
 {

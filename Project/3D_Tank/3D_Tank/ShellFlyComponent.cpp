@@ -54,7 +54,7 @@ void ShellFlyComponent::updateForward(float detaTime)
 	}
 }
 
-void ShellFlyComponent::setTarget(GameObject* t)
+void ShellFlyComponent::setTarget(Pawn* t)
 {
 	if (t) {
 		this->target = t;

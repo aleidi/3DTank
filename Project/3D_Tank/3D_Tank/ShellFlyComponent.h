@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "Pawn.h"
 
 class ShellFlyComponent : public Component {
 public:
@@ -9,7 +10,7 @@ public:
 
 	void onUpdate(float detaTime) override;
 	void updateForward(float detaTime);
-	void setTarget(GameObject* t);
+	void setTarget(Pawn* t);
 
 private:
 	GameObject* target;

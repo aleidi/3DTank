@@ -29,6 +29,7 @@ public:
 	Graphics& getGraphics() const;
 	DirectionalLight getDirLight() noexcept;
 	void rotateLight(float x, float y, float z);
+	void setSkyBox(const std::wstring& texture);
 
 private:
 	RenderManager(Graphics& gfx);

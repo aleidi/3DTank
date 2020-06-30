@@ -234,15 +234,16 @@ void Attack::enter(AIController* pEnemyTank) {
 void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 	if (AITank->aiCount > AITank->attackTimeDelay()) {
 		AITank->aiCount = 0.0f;
-	/////////////////////////////////////////////////////////////////////
+	/*
 		GameObject* pTarget;
 		bool isHit = CollisionManager::sGetInstance()->rayCheckWithTank(AITank->batteryPosition(),
 																		AITank->batteryForward(),
-																		sqrt(Vector3::lengthSq(getTargetPos, AITank->batteryPosition())),
+																		sqrt(Vector3::lengthSq(getTargetPos, AITank->batteryPosition())) + 10.0f,
 																		&pTarget);
-		if( !isHit )
-			pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
-		else;
+	*/
+	//	if( !isHit)
+		pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+	//	else;
 	} 
 	//////////////////////////////////////////////////////////////////////
 	Vector3 targetDirection = (getTargetPos - getAIPos).normalize();
@@ -252,6 +253,7 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 	Vector3 cross = Vector3::cross(targetDirection, AITank->batteryForward());
 	if (cross.y > 0)
 		rotate = -rotate;
+
 
 	AITank->rotateBattery(0, rotate, 0);
 	
@@ -285,8 +287,8 @@ void Attack::exit(AIController* pEnemyTank) {
 	if (cross.y > 0)
 		rotate = -rotate;
 
-	if (rotate >= 1.0f || rotate <= -1.0f)
-		AITank->rotateBattery(0, rotate, 0);
+	rotate = Math::Clamp(AITank->maxTurnRate(), -1 * AITank->maxTurnRate(), rotate);
+	AITank->rotateBattery(0, rotate, 0);
 }
 
 bool Attack::onMessage(AIController* pEnemyTank, const Telegram& msg) {

@@ -98,8 +98,44 @@ void Battle::enter(AIController* pBoss) {
 void Battle::execute(AIController* pBoss, float deltaTime) {
 	////////////////////////////////////////////////////////////
 	////     Similar to normal enemy tank attack state      ////
-	////           5 missiles every 3 normal shot           ////
+	////            missile every 3 normal shot           ////
 	//// Wait for the attack state of enemytank to be fixed ////
+
+	if (BOSS->aiCount > BOSS->attackTimeDelay()) {
+		BOSS->aiCount = 0.0f;
+		if (normalshot < 3) {
+			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
+			normalshot += 1;
+		}
+
+		else {
+			MessageBox(0, L"bang!", 0, 0);
+			normalshot = 0;
+		}
+	}
+	////////////////////////Battery follows////////////////////////////
+	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
+	float dot = Vector3::dot(targetDirection, BOSS->batteryForward());
+	dot = Math::Clamp(1.0f, -1.0f, dot);
+	float rotate = acosf(dot) * 180 / Pi;
+	Vector3 cross = Vector3::cross(targetDirection, BOSS->batteryForward());
+	if (cross.y > 0)
+		rotate = -rotate;
+
+	rotate = Math::Clamp(BOSS->maxTurnRate(), -1 * BOSS->maxTurnRate(), rotate);
+	BOSS->rotateBattery(0, rotate, 0);
+	////////////////////////////////////////////////////////////////////
+
+	BOSS->aiCount += deltaTime;
+	if (BOSS->aiCount > BOSS->attackTimeDelay()) {    // AITank->attackTimeDelay()
+		int hitRate = BOSS->hitRate();
+		if (0 == rand() % hitRate);
+		else {
+			BOSS->rotateBattery(0, Math::RandomClamped() * BOSS->offset(), 0);
+			// pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+		}
+	}
+
 	////////////////////////changeState/////////////////////////
 	if (BOSS->isDying()) {
 		pBoss->getFSM()->changeState(Violent::getInstance());
@@ -149,7 +185,7 @@ void Violent::execute(AIController* pBoss, float deltaTime) {
 		if (cross.y > 0)
 			rotate = -rotate;
 
-		rotate = Math::Clamp(0.5f, -0.5f, rotate);
+		rotate = Math::Clamp( 2 * BOSS->maxTurnRate(), -2 * BOSS->maxTurnRate(), rotate);
 		BOSS->rotateBattery(0, rotate, 0);
 
 		BOSS->aiCount += deltaTime;

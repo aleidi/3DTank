@@ -5,6 +5,7 @@ class SkyBox : public Drawable
 {
 public:
 	SkyBox(Graphics& gfx);
+	SkyBox(Graphics& gfx, const std::wstring& texture);
 	void onUpdate(float deltaTime) noexcept override;
 	DirectX::XMMATRIX getTransformXM() const noexcept override;
 	Material getMaterial() const noexcept override;

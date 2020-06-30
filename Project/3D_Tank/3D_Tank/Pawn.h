@@ -5,9 +5,12 @@
 
 class MovementComponent;
 
-enum MoveDirection
-{
+enum MoveDirection{
 	FORWARD, MBACK, RIGHT, LEFT
+};
+
+enum LeftRightDirection {
+	MLEFT, MRIGHT
 };
 
 class Pawn : public GameObject, public CollisionEvent
@@ -28,7 +31,7 @@ public:
 		float m_Offset;
 		int m_HitRate;
 		//float m_MaxForce;
-		//float m_MaxTurnRate;
+		float m_MaxTurnRate;
 
 		float m_WanderRadius;
 		float m_WanderDistance;
@@ -48,12 +51,14 @@ public:
 
 	virtual void move(Vector3 value);
 	virtual void attack(Vector3 battery_position, Vector3 shot_direction);
+	virtual void attack(Vector3 battery_position, Vector3 shot_direction,Pawn* target);
 	virtual void hited(int value);
 
 	virtual void onTriggerEnter(const GameObject* obj) override;
 	virtual void onCollisionEnter() override;
 
 	enum MoveDirection moveDirection;
+	enum LeftRightDirection rotateDirection;
 	void setHP(int changeHP);
 	int getHP()const;
 	void setMass(float mass);

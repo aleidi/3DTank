@@ -360,9 +360,6 @@
     <ClCompile Include="GameInstance.cpp">
       <Filter>Game\Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameInput.cpp">
-      <Filter>Game\Source</Filter>
-    </ClCompile>
     <ClCompile Include="ControllerBase.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
@@ -389,6 +386,9 @@
     </ClCompile>
     <ClCompile Include="GameLevelTest.cpp">
       <Filter>Game\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Engine\Source</Filter>
     </ClCompile>
     <ClCompile Include="DefaultPlayerController.cpp">
       <Filter>Game\Source\Controller</Filter>
@@ -549,12 +549,6 @@
     <ClCompile Include="BossOwnedStates.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
     </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>Game\Source\Pawn</Filter>
-    </ClCompile>
     <ClCompile Include="SM_WaterTank.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
@@ -564,7 +558,15 @@
     <ClCompile Include="SM_construction_fence.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
-
+    <ClCompile Include="DamageDisplay.cpp">
+      <Filter>Game\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AirWall.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -754,9 +756,6 @@
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
     <ClInclude Include="GameInstance.h">
-      <Filter>Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameInput.h">
       <Filter>Game\Header</Filter>
     </ClInclude>
     <ClInclude Include="ControllerBase.h">
@@ -992,6 +991,12 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Engine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageDisplay.h">
+      <Filter>Game\Header\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="AirWall.h">
+      <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
