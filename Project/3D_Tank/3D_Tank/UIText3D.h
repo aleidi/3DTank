@@ -10,8 +10,11 @@ public:
 	DirectX::XMMATRIX getTransformXM() const noexcept override;
 	void draw(Graphics& gfx) noexcept override;
 	void setInterval(float value);
+	void setSizeScale(float x, float y);
 
 protected:
 	float mInterval;
+	float mSizeFactorX;
+	float mSizeFactorY;
 };
 

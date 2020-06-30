@@ -11,6 +11,7 @@
 #include "Shell.h"
 #include "FileManager.h"
 #include "Math.h"
+#include "DamageDisplay.h"
 
 struct Telegram;
 #define getTargetPos m_target->getTransform()->getPosition()
@@ -175,7 +176,15 @@ void EnemyTank::onTriggerExit()
 
 void EnemyTank::onCollisionEnter()
 {
-	this->setHP(-10);
+	float damage = (float)rand() / (float)RAND_MAX * 30.0f + 1.0f;
+	this->setHP(damage * -1.0f);
+	Vector3 pos = mTransform->getPosition();
+	pos.x += (float)rand() / (float)RAND_MAX - 0.5f;
+	pos.y += (float)rand() / (float)RAND_MAX * 0.6f - 0.2f;
+	auto dd = new DamageDisplay(damage, pos);
+	float size = damage * 0.1f;
+	Math::Clamp(3.0f, 1.0f, size);
+	dd->setSizeScale(size, size);
 }
 
 void EnemyTank::onCollisionExit()

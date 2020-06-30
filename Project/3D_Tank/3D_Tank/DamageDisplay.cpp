@@ -11,7 +11,7 @@ DamageDisplay::DamageDisplay(int value, const Vector3 & start, float transition,
 {
 	mText = SceneManager::sGetInstance()->createUIText3D(std::to_wstring(value));
 	mText->setPosition(start.x, start.y, start.z);
-	mText->getPosition(mTargetPos.x, mTargetPos.y, mTargetPos.z);
+	mTargetPos = start;
 	mTargetPos.y += upValue;
 }
 
@@ -30,4 +30,9 @@ void DamageDisplay::onLateUpdate(float deltaTime)
 		SceneManager::sGetInstance()->removeUI3DFromPool(mText);
 		destroy();
 	}
+}
+
+void DamageDisplay::setSizeScale(float x, float y)
+{
+	mText->setSizeScale(x, y);
 }
