@@ -2,8 +2,12 @@
 #include "BindableBase.h"
 
 SkyBox::SkyBox(Graphics & gfx)
-	:mPosX(0.0f),mPosY(0.0f),mPosZ(0.0f),
-	mRotX(0.0f),mRotY(0.0f),mRotZ(0.0f)
+	:SkyBox(gfx, L"Skybox/Sand")
+{}
+
+SkyBox::SkyBox(Graphics & gfx, const std::wstring & texture)
+	: mPosX(0.0f), mPosY(0.0f), mPosZ(0.0f),
+	mRotX(0.0f), mRotY(0.0f), mRotZ(0.0f)
 {
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getSphere(mesh);
@@ -24,7 +28,7 @@ SkyBox::SkyBox(Graphics & gfx)
 	};
 	addBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	addBind(std::make_unique<Texture>(gfx, L"Skybox/Sand"));
+	addBind(std::make_unique<Texture>(gfx, texture));
 
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));

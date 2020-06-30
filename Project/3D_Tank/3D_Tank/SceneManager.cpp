@@ -125,6 +125,11 @@ ParticleSystem * SceneManager::createParticleSystem(const std::wstring & texPath
 	return p;
 }
 
+void SceneManager::setSkyBox(const std::wstring & texPath)
+{
+	RenderManager::sGetInstance()->setSkyBox(texPath);
+}
+
 AIController * SceneManager::createAIController(int id)
 {
 	AIController* ac = new AIController(id);

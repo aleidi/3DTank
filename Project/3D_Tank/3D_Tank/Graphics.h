@@ -54,6 +54,7 @@ public:
 	void EndFrame();
 	void onUdpate(float deltaTime);
 	void DrawSkyBox();
+	void SetSkyBox(const std::wstring& texture);
 
 	void DrawIndexed(UINT mCount) noexcept;
 	void setShowText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
