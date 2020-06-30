@@ -32,6 +32,7 @@ public:
 	float attackTimeDelay()const;
 	float offset()const;
 	int hitRate()const;
+	float maxTurnRate()const;
 	float getWanderRadius()const;
 	float getWanderDistance()const;
 	float getWanderJitter()const;
