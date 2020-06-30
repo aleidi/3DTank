@@ -35,7 +35,7 @@ public:
 	static std::map<int, AIAttribute> AIAttributes;
 
 	// Localization configuration map
-	//static void LoadLocalization(std::map<int, std::string>& map);
-	//static std::map<int, std::string> createLocalization();
-	//static std::map<int, std::string> localization;
+	static std::map<int, std::wstring> LoadLocalization_US();
+	static std::map<int, std::wstring> LoadLocalization_CN();
+	static std::map<int, std::wstring> localization;
 };

@@ -5,9 +5,12 @@
 
 class MovementComponent;
 
-enum MoveDirection
-{
+enum MoveDirection{
 	FORWARD, MBACK, RIGHT, LEFT
+};
+
+enum LeftRightDirection {
+	MLEFT, MRIGHT
 };
 
 class Pawn : public GameObject, public CollisionEvent
@@ -54,6 +57,7 @@ public:
 	virtual void onCollisionEnter() override;
 
 	enum MoveDirection moveDirection;
+	enum LeftRightDirection rotateDirection;
 	void setHP(int changeHP);
 	int getHP()const;
 	void setMass(float mass);

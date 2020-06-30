@@ -1,4 +1,4 @@
-#include <fstream>
+﻿#include <fstream>
 #include <sstream>
 #include <string>
 
@@ -152,11 +152,59 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 	}
 }
 
-std::map<int, AIAttribute> FileManager::AIAttributes = FileManager::createAttributesMap();
-
 std::map<int, AIAttribute> FileManager::createAttributesMap()
 {
 	std::map<int, AIAttribute> map;
 	FileManager::LoadAIAttribute(map);
 	return map;
 }
+
+std::map<int, AIAttribute> FileManager::AIAttributes = FileManager::createAttributesMap();
+
+
+
+std::map<int, std::wstring> FileManager::LoadLocalization_US()
+{
+	std::map<int, std::wstring> map;
+
+	std::wifstream fin(".\\Resource\\Configuration\\English.csv");
+	std::wstring line;
+	int ID = 0;
+	std::wstring content;
+
+	if (fin.is_open())
+	{
+		fin >> line;
+		
+		while (fin >> line)
+		{
+
+			std::wstring str = line.substr(0, line.find(',', 0));
+			ID = (float)_wtof(str.c_str());
+			str = line.substr(line.find(',', 0) + 1, line.length());
+			content = str;
+
+			map[ID] = content;
+		}
+	}
+
+	return map;
+}
+
+std::map<int, std::wstring> FileManager::LoadLocalization_CN()
+{
+	std::map<int, std::wstring> map;
+	map[0] = std::wstring(L"开始");
+	map[1] = std::wstring(L"设置");
+	map[2] = std::wstring(L"退出");
+	map[3] = std::wstring(L"游戏模式");
+	map[4] = std::wstring(L"编辑器模式");
+	map[5] = std::wstring(L"中文");
+	map[6] = std::wstring(L"英文");
+	map[7] = std::wstring(L"是");
+	map[8] = std::wstring(L"否");
+	map[9] = std::wstring(L"返回");
+	return map;
+}
+
+std::map<int, std::wstring> FileManager::localization = FileManager::LoadLocalization_US();

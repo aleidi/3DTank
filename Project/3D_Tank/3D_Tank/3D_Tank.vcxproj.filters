@@ -390,6 +390,9 @@
     <ClCompile Include="GameLevelTest.cpp">
       <Filter>Game\TestCode</Filter>
     </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
     <ClCompile Include="DefaultPlayerController.cpp">
       <Filter>Game\Source\Controller</Filter>
     </ClCompile>
@@ -549,12 +552,6 @@
     <ClCompile Include="BossOwnedStates.cpp">
       <Filter>Engine\Source\Gameplay\AI</Filter>
     </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>Game\Source\Pawn</Filter>
-    </ClCompile>
     <ClCompile Include="SM_WaterTank.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
@@ -564,7 +561,12 @@
     <ClCompile Include="SM_construction_fence.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
-
+    <ClCompile Include="HUD.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AirWall.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -992,6 +994,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Engine\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AirWall.h">
+      <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
