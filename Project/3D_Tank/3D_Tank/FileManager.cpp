@@ -222,7 +222,7 @@ void FileManager::changeLanguage(Language l)
 	}
 	else if (l == US)
 	{
-		FileManager::localization = FileManager::LoadLocalization_CN();
+		FileManager::localization = FileManager::LoadLocalization_US();
 	}
 }
 
