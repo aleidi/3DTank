@@ -253,9 +253,23 @@ void SceneManager::onUpdate(float deltaTime)
 {
 	for (std::list<GameObject*>::iterator it = mObjs.begin(); it != mObjs.end(); ++it)
 	{
-		if (nullptr != *it && (*it)->hasParent() != true)
+		if (nullptr != *it)
 		{
-			(*it)->onUpdate(deltaTime);
+			if ((*it)->hasParent() != true)
+			{
+				(*it)->onUpdate(deltaTime);
+			}
+		}
+	}
+
+	for (std::map<int,AIController*>::iterator it = mAIControllers.begin(); it != mAIControllers.end(); ++it)
+	{
+		if (nullptr != (*it).second)
+		{
+			if ((*it).second->hasParent() != true)
+			{
+				(*it).second->onUpdate(deltaTime);
+			}
 		}
 	}
 

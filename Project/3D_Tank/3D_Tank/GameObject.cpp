@@ -11,6 +11,11 @@ GameObject::GameObject()
 	SceneManager::sGetInstance()->addGameObjectToPool(this);
 }
 
+GameObject::GameObject(int value)
+	:mTransform(new Transform(this)), mName("GameObject")
+{
+}
+
 GameObject::~GameObject()
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)

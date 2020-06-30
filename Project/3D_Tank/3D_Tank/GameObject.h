@@ -21,6 +21,7 @@ public:
 public:
 
 	GameObject();
+	GameObject(int value);
 	virtual ~GameObject();
 	GameObject(GameObject& obj);
 
