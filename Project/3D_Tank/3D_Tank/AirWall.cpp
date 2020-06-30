@@ -15,4 +15,5 @@ AirWall::AirWall(const Vector3& position, const Vector3& scale)
 
 AirWall::~AirWall()
 {
+	cube->destroy();
 }
