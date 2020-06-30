@@ -40,6 +40,27 @@ void BoundingCube::createBoundingCube(const DirectX::XMVECTOR & maxPoint, const 
 	}
 }
 
+void BoundingCube::createBoundingCube(const Vector3 & c, const Vector3 & e, int isMoveable)
+{
+	DirectX::XMFLOAT3 cen(c.x, c.y, c.z);
+	DirectX::XMFLOAT3 ext(e.x, e.y, e.z);
+	box.Center = cen;
+	box.Extents = ext;
+	if (isMoveable != -1) {
+		if (CollisionManager::sGetInstance())
+		{
+			if (isMoveable == 1) {
+				CollisionManager::sGetInstance()->moveableBoundingCube.push_back(this);
+			}
+			else {
+				CollisionManager::sGetInstance()->unmoveableBoundingCube.push_back(this);
+			}
+			CollisionManager::sGetInstance()->mBoundingCube.push_back(this);
+			this->moveable = isMoveable;
+		}
+	}
+}
+
 void BoundingCube::createBoundingCube(const BoundingCube * cube1, const BoundingCube * cube2)
 {
 

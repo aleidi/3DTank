@@ -66,6 +66,17 @@ bool CollisionManager::collisionCheck(const Vector3 & o, const Vector3 & d, cons
 	return cube->box.Intersects(origin, unit, dis);
 }
 
+bool CollisionManager::collisionCheck(const Vector3 & o, const Vector3 & d, const BoundingCube * cube)
+{
+	DirectX::XMFLOAT3 ori(o.x, o.y, o.z);
+	DirectX::XMFLOAT3 dir(d.x, d.y, d.z);
+	DirectX::XMVECTOR origin = DirectX::XMLoadFloat3(&ori);
+	DirectX::XMVECTOR direction = DirectX::XMLoadFloat3(&dir);
+	DirectX::XMVECTOR unit = DirectX::XMVector3Normalize(direction);
+	float dis;
+	return cube->box.Intersects(origin, unit, dis);
+}
+
 bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & direction, BoundingCube * farthestCube, BoundingCube * nearestCube, float & farthestDis, float & nearestDis)
 {
 	if (direction.x == 0.f && direction.y == 0.f && direction.z == 0.f) return false;
@@ -208,6 +219,21 @@ bool CollisionManager::rayCheckWithTank(const Vector3 & origin, const Vector3 & 
 	if (flag != 0) return true;
 	else return false;
 
+}
+
+bool CollisionManager::rayCheckWithTank(const Vector3 & origin, const Vector3 & direction, float farthestDis)
+{
+	if (direction.x == 0.f && direction.y == 0.f && direction.z == 0.f) return false;
+	if (farthestDis == 0.f) farthestDis = FLT_MAX;
+	float d = 0.f; float minD = 0.f;
+	for (std::vector<BoundingCube*>::iterator it = moveableBoundingCube.begin(); it != moveableBoundingCube.end(); it++) {
+		if (collisionCheck(origin, direction, *it, d)) {
+			if (d < farthestDis) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 bool CollisionManager::collisionCheck(const BoundingCube* cube1, const BoundingCube* cube2)
