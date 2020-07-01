@@ -38,7 +38,7 @@ void Level02::enterLevel()
 	enemy_boss->changeTarget(ent_Tank_Enemy01);
 
 	mCanStart = true;
-	new AITank(0);
+
 	//Engine::sGetInstance()->enableGameMode(true);
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 }
