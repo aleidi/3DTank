@@ -26,6 +26,7 @@ void GameSystem::onInit()
 	new Level01();
 	new Level02();
 	new Level03();
+	GameLevelManager::sGetInstance()->setDefaultLevel(2);
 	
 }
 
@@ -33,9 +34,4 @@ void GameSystem::onUpdate(float deltaTime)
 {
 	GameLevelManager::sGetInstance()->onUpdadte(deltaTime);
 	//SceneManager::sGetInstance ()->onUpdate(deltaTime);
-}
-
-void GameSystem::setEnable(bool value)
-{
-	GameLevelManager::sGetInstance()->setDefaultLevel(1);
 }

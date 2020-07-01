@@ -7,7 +7,5 @@ public:
 
 	void onInit();
 	void onUpdate(float deltaTime);
-	
-	void setEnable(bool value);
 };
 

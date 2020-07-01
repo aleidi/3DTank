@@ -18,6 +18,8 @@ void Level03::enterLevel()
 	mCurrentGameMode->onInit();
 
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Night");
+
+	mCanStart = true;
 }
 
 GameLevelBase * Level03::onUpdate(float deltaTime)

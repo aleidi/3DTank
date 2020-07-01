@@ -100,6 +100,8 @@ void Level01::enterLevel()
 
 	mState = CompanyTitle;
 	mCompanyTitle->setEnable(true);
+
+	mCanStart = true;
 }
 
 GameLevelBase * Level01::onUpdate(float deltaTime)
