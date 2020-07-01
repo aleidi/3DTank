@@ -66,15 +66,13 @@ void PlayerController::checkInput(float deltaTime)
 	if (DInputPC::getInstance().isMouseButtonDown(MIRROR))
 	{
 		reinterpret_cast<PlayerTank*>(mPawn)->setCameraFov(mMirrorMax);
+		reinterpret_cast<PlayerTank*>(mPawn)->setCameraRotSpd(8.0f);
 	}
 	if (DInputPC::getInstance().isMouseButtonUp(MIRROR))
 	{
 		reinterpret_cast<PlayerTank*>(mPawn)->setCameraFov(mMirrorMin);
+		reinterpret_cast<PlayerTank*>(mPawn)->setCameraRotSpd(60.0f);
 	}
-	//if (DInputPC::getInstance().isMouseButtonDown(0))
-	//{
-	//	Shell* shell = new Shell(reinterpret_cast<PlayerTank*>(mPawn)->getBattery()->getTransform()->getPosition(), reinterpret_cast<PlayerTank*>(mPawn)->getBattery()->getTransform()->Forward, 0);
-	//}
 
 	if (DInputPC::getInstance().iskey(MOVEFORWARD))
 	{
