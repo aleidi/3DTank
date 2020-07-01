@@ -1,9 +1,13 @@
+#include <thread>
+
 #include "Level01.h"
 #include "GameButton.h"
 #include "FileManager.h"
 #include "AnimationTitle.h"
+#include "RenderManager.h"
 
 Level01::Level01()
+	: mCamTrig(false)
 {
 	GameLevelManager::sGetInstance()->addLevel(1, this);
 }
@@ -14,6 +18,10 @@ Level01::~Level01()
 
 void Level01::enterLevel()
 {
+	
+	std::thread t(&Level01::loadResourcce, this);
+	t.detach();
+
 	mBtnStart = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[0]);
 	mStartEvent = new UStartEvent(this);
 	mBtnStart->setBtnEvent(mStartEvent);
@@ -64,30 +72,23 @@ void Level01::enterLevel()
 	//GameMode
 	mBtnGameMode->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 2);
 	mBtnGameMode->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 2 + 40.0f);
-	mBtnGameMode->setEnable(false);
 	mBtnEditMode->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 6);
 	mBtnEditMode->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 6 + 40.0f);
-	mBtnEditMode->setEnable(false);
 	//Language
 	mBtnCN->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 2);
 	mBtnCN->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 2 + 40.0f);
-	mBtnCN->setEnable(false);
 	mBtnEN->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 6);
 	mBtnEN->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 6 + 40.0f);
-	mBtnEN->setEnable(false);
 	//Select
 	mBtnShutDown->setPosition(WINDOW_WIDTH / 3, WINDOW_HEIGHT * 1 / 2 - 25.0f);
 	mBtnShutDown->setTextPos(WINDOW_WIDTH / 3 + 12.5f, WINDOW_HEIGHT * 1 / 2);
-	mBtnShutDown->setEnable(false);
 	mBtnReturn->setPosition(WINDOW_WIDTH * 2 / 3, WINDOW_HEIGHT * 1 / 2 - 25.0f);
 	mBtnReturn->setTextPos(WINDOW_WIDTH * 2 / 3 + 18.5f, WINDOW_HEIGHT * 1 / 2);
-	mBtnReturn->setEnable(false);
 	//cancle
 	mBtnCancel->setPosition(WINDOW_WIDTH - 200.0f, 50.0f);
 	mBtnCancel->setTextPos(WINDOW_WIDTH - 180.0f, 75.0f);
-	mBtnCancel->setEnable(false);
 
-	mCanvas = new AnimationTitle(0.0f, 0.0f, 6.0f, 6.0f, 3.0f, L"", Vector3(80.0f, 0.0f, 0.0f));
+	mCanvas = new AnimationTitle(0.0f, 0.0f, 6.0f, 10.0f, 0.0f, L"", Vector3(80.0f, 0.0f, 0.0f));
 	mCanvas->setImageSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	mCanvas->setColor(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 
@@ -97,15 +98,17 @@ void Level01::enterLevel()
 	mTeamTitle = new AnimationTitle(WINDOW_WIDTH*0.5f - 200.0f, WINDOW_HEIGHT, 6.0f, 6.0f, 3.0f, L"UI/team_title", Vector3(0.0f, -80.0f, 0.0f));
 	mTeamTitle->setImageSize(400.0f, 162.0f);
 
-
 	mState = CompanyTitle;
 	mCompanyTitle->setEnable(true);
 
 	mCanStart = true;
+
 }
 
 GameLevelBase * Level01::onUpdate(float deltaTime)
 {
+	SceneManager::sGetInstance()->onUpdate(deltaTime);
+
 	if (mCurrentGameMode != nullptr)
 	{
 	}
@@ -115,9 +118,35 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 		return GameLevelManager::sGetInstance()->changeLevel(2);
 	}
 
+	if (mCamFollower != nullptr)
+	{
+
+		float angle = Vector3::lengthSq(mCamFollower->getTransform()->Forward, mExhibition->getTransform()->Forward);
+
+		if (angle < 0.1f)
+		{
+			mCamTrig = !mCamTrig;
+		}
+
+		if (!mCamTrig)
+		{
+			mCamFollower->getTransform()->rotateY(deltaTime* 3.0f);
+		}
+		else
+		{
+			mCamFollower->getTransform()->rotateZ(deltaTime* 3.0f);
+		}
+	}
+
+	RenderManager::sGetInstance()->rotateLight(deltaTime*20.0f, 0.0f, 0.0f);
+
 	switch (mState)
 	{
 		case MainMenu:
+			if (!mIsLoadFin)
+			{
+				return this;
+			}
 			mBtnStart->setEnable(true);
 			mBtnSetting->setEnable(true);
 			mBtnExit->setEnable(true);
@@ -251,6 +280,13 @@ void Level01::leaveLevel()
 	mReturnEvent = nullptr;
 	delete mCancelEvent;
 	mCancelEvent = nullptr;
+
+	mExhibition->destroy();
+	mExhibition = nullptr;
+	mCamFollower->destroy();
+	mCamFollower = nullptr;
+	mCamera->destroy();
+	mCamera = nullptr;
 }
 
 void Level01::changeState(State s)
@@ -270,4 +306,24 @@ void Level01::changeLanguage()
 	mBtnShutDown->setText(FileManager::localization[7]);
 	mBtnReturn->setText(FileManager::localization[8]);
 	mBtnCancel->setText(FileManager::localization[9]);
+}
+
+void Level01::loadResourcce()
+{
+	mExhibition = SceneManager::sGetInstance()->createCube();
+	SceneManager::sGetInstance()->createModel(*mExhibition, "Tank\\TankBattery", L"Tank\\TankTex");
+	SceneManager::sGetInstance()->createModel(*mExhibition, "Tank\\TankBody", L"Tank\\TankTex");
+	SceneManager::sGetInstance()->createModel(*mExhibition, "Tank\\TankTrack_L", L"Tank\\TankTrack");
+	SceneManager::sGetInstance()->createModel(*mExhibition, "Tank\\TankTrack_R", L"Tank\\TankTrack");
+	mExhibition->getTransform()->setScale(0.1f,0.1f,0.1f);
+
+	mCamFollower = SceneManager::sGetInstance()->createEmptyObject();
+	mCamera = SceneManager::sGetInstance()->createEmptyObject();
+	auto cam = new Camera(mCamera);
+	Camera::MainCamera = cam;
+	mCamera->addComponent(cam);
+	mCamera->attach(*mCamFollower);
+	mCamera->getTransform()->translate(Vector3::forward*-25.0f + Vector3::up * 10.0f);
+
+	mIsLoadFin = true;
 }

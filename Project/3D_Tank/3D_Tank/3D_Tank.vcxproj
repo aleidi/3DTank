@@ -179,6 +179,7 @@
     <ClCompile Include="AnimationTitle.cpp" />
     <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="Blender.cpp" />
     <ClCompile Include="BossOwnedStates.cpp" />
     <ClCompile Include="BoundingCube.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
@@ -304,6 +305,7 @@
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
+    <ClInclude Include="Blender.h" />
     <ClInclude Include="BossOwnedStates.h" />
     <ClInclude Include="BoundingCube.h" />
     <ClInclude Include="BoundingSphere.h" />

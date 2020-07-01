@@ -25,15 +25,11 @@ Engine::Engine(Window& wnd)
 	mSound(std::make_unique<Sound>()),
 	mRendering(std::make_unique<Rendering>(wnd)),
 	mGameSystem(std::make_unique<GameSystem>()),
-	mIsGameMode(false), mIsEditMode(false)
+	mIsGameMode(true), mIsEditMode(false)
 {
 	onPreInit();
 
 	onInit();
-
-	mIsEditMode = true;
-
-	//FileManager::loadPlayerAttribute();
 }
 
 Engine * Engine::sGetInstance()
@@ -82,8 +78,6 @@ void Engine::onInit()
 	//Sound Init
 	//mSound->onInit();
 
-	//ImGui Init
-
 
 	//EUI Init
 	mEui->onInit();
@@ -101,16 +95,25 @@ void Engine::onInit()
 	 fRot_y = 0.0f;
 	 fRot_z = 0.0f;
 	 fspeed = 300.0f;
-	 rspeed = 5.0f;
+	 rspeed = 5.0f; 
+	 gSpeed = 1.0f;
 
 #pragma endregion
 }
 
 void Engine::run()
 {
+	if (DInputPC::getInstance().iskeyDown(DIK_F4))
+	{
+		gSpeed = 4.0f;
+	}
+	if (DInputPC::getInstance().iskeyUp(DIK_F4))
+	{
+		gSpeed = 1.0f;
+	}
 	//Timer update
 	mTimer.tick();
-	float deltaTime = mTimer.getDeltaTIme();
+	float deltaTime = mTimer.getDeltaTIme() * gSpeed;
 	calculateFrameStats();
 
 	//Input Update
@@ -129,8 +132,6 @@ void Engine::run()
 	if (mIsGameMode)
 	{
 		mGameSystem->onUpdate(deltaTime);
-		//mSound->playBGM();
- 		//SoundManager::sGetInstance()->playSound(0);
 	}
 
 
@@ -148,7 +149,6 @@ void Engine::run()
 
 
 	//Sound Update
-	//dis += fTrans_z;
 	//mSound->onUpdate(dis);
 
 	//PreRender

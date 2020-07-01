@@ -2,9 +2,9 @@
 #include "AITank.h"
 #include "GameModeTP.h"
 #include "RenderManager.h"
-#include "EntityNames.h"
-
 #include "GameInstance.h"
+#include "PlayerController.h"
+#include "EntityNames.h"
 #include "Transform.h"
 #include "GameCharacter.h"
 AITank* enemy_01;
@@ -56,10 +56,18 @@ void Level02::enterLevel()
 	fakeplayer->changeTarget(ent_Tank_Enemy01);
 
 	mCanStart = true;
+
+	//Engine::sGetInstance()->enableGameMode(true);
+	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 }
 
 GameLevelBase * Level02::onUpdate(float deltaTime)
 {
+	if (!mCanStart)
+	{
+		return this;
+	}
+
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
 	std::wstring wstr;

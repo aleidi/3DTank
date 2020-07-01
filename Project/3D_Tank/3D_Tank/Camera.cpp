@@ -22,17 +22,8 @@ Camera::~Camera()
 
 void Camera::onUpdate(float deltaTime)
 {
-	if (DInputPC::getInstance().isMouseButtonDown(1))
-	{
-		setFov(XM_PI / 20);
-	}
-	if (DInputPC::getInstance().isMouseButtonUp(1))
-	{
-		setFov(XM_PI / 3);
-	}
 	Position = mObject->getTransform()->getPosition();
 	Rotation = mObject->getTransform()->getRotation();
-	Fov = Math::lerp(Fov, targetFov, deltaTime * 10.0f);
 }
 
 void Camera::setFov(float value)

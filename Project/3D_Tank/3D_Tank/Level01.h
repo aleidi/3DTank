@@ -32,6 +32,7 @@ public :
 	void leaveLevel() override;
 	void changeState(State s);
 	void changeLanguage();
+	void loadResourcce() override;
 
 private:
 	State mState;
@@ -61,5 +62,11 @@ private:
 	AnimationTitle* mCompanyTitle;
 	AnimationTitle* mTeamTitle;
 	AnimationTitle* mCanvas;
+
+	GameObject* mExhibition;
+	GameObject* mCamFollower;
+	GameObject* mCamera;
+
+	bool mCamTrig;
 };
 

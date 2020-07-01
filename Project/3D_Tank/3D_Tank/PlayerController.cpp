@@ -4,8 +4,6 @@
 #include "CollisionManager.h"
 #include "Shell.h"
 
-GameObject* obj;
-
 PlayerController::PlayerController()
 	:mDisToCamFactor(0.15f), mMirrorMax(XM_PI / 20), mMirrorMin(XM_PI / 3)
 {
@@ -17,7 +15,12 @@ PlayerController::~PlayerController()
 
 void PlayerController::onUpdate(float deltaTime)
 {
+	if (!mIsEnable)
+	{
+		return;
+	}
 	checkInput(deltaTime);
+	GameObject* obj;
 	if (CollisionManager::sGetInstance()->collisionCheck_CubeToCube(reinterpret_cast<PlayerTank*>(mPawn)->cube,&obj) == true) {
 		reinterpret_cast<PlayerTank*>(mPawn)->onTriggerEnter(obj);
 	}

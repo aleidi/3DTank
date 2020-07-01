@@ -6,7 +6,7 @@
 class GameLevelBase
 {
 public:
-	GameLevelBase() :mCanStart(false) 
+	GameLevelBase() :mCanStart(false) ,mIsLoadFin(false)
 	{}
 	virtual ~GameLevelBase() {}
 
@@ -28,9 +28,12 @@ public:
 	{
 		return mCanStart;
 	}
-	
+
+	virtual void loadResourcce() {}
+
 protected:
 	GameModeBase* mCurrentGameMode;
 	bool mCanStart;
+	bool mIsLoadFin;
 };
 

@@ -16,10 +16,12 @@ public:
 
 	void posses(Pawn* pawn) noexcept;
 	void unPosses() noexcept;
-
 	Pawn* getPawn() noexcept;
+	void setEnable(bool value);
 
 protected:
 	Pawn* mPawn;
+
+	bool mIsEnable;
 };
 

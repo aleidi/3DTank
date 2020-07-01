@@ -1,7 +1,7 @@
 #include "ControllerBase.h"
 
 ControllerBase::ControllerBase(int value)
-	: GameObject(-1)
+	: mIsEnable(false), GameObject(-1)
 {
 }
 
@@ -28,4 +28,9 @@ void ControllerBase::unPosses() noexcept
 Pawn * ControllerBase::getPawn() noexcept
 {
 	return mPawn;
+}
+
+void ControllerBase::setEnable(bool value)
+{
+	mIsEnable = value;
 }
