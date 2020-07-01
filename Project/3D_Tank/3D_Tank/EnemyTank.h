@@ -12,6 +12,7 @@ class AIController;
 
 class EnemyTank : public BaseGameEntity{
 public:
+	EnemyTank(int ID, float scale);
 	EnemyTank(int ID);
 	~EnemyTank();
 
