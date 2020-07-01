@@ -27,7 +27,7 @@ enum {
 
 	ent_Tank_Enemy10,
 
-	ent_Tank_FakePlayer = 88,
+	ent_Tank_FakePlayer = -88,
 
 	ent_Debug = 99
 

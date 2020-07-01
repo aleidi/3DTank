@@ -9,7 +9,16 @@
 #include "GameCharacter.h"
 AITank* enemy_01;
 AITank* enemy_02;
+AITank* enemy_03;
+AITank* enemy_04;
+AITank* enemy_05;
+AITank* enemy_06;
+AITank* enemy_07;
+AITank* enemy_08;
+AITank* enemy_09;
+AITank* enemy_10;
 AITank* enemy_boss;
+AITank* fakeplayer;
 
 Level02::Level02()
 {
@@ -30,12 +39,21 @@ void Level02::enterLevel()
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/TownStreet", L"Objects/Wall");
 	mMap->getTransform()->setScale(0.1f, 0.1f, 0.1f);
 
-	enemy_boss = new AITank(ent_Tank_SuperEnemy);
+	fakeplayer = new AITank(ent_Tank_FakePlayer);
 
-	enemy_01 = new AITank(ent_Tank_Enemy01, ent_Tank_SuperEnemy);
-	enemy_02 = new AITank(ent_Tank_Enemy02, ent_Tank_SuperEnemy);
+	enemy_boss = new AITank(ent_Tank_SuperEnemy, ent_Tank_FakePlayer);
+	enemy_01 = new AITank(ent_Tank_Enemy01, ent_Tank_FakePlayer);
+	enemy_02 = new AITank(ent_Tank_Enemy02, ent_Tank_FakePlayer);
+	enemy_03 = new AITank(ent_Tank_Enemy03, ent_Tank_FakePlayer);
+	enemy_04 = new AITank(ent_Tank_Enemy04, ent_Tank_FakePlayer);
+	enemy_05 = new AITank(ent_Tank_Enemy05, ent_Tank_FakePlayer);
+	enemy_06 = new AITank(ent_Tank_Enemy06, ent_Tank_FakePlayer);
+	enemy_07 = new AITank(ent_Tank_Enemy07, ent_Tank_FakePlayer);
+	enemy_08 = new AITank(ent_Tank_Enemy08, ent_Tank_FakePlayer);
+	enemy_09 = new AITank(ent_Tank_Enemy09, ent_Tank_FakePlayer);
+	enemy_10 = new AITank(ent_Tank_Enemy10, ent_Tank_FakePlayer);
 
-	enemy_boss->changeTarget(ent_Tank_Enemy01);
+	fakeplayer->changeTarget(ent_Tank_Enemy01);
 
 	mCanStart = true;
 }

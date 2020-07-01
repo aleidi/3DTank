@@ -3,17 +3,17 @@
 #include "AIController.h"
 #include "EnemyTank.h"
 
-AITank::AITank(int ID) {
-	m_Tank = new EnemyTank(ID);
-	m_Tank->getTransform()->translate(m_Tank->getResetPoint());
-	m_AICtrl = SceneManager::sGetInstance()->createAIController(ID);
-	m_AICtrl->posses(m_Tank);
-	m_Tank->setAICtrl(m_AICtrl);
-	m_AICtrl->setPrefabs(this);
+AITank::AITank(int ID) 
+	: AITank(ID, -1)
+{
+
 }
 
 AITank::AITank(int ID, int targetID) {
-	m_Tank = new EnemyTank(ID);
+	if (ID == 0)
+		m_Tank = new EnemyTank(ID,0.02);
+	else 
+		m_Tank = new EnemyTank(ID);
 	m_Tank->getTransform()->translate(m_Tank->getResetPoint());
 	m_AICtrl = SceneManager::sGetInstance()->createAIController(ID);
 	m_AICtrl->posses(m_Tank);
