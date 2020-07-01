@@ -7,10 +7,13 @@ class AITank : public GameObject
 {
 public:
 	AITank(int ID);
+	AITank(int ID, int targetID);
 	~AITank();
 
 	EnemyTank* getTank();
 	AIController* getCtrl();
+
+	void changeTarget(int targetID);
 
 private:
 	EnemyTank* m_Tank;

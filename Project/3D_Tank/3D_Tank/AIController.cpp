@@ -83,10 +83,12 @@ void AIController::setTarget(Pawn* targetTank) {
 Pawn * AIController::getTarget()
 {
 	if ( !m_target->isAlive() ) {
-		//reinterpret_cast<EnemyTank*>(m_target)->()->getID();
-		//setTarget(SceneManager::sGetInstance()->getAIController(1)->getPawn());
-		setTarget(GameInstance::sGetInstance()->getPlayer());
-		
+		int targetID = reinterpret_cast<EnemyTank*>(m_target)->getAICtrl()->getID();
+		targetID += 1;
+		if(SceneManager::sGetInstance()->getAIController(targetID) != nullptr)
+			setTarget(SceneManager::sGetInstance()->getAIController(targetID)->getPawn());
+		else
+			setTarget(GameInstance::sGetInstance()->getPlayer());
 	}
 
 	return m_target;

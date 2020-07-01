@@ -12,6 +12,19 @@ AITank::AITank(int ID) {
 	m_AICtrl->setPrefabs(this);
 }
 
+AITank::AITank(int ID, int targetID) {
+	m_Tank = new EnemyTank(ID);
+	m_Tank->getTransform()->translate(m_Tank->getResetPoint());
+	m_AICtrl = SceneManager::sGetInstance()->createAIController(ID);
+	m_AICtrl->posses(m_Tank);
+	m_Tank->setAICtrl(m_AICtrl);
+	m_AICtrl->setPrefabs(this);
+
+	if (targetID >= 0) {
+		changeTarget(targetID);
+	}
+}
+
 AITank::~AITank() {
 	m_Tank->destroy();
 	m_AICtrl->destroy();
@@ -23,4 +36,9 @@ EnemyTank* AITank::getTank() {
 
 AIController* AITank::getCtrl() {
 	return m_AICtrl;
+}
+
+void AITank::changeTarget(int targetID) {
+	if (SceneManager::sGetInstance()->getAIController(targetID) != nullptr)
+		m_AICtrl->setTarget(SceneManager::sGetInstance()->getAIController(targetID)->getPawn());
 }
