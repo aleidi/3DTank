@@ -197,7 +197,12 @@ Vector3 GameObject::getLastFramePosition()
 	return *lastFramePostion;
 }
 
-GameObject::CollisionLayer GameObject::getCollisionLayer()
+GameObject::CollisionLayer GameObject::getCollisionLayer()  const
 {
 	return mColLayer;
+}
+
+GameObject::ObjectTag GameObject::getTag()  const
+{
+	return mTag;
 }

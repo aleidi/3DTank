@@ -29,6 +29,7 @@ public:
 	void rotateCamera(float valueX, float valueY);
 	void adjustDisToCam(float value);
 	void setCameraFov(float value);
+	void setCameraRotSpd(float value);
 
 	void onTriggerEnter(const GameObject* obj) override;
 	void onTriggerExit() override;
@@ -56,12 +57,14 @@ private:
 	float mFPToTPThreshold;
 	float mMinDisToCam;
 	float mMaxDisToCam;
+	float mCameraRotSpd;
 
 	//Weapon
 	int mWeaponType;
 	float mAttackCount;
 	float mLightInterval;
 	float mHeavyInterval;
+	float mAttackAngle;
 
 	GameObject* mBattery;
 	GameObject* mCamFollower;

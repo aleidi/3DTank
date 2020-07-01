@@ -140,7 +140,7 @@ void Engine::run()
 	{
 		if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
 		{
-			mIsGameMode = true;
+			enableGameMode(true);
 		}
 	}
 

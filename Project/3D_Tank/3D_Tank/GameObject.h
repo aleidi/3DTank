@@ -61,7 +61,8 @@ public:
 
 	void setLastFramePosition(const Vector3& position);
 	Vector3 getLastFramePosition();
-	CollisionLayer getCollisionLayer();
+	CollisionLayer getCollisionLayer() const;
+	ObjectTag getTag() const;
 
 	BoundingCube* cube;
 	MBoundingSphere* sphere;

@@ -176,6 +176,7 @@
     <ClCompile Include="AIMovementComponent.cpp" />
     <ClCompile Include="AirWall.cpp" />
     <ClCompile Include="AITank.cpp" />
+    <ClCompile Include="AnimationTitle.cpp" />
     <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BossOwnedStates.cpp" />
@@ -299,6 +300,7 @@
     <ClInclude Include="AIMovementComponent.h" />
     <ClInclude Include="AirWall.h" />
     <ClInclude Include="AITank.h" />
+    <ClInclude Include="AnimationTitle.h" />
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />

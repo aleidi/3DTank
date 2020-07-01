@@ -6,7 +6,8 @@
 class GameLevelBase
 {
 public:
-	GameLevelBase() = default;
+	GameLevelBase() :mCanStart(false) 
+	{}
 	virtual ~GameLevelBase() {}
 
 	virtual void enterLevel() = 0;
@@ -22,8 +23,14 @@ public:
 	{
 		return mCurrentGameMode;
 	}
+
+	bool canStart()
+	{
+		return mCanStart;
+	}
 	
 protected:
 	GameModeBase* mCurrentGameMode;
+	bool mCanStart;
 };
 

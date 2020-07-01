@@ -34,6 +34,11 @@ bool GameLevelManager::onUpdadte(float deltaTime)
 		return false;
 	}
 
+	if (!mCurrentLevel->canStart())
+	{
+		return false;
+	}
+
 	GameLevelBase* nextLevel = mCurrentLevel->onUpdate(deltaTime);
 	if (nextLevel != mCurrentLevel)
 	{

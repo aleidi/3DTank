@@ -35,9 +35,9 @@ void PlayerCamera::onLateUpdate(float deltaTime)
 	Vector3 origin = Position;
 	Vector3 dir = Vector3::up * - 1.0f;
 	float length = 0.02f;
-	GameObject* mCol;
+	GameObject* col;
 	float dis = 0.0f;
-	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(origin, dir, length, &mCol, dis))
+	if (CollisionManager::sGetInstance()->rayCheck(origin, dir, length, &col, dis))
 	{
 		Position.y = 0.02f;
 	}

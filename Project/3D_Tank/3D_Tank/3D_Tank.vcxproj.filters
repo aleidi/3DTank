@@ -576,6 +576,9 @@
     <ClCompile Include="Pawn.cpp">
       <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationTitle.cpp">
+      <Filter>Game\Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -1009,6 +1012,9 @@
     </ClInclude>
     <ClInclude Include="Level03.h">
       <Filter>Game\Header\Level\Level03</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationTitle.h">
+      <Filter>Game\Header\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

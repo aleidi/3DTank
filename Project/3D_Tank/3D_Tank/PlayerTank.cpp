@@ -5,7 +5,6 @@
 #include "CollisionManager.h"
 #include "PlayerCamera.h"
 #include "HUD.h"
-
 #include "Shell.h"
 
 PlayerTank::PlayerTank()
@@ -13,8 +12,9 @@ PlayerTank::PlayerTank()
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
 	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
 	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
-	mFPToTPThreshold(0.7f), mMinDisToCam(0.0f),mMaxDisToCam(1.0f)
+	mFPToTPThreshold(0.7f), mMinDisToCam(0.0f),mMaxDisToCam(1.0f), mCameraRotSpd(60.0f)
 {
+	mTag = ObjectTag::Player;
 	mName = "PlayerTank";
 
 	mAttribute.m_MaxSpeed = mMoveSped;
@@ -70,10 +70,12 @@ PlayerTank::PlayerTank()
 
 	mAttribute.m_HP = 1000;
 	mAttribute.FullHP = 1000;
+	mAttribute.m_AttackRangeRadiusSq = 20.0f;
 
 	mLightInterval = 0.3f;
 	mHeavyInterval = 2.0f;
 	mAttackCount = mLightInterval;
+	mAttackAngle = DirectX::XMConvertToRadians(60);
 }
 
 PlayerTank::~PlayerTank()
@@ -115,9 +117,35 @@ void PlayerTank::onLateUpdate(float deltaTime)
 
 void PlayerTank::onAttack(float deltaTime)
 {
+	mAttackCount -= deltaTime;
 	if (mAttackCount <= 0.0f)
 	{
-		Shell* shell = new Shell(mBattery->getTransform()->getPosition(), mBattery->getTransform()->Forward, 0);
+		//detect enemy whether can be attacked
+		Vector3 origin = mCamera->getTransform()->getPosition();
+		Vector3 dir = mCamera->getTransform()->Forward;
+		GameObject* col = nullptr;
+		float dis = 0.0f;
+		CollisionManager::sGetInstance()->rayCheck(origin, dir, mAttribute.m_AttackRangeRadiusSq, &col, dis);
+		if(col != nullptr && col->getTag() == GameObject::ObjectTag::Enemy)
+		{
+			dir = col->getTransform()->getPosition() - mBattery->getTransform()->getPosition();
+			dir = dir.normalize();
+			float angle = Vector3::dot(dir, mBattery->getTransform()->Forward);
+			if (angle < mAttackAngle)
+			{
+
+				Shell* shell = new Shell(mBattery->getTransform()->getPosition(), dir, 0);
+			}
+			else
+			{
+				Shell* shell = new Shell(mBattery->getTransform()->getPosition(), mBattery->getTransform()->Forward + Vector3::up*0.1f, 0);
+			}
+		}
+		else
+		{
+			Shell* shell = new Shell(mBattery->getTransform()->getPosition(), mBattery->getTransform()->Forward + Vector3::up*0.1f, 0);
+		}
+
 		if (mWeaponType == WeaponType::Light)
 		{
 			//do light attack
@@ -129,7 +157,6 @@ void PlayerTank::onAttack(float deltaTime)
 			mAttackCount = mHeavyInterval;
 		}
 	}
-	mAttackCount -= deltaTime;
 
 }
 
@@ -171,7 +198,7 @@ void PlayerTank::rotateCamera(float valueX, float valueY)
 	{
 		valueX = 0.01f;
 	}
-	mCamFollower->getTransform()->rotate(valueX*60.0f, valueY*60.0f,0.0f);
+	mCamFollower->getTransform()->rotate(valueX*mCameraRotSpd, valueY*mCameraRotSpd,0.0f);
 }
 
 void PlayerTank::adjustDisToCam(float value)
@@ -198,6 +225,11 @@ void PlayerTank::adjustDisToCam(float value)
 void PlayerTank::setCameraFov(float value)
 {
 	mCameraComp->setFov(value);
+}
+
+void PlayerTank::setCameraRotSpd(float value)
+{
+	mCameraRotSpd = value;
 }
 
 void PlayerTank::onTriggerEnter(const GameObject* obj)

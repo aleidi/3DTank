@@ -22,11 +22,11 @@ GameSystem::~GameSystem()
 void GameSystem::onInit()
 {
 
-	GameLevelTest* level = new GameLevelTest();
+	new GameLevelTest();
 	new Level01();
 	new Level02();
 	new Level03();
-	GameLevelManager::sGetInstance()->setDefaultLevel(0);
+	GameLevelManager::sGetInstance()->setDefaultLevel(2);
 	
 }
 

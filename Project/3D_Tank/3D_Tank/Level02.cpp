@@ -22,6 +22,8 @@ void Level02::enterLevel()
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/TownStreet", L"Objects/Wall");
 	mMap->getTransform()->setScale(0.1f, 0.1f, 0.1f);
 	new AITank(0);
+
+	mCanStart = true;
 }
 
 GameLevelBase * Level02::onUpdate(float deltaTime)
