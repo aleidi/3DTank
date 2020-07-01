@@ -120,6 +120,12 @@ void PlayerTank::onAttack(float deltaTime)
 	mAttackCount -= deltaTime;
 	if (mAttackCount <= 0.0f)
 	{
+		float randX = (float)rand() / (float)RAND_MAX * 0.2f - 0.1f;
+		float randY = (float)rand() / (float)RAND_MAX * 0.2f - 0.1f;
+		float randZ = (float)rand() / (float)RAND_MAX * 0.2f - 0.1f;
+		Vector3 offset = Vector3(randX, randY, randZ);
+		Vector3 startPos = mBattery->getTransform()->getPosition() + offset;
+
 		//detect enemy whether can be attacked
 		Vector3 origin = mCamera->getTransform()->getPosition();
 		Vector3 dir = mCamera->getTransform()->Forward;
@@ -128,22 +134,22 @@ void PlayerTank::onAttack(float deltaTime)
 		CollisionManager::sGetInstance()->rayCheck(origin, dir, mAttribute.m_AttackRangeRadiusSq, &col, dis);
 		if(col != nullptr && col->getTag() == GameObject::ObjectTag::Enemy)
 		{
-			dir = col->getTransform()->getPosition() - mBattery->getTransform()->getPosition();
+			dir = col->getTransform()->getPosition() - startPos;
 			dir = dir.normalize();
 			float angle = Vector3::dot(dir, mBattery->getTransform()->Forward);
 			if (angle < mAttackAngle)
 			{
 
-				Shell* shell = new Shell(mBattery->getTransform()->getPosition(), dir, 0);
+				Shell* shell = new Shell(startPos, dir, 0);
 			}
 			else
 			{
-				Shell* shell = new Shell(mBattery->getTransform()->getPosition(), mBattery->getTransform()->Forward + Vector3::up*0.1f, 0);
+				Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.1f, 0);
 			}
 		}
 		else
 		{
-			Shell* shell = new Shell(mBattery->getTransform()->getPosition(), mBattery->getTransform()->Forward + Vector3::up*0.1f, 0);
+			Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.1f, 0);
 		}
 
 		if (mWeaponType == WeaponType::Light)
