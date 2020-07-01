@@ -17,7 +17,7 @@
 struct Telegram;
 #define getTargetPos getAICtrl()->getTarget()->getTransform()->getPosition()
 
-EnemyTank::EnemyTank(int ID)
+EnemyTank::EnemyTank(int ID, float scale)
 	:m_HPRecovered(false),
 	m_Attacked(false),
 	BaseGameEntity(ID)
@@ -38,7 +38,7 @@ EnemyTank::EnemyTank(int ID)
 				   FileManager::AIAttributes[ID].m_WanderDistance,
 				   FileManager::AIAttributes[ID].m_WanderJitter,
 				   FileManager::AIAttributes[ID].m_ResetPoint };
-			
+
 	FullHP = mAttribute.FullHP;
 	DyingHP = FullHP * 0.2; // below this value the enemy tank is dying
 	mTag = ObjectTag::Enemy;
@@ -55,7 +55,7 @@ EnemyTank::EnemyTank(int ID)
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack"));
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack"));
 
-	Material mat; 
+	Material mat;
 	mat.Ambient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
 	mat.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	mat.Specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 5.0f);
@@ -81,7 +81,7 @@ EnemyTank::EnemyTank(int ID)
 	//mBattery->addComponent(rc);
 	mBattery->attach(*this);
 
-	mTransform->setScale(0.002f, 0.002f, 0.002f);
+	mTransform->setScale(scale, scale, scale);
 	mTransform->calcultateTransformMatrix();
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);
 	// m_pStateMachine->setCurrentState(Rest::getInstance());
@@ -101,6 +101,11 @@ EnemyTank::EnemyTank(int ID)
 	addComponent(mMovementComp);
 	moveDirection = FORWARD;
 
+}
+
+EnemyTank::EnemyTank(int ID)
+	:EnemyTank(ID, 0.002f)
+{	
 }	
 
 EnemyTank::~EnemyTank()
