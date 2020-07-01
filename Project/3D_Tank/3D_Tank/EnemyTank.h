@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 #include "Transform.h"
 class Shell;
+class AIController;
 
 class EnemyTank : public BaseGameEntity{
 public:
@@ -65,9 +66,10 @@ public:
 	void onCollisionEnter() override;
 	void onCollisionExit() override;
 
-	void target(Pawn* targetTank) { m_target = targetTank; }
-
 	float aiCount = 0.0f;
+
+	void setAICtrl(AIController* aiController);
+	AIController* getAICtrl()const;
 
 private:
 	bool m_HPRecovered;
@@ -80,5 +82,6 @@ private:
 	GameObject* mObstacle;
 	GameObject* mBattery;
 	std::vector<RenderComponent*> mRCs;
-	Pawn* m_target;
+	
+	AIController* mAICtrl;
 };

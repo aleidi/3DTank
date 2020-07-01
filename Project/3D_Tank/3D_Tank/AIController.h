@@ -27,7 +27,8 @@ public:
 	void Rotate(float x, float y, float z);
 
 	void setTarget(Pawn* targetTank);
-	Pawn* getTarget() { return m_target; }
+	Pawn* getTarget();
+
 
 	void setPrefabs(AITank* prefab) { m_Prefabs = prefab; }
 	AITank* getPrefabs() { return m_Prefabs; }

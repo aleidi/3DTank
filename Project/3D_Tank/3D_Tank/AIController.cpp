@@ -7,16 +7,20 @@
 #include "EnemyTank.h"
 #include "GameInstance.h"
 #include "CollisionManager.h"
+#include "EntityNames.h"
 
 AIController::AIController()
 	:AIController(-1)
 {}
 
 AIController::AIController(int id)
-	:mID(id),mAccumulateRot(0)
+	:mID(id),mAccumulateRot(0),ControllerBase(-1)
 {
  	m_pStateMachine = new StateMachine<AIController>(this);
-  	m_pStateMachine->setCurrentState(Rest::getInstance());
+	if( id != ent_Tank_SuperEnemy )
+  		m_pStateMachine->setCurrentState(Rest::getInstance());
+	else 
+		m_pStateMachine->setCurrentState(Alert::getInstance());
 
 	m_target = GameInstance::sGetInstance()->getPlayer();
 }
@@ -24,6 +28,7 @@ AIController::AIController(int id)
 AIController::~AIController()
 {
 	delete m_pStateMachine;
+	m_pStateMachine = NULL;
 }
 
 void AIController::onStart()
@@ -73,5 +78,16 @@ void AIController::Rotate(float x, float y, float z)
 
 void AIController::setTarget(Pawn* targetTank) {
 	m_target = targetTank;
-	reinterpret_cast<EnemyTank*>(mPawn)->target(m_target);
+}
+
+Pawn * AIController::getTarget()
+{
+	if ( !m_target->isAlive() ) {
+		//reinterpret_cast<EnemyTank*>(m_target)->()->getID();
+		//setTarget(SceneManager::sGetInstance()->getAIController(1)->getPawn());
+		setTarget(GameInstance::sGetInstance()->getPlayer());
+		
+	}
+
+	return m_target;
 }

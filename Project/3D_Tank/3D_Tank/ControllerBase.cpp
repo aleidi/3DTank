@@ -1,5 +1,10 @@
 #include "ControllerBase.h"
 
+ControllerBase::ControllerBase(int value)
+	: GameObject(-1)
+{
+}
+
 void ControllerBase::onStart()
 {
 	GameObject::onStart();

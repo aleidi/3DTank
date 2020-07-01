@@ -8,6 +8,7 @@ class ControllerBase : public GameObject
 {
 public:
 	ControllerBase() = default;
+	ControllerBase(int value);
 	virtual ~ControllerBase() {} 
 
 	virtual void onStart() override;

@@ -18,9 +18,17 @@ public:
 		AttackAble = 2,
 	};
 
+	enum ObjectTag
+	{
+		Environment = 0,
+		Player = 1,
+		Enemy =2,
+	};
+
 public:
 
 	GameObject();
+	GameObject(int value);
 	virtual ~GameObject();
 	GameObject(GameObject& obj);
 
@@ -67,6 +75,7 @@ protected:
 
 	std::string mName;
 	CollisionLayer mColLayer;
+	ObjectTag mTag;
 private:
 	Vector3* lastFramePostion;
 };
