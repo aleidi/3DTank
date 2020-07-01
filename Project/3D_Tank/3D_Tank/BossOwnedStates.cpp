@@ -170,7 +170,7 @@ void Violent::execute(AIController* pBoss, float deltaTime) {
 
 		BOSS->rotateBattery(0, 0.1f, 0);
 		BOSS->aiCount += deltaTime;
-		if (BOSS->aiCount > BOSS->attackTimeDelay()*0.1) {
+		if (BOSS->aiCount > BOSS->attackTimeDelay()*0.05) {
 			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
 			BOSS->aiCount = 0.0f;
 		}

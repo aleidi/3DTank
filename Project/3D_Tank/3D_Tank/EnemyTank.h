@@ -68,7 +68,8 @@ public:
 
 	float aiCount = 0.0f;
 
-	void linkAICtrl(AIController* aiController);
+	void setAICtrl(AIController* aiController);
+	AIController* getAICtrl()const;
 
 private:
 	bool m_HPRecovered;

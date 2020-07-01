@@ -15,7 +15,7 @@
 #include "AIController.h"
 
 struct Telegram;
-#define getTargetPos mAICtrl->getTarget()->getTransform()->getPosition()
+#define getTargetPos getAICtrl()->getTarget()->getTransform()->getPosition()
 
 EnemyTank::EnemyTank(int ID)
 	:m_HPRecovered(false),
@@ -41,6 +41,7 @@ EnemyTank::EnemyTank(int ID)
 			
 	FullHP = mAttribute.FullHP;
 	DyingHP = FullHP * 0.2; // below this value the enemy tank is dying
+	mTag = ObjectTag::Enemy;
 
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint));
 	DirectX::XMFLOAT3 maxP0(108.550003f, 97.2149963f, 177.554993f);
@@ -195,9 +196,13 @@ void EnemyTank::onCollisionExit()
 {
 }
 
-void EnemyTank::linkAICtrl(AIController * aiController)
+void EnemyTank::setAICtrl(AIController * aiController)
 {
 	mAICtrl = aiController;
+}
+
+AIController* EnemyTank::getAICtrl()const {
+	return mAICtrl;
 }
 
 Vector3 EnemyTank::batteryForward() const {

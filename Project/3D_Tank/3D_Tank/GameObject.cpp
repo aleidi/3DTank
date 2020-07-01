@@ -6,13 +6,13 @@
 #include "ScriptComponent.h"
 
 GameObject::GameObject()
-	:mTransform(new Transform(this)),mName("GameObject")
+	:mTransform(new Transform(this)),mName("GameObject"),mTag(ObjectTag::Environment)
 {
 	SceneManager::sGetInstance()->addGameObjectToPool(this);
 }
 
 GameObject::GameObject(int value)
-	:mTransform(new Transform(this)), mName("GameObject")
+	:mTransform(new Transform(this)), mName("GameObject"), mTag(ObjectTag::Environment)
 {
 }
 

@@ -1,8 +1,9 @@
 #pragma once
+#include "GameObject.h"
 class EnemyTank;
 class AIController;
 
-class AITank
+class AITank : public GameObject
 {
 public:
 	AITank(int ID);

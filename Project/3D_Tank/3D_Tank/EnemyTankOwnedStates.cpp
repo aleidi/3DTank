@@ -459,7 +459,7 @@ void Death::exit(AIController* pEnemyTank) {
 bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 	case Msg_DeathDelay: {
-		delete pEnemyTank->getPrefabs();
+		pEnemyTank->getPrefabs()->destroy();
 		return true;
 	}
 
