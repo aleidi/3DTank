@@ -3,13 +3,15 @@
 #include <string>
 
 enum {
+	ent_Tank_Player = -1,
+
+	ent_Tank_SuperEnemy,
+
 	ent_Tank_Enemy,
 
 	ent_Tank_EnemyTarget,
 
-	ent_Tank_SuperEnemy = 10,
-
-	ent_Debug = 99,
+	ent_Debug = 99
 
 };
 
