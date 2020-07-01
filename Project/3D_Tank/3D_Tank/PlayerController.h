@@ -14,7 +14,7 @@ private:
 	void rotateView(float valueX, float valueY);
 	void adjustDistanceToCam(float value);
 	void setCameraFov(float value);
-
+	
 	void checkInput(float deltaTime);
 
 private:

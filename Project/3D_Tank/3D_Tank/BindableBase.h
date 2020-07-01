@@ -15,6 +15,7 @@
 #include "Sampler.h"
 #include "DepthStencil.h"
 #include "Rasterizer.h"
+#include "Blender.h"
 
 #include "GeometryGenerator.h"
 #include "RenderManager.h"

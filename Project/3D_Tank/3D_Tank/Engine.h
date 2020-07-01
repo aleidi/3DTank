@@ -48,6 +48,7 @@ private:
 	bool mIsEditMode;
 
 	//testcode
+	float gSpeed;
 	float fScale;
 	float fTrans_x;
 	float fTrans_y;

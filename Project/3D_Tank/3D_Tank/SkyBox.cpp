@@ -2,7 +2,7 @@
 #include "BindableBase.h"
 
 SkyBox::SkyBox(Graphics & gfx)
-	:SkyBox(gfx, L"Skybox/Sand")
+	:SkyBox(gfx, L"Skybox/Night")
 {}
 
 SkyBox::SkyBox(Graphics & gfx, const std::wstring & texture)
