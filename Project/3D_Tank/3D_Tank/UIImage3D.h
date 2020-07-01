@@ -27,7 +27,6 @@ private:
 		XMFLOAT2 Size;
 	};
 
-	std::unique_ptr<PixelConstantBuffer<XMFLOAT4>> mPCBuf;
 	std::unique_ptr<GeometryConstantBuffer<CBGS>> mGSCBuf;
 	std::unique_ptr<GeometryShader> mGS;
 

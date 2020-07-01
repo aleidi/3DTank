@@ -1,6 +1,7 @@
 #include "Level01.h"
 #include "GameButton.h"
 #include "FileManager.h"
+#include "AnimationTitle.h"
 
 Level01::Level01()
 {
@@ -86,8 +87,19 @@ void Level01::enterLevel()
 	mBtnCancel->setTextPos(WINDOW_WIDTH - 180.0f, 75.0f);
 	mBtnCancel->setEnable(false);
 
+	mCanvas = new AnimationTitle(0.0f, 0.0f, 6.0f, 6.0f, 3.0f, L"", Vector3(80.0f, 0.0f, 0.0f));
+	mCanvas->setImageSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	mCanvas->setColor(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 
-	mState = MainMenu;
+	mCompanyTitle = new AnimationTitle(WINDOW_WIDTH*0.5f - 256.0f, -174.0f, 6.0f, 6.0f, 3.0f, L"UI/company_title", Vector3(0.0f, 80.0f, 0.0f));
+	mCompanyTitle->setImageSize(512.0f,174.0);
+
+	mTeamTitle = new AnimationTitle(WINDOW_WIDTH*0.5f - 200.0f, WINDOW_HEIGHT, 6.0f, 6.0f, 3.0f, L"UI/team_title", Vector3(0.0f, -80.0f, 0.0f));
+	mTeamTitle->setImageSize(400.0f, 162.0f);
+
+
+	mState = CompanyTitle;
+	mCompanyTitle->setEnable(true);
 }
 
 GameLevelBase * Level01::onUpdate(float deltaTime)
@@ -160,7 +172,35 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 		case EditStart:
 			return GameLevelManager::sGetInstance()->changeLevel(3);
 			break;
+		case CompanyTitle:
+			if (mCompanyTitle->isEnd())
+			{
+				mState = TeamTitle;
+				mTeamTitle->setEnable(true);
+				mCompanyTitle->destroy();
+			}
+			break;
+		case TeamTitle:
+			if (mTeamTitle->isEnd())
+			{
+				mState = Canvas;
+				mCanvas->setEnable(true);
+				mTeamTitle->destroy();
+			}
+			break;
+		case Canvas:
+			if (mCanvas->isEnd())
+			{
+				mState = MainMenu;
+				mCanvas->destroy();
+			}
+			mBtnStart->setEnable(true);
+			mBtnSetting->setEnable(true);
+			mBtnExit->setEnable(true);
+			break;
 		}
+
+	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 	return this;
 }
 

@@ -16,7 +16,7 @@ public:
 	void getPosition(float& x, float& y, float& z) noexcept;
 	void getPosition(float& x, float& y) noexcept;
 	void setEnable(bool value) noexcept;
-	void setRotation(float pitch, float yaw, float roll);
+	void setRotation(float pitch, float yaw, float roll, bool isDeg = false);
 	void rotate(float x, float y, float z);
 	void setBlend(bool value);
 

@@ -10,6 +10,9 @@ GameButton::GameButton(const std::wstring & texPath, float width, float height, 
 	mButton = SceneManager::sGetInstance()->createUIButton(texPath);
 	mButton->setSize(width, height);
 	mText = SceneManager::sGetInstance()->createUIText(text);
+
+	mButton->setEnable(false);
+	mText->setEnable(false);
 }
 
 GameButton::~GameButton()

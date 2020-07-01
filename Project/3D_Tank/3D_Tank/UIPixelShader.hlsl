@@ -1,6 +1,11 @@
 Texture2D tex : register(t0);
 SamplerState texSamp : register(s0);
 
+cbuffer ConstBuffer
+{
+	float4 Color;
+};
+
 struct PS_In
 {
 	float4 Pos : SV_Position;
@@ -9,5 +14,5 @@ struct PS_In
 
 float4 main(PS_In pin) : SV_Target
 {
-	return tex.Sample(texSamp, pin.Tex);
+	return tex.Sample(texSamp, pin.Tex) * Color;
 }

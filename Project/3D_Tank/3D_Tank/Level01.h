@@ -5,6 +5,7 @@
 #include "ULevelEvent.h"
 
 class GameButton;
+class AnimationTitle;
 
 class Level01 : public GameLevelBase
 {
@@ -16,7 +17,10 @@ public:
 		Setting,
 		Exit,
 		GameStart,
-		EditStart
+		EditStart,
+		CompanyTitle,
+		TeamTitle,
+		Canvas
 	};
 
 public :
@@ -54,5 +58,8 @@ private:
 	UReturnEvent* mReturnEvent;
 	UCancelEvent* mCancelEvent;
 
+	AnimationTitle* mCompanyTitle;
+	AnimationTitle* mTeamTitle;
+	AnimationTitle* mCanvas;
 };
 

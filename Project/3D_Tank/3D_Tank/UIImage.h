@@ -25,6 +25,7 @@ protected:
 		XMFLOAT3 pad;
 	};
 
+	std::unique_ptr<PixelConstantBuffer<XMFLOAT4>> mPCBuf;
 	std::unique_ptr <VertexShader> mVS;
 	std::unique_ptr<VertexConstantBuffer<CBVS>> mVCB;
 	float mFillAmount;

@@ -140,7 +140,7 @@ void Engine::run()
 	{
 		if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
 		{
-			mIsGameMode = true;
+			enableGameMode(true);
 		}
 	}
 
@@ -199,6 +199,7 @@ void Engine::enableEditMode(bool value)
 void Engine::enableGameMode(bool value)
 {
 	mIsGameMode = value;
+	mGameSystem->setEnable(true);
 }
 
 void Engine::showtText(const std::wstring & str = L"", float leftTopX=0, float leftTopY=0, float width=0, float height=0, bool canShow = false)

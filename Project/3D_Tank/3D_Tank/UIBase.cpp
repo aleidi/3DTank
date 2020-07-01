@@ -51,11 +51,19 @@ void UIBase::setEnable(bool value) noexcept
 	mIsEnable = value;
 }
 
-void UIBase::setRotation(float pitch, float yaw, float roll)
+void UIBase::setRotation(float pitch, float yaw, float roll, bool isDeg)
 {
-	mPitch = pitch;
-	mYaw = yaw;
-	mRoll = roll;
+	if (isDeg != true)
+	{
+		mPitch = pitch;
+		mYaw = yaw;
+		mRoll = roll;
+		return;
+	}
+
+	mPitch = XMConvertToRadians(pitch);
+	mYaw = XMConvertToRadians(yaw);
+	mRoll = XMConvertToRadians(roll);
 }
 
 void UIBase::rotate(float x, float y, float z)

@@ -12,6 +12,9 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 	mHeight = 100.0f;
 	mX = WINDOW_WIDTH*0.5f - 0.5f*mWidth;
 	mY = WINDOW_HEIGHT * 0.5f - 0.5f*mHeight;
+	mPitch = 0.0f;
+	mYaw = 0.0f;
+	mRoll = 0.0f;
 	setEnable(true);
 
 	GeometryGenerator::Mesh mesh;
@@ -44,6 +47,9 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 
 	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
+	mMaterial.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mPCBuf = std::make_unique<PixelConstantBuffer<XMFLOAT4>>(gfx, mMaterial.Color);
+
 	mVCB = std::make_unique<VertexConstantBuffer<CBVS>>(gfx);
 
 	addBind(std::make_unique<GeometryShader>());
@@ -62,6 +68,8 @@ void UIImage::draw(Graphics& gfx) noexcept
 		setBlendTransparent(gfx);
 	}
 
+	mPCBuf->onUpdate(gfx, mMaterial.Color);
+
 	mVCB->onUpdate(gfx,
 		{
 			DirectX::XMMatrixTranspose(getTransformXM()),
@@ -75,6 +83,7 @@ void UIImage::draw(Graphics& gfx) noexcept
 	}
 	mVCB->bind(gfx);
 	mVS->bind(gfx);
+	mPCBuf->bind(gfx);
 	gfx.DrawIndexed(pIndexBuffer->getCount());
 
 	if (mCanBlend)
