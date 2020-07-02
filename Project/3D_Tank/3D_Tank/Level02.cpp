@@ -41,7 +41,6 @@ void Level02::enterLevel()
 
 	std::thread t(&Level02::loadResourcce, this);
 	t.detach();
-
 }
 
 GameLevelBase * Level02::onUpdate(float deltaTime)
@@ -90,8 +89,7 @@ void Level02::loadResourcce()
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m11_tree", L"Objects/Level/tree");
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m12_reaf", L"Objects/Level/reaf");
 	mMap->getTransform()->translate(0.0f, -0.075f, 0.0f);
-	mMap->getTransform()->setScale(0.1f, 0.1f, 0.1f);
-	mMap->getTransform()->setRotation(Vector3(0.0f,0.0f,0.001794f));
+	mMap->getTransform()->setScale(0.07f, 0.07f, 0.07f);
 
 	//mCurrentGameMode = new GameModeBase();
 	//mCurrentGameMode->onInit();
