@@ -2,6 +2,8 @@
 #include "Component.h"
 #include "Pawn.h"
 
+class ParticleSystem;
+
 class ShellFlyComponent : public Component {
 public:
 	ShellFlyComponent(GameObject* obj);
@@ -13,6 +15,8 @@ public:
 	void setTarget(GameObject* t);
 
 private:
+	void initParticle();
+private:
 	GameObject* target;
 	Vector3 finalForward;
 	float rotateSpeed;
@@ -21,4 +25,6 @@ private:
 
 	Vector3 velocity;
 	Vector3 gracity;
+
+	ParticleSystem* mPS;
 };

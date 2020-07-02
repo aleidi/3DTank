@@ -2,7 +2,9 @@
 #include "Engine.h"
 
 ParticleSystem::ParticleSystem(Graphics& gfx, const std::wstring& texture)
-	:mMaxParticles(1),mLifeTime(1),mEmitRate(2),mMaxSpeed(1.0f),mMinSpeed(1.0f), mVelocity(XMFLOAT3(0.0f, 1.0f, 0.0f)),
+	:mMaxParticles(1),mLifeTime(1),mEmitRate(2), mNeedParticles(mLifeTime * mEmitRate), mStepTime(0.0f),
+	mDuration(0.0f), mTimeCount(0.0f), mIsLoop(false),
+	mMaxSpeed(1.0f),mMinSpeed(1.0f), mVelocity(XMFLOAT3(0.0f, 1.0f, 0.0f)),
 	 mMaxTileX(1.0f),mMaxTileY(1.0f),mTileInterval(0.1f),mTileStepX(1),mTileStepY(1),
 	mPosition(XMFLOAT3(0.0f, 0.0f, 5.0f)),mRotation(XMFLOAT3(0.0f, 0.0f, 0.0f)),mScale(XMFLOAT3(1.0f, 1.0f, 1.0f)),
 	mStartRotation(XMFLOAT3(0.0f, 0.0f, 0.0f)),mStartScale(XMFLOAT3(10.0f, 10.0f, 10.0f)),mIsActivate(false)
@@ -103,6 +105,18 @@ void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
 {
 	int count = 0;
 	updateParticle(gfx, deltaTime, count);
+
+	if (mIsActivate == true && mIsLoop != true)
+	{
+		mTimeCount += deltaTime;
+		if (mTimeCount > mDuration)
+		{
+			mTimeCount = 0.0f;
+			mIsActivate = false;
+			return;
+		}
+	}
+
 	if (mIsActivate != true && count == mParticles.size())
 	{
 		return;
@@ -340,3 +354,14 @@ void ParticleSystem::stop()
 {
 	mIsActivate = false;
 }
+
+void ParticleSystem::setDuration(float value)
+{
+	mDuration = value;
+}
+
+void ParticleSystem::enableLoop(bool value)
+{
+	mIsLoop = value;
+}
+
