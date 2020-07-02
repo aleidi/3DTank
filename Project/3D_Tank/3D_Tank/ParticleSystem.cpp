@@ -26,6 +26,7 @@ ParticleSystem::ParticleSystem(Graphics& gfx, const std::wstring& texture)
 	{
 		{ "POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
 		{ "SIZE",0,DXGI_FORMAT_R32G32_FLOAT,0,D3D11_APPEND_ALIGNED_ELEMENT,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{ "TEXCOORD",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,D3D11_APPEND_ALIGNED_ELEMENT,D3D11_INPUT_PER_VERTEX_DATA,0},
 	};
 	addBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
@@ -77,11 +78,12 @@ void ParticleSystem::updateParticle(Graphics& gfx, float deltaTime) noexcept
 			vel = XMLoadFloat3(&it->Velocity);
 			step = XMVectorSet(deltaTime, deltaTime, deltaTime, 0.0f);
 			XMStoreFloat3(&it->Position, DirectX::XMVectorMultiplyAdd(vel, step, pos));
+			updateSprite(&(*it), deltaTime);
 		}
 		else
 		{
 			srand(Engine::sGetInstance()->getTotalTime());
-			ResetParticle(&(*it));
+			resetParticle(&(*it));
 		}
 	}
 
@@ -91,7 +93,7 @@ void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
 {
 	updateParticle(gfx, deltaTime);
 
-	SetBlendTransparent(gfx);
+	setBlendTransparent(gfx);
 
 	mStepTime += deltaTime;
 	float interval = 1.0f / mEmitRate;
@@ -99,7 +101,7 @@ void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
 	{
 		PAttribute p;
 		srand(Engine::sGetInstance()->getTotalTime());
-		ResetParticle(&p);
+		resetParticle(&p);
 		mParticles.push_back(p);
 		mStepTime = 0.0f;
 	}
@@ -115,6 +117,10 @@ void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
 	{
 		vertices[i].Position = mParticles[i].Position;
 		vertices[i].Size = XMFLOAT2(mParticles[i].Size.x, mParticles[i].Size.y);
+		vertices[i].Tile.x = mParticles[i].Sprite.CurrentTileX;
+		vertices[i].Tile.y = mParticles[i].Sprite.CurrentTileY;
+		vertices[i].Tile.z = mMaxTileX;
+		vertices[i].Tile.w = mMaxTileY;
 	}
 	gfx.getContext()->Unmap(mVB->getBuffer(), 0u);
 
@@ -138,10 +144,10 @@ void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
 	}
 	gfx.DrawIndexed(4 * mParticles.size());
 
-	ResetBlendState(gfx);
+	resetBlendState(gfx);
 }
 
-void ParticleSystem::ResetParticle(PAttribute* p)
+void ParticleSystem::resetParticle(PAttribute* p)
 {
 
 	p->IsAlive = true;
@@ -155,6 +161,10 @@ void ParticleSystem::ResetParticle(PAttribute* p)
 		p->Size = mStartScale;
 		p->Velocity = XMFLOAT3(0.0f, 0.0f, 0.0f);
 		p->Color = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.1f);
+
+		p->Sprite.CurrentTileX = 0.0f;
+		p->Sprite.CurrentTileY = 0.0f;
+		p->Sprite.TileCount = 0.0f;
 		break;
 	case Emitter::Box:
 		XMFLOAT3 pos = mPosition;
@@ -175,11 +185,15 @@ void ParticleSystem::ResetParticle(PAttribute* p)
 			XMConvertToRadians(mRotation.x), XMConvertToRadians(mRotation.y), XMConvertToRadians(mRotation.z)));
 		XMStoreFloat3(&p->Velocity, vel);
 		p->Color = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.1f);
+
+		p->Sprite.CurrentTileX = 0.0f;
+		p->Sprite.CurrentTileY = 0.0f;
+		p->Sprite.TileCount = 0.0f;
 		break;
 	}
 }
 
-void ParticleSystem::SetBlendTransparent(Graphics& gfx)
+void ParticleSystem::setBlendTransparent(Graphics& gfx)
 {
 	Microsoft::WRL::ComPtr<ID3D11BlendState> pBlendState;
 	D3D11_BLEND_DESC bd;
@@ -198,7 +212,7 @@ void ParticleSystem::SetBlendTransparent(Graphics& gfx)
 	gfx.getContext()->OMSetBlendState(pBlendState.Get(), nullptr, 0xFFFFFFFF);
 }
 
-void ParticleSystem::ResetBlendState(Graphics& gfx)
+void ParticleSystem::resetBlendState(Graphics& gfx)
 {
 	Microsoft::WRL::ComPtr<ID3D11BlendState> pBlendState;
 	D3D11_BLEND_DESC bd;
@@ -215,6 +229,25 @@ void ParticleSystem::ResetBlendState(Graphics& gfx)
 	bd.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 	gfx.getDevice()->CreateBlendState(&bd, pBlendState.GetAddressOf());
 	gfx.getContext()->OMSetBlendState(pBlendState.Get(), nullptr, 0xFFFFFFFF);
+}
+
+void ParticleSystem::updateSprite(PAttribute * p, float deltaTime)
+{
+	p->Sprite.TileCount += deltaTime;
+	if (p->Sprite.TileCount >= mTileInterval)
+	{
+		p->Sprite.CurrentTileX += mTileStepX;
+		if (p->Sprite.CurrentTileX >= mMaxTileX)
+		{
+			p->Sprite.CurrentTileY += mTileStepY;
+			p->Sprite.CurrentTileX = 0.0f;
+		}
+		if (p->Sprite.CurrentTileY >= mMaxTileY)
+		{
+			p->Sprite.CurrentTileY = 0.0f;
+		}
+		p->Sprite.TileCount = 0.0f;
+	}
 }
 
 void ParticleSystem::setEmitter(Emitter type)
@@ -252,4 +285,21 @@ void ParticleSystem::setMaxMinSpeed(float max, float min)
 {
 	mMaxSpeed = max;
 	mMinSpeed = min;
+}
+
+void ParticleSystem::setTile(float x, float y)
+{
+	mMaxTileX = x;
+	mMaxTileY = y;
+}
+
+void ParticleSystem::setAnimationInterval(float value)
+{
+	mTileInterval = value;
+}
+
+void ParticleSystem::setTileStep(float x, float y)
+{
+	mTileStepX = x;
+	mTileStepY = y;
 }
