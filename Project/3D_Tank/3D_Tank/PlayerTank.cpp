@@ -7,6 +7,7 @@
 #include "HUD.h"
 #include "Shell.h"
 #include "ParticleSystem.h"
+#include "ShellFlyComponent.h"
 
 PlayerTank::PlayerTank()
 	:mRotateSpd(30.0f),mMoveSped(8.0f),mBatteryRotSpd(2.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
@@ -90,6 +91,8 @@ PlayerTank::~PlayerTank()
 	mCamera->destroy();
 	mCamera = nullptr;
 	mCameraComp = nullptr;
+	SceneManager::sGetInstance()->removeParticleFromPool(mPS);
+	mPS = nullptr;
 }
 
 void PlayerTank::onUpdate(float deltaTime)
@@ -143,7 +146,8 @@ void PlayerTank::onAttack(float deltaTime)
 			if (angle < mAttackAngle)
 			{
 
-				Shell* shell = new Shell(startPos, dir, 0);
+				Shell* shell = new Shell(startPos, dir, 1);
+				shell->getShellComponent()->setTarget(col);
 			}
 			else
 			{
