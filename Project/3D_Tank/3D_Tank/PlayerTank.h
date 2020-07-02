@@ -3,6 +3,7 @@
 
 class RenderComponent;
 class Camera;
+class ParticleSystem;
 
 class PlayerTank : public Pawn
 {
@@ -38,6 +39,10 @@ public:
 	GameObject* getBattery();
 
 private:
+	void playAttackParticle();
+	void initParticle();
+
+private:
 	//tank move and rotate
 	float mRotateSpd;
 	float mMoveSped;
@@ -71,5 +76,6 @@ private:
 	GameObject* mCamera;
 	Camera* mCameraComp;
 	GameObject* mHUD;
+	ParticleSystem* mPS;
 };
 

@@ -6,9 +6,10 @@
 #include "PlayerCamera.h"
 #include "HUD.h"
 #include "Shell.h"
+#include "ParticleSystem.h"
 
 PlayerTank::PlayerTank()
-	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(2.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
+	:mRotateSpd(30.0f),mMoveSped(8.0f),mBatteryRotSpd(2.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
 	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
 	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
@@ -76,6 +77,8 @@ PlayerTank::PlayerTank()
 	mHeavyInterval = 2.0f;
 	mAttackCount = mLightInterval;
 	mAttackAngle = DirectX::XMConvertToRadians(60);
+
+	initParticle();
 }
 
 PlayerTank::~PlayerTank()
@@ -163,7 +166,7 @@ void PlayerTank::onAttack(float deltaTime)
 			mAttackCount = mHeavyInterval;
 		}
 	}
-
+	playAttackParticle();
 }
 
 void PlayerTank::setAttack()
@@ -174,6 +177,7 @@ void PlayerTank::setAttack()
 void PlayerTank::stopAttack()
 {
 	reinterpret_cast<HUD*>(mHUD)->setAccelator(1.0f, 1.0f);
+	mPS->stop();
 }
 
 void PlayerTank::setWeaponType(WeaponType type)
@@ -305,4 +309,22 @@ void PlayerTank::onCollisionExit()
 GameObject* PlayerTank::getBattery()
 {
 	return mBattery;
+}
+
+void PlayerTank::playAttackParticle()
+{
+	Vector3 pos = mBattery->getTransform()->getPosition() + mBattery->getTransform()->Forward * 0.8f + mBattery->getTransform()->Up * 0.1f;
+	mPS->setPosition(pos.x,pos.y,pos.z);
+	mPS->play();
+}
+
+void PlayerTank::initParticle()
+{
+	mPS = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
+	mPS->setTile(5.0f, 5.0f);
+	mPS->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPS->setEmitRate(1.0f);
+	mPS->setLifeTime(0.3f);
+	mPS->setAnimationInterval(0.3f / 25.0f);
+	mPS->setStartScale(0.2f, 0.2f, 0.2f);
 }
