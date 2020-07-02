@@ -16,6 +16,7 @@ SoundComponent::SoundComponent(GameObject * obj) : Component(obj)
 
 SoundComponent::~SoundComponent()
 {
+	//delete mChannel;
 }
 
 void SoundComponent::setPosition()

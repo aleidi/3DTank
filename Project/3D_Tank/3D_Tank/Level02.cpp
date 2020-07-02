@@ -9,6 +9,9 @@
 #include "EntityNames.h"
 #include "Transform.h"
 #include "GameCharacter.h"
+#include "MessageDispatcher.h"
+
+/////////////////////////////////
 AITank* enemy_01;
 AITank* enemy_02;
 AITank* enemy_03;
@@ -58,6 +61,7 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 
 	RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*10.0f, 0.0f);
 
+	Dispatch->DispatchDelayedMessages();
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 
 	return this;

@@ -11,6 +11,20 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	:shellType(type), origin(ori)
 {
 	//this->getTransform()->Forward = direction;
+/*	SceneManager::sGetInstance()->createModel(*this, "Objects\\Shell", L"Objects\\Shell");
+	this->getTransform()->setPosition(this->origin + direction * 0.6f + Vector3::up * 0.1f);
+	this->getTransform()->setScale(0.02f, 0.02f, 0.02f);
+	this->getTransform()->rotate(this->getTransform()->getRotation().x + 90.f, this->getTransform()->getRotation().y, this->getTransform()->getRotation().z);
+
+	mCollisionSphere = new MBoundingSphere(this);
+	mCollisionSphere->createBoundingSphere(this->getTransform()->getPosition(), 0.001f, 1);
+	this->addComponent(mCollisionSphere);
+	mShellFly = new ShellFlyComponent(this, direction);
+	this->addComponent(mShellFly);
+	this->sphere = mCollisionSphere;
+	mSound = new SoundComponent(this);
+	this->addComponent(mSound)*/;
+
 	this->getTransform()->setPosition(ori);
 	shell = SceneManager::sGetInstance()->createSphere();
 	shell->getTransform()->setPosition(this->origin + direction * 0.6f + Vector3::up * 0.1f);
@@ -24,7 +38,6 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	shell->sphere = mCollisionSphere;
 	mSound = new SoundComponent(shell);
 	shell->addComponent(mSound);
-	attactTank = new GameObject();
 }
 
 Shell::Shell(GameObject* obj, const int& type)
@@ -44,7 +57,6 @@ Shell::Shell(GameObject* obj, const int& type)
 	shell->sphere = mCollisionSphere;
 	mSound = new SoundComponent(shell);
 	shell->addComponent(mSound);
-	attactTank = new GameObject();
 }
 
 Shell::~Shell()
@@ -70,7 +82,8 @@ int Shell::getShelltype()
 
 void Shell::onUpdate(float deltaTime)
 {
-	if (CollisionManager::sGetInstance()->collisionCheck_SphereToCube(this->shell->sphere, &attactTank) == true) {		if (attactTank->cube->moveable == 1) {
+	if (CollisionManager::sGetInstance()->collisionCheck_SphereToCube(this->shell->sphere, &attactTank) == true) {		
+		if (attactTank->cube->moveable == 1) {
 			reinterpret_cast<Pawn*>(attactTank)->onCollisionEnter();
 		}
 		this->onTriggerEnter();
@@ -80,18 +93,27 @@ void Shell::onUpdate(float deltaTime)
 	if (mCount > 5.0f)
 	{
 		shell->destroy();
-		//attactTank->destroy();
 		destroy();
 	}
+	//if (CollisionManager::sGetInstance()->collisionCheck_SphereToCube(this->sphere, &attactTank) == true) {
+	//	if (attactTank->cube->moveable == 1) {
+	//		reinterpret_cast<Pawn*>(attactTank)->onCollisionEnter();
+	//	}
+	//	this->onTriggerEnter();
+	//}
+
+	//mCount += deltaTime;
+	//if (mCount > 5.0f)
+	//{
+	//	//shell->destroy();
+	//	destroy();
+	//}
 }
 
 void Shell::onTriggerEnter()
 {
 	mSound->setPosition();
 	SoundManager::sGetInstance()->playSound(mSound->mChannel, 6);
-	//shell->~GameObject();
-	shell->destroy();
-	//attactTank->destroy();
+	//shell->destroy();
 	this->destroy();
-	//this->shell->destroy();
 }

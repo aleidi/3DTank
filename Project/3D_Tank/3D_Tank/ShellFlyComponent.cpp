@@ -22,6 +22,9 @@ ShellFlyComponent::ShellFlyComponent(GameObject * obj, const Vector3 & direction
 
 ShellFlyComponent::~ShellFlyComponent()
 {
+	if (target) {
+		target->destroy();
+	}
 }
 
 void ShellFlyComponent::onUpdate(float detaTime)
@@ -54,9 +57,9 @@ void ShellFlyComponent::updateForward(float detaTime)
 	}
 }
 
-void ShellFlyComponent::setTarget(Pawn* t)
+void ShellFlyComponent::setTarget(GameObject* t)
 {
 	if (t) {
-		this->target = t;
+		this->target = new GameObject(*t);
 	}
 }
