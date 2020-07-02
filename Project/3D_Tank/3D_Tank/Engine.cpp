@@ -30,6 +30,8 @@ Engine::Engine(Window& wnd)
 	onPreInit();
 
 	onInit();
+
+	onPostInit();
 }
 
 Engine * Engine::sGetInstance()
@@ -82,8 +84,6 @@ void Engine::onInit()
 	//EUI Init
 	mEui->onInit();
 
-	//Game Init
-	mGameSystem->onInit();
 #pragma region TestCode
 
 	//test code
@@ -169,6 +169,13 @@ void Engine::run()
 	}
 
 	mRendering.get()->onEndRender(deltaTime);
+}
+
+void Engine::onPostInit()
+{
+
+	//Game Init
+	mGameSystem->onInit();
 }
 
 float Engine::getTotalTime() noexcept
