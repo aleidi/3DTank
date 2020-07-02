@@ -17,6 +17,7 @@ public:
 	void onPreInit();
 	void onInit();
 	void run();
+	void onPostInit();
 
 	float getTotalTime() noexcept;
 	float getDeltaTIme() noexcept;

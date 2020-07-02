@@ -69,6 +69,8 @@ public:
 
 	float aiCount = 0.0f;
 
+	void hited(int value);
+
 	void setAICtrl(AIController* aiController);
 	AIController* getAICtrl()const;
 
