@@ -14,10 +14,11 @@ protected:
 	{
 		Material Mat;
 		DirectionalLight DirLight;
-		XMFLOAT4 EyePosW;
+		XMFLOAT3 EyePosW;
+		float Fresnel;
 	};
 protected:
-	CBPS GetCBPS(Graphics& gfx) noexcept;
+	CBPS getCBPS(Graphics& gfx) noexcept;
 private:
 	PixelConstantBuffer<CBPS> pcbuf;
 	const Drawable& mParent;

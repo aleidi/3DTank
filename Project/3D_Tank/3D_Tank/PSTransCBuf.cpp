@@ -9,12 +9,12 @@ PSTransCBuf::PSTransCBuf(Graphics& gfx, const Drawable& parent)
 
 void PSTransCBuf::bind(Graphics& gfx) noexcept
 {
-	pcbuf.onUpdate(gfx, GetCBPS(gfx));
+	pcbuf.onUpdate(gfx, getCBPS(gfx));
 
 	pcbuf.bind(gfx);
 }
 
-PSTransCBuf::CBPS PSTransCBuf::GetCBPS(Graphics& gfx) noexcept
+PSTransCBuf::CBPS PSTransCBuf::getCBPS(Graphics& gfx) noexcept
 {
 	XMFLOAT3 cam;
  	XMStoreFloat3(&cam, gfx.getCameraPosition());
@@ -22,6 +22,7 @@ PSTransCBuf::CBPS PSTransCBuf::GetCBPS(Graphics& gfx) noexcept
 	{
 		mParent.getMaterial(),
 		RenderManager::sGetInstance()->getDirLight(),
-		XMFLOAT4(cam.x,cam.y,cam.z,1.0f)
+		XMFLOAT3(cam.x,cam.y,cam.z),
+		0.4f
 	};
 }

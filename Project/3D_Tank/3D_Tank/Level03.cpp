@@ -18,7 +18,7 @@ void Level03::enterLevel()
 	mCurrentGameMode->onInit();
 
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Night");
-
+	SceneManager::sGetInstance()->createSphere();
 	mCanStart = true;
 }
 

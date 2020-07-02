@@ -138,7 +138,8 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 		}
 	}
 
-	RenderManager::sGetInstance()->rotateLight(deltaTime*20.0f, 0.0f, 0.0f);
+
+	RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*20.0f, 0.0f);
 
 	switch (mState)
 	{

@@ -49,10 +49,11 @@ struct Material
 
 
 void ComputeDirectionalLight(Material mat, DirectionalLight L,
-	float3 normal, float3 toEye,
+	float3 normal, float3 toEye, float fresnel,
 	out float4 ambient,
 	out float4 diffuse,
-	out float4 spec)
+	out float4 spec,
+	out float f)
 {
 	ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -63,6 +64,8 @@ void ComputeDirectionalLight(Material mat, DirectionalLight L,
 	ambient = mat.Ambient * L.Ambient;
 
 	float diffuseFactor = 0.5f * dot(lightVec, normal) + 0.5f;
+
+	f = fresnel + (1 - fresnel) * pow(1 - dot(toEye, normal), 5);
 
 	[flatten]
 	if (diffuseFactor > 0.0f)

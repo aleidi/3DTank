@@ -8,7 +8,7 @@ cbuffer CBUF : register(b0)
 	Material Mat;
 	DirectionalLight DirLight;
 	float3 EyePosW;
-	float Pad;
+	float Fresnel;
 }
 
 struct PS_Input
@@ -29,14 +29,15 @@ float4 main(PS_Input pIn) : SV_Target
 
 	float4 ambient, diffuse, spec;
 	float4 A, D, S;
+	float F;
 	ambient = diffuse = spec = A = D = S = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	ComputeDirectionalLight(Mat, DirLight, pIn.NormalW, toEyeW, A, D, S);
+	ComputeDirectionalLight(Mat, DirLight, pIn.NormalW, toEyeW, Fresnel, A, D, S, F);
 	ambient += A;
 	diffuse += D;
 	spec += S;
 
-	float4 litColor = ((ambient + diffuse) + spec) * result;
+	float4 litColor = ((ambient + diffuse) + spec * F) * result;
 
 	litColor.a = Mat.Diffuse.a * Mat.Color.a;
 
