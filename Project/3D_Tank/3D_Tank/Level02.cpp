@@ -38,15 +38,10 @@ void Level02::enterLevel()
 {
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Sand");
 
-	//mCurrentGameMode = new GameModeBase();
-	//mCurrentGameMode->onInit();
-	mCurrentGameMode = new GameModeTP();
-
 
 	std::thread t(&Level02::loadResourcce, this);
 	t.detach();
 
-	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 }
 
 GameLevelBase * Level02::onUpdate(float deltaTime)
@@ -100,6 +95,10 @@ void Level02::loadResourcce()
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/TownStreet", L"Objects/Wall");
 	mMap->getTransform()->setScale(0.1f, 0.1f, 0.1f);
 
+	//mCurrentGameMode = new GameModeBase();
+	//mCurrentGameMode->onInit();
+	mCurrentGameMode = new GameModeTP();
+
 	fakeplayer = new AITank(ent_Tank_FakePlayer);
 
 	enemy_boss = new AITank(ent_Tank_SuperEnemy, ent_Tank_FakePlayer);
@@ -115,6 +114,8 @@ void Level02::loadResourcce()
 	enemy_10 = new AITank(ent_Tank_Enemy10, ent_Tank_FakePlayer);
 
 	fakeplayer->changeTarget(ent_Tank_Enemy01);
+
+	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 
 	mCanStart = true;
 }
