@@ -54,25 +54,9 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 	float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
 	float z = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().z;
 	wstr += std::to_wstring(x) + L"," + std::to_wstring(z);;
-	Engine::sGetInstance()->showtText(wstr.c_str(),0,0,300,300,true);
+	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
 
-
-	if (DInputPC::getInstance().iskey(DIK_I))
-	{
-		RenderManager::sGetInstance()->rotateLight(deltaTime*100.0f, 0.0f, 0.0f);
-	}
-	if (DInputPC::getInstance().iskey(DIK_K))
-	{
-		RenderManager::sGetInstance()->rotateLight(deltaTime*-100.0f, 0.0f, 0.0f);
-	}
-	if (DInputPC::getInstance().iskey(DIK_J))
-	{
-		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*100.0f, 0.0f);
-	}
-	if (DInputPC::getInstance().iskey(DIK_L))
-	{
-		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
-	}
+	RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*10.0f, 0.0f);
 
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 
@@ -88,8 +72,22 @@ void Level02::leaveLevel()
 void Level02::loadResourcce()
 {
 	mMap = SceneManager::sGetInstance()->createEmptyObject();
-	SceneManager::sGetInstance()->createModel(*mMap, "Objects/TownStreet", L"Objects/Wall");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m0_wall3", L"Objects/Level/wall3");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m1_wall2", L"Objects/Level/wall2");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m2_wall5", L"Objects/Level/wall5");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m3_c2", L"Objects/Level/c2");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m4_c1", L"Objects/Level/c1");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m5_cn", L"Objects/Level/cn");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m6_P1", L"Objects/Level/P1");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m7_c4", L"Objects/Level/c4");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m8_arc1", L"Objects/Level/arc1");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m9_arc2", L"Objects/Level/arc2");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m10_arc3", L"Objects/Level/arc3");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m11_tree", L"Objects/Level/tree");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m12_reaf", L"Objects/Level/reaf");
+	mMap->getTransform()->translate(0.0f, -0.075f, 0.0f);
 	mMap->getTransform()->setScale(0.1f, 0.1f, 0.1f);
+	mMap->getTransform()->setRotation(Vector3(0.0f,0.0f,0.001794f));
 
 	//mCurrentGameMode = new GameModeBase();
 	//mCurrentGameMode->onInit();
