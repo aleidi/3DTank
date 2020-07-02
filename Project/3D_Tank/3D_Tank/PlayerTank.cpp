@@ -144,12 +144,12 @@ void PlayerTank::onAttack(float deltaTime)
 			}
 			else
 			{
-				Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.1f, 0);
+				Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
 			}
 		}
 		else
 		{
-			Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.1f, 0);
+			Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
 		}
 
 		if (mWeaponType == WeaponType::Light)
