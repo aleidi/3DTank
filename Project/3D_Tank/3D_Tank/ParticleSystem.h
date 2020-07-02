@@ -62,6 +62,14 @@ public:
 	//x for the horizontal tile step, y for the vertical step
 	void setTileStep(float x, float y);
 
+	//Explanation:
+	//particles emited per seconds
+	void setEmitRate(float value);
+
+	//Explanation:
+	//the start velocity  of particle
+	void setVelocity(float x, float y, float z);
+
 protected:
 	struct VertexPosSize
 	{
@@ -104,30 +112,32 @@ protected:
 
 protected:
 
-	int mMaxParticles = 500;
-	float mLifeTime = 15;
-	float mEmitRate = 3;
+	int mMaxParticles;
+	float mLifeTime;
+	float mEmitRate;
 	int mNeedParticles = mLifeTime * mEmitRate;
 	float mStepTime;
 	float mDuration;
 	float mIsLoop;
-	float mStartSpeed = 1.0f;
-	float mMaxSpeed = 3.0f;
-	float mMinSpeed = 1.0f;
+	float mStartSpeed;
+	float mMaxSpeed;
+	float mMinSpeed;
+	XMFLOAT3 mVelocity;
 
 	//sprite animation param
-	float mMaxTileX = 1.0f;
-	float mMaxTileY = 1.0f;
-	float mTileInterval = 0.1f;
-	float mTileStepX = 1;
-	float mTileStepY = 1;
+	float mMaxTileX;
+	float mMaxTileY;
+	float mTileInterval;
+	float mTileStepX;
+	float mTileStepY;
 
 	Emitter mEmitter;
-	XMFLOAT3 mPosition = XMFLOAT3(0.0f, 0.0f, 5.0f);
-	XMFLOAT3 mRotation = XMFLOAT3(90.0f, 0.0f, 0.0f);
-	XMFLOAT3 mScale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	XMFLOAT3 mPosition;
+	XMFLOAT3 mRotation;
+	XMFLOAT3 mScale;
 	XMFLOAT3 mStartRotation;
-	XMFLOAT3 mStartScale = XMFLOAT3(10.0f, 10.0f, 10.0f);
+	XMFLOAT3 mStartScale;
+
 	std::vector<PAttribute> mParticles;
 	std::unique_ptr<VertexBuffer> mVB;
 	std::unique_ptr<GeometryConstantBuffer<CBGS>> mGSCBuf;

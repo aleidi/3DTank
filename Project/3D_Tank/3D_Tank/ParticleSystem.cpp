@@ -2,6 +2,10 @@
 #include "Engine.h"
 
 ParticleSystem::ParticleSystem(Graphics& gfx, const std::wstring& texture)
+	:mMaxParticles(500),mLifeTime(15),mEmitRate(3),mMaxSpeed(1.0f),mMinSpeed(1.0f), mVelocity(XMFLOAT3(0.0f, 1.0f, 0.0f)),
+	 mMaxTileX(1.0f),mMaxTileY(1.0f),mTileInterval(0.1f),mTileStepX(1),mTileStepY(1),
+	mPosition(XMFLOAT3(0.0f, 0.0f, 5.0f)),mRotation(XMFLOAT3(0.0f, 0.0f, 0.0f)),mScale(XMFLOAT3(1.0f, 1.0f, 1.0f)),
+	mStartRotation(XMFLOAT3(0.0f, 0.0f, 0.0f)),mStartScale(XMFLOAT3(10.0f, 10.0f, 10.0f))
 {
 	mEmitter = Emitter::Box;
 
@@ -159,7 +163,7 @@ void ParticleSystem::resetParticle(PAttribute* p)
 		p->Position = mPosition;
 		p->Rotation = mStartRotation;
 		p->Size = mStartScale;
-		p->Velocity = XMFLOAT3(0.0f, 0.0f, 0.0f);
+		p->Velocity = XMFLOAT3(0.0f,0.0f,0.0f);
 		p->Color = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.1f);
 
 		p->Sprite.CurrentTileX = 0.0f;
@@ -180,10 +184,10 @@ void ParticleSystem::resetParticle(PAttribute* p)
 		p->Rotation = mStartRotation;
 		p->Size = mStartScale;
 		mStartSpeed = ((float)rand() / RAND_MAX)*(mMaxSpeed - mMinSpeed) + mMinSpeed;
-		XMVECTOR vel = XMVectorSet(0.0f, 1.0f * mStartSpeed, 0.0f, 0.0f);
-		vel = XMVector3Rotate(vel, XMQuaternionRotationRollPitchYaw(
-			XMConvertToRadians(mRotation.x), XMConvertToRadians(mRotation.y), XMConvertToRadians(mRotation.z)));
-		XMStoreFloat3(&p->Velocity, vel);
+		mVelocity.x *= mStartSpeed;
+		mVelocity.y *= mStartSpeed;
+		mVelocity.z *= mStartSpeed;
+		p->Velocity = mVelocity;
 		p->Color = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.1f);
 
 		p->Sprite.CurrentTileX = 0.0f;
@@ -302,4 +306,16 @@ void ParticleSystem::setTileStep(float x, float y)
 {
 	mTileStepX = x;
 	mTileStepY = y;
+}
+
+void ParticleSystem::setEmitRate(float value)
+{
+	mEmitRate = value;
+}
+
+void ParticleSystem::setVelocity(float x, float y, float z)
+{
+	mVelocity.x = x;
+	mVelocity.y = y;
+	mVelocity.z = z;
 }
