@@ -78,7 +78,6 @@ private:
 
 	TextDisplay mTextDisplay;
 	bool mCanShowText;
-	DirectX::XMMATRIX mProjection;
 
 	D3D_DRIVER_TYPE mDriverType;
 	D3D_FEATURE_LEVEL mFeatureLevel;

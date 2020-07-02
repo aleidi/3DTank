@@ -6,7 +6,7 @@
 #include <sstream>
 
 PlayerCamera::PlayerCamera(GameObject * object)
-	:PlayerCamera(object, DirectX::XM_PI / 3, (float)WINDOW_WIDTH / WINDOW_HEIGHT, 0.01f, 100.0f)
+	:PlayerCamera(object, DirectX::XM_PI / 3, (float)WINDOW_WIDTH / WINDOW_HEIGHT, 0.01f, 1000.0f)
 {
 }
 
