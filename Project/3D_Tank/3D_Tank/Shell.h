@@ -20,7 +20,6 @@ public:
 	void onTriggerEnter() override;
 
 	GameObject* shell;
-	//GameObject* fireTank;
 	GameObject* attactTank;
 
 private:

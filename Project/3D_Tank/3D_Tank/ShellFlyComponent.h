@@ -10,7 +10,7 @@ public:
 
 	void onUpdate(float detaTime) override;
 	void updateForward(float detaTime);
-	void setTarget(Pawn* t);
+	void setTarget(GameObject* t);
 
 private:
 	GameObject* target;

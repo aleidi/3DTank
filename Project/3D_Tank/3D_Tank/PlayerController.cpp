@@ -24,6 +24,9 @@ void PlayerController::onUpdate(float deltaTime)
 	if (CollisionManager::sGetInstance()->collisionCheck_CubeToCube(reinterpret_cast<PlayerTank*>(mPawn)->cube,&obj) == true) {
 		reinterpret_cast<PlayerTank*>(mPawn)->onTriggerEnter(obj);
 	}
+	else {
+		reinterpret_cast<PlayerTank*>(mPawn)->onTriggerExit();
+	}
 }
 
 void PlayerController::move(Vector3 value)
@@ -102,6 +105,18 @@ void PlayerController::checkInput(float deltaTime)
 			//else if(reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == MBACK)
 			//	move(mPawn->getTransform()->Forward * deltaTime);
 		}
+		else {
+			if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == FORWARD) {
+				if (DInputPC::getInstance().iskey(MOVEBACK))
+					move(mPawn->getTransform()->Forward * -deltaTime);
+			}
+			else {
+				if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == MBACK) {
+					if (DInputPC::getInstance().iskey(MOVEFORWARD))
+						move(mPawn->getTransform()->Forward * deltaTime);
+				}
+			}
+		}
 	}
 	if (DInputPC::getInstance().iskey(TURNRIGHT))
 	{
@@ -113,6 +128,18 @@ void PlayerController::checkInput(float deltaTime)
 			//	move(mPawn->getTransform()->Forward * -deltaTime);
 			//else if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == MBACK)
 			//	move(mPawn->getTransform()->Forward * deltaTime);
+		}
+		else {
+			if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == FORWARD) {
+				if (DInputPC::getInstance().iskey(MOVEBACK))
+					move(mPawn->getTransform()->Forward * -deltaTime);
+			}
+			else {
+				if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == MBACK) {
+					if (DInputPC::getInstance().iskey(MOVEFORWARD))
+						move(mPawn->getTransform()->Forward * deltaTime);
+				}
+			}
 		}
 	}
 
