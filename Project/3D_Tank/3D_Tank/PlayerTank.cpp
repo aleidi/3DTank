@@ -91,13 +91,21 @@ PlayerTank::~PlayerTank()
 	mCamera->destroy();
 	mCamera = nullptr;
 	mCameraComp = nullptr;
-	SceneManager::sGetInstance()->removeParticleFromPool(mPS);
-	mPS = nullptr;
+	SceneManager::sGetInstance()->removeParticleFromPool(mPSAttack);
+	mPSAttack = nullptr;
+	SceneManager::sGetInstance()->removeParticleFromPool(mPSHited);
+	mPSHited = nullptr;
+
 }
 
 void PlayerTank::onUpdate(float deltaTime)
 {
 	Pawn::onUpdate(deltaTime);
+
+	if (DInputPC::getInstance().iskeyDown(DIK_F3))
+	{
+		playHitedParticle();
+	}
 }
 
 void PlayerTank::onLateUpdate(float deltaTime)
@@ -181,7 +189,6 @@ void PlayerTank::setAttack()
 void PlayerTank::stopAttack()
 {
 	reinterpret_cast<HUD*>(mHUD)->setAccelator(1.0f, 1.0f);
-	mPS->stop();
 }
 
 void PlayerTank::setWeaponType(WeaponType type)
@@ -244,6 +251,12 @@ void PlayerTank::setCameraFov(float value)
 void PlayerTank::setCameraRotSpd(float value)
 {
 	mCameraRotSpd = value;
+}
+
+void PlayerTank::hited(int value)
+{
+	Pawn::hited(value);
+	playHitedParticle();
 }
 
 void PlayerTank::onTriggerEnter(const GameObject* obj)
@@ -318,17 +331,34 @@ GameObject* PlayerTank::getBattery()
 void PlayerTank::playAttackParticle()
 {
 	Vector3 pos = mBattery->getTransform()->getPosition() + mBattery->getTransform()->Forward * 0.8f + mBattery->getTransform()->Up * 0.1f;
-	mPS->setPosition(pos.x,pos.y,pos.z);
-	mPS->play();
+	mPSAttack->setPosition(pos.x,pos.y,pos.z);
+	mPSAttack->play();
+}
+
+void PlayerTank::playHitedParticle()
+{
+	Vector3 pos = mTransform->getPosition() + Vector3::up*0.2f;
+	mPSHited->setPosition(pos.x, pos.y, pos.z);
+	mPSHited->play();
 }
 
 void PlayerTank::initParticle()
 {
-	mPS = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
-	mPS->setTile(5.0f, 5.0f);
-	mPS->setEmitter(ParticleSystem::Emitter::NoEmit);
-	mPS->setEmitRate(1.0f);
-	mPS->setLifeTime(0.3f);
-	mPS->setAnimationInterval(0.3f / 25.0f);
-	mPS->setStartScale(0.2f, 0.2f, 0.2f);
+	mPSAttack = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
+	mPSAttack->setTile(5.0f, 5.0f);
+	mPSAttack->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPSAttack->setEmitRate(1.0f);
+	mPSAttack->setLifeTime(0.3f);
+	mPSAttack->setAnimationInterval(0.3f / 25.0f);
+	mPSAttack->setStartScale(0.2f, 0.2f, 0.2f);
+	mPSAttack->setDuration(0.3f);
+
+	mPSHited = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
+	mPSHited->setTile(5.0f, 5.0f);
+	mPSHited->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPSHited->setEmitRate(1.0f);
+	mPSHited->setLifeTime(0.3f);
+	mPSHited->setAnimationInterval(0.2f / 25.0f);
+	mPSHited->setStartScale(0.5f, 0.5f, 0.5f);
+	mPSHited->setDuration(0.3f);
 }

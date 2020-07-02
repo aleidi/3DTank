@@ -19,7 +19,7 @@ public:
 
 	void onUpdate(float deltaTime) override;
 	void onLateUpdate(float deltaTime) override;
-
+	
 	
 	void onAttack(float deltaTime);
 	void setAttack();
@@ -32,6 +32,7 @@ public:
 	void setCameraFov(float value);
 	void setCameraRotSpd(float value);
 
+	void hited(int value) override;
 	void onTriggerEnter(const GameObject* obj) override;
 	void onTriggerExit() override;
 	void onCollisionEnter() override;
@@ -40,6 +41,7 @@ public:
 
 private:
 	void playAttackParticle();
+	void playHitedParticle();
 	void initParticle();
 
 private:
@@ -76,6 +78,7 @@ private:
 	GameObject* mCamera;
 	Camera* mCameraComp;
 	GameObject* mHUD;
-	ParticleSystem* mPS;
+	ParticleSystem* mPSAttack;
+	ParticleSystem* mPSHited;
 };
 
