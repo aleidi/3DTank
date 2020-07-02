@@ -2,12 +2,12 @@
 #include "Engine.h"
 
 ParticleSystem::ParticleSystem(Graphics& gfx, const std::wstring& texture)
-	:mMaxParticles(500),mLifeTime(15),mEmitRate(3),mMaxSpeed(1.0f),mMinSpeed(1.0f), mVelocity(XMFLOAT3(0.0f, 1.0f, 0.0f)),
+	:mMaxParticles(1),mLifeTime(1),mEmitRate(2),mMaxSpeed(1.0f),mMinSpeed(1.0f), mVelocity(XMFLOAT3(0.0f, 1.0f, 0.0f)),
 	 mMaxTileX(1.0f),mMaxTileY(1.0f),mTileInterval(0.1f),mTileStepX(1),mTileStepY(1),
 	mPosition(XMFLOAT3(0.0f, 0.0f, 5.0f)),mRotation(XMFLOAT3(0.0f, 0.0f, 0.0f)),mScale(XMFLOAT3(1.0f, 1.0f, 1.0f)),
-	mStartRotation(XMFLOAT3(0.0f, 0.0f, 0.0f)),mStartScale(XMFLOAT3(10.0f, 10.0f, 10.0f))
+	mStartRotation(XMFLOAT3(0.0f, 0.0f, 0.0f)),mStartScale(XMFLOAT3(10.0f, 10.0f, 10.0f)),mIsActivate(false)
 {
-	mEmitter = Emitter::Box;
+	mEmitter = Emitter::NoEmit;
 
 	std::vector<VertexPosSize> vertices;
 	for (int i = 0; i < mMaxParticles; ++i)
@@ -66,8 +66,9 @@ void ParticleSystem::setMaxPatricles(int value) noexcept
 	mMaxParticles = value;
 }
 
-void ParticleSystem::updateParticle(Graphics& gfx, float deltaTime) noexcept
+void ParticleSystem::updateParticle(Graphics& gfx, float deltaTime, int& deathPatricles) noexcept
 {
+	deathPatricles = 0;
 	for (std::vector<PAttribute>::iterator it = mParticles.begin(); it != mParticles.end(); ++it)
 	{
 		if (it->IsAlive)
@@ -86,6 +87,11 @@ void ParticleSystem::updateParticle(Graphics& gfx, float deltaTime) noexcept
 		}
 		else
 		{
+			if (!mIsActivate)
+			{
+				++deathPatricles;
+				continue;
+			}
 			srand(Engine::sGetInstance()->getTotalTime());
 			resetParticle(&(*it));
 		}
@@ -95,7 +101,12 @@ void ParticleSystem::updateParticle(Graphics& gfx, float deltaTime) noexcept
 
 void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
 {
-	updateParticle(gfx, deltaTime);
+	int count = 0;
+	updateParticle(gfx, deltaTime, count);
+	if (mIsActivate != true && count == mParticles.size())
+	{
+		return;
+	}
 
 	setBlendTransparent(gfx);
 
@@ -318,4 +329,14 @@ void ParticleSystem::setVelocity(float x, float y, float z)
 	mVelocity.x = x;
 	mVelocity.y = y;
 	mVelocity.z = z;
+}
+
+void ParticleSystem::play()
+{
+	mIsActivate = true;
+}
+
+void ParticleSystem::stop()
+{
+	mIsActivate = false;
 }
