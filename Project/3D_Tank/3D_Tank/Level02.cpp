@@ -9,6 +9,9 @@
 #include "EntityNames.h"
 #include "Transform.h"
 #include "GameCharacter.h"
+#include "MessageDispatcher.h"
+
+/////////////////////////////////
 AITank* enemy_01;
 AITank* enemy_02;
 AITank* enemy_03;
@@ -35,9 +38,9 @@ void Level02::enterLevel()
 {
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Sand");
 
-	mCurrentGameMode = new GameModeBase();
-	mCurrentGameMode->onInit();
-	//mCurrentGameMode = new GameModeTP();
+	//mCurrentGameMode = new GameModeBase();
+	//mCurrentGameMode->onInit();
+	mCurrentGameMode = new GameModeTP();
 
 
 	std::thread t(&Level02::loadResourcce, this);
@@ -79,6 +82,7 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
 	}
 
+	Dispatch->DispatchDelayedMessages();
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 
 	return this;
