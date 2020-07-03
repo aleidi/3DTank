@@ -262,6 +262,7 @@
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shell.cpp" />
+    <ClCompile Include="ShellContainer.cpp" />
     <ClCompile Include="ShellFlyComponent.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SM_construction_fence.cpp" />
@@ -408,6 +409,7 @@
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shell.h" />
+    <ClInclude Include="ShellContainer.h" />
     <ClInclude Include="ShellFlyComponent.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SM_construction_fence.h" />

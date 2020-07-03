@@ -4,6 +4,7 @@
 #include "Shell.h"
 #include "FileManager.h"
 #include "ShellFlyComponent.h"
+#include "ShellContainer.h"
 
 Pawn::Pawn()
 	:mAttribute{}
@@ -44,13 +45,12 @@ void Pawn::move(Vector3 value)
 
 void Pawn::attack(Vector3 batteryposition, Vector3 shot_direction)
 {
-	Shell* shell = new Shell(batteryposition, shot_direction, 0);
+	ShellContainer::sGetInstance()->applyShell(batteryposition, shot_direction, 0);
 }
 
-void Pawn::attack(Vector3 battery_position, Vector3 shot_direction, Pawn * target)
+void Pawn::attack(Vector3 battery_position, Vector3 shot_direction, Pawn* target)
 {
-	Shell* shell = new Shell(battery_position, shot_direction, 1);
-	shell->getShellComponent()->setTarget(target);
+	ShellContainer::sGetInstance()->applyShell(battery_position, shot_direction, 0);
 }
 
 void Pawn::hited(int value)

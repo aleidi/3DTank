@@ -1,6 +1,5 @@
 #pragma once
 #include "Component.h"
-#include "Pawn.h"
 
 class ParticleSystem;
 
@@ -13,6 +12,7 @@ public:
 	void onUpdate(float detaTime) override;
 	void updateForward(float detaTime);
 	void setTarget(GameObject* t);
+	void setVelocity(const Vector3& dir);
 
 private:
 	void initParticle();

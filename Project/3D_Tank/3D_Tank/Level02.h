@@ -1,6 +1,8 @@
 #pragma once
 #include "GameLevelBase.h"
 
+class AirWall;
+
 class Level02 : public GameLevelBase
 {
 public:
@@ -14,8 +16,7 @@ public:
 
 private:
 	GameObject* mMap;
-
-private:
+	std::vector<AirWall*> airWalls;
 	void wakeupAI(int ID);
 };
 

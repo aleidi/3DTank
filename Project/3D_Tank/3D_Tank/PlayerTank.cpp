@@ -6,8 +6,9 @@
 #include "PlayerCamera.h"
 #include "HUD.h"
 #include "Shell.h"
-#include "ParticleSystem.h"
 #include "ShellFlyComponent.h"
+#include "ParticleSystem.h"
+#include "ShellContainer.h"
 
 PlayerTank::PlayerTank()
 	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
@@ -153,17 +154,16 @@ void PlayerTank::onAttack(float deltaTime)
 			float angle = Vector3::dot(dir, mBattery->getTransform()->Forward);
 			if (angle < mAttackAngle)
 			{
-
-				Shell* shell = new Shell(startPos, dir, 0);
+				ShellContainer::sGetInstance()->applyShell(startPos, dir, 0);
 			}
 			else
 			{
-				Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+				ShellContainer::sGetInstance()->applyShell(startPos, dir, 0);
 			}
 		}
 		else
 		{
-			Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+			ShellContainer::sGetInstance()->applyShell(startPos, dir, 0);
 		}
 
 		if (mWeaponType == WeaponType::Light)

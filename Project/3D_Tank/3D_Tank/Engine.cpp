@@ -13,6 +13,7 @@
 #include "Graphics.h"
 #include "SoundManager.h"
 #include "CollisionManager.h"
+#include "ShellContainer.h"
 #include "Collision.h"
 
 Engine* Engine::sInstance = nullptr;
@@ -25,7 +26,7 @@ Engine::Engine(Window& wnd)
 	mSound(std::make_unique<Sound>()),
 	mRendering(std::make_unique<Rendering>(wnd)),
 	mGameSystem(std::make_unique<GameSystem>()),
-	mIsGameMode(true), mIsEditMode(false)
+	mIsGameMode(true), mIsEditMode(true)
 {
 	onPreInit();
 
@@ -63,6 +64,8 @@ void Engine::onPreInit()
 	SoundManager::onInit();
 
 	CollisionManager::onInit();
+
+	ShellContainer::onInit();
 
 	//Rendering Init
 	mRendering.get()->onInit();

@@ -588,6 +588,9 @@
     <ClCompile Include="DisplayManager.cpp">
       <Filter>Game\Source\UI</Filter>
     </ClCompile>
+        <ClCompile Include="ShellContainer.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -1033,6 +1036,9 @@
     </ClInclude>
     <ClInclude Include="DisplayManager.h">
       <Filter>Game\Header\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellContainer.h">
+      <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,8 +9,11 @@ class SoundComponent;
 class Shell : GameObject, CollisionEvent {
 public:
 	Shell(const Vector3& origin, const Vector3& direction, const int& shellType);
+	Shell(const int& shellType);
 	Shell(GameObject* obj, const int& shellType);
 	~Shell();
+
+	void resetPosAndDir(const Vector3& origin, const Vector3& direction, const int& shellType);
 
 	MBoundingSphere* getCollisionSphere();
 	ShellFlyComponent* getShellComponent();
@@ -21,6 +24,8 @@ public:
 
 	GameObject* shell;
 	GameObject* attactTank;
+
+	bool isTrigger;
 
 private:
 	MBoundingSphere* mCollisionSphere;
