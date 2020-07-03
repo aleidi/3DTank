@@ -154,31 +154,16 @@ void PlayerTank::onAttack(float deltaTime)
 			float angle = Vector3::dot(dir, mBattery->getTransform()->Forward);
 			if (angle < mAttackAngle)
 			{
-				if (ShellContainer::sGetInstance()->getUnTriggerShells().size() == 0) {
-					Shell* shell = new Shell(startPos, dir, 1);
-					shell->getShellComponent()->setTarget(col);
-				}
-				else {
-					(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->resetPosAndDir(startPos, dir, 1);
-					//(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->getShellComponent()->setTarget(col);
-				}
+				ShellContainer::sGetInstance()->applyShell(startPos, dir, 1);
 			}
 			else
 			{
-				if (ShellContainer::sGetInstance()->getUnTriggerShells().size() == 0)
-					Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
-				else {
-					(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->resetPosAndDir(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
-				}
+				ShellContainer::sGetInstance()->applyShell(startPos, dir, 0);
 			}
 		}
 		else
 		{
-			if (ShellContainer::sGetInstance()->getUnTriggerShells().size() == 0)
-				Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
-			else {
-				(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->resetPosAndDir(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
-			}
+			ShellContainer::sGetInstance()->applyShell(startPos, dir, 0);
 		}
 
 		if (mWeaponType == WeaponType::Light)

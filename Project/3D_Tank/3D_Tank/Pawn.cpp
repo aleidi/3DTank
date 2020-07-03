@@ -45,23 +45,12 @@ void Pawn::move(Vector3 value)
 void Pawn::attack(Vector3 batteryposition, Vector3 shot_direction)
 {
 	//Shell* shell = new Shell(batteryposition, shot_direction, 0);
-	if (ShellContainer::sGetInstance()->getUnTriggerShells().size() == 0)
-		Shell* shell = new Shell(batteryposition, shot_direction, 0);
-	else {
-		(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->resetPosAndDir(batteryposition, shot_direction, 0);
-	}
+	ShellContainer::sGetInstance()->applyShell(batteryposition, shot_direction, 0);
 }
 
 void Pawn::attack(Vector3 battery_position, Vector3 shot_direction, Pawn* target)
 {
-	if (ShellContainer::sGetInstance()->getUnTriggerShells().size() == 0) {
-		Shell* shell = new Shell(battery_position, shot_direction, 1);
-		shell->getShellComponent()->setTarget(target);
-	}
-	else {
-		(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->resetPosAndDir(battery_position, shot_direction, 0);
-		(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->getShellComponent()->setTarget(target);
-	}
+	ShellContainer::sGetInstance()->applyShell(battery_position, shot_direction, 0);
 }
 
 void Pawn::hited(int value)
