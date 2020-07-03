@@ -1,5 +1,7 @@
 #include "ShellContainer.h"
 #include "Shell.h"
+#include "GameObject.h"
+#include "ShellFlyComponent.h"
 
 ShellContainer* ShellContainer::sInstance = NULL;
 
@@ -47,5 +49,31 @@ void ShellContainer::applyShell(const Vector3 & position, const Vector3 & direct
 	}
 	else {
 		(*unTriggerShells.begin())->resetPosAndDir(position, direction, shelType);
+	}
+	if (unTriggerShells.size() > 5) {
+		for (std::vector<Shell*>::iterator it = unTriggerShells.begin() + 5; it != unTriggerShells.end();) {
+			(*it)->shell->destroy();
+			(*it)->destroy();
+			it = unTriggerShells.erase(it);
+		}
+	}
+}
+
+void ShellContainer::applyShell(const Vector3 & position, const Vector3 & direction, const int & shelType, GameObject * target)
+{
+	if (unTriggerShells.size() == 0) {
+		Shell* shell = new Shell(position, direction, shelType);
+		shell->getShellComponent()->setTarget(target);
+	}
+	else {
+		(*unTriggerShells.begin())->resetPosAndDir(position, direction, shelType);
+		(*unTriggerShells.begin())->getShellComponent()->setTarget(target);
+	}
+	if (unTriggerShells.size() > 5) {
+		for (std::vector<Shell*>::iterator it = unTriggerShells.begin() + 5; it != unTriggerShells.end();) {
+			(*it)->shell->destroy();
+			(*it)->destroy();
+			it = unTriggerShells.erase(it);
+		}
 	}
 }

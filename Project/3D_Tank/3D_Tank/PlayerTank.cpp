@@ -9,6 +9,7 @@
 #include "ShellFlyComponent.h"
 #include "ParticleSystem.h"
 #include "ShellContainer.h"
+#include "SoundManager.h"
 
 PlayerTank::PlayerTank()
 	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
@@ -95,6 +96,7 @@ void PlayerTank::onUpdate(float deltaTime)
 	{
 		playHitedParticle();
 	}
+	SoundManager::sGetInstance()->setLisenterPosition(mTransform->getPosition());
 }
 
 void PlayerTank::onLateUpdate(float deltaTime)

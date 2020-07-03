@@ -34,6 +34,7 @@ private:
 	Battle(const Battle&);
 	Battle& operator=(const Battle&);
 	int normalshot = 0;
+	float offset = 0.0f;
 };
 
 class Violent : public State<AIController> {
@@ -49,7 +50,7 @@ private:
 
 	Violent(const Violent&);
 	Violent& operator=(const Violent&);
-	float violentTime = 20.0f;;
+	float violentTime = 20.0f;
 };
 
 
