@@ -49,7 +49,7 @@ void Pawn::attack(Vector3 batteryposition, Vector3 shot_direction)
 
 void Pawn::attack(Vector3 battery_position, Vector3 shot_direction, Pawn* target)
 {
-	ShellContainer::sGetInstance()->applyShell(battery_position, shot_direction, 0);
+	ShellContainer::sGetInstance()->applyShell(battery_position, shot_direction, 1, target);
 }
 
 void Pawn::hited(int value)
