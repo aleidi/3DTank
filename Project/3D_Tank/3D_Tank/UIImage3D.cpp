@@ -58,6 +58,11 @@ UIImage3D::UIImage3D(Graphics & gfx, const std::wstring & texPath)
 
 void UIImage3D::draw(Graphics& gfx) noexcept
 {
+	if (mIsEnable != true)
+	{
+		return;
+	}
+
 	mPCBuf->onUpdate(gfx, mMaterial.Color);
 	XMFLOAT3 cam;
 	XMStoreFloat3(&cam, gfx.getCameraPosition());

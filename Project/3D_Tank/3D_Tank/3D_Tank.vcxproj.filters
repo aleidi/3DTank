@@ -582,6 +582,9 @@
     <ClCompile Include="Blender.cpp">
       <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyBoss.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -1021,6 +1024,9 @@
     </ClInclude>
     <ClInclude Include="Blender.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBoss.h">
+      <Filter>Engine\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

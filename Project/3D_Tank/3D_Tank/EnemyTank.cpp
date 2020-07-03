@@ -106,11 +106,19 @@ EnemyTank::EnemyTank(int ID, float scale)
 EnemyTank::EnemyTank(int ID)
 	:EnemyTank(ID, 0.002f)
 {	
-}	
+}
+
+EnemyTank::EnemyTank()
+	:BaseGameEntity(-1)
+{
+}
 
 EnemyTank::~EnemyTank()
 {
-	mBattery->destroy();
+	if (mBattery != nullptr)
+	{
+		mBattery->destroy();
+	}
 	mRCs.clear();
 	std::vector<RenderComponent*>().swap(mRCs);
 }

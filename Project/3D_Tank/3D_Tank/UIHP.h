@@ -14,6 +14,9 @@ public:
 
 	void setFillAmount(float value);
 	void setFillType(FillType type);
+	void setEnable(bool value);
+	void setFrameSize(float x, float y);
+	void setImageSize(float x, float y);
 
 private:
 	UIImage3D* mImage;
