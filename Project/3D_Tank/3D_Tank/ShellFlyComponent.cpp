@@ -31,9 +31,9 @@ ShellFlyComponent::~ShellFlyComponent()
 		SceneManager::sGetInstance()->removeParticleFromPool(mPS);
 		mPS = nullptr;
 	}
-	if (target) {
+	/*if (target) {
 		target->destroy();
-	}
+	}*/
 }
 
 void ShellFlyComponent::onUpdate(float detaTime)
@@ -71,7 +71,7 @@ void ShellFlyComponent::updateForward(float detaTime)
 
 void ShellFlyComponent::setTarget(GameObject* t)
 {
-	this->target = t;
+		this->target = t;
 }
 
 void ShellFlyComponent::setVelocity(const Vector3 & dir)
