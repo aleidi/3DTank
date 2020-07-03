@@ -11,6 +11,7 @@
 #include "Transform.h"
 #include "GameCharacter.h"
 #include "MessageDispatcher.h"
+#include "AirWall.h"
 
 /////////////////////////////////
 AITank* enemy_01;
@@ -55,13 +56,13 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 
 	std::wstring wstr;
 	float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
+	float y = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().y;
 	float z = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().z;
-	wstr += std::to_wstring(x) + L"," + std::to_wstring(z);;
+	wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
 	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
 
 	RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*10.0f, 0.0f);
 
-	Dispatch->DispatchDelayedMessages();
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 
 	return this;
@@ -92,6 +93,53 @@ void Level02::loadResourcce()
 	mMap->getTransform()->translate(0.0f, -0.075f, 0.0f);
 	mMap->getTransform()->setScale(0.07f, 0.07f, 0.07f);
 
+	// seven buildings'
+	Vector3 position, scale;
+	position = Vector3(-16.5, 7, 12.5);
+	scale = Vector3(21.5, 14, 16);
+	airWalls.push_back(new AirWall(position, scale));
+
+	position = Vector3(-17, 7, -14.3);
+	scale = Vector3(22, 14, 22.5);
+	airWalls.push_back(new AirWall(position, scale));
+
+	position = Vector3(17,6.8,-4.3);
+	scale = Vector3(15.2,13.7,44.4);
+	airWalls.push_back(new AirWall(position, scale));
+
+	position = Vector3(-16.5,6.5,-40.6);
+	scale = Vector3(21.2,15,15.3);
+	airWalls.push_back(new AirWall(position, scale));
+
+	position = Vector3(17.4,4.9,-40.6);
+	scale = Vector3(15.3,9.8,14.2);
+	airWalls.push_back(new AirWall(position, scale));
+
+	position = Vector3(-16.8,7,-66.7);
+	scale = Vector3(21.6,14,22.2);
+	airWalls.push_back(new AirWall(position, scale));
+
+	position = Vector3(17.4,6.5,-65.8);
+	scale = Vector3(15.3,13,21.1);
+	airWalls.push_back(new AirWall(position, scale));
+
+	// four walls'
+	position = Vector3(-1,4.5,32.2);
+	scale = Vector3(75,9,0.05);
+	airWalls.push_back(new AirWall(position, scale));
+
+	position = Vector3(-1, 4.5, -87.2);
+	scale = Vector3(75, 9, 0.05);
+	airWalls.push_back(new AirWall(position, scale));
+
+	position = Vector3(-37.8,5.5,-28);
+	scale = Vector3(0.05,11.3,120);
+	airWalls.push_back(new AirWall(position, scale));
+
+	position = Vector3(36.3,5,-28);
+	scale = Vector3(0.05,10.3,120);
+	airWalls.push_back(new AirWall(position, scale));
+	
 	//mCurrentGameMode = new GameModeBase();
 	//mCurrentGameMode->onInit();
 	mCurrentGameMode = new GameModeTP();

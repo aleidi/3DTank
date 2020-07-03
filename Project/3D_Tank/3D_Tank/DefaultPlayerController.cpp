@@ -21,6 +21,11 @@ void DefaultPlayerController::onUpdate(float deltaTime)
 {
 	ControllerBase::onUpdate(deltaTime);
 
+	if (DInputPC::getInstance().iskey(DIK_SPACE))
+	{
+		return;
+	}
+
 	if (DInputPC::getInstance().iskey(MOVEFORWARD))
 	{
 		reinterpret_cast<DefaultPlayer*>(mPawn)->MoveForward(1.0f * deltaTime * mMovSpd);

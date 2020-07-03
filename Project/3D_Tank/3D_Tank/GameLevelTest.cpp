@@ -150,8 +150,8 @@ void GameLevelTest::enterLevel()
 
 	//hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 	//set ai
-	enemy = new AITank(ent_Tank_Enemy);
-	enemytarget = new AITank(ent_Tank_EnemyTarget);
+	//enemy = new AITank(ent_Tank_Enemy);
+	//enemytarget = new AITank(ent_Tank_EnemyTarget);
 	
 	//aiControllertarget->setTarget(enemy);
 	//SoundManager::sGetInstance()->playSound(3);
