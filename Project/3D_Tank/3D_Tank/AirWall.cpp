@@ -3,19 +3,19 @@
 
 AirWall::AirWall(const Vector3& position, const Vector3& scale)
 {
-	cube = SceneManager::sGetInstance()->createCube();
-	cube->getTransform()->setPosition(position);
-	cube->getTransform()->setScale(scale);
-	cube->attach(*this);
-	cube->setName("airwallcube");
-	mCollisionBox = new BoundingCube(cube);
+	airCube = SceneManager::sGetInstance()->createCube();
+	airCube->getTransform()->setPosition(position);
+	airCube->getTransform()->setScale(scale);
+	airCube->attach(*this);
+	airCube->setName("airwallcube");
+
+	mCollisionBox = new BoundingCube(airCube);
 	mCollisionBox->createBoundingCube(position, Vector3(0.5 * scale.x, 0.5 * scale.y, 0.5 * scale.z), 0);
-	cube->addComponent(mCollisionBox);
-	cube->cube = mCollisionBox;
+	airCube->addComponent(mCollisionBox);
+	airCube->cube = mCollisionBox;
 	//mName = "airwall";
 }
 
 AirWall::~AirWall()
 {
-	cube->destroy();
 }
