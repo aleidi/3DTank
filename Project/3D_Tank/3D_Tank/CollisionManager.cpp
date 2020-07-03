@@ -123,6 +123,34 @@ bool CollisionManager::rayCheck(const Vector3 & origin, const Vector3 & directio
 	else return false;
 }
 
+bool CollisionManager::rayCheckWithoutSelf(const Vector3 & origin, const Vector3 & direction, const float & farthestDis, GameObject ** gameobject, float & dis, GameObject * self)
+{
+	if (direction.x == 0.f && direction.y == 0.f && direction.z == 0.f) return false;
+	float d = -1.f;
+	int flag = 0;
+	for (std::vector<BoundingCube*>::iterator it = mBoundingCube.begin(); it != mBoundingCube.end(); it++) {
+		if ((*it)->getObject() == self)
+		{
+			continue;
+		}
+		if (collisionCheck(origin, direction, *it, d)) {
+			if (flag == 0 && d < farthestDis) {
+				dis = d;
+				*gameobject = (*it)->getObject();
+				flag++;
+			}
+			else {
+				if (flag != 0 && d < dis) {
+					dis = d;
+					*gameobject = (*it)->getObject();
+				}
+			}
+		}
+	}
+	if (flag != 0) return true;
+	else return false;
+}
+
 bool CollisionManager::rayCheckWithObstacle(const Vector3& origin, const Vector3& direction, const float& farthestDis, GameObject** gameobject, float& dis)
 {
 	Vector3 dir = direction;

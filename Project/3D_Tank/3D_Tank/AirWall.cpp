@@ -17,6 +17,9 @@ AirWall::AirWall(const Vector3& position, const Vector3& scale)
 	mCollisionBox->createBoundingCube(position, Vector3(0.5 * scale.x, 0.5 * scale.y, 0.5 * scale.z), 0);
 	addComponent(mCollisionBox);
 	cube = mCollisionBox;
+
+	mTag = ObjectTag::Environment;
+
 	//cube->addComponent(mCollisionBox);
 	//cube->cube = mCollisionBox;
 }

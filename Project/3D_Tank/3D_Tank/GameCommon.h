@@ -9,3 +9,4 @@
 #include "SceneManager.h"
 #include "Camera.h"
 #include "KeycodeRedefine.h"
+#include "Pawn.h"
