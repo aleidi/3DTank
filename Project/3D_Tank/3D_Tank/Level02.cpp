@@ -93,7 +93,7 @@ void Level02::loadResourcce()
 	mMap->getTransform()->translate(0.0f, -0.075f, 0.0f);
 	mMap->getTransform()->setScale(0.07f, 0.07f, 0.07f);
 
-	// seven buildings'
+	//// seven buildings'
 	Vector3 position, scale;
 	position = Vector3(-16.5, 7, 12.5);
 	scale = Vector3(21.5, 14, 16);
@@ -138,6 +138,11 @@ void Level02::loadResourcce()
 
 	position = Vector3(36.3,5,-28);
 	scale = Vector3(0.05,10.3,120);
+	airWalls.push_back(new AirWall(position, scale));
+
+	// ground's
+	position = Vector3(-0.8,-0.578,-27.4);
+	scale = Vector3(77.2,1,120);
 	airWalls.push_back(new AirWall(position, scale));
 	
 	//mCurrentGameMode = new GameModeBase();
