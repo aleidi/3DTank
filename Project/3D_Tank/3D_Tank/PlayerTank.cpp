@@ -10,7 +10,7 @@
 #include "ShellFlyComponent.h"
 
 PlayerTank::PlayerTank()
-	:mRotateSpd(30.0f),mMoveSped(8.0f),mBatteryRotSpd(2.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
+	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
 	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
 	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
@@ -74,7 +74,7 @@ PlayerTank::PlayerTank()
 	mAttribute.FullHP = 1000;
 	mAttribute.m_AttackRangeRadiusSq = 20.0f;
 
-	mLightInterval = 0.3f;
+	mLightInterval = 0.1f;
 	mHeavyInterval = 2.0f;
 	mAttackCount = mLightInterval;
 	mAttackAngle = DirectX::XMConvertToRadians(60);
@@ -154,8 +154,7 @@ void PlayerTank::onAttack(float deltaTime)
 			if (angle < mAttackAngle)
 			{
 
-				Shell* shell = new Shell(startPos, dir, 1);
-				shell->getShellComponent()->setTarget(col);
+				Shell* shell = new Shell(startPos, dir, 0);
 			}
 			else
 			{
