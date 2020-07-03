@@ -44,7 +44,6 @@ void Pawn::move(Vector3 value)
 
 void Pawn::attack(Vector3 batteryposition, Vector3 shot_direction)
 {
-	//Shell* shell = new Shell(batteryposition, shot_direction, 0);
 	ShellContainer::sGetInstance()->applyShell(batteryposition, shot_direction, 0);
 }
 
