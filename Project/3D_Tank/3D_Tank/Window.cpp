@@ -1,10 +1,11 @@
 #include "Window.h"
+#include "Engine.h"
 
 #include <assert.h>
 
 Window::Window(HINSTANCE hInst)
 	:
-	mWndClassName(WNDCLASSNAME), mHinst(hInst), mCanShowCursor(false)
+	mWndClassName(WNDCLASSNAME), mHinst(hInst), mCanShowCursor(false), mCanClipCurosr(true)
 {
 	//define window class and register
 	WNDCLASSEX wndClass = { 0 };
@@ -26,10 +27,10 @@ Window::Window(HINSTANCE hInst)
 	wr.right = WINDOW_WIDTH + wr.left;
 	wr.top = 100;
 	wr.bottom = WINDOW_HEIGHT + wr.top;
-	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
+	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU | WS_MAXIMIZEBOX, FALSE);
 
 	//create window
-	mHwnd = CreateWindow(mWndClassName, WNDTITLE, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
+	mHwnd = CreateWindow(mWndClassName, WNDTITLE, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU | WS_MAXIMIZEBOX,
 		wr.left, wr.top, wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr, mHinst, this);
 
@@ -129,21 +130,29 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
 		return true;
 
-	RECT rc;
-	POINT tl{ 0,0 };
-	ClientToScreen(mHwnd, &tl);
-	GetClientRect(mHwnd, &rc);
-	rc.left += tl.x;
-	rc.right += tl.x;
-	rc.top += tl.y;
-	rc.bottom += tl.y;
-	ClipCursor(&rc);
+	if (mCanClipCurosr)
+	{
+		RECT rc;
+		POINT tl{ 0,0 };
+		ClientToScreen(mHwnd, &tl);
+		GetClientRect(mHwnd, &rc);
+		rc.left += tl.x;
+		rc.right += tl.x;
+		rc.top += tl.y;
+		rc.bottom += tl.y;
+		ClipCursor(&rc);
+	}
+	else
+	{
+		ClipCursor(NULL);
+	}
 
 	switch (msg)
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+
 	case WM_KEYDOWN:
 		if (wParam == VK_ESCAPE)
 		{
@@ -155,6 +164,17 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			ShowCursor(mCanShowCursor);
 			mCanShowCursor = !mCanShowCursor;
 		}
+		if (wParam == VK_F9)
+		{
+			mCanClipCurosr = !mCanClipCurosr;
+		}
+		break;
+	case WM_SIZE:
+		if (Engine::sGetInstance() != nullptr)
+		{
+			Engine::sGetInstance()->onResize((float)LOWORD(lParam), (float)HIWORD(lParam));
+		}
+		break;
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);

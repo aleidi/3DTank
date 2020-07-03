@@ -24,5 +24,6 @@ private:
 	HWND mHwnd;
 	HINSTANCE mHinst;
 	bool mCanShowCursor;
+	bool mCanClipCurosr;
 };
 

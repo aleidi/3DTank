@@ -2,8 +2,10 @@
 #include "DirectXMath.h"
 #include "GameCommon.h"
 #include "CollisionManager.h"
+#include "GameInstance.h"
+#include "GameCommon.h"
+#include "Engine.h"
 
-#include <sstream>
 
 PlayerCamera::PlayerCamera(GameObject * object)
 	:PlayerCamera(object, DirectX::XM_PI / 3, (float)WINDOW_WIDTH / WINDOW_HEIGHT, 0.01f, 1000.0f)
@@ -32,14 +34,20 @@ void PlayerCamera::onLateUpdate(float deltaTime)
 	Fov = Math::lerp(Fov, mTargetFov, mSpdForFov * deltaTime);
 
 	//raycast test
-	Vector3 origin = Position;
-	Vector3 dir = Vector3::up * - 1.0f;
-	float length = 0.02f;
+	Vector3 pos = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition();
+	Vector3 origin = pos;
+	Vector3 dir = Position - pos;
+	float length = sqrtf(Vector3::dot(dir, dir));
+	dir = dir.normalize();
 	GameObject* col;
 	float dis = 0.0f;
-	if (CollisionManager::sGetInstance()->rayCheck(origin, dir, length, &col, dis))
+
+	if (CollisionManager::sGetInstance()->rayCheckWithoutSelf(origin, dir, length, &col, dis,GameInstance::sGetInstance()->getPlayer()))
 	{
-		Position.y = 0.02f;
+		if (col->getTag() == GameObject::ObjectTag::Environment)
+		{
+			Position = pos + dir * dis;
+		}
 	}
 
 }

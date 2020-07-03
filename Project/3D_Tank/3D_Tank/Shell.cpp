@@ -26,6 +26,8 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	shell->addComponent(mSound);
 	this->onTrigger = true;
 	ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
+	mSound->setPosition();
+	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 3);
 }
 
 Shell::Shell(const int & shellType)
@@ -60,6 +62,8 @@ Shell::~Shell()
 
 void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, const int & shellType)
 {
+	mSound->setPosition();
+	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 3);
 	this->shell->getTransform()->setPosition(origin + direction * 0.6f + Vector3::up * 0.1f);
 	//this->mCollisionSphere->sphere.Center.x = origin.x;
 	//this->mCollisionSphere->sphere.Center.y = origin.y;
@@ -145,7 +149,7 @@ void Shell::onUpdate(float deltaTime)
 void Shell::onTriggerEnter()
 {
 	mSound->setPosition();
-	SoundManager::sGetInstance()->playSound(mSound->mChannel, 6);
+	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
 	this->onTrigger = false;
 	this->shell->getTransform()->setPosition(Vector3(0.f, -3.f, 0.f));
 	this->mCollisionSphere->sphere.Center.x = 0.f;
