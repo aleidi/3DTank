@@ -26,7 +26,6 @@ PlayerTank::PlayerTank()
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
 	SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
-	mBattery->attach(*this);
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint);
 	DirectX::XMFLOAT3 maxP0(108.550003f, 97.2149963f, 177.554993f);
 	DirectX::XMFLOAT3 minP0(-86.8899994f, 3.51500010f, -191.240005f);
@@ -48,6 +47,7 @@ PlayerTank::PlayerTank()
 	mCamera->getTransform()->translate(mTransform->getPosition() + 
 		mCamFollower->getTransform()->Forward * mCamFollowFactorX + mCamFollower->getTransform()->Up * mCamFollowFactorY * mDisToCam);
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
+	mBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
 	mTransform->calcultateTransformMatrix();
 	DirectX::BoundingOrientedBox out;
 	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
@@ -189,6 +189,7 @@ void PlayerTank::setWeaponType(WeaponType type)
 void PlayerTank::move(Vector3 value)
 {
 	mTransform->translate(value * mMoveSped);
+	mBattery->getTransform()->translate(value * mMoveSped);
 	m_Velocity = value;
 }
 
