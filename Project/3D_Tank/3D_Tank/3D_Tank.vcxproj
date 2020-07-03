@@ -206,6 +206,7 @@
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DXTrace.cpp" />
     <ClCompile Include="EmptyObjectFactory.cpp" />
+    <ClCompile Include="EnemyBoss.cpp" />
     <ClCompile Include="EnemyTank.cpp" />
     <ClCompile Include="EnemyTankOwnedStates.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -260,6 +261,7 @@
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shell.cpp" />
+    <ClCompile Include="ShellContainer.cpp" />
     <ClCompile Include="ShellFlyComponent.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SM_construction_fence.cpp" />
@@ -337,6 +339,7 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DXTrace.h" />
     <ClInclude Include="EmptyObjectFactory.h" />
+    <ClInclude Include="EnemyBoss.h" />
     <ClInclude Include="EnemyTank.h" />
     <ClInclude Include="EnemyTankOwnedStates.h" />
     <ClInclude Include="Engine.h" />
@@ -404,6 +407,7 @@
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shell.h" />
+    <ClInclude Include="ShellContainer.h" />
     <ClInclude Include="ShellFlyComponent.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SM_construction_fence.h" />

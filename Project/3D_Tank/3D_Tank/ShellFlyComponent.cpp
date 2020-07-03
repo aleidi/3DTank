@@ -3,6 +3,8 @@
 #include "Transform.h"
 #include "BoundingSphere.h"
 #include "Math.h"
+#include "SceneManager.h"
+#include "ParticleSystem.h"
 
 ShellFlyComponent::ShellFlyComponent(GameObject * obj):Component(obj)
 {
@@ -18,10 +20,17 @@ ShellFlyComponent::ShellFlyComponent(GameObject * obj, const Vector3 & direction
 	this->gracity = Vector3(0.f, 0.f, 0.f);
 	this->rotateSpeed = 90.f;
 	angle = 0.f;
+	initParticle();
 }
 
 ShellFlyComponent::~ShellFlyComponent()
 {
+	if (mPS != nullptr)
+	{
+		mPS->stop();
+		SceneManager::sGetInstance()->removeParticleFromPool(mPS);
+		mPS = nullptr;
+	}
 	if (target) {
 		target->destroy();
 	}
@@ -41,6 +50,9 @@ void ShellFlyComponent::onUpdate(float detaTime)
 	if (target) {
 		updateForward(detaTime);
 		this->velocity = this->getObject()->getTransform()->Forward.normalize() * 5.f;
+		Vector3 pos = this->getObject()->getTransform()->getPosition();
+		mPS->setPosition(pos.x, pos.y, pos.z);
+		mPS->play();
 	}
 }
 
@@ -59,7 +71,21 @@ void ShellFlyComponent::updateForward(float detaTime)
 
 void ShellFlyComponent::setTarget(GameObject* t)
 {
-	if (t) {
-		this->target = new GameObject(*t);
-	}
+	this->target = t;
+}
+
+void ShellFlyComponent::setVelocity(const Vector3 & dir)
+{
+	this->velocity = dir.normalize() * 5.f;
+}
+
+void ShellFlyComponent::initParticle()
+{
+	mPS = SceneManager::sGetInstance()->createParticleSystem(L"VFX/green_fire_new_1_sheet");
+	mPS->setTile(4.0f, 4.0f);
+	mPS->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPS->setEmitRate(2.0f);
+	mPS->setLifeTime(0.5f);
+	mPS->setAnimationInterval(0.5f / 16.0f);
+	mPS->setStartScale(0.2f, 0.2f, 0.2f);
 }

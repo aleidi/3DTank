@@ -10,6 +10,7 @@ FreightContainer_A::FreightContainer_A(const Vector3& position, const Vector3& r
 		SceneManager::sGetInstance()->createModel(*this, "Objects\\SM_FreightContainer_01", L"Objects\\TX_FreightContainer_01b_ALB", maxPoint, minPoint);
 	mTransform->setPosition(position);
 	mTransform->setScale(scale);
+	mTransform->rotate(rotate.x, rotate.y, rotate.z);
 
 	DirectX::XMFLOAT3 maxP(293.290009f, 261.213013f, 121.915001f);
 	DirectX::XMFLOAT3 minP(-330.609009f, -0.0293269996f, -123.653000f);

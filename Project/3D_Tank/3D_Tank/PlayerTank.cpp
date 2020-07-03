@@ -6,9 +6,12 @@
 #include "PlayerCamera.h"
 #include "HUD.h"
 #include "Shell.h"
+#include "ShellFlyComponent.h"
+#include "ParticleSystem.h"
+#include "ShellContainer.h"
 
 PlayerTank::PlayerTank()
-	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(2.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
+	:mRotateSpd(30.0f),mMoveSped(8.0f),mBatteryRotSpd(2.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
 	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
 	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
@@ -76,6 +79,8 @@ PlayerTank::PlayerTank()
 	mHeavyInterval = 2.0f;
 	mAttackCount = mLightInterval;
 	mAttackAngle = DirectX::XMConvertToRadians(60);
+
+	initParticle();
 }
 
 PlayerTank::~PlayerTank()
@@ -87,11 +92,21 @@ PlayerTank::~PlayerTank()
 	mCamera->destroy();
 	mCamera = nullptr;
 	mCameraComp = nullptr;
+	SceneManager::sGetInstance()->removeParticleFromPool(mPSAttack);
+	mPSAttack = nullptr;
+	SceneManager::sGetInstance()->removeParticleFromPool(mPSHited);
+	mPSHited = nullptr;
+
 }
 
 void PlayerTank::onUpdate(float deltaTime)
 {
 	Pawn::onUpdate(deltaTime);
+
+	if (DInputPC::getInstance().iskeyDown(DIK_F3))
+	{
+		playHitedParticle();
+	}
 }
 
 void PlayerTank::onLateUpdate(float deltaTime)
@@ -139,17 +154,31 @@ void PlayerTank::onAttack(float deltaTime)
 			float angle = Vector3::dot(dir, mBattery->getTransform()->Forward);
 			if (angle < mAttackAngle)
 			{
-
-				Shell* shell = new Shell(startPos, dir, 0);
+				if (ShellContainer::sGetInstance()->getUnTriggerShells().size() == 0) {
+					Shell* shell = new Shell(startPos, dir, 1);
+					shell->getShellComponent()->setTarget(col);
+				}
+				else {
+					(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->resetPosAndDir(startPos, dir, 1);
+					//(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->getShellComponent()->setTarget(col);
+				}
 			}
 			else
 			{
-				Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+				if (ShellContainer::sGetInstance()->getUnTriggerShells().size() == 0)
+					Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+				else {
+					(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->resetPosAndDir(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+				}
 			}
 		}
 		else
 		{
-			Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+			if (ShellContainer::sGetInstance()->getUnTriggerShells().size() == 0)
+				Shell* shell = new Shell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+			else {
+				(*ShellContainer::sGetInstance()->getUnTriggerShells().begin())->resetPosAndDir(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+			}
 		}
 
 		if (mWeaponType == WeaponType::Light)
@@ -163,7 +192,7 @@ void PlayerTank::onAttack(float deltaTime)
 			mAttackCount = mHeavyInterval;
 		}
 	}
-
+	playAttackParticle();
 }
 
 void PlayerTank::setAttack()
@@ -238,6 +267,12 @@ void PlayerTank::setCameraRotSpd(float value)
 	mCameraRotSpd = value;
 }
 
+void PlayerTank::hited(int value)
+{
+	Pawn::hited(value);
+	playHitedParticle();
+}
+
 void PlayerTank::onTriggerEnter(const GameObject* obj)
 {
 	this->onTrigger = true;
@@ -305,4 +340,39 @@ void PlayerTank::onCollisionExit()
 GameObject* PlayerTank::getBattery()
 {
 	return mBattery;
+}
+
+void PlayerTank::playAttackParticle()
+{
+	Vector3 pos = mBattery->getTransform()->getPosition() + mBattery->getTransform()->Forward * 0.8f + mBattery->getTransform()->Up * 0.1f;
+	mPSAttack->setPosition(pos.x,pos.y,pos.z);
+	mPSAttack->play();
+}
+
+void PlayerTank::playHitedParticle()
+{
+	Vector3 pos = mTransform->getPosition() + Vector3::up*0.2f;
+	mPSHited->setPosition(pos.x, pos.y, pos.z);
+	mPSHited->play();
+}
+
+void PlayerTank::initParticle()
+{
+	mPSAttack = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
+	mPSAttack->setTile(5.0f, 5.0f);
+	mPSAttack->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPSAttack->setEmitRate(1.0f);
+	mPSAttack->setLifeTime(0.3f);
+	mPSAttack->setAnimationInterval(0.3f / 25.0f);
+	mPSAttack->setStartScale(0.2f, 0.2f, 0.2f);
+	mPSAttack->setDuration(0.3f);
+
+	mPSHited = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
+	mPSHited->setTile(5.0f, 5.0f);
+	mPSHited->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPSHited->setEmitRate(1.0f);
+	mPSHited->setLifeTime(0.3f);
+	mPSHited->setAnimationInterval(0.2f / 25.0f);
+	mPSHited->setStartScale(0.5f, 0.5f, 0.5f);
+	mPSHited->setDuration(0.3f);
 }

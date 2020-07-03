@@ -17,5 +17,6 @@ public:
 private:
 	GameObject* mMap;
 	std::vector<AirWall*> airWalls;
+	void wakeupAI(int ID);
 };
 

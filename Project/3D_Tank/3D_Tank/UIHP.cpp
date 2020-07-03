@@ -38,3 +38,19 @@ void UIHP::setFillType(FillType type)
 {
 	mImage->setFillType(type);
 }
+
+void UIHP::setEnable(bool value)
+{
+	mFrame->setEnable(value);
+	mImage->setEnable(value);
+}
+
+void UIHP::setFrameSize(float x, float y)
+{
+	mFrame->setSize(x, y);
+}
+
+void UIHP::setImageSize(float x, float y)
+{
+	mImage->setSize(x, y);
+}

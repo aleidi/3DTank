@@ -17,12 +17,9 @@ AIController::AIController(int id)
 	:mID(id),mAccumulateRot(0),ControllerBase(-1)
 {
  	m_pStateMachine = new StateMachine<AIController>(this);
-	if( id != ent_Tank_SuperEnemy )
-  		m_pStateMachine->setCurrentState(Rest::getInstance());
-	else 
-		m_pStateMachine->setCurrentState(Alert::getInstance());
-
+  	m_pStateMachine->setCurrentState(Sleeep::getInstance());
 	m_target = GameInstance::sGetInstance()->getPlayer();
+
 }
 
 AIController::~AIController()
@@ -74,6 +71,33 @@ void AIController::Rotate(float x, float y, float z)
 	// mAccumulateRot = Math::lerp(mAccumulateRot, 0.0f, 0.999);
 
 	mPawn->getTransform()->rotateY(mAccumulateRot);
+}
+
+void AIController::setPatrol(bool isPatrol, Vector3 start, Vector3 end) {
+	m_isPatrol = isPatrol;
+	m_PatrolStart = start;
+	m_PatrolEnd = end;
+}
+
+bool AIController::getisPatrol()const {
+	return m_isPatrol;
+}
+
+Vector3 AIController::getPatrolStart()const {
+	return m_PatrolStart;
+}
+
+Vector3 AIController::getPatrolEnd()const {
+	return m_PatrolEnd;
+}
+
+void AIController::wakeup() {
+	if (this->getFSM()->getCurrentState() == Sleeep::getInstance()) {
+		if (this->getID() != ent_Tank_SuperEnemy)
+			m_pStateMachine->changeState(Rest::getInstance());
+		else
+			m_pStateMachine->changeState(Alert::getInstance());
+	}
 }
 
 void AIController::setTarget(Pawn* targetTank) {

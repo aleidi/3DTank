@@ -2,6 +2,7 @@
 
 #include "Level02.h"
 #include "AITank.h"
+#include "AIController.h"
 #include "GameModeTP.h"
 #include "RenderManager.h"
 #include "GameInstance.h"
@@ -60,7 +61,7 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 	wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
 	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
 
-	//RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*10.0f, 0.0f);
+	RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*10.0f, 0.0f);
 
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 
@@ -138,14 +139,43 @@ void Level02::loadResourcce()
 	position = Vector3(36.3,5,-28);
 	scale = Vector3(0.05,10.3,120);
 	airWalls.push_back(new AirWall(position, scale));
+	
+	//mCurrentGameMode = new GameModeBase();
+	//mCurrentGameMode->onInit();
+	mCurrentGameMode = new GameModeTP();
 
+	fakeplayer = new AITank(ent_Tank_FakePlayer);
 
-	mCurrentGameMode = new GameModeBase();
-	mCurrentGameMode->onInit();
-	//mCurrentGameMode = new GameModeTP();
+	enemy_boss = new AITank(ent_Tank_SuperEnemy, ent_Tank_FakePlayer);
+	enemy_01 = new AITank(ent_Tank_Enemy01, ent_Tank_FakePlayer);
+	enemy_02 = new AITank(ent_Tank_Enemy02, ent_Tank_FakePlayer);
+	enemy_03 = new AITank(ent_Tank_Enemy03, ent_Tank_FakePlayer);
+	enemy_04 = new AITank(ent_Tank_Enemy04, ent_Tank_FakePlayer);
+	enemy_05 = new AITank(ent_Tank_Enemy05, ent_Tank_FakePlayer);
+	enemy_06 = new AITank(ent_Tank_Enemy06, ent_Tank_FakePlayer);
+	enemy_07 = new AITank(ent_Tank_Enemy07, ent_Tank_FakePlayer);
+	enemy_08 = new AITank(ent_Tank_Enemy08, ent_Tank_FakePlayer);
+	enemy_09 = new AITank(ent_Tank_Enemy09);
+	enemy_10 = new AITank(ent_Tank_Enemy10, ent_Tank_FakePlayer);
 
+	fakeplayer->changeTarget(ent_Tank_Enemy01);
 
+	wakeupAI(ent_Tank_Enemy01);
+	wakeupAI(ent_Tank_Enemy02);
+	wakeupAI(ent_Tank_Enemy03);
+	wakeupAI(ent_Tank_Enemy04);
+	wakeupAI(ent_Tank_Enemy05);
+	wakeupAI(ent_Tank_Enemy06);
+	wakeupAI(ent_Tank_Enemy07);
+	wakeupAI(ent_Tank_Enemy08);
+	wakeupAI(ent_Tank_Enemy09);
+	
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 
 	mCanStart = true;
+}
+
+void Level02::wakeupAI(int ID) {
+	if (SceneManager::sGetInstance()->getAIController(ID) != nullptr ) 
+		SceneManager::sGetInstance()->getAIController(ID)->wakeup();
 }

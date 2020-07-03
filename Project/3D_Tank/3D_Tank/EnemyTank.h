@@ -14,6 +14,7 @@ class EnemyTank : public BaseGameEntity{
 public:
 	EnemyTank(int ID, float scale);
 	EnemyTank(int ID);
+	EnemyTank();
 	~EnemyTank();
 
 	//////////////////////////////////////////////////////accessors
@@ -74,7 +75,7 @@ public:
 	void setAICtrl(AIController* aiController);
 	AIController* getAICtrl()const;
 
-private:
+protected:
 	bool m_HPRecovered;
 	bool m_Attacked;
 	bool m_isObstacleForward;

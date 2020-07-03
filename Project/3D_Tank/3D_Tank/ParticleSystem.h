@@ -78,6 +78,12 @@ public:
 	//deactive particle system
 	void stop();
 
+	//if is not loop, the duration particle play once time
+	void setDuration(float value);
+
+	//set whether particle will loop
+	void enableLoop(bool value);
+
 protected:
 	struct VertexPosSize
 	{
@@ -123,9 +129,10 @@ protected:
 	int mMaxParticles;
 	float mLifeTime;
 	float mEmitRate;
-	int mNeedParticles = mLifeTime * mEmitRate;
+	int mNeedParticles;
 	float mStepTime;
 	float mDuration;
+	float mTimeCount;
 	float mIsLoop;
 	float mStartSpeed;
 	float mMaxSpeed;
