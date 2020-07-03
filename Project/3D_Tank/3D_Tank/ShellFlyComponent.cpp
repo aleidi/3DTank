@@ -59,7 +59,10 @@ void ShellFlyComponent::updateForward(float detaTime)
 
 void ShellFlyComponent::setTarget(GameObject* t)
 {
-	if (t) {
-		this->target = new GameObject(*t);
-	}
+	this->target = t;
+}
+
+void ShellFlyComponent::setVelocity(const Vector3 & dir)
+{
+	this->velocity = dir.normalize() * 5.f;
 }
