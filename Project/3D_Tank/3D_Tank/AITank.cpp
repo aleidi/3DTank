@@ -2,6 +2,7 @@
 #include "AITank.h"
 #include "AIController.h"
 #include "EnemyTank.h"
+#include "EnemyBoss.h"
 
 AITank::AITank(int ID) 
 	: AITank(ID, -1)
@@ -11,7 +12,7 @@ AITank::AITank(int ID)
 
 AITank::AITank(int ID, int targetID) {
 	if (ID == 0)
-		m_Tank = new EnemyTank(ID,0.02);
+		m_Tank = new EnemyBoss(ID);
 	else 
 		m_Tank = new EnemyTank(ID);
 	m_Tank->getTransform()->translate(m_Tank->getResetPoint());

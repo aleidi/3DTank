@@ -31,9 +31,9 @@ ShellFlyComponent::~ShellFlyComponent()
 		SceneManager::sGetInstance()->removeParticleFromPool(mPS);
 		mPS = nullptr;
 	}
-	if (target) {
+	/*if (target) {
 		target->destroy();
-	}
+	}*/
 }
 
 void ShellFlyComponent::onUpdate(float detaTime)
@@ -72,7 +72,7 @@ void ShellFlyComponent::updateForward(float detaTime)
 void ShellFlyComponent::setTarget(GameObject* t)
 {
 	if (t) {
-		this->target = new GameObject(*t);
+		this->target = t;
 	}
 }
 
