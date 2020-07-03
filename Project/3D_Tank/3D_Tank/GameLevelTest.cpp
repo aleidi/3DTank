@@ -191,7 +191,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 		sound = new SoundComponent(shell);
 		sound->setPosition();
 		shell->addComponent(sound);
-		SoundManager::sGetInstance()->playSound(sound->mChannel, 0);
+//		SoundManager::sGetInstance()->playSound(sound->mChannel, 0);
 	}
 	if (shell) {
 		//SoundManager::sGetInstance()->setSoundPosAndVel(shell->getTransform()->getPosition()*0.5, shell->getTransform()->Forward, 0);
@@ -201,7 +201,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
  	if (tankFire == true && shell != NULL && CollisionManager::sGetInstance()->collisionCheck_SphereToCube(shell->sphere, &collider) == true) {
 		SoundManager::sGetInstance()->stop(sound->mChannel);
 		tankFire = false;
-		SoundManager::sGetInstance()->playSound(sound->mChannel,6);
+//		SoundManager::sGetInstance()->playSound(sound->mChannel,6);
 	}
 
 	////////////////put in bullet class int the future /////////////////

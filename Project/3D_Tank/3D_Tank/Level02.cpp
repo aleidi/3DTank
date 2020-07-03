@@ -143,7 +143,7 @@ void Level02::loadResourcce()
 	airWalls.push_back(new AirWall(position, scale));
 
 	// ground's
-	position = Vector3(-0.8,-0.578,-27.4);
+	position = Vector3(-0.8,-0.57,-27.4);
 	scale = Vector3(77.2,1,120);
 	airWalls.push_back(new AirWall(position, scale));
 	
