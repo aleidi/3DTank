@@ -6,6 +6,7 @@
 #include "Level03.h"
 #include "GameLevelManager.h"
 #include "GameInstance.h"
+#include "DisplayManager.h"
 
 GameSystem::GameSystem()
 {
@@ -21,6 +22,7 @@ GameSystem::~GameSystem()
 
 void GameSystem::onInit()
 {
+	DisplayManager::sGetInstance()->createSingleton();
 
 	new GameLevelTest();
 	new Level01();

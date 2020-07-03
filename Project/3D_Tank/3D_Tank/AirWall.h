@@ -8,7 +8,7 @@ public:
 	AirWall(const Vector3& position, const Vector3& scale);
 	~AirWall();
 
-	GameObject* cube;
+	//GameObject* cube;
 
 private:
 	BoundingCube* mCollisionBox;

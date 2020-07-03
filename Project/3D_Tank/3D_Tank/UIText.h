@@ -11,7 +11,7 @@ public:
 	UIText(Graphics& gfx, std::wstring text);
 
 	virtual void draw(Graphics& gfx) noexcept override;
-	void setText(std::wstring wstr);
+	void setText(const std::wstring& wstr);
 
 
 protected:

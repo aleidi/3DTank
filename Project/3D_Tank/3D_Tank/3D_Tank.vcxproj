@@ -203,6 +203,7 @@
     <ClCompile Include="DInput_PC.cpp" />
     <ClCompile Include="DInput_PS4.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
+    <ClCompile Include="DisplayManager.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DXTrace.cpp" />
     <ClCompile Include="EmptyObjectFactory.cpp" />
@@ -261,6 +262,7 @@
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shell.cpp" />
+    <ClCompile Include="ShellContainer.cpp" />
     <ClCompile Include="ShellFlyComponent.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SM_construction_fence.cpp" />
@@ -335,6 +337,7 @@
     <ClInclude Include="DInput_PC.h" />
     <ClInclude Include="DInput_PS4.h" />
     <ClInclude Include="DDSTextureLoader.h" />
+    <ClInclude Include="DisplayManager.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DXTrace.h" />
     <ClInclude Include="EmptyObjectFactory.h" />
@@ -406,6 +409,7 @@
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shell.h" />
+    <ClInclude Include="ShellContainer.h" />
     <ClInclude Include="ShellFlyComponent.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SM_construction_fence.h" />
