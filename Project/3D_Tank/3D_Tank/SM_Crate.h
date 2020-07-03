@@ -3,7 +3,7 @@
 
 class BoundingCube;
 
-class SM_Crate :GameObject {
+class SM_Crate :public GameObject {
 public:
 	SM_Crate(const Vector3& position, const Vector3& rotate, const Vector3& scale);
 	~SM_Crate();
