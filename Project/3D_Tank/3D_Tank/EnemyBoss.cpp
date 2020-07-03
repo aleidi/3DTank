@@ -34,9 +34,9 @@ EnemyBoss::EnemyBoss(int id)
 	reinterpret_cast<UIHP*>(mUIHP)->setEnable(false);
 
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
-	mBattery->setName("BossBattery");
-	RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
-	mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
+	//mBattery->setName("BossBattery");
+	//RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
+	//mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
 	mBattery->attach(*this);
 }
 

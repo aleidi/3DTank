@@ -13,20 +13,6 @@
 #include "MessageDispatcher.h"
 #include "AirWall.h"
 
-/////////////////////////////////
-AITank* enemy_01;
-AITank* enemy_02;
-AITank* enemy_03;
-AITank* enemy_04;
-AITank* enemy_05;
-AITank* enemy_06;
-AITank* enemy_07;
-AITank* enemy_08;
-AITank* enemy_09;
-AITank* enemy_10;
-AITank* enemy_boss;
-AITank* fakeplayer;
-
 Level02::Level02()
 {
 	GameLevelManager::sGetInstance()->addLevel(2, this);
@@ -65,6 +51,19 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 
+	Dispatch->DispatchDelayedMessages();
+
+	wakeupWave(firstWaveAI);
+	if (isWaveClear(firstWaveAI)) {
+		loadSecondWave();
+		wakeupWave(secondWaveAI);
+		if (isWaveClear(secondWaveAI)) {
+			loadThirdWave();
+			wakeupWave(secondWaveAI);
+		}
+			
+	}
+
 	return this;
 }
 
@@ -94,6 +93,7 @@ void Level02::loadResourcce()
 	mMap->getTransform()->setScale(0.07f, 0.07f, 0.07f);
 
 	//// seven buildings'
+	
 	Vector3 position, scale;
 	position = Vector3(-16.5, 7, 12.5);
 	scale = Vector3(21.5, 14, 16);
@@ -149,32 +149,7 @@ void Level02::loadResourcce()
 	//mCurrentGameMode->onInit();
 	mCurrentGameMode = new GameModeTP();
 
-	fakeplayer = new AITank(ent_Tank_FakePlayer);
-
-	enemy_boss = new AITank(ent_Tank_SuperEnemy, ent_Tank_FakePlayer);
-	enemy_01 = new AITank(ent_Tank_Enemy01, ent_Tank_FakePlayer);
-	enemy_02 = new AITank(ent_Tank_Enemy02, ent_Tank_FakePlayer);
-	enemy_03 = new AITank(ent_Tank_Enemy03, ent_Tank_FakePlayer);
-	enemy_04 = new AITank(ent_Tank_Enemy04, ent_Tank_FakePlayer);
-	enemy_05 = new AITank(ent_Tank_Enemy05, ent_Tank_FakePlayer);
-	enemy_06 = new AITank(ent_Tank_Enemy06, ent_Tank_FakePlayer);
-	enemy_07 = new AITank(ent_Tank_Enemy07, ent_Tank_FakePlayer);
-	enemy_08 = new AITank(ent_Tank_Enemy08, ent_Tank_FakePlayer);
-	enemy_09 = new AITank(ent_Tank_Enemy09);
-	enemy_10 = new AITank(ent_Tank_Enemy10, ent_Tank_FakePlayer);
-
-	fakeplayer->changeTarget(ent_Tank_Enemy01);
-
-	wakeupAI(ent_Tank_Enemy01);
-	wakeupAI(ent_Tank_Enemy02);
-	wakeupAI(ent_Tank_Enemy03);
-	wakeupAI(ent_Tank_Enemy04);
-	wakeupAI(ent_Tank_Enemy05);
-	wakeupAI(ent_Tank_Enemy06);
-	wakeupAI(ent_Tank_Enemy07);
-	wakeupAI(ent_Tank_Enemy08);
-	wakeupAI(ent_Tank_Enemy09);
-	
+	loadFirstWave();
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 
 	mCanStart = true;
@@ -183,4 +158,42 @@ void Level02::loadResourcce()
 void Level02::wakeupAI(int ID) {
 	if (SceneManager::sGetInstance()->getAIController(ID) != nullptr ) 
 		SceneManager::sGetInstance()->getAIController(ID)->wakeup();
+
+}
+
+void Level02::loadFirstWave() {
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy01));
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy02));
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy03));
+}
+
+void Level02::loadSecondWave() {
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy04));
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy05));
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy06));
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy07));
+}
+
+void Level02::loadThirdWave() {
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy08));
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy09));
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy10));
+	firstWaveAI.push_back(new AITank(ent_Tank_SuperEnemy));
+}
+
+bool Level02::isWaveClear(std::vector<AITank*> thisWave) {
+	for (int i = 0; i < thisWave.size(); ++i) {
+		if (thisWave[i]->isAlive())
+			return false;
+		else return true;
+	}
+
+	return false;
+}
+
+void Level02::wakeupWave(std::vector<AITank*> thisWave) {
+	for (int i = 0; i < thisWave.size(); ++i) {
+		wakeupAI(thisWave[i]->getID());
+	}
+
 }

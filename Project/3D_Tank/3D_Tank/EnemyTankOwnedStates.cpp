@@ -73,24 +73,24 @@ void Rest::execute(AIController* pEnemyTank, float deltaTime) {
 	}
 
 	////////////////////////changeState////////////////////////
-	if (AITank->isEnemyInRange()) {
-		if(AITank->isDying() )
-			pEnemyTank->getFSM()->changeState(Evade::getInstance());
-		else 
-			pEnemyTank->getFSM()->changeState(Attack::getInstance());
-	}
+	//if (AITank->isEnemyInRange()) {
+	//	if(AITank->isDying() )
+	//		pEnemyTank->getFSM()->changeState(Evade::getInstance());
+	//	else 
+	//		pEnemyTank->getFSM()->changeState(Attack::getInstance());
+	//}
 
-	if (AITank->getAttacked()) {
-		AITank->setAttacked(false);
-		if (AITank->isDying())
-			pEnemyTank->getFSM()->changeState(Evade::getInstance());
-		else
-			pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
-	}
+	//if (AITank->getAttacked()) {
+	//	AITank->setAttacked(false);
+	//	if (AITank->isDying())
+	//		pEnemyTank->getFSM()->changeState(Evade::getInstance());
+	//	else
+	//		pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
+	//}
 
-	if (AITank->getHP() == AITank->FullHP) {
-		pEnemyTank->getFSM()->changeState(Wander::getInstance());
-	}
+	//if (AITank->getHP() == AITank->FullHP) {
+	//	pEnemyTank->getFSM()->changeState(Wander::getInstance());
+	//}
 
 	if (AITank->getHP() <= 0) {
 		pEnemyTank->getFSM()->changeState(Death::getInstance());
@@ -558,7 +558,8 @@ void Death::exit(AIController* pEnemyTank) {
 bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 	case Msg_DeathDelay: {
-		pEnemyTank->getPrefabs()->destroy();
+
+		// pEnemyTank->getPrefabs()->destroy();
 		return true;
 	}
 
