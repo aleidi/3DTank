@@ -12,7 +12,7 @@
 #include "SoundManager.h"
 
 PlayerTank::PlayerTank()
-	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(2.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
+	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
 	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
 	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
@@ -27,13 +27,6 @@ PlayerTank::PlayerTank()
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("Battery");
 	SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
-	mBattery->attach(*this);
-	/*DirectX::XMFLOAT3 maxP(93.4250031f, 210.244995f, 299.684998f);
-	DirectX::XMFLOAT3 minP(-71.5699997f, 70.3600006f, -106.195000f);
-	maxPoint = DirectX::XMLoadFloat3(&maxP); minPoint = DirectX::XMLoadFloat3(&minP);
-	BoundingCube* batteryBoundingCube = new BoundingCube(mBattery);
-	batteryBoundingCube->createBoundingCube(maxPoint, minPoint, 1);
-	mBattery->addComponent(batteryBoundingCube);*/
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint);
 	DirectX::XMFLOAT3 maxP0(108.550003f, 97.2149963f, 177.554993f);
 	DirectX::XMFLOAT3 minP0(-86.8899994f, 3.51500010f, -191.240005f);
@@ -55,18 +48,13 @@ PlayerTank::PlayerTank()
 	mCamera->getTransform()->translate(mTransform->getPosition() + 
 		mCamFollower->getTransform()->Forward * mCamFollowFactorX + mCamFollower->getTransform()->Up * mCamFollowFactorY * mDisToCam);
 	mTransform->setScale(0.002f, 0.002f, 0.002f);
+	mBattery->getTransform()->setScale(0.002f, 0.002f, 0.002f);
 	mTransform->calcultateTransformMatrix();
 	DirectX::BoundingOrientedBox out;
 	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
 	bodyBoundingCube->box = out;
 	this->cube = bodyBoundingCube;
-	//DirectX::BoundingOrientedBox out1;
-	//batteryBoundingCube->box.Transform(out1, mTransform->getLocalToWorldMatrix());
-	//batteryBoundingCube->box = out1;
-	//mBattery->cube = batteryBoundingCube;
-	//t1 = SceneManager::sGetInstance()->createSphere();
-	//t1->attach(*mCamFollower);
-	//t1->getTransform()->translate(Vector3::right * 2.0f);
+
 	moveDirection = FORWARD;
 	rotateDirection = MRIGHT;
 
@@ -76,7 +64,7 @@ PlayerTank::PlayerTank()
 	mAttribute.FullHP = 1000;
 	mAttribute.m_AttackRangeRadiusSq = 20.0f;
 
-	mLightInterval = 0.3f;
+	mLightInterval = 0.5f;
 	mHeavyInterval = 2.0f;
 	mAttackCount = mLightInterval;
 	mAttackAngle = DirectX::XMConvertToRadians(60);
@@ -156,16 +144,20 @@ void PlayerTank::onAttack(float deltaTime)
 			float angle = Vector3::dot(dir, mBattery->getTransform()->Forward);
 			if (angle < mAttackAngle)
 			{
-				ShellContainer::sGetInstance()->applyShell(startPos, dir, 1);
+				playAttackParticle();
+				ShellContainer::sGetInstance()->applyShell(startPos, dir, 0);
 			}
 			else
 			{
-				ShellContainer::sGetInstance()->applyShell(startPos, dir, 0);
+				playAttackParticle();
+
+				ShellContainer::sGetInstance()->applyShell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
 			}
 		}
 		else
 		{
-			ShellContainer::sGetInstance()->applyShell(startPos, dir, 0);
+			playAttackParticle();
+			ShellContainer::sGetInstance()->applyShell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
 		}
 
 		if (mWeaponType == WeaponType::Light)
@@ -179,7 +171,6 @@ void PlayerTank::onAttack(float deltaTime)
 			mAttackCount = mHeavyInterval;
 		}
 	}
-	playAttackParticle();
 }
 
 void PlayerTank::setAttack()
@@ -200,7 +191,7 @@ void PlayerTank::setWeaponType(WeaponType type)
 void PlayerTank::move(Vector3 value)
 {
 	mTransform->translate(value * mMoveSped);
-	//this->getBattery()->cube->box.Center.x += value.x * mMoveSped; this->getBattery()->cube->box.Center.y += value.y * mMoveSped; this->getBattery()->cube->box.Center.z += value.z * mMoveSped;
+	mBattery->getTransform()->translate(value * mMoveSped);
 	m_Velocity = value;
 }
 

@@ -1,10 +1,24 @@
 #include "EnemyBoss.h"
+#include "FileManager.h"
 #include "UIHP.h"
 
 EnemyBoss::EnemyBoss(int id)
 {
-	mAttribute.FullHP = 100;
-	mAttribute.m_HP = 100;
+	mAttribute = { FileManager::AIAttributes[id].m_HP,
+			   FileManager::AIAttributes[id].m_HP,
+			   FileManager::AIAttributes[id].m_AttackRangeRadiusSq,
+			   FileManager::AIAttributes[id].m_PursuitRangeRadiusSq,
+			   FileManager::AIAttributes[id].m_WanderRangeRadiusSq,
+			   FileManager::AIAttributes[id].m_Mass,
+			   FileManager::AIAttributes[id].m_MaxSpeed,
+			   FileManager::AIAttributes[id].m_AttackTimeDelay,
+			   FileManager::AIAttributes[id].m_Offset,
+			   FileManager::AIAttributes[id].m_HitRate,
+			   FileManager::AIAttributes[id].m_MaxTurnRate,
+			   FileManager::AIAttributes[id].m_WanderRadius,
+			   FileManager::AIAttributes[id].m_WanderDistance,
+			   FileManager::AIAttributes[id].m_WanderJitter,
+			   FileManager::AIAttributes[id].m_ResetPoint };
 
 	m_ID = id;
 	SceneManager::sGetInstance()->createModel(*this, "Boss/RedBaronN/m0_Arm_Base_Color", L"Boss/RedBaronN/Arm_Base_Color");
@@ -19,5 +33,10 @@ EnemyBoss::EnemyBoss(int id)
 	mTransform->setScale(0.5f, 0.5f, 0.5f);
 	reinterpret_cast<UIHP*>(mUIHP)->setEnable(false);
 
+	mBattery = SceneManager::sGetInstance()->createEmptyObject();
+	mBattery->setName("BossBattery");
+	RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
+	mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
+	mBattery->attach(*this);
 }
 

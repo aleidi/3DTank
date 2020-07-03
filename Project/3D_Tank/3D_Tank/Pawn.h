@@ -4,6 +4,7 @@
 #include "CollisionEvent.h"
 
 class MovementComponent;
+class UIHP;
 
 enum MoveDirection{
 	FORWARD, MBACK, RIGHT, LEFT
@@ -81,5 +82,5 @@ protected:
 	Attribute mAttribute;
 	Vector3 m_Velocity;
 
-	GameObject* mUIHP;
+	UIHP* mUIHP;
 };

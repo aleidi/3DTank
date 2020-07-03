@@ -104,6 +104,13 @@ void Engine::onInit()
 #pragma endregion
 }
 
+void Engine::onPostInit()
+{
+
+	//Game Init
+	mGameSystem->onInit();
+}
+
 void Engine::run()
 {
 	if (DInputPC::getInstance().iskeyDown(DIK_F4))
@@ -172,13 +179,6 @@ void Engine::run()
 	}
 
 	mRendering.get()->onEndRender(deltaTime);
-}
-
-void Engine::onPostInit()
-{
-
-	//Game Init
-	mGameSystem->onInit();
 }
 
 float Engine::getTotalTime() noexcept

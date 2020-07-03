@@ -583,7 +583,10 @@
       <Filter>Engine\Source\Render\Graphics\Bindable</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBoss.cpp">
-      <Filter>Engine\Source</Filter>
+      <Filter>Game\Source\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayManager.cpp">
+      <Filter>Game\Source\UI</Filter>
     </ClCompile>
         <ClCompile Include="ShellContainer.cpp">
       <Filter>Game\Source\Prefabs</Filter>
@@ -1029,7 +1032,10 @@
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBoss.h">
-      <Filter>Engine\Header</Filter>
+      <Filter>Game\Header\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayManager.h">
+      <Filter>Game\Header\UI</Filter>
     </ClInclude>
     <ClInclude Include="ShellContainer.h">
       <Filter>Game\Header\Prefabs</Filter>

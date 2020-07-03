@@ -203,6 +203,7 @@
     <ClCompile Include="DInput_PC.cpp" />
     <ClCompile Include="DInput_PS4.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
+    <ClCompile Include="DisplayManager.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DXTrace.cpp" />
     <ClCompile Include="EmptyObjectFactory.cpp" />
@@ -336,6 +337,7 @@
     <ClInclude Include="DInput_PC.h" />
     <ClInclude Include="DInput_PS4.h" />
     <ClInclude Include="DDSTextureLoader.h" />
+    <ClInclude Include="DisplayManager.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DXTrace.h" />
     <ClInclude Include="EmptyObjectFactory.h" />

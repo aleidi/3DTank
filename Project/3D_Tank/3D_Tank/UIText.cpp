@@ -98,7 +98,7 @@ void UIText::draw(Graphics& gfx) noexcept
 	resetBlendState(gfx);
 }
 
-void UIText::setText(std::wstring wstr)
+void UIText::setText(const std::wstring& wstr)
 {
 	Graphics& gfx = RenderManager::sGetInstance()->getGraphics();
 	pSRVs.clear();

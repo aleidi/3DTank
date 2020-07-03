@@ -83,14 +83,14 @@ void PlayerController::checkInput(float deltaTime)
 	{
 		if (reinterpret_cast<PlayerTank*>(mPawn)->onTrigger == false) {
 			reinterpret_cast<PlayerTank*>(mPawn)->moveDirection = FORWARD;
-			move(mPawn->getTransform()->Forward * deltaTime * 5.f);
+			move(mPawn->getTransform()->Forward * deltaTime);
 		}
 	}
 	if (DInputPC::getInstance().iskey(MOVEBACK))
 	{
 		if (reinterpret_cast<PlayerTank*>(mPawn)->onTrigger == false) {
 			reinterpret_cast<PlayerTank*>(mPawn)->moveDirection = (MoveDirection)1;
-			move(mPawn->getTransform()->Forward * -deltaTime * 5.f);
+			move(mPawn->getTransform()->Forward * -deltaTime);
 		}
 	}
 	if (DInputPC::getInstance().iskey(TURNLEFT))
@@ -98,7 +98,7 @@ void PlayerController::checkInput(float deltaTime)
 		if (reinterpret_cast<PlayerTank*>(mPawn)->onTrigger == false) {
 			//reinterpret_cast<PlayerTank*>(mPawn)->moveDirection = LEFT;
 			reinterpret_cast<PlayerTank*>(mPawn)->rotateDirection = MLEFT;
-			rotate(-deltaTime * 3.f);
+			rotate(-deltaTime);
 			//if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == FORWARD)
 			//	move(mPawn->getTransform()->Forward * -deltaTime);
 			//else if(reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == MBACK)
@@ -107,12 +107,12 @@ void PlayerController::checkInput(float deltaTime)
 		else {
 			if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == FORWARD) {
 				if (DInputPC::getInstance().iskey(MOVEBACK))
-					move(mPawn->getTransform()->Forward * -deltaTime * 5.f);
+					move(mPawn->getTransform()->Forward * -deltaTime);
 			}
 			else {
 				if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == MBACK) {
 					if (DInputPC::getInstance().iskey(MOVEFORWARD))
-						move(mPawn->getTransform()->Forward * deltaTime * 5.f);
+						move(mPawn->getTransform()->Forward * deltaTime);
 				}
 			}
 		}
@@ -122,7 +122,7 @@ void PlayerController::checkInput(float deltaTime)
 		if (reinterpret_cast<PlayerTank*>(mPawn)->onTrigger == false) {
 			//reinterpret_cast<PlayerTank*>(mPawn)->moveDirection = RIGHT;
 			reinterpret_cast<PlayerTank*>(mPawn)->rotateDirection = MRIGHT;
-			rotate(deltaTime * 3.f);
+			rotate(deltaTime);
 			//if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == FORWARD)
 			//	move(mPawn->getTransform()->Forward * -deltaTime);
 			//else if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == MBACK)
@@ -131,12 +131,12 @@ void PlayerController::checkInput(float deltaTime)
 		else {
 			if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == FORWARD) {
 				if (DInputPC::getInstance().iskey(MOVEBACK))
-					move(mPawn->getTransform()->Forward * -deltaTime * 5.f);
+					move(mPawn->getTransform()->Forward * -deltaTime);
 			}
 			else {
 				if (reinterpret_cast<PlayerTank*>(mPawn)->moveDirection == MBACK) {
 					if (DInputPC::getInstance().iskey(MOVEFORWARD))
-						move(mPawn->getTransform()->Forward * deltaTime * 5.f);
+						move(mPawn->getTransform()->Forward * deltaTime);
 				}
 			}
 		}
