@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "Vector3.h"
 
 class Shell;
 
@@ -11,6 +12,8 @@ public:
 
 	std::vector<Shell*> getOnTriggerShells();
 	std::vector<Shell*> getUnTriggerShells();
+
+	void applyShell(const Vector3& position, const Vector3& direction, const int& shelType);
 
 private:
 	static ShellContainer* sInstance;

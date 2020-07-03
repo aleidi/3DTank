@@ -8,7 +8,7 @@
 
 ShellFlyComponent::ShellFlyComponent(GameObject * obj):Component(obj)
 {
-	this->velocity = this->getObject()->getTransform()->Forward.normalize() * 5.f;
+	this->velocity = this->getObject()->getTransform()->Forward.normalize() * 10.f;
 	this->gracity = Vector3(0.f, 0.f, 0.f);
 	this->rotateSpeed = 90.f;
 	angle = 0.f;
@@ -16,7 +16,7 @@ ShellFlyComponent::ShellFlyComponent(GameObject * obj):Component(obj)
 
 ShellFlyComponent::ShellFlyComponent(GameObject * obj, const Vector3 & direction) :Component(obj)
 {
-	this->velocity = direction.normalize() * 5.f;
+	this->velocity = direction.normalize() * 10.f;
 	this->gracity = Vector3(0.f, 0.f, 0.f);
 	this->rotateSpeed = 90.f;
 	angle = 0.f;
@@ -49,7 +49,7 @@ void ShellFlyComponent::onUpdate(float detaTime)
 	}
 	if (target) {
 		updateForward(detaTime);
-		this->velocity = this->getObject()->getTransform()->Forward.normalize() * 5.f;
+		this->velocity = this->getObject()->getTransform()->Forward.normalize() * 10.f;
 		Vector3 pos = this->getObject()->getTransform()->getPosition();
 		mPS->setPosition(pos.x, pos.y, pos.z);
 		mPS->play();
@@ -76,7 +76,7 @@ void ShellFlyComponent::setTarget(GameObject* t)
 
 void ShellFlyComponent::setVelocity(const Vector3 & dir)
 {
-	this->velocity = dir.normalize() * 5.f;
+	this->velocity = dir.normalize() * 10.f;
 }
 
 void ShellFlyComponent::initParticle()

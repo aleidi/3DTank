@@ -39,3 +39,13 @@ std::vector<Shell*> ShellContainer::getUnTriggerShells()
 {
 	return unTriggerShells;
 }
+
+void ShellContainer::applyShell(const Vector3 & position, const Vector3 & direction, const int & shelType)
+{
+	if (unTriggerShells.size() == 0) {
+		Shell* shell = new Shell(position, direction, shelType);
+	}
+	else {
+		(*unTriggerShells.begin())->resetPosAndDir(position, direction, shelType);
+	}
+}
