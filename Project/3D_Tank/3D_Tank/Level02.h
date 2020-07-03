@@ -14,5 +14,8 @@ public:
 
 private:
 	GameObject* mMap;
+
+private:
+	void wakeupAI(int ID);
 };
 

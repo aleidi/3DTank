@@ -23,6 +23,29 @@
 #define getAIHeading pEnemyTank->getPawn()->getTransform()->Forward
 #define getAIVelocity  pEnemyTank->getPawn()->getVelocity()
 
+//-------------------methods for Sleep-------------------//
+
+Sleeep* Sleeep::getInstance() {
+	static Sleeep m_Sleep;
+	return &m_Sleep;
+}
+
+void Sleeep::enter(AIController* pEnemyTank) {
+
+}
+
+void Sleeep::execute(AIController* pEnemyTank, float deltaTime) {
+	////////////////////////changeState////////////////////////
+}
+
+void Sleeep::exit(AIController* pEnemyTank) {
+
+}
+
+bool Sleeep::onMessage(AIController* pEnemyTank, const Telegram& msg) {
+	return false;
+}
+
 //-------------------methods for Rest-------------------//
 Rest* Rest::getInstance() {
 	static Rest m_Rest;
@@ -108,6 +131,9 @@ void Wander::enter(AIController* pEnemyTank) {
 }
 
 void Wander::execute(AIController* pEnemyTank, float deltaTime) {
+	if (pEnemyTank->getisPatrol())
+		pEnemyTank->getFSM()->changeState(Patrol::getInstance());
+	/////////////////////////////Patrol/////////////////////////////////
 	AITank->aiCount += deltaTime;
 
 	if (AITank->aiCount > 0.001f) {
@@ -151,7 +177,7 @@ void Wander::execute(AIController* pEnemyTank, float deltaTime) {
 }
 
 void Wander::exit(AIController* pEnemyTank) {
-	//MessageBox(0, L"I stopped finding bad guy.(wander) ", 0, 0);
+	//MessageBox(0, L"I stopped finding bad guy.(Wander) ", 0, 0);
 }
 
 bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
@@ -165,6 +191,80 @@ bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	}
 	return false;
 
+}
+
+//-------------------methods for Patrol-------------------//
+Patrol* Patrol::getInstance() {
+	static Patrol m_Patrol; 
+	return &m_Patrol;
+}
+
+void Patrol::enter(AIController* pEnemyTank) {
+	pEnemyTank->toPatrolEnd = true;
+	pEnemyTank->toPatrolStart = false;
+	// MessageBox(0, L"I'm going to find bad guy.(Patrol) ", 0, 0);
+}
+
+void Patrol::execute(AIController* pEnemyTank, float deltaTime) {
+	AITank->aiCount += deltaTime;
+
+	if (AITank->aiCount > 0.001f) {
+		Vector3 target = Vector3(0, 0, 0);
+		AITank->aiCount = 0.0f;
+		if (pEnemyTank->toPatrolEnd) {
+			Vector3 targetPos = pEnemyTank->getPatrolEnd();
+			Vector3 desiredVelocity = ( targetPos - getAIPos ).normalize() * AITank->getMaxSpeed();
+			target = desiredVelocity - getAIVelocity;
+			pEnemyTank->Move(target);
+			if (Vector3::lengthSq(getAIPos, targetPos) < 0.00001) {
+				pEnemyTank->toPatrolEnd = false;
+				pEnemyTank->toPatrolStart = true;
+			}
+		}
+		else if (pEnemyTank->toPatrolStart) {
+			Vector3 targetPos = pEnemyTank->getPatrolStart();
+			Vector3 desiredVelocity = (	targetPos - getAIPos ).normalize() * AITank->getMaxSpeed();
+			target = desiredVelocity - getAIVelocity;
+			pEnemyTank->Move(target);
+			if ( Vector3::lengthSq( getAIPos,targetPos ) < 0.00001)  {
+				pEnemyTank->toPatrolStart = false;
+				pEnemyTank->toPatrolEnd = true;
+			}
+		}
+		/////////////////////////beginning of movement/////////////////////////////
+		
+		// pEnemyTank->Move(target);
+		
+		////////////////////////changeState////////////////////////
+		if (AITank->isEnemyInRange()) {
+			pEnemyTank->getFSM()->changeState(Attack::getInstance());
+		}
+
+		if (AITank->isObstacleHere()) {
+			pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
+		}
+
+		if (AITank->getAttacked()) {
+			AITank->setAttacked(false);
+			pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
+		}
+	}
+}
+
+void Patrol::exit(AIController* pEnemyTank) {
+	// MessageBox(0, L"I'm stop finding bad guy.(Patrol) ", 0, 0);
+}
+
+bool Patrol::onMessage(AIController* pEnemyTank, const Telegram& msg) {
+	switch (msg.Msg) {
+	case Msg_IsAttacked: {
+		//MessageBox(0, L"nmsl(wander", 0, 0);
+		AITank->setAttacked(true);
+	}
+
+		return true;
+	}
+	return false;
 }
 
 //-------------------methods for Avoidance-------------------//
@@ -224,7 +324,6 @@ void Avoidance::exit(AIController* pEnemyTank) {
 bool Avoidance::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
-
 
 //-------------------methods for Attack-------------------//
 Attack* Attack::getInstance() {

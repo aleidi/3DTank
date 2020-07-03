@@ -26,10 +26,18 @@ public:
 	void Move(Vector3 Force);
 	void Rotate(float x, float y, float z);
 
+	void setPatrol(bool isPatrol, Vector3 start, Vector3 end);
+	bool getisPatrol()const;
+	Vector3 getPatrolStart()const;
+	Vector3 getPatrolEnd()const;
+	bool toPatrolStart;
+	bool toPatrolEnd;
+
+	void wakeup();
+
 	void setTarget(Pawn* targetTank);
 	Pawn* getTarget();
-
-
+	
 	void setPrefabs(AITank* prefab) { m_Prefabs = prefab; }
 	AITank* getPrefabs() { return m_Prefabs; }
 
@@ -43,6 +51,10 @@ private:
 	StateMachine<AIController>* m_pStateMachine;
 
 	Pawn* m_target;
+
+	Vector3 m_PatrolStart;
+	Vector3 m_PatrolEnd;
+	bool m_isPatrol = false;
 
 	AITank* m_Prefabs;
 };

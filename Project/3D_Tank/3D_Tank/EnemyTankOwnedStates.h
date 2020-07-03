@@ -5,6 +5,21 @@
 class AIController;
 struct Telegram;
 
+class Sleeep : public State<AIController> {
+public:
+	static Sleeep* getInstance();
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
+	virtual void exit(AIController* pETank);
+
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
+private:
+	Sleeep() {}
+
+	Sleeep(const Sleeep&);
+	Sleeep& operator=(const Sleeep&);
+};
+
 class Rest : public State<AIController> {
 public:
 	static Rest* getInstance();
@@ -33,6 +48,21 @@ private:
 
 	Wander(const Wander&);
 	Wander& operator=(const Wander&);
+};
+
+class Patrol : public State<AIController> {
+public:
+	static Patrol* getInstance();
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
+	virtual void exit(AIController* pETank);
+
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
+private:
+	Patrol() {}
+
+	Patrol(const Patrol&);
+	Patrol& operator=(const Patrol&);
 };
 
 class Avoidance : public State<AIController> {

@@ -23,6 +23,10 @@ AITank::AITank(int ID, int targetID) {
 	if (targetID >= 0) {
 		changeTarget(targetID);
 	}
+
+	if (ID == 9) {
+		m_AICtrl->setPatrol(true, Vector3(30, 0, -80), Vector3(30, 0, -30));
+	}
 }
 
 AITank::~AITank() {
