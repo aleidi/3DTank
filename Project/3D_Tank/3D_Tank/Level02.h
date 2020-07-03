@@ -1,6 +1,8 @@
 #pragma once
 #include "GameLevelBase.h"
 
+class AirWall;
+
 class Level02 : public GameLevelBase
 {
 public:
@@ -14,5 +16,6 @@ public:
 
 private:
 	GameObject* mMap;
+	std::vector<AirWall*> airWalls;
 };
 
