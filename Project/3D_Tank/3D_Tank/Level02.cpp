@@ -124,11 +124,11 @@ void Level02::loadResourcce()
 	airWalls.push_back(new AirWall(position, scale));
 
 	// four walls'
-	position = Vector3(-1,5,32.2);
+	position = Vector3(-1,4.5,32.2);
 	scale = Vector3(75,9,0.05);
 	airWalls.push_back(new AirWall(position, scale));
 
-	position = Vector3(-1, 5, -87.2);
+	position = Vector3(-1, 4.5, -87.2);
 	scale = Vector3(75, 9, 0.05);
 	airWalls.push_back(new AirWall(position, scale));
 
