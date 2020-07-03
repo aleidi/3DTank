@@ -1,6 +1,7 @@
 #include "EnemyBoss.h"
 #include "FileManager.h"
 #include "UIHP.h"
+#include "UIImage.h"
 
 EnemyBoss::EnemyBoss(int id)
 {
@@ -31,12 +32,34 @@ EnemyBoss::EnemyBoss(int id)
 	SceneManager::sGetInstance()->createModel(*this, "Boss/RedBaronN/m7_SubArm_Base_Color", L"Boss/RedBaronN/SubArm_Base_Color");
 
 	mTransform->setScale(0.5f, 0.5f, 0.5f);
-	reinterpret_cast<UIHP*>(mUIHP)->setEnable(false);
+	mUIHP->setEnable(false);
+
+	mFrame = SceneManager::sGetInstance()->createUIImage(L"UI/BossHP_Frame");
+	mFrame->setPosition(WINDOW_WIDTH * (0.5f-0.315f), WINDOW_HEIGHT*0.770f);
+	mFrame->setSize(WINDOW_WIDTH * 0.63f, WINDOW_HEIGHT * 0.06f);
+
+	mImage = SceneManager::sGetInstance()->createUIImage(L"");
+	mImage->setPosition(WINDOW_WIDTH*0.2f, WINDOW_HEIGHT*0.775f);
+	mImage->setSize(WINDOW_WIDTH * 0.6f, WINDOW_HEIGHT * 0.05f);
+	Material mat;
+	mat.Color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	mImage->setMaterial(mat);
 
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	mBattery->setName("BossBattery");
 	RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
 	mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
 	mBattery->attach(*this);
+}
+
+EnemyBoss::~EnemyBoss()
+{
+
+}
+
+void EnemyBoss::showHP(bool value)
+{
+	mFrame->setEnable(value);
+	mImage->setEnable(value);
 }
 
