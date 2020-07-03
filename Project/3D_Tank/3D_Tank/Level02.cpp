@@ -324,6 +324,9 @@ void Level02::loadSecondWave() {
 }
 
 void Level02::loadThirdWave() {
+	for (int i = 0; i < secondWaveAI.size(); ++i) {
+		secondWaveAI[i]->destroy();
+	}
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy08));
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy09));
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy10));
