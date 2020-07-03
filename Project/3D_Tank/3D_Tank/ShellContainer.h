@@ -2,6 +2,7 @@
 #include <vector>
 #include "Vector3.h"
 
+class GameObject;
 class Shell;
 
 class ShellContainer {
@@ -14,6 +15,7 @@ public:
 	std::vector<Shell*> getUnTriggerShells();
 
 	void applyShell(const Vector3& position, const Vector3& direction, const int& shelType);
+	void applyShell(const Vector3& position, const Vector3& direction, const int& shelType, GameObject* target);
 
 private:
 	static ShellContainer* sInstance;

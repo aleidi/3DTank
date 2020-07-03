@@ -31,9 +31,6 @@ ShellFlyComponent::~ShellFlyComponent()
 		SceneManager::sGetInstance()->removeParticleFromPool(mPS);
 		mPS = nullptr;
 	}
-	if (target) {
-		target->destroy();
-	}
 }
 
 void ShellFlyComponent::onUpdate(float detaTime)
