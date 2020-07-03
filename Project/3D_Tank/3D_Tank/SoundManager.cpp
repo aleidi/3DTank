@@ -18,7 +18,12 @@ void SoundManager::onInit()
 	else {
 		sInstance = new SoundManager();
 	}
+}
 
+void SoundManager::destory()
+{
+	delete sInstance;
+	sInstance = NULL;
 }
 
 void SoundManager::playBGM()
@@ -121,13 +126,13 @@ void SoundManager::playSound(const int & soundNum)
 	}
 }
 
-void SoundManager::playSound(FMOD::Channel*& channel, int soundNum)
+void SoundManager::playOverlapSound(FMOD::Channel*& channel, int soundNum)
 {
-	bool isPlaying = false;
-	FMOD_RESULT result;
-	result = channel->isPlaying(&isPlaying);
-	if (result == FMOD_OK)
-		return;
+	//bool isPlaying = false;
+	//FMOD_RESULT result;
+	//result = channel->isPlaying(&isPlaying);
+	//if (result == FMOD_OK)
+	//	return;
 	//result = loadSoundFile(SOUND_FILE_PATH[soundNum], soundNum);
 	//if (result != FMOD_OK)
 	//	return;
@@ -158,6 +163,16 @@ void SoundManager::setReplay(const int & soundNum)
 
 	mFmodChannel[soundNum]->setPaused(false);
 	return;
+}
+
+void SoundManager::setBGMValume(const float & valume)
+{
+	mFmodChannel[0]->setVolume(valume);
+}
+
+void SoundManager::setValume(const float & valume, FMOD::Channel *& channel)
+{
+	channel->setVolume(valume);
 }
 
 void SoundManager::stop(const int & soundNum)
@@ -229,7 +244,7 @@ FMOD_RESULT SoundManager::loadALLSoundFile()
 		result = mFmodSystem->createSound(soundfilename, FMOD_3D, NULL, &mFmodSound[i]);
 		if (result != FMOD_OK) return result;
 		if (i == 0) mFmodSound[0]->setMode(FMOD_LOOP_NORMAL);
-		mFmodSound[i]->set3DMinMaxDistance(10.f, 1000.f);
+		mFmodSound[i]->set3DMinMaxDistance(10.f, 100.f);
 		/*mFmodSound[i]->setMode(FMOD_3D_CUSTOMROLLOFF);
 		mFmodSound[i]->set3DCustomRolloff(points, 3);*/
 	}

@@ -52,6 +52,7 @@ public:
 	void ShiftShowMode(D3D11_FILL_MODE mode);
 	void CleanFrame();
 	void EndFrame();
+	void OnResize(float width, float height);
 	void onUdpate(float deltaTime);
 	void DrawSkyBox();
 	void SetSkyBox(const std::wstring& texture);

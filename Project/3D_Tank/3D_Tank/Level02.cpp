@@ -12,6 +12,22 @@
 #include "GameCharacter.h"
 #include "MessageDispatcher.h"
 #include "AirWall.h"
+#include "SM_construction_fence.h"
+#include "FreightContainer_A.h"
+
+/////////////////////////////////
+AITank* enemy_01;
+AITank* enemy_02;
+AITank* enemy_03;
+AITank* enemy_04;
+AITank* enemy_05;
+AITank* enemy_06;
+AITank* enemy_07;
+AITank* enemy_08;
+AITank* enemy_09;
+AITank* enemy_10;
+AITank* enemy_boss;
+AITank* fakeplayer;
 
 Level02::Level02()
 {
@@ -141,15 +157,135 @@ void Level02::loadResourcce()
 	airWalls.push_back(new AirWall(position, scale));
 
 	// ground's
-	position = Vector3(-0.8,-0.578,-27.4);
+	position = Vector3(-0.8,-0.57,-27.4);
 	scale = Vector3(77.2,1,120);
 	airWalls.push_back(new AirWall(position, scale));
 	
+	// obstacles fence
+	position = Vector3(-38, -0.5, 33);
+	scale = Vector3(0.05, 0.01, 0.01);
+	Vector3 rotation = Vector3(0, -3.1425926/2.0, 0); // PI / 2
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, 18);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, 3);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, -12);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, -27);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, -42);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, -57);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, -72);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-16, -0.5, 32.2);
+	scale = Vector3(0.075, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-16, -0.5, -87);
+	scale = Vector3(0.075, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-12.8, -0.5, 18.5);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13, -0.5, 5.5);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-26.5, -0.5, 18.5);
+	scale = Vector3(0.043, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13.3, -0.5, -3.5);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13.3, -0.5, -25);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-27, -0.5, -3.6);
+	scale = Vector3(0.07, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-12.8, -0.5, -34.5);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13, -0.5, -47.5);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-26.5, -0.5, -34.5);
+	scale = Vector3(0.043, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13.3, -0.5, -56);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13.3, -0.5, -77.4);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-27, -0.5, -56);
+	scale = Vector3(0.07, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	// obstacles FreightContainer
+	position = Vector3(-19, 0, -50);
+	scale = Vector3(0.03, 0.005, 0.005);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new FreightContainer_A(position, rotation, scale,1));
+
+
 	//mCurrentGameMode = new GameModeBase();
 	//mCurrentGameMode->onInit();
 	mCurrentGameMode = new GameModeTP();
 
 	loadFirstWave();
+
+
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 
 	mCanStart = true;

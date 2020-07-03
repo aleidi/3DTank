@@ -222,7 +222,7 @@ bool Graphics::InitD3D()
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 
-	dxgiFactory1->MakeWindowAssociation(mhMainWnd, DXGI_MWA_NO_ALT_ENTER | DXGI_MWA_NO_WINDOW_CHANGES);
+	//dxgiFactory1->MakeWindowAssociation(mhMainWnd, DXGI_MWA_NO_ALT_ENTER | DXGI_MWA_NO_WINDOW_CHANGES);
 
 	pContext->RSSetViewports(1, &vp);
 
@@ -383,6 +383,18 @@ void Graphics::CleanFrame()
 void Graphics::EndFrame()
 {
 	pSwapChain->Present(0,0);
+}
+
+void Graphics::OnResize(float width, float height)
+{
+	mClientWidth = width;
+	mClientHeight = height;
+
+	ReleaseResource();
+
+	BindD3DResource();
+
+	BindD2DResource();
 }
 
 void Graphics::onUdpate(float deltaTime)

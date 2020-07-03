@@ -17,6 +17,8 @@ public:
 	void onPostRender(float deltaTime);
 	void onEndRender(float deltaTime);
 
+	void onResize(float width, float height);
+
 	//test code
 	Graphics* getGFX();
 
