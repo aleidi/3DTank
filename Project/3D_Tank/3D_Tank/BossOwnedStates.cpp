@@ -2,7 +2,7 @@
 #include "BossOwnedStates.h"
 #include "EnemyTankOwnedStates.h"
 #include "State.h"
-#include "EnemyTank.h"
+#include "EnemyBoss.h"
 #include "AIController.h"
 #include "Telegram.h"
 #include "MessageDispatcher.h"
@@ -17,9 +17,9 @@
 #define getTargetPos pBoss->getTarget()->getTransform()->getPosition()
 #define getTargetHeading pBoss->getTarget()->getTransform()->Forward
 
-#define BOSS reinterpret_cast<EnemyTank*>(pBoss->getPawn())
+#define BOSS reinterpret_cast<EnemyBoss*>(pBoss->getPawn())
 #define getBOSSPos pBoss->getPawn()->getTransform()->getPosition()
-
+#define getBOSSHeading pBoss->getPawn()->getTransform()->Forward
 //-------------------methods for Alert-------------------//
 Alert* Alert::getInstance() {
 	static Alert m_Alert;
@@ -104,14 +104,16 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 	if (BOSS->aiCount > BOSS->attackTimeDelay()) {
 		BOSS->aiCount = 0.0f;
 		if (normalshot < 3) {
-			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
+			//pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
+			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward(), pBoss->getTarget());
 			normalshot += 1;
 		}
-
-		else {
+		
+		else { 
 			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward(),pBoss->getTarget());
+			//pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
 			normalshot = 0;
-		}
+		} 
 	}
 	////////////////////////Battery follows////////////////////////////
 	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
@@ -132,7 +134,6 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 		if (0 == rand() % hitRate);
 		else {
 			BOSS->rotateBattery(0, Math::RandomClamped() * BOSS->offset(), 0);
-			// pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
 		}
 	}
 
@@ -190,7 +191,8 @@ void Violent::execute(AIController* pBoss, float deltaTime) {
 
 		BOSS->aiCount += deltaTime;
 		if (BOSS->aiCount > BOSS->attackTimeDelay()*0.5) {  
-			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward(), pBoss->getTarget());
+			//pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward(), pBoss->getTarget());
+			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
 			BOSS->aiCount = 0.0f;
 		}
 	} // stage 2
