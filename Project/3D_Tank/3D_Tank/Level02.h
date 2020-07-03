@@ -29,5 +29,7 @@ private:
 	bool isWaveClear(std::vector<AITank*> thisWave);
 	void wakeupAI(int ID);
 	void wakeupWave(std::vector<AITank*> thisWave);
+	bool secondloaded = false;
+	bool thirdloaded = false;
 };
 
