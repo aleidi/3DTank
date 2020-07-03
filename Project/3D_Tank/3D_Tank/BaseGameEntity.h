@@ -24,7 +24,7 @@ public:
 
 	int getID()const { return m_ID; }
 
-private:
+protected:
 	int m_ID; // every entity must have a unique identifying number
 
 	static int m_iNextValidID; // this is the next valid ID. Each time a BaseGameEntity is instantiated. this value is updated.

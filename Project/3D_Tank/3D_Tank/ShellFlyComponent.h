@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
 
+class ParticleSystem;
+
 class ShellFlyComponent : public Component {
 public:
 	ShellFlyComponent(GameObject* obj);
@@ -13,6 +15,8 @@ public:
 	void setVelocity(const Vector3& dir);
 
 private:
+	void initParticle();
+private:
 	GameObject* target;
 	Vector3 finalForward;
 	float rotateSpeed;
@@ -21,4 +25,6 @@ private:
 
 	Vector3 velocity;
 	Vector3 gracity;
+
+	ParticleSystem* mPS;
 };

@@ -1,6 +1,7 @@
 #include "DefaultPlayer.h"
 #include "GameCommon.h"
 #include "DefaultCameraCtrl.h"
+#include "UIHP.h"
 
 DefaultPlayer::DefaultPlayer()
 {
@@ -9,6 +10,7 @@ DefaultPlayer::DefaultPlayer()
 	mCamera = new Camera(this);
 	this->addComponent(mCamera);
 	mCamera->MainCamera = mCamera;
+	reinterpret_cast<UIHP*>(mUIHP)->setEnable(false);
 }
 
 DefaultPlayer::~DefaultPlayer()

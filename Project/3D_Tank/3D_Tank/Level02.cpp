@@ -2,6 +2,7 @@
 
 #include "Level02.h"
 #include "AITank.h"
+#include "AIController.h"
 #include "GameModeTP.h"
 #include "RenderManager.h"
 #include "GameInstance.h"
@@ -41,7 +42,6 @@ void Level02::enterLevel()
 
 	std::thread t(&Level02::loadResourcce, this);
 	t.detach();
-
 }
 
 GameLevelBase * Level02::onUpdate(float deltaTime)
@@ -90,8 +90,7 @@ void Level02::loadResourcce()
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m11_tree", L"Objects/Level/tree");
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m12_reaf", L"Objects/Level/reaf");
 	mMap->getTransform()->translate(0.0f, -0.075f, 0.0f);
-	mMap->getTransform()->setScale(0.1f, 0.1f, 0.1f);
-	mMap->getTransform()->setRotation(Vector3(0.0f,0.0f,0.001794f));
+	mMap->getTransform()->setScale(0.07f, 0.07f, 0.07f);
 
 	//mCurrentGameMode = new GameModeBase();
 	//mCurrentGameMode->onInit();
@@ -108,12 +107,27 @@ void Level02::loadResourcce()
 	enemy_06 = new AITank(ent_Tank_Enemy06, ent_Tank_FakePlayer);
 	enemy_07 = new AITank(ent_Tank_Enemy07, ent_Tank_FakePlayer);
 	enemy_08 = new AITank(ent_Tank_Enemy08, ent_Tank_FakePlayer);
-	enemy_09 = new AITank(ent_Tank_Enemy09, ent_Tank_FakePlayer);
+	enemy_09 = new AITank(ent_Tank_Enemy09);
 	enemy_10 = new AITank(ent_Tank_Enemy10, ent_Tank_FakePlayer);
 
 	fakeplayer->changeTarget(ent_Tank_Enemy01);
 
+	wakeupAI(ent_Tank_Enemy01);
+	wakeupAI(ent_Tank_Enemy02);
+	wakeupAI(ent_Tank_Enemy03);
+	wakeupAI(ent_Tank_Enemy04);
+	wakeupAI(ent_Tank_Enemy05);
+	wakeupAI(ent_Tank_Enemy06);
+	wakeupAI(ent_Tank_Enemy07);
+	wakeupAI(ent_Tank_Enemy08);
+	wakeupAI(ent_Tank_Enemy09);
+	
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 
 	mCanStart = true;
+}
+
+void Level02::wakeupAI(int ID) {
+	if (SceneManager::sGetInstance()->getAIController(ID) != nullptr ) 
+		SceneManager::sGetInstance()->getAIController(ID)->wakeup();
 }

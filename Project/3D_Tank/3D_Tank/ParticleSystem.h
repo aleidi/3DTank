@@ -69,6 +69,20 @@ public:
 	//Explanation:
 	//the start velocity  of particle
 	void setVelocity(float x, float y, float z);
+	
+	//Explanation:
+	//active particle system
+	void play();
+
+	//Explanation:
+	//deactive particle system
+	void stop();
+
+	//if is not loop, the duration particle play once time
+	void setDuration(float value);
+
+	//set whether particle will loop
+	void enableLoop(bool value);
 
 protected:
 	struct VertexPosSize
@@ -108,16 +122,17 @@ protected:
 	void setBlendTransparent(Graphics& gfx);
 	void resetBlendState(Graphics& gfx);
 	void updateSprite(PAttribute* p, float deltaTime);
-	void updateParticle(Graphics& gfx, float deltaTime) noexcept;
+	void updateParticle(Graphics& gfx, float deltaTime, int& deathPatricles) noexcept;
 
 protected:
 
 	int mMaxParticles;
 	float mLifeTime;
 	float mEmitRate;
-	int mNeedParticles = mLifeTime * mEmitRate;
+	int mNeedParticles;
 	float mStepTime;
 	float mDuration;
+	float mTimeCount;
 	float mIsLoop;
 	float mStartSpeed;
 	float mMaxSpeed;
@@ -137,6 +152,7 @@ protected:
 	XMFLOAT3 mScale;
 	XMFLOAT3 mStartRotation;
 	XMFLOAT3 mStartScale;
+	bool mIsActivate;
 
 	std::vector<PAttribute> mParticles;
 	std::unique_ptr<VertexBuffer> mVB;
