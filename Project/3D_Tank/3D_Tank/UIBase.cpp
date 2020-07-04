@@ -83,7 +83,6 @@ void UIBase::setBlendTransparent(Graphics & gfx)
 	Microsoft::WRL::ComPtr<ID3D11BlendState> pBlendState;
 	D3D11_BLEND_DESC bd;
 	ZeroMemory(&bd, sizeof(D3D11_BLEND_DESC));
-	bd.AlphaToCoverageEnable = true;
 	bd.IndependentBlendEnable = false;
 	bd.RenderTarget[0].BlendEnable = true;
 	bd.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
@@ -102,7 +101,6 @@ void UIBase::resetBlendState(Graphics & gfx)
 	Microsoft::WRL::ComPtr<ID3D11BlendState> pBlendState;
 	D3D11_BLEND_DESC bd;
 	ZeroMemory(&bd, sizeof(D3D11_BLEND_DESC));
-	bd.AlphaToCoverageEnable = true;
 	bd.IndependentBlendEnable = false;
 	bd.RenderTarget[0].BlendEnable = true;
 	bd.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;

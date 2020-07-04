@@ -9,8 +9,12 @@ public:
 
 	void showHP(bool value);
 
+	void onLateUpdate(float deltaTime) override;
+
 private:
 	UIImage* mImage;
 	UIImage* mFrame;
+	UIText* mName;
+	UIImage3D* mMagicCircle;
 };
 
