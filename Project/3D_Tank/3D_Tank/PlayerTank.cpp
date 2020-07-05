@@ -339,18 +339,24 @@ void PlayerTank::initParticle()
 	mPSAttack = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
 	mPSAttack->setTile(5.0f, 5.0f);
 	mPSAttack->setEmitter(ParticleSystem::Emitter::NoEmit);
-	mPSAttack->setEmitRate(1.0f);
+	mPSAttack->setEmitRate(1);
 	mPSAttack->setLifeTime(0.3f);
 	mPSAttack->setAnimationInterval(0.3f / 25.0f);
 	mPSAttack->setStartScale(0.2f, 0.2f, 0.2f);
 	mPSAttack->setDuration(0.3f);
+	mPSAttack->setStartScale(1.0f, 1.0f, 1.0f);
+	Material mat;
+	mat.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mPSAttack->setMaterial(mat);
 
 	mPSHited = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
 	mPSHited->setTile(5.0f, 5.0f);
 	mPSHited->setEmitter(ParticleSystem::Emitter::NoEmit);
-	mPSHited->setEmitRate(1.0f);
+	mPSHited->setEmitRate(1);
 	mPSHited->setLifeTime(0.3f);
 	mPSHited->setAnimationInterval(0.2f / 25.0f);
 	mPSHited->setStartScale(0.5f, 0.5f, 0.5f);
 	mPSHited->setDuration(0.3f);
+	mPSAttack->setStartScale(1.0f, 1.0f, 1.0f);
+
 }

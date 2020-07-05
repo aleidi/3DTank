@@ -64,7 +64,7 @@ public:
 
 	//Explanation:
 	//particles emited per seconds
-	void setEmitRate(float value);
+	void setEmitRate(int value);
 
 	//Explanation:
 	//the start velocity  of particle
@@ -123,12 +123,13 @@ protected:
 	void resetBlendState(Graphics& gfx);
 	void updateSprite(PAttribute* p, float deltaTime);
 	void updateParticle(Graphics& gfx, float deltaTime, int& deathPatricles) noexcept;
+	void calculateNeedParticle();
 
 protected:
 
 	int mMaxParticles;
 	float mLifeTime;
-	float mEmitRate;
+	int mEmitRate;
 	int mNeedParticles;
 	float mStepTime;
 	float mDuration;
@@ -137,7 +138,7 @@ protected:
 	float mStartSpeed;
 	float mMaxSpeed;
 	float mMinSpeed;
-	XMFLOAT3 mVelocity;
+	XMFLOAT3 mStartVelocity;
 
 	//sprite animation param
 	float mMaxTileX;
