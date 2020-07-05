@@ -205,8 +205,8 @@ void EnemyTank::hited(int damage) {
 	Vector3 pos = mTransform->getPosition();
 	pos.x += (float)rand() / (float)RAND_MAX - 0.5f;
 	pos.y += (float)rand() / (float)RAND_MAX * 0.6f - 0.2f;
-	float size = damage * 0.1f;
-	Math::Clamp(3.0f, 1.0f, size);
+	float size = damage*4.0;
+	Math::Clamp(100.0f, 20.0f, size);
 	DisplayManager::sGetInstance()->displayText(std::to_wstring(damage), size, size, pos);
 }
 
