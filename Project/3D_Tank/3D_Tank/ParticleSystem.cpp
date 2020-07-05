@@ -2,8 +2,8 @@
 #include "Engine.h"
 #include <time.h>
 
-ParticleSystem::ParticleSystem(Graphics& gfx, const std::wstring& texture)
-	:mMaxParticles(1),mLifeTime(1),mEmitRate(2), mNeedParticles(mLifeTime * mEmitRate), mStepTime(0.0f),
+ParticleSystem::ParticleSystem(Graphics& gfx, const std::wstring& texture, int maxParticles)
+	:mMaxParticles(maxParticles),mLifeTime(1),mEmitRate(2), mNeedParticles(mLifeTime * mEmitRate), mStepTime(0.0f),
 	mDuration(0.0f), mTimeCount(0.0f), mIsLoop(false),
 	mMaxSpeed(1.0f),mMinSpeed(1.0f), mStartVelocity(XMFLOAT3(0.0f, 1.0f, 0.0f)),
 	 mMaxTileX(1.0f),mMaxTileY(1.0f),mTileInterval(0.1f),mTileStepX(1.0f),mTileStepY(1),
@@ -67,6 +67,16 @@ DirectX::XMMATRIX ParticleSystem::getTransformXM() const noexcept
 void ParticleSystem::setMaxPatricles(int value) noexcept
 {
 	mMaxParticles = value;
+
+	mVB.reset();
+	std::vector<VertexPosSize> vertices;
+	for (int i = 0; i < mMaxParticles; ++i)
+	{
+		VertexPosSize v;
+		v.Size = XMFLOAT2(1.0f, 1.0f);
+		vertices.push_back(v);
+	}
+	mVB = std::make_unique<VertexBuffer>(RenderManager::sGetInstance()->getGraphics(), vertices, true);
 }
 
 void ParticleSystem::updateParticle(Graphics& gfx, float deltaTime, int& deathPatricles) noexcept
@@ -233,7 +243,6 @@ void ParticleSystem::setBlendTransparent(Graphics& gfx)
 	Microsoft::WRL::ComPtr<ID3D11BlendState> pBlendState;
 	D3D11_BLEND_DESC bd;
 	ZeroMemory(&bd, sizeof(D3D11_BLEND_DESC));
-	bd.AlphaToCoverageEnable = true;
 	bd.IndependentBlendEnable = false;
 	bd.RenderTarget[0].BlendEnable = true;
 	bd.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
@@ -319,6 +328,13 @@ void ParticleSystem::setPosition(float x, float y, float z)
 	{
 		resetParticle(&(*it));
 	}
+}
+
+void ParticleSystem::setRange(float x, float y, float z)
+{
+	mScale.x = x;
+	mScale.y = y;
+	mScale.z = z;
 }
 
 void ParticleSystem::setMaxMinSpeed(float max, float min)

@@ -118,9 +118,9 @@ UIText3D * SceneManager::createUIText3D(const std::wstring& text)
 	return ui;
 }
 
-ParticleSystem * SceneManager::createParticleSystem(const std::wstring & texPath)
+ParticleSystem * SceneManager::createParticleSystem(const std::wstring & texPath,int maxParticles)
 {
-	ParticleSystem* p = new ParticleSystem(RenderManager::sGetInstance()->getGraphics(), texPath);
+	ParticleSystem* p = new ParticleSystem(RenderManager::sGetInstance()->getGraphics(), texPath, maxParticles);
 	RenderManager::sGetInstance()->addParticleToPool(p);
 	return p;
 }

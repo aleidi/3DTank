@@ -13,7 +13,7 @@ public:
 		Box = 1,
 	};
 public:
-	ParticleSystem(Graphics& gfx, const std::wstring& texture);
+	ParticleSystem(Graphics& gfx, const std::wstring& texture, int maxParticles = 1);
 	~ParticleSystem();
 
 	void onUpdate(float deltaTime) noexcept override;
@@ -44,6 +44,10 @@ public:
 	//Explanation:
 	//it is the start position of particle
 	void setPosition(float x, float y, float z);
+
+	//Explanation:
+	//x is the width of emitter, y is the height of the emitter, z is the depth of emiiter
+	void setRange(float x, float y, float z);
 
 	//Explanation:
 	//paricle's velocity will be in the range of (max,min)
@@ -83,6 +87,7 @@ public:
 
 	//set whether particle will loop
 	void enableLoop(bool value);
+
 
 protected:
 	struct VertexPosSize

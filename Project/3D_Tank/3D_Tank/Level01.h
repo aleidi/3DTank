@@ -6,12 +6,14 @@
 
 class GameButton;
 class AnimationTitle;
+class ParticleSystem;
 
 class Level01 : public GameLevelBase
 {
 public:
 	enum State
 	{
+		Empty,
 		MainMenu,
 		GameMode,
 		Setting,
@@ -33,6 +35,9 @@ public :
 	void changeState(State s);
 	void changeLanguage();
 	void loadResourcce() override;
+
+private:
+	void loadParticle();
 
 private:
 	State mState;
@@ -67,6 +72,7 @@ private:
 	GameObject* mCamFollower;
 	GameObject* mCamera;
 
+	ParticleSystem* mRain;
 	bool mCamTrig;
 };
 
