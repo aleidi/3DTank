@@ -13,7 +13,10 @@
 #include "MessageDispatcher.h"
 #include "AirWall.h"
 #include "SM_construction_fence.h"
+#include "SM_WaterTank.h"
+#include "SM_Crate.h"
 #include "FreightContainer_A.h"
+#include "Potion.h"
 
 /////////////////////////////////
 AITank* enemy_01;
@@ -27,7 +30,8 @@ AITank* enemy_08;
 AITank* enemy_09;
 AITank* enemy_10;
 AITank* enemy_boss;
-AITank* fakeplayer;
+
+Potion* potion1;
 
 Level02::Level02()
 {
@@ -55,14 +59,14 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 	}
 
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
-	/*
+	
 	std::wstring wstr;
 	float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
 	float y = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().y;
 	float z = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().z;
 	wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
 	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
-	*/
+	
 	RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*10.0f, 0.0f);
 
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
@@ -272,6 +276,16 @@ void Level02::loadResourcce()
 	scale = Vector3(0.07, 0.01, 0.01);
 	rotation = Vector3(0, -3.1425926 / 2.0, 0);
 	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+/////////////////////////////////////
+	position = Vector3(1.0, 0, -26.0);
+	scale = Vector3(0.02, 0.01, 0.03);
+	rotation = Vector3(0, -3.1425926, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-6.0, 0, -19.0);
+	scale = Vector3(0.02, 0.01, 0.03);
+	rotation = Vector3(0, -3.1425926, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
 
 	// obstacles FreightContainer
 	position = Vector3(-19, 0, -50);
@@ -279,15 +293,31 @@ void Level02::loadResourcce()
 	rotation = Vector3(0, 0, 0);
 	obstacles.push_back(new FreightContainer_A(position, rotation, scale,1));
 
+	position = Vector3(30.5, 0, -4.0);
+	scale = Vector3(0.018, 0.018, 0.018);
+	rotation = Vector3(0, 25.0, 0);
+	obstacles.push_back(new FreightContainer_A(position, rotation, scale, 1));
 
-	//mCurrentGameMode = new GameModeBase();
-	//mCurrentGameMode->onInit();
-	mCurrentGameMode = new GameModeTP();
+	// obstacles WaterTank
+	position = Vector3(7, 0, -26.0);
+	scale = Vector3(0.02, 0.02, 0.02);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_WaterTank(position, rotation, scale));
+
+	////////////////////////////////////////////////////////////////
+	mCurrentGameMode = new GameModeBase();
+	mCurrentGameMode->onInit();
+	//mCurrentGameMode = new GameModeTP();
 
 	loadFirstWave();
 	wakeupWave(firstWaveAI);
 
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
+	GameInstance::sGetInstance()->getPlayer()->getTransform()->translate(Vector3(30.0,0,9.0));
+
+	// potion
+	potion1 = new Potion();
+	potion1->getTransform()->setPosition(Vector3(30.0, 0.0, 2.0));
 
 	mCanStart = true;
 }
@@ -299,16 +329,16 @@ void Level02::wakeupAI(int ID) {
 }
 
 void Level02::loadFirstWave() {
-	firstWaveAI.push_back(new AITank(ent_Tank_Enemy01));
-	firstWaveAI.push_back(new AITank(ent_Tank_Enemy02));
-	firstWaveAI.push_back(new AITank(ent_Tank_Enemy03));
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy04));
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy05));
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy06));
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy07));
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy08));
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy09));
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy10));
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy01)); //ok
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy02)); //ok
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy03)); //ok?
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy04)); //ok?
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy05)); //ok
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy06)); //ok
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy07)); //ok
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy08)); //ok?
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy09)); //ok
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy10)); //ok	
 }
 
 void Level02::loadSecondWave() {

@@ -30,8 +30,8 @@ public:
 	bool getisPatrol()const;
 	Vector3 getPatrolStart()const;
 	Vector3 getPatrolEnd()const;
-	bool toPatrolStart;
-	bool toPatrolEnd;
+	bool toPatrolStart = true;
+	bool toPatrolEnd = false;
 
 	void wakeup();
 

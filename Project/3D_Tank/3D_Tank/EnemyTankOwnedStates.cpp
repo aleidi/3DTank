@@ -131,46 +131,47 @@ void Wander::execute(AIController* pEnemyTank, float deltaTime) {
 	if (pEnemyTank->getisPatrol())
 		pEnemyTank->getFSM()->changeState(Patrol::getInstance());
 	/////////////////////////////Patrol/////////////////////////////////
-	AITank->aiCount += deltaTime;
+	else {
+		AITank->aiCount += deltaTime;
 
-	if (AITank->aiCount > 0.001f) {
-		AITank->aiCount = 0.0f;
+		if (AITank->aiCount > 0.001f) {
+			AITank->aiCount = 0.0f;
 
-		float disToBornSq = Vector3::lengthSq(getAIPos, AITank->getResetPoint());
-		if ( disToBornSq > AITank->getWanderRangeRadiusSq() ) {
-			Vector3 goBack = AITank->getResetPoint() - getAIPos;
-			pEnemyTank->Move(goBack);
+			float disToBornSq = Vector3::lengthSq(getAIPos, AITank->getResetPoint());
+			if (disToBornSq > AITank->getWanderRangeRadiusSq()) {
+				Vector3 goBack = AITank->getResetPoint() - getAIPos;
+				pEnemyTank->Move(goBack);
+			}
+			else {
+				float jitterThisTimeSlice = AITank->getWanderJitter() * deltaTime;
+				AITank->setWanderTarget(AITank->getWanderTarget() + Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
+					Math::RandomClamped() * jitterThisTimeSlice));
+				AITank->setWanderTarget(AITank->getWanderTarget().normalize());
+				AITank->setWanderTarget(AITank->getWanderTarget() * AITank->getWanderRadius());
+
+				Vector3 forward = getAIHeading;
+				Vector3 forward_normalize = forward.normalize();
+
+				Vector3 target = AITank->getWanderTarget() + (forward_normalize * AITank->getWanderDistance());
+
+				pEnemyTank->Move(target);
+			}
+			////////////////////////changeState////////////////////////
+			if (AITank->isEnemyInRange()) {
+				pEnemyTank->getFSM()->changeState(Attack::getInstance());
+			}
+
+			if (AITank->isObstacleHere()) {
+				pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
+			}
+
+			if (AITank->getAttacked()) {
+				AITank->setAttacked(false);
+				pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
+			}
+
 		}
-		else {
-			float jitterThisTimeSlice = AITank->getWanderJitter() * deltaTime;
-			AITank->setWanderTarget(AITank->getWanderTarget() + Vector3(Math::RandomClamped() * jitterThisTimeSlice, 0,
-				Math::RandomClamped() * jitterThisTimeSlice));
-			AITank->setWanderTarget(AITank->getWanderTarget().normalize());
-			AITank->setWanderTarget(AITank->getWanderTarget() * AITank->getWanderRadius());
-
-			Vector3 forward = getAIHeading;
-			Vector3 forward_normalize = forward.normalize();
-
-			Vector3 target = AITank->getWanderTarget() + (forward_normalize * AITank->getWanderDistance());
-
-			pEnemyTank->Move(target);
-		}
-		////////////////////////changeState////////////////////////
-		if (AITank->isEnemyInRange()) {
-			pEnemyTank->getFSM()->changeState(Attack::getInstance());
-		}
-
-		if (AITank->isObstacleHere()) {
-			pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
-		}
-
-		if (AITank->getAttacked()) {
-			AITank->setAttacked(false);
-			pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
-		}
-
 	}
-
 }
 
 void Wander::exit(AIController* pEnemyTank) {
@@ -197,13 +198,14 @@ Patrol* Patrol::getInstance() {
 }
 
 void Patrol::enter(AIController* pEnemyTank) {
-	pEnemyTank->toPatrolEnd = true;
-	pEnemyTank->toPatrolStart = false;
+	pEnemyTank->toPatrolStart = !pEnemyTank->toPatrolEnd;
 	// MessageBox(0, L"I'm going to find bad guy.(Patrol) ", 0, 0);
 }
 
 void Patrol::execute(AIController* pEnemyTank, float deltaTime) {
 	AITank->aiCount += deltaTime;
+
+	std::wstring wstr;
 
 	if (AITank->aiCount > 0.001f) {
 		Vector3 target = Vector3(0, 0, 0);
@@ -213,7 +215,9 @@ void Patrol::execute(AIController* pEnemyTank, float deltaTime) {
 			Vector3 desiredVelocity = ( targetPos - getAIPos ).normalize() * AITank->getMaxSpeed();
 			target = desiredVelocity - getAIVelocity;
 			pEnemyTank->Move(target);
-			if (Vector3::lengthSq(getAIPos, targetPos) < 0.001) {
+			//wstr += L"to end";
+			//Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
+			if (Vector3::lengthSq(getAIPos, pEnemyTank->getPatrolEnd()) < 1) {
 				pEnemyTank->toPatrolEnd = false;
 				pEnemyTank->toPatrolStart = true;
 			}
@@ -223,14 +227,16 @@ void Patrol::execute(AIController* pEnemyTank, float deltaTime) {
 			Vector3 desiredVelocity = (	targetPos - getAIPos ).normalize() * AITank->getMaxSpeed();
 			target = desiredVelocity - getAIVelocity;
 			pEnemyTank->Move(target);
-			if ( Vector3::lengthSq( getAIPos,targetPos ) < 0.001)  {
+			//wstr += L"to start";
+			//Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
+			if ( Vector3::lengthSq( getAIPos, pEnemyTank->getPatrolStart()) < 1)  {
 				pEnemyTank->toPatrolStart = false;
 				pEnemyTank->toPatrolEnd = true;
 			}
 		}
 		/////////////////////////beginning of movement/////////////////////////////
 		
-		// pEnemyTank->Move(target);
+		//pEnemyTank->Move(target);
 		
 		////////////////////////changeState////////////////////////
 		if (AITank->isEnemyInRange()) {
@@ -280,7 +286,6 @@ void Avoidance::execute(AIController* pEnemyTank, float deltaTime) {
 	Vector3 feelersLeft = (getAIHeading + pEnemyTank->getPawn()->getTransform()->Right * -1).normalize();
 	Vector3 target = Vector3::zero;
 
-	std::wstring wstr;
 	if (AITank->isObstacleForward()) {
 		if (AITank->isObstacleRight()) {
 			target = feelersLeft * AITank->getMaxSpeed() * 10.0f;
@@ -302,20 +307,7 @@ void Avoidance::execute(AIController* pEnemyTank, float deltaTime) {
 	else if (AITank->isObstacleLeft()) {
 		target = feelersRight * AITank->getMaxSpeed() * 10.0f;
 	}
-	/*
-	else if (AITank->isCollision()) {
-		//pEnemyTank->getPawn()->getTransform()->translate(getAIHeading * -0.01f);
-		wstr += L"Collision";
-		//target = getAIHeading * AITank->getMaxSpeed() * -10.0f;
-	}
-	*/
-	/*target = getAIHeading * AITank->getMaxSpeed() * -10.0f;*/
-	//std::wstring wstr;
-	float x = target.x;
-	float y = target.y;
-	float z = target.z;
-	wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
-	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
+
 	pEnemyTank->Move(target);
 	////////////////////////changeState////////////////////////
 	if (!AITank->isObstacleHere()) {
