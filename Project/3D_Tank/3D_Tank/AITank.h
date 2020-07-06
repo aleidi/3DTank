@@ -12,11 +12,15 @@ public:
 
 	EnemyTank* getTank();
 	AIController* getCtrl();
+	int getID() { return m_ID; }
 
 	void changeTarget(int targetID);
+
+	bool isAlive();
 
 private:
 	EnemyTank* m_Tank;
 	AIController* m_AICtrl;
+	int m_ID;
 };
 

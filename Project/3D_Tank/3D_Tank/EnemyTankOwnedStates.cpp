@@ -9,7 +9,7 @@
 #include "MessageTypes.h"
 #include "CrudeTimer.h"
 #include "EntityNames.h"
-// #include "Engine.h"
+#include "Engine.h"
 #include "Math.h"
 #include <assert.h>
 
@@ -92,9 +92,6 @@ void Rest::execute(AIController* pEnemyTank, float deltaTime) {
 		pEnemyTank->getFSM()->changeState(Wander::getInstance());
 	}
 
-	if (AITank->getHP() <= 0) {
-		pEnemyTank->getFSM()->changeState(Death::getInstance());
-	}
 }
 
 void Rest::exit(AIController* pEnemyTank) {
@@ -282,34 +279,37 @@ void Avoidance::execute(AIController* pEnemyTank, float deltaTime) {
 	Vector3 feelersRight = (getAIHeading + pEnemyTank->getPawn()->getTransform()->Right).normalize();
 	Vector3 feelersLeft = (getAIHeading + pEnemyTank->getPawn()->getTransform()->Right * -1).normalize();
 	Vector3 target = Vector3::zero;
+	
+	//if (AITank->isObstacleForward()) {
+	//	if (AITank->isObstacleRight()) {
+	//		target = feelersLeft * AITank->getMaxSpeed() * 10.0f;
+	//	}
 
-	if (AITank->isObstacleRight()) {
-		target = feelersLeft * AITank->getMaxSpeed();
-	}
+	//	else if (AITank->isObstacleLeft()) {
+	//		target = feelersRight * AITank->getMaxSpeed() * 10.0f;
+	//	}
+	//}
+	//
+	//else if (AITank->isObstacleRight()) {
+	//	target = feelersLeft * AITank->getMaxSpeed() * 10.0f;
+	//}
 
-	if (AITank->isObstacleLeft()) {
-		target = feelersRight * AITank->getMaxSpeed();
-	}
-
-	if (AITank->isObstacleForward()) {
-		if (AITank->isObstacleRight()) {
-			target = feelersLeft * AITank->getMaxSpeed();
-		}
-
-		else if (AITank->isObstacleLeft()) {
-			target = feelersRight * AITank->getMaxSpeed();
-		}
-
-		else {
-			target = getAIHeading * -1 * AITank->getMaxSpeed();
-		}
-	}
-
+	//else if (AITank->isObstacleLeft()) {
+	//	target = feelersRight * AITank->getMaxSpeed() * 10.0f;
+	//}
+	//
 	if (AITank->isCollision()) {
-		pEnemyTank->getPawn()->getTransform()->translate(getAIHeading * -0.1f);
-		target = getAIHeading * -1 * AITank->getMaxSpeed();
+		pEnemyTank->getPawn()->getTransform()->translate(getAIHeading * -0.01f);
+		// target = getAIHeading * AITank->getMaxSpeed() * -10.0f;
 	}
 
+	target = getAIHeading * AITank->getMaxSpeed() * -10.0f;
+	std::wstring wstr;
+	float x = target.x;
+	float y = target.y;
+	float z = target.z;
+	wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
+	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
 	pEnemyTank->Move(target);
 	////////////////////////changeState////////////////////////
 	if (!AITank->isObstacleHere()) {
@@ -535,11 +535,6 @@ Death* Death::getInstance() {
 }
 
 void Death::enter(AIController* pEnemyTank) {
-	Dispatch->Dispatch_Message(deathdelay,
-		AITank->getID(),
-		AITank->getID(),
-		Msg_DeathDelay,
-		NO_ADDITIONAL_INFO);
 
 	//MessageBox(0, L"awsl", 0, 0);
 }
@@ -556,12 +551,5 @@ void Death::exit(AIController* pEnemyTank) {
 }
 
 bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
-	switch (msg.Msg) {
-	case Msg_DeathDelay: {
-		pEnemyTank->getPrefabs()->destroy();
-		return true;
-	}
-
-	}
 	return false;
 }

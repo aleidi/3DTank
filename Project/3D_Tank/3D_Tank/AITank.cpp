@@ -11,6 +11,8 @@ AITank::AITank(int ID)
 }
 
 AITank::AITank(int ID, int targetID) {
+	m_ID = ID;
+
 	if (ID == 0)
 		m_Tank = new EnemyBoss(ID);
 	else 
@@ -46,4 +48,8 @@ AIController* AITank::getCtrl() {
 void AITank::changeTarget(int targetID) {
 	if (SceneManager::sGetInstance()->getAIController(targetID) != nullptr)
 		m_AICtrl->setTarget(SceneManager::sGetInstance()->getAIController(targetID)->getPawn());
+}
+
+bool AITank::isAlive() {
+	return m_Tank->isAlive();
 }

@@ -53,9 +53,9 @@ EnemyBoss::EnemyBoss(int id)
 	mName->setSize(WINDOW_WIDTH*0.01f, WINDOW_HEIGHT*0.02f);
 
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
-	mBattery->setName("BossBattery");
-	RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
-	mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
+	//mBattery->setName("BossBattery");
+	//RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
+	//mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
 	mBattery->attach(*this);
 
 	//crate magic circle
