@@ -9,6 +9,7 @@
 #include "Transform.h"
 class Shell;
 class AIController;
+class ParticleSystem;
 
 class EnemyTank : public BaseGameEntity{
 public:
@@ -68,12 +69,19 @@ public:
 	void onCollisionEnter() override;
 	void onCollisionExit() override;
 
+	void playAttackParticle();
+	void playDeathParticle();
+
 	float aiCount = 0.0f;
 
 	void hited(int value);
 
 	void setAICtrl(AIController* aiController);
 	AIController* getAICtrl()const;
+
+protected:
+	void initParticles();
+	void playHitedParticle();
 
 protected:
 	bool m_HPRecovered;
@@ -86,6 +94,10 @@ protected:
 	GameObject* mObstacle;
 	GameObject* mBattery;
 	std::vector<RenderComponent*> mRCs;
+
+	ParticleSystem* mPSAttack;
+	ParticleSystem* mPSHited;
+	ParticleSystem* mPSDeath;
 	
 	AIController* mAICtrl;
 };

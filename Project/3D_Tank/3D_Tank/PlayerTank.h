@@ -31,6 +31,7 @@ public:
 	void adjustDisToCam(float value);
 	void setCameraFov(float value);
 	void setCameraRotSpd(float value);
+	void translate(float x, float y, float z);
 
 	void hited(int value) override;
 	void onTriggerEnter(const GameObject* obj) override;
