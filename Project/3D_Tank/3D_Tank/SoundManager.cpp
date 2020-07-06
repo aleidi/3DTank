@@ -33,10 +33,6 @@ void SoundManager::playBGM()
 	result = mFmodChannel[0]->isPlaying(&isPlaying);
 	if (result == FMOD_OK)
 		return;
-
-	//result = loadSoundFile(SOUND_FILE_PATH[0], 0);
-	//if (result != FMOD_OK)
-	//	return;
 	mFmodSound[0]->setMode(FMOD_LOOP_NORMAL);
 	mFmodSystem->playSound(mFmodSound[0], NULL, false, &mFmodChannel[0]);
 }
@@ -212,15 +208,37 @@ void SoundManager::playSound(const int & soundNum)
 
 void SoundManager::playOverlapSound(FMOD::Channel*& channel, int soundNum)
 {
-	//bool isPlaying = false;
-	//FMOD_RESULT result;
-	//result = channel->isPlaying(&isPlaying);
-	//if (result == FMOD_OK)
-	//	return;
-	//result = loadSoundFile(SOUND_FILE_PATH[soundNum], soundNum);
-	//if (result != FMOD_OK)
-	//	return;
 	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &channel);
+}
+
+void SoundManager::playSingleSound(FMOD::Channel *& channel, int soundNum)
+{
+	bool isPlaying = false;
+	FMOD_RESULT result;
+	result = channel->isPlaying(&isPlaying);
+	if (result == FMOD_OK)
+		return;
+	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &channel);
+}
+
+void SoundManager::setPause(FMOD::Channel *& channel)
+{
+	bool isPaused = false;
+	FMOD_RESULT result;
+	result = channel->getPaused(&isPaused);
+	if (result != FMOD_OK)
+		return;
+	channel->setPaused(true);
+}
+
+void SoundManager::setReplay(FMOD::Channel *& channel)
+{
+	bool isPaused = true;
+	FMOD_RESULT result;
+	result = channel->getPaused(&isPaused);
+	if (result != FMOD_OK)
+		return;
+	channel->setPaused(false);
 }
 
 void SoundManager::setPause(const int & soundNum)

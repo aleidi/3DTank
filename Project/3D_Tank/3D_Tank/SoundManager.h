@@ -36,15 +36,19 @@ public:
 	static void onInit();
 	static void destory();
 
+	void playOverlapSound(FMOD::Channel*& channel, int soundNum);
+	void playSingleSound(FMOD::Channel*& channel, int soundNum);
+	void setPause(FMOD::Channel*& channel);
+	void setReplay(FMOD::Channel*& channel);
+	void stop(FMOD::Channel* channel);
+
 	void playBGM();
 	void playSound(const int& soundNum);
-	void playOverlapSound(FMOD::Channel*& channel, int soundNum);
 	void setPause(const int& soundNum);
 	void setReplay(const int& soundNum);
 	void setBGMValume(const float& valume);
 	void setValume(const float& valume, FMOD::Channel*& channel);
 	void stop(const int& soundNum);
-	void stop(FMOD::Channel* channel);
 	void onUpdate();
 	void setSoundPosAndVel(const Vector3& pos, const Vector3& vel, const int& soundNum);
 	void setLisenterPosition(const Vector3& pos);
