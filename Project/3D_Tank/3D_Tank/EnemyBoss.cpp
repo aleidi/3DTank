@@ -46,11 +46,11 @@ EnemyBoss::EnemyBoss(int id)
 	Material mat;
 	mat.Color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	mImage->setMaterial(mat);
-	showUI(false);
 
 	mName = SceneManager::sGetInstance()->createUIText(L"???");
 	mName->setPosition(WINDOW_WIDTH*0.5f, WINDOW_HEIGHT*0.82f);
 	mName->setSize(WINDOW_WIDTH*0.01f, WINDOW_HEIGHT*0.02f);
+	showUI(false);
 
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
 	//mBattery->setName("BossBattery");
