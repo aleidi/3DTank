@@ -122,6 +122,90 @@ void SoundManager::playSound(const int & soundNum)
 		mFmodSystem->playSound(mFmodSound[6], NULL, false, &mFmodChannel[6]);
 		break;
 	}
+	case 7: {
+		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
+		/*result = loadSoundFile(SOUND_FILE_PATH[6], soundNum);
+		if (result != FMOD_OK)
+			return;*/
+			//mFmodSound[6]->setMode(FMOD_3D);
+		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
+		break;
+	}
+	case 8: {
+		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
+		/*result = loadSoundFile(SOUND_FILE_PATH[6], soundNum);
+		if (result != FMOD_OK)
+			return;*/
+			//mFmodSound[6]->setMode(FMOD_3D);
+		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
+		break;
+	}
+	case 9: {
+		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
+		/*result = loadSoundFile(SOUND_FILE_PATH[6], soundNum);
+		if (result != FMOD_OK)
+			return;*/
+			//mFmodSound[6]->setMode(FMOD_3D);
+		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
+		break;
+	}
+	case 10: {
+		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
+		/*result = loadSoundFile(SOUND_FILE_PATH[6], soundNum);
+		if (result != FMOD_OK)
+			return;*/
+			//mFmodSound[6]->setMode(FMOD_3D);
+		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
+		break;
+	}
+	case 11: {
+		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
+		/*result = loadSoundFile(SOUND_FILE_PATH[6], soundNum);
+		if (result != FMOD_OK)
+			return;*/
+			//mFmodSound[6]->setMode(FMOD_3D);
+		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
+		break;
+	}
+	case 12: {
+		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
+		/*result = loadSoundFile(SOUND_FILE_PATH[6], soundNum);
+		if (result != FMOD_OK)
+			return;*/
+			//mFmodSound[6]->setMode(FMOD_3D);
+		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
+		break;
+	}
+	case 13: {
+		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
+		if (result == FMOD_OK)
+			return;
+
+		/*result = loadSoundFile(SOUND_FILE_PATH[6], soundNum);
+		if (result != FMOD_OK)
+			return;*/
+			//mFmodSound[6]->setMode(FMOD_3D);
+		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
+		break;
+	}
 	default:break;
 	}
 }
