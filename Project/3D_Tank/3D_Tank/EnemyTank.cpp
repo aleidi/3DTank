@@ -288,26 +288,27 @@ bool EnemyTank::isObstacleHere() {
 	m_isObstacleForward = false;
 	m_isObstacleLeft = false;
 	m_isObstacleRight = false;
-	m_isCollision = false;
-	
-	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(this->getTransform()->getPosition(), feelersRight, 1.0f)) {
+	//m_isCollision = false;
+	float dis;
+	GameObject* obj;
+	if (CollisionManager::sGetInstance()->rayCheckWithoutSelf(this->getTransform()->getPosition(), feelersRight, 1.8f, &obj, dis, this)) {
 		m_isObstacleRight = true;
 	}
 
-	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(this->getTransform()->getPosition(), feelersLeft, 1.0f)) {
+	if (CollisionManager::sGetInstance()->rayCheckWithoutSelf(this->getTransform()->getPosition(), feelersLeft, 1.8f, &obj, dis, this)) {
 		m_isObstacleLeft = true;
 	}
 	
-	if (CollisionManager::sGetInstance()->rayCheckWithObstacle(this->getTransform()->getPosition(), feelersForward, 1.0f)) {
+	if (CollisionManager::sGetInstance()->rayCheckWithoutSelf(this->getTransform()->getPosition(), feelersForward, 1.8f, &obj, dis, this)) {
 		m_isObstacleForward = true;
 	}
-
+	/*
 	if (CollisionManager::sGetInstance()->collisionCheck_CubeToCube(this->cube, &mObstacle)) {
 		m_isCollision = true;
 	}
-
-	// if (m_isObstacleRight || m_isObstacleLeft || m_isObstacleForward || m_isCollision) return true;
-	if (m_isObstacleForward || m_isCollision) return true;
+	*/
+	if (m_isObstacleRight || m_isObstacleLeft || m_isObstacleForward ) return true;
+	// if (m_isObstacleForward || m_isCollision) return true;
 	return false;
 }
 
@@ -323,9 +324,9 @@ bool EnemyTank::isObstacleLeft()const {
 	return m_isObstacleLeft;
 }
 
-bool EnemyTank::isCollision()const {
-	return m_isCollision;
-}
+//bool EnemyTank::isCollision()const {
+//	return m_isCollision;
+//}
 
 float EnemyTank::getWanderRadius()const {
 	return mAttribute.m_WanderRadius;

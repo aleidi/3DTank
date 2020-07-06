@@ -213,7 +213,7 @@ void Patrol::execute(AIController* pEnemyTank, float deltaTime) {
 			Vector3 desiredVelocity = ( targetPos - getAIPos ).normalize() * AITank->getMaxSpeed();
 			target = desiredVelocity - getAIVelocity;
 			pEnemyTank->Move(target);
-			if (Vector3::lengthSq(getAIPos, targetPos) < 0.00001) {
+			if (Vector3::lengthSq(getAIPos, targetPos) < 0.001) {
 				pEnemyTank->toPatrolEnd = false;
 				pEnemyTank->toPatrolStart = true;
 			}
@@ -223,7 +223,7 @@ void Patrol::execute(AIController* pEnemyTank, float deltaTime) {
 			Vector3 desiredVelocity = (	targetPos - getAIPos ).normalize() * AITank->getMaxSpeed();
 			target = desiredVelocity - getAIVelocity;
 			pEnemyTank->Move(target);
-			if ( Vector3::lengthSq( getAIPos,targetPos ) < 0.00001)  {
+			if ( Vector3::lengthSq( getAIPos,targetPos ) < 0.001)  {
 				pEnemyTank->toPatrolStart = false;
 				pEnemyTank->toPatrolEnd = true;
 			}
@@ -279,32 +279,38 @@ void Avoidance::execute(AIController* pEnemyTank, float deltaTime) {
 	Vector3 feelersRight = (getAIHeading + pEnemyTank->getPawn()->getTransform()->Right).normalize();
 	Vector3 feelersLeft = (getAIHeading + pEnemyTank->getPawn()->getTransform()->Right * -1).normalize();
 	Vector3 target = Vector3::zero;
+
+	std::wstring wstr;
+	if (AITank->isObstacleForward()) {
+		if (AITank->isObstacleRight()) {
+			target = feelersLeft * AITank->getMaxSpeed() * 10.0f;
+		}
+
+		else if (AITank->isObstacleLeft()) {
+			target = feelersRight * AITank->getMaxSpeed() * 10.0f;
+		}
+
+		else {
+			target = getAIHeading * AITank->getMaxSpeed() * -10.0f;
+		}
+	}
 	
-	//if (AITank->isObstacleForward()) {
-	//	if (AITank->isObstacleRight()) {
-	//		target = feelersLeft * AITank->getMaxSpeed() * 10.0f;
-	//	}
-
-	//	else if (AITank->isObstacleLeft()) {
-	//		target = feelersRight * AITank->getMaxSpeed() * 10.0f;
-	//	}
-	//}
-	//
-	//else if (AITank->isObstacleRight()) {
-	//	target = feelersLeft * AITank->getMaxSpeed() * 10.0f;
-	//}
-
-	//else if (AITank->isObstacleLeft()) {
-	//	target = feelersRight * AITank->getMaxSpeed() * 10.0f;
-	//}
-	//
-	if (AITank->isCollision()) {
-		pEnemyTank->getPawn()->getTransform()->translate(getAIHeading * -0.01f);
-		// target = getAIHeading * AITank->getMaxSpeed() * -10.0f;
+	else if (AITank->isObstacleRight()) {
+		target = feelersLeft * AITank->getMaxSpeed() * 10.0f;
 	}
 
-	target = getAIHeading * AITank->getMaxSpeed() * -10.0f;
-	std::wstring wstr;
+	else if (AITank->isObstacleLeft()) {
+		target = feelersRight * AITank->getMaxSpeed() * 10.0f;
+	}
+	/*
+	else if (AITank->isCollision()) {
+		//pEnemyTank->getPawn()->getTransform()->translate(getAIHeading * -0.01f);
+		wstr += L"Collision";
+		//target = getAIHeading * AITank->getMaxSpeed() * -10.0f;
+	}
+	*/
+	/*target = getAIHeading * AITank->getMaxSpeed() * -10.0f;*/
+	//std::wstring wstr;
 	float x = target.x;
 	float y = target.y;
 	float z = target.z;

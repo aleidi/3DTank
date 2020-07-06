@@ -81,7 +81,7 @@ protected:
 	bool m_isObstacleForward;
 	bool m_isObstacleRight;
 	bool m_isObstacleLeft;
-	bool m_isCollision;
+	//bool m_isCollision;
 
 	GameObject* mObstacle;
 	GameObject* mBattery;
