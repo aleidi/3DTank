@@ -6,6 +6,7 @@ class Mesh;
 class UIBase;
 class GameObject;
 class ParticleSystem;
+class VFXSphere;
 
 class RenderManager
 {
@@ -25,6 +26,8 @@ public:
 	bool removeUI3DFromPool(UIBase* ui) noexcept;
 	void addParticleToPool(ParticleSystem* p) noexcept;
 	bool removeParticleFromPool(ParticleSystem* p) noexcept;
+	void addVFXToPool(VFXSphere* vfx) noexcept;
+	bool removeVFXFromPool(VFXSphere* vfx) noexcept;
 
 	Graphics& getGraphics() const;
 	DirectionalLight getDirLight() noexcept;
@@ -46,6 +49,7 @@ private:
 	std::list<UIBase*> mUI3Ds;
 	std::list<UIBase*> mUIs;
 	std::list<ParticleSystem*> mParticles;
+	std::list<VFXSphere*> mVFXs;
 	DirectionalLight mDirLight;
 	Graphics& mGraphics;
 };

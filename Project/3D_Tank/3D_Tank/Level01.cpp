@@ -5,9 +5,11 @@
 #include "FileManager.h"
 #include "AnimationTitle.h"
 #include "RenderManager.h"
+#include "ParticleSystem.h"
+#include "GameCommon.h"
 
 Level01::Level01()
-	: mCamTrig(false)
+	: mCamTrig(false),mState(Empty)
 {
 	GameLevelManager::sGetInstance()->addLevel(1, this);
 }
@@ -18,9 +20,11 @@ Level01::~Level01()
 
 void Level01::enterLevel()
 {
-	
 	std::thread t(&Level01::loadResourcce, this);
 	t.detach();
+
+	std::thread t2(&Level01::loadParticle, this);
+	t2.detach();
 
 	mBtnStart = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[0]);
 	mStartEvent = new UStartEvent(this);
@@ -98,15 +102,22 @@ void Level01::enterLevel()
 	mTeamTitle = new AnimationTitle(WINDOW_WIDTH*0.5f - 200.0f, WINDOW_HEIGHT, 6.0f, 6.0f, 3.0f, L"UI/team_title", Vector3(0.0f, -80.0f, 0.0f));
 	mTeamTitle->setImageSize(400.0f, 162.0f);
 
-	mState = CompanyTitle;
-	mCompanyTitle->setEnable(true);
+	loadParticle();
 
+
+	//mCurrentGameMode = new GameModeBase();
+	//mCurrentGameMode->onInit();
+	//GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
+
+
+	mCompanyTitle->setEnable(true);
 	mCanStart = true;
 
 }
 
 GameLevelBase * Level01::onUpdate(float deltaTime)
 {
+
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
 	if (mCurrentGameMode != nullptr)
@@ -230,6 +241,8 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			mBtnSetting->setEnable(true);
 			mBtnExit->setEnable(true);
 			break;
+		case Empty:
+			break;
 		}
 
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
@@ -241,53 +254,31 @@ void Level01::leaveLevel()
 	Engine::sGetInstance()->enableGameMode(false);
 
 	mBtnStart->destroy();
-	mBtnStart = nullptr;
 	mBtnSetting->destroy();
-	mBtnSetting = nullptr;
 	mBtnExit->destroy();
-	mBtnExit = nullptr;
 	mBtnGameMode->destroy();
-	mBtnGameMode = nullptr;
 	mBtnEditMode->destroy();
-	mBtnEditMode = nullptr;
 	mBtnCN->destroy();
-	mBtnCN = nullptr;
 	mBtnEN->destroy();
-	mBtnCN = nullptr;
 	mBtnShutDown->destroy();
-	mBtnShutDown = nullptr;
 	mBtnReturn->destroy();;
-	mBtnReturn = nullptr;
 	mBtnCancel->destroy();
-	mBtnCancel = nullptr;
 
 	delete mStartEvent;
-	mStartEvent = nullptr;
 	delete mSettingEvent;
-	mSettingEvent = nullptr;
 	delete mExitEvent;
-	mExitEvent = nullptr;
 	delete mGameModeEvent;
-	mGameModeEvent = nullptr;
 	delete mEditEvent;
-	mEditEvent = nullptr;
 	delete mCNEvent;
-	mCNEvent = nullptr;
 	delete mENEvent;
-	mENEvent = nullptr;
 	delete mShutDownEvent;
-	mShutDownEvent = nullptr;
 	delete mReturnEvent;
-	mReturnEvent = nullptr;
 	delete mCancelEvent;
-	mCancelEvent = nullptr;
 
 	mExhibition->destroy();
-	mExhibition = nullptr;
 	mCamFollower->destroy();
-	mCamFollower = nullptr;
 	mCamera->destroy();
-	mCamera = nullptr;
+	
 }
 
 void Level01::changeState(State s)
@@ -327,4 +318,23 @@ void Level01::loadResourcce()
 	mCamera->getTransform()->translate(Vector3::forward*-25.0f + Vector3::up * 10.0f);
 
 	mIsLoadFin = true;
+	mState = CompanyTitle;
+}
+
+void Level01::loadParticle()
+{
+	mRain = SceneManager::sGetInstance()->createParticleSystem(L"VFX/Raindrop_01",1000);
+	mRain->setEmitter(ParticleSystem::Emitter::Box);
+	mRain->setEmitRate(300);
+	mRain->setLifeTime(1.0f);
+	mRain->setMaxMinSpeed(18.0f, 20.0f);
+	mRain->setVelocity(0.0f, -1.0f, 0.0f);
+	Material mat;
+	mat.Color = XMFLOAT4(0.3f, 0.3f, 0.3f, 0.3f);
+	mRain->setTile(1.0f, 1.0f);
+	mRain->setMaterial(mat);
+	mRain->enableLoop(true);
+	mRain->setPosition(0.0f, 20.0f, 0.0f);
+	mRain->setRange(3.0f, 1.0f, 3.0f);
+	mRain->play();
 }

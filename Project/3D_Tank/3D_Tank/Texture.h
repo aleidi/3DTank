@@ -5,7 +5,7 @@ class Texture : public Bindable
 {
 public:
 	Texture(Graphics& gfx);
-	Texture(Graphics& gfx, const std::wstring& path);
+	Texture(Graphics& gfx, const std::wstring& path, UINT slot = 0);
 	void bind(Graphics& gfx) noexcept override;
 
 private:
@@ -14,4 +14,5 @@ private:
 private:
 	wchar_t* mPath;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pTextureRV;
+	UINT mSlot;
 };

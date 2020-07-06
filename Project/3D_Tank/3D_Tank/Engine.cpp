@@ -211,6 +211,11 @@ void Engine::enableGameMode(bool value)
 	mIsGameMode = value;
 }
 
+void Engine::onResize(float width, float height)
+{
+	mRendering->onResize(width, height);
+}
+
 void Engine::showtText(const std::wstring & str = L"", float leftTopX=0, float leftTopY=0, float width=0, float height=0, bool canShow = false)
 {
 	mRendering->getGFX()->setShowText(str, leftTopX, leftTopY, width, height, canShow);

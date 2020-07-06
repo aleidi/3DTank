@@ -1,13 +1,14 @@
 #include "ParticleSystem.h"
 #include "Engine.h"
+#include <time.h>
 
-ParticleSystem::ParticleSystem(Graphics& gfx, const std::wstring& texture)
-	:mMaxParticles(1),mLifeTime(1),mEmitRate(2), mNeedParticles(mLifeTime * mEmitRate), mStepTime(0.0f),
+ParticleSystem::ParticleSystem(Graphics& gfx, const std::wstring& texture, int maxParticles)
+	:mMaxParticles(maxParticles),mLifeTime(1),mEmitRate(2), mNeedParticles(mLifeTime * mEmitRate), mStepTime(0.0f),
 	mDuration(0.0f), mTimeCount(0.0f), mIsLoop(false),
-	mMaxSpeed(1.0f),mMinSpeed(1.0f), mVelocity(XMFLOAT3(0.0f, 1.0f, 0.0f)),
-	 mMaxTileX(1.0f),mMaxTileY(1.0f),mTileInterval(0.1f),mTileStepX(1),mTileStepY(1),
+	mMaxSpeed(1.0f),mMinSpeed(1.0f), mStartVelocity(XMFLOAT3(0.0f, 1.0f, 0.0f)),
+	 mMaxTileX(1.0f),mMaxTileY(1.0f),mTileInterval(0.1f),mTileStepX(1.0f),mTileStepY(1),
 	mPosition(XMFLOAT3(0.0f, 0.0f, 5.0f)),mRotation(XMFLOAT3(0.0f, 0.0f, 0.0f)),mScale(XMFLOAT3(1.0f, 1.0f, 1.0f)),
-	mStartRotation(XMFLOAT3(0.0f, 0.0f, 0.0f)),mStartScale(XMFLOAT3(10.0f, 10.0f, 10.0f)),mIsActivate(false)
+	mStartRotation(XMFLOAT3(0.0f, 0.0f, 0.0f)),mStartScale(XMFLOAT3(1.0f, 1.0f, 1.0f)),mIsActivate(false)
 {
 	mEmitter = Emitter::NoEmit;
 
@@ -66,6 +67,16 @@ DirectX::XMMATRIX ParticleSystem::getTransformXM() const noexcept
 void ParticleSystem::setMaxPatricles(int value) noexcept
 {
 	mMaxParticles = value;
+
+	mVB.reset();
+	std::vector<VertexPosSize> vertices;
+	for (int i = 0; i < mMaxParticles; ++i)
+	{
+		VertexPosSize v;
+		v.Size = XMFLOAT2(1.0f, 1.0f);
+		vertices.push_back(v);
+	}
+	mVB = std::make_unique<VertexBuffer>(RenderManager::sGetInstance()->getGraphics(), vertices, true);
 }
 
 void ParticleSystem::updateParticle(Graphics& gfx, float deltaTime, int& deathPatricles) noexcept
@@ -94,11 +105,15 @@ void ParticleSystem::updateParticle(Graphics& gfx, float deltaTime, int& deathPa
 				++deathPatricles;
 				continue;
 			}
-			srand(Engine::sGetInstance()->getTotalTime());
 			resetParticle(&(*it));
 		}
 	}
 
+}
+
+void ParticleSystem::calculateNeedParticle()
+{
+	mNeedParticles = ceilf((float)mEmitRate * mLifeTime);
 }
 
 void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
@@ -115,26 +130,25 @@ void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
 			mIsActivate = false;
 			return;
 		}
+		Engine::sGetInstance()->showtText(std::to_wstring(mTimeCount), 0, 0, 500, 500, true);
 	}
-
 	if (mIsActivate != true && count == mParticles.size())
 	{
 		return;
 	}
 
-	setBlendTransparent(gfx);
-
-	mStepTime += deltaTime;
+	if (mParticles.size() != mMaxParticles)
+	{
+		mStepTime += deltaTime;
+	}
 	float interval = 1.0f / mEmitRate;
 	if (mParticles.size() < mNeedParticles && mParticles.size() < mMaxParticles && mStepTime > interval)
 	{
 		PAttribute p;
-		srand(Engine::sGetInstance()->getTotalTime());
 		resetParticle(&p);
 		mParticles.push_back(p);
 		mStepTime = 0.0f;
 	}
-
 	D3D11_MAPPED_SUBRESOURCE msr;
 	gfx.getContext()->Map(
 		mVB->getBuffer(), 0u,
@@ -162,8 +176,9 @@ void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
 			XMFLOAT3(cam.x,cam.y,cam.z),
 		});
 
-	mPCBuf->onUpdate(gfx, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+	mPCBuf->onUpdate(gfx, mMaterial.Color);
 
+	setBlendTransparent(gfx);
 	mVB->bind(gfx);
 	mGSCBuf->bind(gfx);
 	mPCBuf->bind(gfx);
@@ -189,7 +204,7 @@ void ParticleSystem::resetParticle(PAttribute* p)
 		p->Rotation = mStartRotation;
 		p->Size = mStartScale;
 		p->Velocity = XMFLOAT3(0.0f,0.0f,0.0f);
-		p->Color = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.1f);
+		p->Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 
 		p->Sprite.CurrentTileX = 0.0f;
 		p->Sprite.CurrentTileY = 0.0f;
@@ -209,11 +224,12 @@ void ParticleSystem::resetParticle(PAttribute* p)
 		p->Rotation = mStartRotation;
 		p->Size = mStartScale;
 		mStartSpeed = ((float)rand() / RAND_MAX)*(mMaxSpeed - mMinSpeed) + mMinSpeed;
-		mVelocity.x *= mStartSpeed;
-		mVelocity.y *= mStartSpeed;
-		mVelocity.z *= mStartSpeed;
-		p->Velocity = mVelocity;
-		p->Color = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.1f);
+		XMFLOAT3 vel = mStartVelocity;
+		vel.x *= mStartSpeed;
+		vel.y *= mStartSpeed;
+		vel.z *= mStartSpeed;
+		p->Velocity = vel;
+		p->Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 
 		p->Sprite.CurrentTileX = 0.0f;
 		p->Sprite.CurrentTileY = 0.0f;
@@ -227,12 +243,11 @@ void ParticleSystem::setBlendTransparent(Graphics& gfx)
 	Microsoft::WRL::ComPtr<ID3D11BlendState> pBlendState;
 	D3D11_BLEND_DESC bd;
 	ZeroMemory(&bd, sizeof(D3D11_BLEND_DESC));
-	bd.AlphaToCoverageEnable = true;
 	bd.IndependentBlendEnable = false;
 	bd.RenderTarget[0].BlendEnable = true;
 	bd.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 	bd.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
-	bd.RenderTarget[0].BlendOp = D3D11_BLEND_OP_MAX;
+	bd.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 	bd.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 	bd.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 	bd.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
@@ -287,6 +302,7 @@ void ParticleSystem::setEmitter(Emitter type)
 void ParticleSystem::setLifeTime(float value)
 {
 	mLifeTime = value;
+	calculateNeedParticle();
 }
 
 void ParticleSystem::setStartRotation(float x, float y, float z)
@@ -308,6 +324,17 @@ void ParticleSystem::setPosition(float x, float y, float z)
 	mPosition.x = x;
 	mPosition.y = y;
 	mPosition.z = z;
+	for (std::vector<PAttribute>::iterator it = mParticles.begin(); it != mParticles.end(); ++it)
+	{
+		resetParticle(&(*it));
+	}
+}
+
+void ParticleSystem::setRange(float x, float y, float z)
+{
+	mScale.x = x;
+	mScale.y = y;
+	mScale.z = z;
 }
 
 void ParticleSystem::setMaxMinSpeed(float max, float min)
@@ -333,16 +360,17 @@ void ParticleSystem::setTileStep(float x, float y)
 	mTileStepY = y;
 }
 
-void ParticleSystem::setEmitRate(float value)
+void ParticleSystem::setEmitRate(int value)
 {
 	mEmitRate = value;
+	calculateNeedParticle();
 }
 
 void ParticleSystem::setVelocity(float x, float y, float z)
 {
-	mVelocity.x = x;
-	mVelocity.y = y;
-	mVelocity.z = z;
+	mStartVelocity.x = x;
+	mStartVelocity.y = y;
+	mStartVelocity.z = z;
 }
 
 void ParticleSystem::play()

@@ -46,6 +46,11 @@ void Rendering::onEndRender(float deltaTime)
 	mGraphics->EndFrame();
 }
 
+void Rendering::onResize(float width, float height)
+{
+	mGraphics->OnResize(width, height);
+}
+
 Graphics * Rendering::getGFX()
 {
 	return mGraphics;

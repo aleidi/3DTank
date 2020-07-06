@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "UIBase.h"
 #include "ParticleSystem.h"
+#include "VFXSphere.h"
 
 RenderManager* RenderManager::sInstance = nullptr;
 
@@ -28,6 +29,15 @@ void RenderManager::Destroy()
 void RenderManager::onDraw()
 {
 	for (std::list<Mesh*>::iterator it = mMeshes.begin(); it != mMeshes.end(); ++it)
+	{
+		if (nullptr == *it)
+		{
+			continue;
+		}
+		(*it)->draw(mGraphics);
+	}
+
+	for (std::list<VFXSphere*>::iterator it = mVFXs.begin(); it != mVFXs.end(); ++it)
 	{
 		if (nullptr == *it)
 		{
@@ -153,6 +163,30 @@ bool RenderManager::removeParticleFromPool(ParticleSystem * p) noexcept
 			delete *it;
 			*it = nullptr;
 			mParticles.erase(it++);
+			return true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return false;
+}
+
+void RenderManager::addVFXToPool(VFXSphere * vfx) noexcept
+{
+	mVFXs.push_back(vfx);
+}
+
+bool RenderManager::removeVFXFromPool(VFXSphere * vfx) noexcept
+{
+	for (std::list<VFXSphere*>::iterator it = mVFXs.begin(); it != mVFXs.end();)
+	{
+		if (*it == vfx)
+		{
+			delete *it;
+			*it = nullptr;
+			mVFXs.erase(it++);
 			return true;
 		}
 		else

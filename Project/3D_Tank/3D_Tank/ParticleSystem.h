@@ -13,7 +13,7 @@ public:
 		Box = 1,
 	};
 public:
-	ParticleSystem(Graphics& gfx, const std::wstring& texture);
+	ParticleSystem(Graphics& gfx, const std::wstring& texture, int maxParticles = 1);
 	~ParticleSystem();
 
 	void onUpdate(float deltaTime) noexcept override;
@@ -46,6 +46,10 @@ public:
 	void setPosition(float x, float y, float z);
 
 	//Explanation:
+	//x is the width of emitter, y is the height of the emitter, z is the depth of emiiter
+	void setRange(float x, float y, float z);
+
+	//Explanation:
 	//paricle's velocity will be in the range of (max,min)
 	//if max == min, the speed will be min
 	void setMaxMinSpeed(float max, float min);
@@ -64,7 +68,7 @@ public:
 
 	//Explanation:
 	//particles emited per seconds
-	void setEmitRate(float value);
+	void setEmitRate(int value);
 
 	//Explanation:
 	//the start velocity  of particle
@@ -83,6 +87,7 @@ public:
 
 	//set whether particle will loop
 	void enableLoop(bool value);
+
 
 protected:
 	struct VertexPosSize
@@ -123,12 +128,13 @@ protected:
 	void resetBlendState(Graphics& gfx);
 	void updateSprite(PAttribute* p, float deltaTime);
 	void updateParticle(Graphics& gfx, float deltaTime, int& deathPatricles) noexcept;
+	void calculateNeedParticle();
 
 protected:
 
 	int mMaxParticles;
 	float mLifeTime;
-	float mEmitRate;
+	int mEmitRate;
 	int mNeedParticles;
 	float mStepTime;
 	float mDuration;
@@ -137,7 +143,7 @@ protected:
 	float mStartSpeed;
 	float mMaxSpeed;
 	float mMinSpeed;
-	XMFLOAT3 mVelocity;
+	XMFLOAT3 mStartVelocity;
 
 	//sprite animation param
 	float mMaxTileX;

@@ -10,3 +10,6 @@
 #include "Camera.h"
 #include "KeycodeRedefine.h"
 #include "Pawn.h"
+#include "ControllerBase.h"
+#include "GameInstance.h"
+#include "SoundManager.h"

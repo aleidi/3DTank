@@ -12,6 +12,8 @@
 #include "GameCharacter.h"
 #include "MessageDispatcher.h"
 #include "AirWall.h"
+#include "SM_construction_fence.h"
+#include "FreightContainer_A.h"
 
 /////////////////////////////////
 AITank* enemy_01;
@@ -53,18 +55,32 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 	}
 
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
-
+	/*
 	std::wstring wstr;
 	float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
 	float y = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().y;
 	float z = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().z;
 	wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
 	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
-
+	*/
 	RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*10.0f, 0.0f);
 
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 
+	Dispatch->DispatchDelayedMessages();
+
+	if (!secondloaded && isWaveClear(firstWaveAI) ) {
+		loadSecondWave();
+		wakeupWave(secondWaveAI);	
+		secondloaded = true;
+	}
+	
+	if (!thirdloaded && secondloaded && isWaveClear(secondWaveAI) ) {
+		loadThirdWave();
+		wakeupWave(thirdWaveAI);
+		thirdloaded = true;
+	}
+	
 	return this;
 }
 
@@ -94,6 +110,7 @@ void Level02::loadResourcce()
 	mMap->getTransform()->setScale(0.07f, 0.07f, 0.07f);
 
 	//// seven buildings'
+	
 	Vector3 position, scale;
 	position = Vector3(-16.5, 7, 12.5);
 	scale = Vector3(21.5, 14, 16);
@@ -141,40 +158,135 @@ void Level02::loadResourcce()
 	airWalls.push_back(new AirWall(position, scale));
 
 	// ground's
-	position = Vector3(-0.8,-0.578,-27.4);
+	position = Vector3(-0.8,-0.57,-27.4);
 	scale = Vector3(77.2,1,120);
 	airWalls.push_back(new AirWall(position, scale));
 	
+	// obstacles fence
+	position = Vector3(-38, -0.5, 33);
+	scale = Vector3(0.05, 0.01, 0.01);
+	Vector3 rotation = Vector3(0, -3.1425926/2.0, 0); // PI / 2
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, 18);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, 3);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, -12);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, -27);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, -42);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, -57);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-38, -0.5, -72);
+	scale = Vector3(0.05, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-16, -0.5, 32.2);
+	scale = Vector3(0.075, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-16, -0.5, -87);
+	scale = Vector3(0.075, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-12.8, -0.5, 18.5);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13, -0.5, 5.5);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-26.5, -0.5, 18.5);
+	scale = Vector3(0.043, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13.3, -0.5, -3.5);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13.3, -0.5, -25);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-27, -0.5, -3.6);
+	scale = Vector3(0.07, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-12.8, -0.5, -34.5);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13, -0.5, -47.5);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-26.5, -0.5, -34.5);
+	scale = Vector3(0.043, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13.3, -0.5, -56);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-13.3, -0.5, -77.4);
+	scale = Vector3(0.045, 0.01, 0.01);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	position = Vector3(-27, -0.5, -56);
+	scale = Vector3(0.07, 0.01, 0.01);
+	rotation = Vector3(0, -3.1425926 / 2.0, 0);
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+
+	// obstacles FreightContainer
+	position = Vector3(-19, 0, -50);
+	scale = Vector3(0.03, 0.005, 0.005);
+	rotation = Vector3(0, 0, 0);
+	obstacles.push_back(new FreightContainer_A(position, rotation, scale,1));
+
+
 	//mCurrentGameMode = new GameModeBase();
 	//mCurrentGameMode->onInit();
 	mCurrentGameMode = new GameModeTP();
 
-	fakeplayer = new AITank(ent_Tank_FakePlayer);
+	loadFirstWave();
+	wakeupWave(firstWaveAI);
 
-	enemy_boss = new AITank(ent_Tank_SuperEnemy, ent_Tank_FakePlayer);
-	enemy_01 = new AITank(ent_Tank_Enemy01, ent_Tank_FakePlayer);
-	enemy_02 = new AITank(ent_Tank_Enemy02, ent_Tank_FakePlayer);
-	enemy_03 = new AITank(ent_Tank_Enemy03, ent_Tank_FakePlayer);
-	enemy_04 = new AITank(ent_Tank_Enemy04, ent_Tank_FakePlayer);
-	enemy_05 = new AITank(ent_Tank_Enemy05, ent_Tank_FakePlayer);
-	enemy_06 = new AITank(ent_Tank_Enemy06, ent_Tank_FakePlayer);
-	enemy_07 = new AITank(ent_Tank_Enemy07, ent_Tank_FakePlayer);
-	enemy_08 = new AITank(ent_Tank_Enemy08, ent_Tank_FakePlayer);
-	enemy_09 = new AITank(ent_Tank_Enemy09);
-	enemy_10 = new AITank(ent_Tank_Enemy10, ent_Tank_FakePlayer);
-
-	fakeplayer->changeTarget(ent_Tank_Enemy01);
-
-	wakeupAI(ent_Tank_Enemy01);
-	wakeupAI(ent_Tank_Enemy02);
-	wakeupAI(ent_Tank_Enemy03);
-	wakeupAI(ent_Tank_Enemy04);
-	wakeupAI(ent_Tank_Enemy05);
-	wakeupAI(ent_Tank_Enemy06);
-	wakeupAI(ent_Tank_Enemy07);
-	wakeupAI(ent_Tank_Enemy08);
-	wakeupAI(ent_Tank_Enemy09);
-	
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 
 	mCanStart = true;
@@ -183,4 +295,55 @@ void Level02::loadResourcce()
 void Level02::wakeupAI(int ID) {
 	if (SceneManager::sGetInstance()->getAIController(ID) != nullptr ) 
 		SceneManager::sGetInstance()->getAIController(ID)->wakeup();
+
+}
+
+void Level02::loadFirstWave() {
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy01));
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy02));
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy03));
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy04));
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy05));
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy06));
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy07));
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy08));
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy09));
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy10));
+}
+
+void Level02::loadSecondWave() {
+	for (int i = 0; i < firstWaveAI.size(); ++i) {
+		firstWaveAI[i]->destroy();
+	}
+
+	secondWaveAI.push_back(new AITank(ent_Tank_Enemy04));
+	secondWaveAI.push_back(new AITank(ent_Tank_Enemy05));
+	secondWaveAI.push_back(new AITank(ent_Tank_Enemy06));
+	secondWaveAI.push_back(new AITank(ent_Tank_Enemy07));
+}
+
+void Level02::loadThirdWave() {
+	for (int i = 0; i < secondWaveAI.size(); ++i) {
+		secondWaveAI[i]->destroy();
+	}
+	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy08));
+	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy09));
+	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy10));
+	thirdWaveAI.push_back(new AITank(ent_Tank_SuperEnemy));
+}
+
+bool Level02::isWaveClear(std::vector<AITank*> thisWave) {
+	for (int i = 0; i < thisWave.size(); ++i) {
+		if (thisWave[i]->isAlive())
+			return false;
+	}
+
+	return true;
+}
+
+void Level02::wakeupWave(std::vector<AITank*> thisWave) {
+	for (int i = 0; i < thisWave.size(); ++i) {
+		wakeupAI(thisWave[i]->getID());
+	}
+
 }

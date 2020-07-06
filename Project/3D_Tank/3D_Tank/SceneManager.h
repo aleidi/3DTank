@@ -13,6 +13,7 @@ class AIController;
 class UIBase;
 class ParticleSystem;
 class UIText3D;
+class VFXSphere;
 
 class SceneManager
 {
@@ -32,7 +33,8 @@ public:
 	UIText* createUIText(const std::wstring& text = L"未设置文本");
 	UIImage3D* createUIImage3D(const std::wstring& texPath);
 	UIText3D* createUIText3D(const std::wstring& text = L"未设置文本");
-	ParticleSystem* createParticleSystem(const std::wstring& texPath);
+	ParticleSystem* createParticleSystem(const std::wstring& texPath, int maxParticles = 1);
+	VFXSphere* createVFXSphere();
 	void setSkyBox(const std::wstring& texPath);
 	
 	AIController* createAIController(int id);
@@ -43,6 +45,7 @@ public:
 	bool removreUIFromPool(UIBase* ui);
 	bool removeUI3DFromPool(UIBase* ui);
 	bool removeParticleFromPool(ParticleSystem* particle);
+	bool removeVFXSphereFromPool(VFXSphere* s);
 	GameObject* findObjectWithName(const std::string& name);
 	std::list<std::string> getAllGameobjectName();
 	AIController* getAIController(int id);

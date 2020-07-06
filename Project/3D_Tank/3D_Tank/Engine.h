@@ -26,6 +26,7 @@ public:
 	POINT getCursorPos();
 	void enableEditMode(bool value);
 	void enableGameMode(bool value);
+	void onResize(float width, float height);
 
 	void showtText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
 private:

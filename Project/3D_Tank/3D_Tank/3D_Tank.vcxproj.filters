@@ -211,6 +211,12 @@
     <Filter Include="Game\Header\Level\Level03">
       <UniqueIdentifier>{0ae2fcf8-855f-4bbd-9cfd-71c3df0828fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Source\Render\Graphics\VFX">
+      <UniqueIdentifier>{5d7c80c8-105e-4ace-948a-e928a9e3fd07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header\Render\Graphics\VFX">
+      <UniqueIdentifier>{7a1cba86-f0b8-4130-a64c-39f7316c82d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -588,8 +594,11 @@
     <ClCompile Include="DisplayManager.cpp">
       <Filter>Game\Source\UI</Filter>
     </ClCompile>
-        <ClCompile Include="ShellContainer.cpp">
+    <ClCompile Include="ShellContainer.cpp">
       <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="VFXSphere.cpp">
+      <Filter>Engine\Source\Render\Graphics\VFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1040,6 +1049,9 @@
     <ClInclude Include="ShellContainer.h">
       <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
+    <ClInclude Include="VFXSphere.h">
+      <Filter>Engine\Header\Render\Graphics\VFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -1127,6 +1139,12 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="UIText3D_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="VFXSphere_PS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="VFXSphere_VS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>
