@@ -308,6 +308,11 @@ XMMATRIX Transform::getLocalToWorldMatrix() noexcept
 
 void Transform::calcultateTransformMatrix() noexcept
 {
+	mRotation.x = fmodf(mRotation.x, XM_2PI);
+	mRotation.y = fmodf(mRotation.y, XM_2PI);
+	mRotation.z = fmodf(mRotation.z, XM_2PI);
+
+
 	//calculate model->world matrix, world rotation and world scale
 	//Vector3 pos;
 	//Vector3 rot;

@@ -115,7 +115,7 @@ void Engine::run()
 {
 	if (DInputPC::getInstance().iskeyDown(DIK_F4))
 	{
-		gSpeed = 4.0f;
+		gSpeed = 2.0f;
 	}
 	if (DInputPC::getInstance().iskeyUp(DIK_F4))
 	{
@@ -179,6 +179,9 @@ void Engine::run()
 	}
 
 	mRendering.get()->onEndRender(deltaTime);
+
+	//Garbage Collection
+	SceneManager::sGetInstance()->onGarbageCollection();
 }
 
 float Engine::getTotalTime() noexcept

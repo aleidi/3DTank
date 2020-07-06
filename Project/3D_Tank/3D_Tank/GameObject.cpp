@@ -96,6 +96,16 @@ std::vector<T*> GameObject::getComponents()
 	return list;
 }
 
+RenderComponent * GameObject::getRenderComponent()
+{
+	return mRc;
+}
+
+void GameObject::setRenderComponent(RenderComponent * rc)
+{
+	mRc = rc;
+}
+
 Transform * GameObject::getTransform() const noexcept
 {
 	return mTransform;
@@ -141,7 +151,7 @@ void GameObject::deAttach() noexcept
 
 void GameObject::destroy()
 {
-	SceneManager::sGetInstance()->removeGameObjectFromPool(this);
+	SceneManager::sGetInstance()->registerGarbageObj(this);
 }
 
 void GameObject::onStart()

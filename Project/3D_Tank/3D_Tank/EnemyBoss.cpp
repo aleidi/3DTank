@@ -71,6 +71,7 @@ EnemyBoss::~EnemyBoss()
 {
 	SceneManager::sGetInstance()->removreUIFromPool(mFrame);
 	SceneManager::sGetInstance()->removreUIFromPool(mImage);
+	SceneManager::sGetInstance()->removreUIFromPool(mName);
 	SceneManager::sGetInstance()->removeUI3DFromPool(mMagicCircle);
 }
 

@@ -7,6 +7,7 @@ class Component;
 class Transform;
 class ScriptComponent;
 class SoundComponent;
+class RenderComponent;
 
 class GameObject
 {
@@ -41,6 +42,9 @@ public:
 
 	template<typename T>
 	std::vector<T*> getComponents();
+
+	RenderComponent* getRenderComponent();
+	void setRenderComponent(RenderComponent* rc);
 
 	Transform* getTransform() const noexcept;
 	std::string getName() const noexcept;
@@ -77,6 +81,7 @@ protected:
 	std::string mName;
 	CollisionLayer mColLayer;
 	ObjectTag mTag;
+	RenderComponent* mRc;
 private:
 	Vector3* lastFramePostion;
 };

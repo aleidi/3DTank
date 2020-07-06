@@ -5,6 +5,7 @@
 #include "Math.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "RenderComponent.h"
 #include "EngineCommon.h"
 #include "SceneManager.h"
 #include "Camera.h"

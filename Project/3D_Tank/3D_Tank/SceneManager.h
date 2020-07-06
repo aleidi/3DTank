@@ -40,12 +40,12 @@ public:
 	AIController* createAIController(int id);
 
 	void addGameObjectToPool(GameObject* object) noexcept;
-	bool removeGameObjectFromPool(GameObject* object) noexcept;
 	bool removeAIControllerFromPool(AIController* ctrl) noexcept;
 	bool removreUIFromPool(UIBase* ui);
 	bool removeUI3DFromPool(UIBase* ui);
 	bool removeParticleFromPool(ParticleSystem* particle);
 	bool removeVFXSphereFromPool(VFXSphere* s);
+	void registerGarbageObj(GameObject* obj);
 	GameObject* findObjectWithName(const std::string& name);
 	std::list<std::string> getAllGameobjectName();
 	AIController* getAIController(int id);
@@ -55,6 +55,11 @@ public:
 	void onLateUpdate(float deltaTime);
 	void onEngineUpdate(float deltaTime);
 	void onEngineFixedUpdate(float fixedDeltaTime);
+	void onGarbageCollection();
+
+private:
+	bool removeGameObjectFromPool(GameObject* object) noexcept;
+
 private:
 	SceneManager();
 	~SceneManager();
@@ -62,6 +67,8 @@ private:
 	std::list<GameObject*> mObjs;
 	std::map<int, AIController*> mAIControllers;
 	std::map<std::string,GameObjectFactory*> mFactories;
+
+	std::list<GameObject*> mGarbageObjs;
 
 	static SceneManager* sInstance;
 };
