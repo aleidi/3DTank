@@ -46,7 +46,7 @@ EnemyBoss::EnemyBoss(int id)
 	Material mat;
 	mat.Color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	mImage->setMaterial(mat);
-	showHP(false);
+	showUI(false);
 
 	mName = SceneManager::sGetInstance()->createUIText(L"???");
 	mName->setPosition(WINDOW_WIDTH*0.5f, WINDOW_HEIGHT*0.82f);
@@ -73,7 +73,7 @@ EnemyBoss::~EnemyBoss()
 	SceneManager::sGetInstance()->removeUI3DFromPool(mMagicCircle);
 }
 
-void EnemyBoss::showHP(bool value)
+void EnemyBoss::showUI(bool value)
 {
 	mFrame->setEnable(value);
 	mImage->setEnable(value);
