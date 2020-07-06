@@ -1,6 +1,6 @@
 ID,HP,AttackRangeRadiusSq,PursuitRangeRadiusSq,WanderRangeRadiusSq,Mass,MaxSpeed,AttackTimeDelay,Offset,HitRate,MaxTurnRate,WanderRadius,WanderDistance,WanderJitter,ResetPoint.x,ResetPoint.y,ResetPoint.z
 0,500,200,0,0,0,0,8,10,4,0.1,0,0,0,3,0,-42
-1,5,100,200,100,5,1.5,4,10,5,0.1,10,20,800,1.1,0,25
+1,5,100,200,100,5,1.5,4,10,5,0.1,10,20,800,-30,0,24
 2,5,100,200,100,5,1,10,20,10,0.1,10,20,800,1.1,0,23
 3,5,100,200,100,5,1.5,4,10,5,0.1,10,20,800,1.1,0,21
 4,5,100,200,100,5,1.5,4,10,5,0.1,10,20,800,1.1,0,19

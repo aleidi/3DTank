@@ -6,7 +6,6 @@
 #include "UIText.h"
 #include "GameCommon.h"
 #include "BoundingCube.h"
-#include "SoundManager.h"
 
 EnemyBoss::EnemyBoss(int id)
 {
@@ -133,5 +132,4 @@ void EnemyBoss::onUpdate(float deltaTime)
 
 void EnemyBoss::onCollisionEnter()
 {
-	SoundManager::sGetInstance()->playBGM();
 }
