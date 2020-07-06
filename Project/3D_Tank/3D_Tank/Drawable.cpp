@@ -42,3 +42,10 @@ void Drawable::addIndexBuffer(std::unique_ptr<IndexBuffer> ibuf) noexcept
 	pIndexBuffer = ibuf.get();
 	mBinds.push_back(std::move(ibuf));
 }
+
+void Drawable::setBlend(Graphics & gfx, const D3D11_BLEND_DESC & bd)
+{
+	Microsoft::WRL::ComPtr<ID3D11BlendState> pBlendState;
+	gfx.getDevice()->CreateBlendState(&bd, pBlendState.GetAddressOf());
+	gfx.getContext()->OMSetBlendState(pBlendState.Get(), nullptr, 0xFFFFFFFF);
+}

@@ -13,6 +13,7 @@
 #include "AIController.h"
 #include "ParticleSystem.h"
 #include "UIText3D.h"
+#include "VFXSphere.h"
 
 SceneManager* SceneManager::sInstance = nullptr;
 
@@ -125,6 +126,13 @@ ParticleSystem * SceneManager::createParticleSystem(const std::wstring & texPath
 	return p;
 }
 
+VFXSphere * SceneManager::createVFXSphere()
+{
+	VFXSphere* s = new VFXSphere(RenderManager::sGetInstance()->getGraphics());
+	RenderManager::sGetInstance()->addVFXToPool(s);
+	return s;
+}
+
 void SceneManager::setSkyBox(const std::wstring & texPath)
 {
 	RenderManager::sGetInstance()->setSkyBox(texPath);
@@ -182,20 +190,38 @@ bool SceneManager::removeAIControllerFromPool(AIController * ctrl) noexcept
 
 bool SceneManager::removreUIFromPool(UIBase * ui)
 {
-	RenderManager::sGetInstance()->removeUIFromPool(ui);
-	return true;
+	if (RenderManager::sGetInstance()->removeUIFromPool(ui))
+	{
+		return true;
+	}
+	return false;
 }
 
 bool SceneManager::removeUI3DFromPool(UIBase * ui)
 {
-	RenderManager::sGetInstance()->removeUI3DFromPool(ui);
-	return true;
+	if (RenderManager::sGetInstance()->removeUI3DFromPool(ui))
+	{
+		return true;
+	}
+	return false;
 }
 
 bool SceneManager::removeParticleFromPool(ParticleSystem * particle)
 {
-	RenderManager::sGetInstance()->removeParticleFromPool(particle);
-	return true;
+	if (RenderManager::sGetInstance()->removeParticleFromPool(particle))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool SceneManager::removeVFXSphereFromPool(VFXSphere * s)
+{
+	if (RenderManager::sGetInstance()->removeVFXFromPool(s))
+	{
+		return true;
+	}
+	return false;
 }
 
 GameObject * SceneManager::findObjectWithName(const std::string & name)
