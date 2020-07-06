@@ -2,11 +2,13 @@
 #include "DDSTextureLoader.h"
 
 Texture::Texture(Graphics & gfx)
+	:mSlot(0)
 {
 	createDefualtTexture(gfx);
 }
 
-Texture::Texture(Graphics& gfx, const std::wstring & path)
+Texture::Texture(Graphics& gfx, const std::wstring & path, UINT slot)
+	:mSlot(slot)
 {
 	std::wstring str = L".\\Resource\\Model\\";
 	str += path;
@@ -22,7 +24,7 @@ Texture::Texture(Graphics& gfx, const std::wstring & path)
 
 void Texture::bind(Graphics & gfx) noexcept
 {
-	getContext(gfx)->PSSetShaderResources(0, 1, pTextureRV.GetAddressOf());
+	getContext(gfx)->PSSetShaderResources(mSlot, 1, pTextureRV.GetAddressOf());
 }
 
 void Texture::createDefualtTexture(Graphics& gfx) noexcept

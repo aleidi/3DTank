@@ -13,6 +13,7 @@ class AIController;
 class UIBase;
 class ParticleSystem;
 class UIText3D;
+class VFXSphere;
 
 class SceneManager
 {
@@ -33,16 +34,18 @@ public:
 	UIImage3D* createUIImage3D(const std::wstring& texPath);
 	UIText3D* createUIText3D(const std::wstring& text = L"未设置文本");
 	ParticleSystem* createParticleSystem(const std::wstring& texPath, int maxParticles = 1);
+	VFXSphere* createVFXSphere();
 	void setSkyBox(const std::wstring& texPath);
 	
 	AIController* createAIController(int id);
 
 	void addGameObjectToPool(GameObject* object) noexcept;
-	bool removeGameObjectFromPool(GameObject* object) noexcept;
 	bool removeAIControllerFromPool(AIController* ctrl) noexcept;
 	bool removreUIFromPool(UIBase* ui);
 	bool removeUI3DFromPool(UIBase* ui);
 	bool removeParticleFromPool(ParticleSystem* particle);
+	bool removeVFXSphereFromPool(VFXSphere* s);
+	void registerGarbageObj(GameObject* obj);
 	GameObject* findObjectWithName(const std::string& name);
 	std::list<std::string> getAllGameobjectName();
 	AIController* getAIController(int id);
@@ -52,6 +55,11 @@ public:
 	void onLateUpdate(float deltaTime);
 	void onEngineUpdate(float deltaTime);
 	void onEngineFixedUpdate(float fixedDeltaTime);
+	void onGarbageCollection();
+
+private:
+	bool removeGameObjectFromPool(GameObject* object) noexcept;
+
 private:
 	SceneManager();
 	~SceneManager();
@@ -59,6 +67,8 @@ private:
 	std::list<GameObject*> mObjs;
 	std::map<int, AIController*> mAIControllers;
 	std::map<std::string,GameObjectFactory*> mFactories;
+
+	std::list<GameObject*> mGarbageObjs;
 
 	static SceneManager* sInstance;
 };

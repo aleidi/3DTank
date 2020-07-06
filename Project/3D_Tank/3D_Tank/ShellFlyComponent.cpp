@@ -8,7 +8,7 @@
 
 ShellFlyComponent::ShellFlyComponent(GameObject * obj):Component(obj)
 {
-	this->velocity = this->getObject()->getTransform()->Forward.normalize() * 10.f;
+	this->velocity = this->getObject()->getTransform()->Forward.normalize() * 20.f;
 	this->gracity = Vector3(0.f, 0.f, 0.f);
 	this->rotateSpeed = 90.f;
 	angle = 0.f;
@@ -16,7 +16,7 @@ ShellFlyComponent::ShellFlyComponent(GameObject * obj):Component(obj)
 
 ShellFlyComponent::ShellFlyComponent(GameObject * obj, const Vector3 & direction) :Component(obj)
 {
-	this->velocity = direction.normalize() * 10.f;
+	this->velocity = direction.normalize() * 20.f;
 	this->gracity = Vector3(0.f, 0.f, 0.f);
 	this->rotateSpeed = 90.f;
 	angle = 0.f;
@@ -35,21 +35,25 @@ ShellFlyComponent::~ShellFlyComponent()
 
 void ShellFlyComponent::onUpdate(float detaTime)
 {
-	this->getObject()->getTransform()->translate(velocity * detaTime);
-	velocity.x += gracity.x * detaTime;
-	velocity.y += gracity.y * detaTime;
-	velocity.z += gracity.z * detaTime;
-	if (this->getObject()->sphere && this->getObject()->sphere->moveable == 1) {
-		this->getObject()->sphere->sphere.Center.x += velocity.x*detaTime;
-		this->getObject()->sphere->sphere.Center.y += velocity.y*detaTime;
-		this->getObject()->sphere->sphere.Center.z += velocity.z*detaTime;
-	}
-	if (target) {
-		updateForward(detaTime);
-		this->velocity = this->getObject()->getTransform()->Forward.normalize() * 10.f;
-		Vector3 pos = this->getObject()->getTransform()->getPosition();
-		mPS->setPosition(pos.x, pos.y, pos.z);
-		mPS->play();
+	if (this->getObject()->getTransform()->getPosition() == Vector3(0.f,-3.f,0.f))
+		return;
+	else {
+		this->getObject()->getTransform()->translate(velocity * detaTime);
+		velocity.x += gracity.x * detaTime;
+		velocity.y += gracity.y * detaTime;
+		velocity.z += gracity.z * detaTime;
+		if (this->getObject()->sphere && this->getObject()->sphere->moveable == 1) {
+			this->getObject()->sphere->sphere.Center.x += velocity.x*detaTime;
+			this->getObject()->sphere->sphere.Center.y += velocity.y*detaTime;
+			this->getObject()->sphere->sphere.Center.z += velocity.z*detaTime;
+		}
+		if (target) {
+			updateForward(detaTime);
+			this->velocity = this->getObject()->getTransform()->Forward.normalize() * 20.f;
+			Vector3 pos = this->getObject()->getTransform()->getPosition();
+			mPS->setPosition(pos.x, pos.y, pos.z);
+			mPS->play();
+		}
 	}
 }
 
@@ -73,7 +77,17 @@ void ShellFlyComponent::setTarget(GameObject* t)
 
 void ShellFlyComponent::setVelocity(const Vector3 & dir)
 {
-	this->velocity = dir.normalize() * 10.f;
+	if (Vector3::zero == dir) {
+		this->velocity = Vector3::zero;
+	}
+	else {
+		this->velocity = dir.normalize() * 20.f;
+	}
+}
+
+Vector3 ShellFlyComponent::getVelocity()
+{
+	return velocity;
 }
 
 void ShellFlyComponent::initParticle()

@@ -157,9 +157,6 @@
     <Filter Include="Engine\Source\Physics\BoundingBox">
       <UniqueIdentifier>{5e8c02b2-9f07-42a6-9a70-1a79f62b0f3a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Header\Render\GUI">
-      <UniqueIdentifier>{de54c582-a592-4ebd-a382-6a0e8ea94a2d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Header\Render\EUI">
       <UniqueIdentifier>{54ede792-44f9-4d40-a5fb-1b4d11f54105}</UniqueIdentifier>
     </Filter>
@@ -210,6 +207,21 @@
     </Filter>
     <Filter Include="Game\Header\Level\Level03">
       <UniqueIdentifier>{0ae2fcf8-855f-4bbd-9cfd-71c3df0828fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source\Render\Graphics\VFX">
+      <UniqueIdentifier>{5d7c80c8-105e-4ace-948a-e928a9e3fd07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header\Render\Graphics\VFX">
+      <UniqueIdentifier>{7a1cba86-f0b8-4130-a64c-39f7316c82d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header\Render\Graphics\GUI">
+      <UniqueIdentifier>{de54c582-a592-4ebd-a382-6a0e8ea94a2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header\Item">
+      <UniqueIdentifier>{fcad24ce-f76a-4a1f-b4ca-aa254cbeb5a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source\Item">
+      <UniqueIdentifier>{668eccd7-9b51-4000-a79d-ad772a7932c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -588,8 +600,14 @@
     <ClCompile Include="DisplayManager.cpp">
       <Filter>Game\Source\UI</Filter>
     </ClCompile>
-        <ClCompile Include="ShellContainer.cpp">
+    <ClCompile Include="ShellContainer.cpp">
       <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="VFXSphere.cpp">
+      <Filter>Engine\Source\Render\Graphics\VFX</Filter>
+    </ClCompile>
+    <ClCompile Include="Potion.cpp">
+      <Filter>Game\Source\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -891,22 +909,22 @@
       <Filter>Engine\Header\SoundManager</Filter>
     </ClInclude>
     <ClInclude Include="UICommon.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
+      <Filter>Engine\Header\Render\Graphics\GUI</Filter>
     </ClInclude>
     <ClInclude Include="UIBase.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
+      <Filter>Engine\Header\Render\Graphics\GUI</Filter>
     </ClInclude>
     <ClInclude Include="UIImage.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
+      <Filter>Engine\Header\Render\Graphics\GUI</Filter>
     </ClInclude>
     <ClInclude Include="UIButton.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
+      <Filter>Engine\Header\Render\Graphics\GUI</Filter>
     </ClInclude>
     <ClInclude Include="UITransformCbuf.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="UIEvent.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
+      <Filter>Engine\Header\Render\Graphics\GUI</Filter>
     </ClInclude>
     <ClInclude Include="ShellFlyComponent.h">
       <Filter>Engine\Header\Physics</Filter>
@@ -915,7 +933,7 @@
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
     <ClInclude Include="UIText.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
+      <Filter>Engine\Header\Render\Graphics\GUI</Filter>
     </ClInclude>
     <ClInclude Include="GameButton.h">
       <Filter>Game\Header\UI</Filter>
@@ -948,7 +966,7 @@
       <Filter>Game\Header\Controller</Filter>
     </ClInclude>
     <ClInclude Include="UIImage3D.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
+      <Filter>Engine\Header\Render\Graphics\GUI</Filter>
     </ClInclude>
     <ClInclude Include="GeometryShader.h">
       <Filter>Engine\Header\Render\Graphics\Bindable</Filter>
@@ -990,7 +1008,7 @@
       <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="UIText3D.h">
-      <Filter>Engine\Header\Render\GUI</Filter>
+      <Filter>Engine\Header\Render\Graphics\GUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui.h">
       <Filter>Engine\Header\Render\EUI</Filter>
@@ -1009,9 +1027,6 @@
     </ClInclude>
     <ClInclude Include="BossOwnedStates.h">
       <Filter>Engine\Header\Gameplay\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Engine\Header</Filter>
     </ClInclude>
     <ClInclude Include="DamageDisplay.h">
       <Filter>Game\Header\UI</Filter>
@@ -1039,6 +1054,15 @@
     </ClInclude>
     <ClInclude Include="ShellContainer.h">
       <Filter>Game\Header\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="VFXSphere.h">
+      <Filter>Engine\Header\Render\Graphics\VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="Potion.h">
+      <Filter>Game\Header\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Engine\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1127,6 +1151,12 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="UIText3D_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="VFXSphere_PS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="VFXSphere_VS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>

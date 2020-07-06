@@ -60,6 +60,7 @@ public:
 
 	enum MoveDirection moveDirection;
 	enum LeftRightDirection rotateDirection;
+	void addHP(int value);
 	void setHP(int changeHP);
 	int getHP()const;
 	void setMass(float mass);

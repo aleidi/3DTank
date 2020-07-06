@@ -17,6 +17,7 @@ public:
 
 	MBoundingSphere* getCollisionSphere();
 	ShellFlyComponent* getShellComponent();
+	SoundComponent* getSoundComponent();
 	int getShelltype();
 	void onUpdate(float deltaTime) override;
 

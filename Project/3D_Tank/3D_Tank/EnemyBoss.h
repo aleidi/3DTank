@@ -7,7 +7,7 @@ public:
 	EnemyBoss(int id);
 	~EnemyBoss();
 
-	void showHP(bool value);
+	void showUI(bool value);
 
 	void onLateUpdate(float deltaTime) override;
 

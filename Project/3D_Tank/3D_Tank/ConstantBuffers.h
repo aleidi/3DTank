@@ -5,7 +5,8 @@ template<typename C>
 class ConstantBuffers : public Bindable
 {
 public:
-	ConstantBuffers(Graphics& gfx, const C& consts)
+	ConstantBuffers(Graphics& gfx, const C& consts, UINT slot = 0u)
+		:mSlot(slot)
 	{
 		D3D11_BUFFER_DESC cbd;
 		cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -20,7 +21,8 @@ public:
 		getDevice(gfx)->CreateBuffer(&cbd, &csd, &pConstantBuffer);
 	}
 
-	ConstantBuffers(Graphics& gfx)
+	ConstantBuffers(Graphics& gfx, UINT slot = 0u)
+		:mSlot(slot)
 	{
 		D3D11_BUFFER_DESC cbd;
 		cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -46,18 +48,20 @@ public:
 
 protected:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pConstantBuffer;
+	UINT mSlot;
 };
 
 template<typename C>
 class VertexConstantBuffer : public ConstantBuffers<C>
 {
 	using ConstantBuffers<C>::pConstantBuffer;
+	using ConstantBuffers<C>::mSlot;
 	using Bindable::getContext;
 public:
 	using ConstantBuffers<C>::ConstantBuffers;
 	void bind(Graphics& gfx) noexcept override
 	{
-		getContext(gfx)->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+		getContext(gfx)->VSSetConstantBuffers(mSlot, 1u, pConstantBuffer.GetAddressOf());
 	}
 };
 
@@ -65,12 +69,13 @@ template<typename C>
 class PixelConstantBuffer : public ConstantBuffers<C>
 {
 	using ConstantBuffers<C>::pConstantBuffer;
+	using ConstantBuffers<C>::mSlot;
 	using Bindable::getContext;
 public:
 	using ConstantBuffers<C>::ConstantBuffers;
 	void bind(Graphics& gfx) noexcept override
 	{
-		getContext(gfx)->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+		getContext(gfx)->PSSetConstantBuffers(mSlot, 1u, pConstantBuffer.GetAddressOf());
 	}
 };
 
@@ -78,11 +83,12 @@ template<typename C>
 class GeometryConstantBuffer : public ConstantBuffers<C>
 {
 	using ConstantBuffers<C>::pConstantBuffer;
+	using ConstantBuffers<C>::mSlot;
 	using Bindable::getContext;
 public:
 	using ConstantBuffers<C>::ConstantBuffers;
 	void bind(Graphics& gfx) noexcept override
 	{
-		getContext(gfx)->GSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+		getContext(gfx)->GSSetConstantBuffers(mSlot, 1u, pConstantBuffer.GetAddressOf());
 	}
 };
