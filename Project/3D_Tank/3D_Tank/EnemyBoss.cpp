@@ -77,8 +77,6 @@ EnemyBoss::EnemyBoss(int id)
 	//RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
 	//mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
 	mBattery->attach(*this);
-
-	mDefaultPos = mTransform->getPosition();
 }
 
 EnemyBoss::~EnemyBoss()
@@ -124,12 +122,5 @@ void EnemyBoss::onUpdate(float deltaTime)
 	{
 		mOffset = 0.0f;
 	}
-	Vector3 pos = mDefaultPos;
-	mTransform->setPosition(Vector3(pos.x, pos.y + sinf(mOffset)*0.1f, pos.z));
+	mTransform->translate(Vector3(0.0f, sinf(mOffset)*deltaTime, 0.0f));
 }
-
-void EnemyBoss::setDefaultPosition(const Vector3 & pos)
-{
-	mDefaultPos = pos;
-}
-
