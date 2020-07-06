@@ -77,6 +77,7 @@ void EnemyBoss::showHP(bool value)
 {
 	mFrame->setEnable(value);
 	mImage->setEnable(value);
+	mName->setEnable(value);
 }
 
 void EnemyBoss::onLateUpdate(float deltaTime)
