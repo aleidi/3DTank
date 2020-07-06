@@ -69,8 +69,6 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 
 	Dispatch->DispatchDelayedMessages();
 
-	wakeupWave(firstWaveAI);
-	
 	if (!secondloaded && isWaveClear(firstWaveAI) ) {
 		loadSecondWave();
 		wakeupWave(secondWaveAI);	
@@ -287,6 +285,7 @@ void Level02::loadResourcce()
 	mCurrentGameMode = new GameModeTP();
 
 	loadFirstWave();
+	wakeupWave(firstWaveAI);
 
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 
