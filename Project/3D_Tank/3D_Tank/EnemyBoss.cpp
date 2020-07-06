@@ -4,6 +4,7 @@
 #include "UIImage.h"
 #include "UIImage3D.h"
 #include "UIText.h"
+#include "GameCommon.h"
 
 EnemyBoss::EnemyBoss(int id)
 {
@@ -77,12 +78,7 @@ EnemyBoss::EnemyBoss(int id)
 	//mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
 	mBattery->attach(*this);
 
-	//crate magic circle
-	mMagicCircle = SceneManager::sGetInstance()->createUIImage3D(L"VFX/fazhen_00003");
-	mMagicCircle->setEnable(true);
-	//auto pos = mBattery->getTransform()->getPosition();
-	mMagicCircle->setPosition(0,10,10);
-	mMagicCircle->setSize(5, 5);
+	mDefaultPos = mTransform->getPosition();
 }
 
 EnemyBoss::~EnemyBoss()
@@ -92,7 +88,6 @@ EnemyBoss::~EnemyBoss()
 	SceneManager::sGetInstance()->removreUIFromPool(mFrame);
 	SceneManager::sGetInstance()->removreUIFromPool(mImage);
 	SceneManager::sGetInstance()->removreUIFromPool(mName);
-	SceneManager::sGetInstance()->removeUI3DFromPool(mMagicCircle);
 }
 
 void EnemyBoss::showUI(bool value)
@@ -120,5 +115,21 @@ void EnemyBoss::ChangeMode(Mode mode)
 void EnemyBoss::onLateUpdate(float deltaTime)
 {
 	mImage->setFillAmount((float)mAttribute.m_HP / (float)mAttribute.FullHP);
+}
+
+void EnemyBoss::onUpdate(float deltaTime)
+{
+	mOffset += deltaTime;
+	if (mOffset > 2 * Pi)
+	{
+		mOffset = 0.0f;
+	}
+	Vector3 pos = mDefaultPos;
+	mTransform->setPosition(Vector3(pos.x, pos.y + sinf(mOffset)*0.1f, pos.z));
+}
+
+void EnemyBoss::setDefaultPosition(const Vector3 & pos)
+{
+	mDefaultPos = pos;
 }
 
