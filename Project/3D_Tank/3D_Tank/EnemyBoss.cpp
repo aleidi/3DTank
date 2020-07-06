@@ -46,6 +46,7 @@ EnemyBoss::EnemyBoss(int id)
 	Material mat;
 	mat.Color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	mImage->setMaterial(mat);
+	mImage->setFillType(FillType::HR);
 
 	mName = SceneManager::sGetInstance()->createUIText(L"???");
 	mName->setPosition(WINDOW_WIDTH*0.5f, WINDOW_HEIGHT*0.82f);
@@ -82,6 +83,6 @@ void EnemyBoss::showUI(bool value)
 
 void EnemyBoss::onLateUpdate(float deltaTime)
 {
-	mMagicCircle->rotate(0.0f, 0.0f, deltaTime*0.1f);
+	mImage->setFillAmount((float)mAttribute.m_HP / (float)mAttribute.FullHP);
 }
 
