@@ -354,6 +354,7 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 	*/
 	//	if( !isHit)
 		pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+		AITank->playAttackParticle();
 	//	else;
 	} 
 	//////////////////////////////////////////////////////////////////////
@@ -541,7 +542,7 @@ Death* Death::getInstance() {
 }
 
 void Death::enter(AIController* pEnemyTank) {
-
+	AITank->playDeathParticle();
 	//MessageBox(0, L"awsl", 0, 0);
 }
 
