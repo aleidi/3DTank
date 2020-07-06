@@ -9,6 +9,8 @@ Plane::Plane(RenderComponent * owner)
 Plane::Plane(RenderComponent * owner, const std::wstring & texture)
 	:Mesh(owner)
 {
+	enableDraw(true);
+
 	Graphics& gfx = RenderManager::sGetInstance()->getGraphics();
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getPlane(mesh);

@@ -4,6 +4,7 @@
 Mesh::Mesh(RenderComponent * owner)
 	:mOwner(owner)
 {
+	enableDraw(true);
 }
 
 void Mesh::onUpdate(float deltaTime) noexcept

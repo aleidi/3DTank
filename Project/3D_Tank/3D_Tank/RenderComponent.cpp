@@ -47,6 +47,11 @@ void RenderComponent::setMaterial(Material mat) noexcept
 	mMesh->setMaterial(mat);
 }
 
+void RenderComponent::enableDraw(bool value) noexcept
+{
+	mMesh->enableDraw(value);
+}
+
 void RenderComponent::initMaterial()
 {
 	mMaterial.Ambient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);

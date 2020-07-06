@@ -4,6 +4,8 @@
 CubeForCol::CubeForCol()
 	:pos({ 0.0f,0.0f,0.0f }), rot({ 0.0f,0.0f,0.0f }), scale({ 1.0f,1.0f,1.0f })
 {
+	enableDraw(true);
+
 	Graphics& gfx = RenderManager::sGetInstance()->getGraphics();
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getCube(mesh);
