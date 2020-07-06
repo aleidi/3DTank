@@ -13,6 +13,7 @@ public:
 	void updateForward(float detaTime);
 	void setTarget(GameObject* t);
 	void setVelocity(const Vector3& dir);
+	Vector3 getVelocity();
 
 private:
 	void initParticle();
