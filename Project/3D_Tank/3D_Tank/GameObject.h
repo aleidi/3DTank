@@ -7,6 +7,7 @@ class Component;
 class Transform;
 class ScriptComponent;
 class SoundComponent;
+class RenderComponent;
 
 class GameObject
 {
@@ -37,14 +38,42 @@ public:
 	bool removeComponent(Component* comp);
 
 	template<typename T = Component>
-	T* getComponent();
+	T* getComponent()
+	{
+		for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+		{
+			T* c = dynamic_cast<T*>(*it);
+			if (c != nullptr)
+			{
+				return c;
+			}
+		}
+		return nullptr;
+	}
 
 	template<typename T>
-	std::vector<T*> getComponents();
+	std::vector<T*> getComponents()
+	{
+		std::vector<T*>list;
+		for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+		{
+			T* c = dynamic_cast<T*>(*it);
+			if (c != nullptr)
+			{
+				list.push_back(*it);
+
+			}
+		}
+		return list;
+	}
+
+	RenderComponent* getRenderComponent();
+	void setRenderComponent(RenderComponent* rc);
 
 	Transform* getTransform() const noexcept;
 	std::string getName() const noexcept;
 	void setName(const std::string& name) noexcept;
+	void enableDraw(bool value);
 
 	GameObject* find(const std::string& name);
 	void attach(const GameObject& obj) noexcept;
@@ -77,6 +106,7 @@ protected:
 	std::string mName;
 	CollisionLayer mColLayer;
 	ObjectTag mTag;
+	RenderComponent* mRc;
 private:
 	Vector3* lastFramePostion;
 };

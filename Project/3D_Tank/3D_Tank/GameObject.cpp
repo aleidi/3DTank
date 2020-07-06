@@ -1,9 +1,9 @@
-#include <typeinfo>
 #include "GameObject.h"
 #include "Component.h"
 #include "Transform.h"
 #include "SceneManager.h"
 #include "ScriptComponent.h"
+#include "RenderComponent.h"
 
 GameObject::GameObject()
 	:mTransform(new Transform(this)),mName("GameObject"),mTag(ObjectTag::Environment)
@@ -69,31 +69,14 @@ bool GameObject::removeComponent(Component * comp)
 	return false;
 }
 
-template<typename T>
-T * GameObject::getComponent()
+RenderComponent * GameObject::getRenderComponent()
 {
-	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
-	{
-		if (typeid(*it) == typeid(T))
-		{
-			return reinterpret_cast<T*>(*it);
-		}
-	}
-	return nullptr;
+	return mRc;
 }
 
-template<typename T>
-std::vector<T*> GameObject::getComponents()
+void GameObject::setRenderComponent(RenderComponent * rc)
 {
-	std::vector<T*>list;
-	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
-	{
-		if (typeid(*it).name == typeid(T*).name)
-		{
-			list.push_back(*it);
-		}
-	}
-	return list;
+	mRc = rc;
 }
 
 Transform * GameObject::getTransform() const noexcept
@@ -109,6 +92,18 @@ std::string GameObject::getName() const noexcept
 void GameObject::setName(const std::string & name) noexcept
 {
 	mName = name;
+}
+
+void GameObject::enableDraw(bool value)
+{
+	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
+	{
+		RenderComponent* rc = dynamic_cast<RenderComponent*>(*it);
+		if (rc != nullptr)
+		{
+			rc->enableDraw(value);
+		}
+	}
 }
 
 GameObject * GameObject::find(const std::string & name)
@@ -141,7 +136,7 @@ void GameObject::deAttach() noexcept
 
 void GameObject::destroy()
 {
-	SceneManager::sGetInstance()->removeGameObjectFromPool(this);
+	SceneManager::sGetInstance()->registerGarbageObj(this);
 }
 
 void GameObject::onStart()

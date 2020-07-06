@@ -242,6 +242,7 @@
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerTank.cpp" />
+    <ClCompile Include="Potion.cpp" />
     <ClCompile Include="PSTransCBuf.cpp" />
     <ClCompile Include="Rasterizer.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
@@ -388,6 +389,7 @@
     <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerTank.h" />
+    <ClInclude Include="Potion.h" />
     <ClInclude Include="PSTransCBuf.h" />
     <ClInclude Include="Rasterizer.h" />
     <ClInclude Include="resource.h" />

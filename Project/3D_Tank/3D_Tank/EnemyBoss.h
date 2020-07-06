@@ -4,17 +4,30 @@
 class EnemyBoss : public EnemyTank
 {
 public:
+	enum Mode
+	{
+		Normal = 0,
+		Super = 1
+	};
+public:
 	EnemyBoss(int id);
 	~EnemyBoss();
 
 	void showUI(bool value);
-
+	void ChangeMode(Mode mode);
 	void onLateUpdate(float deltaTime) override;
+	void onUpdate(float deltaTime) override;
+	void setDefaultPosition(const Vector3& pos);
 
 private:
+	GameObject* mNormalModel;
+	GameObject* mSuperModel;
+
 	UIImage* mImage;
 	UIImage* mFrame;
 	UIText* mName;
-	UIImage3D* mMagicCircle;
+
+	float mOffset;
+	Vector3 mDefaultPos;
 };
 

@@ -16,6 +16,7 @@ public:
 	DirectX::XMMATRIX getWorldMatrix() noexcept;
 	Material getMaterial() const noexcept;
 	void setMaterial(Material mat) noexcept;
+	void enableDraw(bool value) noexcept;
 
 private:
 	void initMaterial();

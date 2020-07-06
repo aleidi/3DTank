@@ -17,6 +17,7 @@ public:
 	void addBind(std::unique_ptr<Bindable> bind) noexcept;
 	void addIndexBuffer(std::unique_ptr<class IndexBuffer> ibuf) noexcept;
 	virtual ~Drawable() = default;
+	void enableDraw(bool value);
 
 protected:
 	void setBlend(Graphics& gfx, const D3D11_BLEND_DESC& bd);
@@ -25,4 +26,5 @@ protected:
 	const IndexBuffer* pIndexBuffer = nullptr;
 	std::list<std::unique_ptr<Bindable>> mBinds;
 	Material mMaterial;
+	bool mCanDraw;;
 };

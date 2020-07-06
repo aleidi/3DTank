@@ -158,7 +158,7 @@ bool SceneManager::removeGameObjectFromPool(GameObject * object) noexcept
 		{
 			delete *it;
 			*it = nullptr;
-			mObjs.erase(it);
+			mObjs.erase(it++);
 			return true;
 		}
 		else
@@ -332,4 +332,33 @@ void SceneManager::onEngineFixedUpdate(float fixedDeltaTime)
 			(*it)->onEngineFixedUpdate(fixedDeltaTime);
 		}
 	}
+}
+
+void SceneManager::onGarbageCollection()
+{
+	if (mGarbageObjs.size() != 0)
+	{
+		for (std::list<GameObject*>::iterator it = mGarbageObjs.begin(); it != mGarbageObjs.end();)
+		{
+				removeGameObjectFromPool(*it);
+				*it = nullptr;
+				mGarbageObjs.erase(it++);
+		}
+	}
+}
+
+void SceneManager::registerGarbageObj(GameObject * obj)
+{
+	for (std::list<GameObject*>::iterator it = mGarbageObjs.begin(); it != mGarbageObjs.end(); ++it)
+	{
+		if (*it != obj)
+		{
+			continue;
+		}
+		else
+		{
+			return;
+		}
+	}
+	mGarbageObjs.push_back(obj);
 }

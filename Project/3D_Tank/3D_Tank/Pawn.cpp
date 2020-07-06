@@ -66,6 +66,11 @@ void Pawn::onCollisionEnter()
 {
 }
 
+void Pawn::addHP(int value)
+{
+	mAttribute.m_HP += value;
+}
+
 void Pawn::setMaxSpeed(float maxspeed) {
 	mAttribute.m_MaxSpeed = maxspeed;
 }

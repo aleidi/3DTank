@@ -5,6 +5,10 @@
 
 void Drawable::draw(Graphics& gfx) noexcept
 {
+	if (!mCanDraw)
+	{
+		return;
+	}
 	for (auto& b : mBinds)
 	{
 		b->bind(gfx);
@@ -41,6 +45,11 @@ void Drawable::addIndexBuffer(std::unique_ptr<IndexBuffer> ibuf) noexcept
 	assert("Attempting to add index buffer a second time" && pIndexBuffer == nullptr);
 	pIndexBuffer = ibuf.get();
 	mBinds.push_back(std::move(ibuf));
+}
+
+void Drawable::enableDraw(bool value)
+{
+	mCanDraw = value;
 }
 
 void Drawable::setBlend(Graphics & gfx, const D3D11_BLEND_DESC & bd)

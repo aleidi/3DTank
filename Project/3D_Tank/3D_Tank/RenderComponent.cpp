@@ -2,11 +2,13 @@
 #include "RenderManager.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "Mesh.h"
 
 RenderComponent::RenderComponent(GameObject* obj)
 	:Component(obj),mMesh()
 {
 	initMaterial();
+	obj->setRenderComponent(this);
 }
 
 RenderComponent::~RenderComponent()
@@ -26,6 +28,7 @@ void RenderComponent::setMesh(Mesh * theMesh) noexcept
 	}
 	mMesh = theMesh;
 	RenderManager::sGetInstance()->addMeshToPool(mMesh);
+	mMesh->setMaterial(mMaterial);
 }
 
 DirectX::XMMATRIX RenderComponent::getWorldMatrix() noexcept
@@ -41,6 +44,12 @@ Material RenderComponent::getMaterial() const noexcept
 void RenderComponent::setMaterial(Material mat) noexcept
 {
 	mMaterial = mat;
+	mMesh->setMaterial(mat);
+}
+
+void RenderComponent::enableDraw(bool value) noexcept
+{
+	mMesh->enableDraw(value);
 }
 
 void RenderComponent::initMaterial()

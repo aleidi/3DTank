@@ -9,6 +9,8 @@ SkyBox::SkyBox(Graphics & gfx, const std::wstring & texture)
 	: mPosX(0.0f), mPosY(0.0f), mPosZ(0.0f),
 	mRotX(0.0f), mRotY(0.0f), mRotZ(0.0f)
 {
+	enableDraw(true);
+
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getSphere(mesh);
 
@@ -40,6 +42,8 @@ SkyBox::SkyBox(Graphics & gfx, const std::wstring & texture)
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	addBind(std::make_unique<Sampler>(gfx, sampDesc));
+
+	addBind(std::make_unique<Blender>(gfx));
 
 	//addBind(std::make_unique<Rasterizer>(gfx));
 
