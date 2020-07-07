@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "GameCommon.h"
+#include "RenderCamera.h"
 
 Camera* Camera::MainCamera = nullptr;
 
@@ -29,4 +30,14 @@ void Camera::onUpdate(float deltaTime)
 void Camera::setFov(float value)
 {
 	targetFov = value;
+}
+
+void Camera::lockOnTarget(float x, float y, float z)
+{
+	RenderCamera::setLockTarget(x, y, z);
+}
+
+void Camera::unlockTarget()
+{
+	RenderCamera::unlockTarget();
 }

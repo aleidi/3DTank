@@ -12,7 +12,7 @@
 #include "SoundManager.h"
 
 PlayerTank::PlayerTank()
-	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
+	:mRotateSpd(30.0f),mMoveSped(8.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
 	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
 	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
@@ -64,7 +64,7 @@ PlayerTank::PlayerTank()
 	mAttribute.FullHP = 1000;
 	mAttribute.m_AttackRangeRadiusSq = 20.0f;
 
-	mLightInterval = 0.5f;
+	mLightInterval = 0.1f;
 	mHeavyInterval = 2.0f;
 	mAttackCount = mLightInterval;
 	mAttackAngle = DirectX::XMConvertToRadians(60);
@@ -195,6 +195,10 @@ void PlayerTank::move(Vector3 value)
 	m_Velocity = value;
 }
 
+void PlayerTank::stopMove()
+{
+}
+
 void PlayerTank::rotate(float value)
 {
 	mTransform->rotateY(value * mRotateSpd);
@@ -243,6 +247,12 @@ void PlayerTank::setCameraFov(float value)
 void PlayerTank::setCameraRotSpd(float value)
 {
 	mCameraRotSpd = value;
+}
+
+void PlayerTank::translate(float x, float y, float z)
+{
+	mTransform->translate(x, y, z);
+	mBattery->getTransform()->translate(x, y, z);
 }
 
 void PlayerTank::hited(int value)
