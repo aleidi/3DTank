@@ -202,6 +202,7 @@ void EnemyTank::onCollisionEnter()
 {
 	float damage = (float)rand() / (float)RAND_MAX * 30.0f + 1.0f;
 	hited(damage);
+	this->setAttacked(true);
 }
 
 void EnemyTank::hited(int damage) {
