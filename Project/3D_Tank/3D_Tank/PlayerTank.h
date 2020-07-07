@@ -26,6 +26,7 @@ public:
 	void stopAttack();
 	void setWeaponType(WeaponType type);
 	void move(Vector3 value) override;
+	void stopMove();
 	void rotate(float value);
 	void rotateCamera(float valueX, float valueY);
 	void adjustDisToCam(float value);

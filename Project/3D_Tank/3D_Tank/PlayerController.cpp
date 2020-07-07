@@ -141,6 +141,16 @@ void PlayerController::checkInput(float deltaTime)
 			}
 		}
 	}
+	
+	if (DInputPC::getInstance().iskeyUp(MOVEFORWARD))
+	{
+		reinterpret_cast<PlayerTank*>(mPawn)->stopMove();
+	}
+	if (DInputPC::getInstance().iskeyUp(MOVEBACK))
+	{
+		reinterpret_cast<PlayerTank*>(mPawn)->stopMove();
+	}
+
 
 	if (DInputPC::getInstance().iskeyDown(LIGHTWEAPON))
 	{

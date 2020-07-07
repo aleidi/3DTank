@@ -195,6 +195,10 @@ void PlayerTank::move(Vector3 value)
 	m_Velocity = value;
 }
 
+void PlayerTank::stopMove()
+{
+}
+
 void PlayerTank::rotate(float value)
 {
 	mTransform->rotateY(value * mRotateSpd);
