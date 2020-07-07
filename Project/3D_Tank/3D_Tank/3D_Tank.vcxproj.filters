@@ -468,6 +468,9 @@
     <ClCompile Include="PlayerTank.cpp">
       <Filter>Game\Source\Pawn</Filter>
     </ClCompile>
+    <ClCompile Include="ShellFlyComponent.cpp">
+      <Filter>Engine\Source\Physics</Filter>
+    </ClCompile>
     <ClCompile Include="FreeType.cpp">
       <Filter>Engine\Source\Misc</Filter>
     </ClCompile>
@@ -609,8 +612,8 @@
     <ClCompile Include="FadeInOut.cpp">
       <Filter>Game\Source\UI</Filter>
     </ClCompile>
-    <ClCompile Include="ShellFlyComponent.cpp">
-      <Filter>Engine\Source\Gameplay\Component</Filter>
+    <ClCompile Include="CameraShake.cpp">
+      <Filter>Game\Source\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -929,6 +932,9 @@
     <ClInclude Include="UIEvent.h">
       <Filter>Engine\Header\Render\Graphics\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="ShellFlyComponent.h">
+      <Filter>Engine\Header\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="FreeType.h">
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
@@ -1067,8 +1073,11 @@
     <ClInclude Include="FadeInOut.h">
       <Filter>Engine\Header</Filter>
     </ClInclude>
-    <ClInclude Include="ShellFlyComponent.h">
-      <Filter>Engine\Header\Gameplay\Component</Filter>
+    <ClInclude Include="PerlinNoise.h">
+      <Filter>Engine\Header\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraShake.h">
+      <Filter>Game\Header\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
