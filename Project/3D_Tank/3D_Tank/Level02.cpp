@@ -61,12 +61,12 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 	
-	std::wstring wstr;
-	float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
-	float y = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().y;
-	float z = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().z;
-	wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
-	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
+	//std::wstring wstr;
+	//float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
+	//float y = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().y;
+	//float z = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().z;
+	//wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
+	//Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
 	
 	RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*10.0f, 0.0f);
 
@@ -74,30 +74,30 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 
 	Dispatch->DispatchDelayedMessages();
 
-	//if (!secondloaded && isWaveClear(firstWaveAI) ) {
+	if (!secondloaded && isWaveClear(firstWaveAI) ) {
 
-	//	count += deltaTime;
-	//	if (count >= 12.0f) {
-	//		count = 0.0f;
-	//		destroyWave(firstWaveAI);
-	//		loadSecondWave();
-	//		wakeupWave(secondWaveAI);
-	//		secondloaded = true;
-	//	}
-	//}
-	//
-	//if (!thirdloaded && secondloaded && isWaveClear(secondWaveAI) ) {
+		count += deltaTime;
+		if (count >= 12.0f) {
+			count = 0.0f;
+			destroyWave(firstWaveAI);
+			loadSecondWave();
+			wakeupWave(secondWaveAI);
+			secondloaded = true;
+		}
+	}
+	
+	if (!thirdloaded && secondloaded && isWaveClear(secondWaveAI) ) {
 
-	//	count += deltaTime;
-	//	if (count >= 12.0f) {
-	//		count = 0.0f;
-	//		destroyWave(secondWaveAI);
-	//		loadThirdWave();
-	//		wakeupWave(thirdWaveAI);
-	//		thirdloaded = true;
-	//	}
-	//}
-	//
+		count += deltaTime;
+		if (count >= 12.0f) {
+			count = 0.0f;
+			destroyWave(secondWaveAI);
+			loadThirdWave();
+			wakeupWave(thirdWaveAI);
+			thirdloaded = true;
+		}
+	}
+	
 	return this;
 }
 
@@ -362,10 +362,11 @@ void Level02::loadResourcce()
 	//mCurrentGameMode->onInit();
 	mCurrentGameMode = new GameModeTP();
 
-	//loadFirstWave();
-	//wakeupWave(firstWaveAI);
-	thirdWaveAI.push_back(new AITank(ent_Tank_SuperEnemy));
+	loadFirstWave();
+	wakeupWave(firstWaveAI);
 
+	//enemy_boss = new AITank(ent_Tank_SuperEnemy);
+	//enemy_boss->getCtrl()->wakeup();
 
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 	//reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->translate(30.0,0,9.0);
@@ -407,7 +408,7 @@ void Level02::loadThirdWave() {
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy08));
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy09));
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy10));
-	//thirdWaveAI.push_back(new AITank(ent_Tank_SuperEnemy));
+	thirdWaveAI.push_back(new AITank(ent_Tank_SuperEnemy));
 }
 
 bool Level02::isWaveClear(std::vector<AITank*> thisWave) {

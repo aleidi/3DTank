@@ -12,6 +12,8 @@
 #include "Math.h"
 #include <assert.h>
 
+#include "Engine.h"
+
 #define getTargetVelocity pBoss->getTarget()->getVelocity()
 #define getTargetSpeed pBoss->getTarget()->getMaxSpeed()
 #define getTargetPos pBoss->getTarget()->getTransform()->getPosition()
@@ -104,7 +106,7 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 	if (BOSS->aiCount > BOSS->attackTimeDelay()) {
 		BOSS->aiCount = 0.0f;
 		if (normalshot < 3) {
-			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
+			//pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
 			BOSS->rotateBattery(0, -offset, 0);
 			normalshot += 1;
 		}
