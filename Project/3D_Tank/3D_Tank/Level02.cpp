@@ -278,7 +278,7 @@ void Level02::loadResourcce()
 	rotation = Vector3(0, -3.1425926 / 2.0, 0);
 	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
 	/////////////////////////////////////
-	position = Vector3(1.0, 0, -26.0);
+	/*position = Vector3(1.0, 0, -26.0);
 	scale = Vector3(0.02, 0.01, 0.03);
 	rotation = Vector3(0, -3.1425926, 0);
 	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
@@ -286,7 +286,7 @@ void Level02::loadResourcce()
 	position = Vector3(-6.0, 0, -19.0);
 	scale = Vector3(0.02, 0.01, 0.03);
 	rotation = Vector3(0, -3.1425926, 0);
-	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
+	obstacles.push_back(new SM_construction_fence(position, rotation, scale));*/
 
 	// obstacles FreightContainer
 	position = Vector3(-19, 0, -50);
@@ -297,24 +297,64 @@ void Level02::loadResourcce()
 	position = Vector3(30.5, 0, -4.0);
 	scale = Vector3(0.018, 0.018, 0.018);
 	rotation = Vector3(0, 25.0, 0);
-	obstacles.push_back(new FreightContainer_A(position, rotation, scale, 1));
+	obstaclesPlay.push_back(new FreightContainer_A(position, rotation, scale, 1));
+
+	position = Vector3(4, 0, -84);
+	scale = Vector3(0.01, 0.01, 0.01);
+	rotation = Vector3(0, 70, 0);
+	obstaclesPlay.push_back(new FreightContainer_A(position, rotation, scale, 1));
+
+	position = Vector3(4, 2.5, -84);
+	scale = Vector3(0.01, 0.01, 0.01);
+	rotation = Vector3(0, 85, 0);
+	obstaclesPlay.push_back(new FreightContainer_A(position, rotation, scale, 1));
 
 	// obstacles WaterTank
-	position = Vector3(7, 0, -26.0);
-	scale = Vector3(0.02, 0.02, 0.02);
-	rotation = Vector3(0, 0, 0);
-	obstacles.push_back(new SM_WaterTank(position, rotation, scale));
+	position = Vector3(2.5, 0, -23.0);
+	scale = Vector3(0.06, 0.02, 0.02);
+	rotation = Vector3(-3.1415926/2.0, 0.2, 0);
+	obstaclesPlay.push_back(new SM_WaterTank(position, rotation, scale));
 
+	position = Vector3(-5.2, 0, -20.0);
+	scale = Vector3(0.06, 0.02, 0.02);
+	rotation = Vector3(0, -0.4, 0);
+	obstaclesPlay.push_back(new SM_WaterTank(position, rotation, scale));
+
+	position = Vector3(-5.2, 0, -20.0);
+	scale = Vector3(0.06, 0.02, 0.02);
+	rotation = Vector3(0, -0.4, 0);
+	obstaclesPlay.push_back(new SM_WaterTank(position, rotation, scale));
+
+	// Crate
+	position = Vector3(-33, 0, -27.5);
+	scale = Vector3(0.02, 0.015, 0.015);
+	rotation = Vector3(0, 0, 0);
+	obstaclesPlay.push_back(new SM_Crate(position, rotation, scale));
+
+	position = Vector3(-35, 0, -26);
+	scale = Vector3(0.02, 0.015, 0.015);
+	rotation = Vector3(0, 0, 0);
+	obstaclesPlay.push_back(new SM_Crate(position, rotation, scale));
+
+	position = Vector3(0, 0.72, -40);
+	scale = Vector3(0.02, 0.015, 0.015);
+	rotation = Vector3(3.1415926/2.0, 0.3, 0);
+	obstaclesPlay.push_back(new SM_Crate(position, rotation, scale));
+
+	position = Vector3(-5, 0, -40);
+	scale = Vector3(0.02, 0.015, 0.015);
+	rotation = Vector3(0, 0.1, 0);
+	obstaclesPlay.push_back(new SM_Crate(position, rotation, scale));
 	////////////////////////////////////////////////////////////////
-	//mCurrentGameMode = new GameModeBase();
-	//mCurrentGameMode->onInit();
-	mCurrentGameMode = new GameModeTP();
+	mCurrentGameMode = new GameModeBase();
+	mCurrentGameMode->onInit();
+	//mCurrentGameMode = new GameModeTP();
 
 	loadFirstWave();
 	wakeupWave(firstWaveAI);
 
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
-	reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->translate(30.0,0,9.0);
+	//reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->translate(30.0,0,9.0);
 
 	// potion
 	potion1 = new Potion();

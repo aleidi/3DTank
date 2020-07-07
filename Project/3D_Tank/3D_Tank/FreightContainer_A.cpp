@@ -11,6 +11,7 @@ FreightContainer_A::FreightContainer_A(const Vector3& position, const Vector3& r
 	mTransform->setPosition(position);
 	mTransform->setScale(scale);
 	mTransform->rotate(rotate.x, rotate.y, rotate.z);
+	(*this).setName("FC_A");
 
 	DirectX::XMFLOAT3 maxP(293.290009f, 261.213013f, 121.915001f);
 	DirectX::XMFLOAT3 minP(-330.609009f, -0.0293269996f, -123.653000f);

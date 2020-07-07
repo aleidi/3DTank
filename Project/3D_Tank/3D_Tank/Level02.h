@@ -23,6 +23,7 @@ private:
 	GameObject* mMap;
 	std::vector<AirWall*> airWalls;
 	std::vector<GameObject*> obstacles;
+	std::vector<GameObject*> obstaclesPlay;
 	std::vector<AITank*> firstWaveAI;
 	std::vector<AITank*> secondWaveAI;
 	std::vector<AITank*> thirdWaveAI;

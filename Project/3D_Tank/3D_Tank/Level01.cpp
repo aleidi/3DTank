@@ -261,7 +261,7 @@ void Level01::leaveLevel()
 	mBtnCN->destroy();
 	mBtnEN->destroy();
 	mBtnShutDown->destroy();
-	mBtnReturn->destroy();;
+	mBtnReturn->destroy();
 	mBtnCancel->destroy();
 
 	delete mStartEvent;

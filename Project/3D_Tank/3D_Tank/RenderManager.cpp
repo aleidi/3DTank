@@ -28,14 +28,6 @@ void RenderManager::Destroy()
 
 void RenderManager::onDraw()
 {
-	for (std::list<UIBase*>::iterator it = mUISPs.begin(); it != mUISPs.end(); ++it)
-	{
-		if (nullptr == *it)
-		{
-			continue;
-		}
-		(*it)->draw(mGraphics);
-	}
 
 	for (std::list<Mesh*>::iterator it = mMeshes.begin(); it != mMeshes.end(); ++it)
 	{
@@ -45,6 +37,7 @@ void RenderManager::onDraw()
 		}
 		(*it)->draw(mGraphics);
 	}
+
 
 	for (std::list<VFXSphere*>::iterator it = mVFXs.begin(); it != mVFXs.end(); ++it)
 	{
@@ -65,6 +58,15 @@ void RenderManager::onPostDraw(float deltaTime)
 			continue;
 		}
 		(*it)->draw(mGraphics, deltaTime);
+	}
+
+	for (std::list<UIBase*>::iterator it = mUISPs.begin(); it != mUISPs.end(); ++it)
+	{
+		if (nullptr == *it)
+		{
+			continue;
+		}
+		(*it)->draw(mGraphics);
 	}
 
 	for (std::list<UIBase*>::iterator it = mUI3Ds.begin(); it != mUI3Ds.end(); ++it)
