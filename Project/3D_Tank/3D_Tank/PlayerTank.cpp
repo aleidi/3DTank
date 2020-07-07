@@ -203,6 +203,7 @@ void PlayerTank::move(Vector3 value)
 
 void PlayerTank::stopMove()
 {
+	SoundManager::sGetInstance()->stop(tankSound->mChannel);
 }
 
 void PlayerTank::rotate(float value)

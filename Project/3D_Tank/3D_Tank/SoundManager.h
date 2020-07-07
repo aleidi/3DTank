@@ -54,7 +54,6 @@ public:
 	void setLisenterPosition(const Vector3& pos);
 	FMOD_RESULT loadSoundFile(const std::string& filepath, const int& soundNum);
 	FMOD_RESULT loadALLSoundFile();
-	//FMOD_RESULT loadSoundFile(const std::string& filepath, const int& soundNum);
 
 private:
 	static SoundManager* sInstance;

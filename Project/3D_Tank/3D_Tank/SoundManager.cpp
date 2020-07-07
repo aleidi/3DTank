@@ -289,7 +289,12 @@ FMOD_RESULT SoundManager::loadALLSoundFile()
 		result = mFmodSystem->createSound(soundfilename, FMOD_3D, NULL, &mFmodSound[i]);
 		if (result != FMOD_OK) return result;
 		if (i == 0) mFmodSound[0]->setMode(FMOD_LOOP_NORMAL);
-		mFmodSound[i]->set3DMinMaxDistance(10.f, 1000.f);
+		if (i == 2) {
+			mFmodSound[i]->set3DMinMaxDistance(20.f, 50.f);
+		}
+		else {
+			mFmodSound[i]->set3DMinMaxDistance(10.f, 1000.f);
+		}
 	}
 	//	//#define FMOD_LOOP_OFF
 	//	//#define FMOD_LOOP_NORMAL

@@ -76,7 +76,7 @@ private:
 	float mHeavyInterval;
 	float mAttackAngle;
 
-	SoundComponent* tankMoveSound;
+	//SoundComponent* tankSound;
 
 	GameObject* mBattery;
 	GameObject* mCamFollower;
