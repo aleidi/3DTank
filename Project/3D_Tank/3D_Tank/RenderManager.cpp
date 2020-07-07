@@ -28,6 +28,15 @@ void RenderManager::Destroy()
 
 void RenderManager::onDraw()
 {
+	for (std::list<UIBase*>::iterator it = mUISPs.begin(); it != mUISPs.end(); ++it)
+	{
+		if (nullptr == *it)
+		{
+			continue;
+		}
+		(*it)->draw(mGraphics);
+	}
+
 	for (std::list<Mesh*>::iterator it = mMeshes.begin(); it != mMeshes.end(); ++it)
 	{
 		if (nullptr == *it)
@@ -75,6 +84,7 @@ void RenderManager::onPostDraw(float deltaTime)
 		}
 		(*it)->draw(mGraphics);
 	}
+
 }
 
 void RenderManager::addMeshToPool(Mesh * mesh) noexcept
@@ -125,9 +135,14 @@ bool RenderManager::removeUIFromPool(UIBase * ui) noexcept
 	return false;
 }
 
-void RenderManager::addUI3DToPool(UIBase * ui) noexcept
+void RenderManager::addUI3DToPool(UIBase * ui, bool isSp) noexcept
 {
-	mUI3Ds.push_back(ui);
+	if (isSp != true)
+	{
+		mUI3Ds.push_back(ui);
+		return;
+	}
+	mUISPs.push_back(ui);
 }
 
 bool RenderManager::removeUI3DFromPool(UIBase * ui) noexcept
@@ -187,6 +202,25 @@ bool RenderManager::removeVFXFromPool(VFXSphere * vfx) noexcept
 			delete *it;
 			*it = nullptr;
 			mVFXs.erase(it++);
+			return true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return false;
+}
+
+bool RenderManager::removeUISPFromSpecial(UIBase * ui) noexcept
+{
+	for (std::list<UIBase*>::iterator it = mUISPs.begin(); it != mUISPs.end();)
+	{
+		if (*it == ui)
+		{
+			delete *it;
+			*it = nullptr;
+			mUISPs.erase(it++);
 			return true;
 		}
 		else

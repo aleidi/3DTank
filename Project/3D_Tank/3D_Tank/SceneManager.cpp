@@ -105,10 +105,10 @@ UIText * SceneManager::createUIText(const std::wstring& text)
 	return ui;
 }
 
-UIImage3D * SceneManager::createUIImage3D(const std::wstring & texPath)
+UIImage3D * SceneManager::createUIImage3D(const std::wstring & texPath, bool isSP)
 {
 	UIImage3D* ui = new UIImage3D(RenderManager::sGetInstance()->getGraphics(), texPath);
-	RenderManager::sGetInstance()->addUI3DToPool(ui);
+	RenderManager::sGetInstance()->addUI3DToPool(ui, isSP);
 	return ui;
 }
 

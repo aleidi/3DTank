@@ -199,11 +199,13 @@ void PlayerTank::move(Vector3 value)
 	m_Velocity = value;
 	SoundManager::sGetInstance()->playSingleSound(tankSound->mChannel, 2);
 	SoundManager::sGetInstance()->setValume(0.3, tankSound->mChannel);
+	mBatteryRotSpd = 1.0f;
 }
 
 void PlayerTank::stopMove()
 {
 	SoundManager::sGetInstance()->stop(tankSound->mChannel);
+	mBatteryRotSpd = 2.0f;
 }
 
 void PlayerTank::rotate(float value)

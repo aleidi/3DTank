@@ -6,10 +6,10 @@ UIHP::UIHP()
 {
 	mName = "UIHP";
 
-	mFrame = SceneManager::sGetInstance()->createUIImage3D(L"UI/HpFrame");
+	mFrame = SceneManager::sGetInstance()->createUIImage3D(L"UI/HpFrame",true);
 	mFrame->setSize(0.42f, 0.057f);
 
-	mImage = SceneManager::sGetInstance()->createUIImage3D(L"");
+	mImage = SceneManager::sGetInstance()->createUIImage3D(L"", true);
 	Material mat;
 	mat.Color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	mImage->setMaterial(mat);
