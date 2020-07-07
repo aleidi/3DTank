@@ -7,6 +7,8 @@ SM_WaterTank::SM_WaterTank(const Vector3 & position, const Vector3 & rotate, con
 	SceneManager::sGetInstance()->createModel(*this, "Objects\\SM_WaterTank_01a", L"Objects\\TX_PortableWaterTank_01_ALB", maxPoint, minPoint);
 	mTransform->setPosition(position);
 	mTransform->setScale(scale);
+	mTransform->setRotation(rotate);
+	(*this).setName("WaterTank");
 
 	DirectX::XMFLOAT3 maxP(118.185997f, 119.725998f, 118.494003f);
 	DirectX::XMFLOAT3 minP(-0.0447370000f, -0.000000000f, -0.000000000f);

@@ -273,9 +273,9 @@ void bindObjectTransform(std::string gameObjectName)
 
 	ImGui::Text("Rotation:");
 	gameObj->getTransform()->setRotation(Vector3(rotationOffset[0], rotationOffset[1], rotationOffset[2]));
-	ImGui::SliderFloat3("label 2", rotationOffset, -10.0f, 10.0f);
+	ImGui::SliderFloat3("label 2", rotationOffset, -5.0f, 5.0f);
 	
 	ImGui::Text("Scale");
 	gameObj->getTransform()->setScale(Vector3(scaleOffset[0], scaleOffset[1], scaleOffset[2]));
-	ImGui::SliderFloat3("label 3", scaleOffset, -10.0f, 10.0f);
+	ImGui::SliderFloat3("label 3", scaleOffset, -0.5f, 0.5f);
 }
