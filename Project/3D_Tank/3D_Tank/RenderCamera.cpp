@@ -5,6 +5,9 @@
 
 #include "Engine.h"
 
+bool RenderCamera::mIsLockOn = false;
+XMFLOAT3 RenderCamera::mLockTarget = XMFLOAT3(0.0f,0.0f,1.0f);
+
 RenderCamera::RenderCamera(const Graphics& gfx)
 	: mPosition(0.0f,0.0f,0.0f), mRotation(0.0f,0.0f,0.0f),
 	mRight(1.0f,0.0f,0.0f),mUp(0.0f,1.0f,0.0f),mForward(0.0f,0.0f,1.0f),
@@ -91,8 +94,16 @@ XMMATRIX RenderCamera::getViewXM() noexcept
 		XMMatrixRotationRollPitchYaw(mRotation.x, mRotation.y, mRotation.z));
 
 	const auto camPosition = XMLoadFloat3(&mPosition);
-	const auto camTarget = camPosition + lookVector;
-	
+	XMVECTOR camTarget;
+	if (!mIsLockOn)
+	{
+		camTarget = camPosition + lookVector;
+	}
+	else
+	{
+		camTarget = XMLoadFloat3(&mLockTarget);
+	}
+
 	auto vec = XMVector3LengthSq(XMVectorSubtract(camTarget, camPosition));
 	if (XMVector3Equal(vec,XMVectorZero()))
 	{
@@ -142,6 +153,19 @@ void RenderCamera::setProjectionType(int type) noexcept
 	{
 		mProjType = ProjectionType::Perspective;
 	}
+}
+
+void RenderCamera::setLockTarget(float x, float y, float z)
+{
+	mIsLockOn = true;
+	mLockTarget.x = x;
+	mLockTarget.y = y;
+	mLockTarget.z = z;
+}
+
+void RenderCamera::unlockTarget()
+{
+	mIsLockOn = false;
 }
 
 void RenderCamera::onUpdate(float deltaTime) noexcept

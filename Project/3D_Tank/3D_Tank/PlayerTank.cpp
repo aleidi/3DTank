@@ -201,6 +201,10 @@ void PlayerTank::move(Vector3 value)
 	SoundManager::sGetInstance()->setValume(0.3, tankSound->mChannel);
 }
 
+void PlayerTank::stopMove()
+{
+}
+
 void PlayerTank::rotate(float value)
 {
 	mTransform->rotateY(value * mRotateSpd);

@@ -29,6 +29,8 @@ public:
 	void setViewport(float topLeftX, float topLeftY, float width, float height, float minDepth, float maxDepth) noexcept;
 	/// 0 for Perspective, 1 for Orthographic , default is Perspective mode
 	void setProjectionType(int type = 0) noexcept;
+	static void setLockTarget(float x, float y, float z);
+	static void unlockTarget();
 
 	void onUpdate(float deltaTime) noexcept;
 
@@ -57,4 +59,7 @@ private:
 	float mFarZ;
 
 	D3D11_VIEWPORT mViewport;
+
+	static bool mIsLockOn;
+	static XMFLOAT3 mLockTarget;
 };
