@@ -40,7 +40,7 @@ AITank::AITank(int ID, int targetID) {
 	}
 
 	if (ID == 6) {
-		m_AICtrl->setPatrol(true, Vector3(-25.0, 0, -82.0), Vector3(0.0, 0, -82.0));
+		m_AICtrl->setPatrol(true, Vector3(-25.0, 0, -82.0), Vector3(-2.0, 0, -82.0));
 	}
 
 	if (ID == 8) {
