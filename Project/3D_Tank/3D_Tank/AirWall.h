@@ -3,7 +3,7 @@
 
 class BoundingCube;
 
-class AirWall : GameObject{
+class AirWall :public GameObject{
 public:
 	AirWall(const Vector3& position, const Vector3& scale);
 	~AirWall();

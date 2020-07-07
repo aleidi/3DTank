@@ -5,6 +5,7 @@
 
 class MovementComponent;
 class UIHP;
+class SoundComponent;
 
 enum MoveDirection{
 	FORWARD, MBACK, RIGHT, LEFT
@@ -82,6 +83,7 @@ protected:
 	MovementComponent* mMovementComp;
 	Attribute mAttribute;
 	Vector3 m_Velocity;
+	SoundComponent* tankSound;
 
 	UIHP* mUIHP;
 };

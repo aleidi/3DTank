@@ -2,6 +2,7 @@
 #include "Pawn.h"
 
 class RenderComponent;
+class SoundComponent;
 class Camera;
 class ParticleSystem;
 
@@ -20,7 +21,7 @@ public:
 	void onUpdate(float deltaTime) override;
 	void onLateUpdate(float deltaTime) override;
 	
-	
+
 	void onAttack(float deltaTime);
 	void setAttack();
 	void stopAttack();
@@ -74,6 +75,8 @@ private:
 	float mLightInterval;
 	float mHeavyInterval;
 	float mAttackAngle;
+
+	//SoundComponent* tankSound;
 
 	GameObject* mBattery;
 	GameObject* mCamFollower;

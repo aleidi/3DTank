@@ -5,6 +5,7 @@
 #include "UIImage3D.h"
 #include "UIText.h"
 #include "GameCommon.h"
+#include "BoundingCube.h"
 
 EnemyBoss::EnemyBoss(int id)
 {
@@ -77,6 +78,10 @@ EnemyBoss::EnemyBoss(int id)
 	//RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
 	//mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
 	mBattery->attach(*this);
+
+	cube = new BoundingCube(this);
+	this->addComponent(cube);
+	cube->createBoundingCube(mTransform->getPosition() + mTransform->Up * 6.f,Vector3(4.5f, 5.5f, 4.5f),1);
 }
 
 EnemyBoss::~EnemyBoss()
@@ -123,4 +128,8 @@ void EnemyBoss::onUpdate(float deltaTime)
 		mOffset = 0.0f;
 	}
 	mTransform->translate(Vector3(0.0f, sinf(mOffset)*deltaTime, 0.0f));
+}
+
+void EnemyBoss::onCollisionEnter()
+{
 }

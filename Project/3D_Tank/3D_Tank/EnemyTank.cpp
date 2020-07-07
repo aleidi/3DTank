@@ -11,6 +11,8 @@
 #include "AIController.h"
 #include "DisplayManager.h"
 #include "ParticleSystem.h"
+#include "SoundComponent.h"
+#include "SoundManager.h"
 
 struct Telegram;
 #define getTargetPos getAICtrl()->getTarget()->getTransform()->getPosition()
@@ -87,6 +89,9 @@ EnemyTank::EnemyTank(int ID, float scale)
 	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
 	bodyBoundingCube->box = out;
 	this->cube = bodyBoundingCube;
+	tankSound = new SoundComponent(this);
+	this->addComponent(tankSound);
+	tankSound->mChannel->set3DMinMaxDistance(2.f, 5.f);
 	/*DirectX::BoundingOrientedBox out1;
 	tankBatteryBoundingCube->box.Transform(out1, mTransform->getLocalToWorldMatrix());
 	tankBatteryBoundingCube->box = out1;
@@ -174,6 +179,8 @@ float EnemyTank::maxTurnRate()const {
 void EnemyTank::move(Vector3 value)
 {
 	mMovementComp->addForce(value);
+	//SoundManager::sGetInstance()->playSingleSound(tankSound->mChannel, 2);
+	//SoundManager::sGetInstance()->setValume(0.1, tankSound->mChannel);
 }
 
 void EnemyTank::rotateBattery(float x, float y, float z)
@@ -274,6 +281,7 @@ void EnemyTank::playHitedParticle()
 
 void EnemyTank::playDeathParticle()
 {
+	SoundManager::sGetInstance()->playOverlapSound(tankSound->mChannel, 4);
 	Vector3 pos = mTransform->getPosition() + Vector3::up*0.2f;
 	mPSDeath->setPosition(pos.x, pos.y, pos.z);
 	mPSDeath->play();

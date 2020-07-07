@@ -6,11 +6,21 @@
 #include "KeycodeRedefine.h"
 #include "Engine.h"
 
+#include "AITank.h"
+#include "AIController.h"
+#include "SM_construction_fence.h"
+#include "SM_WaterTank.h"
+#include "SM_Crate.h"
+#include "FreightContainer_A.h"
+
 static std::map<std::string, bool> selectKey;
-static bool isNewCube = false;
-static bool isNewSphere = false;
-static bool isNewPlane = false;
-static bool isBindChanged = false;
+bool isNewAITank = false;
+bool isNewFence = false;
+bool isNewWaterTank = false;
+bool isNewCrate = false;
+bool isNewFreightContainer_A = false;
+bool isNewFreightContainer_B = false;
+bool isBindChanged = false;
 
 void selectObject(std::string objectName);
 void newObject(std::string gameObjectName);
@@ -72,9 +82,12 @@ void ImGuiFrame::onUpdate(float deltaTime)
 		{
 			if (ImGui::BeginMenu("New"))
 			{
-				ImGui::MenuItem("Cube", NULL, &isNewCube);
-				ImGui::MenuItem("Sphere", NULL, &isNewSphere);
-				ImGui::MenuItem("Plane", NULL, &isNewPlane);
+				ImGui::MenuItem("AI Tank", NULL, &isNewAITank);
+				ImGui::MenuItem("Fence", NULL, &isNewFence);
+				ImGui::MenuItem("Water Tank", NULL, &isNewWaterTank);
+				ImGui::MenuItem("Crate", NULL, &isNewCrate);
+				ImGui::MenuItem("Freight Container A", NULL, &isNewFreightContainer_A);
+				ImGui::MenuItem("Freight Container B", NULL, &isNewFreightContainer_B);
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("Select"))
@@ -124,7 +137,7 @@ void ImGuiFrame::onUpdate(float deltaTime)
 		}
 
 		//New operation
-		isToNew = isNewCube || isNewSphere || isNewPlane;
+		isToNew = isNewAITank || isNewFence || isNewWaterTank || isNewCrate || isNewFreightContainer_A || isNewFreightContainer_B;
 		if (isToNew)
 		{
 			static std::string nameStr;
@@ -192,20 +205,40 @@ void selectObject(std::string objectName)
 void newObject(std::string gameObjectName)
 {
 	GameObject* newObject = nullptr;
-	if (isNewCube)
+	Vector3 position = Vector3(0, 0, 0);
+	Vector3 scale = Vector3(0.01, 0.01, 0.01);
+	Vector3 rotation = Vector3(0, 0, 0);
+	if (isNewAITank)
 	{
-		newObject = SceneManager::sGetInstance()->createCube();
-		isNewCube = false;
+		static int id = 1;
+		newObject = new AITank(id++);
+		reinterpret_cast<AITank*>(newObject)->getCtrl()->wakeup();
+		isNewAITank = false;
 	}
-	if (isNewSphere)
+	if (isNewFence)
 	{
-		newObject = SceneManager::sGetInstance()->createSphere();
-		isNewSphere = false;
+		newObject = new SM_construction_fence(position, rotation, scale);
+		isNewFence = false;
 	}
-	if (isNewPlane)
+	if (isNewWaterTank)
 	{
-		newObject = SceneManager::sGetInstance()->createPlane();
-		isNewPlane = false;
+		newObject = new SM_WaterTank(position, rotation, scale);
+		isNewWaterTank = false;
+	}
+	if (isNewCrate)
+	{
+		newObject = new SM_Crate(position, rotation, scale);
+		isNewCrate = false;
+	}
+	if(isNewFreightContainer_A)
+	{
+		newObject = new FreightContainer_A(position, rotation, scale, 0);
+		isNewFreightContainer_A = false;
+	}
+	if (isNewFreightContainer_B)
+	{
+		newObject = new FreightContainer_A(position, rotation, scale, 1);
+		isNewFreightContainer_B = false;
 	}
 	newObject->setName(gameObjectName);
 }
