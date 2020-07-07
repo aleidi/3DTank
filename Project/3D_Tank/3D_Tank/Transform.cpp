@@ -375,7 +375,7 @@ void Transform::calculateRotForChildren(float angleX, float angleY, float angleZ
 {
 	for (std::list<Transform*>::iterator it = children.begin(); it != children.end(); ++it)
 	{
-		Vector3 pos = (*it)->mPosition;;
+		Vector3 pos = (*it)->mPosition;
 		XMVECTOR v = XMVectorSet(pos.x, pos.y, pos.z, 1.0f);
 		v = XMVector3Rotate(v, XMQuaternionRotationRollPitchYaw(angleX, angleY, angleZ));
 		(*it)->mPosition.x = XMVectorGetX(v);

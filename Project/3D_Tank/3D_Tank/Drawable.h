@@ -26,5 +26,5 @@ protected:
 	const IndexBuffer* pIndexBuffer = nullptr;
 	std::list<std::unique_ptr<Bindable>> mBinds;
 	Material mMaterial;
-	bool mCanDraw;;
+	bool mCanDraw;
 };
