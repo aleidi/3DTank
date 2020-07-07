@@ -19,6 +19,12 @@ public:
 	void onUpdate(float deltaTime) override;
 	void onCollisionEnter() override;
 
+	void superattack();
+
+private:
+	void initParticles() override;
+	void playSuperAttackParticle();
+
 private:
 	GameObject* mNormalModel;
 	GameObject* mSuperModel;
@@ -28,5 +34,7 @@ private:
 	UIText* mName;
 
 	float mOffset;
+
+	ParticleSystem* mPSSuperAttack;
 };
 
