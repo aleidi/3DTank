@@ -74,18 +74,30 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 
 	Dispatch->DispatchDelayedMessages();
 
-	if (!secondloaded && isWaveClear(firstWaveAI) ) {
-		loadSecondWave();
-		wakeupWave(secondWaveAI);	
-		secondloaded = true;
-	}
-	
-	if (!thirdloaded && secondloaded && isWaveClear(secondWaveAI) ) {
-		loadThirdWave();
-		wakeupWave(thirdWaveAI);
-		thirdloaded = true;
-	}
-	
+	//if (!secondloaded && isWaveClear(firstWaveAI) ) {
+
+	//	count += deltaTime;
+	//	if (count >= 12.0f) {
+	//		count = 0.0f;
+	//		destroyWave(firstWaveAI);
+	//		loadSecondWave();
+	//		wakeupWave(secondWaveAI);
+	//		secondloaded = true;
+	//	}
+	//}
+	//
+	//if (!thirdloaded && secondloaded && isWaveClear(secondWaveAI) ) {
+
+	//	count += deltaTime;
+	//	if (count >= 12.0f) {
+	//		count = 0.0f;
+	//		destroyWave(secondWaveAI);
+	//		loadThirdWave();
+	//		wakeupWave(thirdWaveAI);
+	//		thirdloaded = true;
+	//	}
+	//}
+	//
 	return this;
 }
 
@@ -346,12 +358,14 @@ void Level02::loadResourcce()
 	rotation = Vector3(0, 0.1, 0);
 	obstaclesPlay.push_back(new SM_Crate(position, rotation, scale));
 	////////////////////////////////////////////////////////////////
-	mCurrentGameMode = new GameModeBase();
-	mCurrentGameMode->onInit();
-	//mCurrentGameMode = new GameModeTP();
+	//mCurrentGameMode = new GameModeBase();
+	//mCurrentGameMode->onInit();
+	mCurrentGameMode = new GameModeTP();
 
-	loadFirstWave();
-	wakeupWave(firstWaveAI);
+	//loadFirstWave();
+	//wakeupWave(firstWaveAI);
+	thirdWaveAI.push_back(new AITank(ent_Tank_SuperEnemy));
+
 
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 	//reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->translate(30.0,0,9.0);
@@ -383,10 +397,6 @@ void Level02::loadFirstWave() {
 }
 
 void Level02::loadSecondWave() {
-	for (int i = 0; i < firstWaveAI.size(); ++i) {
-		firstWaveAI[i]->destroy();
-	}
-
 	secondWaveAI.push_back(new AITank(ent_Tank_Enemy04));
 	secondWaveAI.push_back(new AITank(ent_Tank_Enemy05));
 	secondWaveAI.push_back(new AITank(ent_Tank_Enemy06));
@@ -394,13 +404,10 @@ void Level02::loadSecondWave() {
 }
 
 void Level02::loadThirdWave() {
-	for (int i = 0; i < secondWaveAI.size(); ++i) {
-		secondWaveAI[i]->destroy();
-	}
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy08));
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy09));
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy10));
-	thirdWaveAI.push_back(new AITank(ent_Tank_SuperEnemy));
+	//thirdWaveAI.push_back(new AITank(ent_Tank_SuperEnemy));
 }
 
 bool Level02::isWaveClear(std::vector<AITank*> thisWave) {
@@ -417,4 +424,10 @@ void Level02::wakeupWave(std::vector<AITank*> thisWave) {
 		wakeupAI(thisWave[i]->getID());
 	}
 
+}
+
+void Level02::destroyWave(std::vector<AITank*> thisWave) {
+	for (int i = 0; i < thisWave.size(); ++i) {
+		thisWave[i]->destroy();
+	}
 }

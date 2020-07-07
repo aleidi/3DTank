@@ -540,7 +540,7 @@ Death* Death::getInstance() {
 }
 
 void Death::enter(AIController* pEnemyTank) {
-	Dispatch->Dispatch_Message(2,
+	Dispatch->Dispatch_Message(1.0f,
 		AITank->getID(),
 		AITank->getID(),
 		Msg_DeathDelay,
