@@ -49,7 +49,7 @@ void RenderManager::onDraw()
 	}
 }
 
-void RenderManager::onPostDraw(float deltaTime)
+void RenderManager::onPostDraw(const float& deltaTime)
 {
 	for (std::list<ParticleSystem*>::iterator it = mParticles.begin(); it != mParticles.end(); ++it)
 	{
@@ -243,7 +243,7 @@ DirectionalLight RenderManager::getDirLight() noexcept
 	return mDirLight;
 }
 
-void RenderManager::rotateLight(float x, float y, float z)
+void RenderManager::rotateLight(const float& x, const float& y, const float& z)
 {
 	XMVECTOR dir = XMLoadFloat3(&mDirLight.Direction);
 	dir = XMVector3Rotate(dir, XMQuaternionRotationRollPitchYaw(

@@ -16,7 +16,7 @@ public:
 	static void Destroy();
 
 	void onDraw();
-	void onPostDraw(float deltaTime);
+	void onPostDraw(const float& deltaTime);
 
 	void addMeshToPool(Mesh* mesh) noexcept;
 	bool removeMeshFromPool(Mesh* mesh) noexcept;
@@ -32,7 +32,7 @@ public:
 
 	Graphics& getGraphics() const;
 	DirectionalLight getDirLight() noexcept;
-	void rotateLight(float x, float y, float z);
+	void rotateLight(const float& x, const float& y, const float& z);
 	void setSkyBox(const std::wstring& texture);
 
 private:

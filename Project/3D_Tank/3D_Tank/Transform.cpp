@@ -55,7 +55,7 @@ void Transform::translate(const Vector3& v)
 	}
 }
 
-void Transform::translate(float x, float y, float z)
+void Transform::translate(const float& x, const float& y, const float& z)
 {
 	mPosition.x += x;
 	mPosition.y += y;
@@ -67,7 +67,7 @@ void Transform::translate(float x, float y, float z)
 	}
 }
 
-void Transform::rotateX(float angle, bool isDeg)
+void Transform::rotateX(const float& angle, bool isDeg)
 {
 	if (isDeg == false)
 	{
@@ -82,7 +82,7 @@ void Transform::rotateX(float angle, bool isDeg)
 	}
 }
 
-void Transform::rotateY(float angle, bool isDeg)
+void Transform::rotateY(const float& angle, bool isDeg)
 {
 	if (isDeg == false)
 	{
@@ -108,7 +108,7 @@ void Transform::rotateY(float angle, bool isDeg)
 	}
 }
 
-void Transform::rotateZ(float angle, bool isDeg)
+void Transform::rotateZ(const float& angle, bool isDeg)
 {
 	if (isDeg == false)
 	{
@@ -120,7 +120,7 @@ void Transform::rotateZ(float angle, bool isDeg)
 	}
 }
 
-void Transform::rotate(float x, float y, float z, bool isDeg)
+void Transform::rotate(const float& x, const float& y, const float& z, bool isDeg)
 {
 	if (isDeg == false)
 	{
