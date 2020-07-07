@@ -211,6 +211,7 @@
     <ClCompile Include="EnemyTank.cpp" />
     <ClCompile Include="EnemyTankOwnedStates.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="FadeInOut.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FreeType.cpp" />
     <ClCompile Include="FreightContainer_A.cpp" />
@@ -349,6 +350,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EntityNames.h" />
     <ClInclude Include="FactoryBase.h" />
+    <ClInclude Include="FadeInOut.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="FreeType.h" />
     <ClInclude Include="FreightContainer_A.h" />

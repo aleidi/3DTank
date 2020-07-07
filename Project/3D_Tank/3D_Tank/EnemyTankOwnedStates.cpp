@@ -88,10 +88,15 @@ void Rest::execute(AIController* pEnemyTank, float deltaTime) {
 			pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
 
-	if (AITank->getHP() == AITank->FullHP) {
+	if (AITank->getHP() >= AITank->FullHP) {
+		AITank->setHP(AITank->FullHP - AITank->getHP());
 		pEnemyTank->getFSM()->changeState(Wander::getInstance());
 	}
 
+
+	if (AITank->getHP() <= 0) {
+		pEnemyTank->getFSM()->changeState(Death::getInstance());
+	}
 }
 
 void Rest::exit(AIController* pEnemyTank) {
@@ -179,6 +184,7 @@ void Wander::exit(AIController* pEnemyTank) {
 }
 
 bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
+	/*
 	switch (msg.Msg) {
 		case Msg_IsAttacked: {
 			//MessageBox(0, L"nmsl(wander", 0, 0);
@@ -186,7 +192,7 @@ bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 		}
 
 		return true;
-	}
+	}*/
 	return false;
 
 }

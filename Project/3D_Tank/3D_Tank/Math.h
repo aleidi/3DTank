@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineCommon.h"
+#include <cmath>
 #include <math.h>
 
 const float Pi = 3.1415926f;
