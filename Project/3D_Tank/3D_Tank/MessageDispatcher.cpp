@@ -128,9 +128,6 @@ void MessageDispatcher::DispatchDelayedMessages()
 		//BaseGameEntity* pReceiver = EntityMgr->getEntityFromID(telegram.Receiver);
 		AIController* pReceiverController = SceneManager::sGetInstance()->getAIController(telegram.Receiver);
 
-		cout << "\nQueued telegram ready for dispatch: Sent to "
-			<< getNameOfEntity(pReceiverController->getID()) << ". Msg is " << MsgToStr(telegram.Msg);
-
 		//send the telegram to the recipient
 		Discharge(pReceiverController, telegram);
 
