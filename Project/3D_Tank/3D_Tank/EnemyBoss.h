@@ -17,6 +17,7 @@ public:
 	void ChangeMode(Mode mode);
 	void onLateUpdate(float deltaTime) override;
 	void onUpdate(float deltaTime) override;
+	void onCollisionEnter() override;
 
 private:
 	GameObject* mNormalModel;

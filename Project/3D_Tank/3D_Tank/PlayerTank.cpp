@@ -9,10 +9,11 @@
 #include "ShellFlyComponent.h"
 #include "ParticleSystem.h"
 #include "ShellContainer.h"
+#include "SoundComponent.h"
 #include "SoundManager.h"
 
 PlayerTank::PlayerTank()
-	:mRotateSpd(30.0f),mMoveSped(8.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
+	:mRotateSpd(30.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
 	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
 	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
@@ -54,6 +55,9 @@ PlayerTank::PlayerTank()
 	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
 	bodyBoundingCube->box = out;
 	this->cube = bodyBoundingCube;
+	tankSound = new SoundComponent(this);
+	this->addComponent(tankSound);
+
 
 	moveDirection = FORWARD;
 	rotateDirection = MRIGHT;
@@ -193,10 +197,13 @@ void PlayerTank::move(Vector3 value)
 	mTransform->translate(value * mMoveSped);
 	mBattery->getTransform()->translate(value * mMoveSped);
 	m_Velocity = value;
+	SoundManager::sGetInstance()->playSingleSound(tankSound->mChannel, 2);
+	SoundManager::sGetInstance()->setValume(0.3, tankSound->mChannel);
 }
 
 void PlayerTank::stopMove()
 {
+	SoundManager::sGetInstance()->stop(tankSound->mChannel);
 }
 
 void PlayerTank::rotate(float value)

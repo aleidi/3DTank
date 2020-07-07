@@ -7,13 +7,13 @@
 SoundComponent::SoundComponent(GameObject * obj) : Component(obj)
 {
 	//mChannel->set3DMinMaxDistance(10.f,20.f);
-	mChannel->setMode(FMOD_3D_CUSTOMROLLOFF);
-	FMOD_VECTOR points[3] = {
-		{1.f,0.8f,0.f},
-		{500.f,0.5f,0.f},
-		{1000.f,0.1f,0.f}
-	};
-	mChannel->set3DCustomRolloff(points,3);
+	//mChannel->setMode(FMOD_3D_CUSTOMROLLOFF);
+	//FMOD_VECTOR points[3] = {
+	//	{1.f,0.8f,0.f},
+	//	{500.f,0.5f,0.f},
+	//	{1000.f,0.1f,0.f}
+	//};
+	//mChannel->set3DCustomRolloff(points,3);
 }
 
 SoundComponent::~SoundComponent()
