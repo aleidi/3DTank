@@ -10,7 +10,7 @@ public:
 	~HUD();
 
 	void setAccelator(float inner, float outer);
-	void onLateUpdate(float deltaTime) override;
+	void onLateUpdate(const float& deltaTime) override;
 
 private:
 	UIImage* mCrossHairInner;

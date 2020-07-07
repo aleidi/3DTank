@@ -12,7 +12,7 @@ public:
 	virtual ~AIController();
 
 	virtual void onStart() override;
-	virtual void onUpdate(float deltaTime) override;
+	virtual void onUpdate(const float& deltaTime) override;
 	void destroy() override;
 
 	virtual void MoveCharacter(Vector3 value);

@@ -13,7 +13,7 @@ public:
 	virtual void onUpdate(float deltaTime) noexcept = 0;
 	virtual void initMaterial() noexcept;
 	virtual Material getMaterial() const;
-	virtual void setMaterial(Material mat);
+	virtual void setMaterial(const Material& mat);
 	void addBind(std::unique_ptr<Bindable> bind) noexcept;
 	void addIndexBuffer(std::unique_ptr<class IndexBuffer> ibuf) noexcept;
 	virtual ~Drawable() = default;

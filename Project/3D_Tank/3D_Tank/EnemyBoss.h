@@ -15,8 +15,8 @@ public:
 
 	void showUI(bool value);
 	void ChangeMode(Mode mode);
-	void onLateUpdate(float deltaTime) override;
-	void onUpdate(float deltaTime) override;
+	void onLateUpdate(const float& deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
 	void onCollisionEnter() override;
 
 	void superattack();

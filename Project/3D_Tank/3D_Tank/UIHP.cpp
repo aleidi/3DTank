@@ -22,7 +22,7 @@ UIHP::~UIHP()
 	SceneManager::sGetInstance()->removeUI3DFromPool(mFrame);
 }
 
-void UIHP::onLateUpdate(float deltaTime)
+void UIHP::onLateUpdate(const float& deltaTime)
 {
 	Vector3 pos = mTransform->getPosition();
 	mFrame->setPosition(pos.x, pos.y, pos.z);

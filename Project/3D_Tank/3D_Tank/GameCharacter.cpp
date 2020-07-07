@@ -18,7 +18,7 @@ void GameCharacter::onStart()
 {
 }
 
-void GameCharacter::onUpdate(float deltaTime)
+void GameCharacter::onUpdate(const float& deltaTime)
 {
 }
 

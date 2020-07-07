@@ -17,7 +17,7 @@ AnimationTitle::~AnimationTitle()
 	SceneManager::sGetInstance()->removreUIFromPool(mImage);
 }
 
-void AnimationTitle::onLateUpdate(float deltaTime)
+void AnimationTitle::onLateUpdate(const float& deltaTime)
 {
 	if (mIsActive != true)
 	{

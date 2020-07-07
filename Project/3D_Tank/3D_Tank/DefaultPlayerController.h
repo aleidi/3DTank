@@ -9,7 +9,7 @@ public:
 	~DefaultPlayerController();
 
 	void onStart() override;
-	void onUpdate(float deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
 
 private:
 	float mRspdX;

@@ -17,7 +17,7 @@ void DefaultPlayerController::onStart()
 	ControllerBase::onStart();
 }
 
-void DefaultPlayerController::onUpdate(float deltaTime)
+void DefaultPlayerController::onUpdate(const float& deltaTime)
 {
 	ControllerBase::onUpdate(deltaTime);
 

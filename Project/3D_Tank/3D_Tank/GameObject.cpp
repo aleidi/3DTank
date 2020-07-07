@@ -147,7 +147,7 @@ void GameObject::onStart()
 	}
 }
 
-void GameObject::onUpdate(float deltaTime)
+void GameObject::onUpdate(const float& deltaTime)
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
 	{
@@ -156,7 +156,7 @@ void GameObject::onUpdate(float deltaTime)
 	mTransform->onUpdate(deltaTime);
 }
 
-void GameObject::onLateUpdate(float deltaTime)
+void GameObject::onLateUpdate(const float& deltaTime)
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
 	{
@@ -165,7 +165,7 @@ void GameObject::onLateUpdate(float deltaTime)
 	mTransform->onLateUpdate(deltaTime);
 }
 
-void GameObject::onEngineUpdate(float deltaTime)
+void GameObject::onEngineUpdate(const float& deltaTime)
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
 	{
@@ -174,7 +174,7 @@ void GameObject::onEngineUpdate(float deltaTime)
 	mTransform->onEngineUpdate(deltaTime);
 }
 
-void GameObject::onEngineFixedUpdate(float fixedDeltaTime)
+void GameObject::onEngineFixedUpdate(const float& fixedDeltaTime)
 {
 	for (std::list<Component*>::iterator it = mComps.begin(); it != mComps.end(); ++it)
 	{

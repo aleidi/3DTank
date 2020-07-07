@@ -29,7 +29,7 @@ Material Drawable::getMaterial() const
 	return mMaterial;
 }
 
-void Drawable::setMaterial(Material mat)
+void Drawable::setMaterial(const Material& mat)
 {
 	mMaterial = mat;
 }

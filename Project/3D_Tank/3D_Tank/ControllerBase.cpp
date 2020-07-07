@@ -10,7 +10,7 @@ void ControllerBase::onStart()
 	GameObject::onStart();
 }
 
-void ControllerBase::onUpdate(float deltaTime)
+void ControllerBase::onUpdate(const float& deltaTime)
 {
 	GameObject::onUpdate(deltaTime);
 }

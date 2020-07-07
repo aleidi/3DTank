@@ -29,7 +29,7 @@ FadeInOut::~FadeInOut()
 	SceneManager::sGetInstance()->removreUIFromPool(mImage);
 }
 
-void FadeInOut::onLateUpdate(float deltaTime)
+void FadeInOut::onLateUpdate(const float& deltaTime)
 {
 	if (mIsActivate != true || mIsEnd == true)
 	{

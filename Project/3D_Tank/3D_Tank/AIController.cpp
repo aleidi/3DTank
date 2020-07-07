@@ -17,7 +17,7 @@ AIController::AIController(int id)
 	:mID(id),mAccumulateRot(0),ControllerBase(-1)
 {
  	m_pStateMachine = new StateMachine<AIController>(this);
-  	m_pStateMachine->setCurrentState(Sleeep::getInstance());
+  	m_pStateMachine->setCurrentState(Rest::getInstance());
 	m_target = GameInstance::sGetInstance()->getPlayer();
 
 }
@@ -32,7 +32,7 @@ void AIController::onStart()
 {
 }
 
-void AIController::onUpdate(float deltaTime)
+void AIController::onUpdate(const float& deltaTime)
 {
 	m_pStateMachine->update(deltaTime);
 	// MoveCharacter(Vector3::right * deltaTime);

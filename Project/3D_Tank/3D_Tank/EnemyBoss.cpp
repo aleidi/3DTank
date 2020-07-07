@@ -118,12 +118,12 @@ void EnemyBoss::ChangeMode(Mode mode)
 	}
 }
 
-void EnemyBoss::onLateUpdate(float deltaTime)
+void EnemyBoss::onLateUpdate(const float& deltaTime)
 {
 	mImage->setFillAmount((float)mAttribute.m_HP / (float)mAttribute.FullHP);
 }
 
-void EnemyBoss::onUpdate(float deltaTime)
+void EnemyBoss::onUpdate(const float& deltaTime)
 {
 	mOffset += deltaTime;
 	if (mOffset > 2 * Pi)

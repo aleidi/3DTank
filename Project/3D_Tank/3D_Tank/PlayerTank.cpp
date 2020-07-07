@@ -92,7 +92,7 @@ PlayerTank::~PlayerTank()
 
 }
 
-void PlayerTank::onUpdate(float deltaTime)
+void PlayerTank::onUpdate(const float& deltaTime)
 {
 	Pawn::onUpdate(deltaTime);
 
@@ -103,7 +103,7 @@ void PlayerTank::onUpdate(float deltaTime)
 	SoundManager::sGetInstance()->setLisenterPosition(mTransform->getPosition());
 }
 
-void PlayerTank::onLateUpdate(float deltaTime)
+void PlayerTank::onLateUpdate(const float& deltaTime)
 {
 	Pawn::onLateUpdate(deltaTime);
 

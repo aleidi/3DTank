@@ -9,7 +9,7 @@ public:
 	virtual ~GameCharacter();
 
 	virtual void onStart() override;
-	virtual void onUpdate(float deltaTime) override;
+	virtual void onUpdate(const float& deltaTime) override;
 	virtual void Move(Vector3 value);
 
 	MovementComponent* getMoveComponent();

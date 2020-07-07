@@ -100,7 +100,7 @@ int Shell::getShelltype()
 	return this->shellType;
 }
 
-void Shell::onUpdate(float deltaTime)
+void Shell::onUpdate(const float& deltaTime)
 {
 	if (this->onTrigger == true) {
 		if (CollisionManager::sGetInstance()->collisionCheck_SphereToCube(this->shell->sphere, &attactTank) == true) {

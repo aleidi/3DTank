@@ -7,7 +7,7 @@ public:
 	PlayerController();
 	~PlayerController();
 
-	virtual void onUpdate(float deltaTime) override;
+	virtual void onUpdate(const float& deltaTime) override;
 private:
 	void move(Vector3 value);
 	void rotate(float value);

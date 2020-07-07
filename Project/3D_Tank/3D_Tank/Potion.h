@@ -9,7 +9,7 @@ public:
 	Potion();
 	~Potion();
 
-	void onUpdate(float deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
 	
 	void setHeal(float value);
 

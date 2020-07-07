@@ -28,7 +28,7 @@ Potion::~Potion()
 	mPotion->destroy();
 }
 
-void Potion::onUpdate(float deltaTime)
+void Potion::onUpdate(const float& deltaTime)
 {
 	mOffset += deltaTime;
 	if (mOffset > 2 * Pi)

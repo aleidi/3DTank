@@ -16,7 +16,7 @@ public:
 	FadeInOut(const std::wstring& image, float width, float height, float posX, float posY, float fadeTime, Type type);
 	~FadeInOut();
 	
-	void onLateUpdate(float deltaTime) override;
+	void onLateUpdate(const float& deltaTime) override;
 	void setEnable(bool value);
 	bool isEnd();
 
