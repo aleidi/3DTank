@@ -3,7 +3,7 @@
 
 VFXSphere::VFXSphere(Graphics& gfx)
 	:mX(0.0f),mY(0.0f),mZ(0.0f),mPitch(0.0f),mYaw(0.0f),mRoll(0.0f),
-	mTileOffsetX(0.0f),mTileOffsetY(0.0f)
+	mTileOffsetX(0.0f),mTileOffsetY(0.0f),mScaleX(1.0f),mScaleY(1.0f),mScaleZ(1.0f)
 {
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getSphere(mesh);
@@ -51,41 +51,46 @@ void VFXSphere::onUpdate(float deltaTime) noexcept
 DirectX::XMMATRIX VFXSphere::getTransformXM() const noexcept
 {
 	return DirectX::XMMatrixRotationRollPitchYaw(mPitch, mYaw, mRoll) *
+		DirectX::XMMatrixScaling(mScaleX, mScaleY, mScaleZ) *
 		DirectX::XMMatrixTranslation(mX, mY, mZ);
 }
 
-void VFXSphere::tileOffset(float x, float y)
+void VFXSphere::tileOffset(const float& x, const float& y)
 {
 	mTileOffsetX += x;
 	mTileOffsetY += y;
 }
 
-void VFXSphere::setPosition(float x, float y, float z)
+void VFXSphere::setPosition(const float& x, const float& y, const float& z)
 {
 	mX = x;
 	mY = y;
 	mZ = z;
 }
 
-void VFXSphere::translate(float x, float y, float z)
+void VFXSphere::translate(const float& x, const float& y, const float& z)
 {
 	mX += x;
 	mY += y;
 	mZ += z;
 }
 
-void VFXSphere::rotate(float pitch, float yaw, float roll)
+void VFXSphere::rotate(const float& pitch, const float& yaw, const float& roll)
 {
 	mPitch += pitch;
 	mYaw += yaw;
 	mRoll += roll;
 }
 
-void VFXSphere::setRotation(float pitch, float yaw, float roll)
+void VFXSphere::setRotation(const float& pitch, const float& yaw, const float& roll)
 {
 	mPitch = pitch;
 	mYaw = yaw;
 	mRoll = roll;
+}
+
+void VFXSphere::setScale(const float & x, const float & y, const float & z)
+{
 }
 
 void VFXSphere::draw(Graphics& gfx) noexcept
