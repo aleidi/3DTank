@@ -112,12 +112,12 @@ bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 			return true;
 		}
 
-		case Msg_IsAttacked: {
-			//MessageBox(0, L"nmsl(rest", 0, 0);
-			AITank->setAttacked(true);
-			return true;
-		}
-							 
+		//case Msg_IsAttacked: {
+		//	//MessageBox(0, L"nmsl(rest", 0, 0);
+		//	AITank->setAttacked(true);
+		//	return true;
+		//}
+		//					 
 	}
 	return false;
 }
@@ -540,7 +540,13 @@ Death* Death::getInstance() {
 }
 
 void Death::enter(AIController* pEnemyTank) {
-	AITank->playDeathParticle();
+	Dispatch->Dispatch_Message(2,
+		AITank->getID(),
+		AITank->getID(),
+		Msg_DeathDelay,
+		NO_ADDITIONAL_INFO);
+
+	//AITank->playDeathParticle();
 	//MessageBox(0, L"awsl", 0, 0);
 }
 
@@ -556,5 +562,12 @@ void Death::exit(AIController* pEnemyTank) {
 }
 
 bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
+	switch (msg.Msg) {
+	case Msg_DeathDelay: {
+		AITank->playDeathParticle();
+		return true;
+	}
+
+	}
 	return false;
 }
