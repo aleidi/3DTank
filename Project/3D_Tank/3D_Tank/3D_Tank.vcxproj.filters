@@ -609,6 +609,9 @@
     <ClCompile Include="Potion.cpp">
       <Filter>Game\Source\Item</Filter>
     </ClCompile>
+    <ClCompile Include="FadeInOut.cpp">
+      <Filter>Game\Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -1063,6 +1066,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeInOut.h">
+      <Filter>Engine\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

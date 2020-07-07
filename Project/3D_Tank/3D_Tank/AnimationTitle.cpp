@@ -15,7 +15,6 @@ AnimationTitle::AnimationTitle(float posStartX, float posStartY, float animTime1
 AnimationTitle::~AnimationTitle()
 {
 	SceneManager::sGetInstance()->removreUIFromPool(mImage);
-	mImage = nullptr;
 }
 
 void AnimationTitle::onLateUpdate(float deltaTime)

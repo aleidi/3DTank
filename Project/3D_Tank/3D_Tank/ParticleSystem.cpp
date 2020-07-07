@@ -130,7 +130,6 @@ void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
 			mIsActivate = false;
 			return;
 		}
-		Engine::sGetInstance()->showtText(std::to_wstring(mTimeCount), 0, 0, 500, 500, true);
 	}
 	if (mIsActivate != true && count == mParticles.size())
 	{
