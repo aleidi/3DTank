@@ -9,6 +9,7 @@
 #include "ShellFlyComponent.h"
 #include "ParticleSystem.h"
 #include "ShellContainer.h"
+#include "SoundComponent.h"
 #include "SoundManager.h"
 
 PlayerTank::PlayerTank()
@@ -54,6 +55,9 @@ PlayerTank::PlayerTank()
 	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
 	bodyBoundingCube->box = out;
 	this->cube = bodyBoundingCube;
+	tankSound = new SoundComponent(this);
+	this->addComponent(tankSound);
+
 
 	moveDirection = FORWARD;
 	rotateDirection = MRIGHT;
@@ -64,7 +68,7 @@ PlayerTank::PlayerTank()
 	mAttribute.FullHP = 1000;
 	mAttribute.m_AttackRangeRadiusSq = 20.0f;
 
-	mLightInterval = 0.5f;
+	mLightInterval = 0.1f;
 	mHeavyInterval = 2.0f;
 	mAttackCount = mLightInterval;
 	mAttackAngle = DirectX::XMConvertToRadians(60);
@@ -193,6 +197,13 @@ void PlayerTank::move(Vector3 value)
 	mTransform->translate(value * mMoveSped);
 	mBattery->getTransform()->translate(value * mMoveSped);
 	m_Velocity = value;
+	SoundManager::sGetInstance()->playSingleSound(tankSound->mChannel, 2);
+	SoundManager::sGetInstance()->setValume(0.3, tankSound->mChannel);
+}
+
+void PlayerTank::stopMove()
+{
+	SoundManager::sGetInstance()->stop(tankSound->mChannel);
 }
 
 void PlayerTank::rotate(float value)
@@ -243,6 +254,12 @@ void PlayerTank::setCameraFov(float value)
 void PlayerTank::setCameraRotSpd(float value)
 {
 	mCameraRotSpd = value;
+}
+
+void PlayerTank::translate(float x, float y, float z)
+{
+	mTransform->translate(x, y, z);
+	mBattery->getTransform()->translate(x, y, z);
 }
 
 void PlayerTank::hited(int value)

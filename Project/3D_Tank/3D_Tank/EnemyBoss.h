@@ -17,7 +17,7 @@ public:
 	void ChangeMode(Mode mode);
 	void onLateUpdate(float deltaTime) override;
 	void onUpdate(float deltaTime) override;
-	void setDefaultPosition(const Vector3& pos);
+	void onCollisionEnter() override;
 
 private:
 	GameObject* mNormalModel;
@@ -28,6 +28,5 @@ private:
 	UIText* mName;
 
 	float mOffset;
-	Vector3 mDefaultPos;
 };
 

@@ -5,6 +5,7 @@
 #include "UIImage3D.h"
 #include "UIText.h"
 #include "GameCommon.h"
+#include "BoundingCube.h"
 
 EnemyBoss::EnemyBoss(int id)
 {
@@ -78,7 +79,9 @@ EnemyBoss::EnemyBoss(int id)
 	//mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
 	mBattery->attach(*this);
 
-	mDefaultPos = mTransform->getPosition();
+	cube = new BoundingCube(this);
+	this->addComponent(cube);
+	cube->createBoundingCube(mTransform->getPosition() + mTransform->Up * 6.f,Vector3(4.5f, 5.5f, 4.5f),1);
 }
 
 EnemyBoss::~EnemyBoss()
@@ -124,12 +127,9 @@ void EnemyBoss::onUpdate(float deltaTime)
 	{
 		mOffset = 0.0f;
 	}
-	Vector3 pos = mDefaultPos;
-	mTransform->setPosition(Vector3(pos.x, pos.y + sinf(mOffset)*0.1f, pos.z));
+	mTransform->translate(Vector3(0.0f, sinf(mOffset)*deltaTime, 0.0f));
 }
 
-void EnemyBoss::setDefaultPosition(const Vector3 & pos)
+void EnemyBoss::onCollisionEnter()
 {
-	mDefaultPos = pos;
 }
-

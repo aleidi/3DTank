@@ -22,6 +22,8 @@ public:
 	bool IsPerpective;
 
 	static Camera* MainCamera;
+	static void lockOnTarget(float x, float y, float z);
+	static void unlockTarget();
 private:
 	float targetFov;
 

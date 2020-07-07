@@ -60,6 +60,11 @@ void Transform::translate(float x, float y, float z)
 	mPosition.x += x;
 	mPosition.y += y;
 	mPosition.z += z;
+	if (this->getObject()->cube != NULL && this->getObject()->cube->moveable == 1) {
+		this->getObject()->cube->box.Center.x += x;
+		this->getObject()->cube->box.Center.y += y;
+		this->getObject()->cube->box.Center.z += z;
+	}
 }
 
 void Transform::rotateX(float angle, bool isDeg)

@@ -1,18 +1,18 @@
 #pragma once
-#include <DirectXMath.h>
 #include "EnemyTank.h"
 #include "Telegram.h"
-#include "MessageDispatcher.h"
 #include "MessageTypes.h"
 #include "ComponentBase.h"
 #include "AIMovementComponent.h"
-#include "GameInstance.h"
 #include "CollisionManager.h"
 #include "Shell.h"
 #include "FileManager.h"
 #include "Math.h"
 #include "AIController.h"
 #include "DisplayManager.h"
+#include "ParticleSystem.h"
+#include "SoundComponent.h"
+#include "SoundManager.h"
 
 struct Telegram;
 #define getTargetPos getAICtrl()->getTarget()->getTransform()->getPosition()
@@ -84,11 +84,14 @@ EnemyTank::EnemyTank(int ID, float scale)
 	mTransform->setScale(scale, scale, scale);
 	mTransform->calcultateTransformMatrix();
 	// m_pStateMachine = new StateMachine<EnemyTank>(this);
-	// m_pStateMachine->setCurrentState(Rest::getInstance());
+	// m_pStateMachine->setCurrentState(Rest::sGetInstance());
 	DirectX::BoundingOrientedBox out;
 	bodyBoundingCube->box.Transform(out, mTransform->getLocalToWorldMatrix());
 	bodyBoundingCube->box = out;
 	this->cube = bodyBoundingCube;
+	tankSound = new SoundComponent(this);
+	this->addComponent(tankSound);
+	tankSound->mChannel->set3DMinMaxDistance(2.f, 5.f);
 	/*DirectX::BoundingOrientedBox out1;
 	tankBatteryBoundingCube->box.Transform(out1, mTransform->getLocalToWorldMatrix());
 	tankBatteryBoundingCube->box = out1;
@@ -101,6 +104,7 @@ EnemyTank::EnemyTank(int ID, float scale)
 	addComponent(mMovementComp);
 	moveDirection = FORWARD;
 
+	initParticles();
 }
 
 EnemyTank::EnemyTank(int ID)
@@ -175,6 +179,8 @@ float EnemyTank::maxTurnRate()const {
 void EnemyTank::move(Vector3 value)
 {
 	mMovementComp->addForce(value);
+	//SoundManager::sGetInstance()->playSingleSound(tankSound->mChannel, 2);
+	//SoundManager::sGetInstance()->setValume(0.1, tankSound->mChannel);
 }
 
 void EnemyTank::rotateBattery(float x, float y, float z)
@@ -208,6 +214,7 @@ void EnemyTank::hited(int damage) {
 	float size = damage*4.0;
 	Math::Clamp(100.0f, 20.0f, size);
 	DisplayManager::sGetInstance()->displayText(std::to_wstring(damage), size, size, pos);
+	playHitedParticle();
 }
 
 void EnemyTank::onCollisionExit()
@@ -221,6 +228,63 @@ void EnemyTank::setAICtrl(AIController * aiController)
 
 AIController* EnemyTank::getAICtrl()const {
 	return mAICtrl;
+}
+
+void EnemyTank::initParticles()
+{
+	mPSAttack = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
+	mPSAttack->setTile(5.0f, 5.0f);
+	mPSAttack->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPSAttack->setEmitRate(1);
+	mPSAttack->setLifeTime(0.3f);
+	mPSAttack->setAnimationInterval(0.3f / 25.0f);
+	mPSAttack->setStartScale(0.2f, 0.2f, 0.2f);
+	mPSAttack->setDuration(0.3f);
+	mPSAttack->setStartScale(1.0f, 1.0f, 1.0f);
+	Material mat;
+	mat.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mPSAttack->setMaterial(mat);
+
+	mPSHited = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
+	mPSHited->setTile(5.0f, 5.0f);
+	mPSHited->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPSHited->setEmitRate(1);
+	mPSHited->setLifeTime(0.3f);
+	mPSHited->setAnimationInterval(0.2f / 25.0f);
+	mPSHited->setStartScale(0.5f, 0.5f, 0.5f);
+	mPSHited->setDuration(0.3f);
+	mPSAttack->setStartScale(1.0f, 1.0f, 1.0f);
+
+	mPSDeath = SceneManager::sGetInstance()->createParticleSystem(L"VFX/xulie_fire052_5x5");
+	mPSDeath->setTile(5.0f, 5.0f);
+	mPSDeath->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPSDeath->setEmitRate(1);
+	mPSDeath->setLifeTime(1.0f);
+	mPSDeath->setAnimationInterval(1.0f / 25.0f);
+	mPSDeath->setStartScale(0.3f, 0.3f, 0.3f);
+	mPSDeath->setDuration(10.0f);
+}
+
+void EnemyTank::playAttackParticle()
+{
+	Vector3 pos = mBattery->getTransform()->getPosition() + mBattery->getTransform()->Forward * 0.8f + mBattery->getTransform()->Up * 0.1f;
+	mPSAttack->setPosition(pos.x, pos.y, pos.z);
+	mPSAttack->play();
+}
+
+void EnemyTank::playHitedParticle()
+{
+	Vector3 pos = mTransform->getPosition() + Vector3::up*0.2f;
+	mPSHited->setPosition(pos.x, pos.y, pos.z);
+	mPSHited->play();
+}
+
+void EnemyTank::playDeathParticle()
+{
+	SoundManager::sGetInstance()->playOverlapSound(tankSound->mChannel, 4);
+	Vector3 pos = mTransform->getPosition() + Vector3::up*0.2f;
+	mPSDeath->setPosition(pos.x, pos.y, pos.z);
+	mPSDeath->play();
 }
 
 Vector3 EnemyTank::batteryForward() const {

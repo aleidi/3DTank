@@ -2,6 +2,7 @@
 
 #include "Level02.h"
 #include "AITank.h"
+#include "PlayerTank.h"
 #include "AIController.h"
 #include "GameModeTP.h"
 #include "RenderManager.h"
@@ -114,7 +115,7 @@ void Level02::loadResourcce()
 	mMap->getTransform()->setScale(0.07f, 0.07f, 0.07f);
 
 	//// seven buildings'
-	
+
 	Vector3 position, scale;
 	position = Vector3(-16.5, 7, 12.5);
 	scale = Vector3(21.5, 14, 16);
@@ -124,52 +125,52 @@ void Level02::loadResourcce()
 	scale = Vector3(22, 14, 22.5);
 	airWalls.push_back(new AirWall(position, scale));
 
-	position = Vector3(17,6.8,-4.3);
-	scale = Vector3(15.2,13.7,44.4);
+	position = Vector3(17, 6.8, -4.3);
+	scale = Vector3(15.2, 13.7, 44.4);
 	airWalls.push_back(new AirWall(position, scale));
 
-	position = Vector3(-16.5,6.5,-40.6);
-	scale = Vector3(21.2,15,15.3);
+	position = Vector3(-16.5, 6.5, -40.6);
+	scale = Vector3(21.2, 15, 15.3);
 	airWalls.push_back(new AirWall(position, scale));
 
-	position = Vector3(17.4,4.9,-40.6);
-	scale = Vector3(15.3,9.8,14.2);
+	position = Vector3(17.4, 4.9, -40.6);
+	scale = Vector3(15.3, 9.8, 14.2);
 	airWalls.push_back(new AirWall(position, scale));
 
-	position = Vector3(-16.8,7,-66.7);
-	scale = Vector3(21.6,14,22.2);
+	position = Vector3(-16.8, 7, -66.7);
+	scale = Vector3(21.6, 14, 22.2);
 	airWalls.push_back(new AirWall(position, scale));
 
-	position = Vector3(17.4,6.5,-65.8);
-	scale = Vector3(15.3,13,21.1);
+	position = Vector3(17.4, 6.5, -65.8);
+	scale = Vector3(15.3, 13, 21.1);
 	airWalls.push_back(new AirWall(position, scale));
 
 	// four walls'
-	position = Vector3(-1,4.5,32.2);
-	scale = Vector3(75,9,0.05);
+	position = Vector3(-1, 4.5, 32.2);
+	scale = Vector3(75, 9, 0.05);
 	airWalls.push_back(new AirWall(position, scale));
 
 	position = Vector3(-1, 4.5, -87.2);
 	scale = Vector3(75, 9, 0.05);
 	airWalls.push_back(new AirWall(position, scale));
 
-	position = Vector3(-37.8,5.5,-28);
-	scale = Vector3(0.05,11.3,120);
+	position = Vector3(-37.8, 5.5, -28);
+	scale = Vector3(0.05, 11.3, 120);
 	airWalls.push_back(new AirWall(position, scale));
 
-	position = Vector3(36.3,5,-28);
-	scale = Vector3(0.05,10.3,120);
+	position = Vector3(36.3, 5, -28);
+	scale = Vector3(0.05, 10.3, 120);
 	airWalls.push_back(new AirWall(position, scale));
 
 	// ground's
-	position = Vector3(-0.8,-0.57,-27.4);
-	scale = Vector3(77.2,1,120);
+	position = Vector3(-0.8, -0.57, -27.4);
+	scale = Vector3(77.2, 1, 120);
 	airWalls.push_back(new AirWall(position, scale));
-	
+
 	// obstacles fence
 	position = Vector3(-38, -0.5, 33);
 	scale = Vector3(0.05, 0.01, 0.01);
-	Vector3 rotation = Vector3(0, -3.1425926/2.0, 0); // PI / 2
+	Vector3 rotation = Vector3(0, -3.1425926 / 2.0, 0); // PI / 2
 	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
 
 	position = Vector3(-38, -0.5, 18);
@@ -276,7 +277,7 @@ void Level02::loadResourcce()
 	scale = Vector3(0.07, 0.01, 0.01);
 	rotation = Vector3(0, -3.1425926 / 2.0, 0);
 	obstacles.push_back(new SM_construction_fence(position, rotation, scale));
-/////////////////////////////////////
+	/////////////////////////////////////
 	position = Vector3(1.0, 0, -26.0);
 	scale = Vector3(0.02, 0.01, 0.03);
 	rotation = Vector3(0, -3.1425926, 0);
@@ -291,7 +292,7 @@ void Level02::loadResourcce()
 	position = Vector3(-19, 0, -50);
 	scale = Vector3(0.03, 0.005, 0.005);
 	rotation = Vector3(0, 0, 0);
-	obstacles.push_back(new FreightContainer_A(position, rotation, scale,1));
+	obstacles.push_back(new FreightContainer_A(position, rotation, scale, 1));
 
 	position = Vector3(30.5, 0, -4.0);
 	scale = Vector3(0.018, 0.018, 0.018);
@@ -305,15 +306,15 @@ void Level02::loadResourcce()
 	obstacles.push_back(new SM_WaterTank(position, rotation, scale));
 
 	////////////////////////////////////////////////////////////////
-	mCurrentGameMode = new GameModeBase();
-	mCurrentGameMode->onInit();
-	//mCurrentGameMode = new GameModeTP();
+	//mCurrentGameMode = new GameModeBase();
+	//mCurrentGameMode->onInit();
+	mCurrentGameMode = new GameModeTP();
 
 	loadFirstWave();
 	wakeupWave(firstWaveAI);
 
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
-	GameInstance::sGetInstance()->getPlayer()->getTransform()->translate(Vector3(30.0,0,9.0));
+	reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->translate(30.0,0,9.0);
 
 	// potion
 	potion1 = new Potion();
@@ -329,14 +330,14 @@ void Level02::wakeupAI(int ID) {
 }
 
 void Level02::loadFirstWave() {
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy01)); //ok
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy01)); //ok
 	firstWaveAI.push_back(new AITank(ent_Tank_Enemy02)); //ok
-	firstWaveAI.push_back(new AITank(ent_Tank_Enemy03)); //ok?
-	firstWaveAI.push_back(new AITank(ent_Tank_Enemy04)); //ok?
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy03)); //ok
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy04)); //ok
 	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy05)); //ok
-	firstWaveAI.push_back(new AITank(ent_Tank_Enemy06)); //ok
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy06)); //ok
 	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy07)); //ok
-	firstWaveAI.push_back(new AITank(ent_Tank_Enemy08)); //ok?
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy08)); //ok
 	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy09)); //ok
 	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy10)); //ok	
 }
