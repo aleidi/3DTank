@@ -3,7 +3,7 @@
 
 class BoundingCube;
 
-class SM_WaterTank :GameObject {
+class SM_WaterTank :public GameObject {
 public:
 	SM_WaterTank(const Vector3& position, const Vector3& rotate, const Vector3& scale);
 	~SM_WaterTank();
