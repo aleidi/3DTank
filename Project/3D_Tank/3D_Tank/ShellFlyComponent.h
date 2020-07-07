@@ -9,7 +9,7 @@ public:
 	ShellFlyComponent(GameObject* obj, const Vector3& direction);
 	~ShellFlyComponent();
 
-	void onUpdate(float detaTime) override;
+	void onUpdate(const float& detaTime) override;
 	void updateForward(float detaTime);
 	void setTarget(GameObject* t);
 	void setVelocity(const Vector3& dir);

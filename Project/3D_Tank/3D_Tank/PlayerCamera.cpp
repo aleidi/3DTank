@@ -23,11 +23,11 @@ PlayerCamera::~PlayerCamera()
 {
 }
 
-void PlayerCamera::onUpdate(float deltaTime)
+void PlayerCamera::onUpdate(const float& deltaTime)
 {
 }
 
-void PlayerCamera::onLateUpdate(float deltaTime)
+void PlayerCamera::onLateUpdate(const float& deltaTime)
 {
 	Position = Math::lerp(Position, mObject->getTransform()->getPosition(), mSpdForPos * deltaTime);
 	Rotation = Math::lerp(Rotation, mObject->getTransform()->getRotation(), mSpdForRot * deltaTime);

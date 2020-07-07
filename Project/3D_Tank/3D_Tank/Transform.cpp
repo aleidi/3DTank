@@ -10,7 +10,7 @@ Transform::Transform(GameObject * obj) noexcept
 {
 }
 
-void Transform::onEngineUpdate(float deltaTime)
+void Transform::onEngineUpdate(const float& deltaTime)
 {
 	calcultateTransformMatrix();
 
@@ -23,7 +23,7 @@ void Transform::onEngineUpdate(float deltaTime)
 	}
 }
 
-void Transform::onUpdate(float deltaTime)
+void Transform::onUpdate(const float& deltaTime)
 {
 	for (std::list<Transform*>::iterator it = children.begin(); it != children.end(); ++it)
 	{
@@ -34,7 +34,7 @@ void Transform::onUpdate(float deltaTime)
 	}
 }
 
-void Transform::onLateUpdate(float deltaTime)
+void Transform::onLateUpdate(const float& deltaTime)
 {
 	for (std::list<Transform*>::iterator it = children.begin(); it != children.end(); ++it)
 	{

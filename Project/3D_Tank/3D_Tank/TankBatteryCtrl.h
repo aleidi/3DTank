@@ -5,5 +5,5 @@ class TankBatteryCtrl : public ScriptComponent
 {
 public:
 	TankBatteryCtrl(GameObject* object) noexcept;
-	void onUpdate(float deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
 };

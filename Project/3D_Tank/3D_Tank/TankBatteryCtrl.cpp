@@ -7,7 +7,7 @@ TankBatteryCtrl::TankBatteryCtrl(GameObject * object) noexcept
 {
 }
 
-void TankBatteryCtrl::onUpdate(float deltaTime)
+void TankBatteryCtrl::onUpdate(const float& deltaTime)
 {
 	if (DInputPC::getInstance().iskey(DIK_NUMPAD9))
 	{

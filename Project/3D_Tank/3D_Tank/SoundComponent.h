@@ -16,7 +16,7 @@ public:
 	void setPosition();
 	void setPosition(const Vector3& val);
 	void setTriggerPosition(const Vector3& pos);
-	void onUpdate(float detalTime) override;
+	void onUpdate(const float& detalTime) override;
 
 	FMOD_VECTOR triggerPosition;
 	FMOD::Channel* mChannel;

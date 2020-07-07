@@ -7,7 +7,7 @@ CameraCtrl::CameraCtrl(GameObject * object) noexcept
 	mTarget = object->find("follow")->getTransform();
 }
 
-void CameraCtrl::onUpdate(float deltaTime)
+void CameraCtrl::onUpdate(const float& deltaTime)
 {
 	mTransform->setPosition(Math::lerp(mTransform->getPosition(), mTarget->getPosition(), 0.1f*deltaTime*10.0f));
 	if (DInputPC::getInstance().iskey(DIK_I))

@@ -66,7 +66,7 @@ void BoundingCube::createBoundingCube(const BoundingCube * cube1, const Bounding
 
 }
 
-void BoundingCube::onFixedUpdate(float deltaTime)
+void BoundingCube::onFixedUpdate(const float& deltaTime)
 {
 	//outBox.Center = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
 	//outBox.Extents = DirectX::XMFLOAT3(1.f, 1.f, 1.f);
