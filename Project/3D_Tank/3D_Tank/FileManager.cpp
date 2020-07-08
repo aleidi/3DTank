@@ -266,9 +266,9 @@ void FileManager::LoadKeyFrames(std::string filename)
 			temp.Rotation.x = config[5];
 			temp.Rotation.y = config[6];
 			temp.Rotation.z = config[7];
-			temp.Sacle.x = config[8];
-			temp.Sacle.x = config[9];
-			temp.Sacle.x = config[10];
+			temp.Scale.x = config[8];
+			temp.Scale.y = config[9];
+			temp.Scale.z = config[10];
 
 			map.insert(std::pair<int, KeyFrame>(index, temp));
 		}
