@@ -4,24 +4,24 @@
 struct AIAttribute
 {
 	int m_HP;
-
+	int m_AttackMode;
+	int m_MoveMode;
+	int m_HitRate;
 	float m_AttackRangeRadiusSq;
 	float m_PursuitRangeRadiusSq;
 	float m_WanderRangeRadiusSq;
 
 	float m_Mass;
-	float m_MaxSpeed;
-
-	float m_AttackTimeDelay;
 	float m_Offset;
-	int m_HitRate;
-	//float m_MaxForce;
+	float m_MaxSpeed;
 	float m_MaxTurnRate;
+	float m_AttackTimeDelay;
 
 	float m_WanderRadius;
 	float m_WanderDistance;
 	float m_WanderJitter;
-
+	Vector3 m_PatrolStart;
+	Vector3 m_PatrolEnd;
 	Vector3 m_ResetPoint;
 };
 

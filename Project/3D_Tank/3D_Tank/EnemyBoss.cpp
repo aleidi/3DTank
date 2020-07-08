@@ -14,21 +14,26 @@ EnemyBoss::EnemyBoss(int id)
 {
 	mAttribute = { FileManager::AIAttributes[id].m_HP,
 			   FileManager::AIAttributes[id].m_HP,
+			   FileManager::AIAttributes[id].m_AttackMode,
+			   FileManager::AIAttributes[id].m_MoveMode,
+			   FileManager::AIAttributes[id].m_HitRate,
 			   FileManager::AIAttributes[id].m_AttackRangeRadiusSq,
 			   FileManager::AIAttributes[id].m_PursuitRangeRadiusSq,
 			   FileManager::AIAttributes[id].m_WanderRangeRadiusSq,
 			   FileManager::AIAttributes[id].m_Mass,
-			   FileManager::AIAttributes[id].m_MaxSpeed,
-			   FileManager::AIAttributes[id].m_AttackTimeDelay,
 			   FileManager::AIAttributes[id].m_Offset,
-			   FileManager::AIAttributes[id].m_HitRate,
+			   FileManager::AIAttributes[id].m_MaxSpeed,
 			   FileManager::AIAttributes[id].m_MaxTurnRate,
+			   FileManager::AIAttributes[id].m_AttackTimeDelay,
 			   FileManager::AIAttributes[id].m_WanderRadius,
 			   FileManager::AIAttributes[id].m_WanderDistance,
 			   FileManager::AIAttributes[id].m_WanderJitter,
+			   FileManager::AIAttributes[id].m_PatrolStart,
+			   FileManager::AIAttributes[id].m_PatrolEnd,
 			   FileManager::AIAttributes[id].m_ResetPoint };
 
 	m_ID = id;
+	FullHP = mAttribute.FullHP;
 
 	//create normal model
 	mNormalModel = SceneManager::sGetInstance()->createEmptyObject();
