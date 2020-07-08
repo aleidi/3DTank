@@ -16,6 +16,7 @@ namespace Sequence
 
 class TrackTransform : public Track<Sequence::Transform>
 {
+	using Track<Sequence::Transform>::mKeyFrames;
 public:
 	TrackTransform(Transform* target);
 	~TrackTransform();
