@@ -52,6 +52,8 @@ private:
 	StageTwo& operator=(const StageTwo&);
 	int normalshot = 0;
 	float offset = 0.0f;
+	float superCount = 0.0f;
+	bool particleSwitch = true;
 };
 
 class Violent : public State<AIController> {
@@ -67,7 +69,8 @@ private:
 
 	Violent(const Violent&);
 	Violent& operator=(const Violent&);
-	float violentTime = 20.0f;
+	float superCount = 0.0f;
+	bool particleSwitch = true;
 };
 
 

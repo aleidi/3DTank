@@ -15,6 +15,7 @@ UIImage3D::UIImage3D(Graphics & gfx, const std::wstring & texPath)
 	mX = 0.0f;
 	mY = 0.0f;
 	mZ = 10.0f;
+	setEnable(true);
 
 	std::vector<VertexPosSize> vertice;
 	VertexPosSize point;

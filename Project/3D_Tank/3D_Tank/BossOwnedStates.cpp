@@ -141,9 +141,6 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 		pBoss->getFSM()->changeState(StageTwo::getInstance());
 	}
 
-	if (!BOSS->isEnemyInRange()) {
-		pBoss->getFSM()->changeState(Alert::getInstance());
-	}
 }
 
 void Battle::exit(AIController* pBoss) {
@@ -161,11 +158,27 @@ StageTwo* StageTwo::getInstance() {
 }
 
 void StageTwo::enter(AIController* pBoss) {
-	MessageBox(0, L"fxck u", 0, 0);
+	//MessageBox(0, L"fxck u", 0, 0);
+	BOSS->enableFloat(true);
+	BOSS->setSuperAttackInterval(3.0f);
 }
 
 void StageTwo::execute(AIController* pBoss, float deltaTime) {
+	////////////////////////normal attack/////////////////////////////
+	if (BOSS->aiCount > BOSS->attackTimeDelay() * 0.5 ) {
+		BOSS->aiCount = 0.0f;
+		if (normalshot < 2) {
+			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());  // + 01
+			BOSS->rotateBattery(0, -offset, 0);
+			normalshot += 1;
+		}
 
+		else {
+			BOSS->rotateBattery(0, -offset, 0);
+			pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading, pBoss->getTarget());  // + 01
+			normalshot = 0;
+		}
+	}
 	////////////////////////Battery follows////////////////////////////
 	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
 	float dot = Vector3::dot(targetDirection, getBOSSHeading);
@@ -180,7 +193,7 @@ void StageTwo::execute(AIController* pBoss, float deltaTime) {
 	////////////////////////Offset////////////////////////////
 
 	BOSS->aiCount += deltaTime;
-	if (BOSS->aiCount > BOSS->attackTimeDelay()) {
+	if (BOSS->aiCount > BOSS->attackTimeDelay() * 0.5) {
 		int hitRate = BOSS->hitRate();
 		if (0 == rand() % hitRate)  offset = 0.0f;
 		else {
@@ -189,8 +202,27 @@ void StageTwo::execute(AIController* pBoss, float deltaTime) {
 		}
 	}
 
-	////////////////////////changeState/////////////////////////
+	////////////////////////SuperAttack/////////////////////////
 
+	superCount += deltaTime;
+	if (superCount > 3.0f ) {
+		if (particleSwitch) {
+			BOSS->playSuperAttackParticle();
+			particleSwitch = false;
+		}
+
+		if (superCount > 6.0f) {
+			superCount = 0.0f;
+			BOSS->preDoSuperAttack();
+			BOSS->enableSuperAttack(true);
+			particleSwitch = true;
+		}
+	}
+
+	////////////////////////changeState/////////////////////////
+	if (BOSS->isDying()) {
+		pBoss->getFSM()->changeState(Violent::getInstance());
+	}
 }
 
 void StageTwo::exit(AIController* pBoss) {
@@ -208,47 +240,48 @@ Violent* Violent::getInstance() {
 }
 
 void Violent::enter(AIController* pBoss) {
-	violentTime = 20.0f;
+	BOSS->initViolent(10, 10);
 }
 
 void Violent::execute(AIController* pBoss, float deltaTime) {
-	if (violentTime >= 0.0f) {
-		violentTime -= deltaTime;
+	////////////////////////SuperAttack/////////////////////////
 
-		BOSS->getTransform()->rotate(0, 0.1f, 0);
-		BOSS->aiCount += deltaTime;
-		if (BOSS->aiCount > BOSS->attackTimeDelay()*0.05) {
-			pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading);
-			BOSS->aiCount = 0.0f;
+	superCount += deltaTime;
+	if (superCount > 3.0f) {
+		if (particleSwitch) {
+			BOSS->playSuperAttackParticle();
+			particleSwitch = false;
 		}
-	} // stage 1
 
-	else {
-		Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
-		float dot = Vector3::dot(targetDirection, getBOSSHeading);
-		dot = Math::Clamp(1.0f, -1.0f, dot);
-		float rotate = acosf(dot) * 180 / Pi;
-		Vector3 cross = Vector3::cross(targetDirection, getBOSSHeading);
-		if (cross.y > 0)
-			rotate = -rotate;
-
-		rotate = Math::Clamp( 2 * BOSS->maxTurnRate(), -2 * BOSS->maxTurnRate(), rotate);
-		BOSS->getTransform()->rotate(0, rotate, 0);
-
-		BOSS->aiCount += deltaTime;
-		if (BOSS->aiCount > BOSS->attackTimeDelay()*0.5) {  
-			pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading, pBoss->getTarget());
-			BOSS->aiCount = 0.0f;
+		if (superCount > 6.0f) {
+			superCount = 0.0f;
+			BOSS->preDoSuperAttack();
+			BOSS->enableSuperAttack(true);
+			particleSwitch = true;
 		}
-	} // stage 2
-	////////////////////////changeState////////////////////////
+	}
+
+	////////////////////////Battery follows////////////////////////////
+	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
+	float dot = Vector3::dot(targetDirection, getBOSSHeading);
+	dot = Math::Clamp(1.0f, -1.0f, dot);
+	float rotate = acosf(dot) * 180 / Pi;
+	Vector3 cross = Vector3::cross(targetDirection, getBOSSHeading);
+	if (cross.y > 0)
+		rotate = -rotate;
+
+	rotate = Math::Clamp(BOSS->maxTurnRate(), -1 * BOSS->maxTurnRate(), rotate);
+	BOSS->getTransform()->rotate(0, rotate, 0);
+
+
+	////////////////////////changeState/////////////////////////
 	if (BOSS->getHP() <= 0) {
 		pBoss->getFSM()->changeState(Death::getInstance());
 	}
 }
 
 void Violent::exit(AIController* pBoss) {
-
+	BOSS->enableSuperAttack(false);
 }
 
 bool Violent::onMessage(AIController* pBoss, const Telegram& msg) {

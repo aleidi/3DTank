@@ -27,6 +27,10 @@ public:
 	void enableFloat(bool value);
 	void preDoSuperAttack();
 
+	void setSuperAttackInterval(float interval);
+
+	void initViolent(int maxParticle, int emitRate);
+
 private:
 	void initParticles() override;
 	void doFloat(const float& deltaTime);
@@ -40,7 +44,7 @@ private:
 	UIImage* mFrame;
 	UIText* mName;
 
-	float mOffset;
+	float mOffsetFloat;
 
 	ParticleSystem* mPSSuperAttack;
 	bool mCanSuperAttack;
@@ -50,5 +54,7 @@ private:
 	int mSAIndex;
 	float mTimerSA;
 	float mIntervalSA;
+	Vector3 mBatteryOffset;
+	UIImage3D* mFazhen;
 };
 
