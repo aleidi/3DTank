@@ -15,6 +15,8 @@ public:
 	void setVelocity(const Vector3& dir);
 	Vector3 getVelocity();
 
+	float count;
+
 private:
 	void initParticle();
 private:
