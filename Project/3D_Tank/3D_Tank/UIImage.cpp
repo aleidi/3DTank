@@ -54,6 +54,8 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 
 	addBind(std::make_unique<GeometryShader>());
 
+	addBind(std::make_unique<Rasterizer>(gfx));
+
 }
 
 void UIImage::draw(Graphics& gfx) noexcept

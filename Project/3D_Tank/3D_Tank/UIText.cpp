@@ -60,6 +60,8 @@ UIText::UIText(Graphics& gfx, std::wstring text)
 
 	addBind(std::make_unique<GeometryShader>());
 
+	addBind(std::make_unique<Rasterizer>(gfx));
+
 }
 
 void UIText::draw(Graphics& gfx) noexcept

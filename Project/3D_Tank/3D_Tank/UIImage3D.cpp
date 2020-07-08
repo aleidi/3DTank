@@ -54,6 +54,9 @@ UIImage3D::UIImage3D(Graphics & gfx, const std::wstring & texPath)
 
 	CBGS cbgs;
 	mGSCBuf = std::make_unique<GeometryConstantBuffer<CBGS>>(gfx, cbgs);
+
+	addBind(std::make_unique<Rasterizer>(gfx));
+
 }
 
 void UIImage3D::draw(Graphics& gfx) noexcept

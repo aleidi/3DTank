@@ -68,6 +68,8 @@ UIText3D::UIText3D(Graphics& gfx, std::wstring text)
 
 	addBind(std::make_unique<GeometryShader>());
 
+	addBind(std::make_unique<Rasterizer>(gfx));
+
 	mText2D = new UIText(gfx, mText);
 	initRenderTarget(gfx);
 	renderTarget(gfx);
@@ -169,6 +171,7 @@ void UIText3D::renderTarget(Graphics & gfx)
 	mText2D->draw(gfx);
 
 	gfx.getContext()->OMSetRenderTargets(1, pRTCashe.GetAddressOf(), pDSVCashe.Get());
+
 }
 
 void UIText3D::initRenderTarget(Graphics & gfx)

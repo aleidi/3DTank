@@ -45,7 +45,13 @@ SkyBox::SkyBox(Graphics & gfx, const std::wstring & texture)
 
 	addBind(std::make_unique<Blender>(gfx));
 
-	//addBind(std::make_unique<Rasterizer>(gfx));
+	D3D11_RASTERIZER_DESC rd;
+	ZeroMemory(&rd, sizeof(rd));
+	rd.FillMode = D3D11_FILL_SOLID;
+	rd.CullMode = D3D11_CULL_FRONT;
+	rd.FrontCounterClockwise = false;
+	rd.DepthClipEnable = true;
+	addBind(std::make_unique<Rasterizer>(gfx, rd));
 
 	D3D11_DEPTH_STENCIL_DESC dd;
 	dd.DepthEnable = true;
