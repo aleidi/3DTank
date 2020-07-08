@@ -23,7 +23,7 @@ public:
 	void addUIToPool(UIBase* ui) noexcept;
 	bool removeUIFromPool(UIBase* ui) noexcept;
 	void addUI3DToPool(UIBase* ui, bool isSp = false) noexcept;
-	bool removeUI3DFromPool(UIBase* ui) noexcept;
+	bool removeUI3DFromPool(UIBase* ui, bool isSp = false) noexcept;
 	void addParticleToPool(ParticleSystem* p) noexcept;
 	bool removeParticleFromPool(ParticleSystem* p) noexcept;
 	void addVFXToPool(VFXSphere* vfx) noexcept;
