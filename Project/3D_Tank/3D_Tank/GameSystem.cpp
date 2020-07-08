@@ -7,6 +7,7 @@
 #include "GameLevelManager.h"
 #include "GameInstance.h"
 #include "DisplayManager.h"
+#include "CameraShake.h"
 
 GameSystem::GameSystem()
 {
@@ -23,13 +24,13 @@ GameSystem::~GameSystem()
 void GameSystem::onInit()
 {
 	DisplayManager::sGetInstance()->createSingleton();
-
 	new GameLevelTest();
 	new Level01();
 	new Level02();
 	new Level03();
-	GameLevelManager::sGetInstance()->setDefaultLevel(3);
+	GameLevelManager::sGetInstance()->setDefaultLevel(2);
 	
+	CameraShake::sGetInstance()->createSingleton();
 }
 
 void GameSystem::onUpdate(float deltaTime)
