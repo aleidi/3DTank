@@ -227,6 +227,8 @@ void EnemyBoss::doSuperAttack()
 		Vector3(mSAParticles[mSAIndex].Position.x, mSAParticles[mSAIndex].Position.y,mSAParticles[mSAIndex].Position.z));
 	mb->setTarget(GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition());
 	mb->setTaragetPawn(*GameInstance::sGetInstance()->getPlayer());
+	mb->setTile((float)rand() / (float)RAND_MAX * 3.0f, (float)rand() / (float)RAND_MAX * 2.0f);
+	mb->enableTile(true);
 	//mb->setSpeed(3.0f);
 	mb->enableChase(true);
 	++mSAIndex;
