@@ -22,6 +22,7 @@ EnemyTank::EnemyTank(int ID, float scale)
 	m_Attacked(false),
 	BaseGameEntity(ID)
 {
+	mName = "EnemyTank"+std::to_string(ID);
 	DirectX::XMVECTOR maxPoint, minPoint;
 	mAttribute = { FileManager::AIAttributes[ID].m_HP,
 				   FileManager::AIAttributes[ID].m_HP,
