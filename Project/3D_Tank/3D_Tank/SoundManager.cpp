@@ -156,8 +156,7 @@ void SoundManager::playSound(const int & soundNum)
 
 void SoundManager::playOverlapSound(FMOD::Channel*& channel, int soundNum)
 {
-	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
-	//mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &channel);
+	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &channel);
 }
 
 void SoundManager::playSingleSound(FMOD::Channel *& channel, int soundNum)
@@ -188,6 +187,11 @@ void SoundManager::setReplay(FMOD::Channel *& channel)
 	if (result != FMOD_OK)
 		return;
 	channel->setPaused(false);
+}
+
+void SoundManager::setFrequency(const float & f, FMOD::Channel *& channel)
+{
+	channel->setFrequency(f);
 }
 
 void SoundManager::setPause(const int & soundNum)
