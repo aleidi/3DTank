@@ -2,7 +2,7 @@
 #include "GameCommon.h"
 
 Potion::Potion()
-	:mOffset(0.0f),mHeal(100.0f)
+	:mOffset(0.0f),mHeal(100.0f),mRange(0.6f)
 {
 	mName = "PotionContainer";
 	mPotion = SceneManager::sGetInstance()->createCube();
@@ -13,7 +13,7 @@ Potion::Potion()
 	mat.Ambient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
 	mat.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	mat.Specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 5.0f);
-	mat.Color = XMFLOAT4(0.498f, 1.0f, 0.0f, 1.0f);
+	mat.Color = XMFLOAT4(0.498f, 1.0f, 0.0f, 0.6f);
 	mPotion->getRenderComponent()->setMaterial(mat);
 
 	mTransform->rotateZ(30,true);
@@ -40,7 +40,7 @@ void Potion::onUpdate(const float& deltaTime)
 	mTransform->rotateY(deltaTime*10.0f);
 
 	float dis = Vector3::lengthSq(mPlayer->getTransform()->getPosition(), mTransform->getPosition());
-	if (dis < 1.0f)
+	if (dis < mRange)
 	{
 		mPlayer->addHP(mHeal);
 		destroy();
