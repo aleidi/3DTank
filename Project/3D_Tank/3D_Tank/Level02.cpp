@@ -3,6 +3,7 @@
 #include "Level02.h"
 #include "AITank.h"
 #include "PlayerTank.h"
+#include "EnemyBoss.h"
 #include "AIController.h"
 #include "GameModeTP.h"
 #include "RenderManager.h"
@@ -366,6 +367,8 @@ void Level02::loadResourcce()
 	wakeupWave(firstWaveAI);
 
 	//enemy_boss = new AITank(ent_Tank_SuperEnemy);
+	//thirdWaveAI.push_back(enemy_boss);
+	//reinterpret_cast<EnemyBoss*>(enemy_boss->getTank())->showUI(true);
 	//enemy_boss->getCtrl()->wakeup();
 
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
@@ -408,7 +411,10 @@ void Level02::loadThirdWave() {
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy08));
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy09));
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy10));
-	thirdWaveAI.push_back(new AITank(ent_Tank_SuperEnemy));
+
+	enemy_boss = new AITank(ent_Tank_SuperEnemy);
+	thirdWaveAI.push_back(enemy_boss);
+	reinterpret_cast<EnemyBoss*>(enemy_boss->getTank())->showUI(true);
 }
 
 bool Level02::isWaveClear(std::vector<AITank*> thisWave) {

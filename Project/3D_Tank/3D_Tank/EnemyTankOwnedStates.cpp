@@ -343,17 +343,9 @@ void Attack::enter(AIController* pEnemyTank) {
 void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 	if (AITank->aiCount > AITank->attackTimeDelay()) {
 		AITank->aiCount = 0.0f;
-	/*
-		GameObject* pTarget;
-		bool isHit = CollisionManager::sGetInstance()->rayCheckWithTank(AITank->batteryPosition(),
-																		AITank->batteryForward(),
-																		sqrt(Vector3::lengthSq(getTargetPos, AITank->batteryPosition())) + 10.0f,
-																		&pTarget);
-	*/
-	//	if( !isHit)
+
 		pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
 		AITank->playAttackParticle();
-	//	else;
 	} 
 	//////////////////////////////////////////////////////////////////////
 	Vector3 targetDirection = (getTargetPos - getAIPos).normalize();
@@ -373,7 +365,6 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 		if (0 == rand() % hitRate);
 		else {
 			AITank->rotateBattery(0, Math::RandomClamped() * AITank->offset(), 0);
-				// pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
 		}
 	}
 
