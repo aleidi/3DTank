@@ -151,6 +151,16 @@ void EnemyBoss::onUpdate(const float& deltaTime)
 
 void EnemyBoss::onCollisionEnter()
 {
+	float damage = (float)rand() / (float)RAND_MAX * 30.0f + 1.0f;
+	hited(damage);
+	this->setAttacked(true);
+}
+
+void EnemyBoss::hited(int value)
+{
+	this->setHP(value * -1.0f);
+	if (this->getHP() <= 0)
+		this->setHP(this->getHP() * -1.0f);
 }
 
 void EnemyBoss::enableSuperAttack(bool value)

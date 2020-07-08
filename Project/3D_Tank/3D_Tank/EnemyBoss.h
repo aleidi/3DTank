@@ -19,6 +19,8 @@ public:
 	void onLateUpdate(const float& deltaTime) override;
 	void onUpdate(const float& deltaTime) override;
 	void onCollisionEnter() override;
+	void hited(int value) override;
+
 
 	void playSuperAttackParticle();
 	void enableSuperAttack(bool value);
