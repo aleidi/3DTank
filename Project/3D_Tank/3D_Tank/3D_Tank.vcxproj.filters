@@ -1073,9 +1073,6 @@
     <ClInclude Include="resource.h">
       <Filter>Engine\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="FadeInOut.h">
-      <Filter>Engine\Header</Filter>
-    </ClInclude>
     <ClInclude Include="PerlinNoise.h">
       <Filter>Engine\Header\Misc</Filter>
     </ClInclude>
@@ -1084,6 +1081,9 @@
     </ClInclude>
     <ClInclude Include="MagicBall.h">
       <Filter>Game\Header\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeInOut.h">
+      <Filter>Game\Header\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
