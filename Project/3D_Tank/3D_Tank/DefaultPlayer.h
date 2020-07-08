@@ -14,6 +14,7 @@ public:
 	void MoveRight(float value);
 	void MoveUp(float value);
 	void Rotate(float x, float y, float z);
+	Camera* GetCamera();
 	
 private:
 	Camera* mCamera;

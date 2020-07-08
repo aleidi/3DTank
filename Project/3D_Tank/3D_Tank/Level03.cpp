@@ -2,6 +2,7 @@
 #include "AITank.h"
 #include "GameModeTP.h"
 #include "RenderManager.h"
+#include "DefaultPlayer.h"
 
 Level03::Level03()
 {
@@ -20,10 +21,17 @@ void Level03::enterLevel()
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Night");
 	SceneManager::sGetInstance()->createSphere();
 	mCanStart = true;
+
+	Engine::sGetInstance()->enableGameMode(true);
 }
 
 GameLevelBase * Level03::onUpdate(float deltaTime)
 {
+	if (Camera::MainCamera == nullptr)
+	{
+		Camera::MainCamera = reinterpret_cast<DefaultPlayer*>(GameInstance::sGetInstance()->getPlayer())->GetCamera();
+	}
+
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
 	if (DInputPC::getInstance().iskey(DIK_I))
