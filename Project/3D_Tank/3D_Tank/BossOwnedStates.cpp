@@ -154,16 +154,16 @@ bool Battle::onMessage(AIController* pBoss, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for Battle-------------------//
-Battle* Battle::getInstance() {
-	static Battle m_Battle;
-	return &m_Battle;
+//-------------------methods for StageTwo-------------------//
+StageTwo* StageTwo::getInstance() {
+	static StageTwo m_StageTwo;
+	return &m_StageTwo;
 }
 
-void Battle::enter(AIController* pBoss) {
+void StageTwo::enter(AIController* pBoss) {
 }
 
-void Battle::execute(AIController* pBoss, float deltaTime) {
+void StageTwo::execute(AIController* pBoss, float deltaTime) {
 
 	////////////////////////Battery follows////////////////////////////
 	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
@@ -192,11 +192,11 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 
 }
 
-void Battle::exit(AIController* pBoss) {
+void StageTwo::exit(AIController* pBoss) {
 
 }
 
-bool Battle::onMessage(AIController* pBoss, const Telegram& msg) {
+bool StageTwo::onMessage(AIController* pBoss, const Telegram& msg) {
 	return false;
 }
 

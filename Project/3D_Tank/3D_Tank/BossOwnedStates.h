@@ -50,6 +50,8 @@ private:
 
 	StageTwo(const StageTwo&);
 	StageTwo& operator=(const StageTwo&);
+	int normalshot = 0;
+	float offset = 0.0f;
 };
 
 class Violent : public State<AIController> {
