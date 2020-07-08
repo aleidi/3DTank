@@ -237,7 +237,7 @@ std::map<int, std::wstring> FileManager::localization = FileManager::LoadLocaliz
 
 void FileManager::LoadKeyFrames(std::string filename)
 {
-	filename = std::string(".\\Resource\\Configuration\\") + filename;
+	filename = std::string(".\\Resource\\Configuration\\") + filename + std::string(".csv");
 	std::ifstream fin(filename);
 	std::string line;
 	float config[11]; // 1 id and 1 key and 3 Vector3
