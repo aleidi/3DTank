@@ -282,6 +282,7 @@
     <ClCompile Include="TankBatteryCtrl.cpp" />
     <ClCompile Include="TankGamePlay.cpp" />
     <ClCompile Include="TestCube.cpp" />
+    <ClCompile Include="TrackTransform.cpp" />
     <ClCompile Include="UIText3D.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -438,6 +439,8 @@
     <ClInclude Include="TankGamePlay.h" />
     <ClInclude Include="Telegram.h" />
     <ClInclude Include="TestCube.h" />
+    <ClInclude Include="Track.h" />
+    <ClInclude Include="TrackTransform.h" />
     <ClInclude Include="UIText3D.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />

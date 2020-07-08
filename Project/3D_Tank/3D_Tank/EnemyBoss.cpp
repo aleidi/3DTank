@@ -6,9 +6,11 @@
 #include "UIText.h"
 #include "GameCommon.h"
 #include "BoundingCube.h"
-#include "ParticleSystem.h"
+#include "MagicBall.h"
+#include "GameInstance.h"
 
 EnemyBoss::EnemyBoss(int id)
+	:mCanSuperAttack(false),mCanFloat(false),mSAParticles(),mSAIndex(0),mTimerSA(0.0f),mIntervalSA(1.0f)
 {
 	mAttribute = { FileManager::AIAttributes[id].m_HP,
 			   FileManager::AIAttributes[id].m_HP,
@@ -125,21 +127,35 @@ void EnemyBoss::onLateUpdate(const float& deltaTime)
 
 void EnemyBoss::onUpdate(const float& deltaTime)
 {
-	mOffset += deltaTime;
-	if (mOffset > 2 * Pi)
+	if (mCanFloat)
 	{
-		mOffset = 0.0f;
+		doFloat(deltaTime);
 	}
-	mTransform->translate(Vector3(0.0f, sinf(mOffset)*deltaTime, 0.0f));
+
+	if (mCanSuperAttack)
+	{
+		mTimerSA += deltaTime;
+		if (mTimerSA > mIntervalSA)
+		{
+			doSuperAttack();
+			mTimerSA = 0.0f;
+		}
+	}
+
 }
 
 void EnemyBoss::onCollisionEnter()
 {
 }
 
-void EnemyBoss::superattack()
+void EnemyBoss::enableSuperAttack(bool value)
 {
-	playSuperAttackParticle();
+	mCanSuperAttack = value;
+}
+
+void EnemyBoss::enableFloat(bool value)
+{
+	mCanFloat = value;
 }
 
 void EnemyBoss::initParticles()
@@ -192,4 +208,36 @@ void EnemyBoss::playSuperAttackParticle()
 	Vector3 pos = mTransform->getPosition() + Vector3::up*6.0f;
 	mPSSuperAttack->setPosition(pos.x, pos.y, pos.z);
 	mPSSuperAttack->play();
+}
+
+void EnemyBoss::doFloat(const float & deltaTime)
+{
+	mOffset += deltaTime;
+	if (mOffset > 2 * Pi)
+	{
+		mOffset = 0.0f;
+	}
+	mTransform->translate(Vector3(0.0f, sinf(mOffset)*deltaTime, 0.0f));
+}
+
+void EnemyBoss::doSuperAttack()
+{
+	auto mb = new MagicBall();
+	mb->getTransform()->setPosition(
+		Vector3(mSAParticles[mSAIndex].Position.x, mSAParticles[mSAIndex].Position.y,mSAParticles[mSAIndex].Position.z));
+	mb->setTarget(GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition());
+	mb->setTaragetPawn(*GameInstance::sGetInstance()->getPlayer());
+	//mb->setSpeed(3.0f);
+	mb->enableChase(true);
+	++mSAIndex;
+	if (mSAIndex > mSAParticles.size() - 1)
+	{
+		mSAIndex = 0;
+	}
+}
+
+void EnemyBoss::preDoSuperAttack()
+{
+	mSAParticles = mPSSuperAttack->getParticles();
+	mSAIndex = 0;
 }
