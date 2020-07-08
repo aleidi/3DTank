@@ -25,6 +25,14 @@ struct AIAttribute
 	Vector3 m_ResetPoint;
 };
 
+struct KeyFrame
+{
+	float Key;
+	Vector3 Position;
+	Vector3 Rotation;
+	Vector3 Sacle;
+};
+
 enum Language { CN, US };
 
 class FileManager
@@ -45,4 +53,8 @@ public:
 	static std::map<int, std::wstring> LoadLocalization_CN();
 	static void changeLanguage(Language l);
 	static std::map<int, std::wstring> localization;
+
+	// load keyframes
+	static std::vector<std::map<int, KeyFrame>> KeyFrames;
+	static void LoadKeyFrames(std::string filename);
 };

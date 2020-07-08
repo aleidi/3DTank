@@ -233,3 +233,47 @@ void FileManager::changeLanguage(Language l)
 }
 
 std::map<int, std::wstring> FileManager::localization = FileManager::LoadLocalization_US();
+
+
+void FileManager::LoadKeyFrames(std::string filename)
+{
+	filename = std::string(".\\Resource\\Configuration\\") + filename;
+	std::ifstream fin(filename);
+	std::string line;
+	float config[11]; // 1 id and 1 key and 3 Vector3
+	std::map<int, KeyFrame> map;
+
+	if (fin.is_open())
+	{
+		fin >> line;
+		while (fin >> line)
+		{
+			size_t position = 0;
+			for (int i = 0; i < 11; ++i)
+			{
+				std::string str = line.substr(position, line.find(',', position));
+				config[i] = (float)atof(str.c_str());
+				position = line.find(',', position) + 1;
+			}
+
+			int index = (int)config[0];
+			struct KeyFrame temp;
+
+			temp.Key = config[1];
+			temp.Position.x = config[2];
+			temp.Position.y = config[3];
+			temp.Position.z = config[4];
+			temp.Rotation.x = config[5];
+			temp.Rotation.y = config[6];
+			temp.Rotation.z = config[7];
+			temp.Sacle.x = config[8];
+			temp.Sacle.x = config[9];
+			temp.Sacle.x = config[10];
+
+			map.insert(std::pair<int, KeyFrame>(index, temp));
+		}
+		KeyFrames.push_back(map);
+	}
+}
+
+std::vector<std::map<int, KeyFrame>> FileManager::KeyFrames(0);
