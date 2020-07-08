@@ -17,6 +17,7 @@
 #include "SM_WaterTank.h"
 #include "SM_Crate.h"
 #include "FreightContainer_A.h"
+#include "ShellContainer.h"
 #include "Potion.h"
 
 /////////////////////////////////
@@ -374,6 +375,8 @@ void Level02::loadResourcce()
 	// potion
 	potion1 = new Potion();
 	potion1->getTransform()->setPosition(Vector3(30.0, 0.0, 2.0));
+
+	ShellContainer::onInit();
 
 	mCanStart = true;
 }
