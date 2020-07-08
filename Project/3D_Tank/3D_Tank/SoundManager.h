@@ -40,6 +40,7 @@ public:
 	void playSingleSound(FMOD::Channel*& channel, int soundNum);
 	void setPause(FMOD::Channel*& channel);
 	void setReplay(FMOD::Channel*& channel);
+	void setFrequency(const float& f, FMOD::Channel*& channel);
 	void stop(FMOD::Channel* channel);
 
 	void playBGM();
