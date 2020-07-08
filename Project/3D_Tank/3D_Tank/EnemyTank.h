@@ -58,7 +58,12 @@ public:
 	bool isObstacleForward()const;
 	bool isObstacleRight()const;
 	bool isObstacleLeft()const;
-	bool isCollision()const;
+
+	bool isPatrol()const;
+	Vector3 patrolEnd()const;
+	Vector3 patrolStart()const;
+
+	bool isMissile()const;
 
 	Vector3 batteryForward()const;
 	Vector3 batteryPosition()const;
