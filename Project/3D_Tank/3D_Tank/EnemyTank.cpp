@@ -394,6 +394,28 @@ bool EnemyTank::isObstacleLeft()const {
 	return m_isObstacleLeft;
 }
 
+bool EnemyTank::isPatrol() const
+{
+	if (mAttribute.m_MoveMode == 1 ) return true;
+	else return false;
+}
+
+Vector3 EnemyTank::patrolEnd() const
+{
+	return mAttribute.m_PatrolEnd;
+}
+
+Vector3 EnemyTank::patrolStart() const
+{
+	return mAttribute.m_PatrolStart;
+}
+
+bool EnemyTank::isMissile() const
+{
+	if (mAttribute.m_AttackMode == 1) return true;
+	else return false;
+}
+
 //bool EnemyTank::isCollision()const {
 //	return m_isCollision;
 //}
