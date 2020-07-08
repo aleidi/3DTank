@@ -73,24 +73,6 @@ void AIController::Rotate(float x, float y, float z)
 	mPawn->getTransform()->rotateY(mAccumulateRot);
 }
 
-void AIController::setPatrol(bool isPatrol, Vector3 start, Vector3 end) {
-	m_isPatrol = isPatrol;
-	m_PatrolStart = start;
-	m_PatrolEnd = end;
-}
-
-bool AIController::getisPatrol()const {
-	return m_isPatrol;
-}
-
-Vector3 AIController::getPatrolStart()const {
-	return m_PatrolStart;
-}
-
-Vector3 AIController::getPatrolEnd()const {
-	return m_PatrolEnd;
-}
-
 void AIController::wakeup() {
 	if (this->getFSM()->getCurrentState() == Sleeep::getInstance()) {
 		if (this->getID() != ent_Tank_SuperEnemy)

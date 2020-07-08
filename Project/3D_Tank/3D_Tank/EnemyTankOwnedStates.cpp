@@ -133,7 +133,7 @@ void Wander::enter(AIController* pEnemyTank) {
 }
 
 void Wander::execute(AIController* pEnemyTank, float deltaTime) {
-	if (pEnemyTank->getisPatrol())
+	if (AITank->isPatrol())
 		pEnemyTank->getFSM()->changeState(Patrol::getInstance());
 	/////////////////////////////Patrol/////////////////////////////////
 	else {
@@ -217,25 +217,25 @@ void Patrol::execute(AIController* pEnemyTank, float deltaTime) {
 		Vector3 target = Vector3(0, 0, 0);
 		AITank->aiCount = 0.0f;
 		if (pEnemyTank->toPatrolEnd) {
-			Vector3 targetPos = pEnemyTank->getPatrolEnd();
+			Vector3 targetPos = AITank->patrolEnd();
 			Vector3 desiredVelocity = ( targetPos - getAIPos ).normalize() * AITank->getMaxSpeed();
 			target = desiredVelocity - getAIVelocity;
 			pEnemyTank->Move(target);
 			//wstr += L"to end";
 			//Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
-			if (Vector3::lengthSq(getAIPos, pEnemyTank->getPatrolEnd()) < 1) {
+			if (Vector3::lengthSq(getAIPos, AITank->patrolEnd()) < 1) {
 				pEnemyTank->toPatrolEnd = false;
 				pEnemyTank->toPatrolStart = true;
 			}
 		}
 		else if (pEnemyTank->toPatrolStart) {
-			Vector3 targetPos = pEnemyTank->getPatrolStart();
+			Vector3 targetPos = AITank->patrolStart();
 			Vector3 desiredVelocity = (	targetPos - getAIPos ).normalize() * AITank->getMaxSpeed();
 			target = desiredVelocity - getAIVelocity;
 			pEnemyTank->Move(target);
 			//wstr += L"to start";
 			//Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
-			if ( Vector3::lengthSq( getAIPos, pEnemyTank->getPatrolStart()) < 1)  {
+			if ( Vector3::lengthSq( getAIPos, AITank->patrolStart()) < 1)  {
 				pEnemyTank->toPatrolStart = false;
 				pEnemyTank->toPatrolEnd = true;
 			}
@@ -343,17 +343,15 @@ void Attack::enter(AIController* pEnemyTank) {
 void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 	if (AITank->aiCount > AITank->attackTimeDelay()) {
 		AITank->aiCount = 0.0f;
-	/*
-		GameObject* pTarget;
-		bool isHit = CollisionManager::sGetInstance()->rayCheckWithTank(AITank->batteryPosition(),
-																		AITank->batteryForward(),
-																		sqrt(Vector3::lengthSq(getTargetPos, AITank->batteryPosition())) + 10.0f,
-																		&pTarget);
-	*/
-	//	if( !isHit)
-		pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+
+
+		if (AITank->isMissile()) {
+			pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward(), pEnemyTank->getTarget());
+		}
+		else {
+			pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+		}
 		AITank->playAttackParticle();
-	//	else;
 	} 
 	//////////////////////////////////////////////////////////////////////
 	Vector3 targetDirection = (getTargetPos - getAIPos).normalize();
@@ -373,7 +371,6 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 		if (0 == rand() % hitRate);
 		else {
 			AITank->rotateBattery(0, Math::RandomClamped() * AITank->offset(), 0);
-				// pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
 		}
 	}
 
