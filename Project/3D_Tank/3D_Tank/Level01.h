@@ -7,6 +7,7 @@
 class GameButton;
 class AnimationTitle;
 class ParticleSystem;
+class FadeInOut;
 
 class Level01 : public GameLevelBase
 {
@@ -22,7 +23,9 @@ public:
 		EditStart,
 		CompanyTitle,
 		TeamTitle,
-		Canvas
+		Canvas,
+		LoadingGame,
+		LoadingEdit,
 	};
 
 public :
@@ -74,5 +77,7 @@ private:
 
 	ParticleSystem* mRain;
 	bool mCamTrig;
+
+	FadeInOut* mFadeInImage;
 };
 

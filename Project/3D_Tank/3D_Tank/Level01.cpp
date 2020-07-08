@@ -7,6 +7,7 @@
 #include "RenderManager.h"
 #include "ParticleSystem.h"
 #include "GameCommon.h"
+#include "FadeInOut.h"
 
 Level01::Level01()
 	: mCamTrig(false),mState(Empty)
@@ -102,8 +103,7 @@ void Level01::enterLevel()
 	mTeamTitle = new AnimationTitle(WINDOW_WIDTH*0.5f - 200.0f, WINDOW_HEIGHT, 6.0f, 6.0f, 3.0f, L"UI/team_title", Vector3(0.0f, -80.0f, 0.0f));
 	mTeamTitle->setImageSize(400.0f, 162.0f);
 
-	loadParticle();
-
+	mFadeInImage = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 5.0f, FadeInOut::Type::FadeIn);
 
 	//mCurrentGameMode = new GameModeBase();
 	//mCurrentGameMode->onInit();
@@ -210,17 +210,41 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			mBtnCancel->setEnable(false);
 			break;
 		case GameStart:
-			return GameLevelManager::sGetInstance()->changeLevel(2);
+			mState = LoadingGame;
+			mFadeInImage->setEnable(true);
+
+			mBtnStart->setEnable(false);
+			mBtnSetting->setEnable(false);
+			mBtnExit->setEnable(false);
+			mBtnGameMode->setEnable(false);
+			mBtnEditMode->setEnable(false);
+			mBtnCN->setEnable(false);
+			mBtnEN->setEnable(false);
+			mBtnShutDown->setEnable(false);
+			mBtnReturn->setEnable(false);
+			mBtnCancel->setEnable(false);
 			break;
 		case EditStart:
-			return GameLevelManager::sGetInstance()->changeLevel(3);
+			mState = LoadingEdit;
+			mFadeInImage->setEnable(true);
+
+			mBtnStart->setEnable(false);
+			mBtnSetting->setEnable(false);
+			mBtnExit->setEnable(false);
+			mBtnGameMode->setEnable(false);
+			mBtnEditMode->setEnable(false);
+			mBtnCN->setEnable(false);
+			mBtnEN->setEnable(false);
+			mBtnShutDown->setEnable(false);
+			mBtnReturn->setEnable(false);
+			mBtnCancel->setEnable(false);
 			break;
 		case CompanyTitle:
 			if (mCompanyTitle->isEnd())
 			{
 				mState = TeamTitle;
 				mTeamTitle->setEnable(true);
-				mCompanyTitle->destroy();
+				mCompanyTitle->setEnable(false);
 			}
 			break;
 		case TeamTitle:
@@ -228,7 +252,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			{
 				mState = Canvas;
 				mCanvas->setEnable(true);
-				mTeamTitle->destroy();
+				mTeamTitle->setEnable(false);
 			}
 			break;
 		case Canvas:
@@ -243,6 +267,18 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			break;
 		case Empty:
 			break;
+		case LoadingGame:
+			if (mFadeInImage->isEnd() != true)
+			{
+				break;
+			}
+			return GameLevelManager::sGetInstance()->changeLevel(2);
+		case LoadingEdit:
+			if (mFadeInImage->isEnd() != true)
+			{
+				break;
+			}
+			return GameLevelManager::sGetInstance()->changeLevel(3);
 		}
 
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
@@ -263,6 +299,10 @@ void Level01::leaveLevel()
 	mBtnShutDown->destroy();
 	mBtnReturn->destroy();
 	mBtnCancel->destroy();
+	mFadeInImage->destroy();
+	mCompanyTitle->destroy();
+	mTeamTitle->destroy();
+	mCanvas->destroy();
 
 	delete mStartEvent;
 	delete mSettingEvent;
@@ -278,6 +318,11 @@ void Level01::leaveLevel()
 	mExhibition->destroy();
 	mCamFollower->destroy();
 	mCamera->destroy();
+
+
+	SceneManager::sGetInstance()->removeParticleFromPool(mRain);
+
+	delete mCurrentGameMode;
 	
 }
 

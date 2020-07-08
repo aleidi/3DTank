@@ -9,7 +9,7 @@ DefaultPlayer::DefaultPlayer()
 
 	mCamera = new Camera(this);
 	this->addComponent(mCamera);
-	mCamera->MainCamera = mCamera;
+	Camera::MainCamera = mCamera;
 	reinterpret_cast<UIHP*>(mUIHP)->setEnable(false);
 }
 
@@ -39,5 +39,10 @@ void DefaultPlayer::Rotate(float x, float y, float z)
 	mTransform->rotateX(x);
 	mTransform->rotateY(y);
 	mTransform->rotateZ(z);
+}
+
+Camera * DefaultPlayer::GetCamera()
+{
+	return mCamera;
 }
 
