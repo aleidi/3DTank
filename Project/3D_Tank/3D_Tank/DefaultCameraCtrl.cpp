@@ -6,7 +6,7 @@ DefaultCameraCtrl::DefaultCameraCtrl(GameObject * object) noexcept
 {
 }
 
-void DefaultCameraCtrl::onUpdate(float deltaTime)
+void DefaultCameraCtrl::onUpdate(const float& deltaTime)
 {
 	mTransform->setPosition(mObject->getTransform()->getPosition());
 }

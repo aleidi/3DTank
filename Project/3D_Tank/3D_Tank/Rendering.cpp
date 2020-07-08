@@ -20,19 +20,19 @@ void Rendering::onInit()
 	RenderManager::createSingleton(*mGraphics);
 }
 
-void Rendering::onPreRender(float deltaTime)
+void Rendering::onPreRender(const float& deltaTime)
 {
 	mGraphics->onUdpate(deltaTime);
 
 	mGraphics->CleanFrame();
 }
 
-void Rendering::onRender(float deltaTime)
+void Rendering::onRender(const float& deltaTime)
 {
 	RenderManager::sGetInstance()->onDraw();
 }
 
-void Rendering::onPostRender(float deltaTime)
+void Rendering::onPostRender(const float& deltaTime)
 {
 	mGraphics->DrawSkyBox();
 
@@ -41,12 +41,12 @@ void Rendering::onPostRender(float deltaTime)
 	mGraphics->showText();
 }
 
-void Rendering::onEndRender(float deltaTime)
+void Rendering::onEndRender(const float& deltaTime)
 {
 	mGraphics->EndFrame();
 }
 
-void Rendering::onResize(float width, float height)
+void Rendering::onResize(const float& width, const float& height)
 {
 	mGraphics->OnResize(width, height);
 }

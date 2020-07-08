@@ -7,7 +7,7 @@ TankGamePlay::TankGamePlay(GameObject * object) noexcept
 {
 }
 
-void TankGamePlay::onUpdate(float deltaTime)
+void TankGamePlay::onUpdate(const float& deltaTime)
 {
 	if (DInputPC::getInstance().iskey(DIK_NUMPAD8))
 	{

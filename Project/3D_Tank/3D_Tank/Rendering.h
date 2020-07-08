@@ -12,12 +12,12 @@ public:
 	~Rendering();
 
 	void onInit();
-	void onPreRender(float deltaTime);
-	void onRender(float deltaTime);
-	void onPostRender(float deltaTime);
-	void onEndRender(float deltaTime);
+	void onPreRender(const float& deltaTime);
+	void onRender(const float& deltaTime);
+	void onPostRender(const float& deltaTime);
+	void onEndRender(const float& deltaTime);
 
-	void onResize(float width, float height);
+	void onResize(const float& width, const float& height);
 
 	//test code
 	Graphics* getGFX();

@@ -33,7 +33,7 @@ ShellFlyComponent::~ShellFlyComponent()
 	}
 }
 
-void ShellFlyComponent::onUpdate(float detaTime)
+void ShellFlyComponent::onUpdate(const float& detaTime)
 {
 	if (this->getObject()->getTransform()->getPosition() == Vector3(0.f,-3.f,0.f))
 		return;

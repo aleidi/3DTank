@@ -237,6 +237,7 @@
     <ClCompile Include="Level01.cpp" />
     <ClCompile Include="Level02.cpp" />
     <ClCompile Include="Level03.cpp" />
+    <ClCompile Include="MagicBall.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
@@ -376,6 +377,7 @@
     <ClInclude Include="Level01.h" />
     <ClInclude Include="Level02.h" />
     <ClInclude Include="Level03.h" />
+    <ClInclude Include="MagicBall.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />

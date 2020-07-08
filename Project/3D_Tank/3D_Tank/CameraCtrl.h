@@ -5,7 +5,7 @@ class CameraCtrl : public ScriptComponent
 {
 public:
 	CameraCtrl(GameObject* object) noexcept;
-	void onUpdate(float deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
 
 private:
 	Transform* mTarget;

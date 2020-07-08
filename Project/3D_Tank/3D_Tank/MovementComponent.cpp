@@ -13,7 +13,7 @@ MovementComponent::~MovementComponent()
 
 }
 
-void MovementComponent::onUpdate(float deltaTime)
+void MovementComponent::onUpdate(const float& deltaTime)
 {
 	
 }

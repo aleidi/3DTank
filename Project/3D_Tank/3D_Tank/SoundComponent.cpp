@@ -54,7 +54,7 @@ void SoundComponent::setTriggerPosition(const Vector3 & pos)
 	triggerPosition.z = pos.z;
 }
 
-void SoundComponent::onUpdate(float detalTime)
+void SoundComponent::onUpdate(const float& detalTime)
 {
 	Vector3 pos = this->getObject()->getTransform()->getPosition();
 	if (pos.x == 0.f && pos.y == -3.f && pos.z == 0.f) {

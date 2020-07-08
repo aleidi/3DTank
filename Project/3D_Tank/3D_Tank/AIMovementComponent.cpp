@@ -15,7 +15,7 @@ AIMovementComponent::~AIMovementComponent()
 {
 }
 
-void AIMovementComponent::onUpdate(float deltaTime)
+void AIMovementComponent::onUpdate(const float& deltaTime)
 {
 	if (isStart)
 	{

@@ -615,6 +615,9 @@
     <ClCompile Include="CameraShake.cpp">
       <Filter>Game\Source\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="MagicBall.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -1078,6 +1081,9 @@
     </ClInclude>
     <ClInclude Include="CameraShake.h">
       <Filter>Game\Header\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicBall.h">
+      <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@ public:
 	Camera(GameObject* object, float fov, float aspect, float nearZ, float farZ) noexcept;
 	virtual ~Camera();
 
-	void onUpdate(float deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
 	virtual void setFov(float value);
 public:
 	Vector3 Position;
