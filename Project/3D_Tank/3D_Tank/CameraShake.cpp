@@ -19,28 +19,28 @@ void CameraShake::createSingleton()
 	sInstance = new CameraShake();
 }
 
-void CameraShake::setDistance(float x, float y, float z)
+void CameraShake::setDistance(const float& x, const float& y, const float& z)
 {
 	mDisX = x;
 	mDisY = y;
 	mDisZ = z;
 }
 
-void CameraShake::setPerlinParam(float x, float y, float z)
+void CameraShake::setPerlinParam(const float& x, const float& y, const float& z)
 {
 	mNoiseParamX = x;
 	mNoiseParamY = y;
 	mNoiseParamZ = z;
 }
 
-void CameraShake::setAmplitude(float x, float y, float z)
+void CameraShake::setAmplitude(const float& x, const float& y, const float& z)
 {
 	mAmplitudeX = x;
 	mAmplitudeY = y;
 	mAmplitudeZ = z;
 }
 
-void CameraShake::doShake(float deltaTime)
+void CameraShake::doShake(const float&  deltaTime)
 {
 	++mCount;
 	mCount %= 2;
