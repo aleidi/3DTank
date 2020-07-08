@@ -147,20 +147,40 @@ void RenderManager::addUI3DToPool(UIBase * ui, bool isSp) noexcept
 	mUISPs.push_back(ui);
 }
 
-bool RenderManager::removeUI3DFromPool(UIBase * ui) noexcept
+bool RenderManager::removeUI3DFromPool(UIBase * ui, bool isSp) noexcept
 {
-	for (std::list<UIBase*>::iterator it = mUI3Ds.begin(); it != mUI3Ds.end();)
+	if (isSp != true)
 	{
-		if (*it == ui)
+		for (std::list<UIBase*>::iterator it = mUI3Ds.begin(); it != mUI3Ds.end();)
 		{
-			delete *it;
-			*it = nullptr;
-			mUI3Ds.erase(it++);
-			return true;
+			if (*it == ui)
+			{
+				delete *it;
+				*it = nullptr;
+				mUI3Ds.erase(it++);
+				return true;
+			}
+			else
+			{
+				++it;
+			}
 		}
-		else
+	}
+	else
+	{
+		for (std::list<UIBase*>::iterator it = mUISPs.begin(); it != mUISPs.end();)
 		{
-			++it;
+			if (*it == ui)
+			{
+				delete *it;
+				*it = nullptr;
+				mUISPs.erase(it++);
+				return true;
+			}
+			else
+			{
+				++it;
+			}
 		}
 	}
 	return false;

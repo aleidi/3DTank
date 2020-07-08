@@ -42,7 +42,7 @@ public:
 	void addGameObjectToPool(GameObject* object) noexcept;
 	bool removeAIControllerFromPool(AIController* ctrl) noexcept;
 	bool removreUIFromPool(UIBase* ui);
-	bool removeUI3DFromPool(UIBase* ui);
+	bool removeUI3DFromPool(UIBase* ui, bool isSP = false);
 	bool removeParticleFromPool(ParticleSystem* particle);
 	bool removeVFXSphereFromPool(VFXSphere* s);
 	void registerGarbageObj(GameObject* obj);

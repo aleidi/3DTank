@@ -197,9 +197,9 @@ bool SceneManager::removreUIFromPool(UIBase * ui)
 	return false;
 }
 
-bool SceneManager::removeUI3DFromPool(UIBase * ui)
+bool SceneManager::removeUI3DFromPool(UIBase * ui, bool isSP)
 {
-	if (RenderManager::sGetInstance()->removeUI3DFromPool(ui))
+	if (RenderManager::sGetInstance()->removeUI3DFromPool(ui, isSP))
 	{
 		return true;
 	}

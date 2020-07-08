@@ -38,7 +38,7 @@ PlayerTank::PlayerTank()
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_L", L"Tank\\TankTrack");
 	SceneManager::sGetInstance()->createModel(*this, "Tank\\TankTrack_R", L"Tank\\TankTrack");
 
-	mCamFollower = SceneManager::sGetInstance()->createCube();
+	mCamFollower = SceneManager::sGetInstance()->createEmptyObject();
 	mCamFollower->getTransform()->setScale(0.1f, 0.1f, 0.1f);
 	mCamFollower->setName("CameraFollower");
 	mCamera = SceneManager::sGetInstance()->createEmptyObject();
