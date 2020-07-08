@@ -1,5 +1,6 @@
 #pragma once
 #include "EnemyTank.h"
+#include "ParticleSystem.h"
 
 class EnemyBoss : public EnemyTank
 {
@@ -19,11 +20,15 @@ public:
 	void onUpdate(const float& deltaTime) override;
 	void onCollisionEnter() override;
 
-	void superattack();
+	void playSuperAttackParticle();
+	void enableSuperAttack(bool value);
+	void enableFloat(bool value);
+	void preDoSuperAttack();
 
 private:
 	void initParticles() override;
-	void playSuperAttackParticle();
+	void doFloat(const float& deltaTime);
+	void doSuperAttack();
 
 private:
 	GameObject* mNormalModel;
@@ -36,5 +41,12 @@ private:
 	float mOffset;
 
 	ParticleSystem* mPSSuperAttack;
+	bool mCanSuperAttack;
+	bool mCanFloat;
+
+	std::vector<ParticleSystem::PAttribute> mSAParticles;
+	int mSAIndex;
+	float mTimerSA;
+	float mIntervalSA;
 };
 

@@ -2,9 +2,11 @@
 #include "SceneManager.h"
 #include "VFXSphere.h"
 #include "Transform.h"
+#include "Pawn.h"
 
 MagicBall::MagicBall()
-	:mCanTile(false),mTileX(1.0f),mTileY(1.0f), mTarget(), mCanChase(false)
+	:mCanTile(false),mTileX(1.0f),mTileY(1.0f), mTargetPos(), mCanChase(false),
+	mTimer(0.0f), mAutoDestroyTime(4.0f), mSpeed(1.0f)
 {
 	mVFX = SceneManager::sGetInstance()->createVFXSphere();
 }
@@ -16,14 +18,33 @@ MagicBall::~MagicBall()
 
 void MagicBall::onUpdate(const float& deltaTime)
 {
+	mTimer += deltaTime;
+	if (mTimer > mAutoDestroyTime)
+	{
+		destroy();
+	}
+
+	//detect whether hit targetpawn
+	Vector3 dis{};
+	if (mTargetPawn != nullptr)
+	{
+		dis = mTargetPawn->getTransform()->getPosition() - mTransform->getPosition();
+		if (Vector3::lengthSq(dis, Vector3::zero) < 1.0f)
+		{
+			mTargetPawn->hited((float)rand() / (float)RAND_MAX * 100 + 100);
+			destroy();
+		}
+	}
+
+	//move to target position
 	if (mCanChase)
 	{
-		Vector3 dir = mTarget - mTransform->getPosition();
-		dir.x *= deltaTime;
-		dir.y *= deltaTime;
-		dir.z *= deltaTime;
+		dis = mTargetPos - mTransform->getPosition();
+		dis.x *= deltaTime * mSpeed;
+		dis.y *= deltaTime * mSpeed;
+		dis.z *= deltaTime * mSpeed;
 
-		mTransform->translate(dir.x, dir.y, dir.z);
+		mTransform->translate(dis.x, dis.y, dis.z);
 	}
 
 	if (!mCanTile)
@@ -61,10 +82,25 @@ void MagicBall::setTile(const float& x, const float& y)
 
 void MagicBall::setTarget(const Vector3 & target)
 {
-	mTarget = target;
+	mTargetPos = target;
 }
 
 void MagicBall::enableChase(const bool & value)
 {
 	mCanChase = value;
+}
+
+void MagicBall::setAutoDestroyTime(const float & value)
+{
+	mAutoDestroyTime = value;
+}
+
+void MagicBall::setSpeed(const float & value)
+{
+	mSpeed = value;
+}
+
+void MagicBall::setTaragetPawn(Pawn & pawn)
+{
+	mTargetPawn = &pawn;
 }

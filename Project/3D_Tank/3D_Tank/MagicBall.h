@@ -4,6 +4,7 @@
 
 
 class VFXSphere;
+class Pawn;
 
 class MagicBall : public GameObject
 {
@@ -18,6 +19,9 @@ public:
 	void setTile(const float& x, const float& y);
 	void setTarget(const Vector3& target);
 	void enableChase(const bool& value);
+	void setAutoDestroyTime(const float& value);
+	void setSpeed(const float& value);
+	void setTaragetPawn(Pawn& pawn);
 
 private:
 	VFXSphere* mVFX;
@@ -26,7 +30,11 @@ private:
 	float mTileX;
 	float mTileY;
 
-	Vector3 mTarget;
+	Vector3 mTargetPos;
 	bool mCanChase;
+	float mTimer;
+	float mAutoDestroyTime;
+	float mSpeed;
+	Pawn* mTargetPawn;
 };
 
