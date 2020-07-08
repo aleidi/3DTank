@@ -9,10 +9,10 @@ public:
 	static CameraShake* sGetInstance();
 	static void createSingleton();
 
-	void setDistance(float x, float y, float z);
-	void setPerlinParam(float x = 3.0f, float y = 2.0f, float z = 6.2f);
-	void setAmplitude(float x, float y, float z);
-	void doShake(float deltaTime);
+	void setDistance(const float& x, const float& y, const float& z);
+	void setPerlinParam(const float& x = 3.0f, const float& y = 2.0f, const float& z = 6.2f);
+	void setAmplitude(const float& x, const float& y, const float& z);
+	void doShake(const float& deltaTime);
 
 private:
 	CameraShake();

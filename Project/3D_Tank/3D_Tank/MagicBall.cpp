@@ -3,6 +3,7 @@
 #include "VFXSphere.h"
 #include "Transform.h"
 #include "Pawn.h"
+#include "CameraShake.h"
 
 MagicBall::MagicBall()
 	:mCanTile(false),mTileX(1.0f),mTileY(1.0f), mTargetPos(), mCanChase(false),
@@ -29,7 +30,13 @@ void MagicBall::onUpdate(const float& deltaTime)
 	if (mTargetPawn != nullptr)
 	{
 		dis = mTargetPawn->getTransform()->getPosition() - mTransform->getPosition();
-		if (Vector3::lengthSq(dis, Vector3::zero) < 1.0f)
+		float length = Vector3::lengthSq(dis, Vector3::zero);
+		if (length < 5.0f)
+		{
+			CameraShake::sGetInstance()->setDistance(dis.x, dis.y, dis.z);
+			CameraShake::sGetInstance()->doShake(deltaTime);
+		}
+		if (length < 1.0f)
 		{
 			mTargetPawn->hited((float)rand() / (float)RAND_MAX * 100 + 100);
 			destroy();
