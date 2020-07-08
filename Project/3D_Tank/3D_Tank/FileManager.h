@@ -30,7 +30,7 @@ struct KeyFrame
 	float Key;
 	Vector3 Position;
 	Vector3 Rotation;
-	Vector3 Sacle;
+	Vector3 Scale;
 };
 
 enum Language { CN, US };
