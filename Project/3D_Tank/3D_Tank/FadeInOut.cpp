@@ -4,7 +4,7 @@
 #include "Math.h"
 
 FadeInOut::FadeInOut(const std::wstring & image, float width, float height, float posX, float posY, float fadeTime, Type type)
-	:mStep(fadeTime),mType(type),mIsEnd(false), mIsActivate(false)
+	:mStep(1.0f/fadeTime),mType(type),mIsEnd(false), mIsActivate(false)
 {
 	mImage = SceneManager::sGetInstance()->createUIImage(image);
 	mImage->setPosition(posX, posY);

@@ -7,24 +7,28 @@
 #include "PlayerTank.h"
 #include "ShellContainer.h"
 
+Shell::Shell() :shellType(0)
+{
+	shell = SceneManager::sGetInstance()->createEmptyObject();
+	SceneManager::sGetInstance()->createModel(*shell, "Objects/Shell", L"Objects/Shell");
+	shell->getTransform()->setPosition(Vector3(0.f, -3.f, 0.f));
+	shell->getTransform()->setScale(0.02f, 0.02f, 0.02f);
+
+	mCollisionSphere = new MBoundingSphere(shell);
+	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.02f, 1);
+	shell->addComponent(mCollisionSphere);
+	mShellFly = new ShellFlyComponent(shell, Vector3(0.f,0.f,0.f));
+	shell->addComponent(mShellFly);
+	shell->sphere = mCollisionSphere;
+	mSound = new SoundComponent(shell);
+	shell->addComponent(mSound);
+	this->onTrigger = false;
+	ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
+}
+
 Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	:shellType(type), origin(ori)
 {
-	//this->getTransform()->Forward = direction;
-	//this->getTransform()->setPosition(ori);
-	//SceneManager::sGetInstance()->createModel(*this,"Objects/Shell", L"Objects/Shell");
-	//this->getTransform()->setPosition(this->origin + direction * 0.6f + Vector3::up * 0.1f);
-	//this->getTransform()->setScale(0.02f, 0.02f, 0.02f);
-	//this->mTransform->rotate(90.f,0.f,0.f);
-	//float dot = Vector3::dot(getAIHeading, AITank->batteryForward());
-	//dot = Math::Clamp(1.0f, -1.0f, dot);
-	//float rotate = acosf(dot) * 180 / Pi;
-	//Vector3 cross = Vector3::cross(getAIHeading, AITank->batteryForward());
-	//if (cross.y > 0)
-	//	rotate = -rotate;
-
-	// rotate = Math::Clamp(AITank->maxTurnRate(), -1 * AITank->maxTurnRate(), rotate);
-	//AITank->rotateBattery(0, rotate, 0);
 	float dot = Vector3::dot(Vector3::forward, direction.normalize());
 	dot = Math::Clamp(1.0f, -1.0f, dot);
 	float rotate = acosf(dot) * 180 / Pi;
@@ -37,14 +41,6 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	shell->getTransform()->setScale(0.02f, 0.02f, 0.02f); 
 	shell->getTransform()->rotate(90.f, -rotate, 0.f);
 
-	//mCollisionSphere = new MBoundingSphere(this);
-	//mCollisionSphere->createBoundingSphere(this->getTransform()->getPosition(), 0.02f, 1);
-	//this->addComponent(mCollisionSphere);
-	//mShellFly = new ShellFlyComponent(this, direction);
-	//this->addComponent(mShellFly);
-	//this->sphere = mCollisionSphere;
-	//mSound = new SoundComponent(this);
-	//this->addComponent(mSound);
 	mCollisionSphere = new MBoundingSphere(shell);
 	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.02f, 1);
 	shell->addComponent(mCollisionSphere);
@@ -57,18 +53,12 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
 	mSound->setPosition();
 	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 3);
-	SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
-}
-
-Shell::Shell(const int & shellType)
-{
+	//SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
 }
 
 Shell::Shell(GameObject* obj, const int& type)
 	:shellType(type), origin(obj->getTransform()->Forward)
 {
-	//this->getTransform()->Forward = obj->getTransform()->Forward;
-	//this->getTransform()->setPosition(obj->getTransform()->getPosition() + obj->getTransform()->Forward*0.6f + obj->getTransform()->Up*0.18f + obj->getTransform()->Right*0.04f);
 	shell = SceneManager::sGetInstance()->createSphere();
 	shell->getTransform()->setPosition(obj->getTransform()->getPosition() + obj->getTransform()->Forward*0.6f + obj->getTransform()->Up*0.18f + obj->getTransform()->Right*0.04f);
 	shell->getTransform()->setScale(0.02f, 0.02f, 0.02f);
@@ -209,9 +199,9 @@ void Shell::onTriggerEnter()
 	this->mShellFly->setVelocity(Vector3(0.f, 0.f, 0.f));
 	mSound->setPosition();
 	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
+	//SoundManager::sGetInstance()->setFrequency(0.5f, mSound->mChannel);
 	SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
 	shell->getTransform()->setRotation(Vector3(0.f, 0.f, 0.f));
-	//shell->getTransform()->rotate(0.f, shell->getTransform()->getRotation().y * -1.f, 0.f);
 	ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
 	if (this->getShelltype() == 1) {
 		this->getShellComponent()->setTarget(NULL);

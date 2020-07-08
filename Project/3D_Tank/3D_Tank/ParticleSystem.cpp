@@ -48,6 +48,9 @@ ParticleSystem::ParticleSystem(Graphics& gfx, const std::wstring& texture, int m
 
 	CBGS cbgs;
 	mGSCBuf = std::make_unique<GeometryConstantBuffer<CBGS>>(gfx, cbgs);
+
+	addBind(std::make_unique<Rasterizer>(gfx));
+
 }
 
 ParticleSystem::~ParticleSystem()
@@ -390,5 +393,10 @@ void ParticleSystem::setDuration(float value)
 void ParticleSystem::enableLoop(bool value)
 {
 	mIsLoop = value;
+}
+
+const std::vector<ParticleSystem::PAttribute>& ParticleSystem::getParticles()
+{
+	return mParticles;
 }
 

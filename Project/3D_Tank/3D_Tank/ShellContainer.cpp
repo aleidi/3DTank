@@ -16,6 +16,7 @@ void ShellContainer::onInit()
 {
 	if (sInstance == NULL)
 		sInstance = new ShellContainer();
+	Shell* shell = new Shell();
 }
 
 void ShellContainer::destroy()

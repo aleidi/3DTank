@@ -12,6 +12,25 @@ public:
 		NoEmit = 0,
 		Box = 1,
 	};
+
+	struct PSprite
+	{
+		float CurrentTileX;
+		float CurrentTileY;
+		float TileCount;
+	};
+
+	struct PAttribute
+	{
+		bool IsAlive;
+		float AliveTime;
+		XMFLOAT3 Velocity;
+		XMFLOAT3 Size;
+		XMFLOAT3 Rotation;
+		XMFLOAT3 Position;
+		XMFLOAT4 Color;
+		PSprite Sprite;
+	};
 public:
 	ParticleSystem(Graphics& gfx, const std::wstring& texture, int maxParticles = 1);
 	~ParticleSystem();
@@ -88,6 +107,7 @@ public:
 	//set whether particle will loop
 	void enableLoop(bool value);
 
+	const std::vector<PAttribute>& getParticles();
 
 protected:
 	struct VertexPosSize
@@ -95,25 +115,6 @@ protected:
 		XMFLOAT3 Position;
 		XMFLOAT2 Size;
 		XMFLOAT4 Tile;
-	};
-
-	struct PSprite
-	{
-		float CurrentTileX;
-		float CurrentTileY;
-		float TileCount;
-	};
-
-	struct PAttribute
-	{
-		bool IsAlive;
-		float AliveTime;
-		XMFLOAT3 Velocity;
-		XMFLOAT3 Size;
-		XMFLOAT3 Rotation;
-		XMFLOAT3 Position;
-		XMFLOAT4 Color;
-		PSprite Sprite;
 	};
 
 	struct CBGS

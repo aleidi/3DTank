@@ -115,7 +115,7 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 {
 	std::ifstream fin(".\\Resource\\Configuration\\AIConfig.csv");
 	std::string line;
-	float config[21]; // 20 attributes of AI and 1 id
+	float config[22]; // 21 attributes of AI and 1 id
 
 	if (fin.is_open())
 	{
@@ -123,7 +123,7 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 		while (fin >> line)
 		{
 			size_t position = 0;
-			for (int i = 0; i < 21; ++i)
+			for (int i = 0; i < 22; ++i)
 			{
 				std::string str = line.substr(position, line.find(',', position));
 				config[i] = (float)atof(str.c_str());
@@ -132,23 +132,33 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 
 			int index = (int)config[0];
 			struct AIAttribute temp;
-			
+
 			temp.m_HP = (int)config[1];
-			temp.m_AttackRangeRadiusSq = config[2];
-			temp.m_PursuitRangeRadiusSq = config[3];
-			temp.m_WanderRangeRadiusSq = config[4];
-			temp.m_Mass = config[5];
-			temp.m_MaxSpeed = config[6];
-			temp.m_AttackTimeDelay = config[7];
-			temp.m_Offset = config[8];
-			temp.m_HitRate = (int)config[9];
-			temp.m_MaxTurnRate = config[10];
-			temp.m_WanderRadius = config[11];
-			temp.m_WanderDistance = config[12];
-			temp.m_WanderJitter = config[13];
-			temp.m_ResetPoint.x = config[14];
-			temp.m_ResetPoint.y = config[15];
-			temp.m_ResetPoint.z = config[16];
+			temp.m_AttackMode = (int)config[2];
+			temp.m_MoveMode = (int)config[3];
+			temp.m_HitRate = (int)config[4];
+			temp.m_AttackRangeRadiusSq = config[5];
+			temp.m_PursuitRangeRadiusSq = config[6];
+			temp.m_WanderRangeRadiusSq = config[7];
+
+			temp.m_Mass = config[8];
+			temp.m_Offset = config[9];
+			temp.m_MaxSpeed = config[10];
+			temp.m_MaxTurnRate = config[11];
+			temp.m_AttackTimeDelay = config[12];
+
+			temp.m_WanderRadius = config[13];
+			temp.m_WanderDistance = config[14];
+			temp.m_WanderJitter = config[15];
+			temp.m_PatrolStart.x = config[16];
+			temp.m_PatrolStart.y = 0; //default
+			temp.m_PatrolStart.z = config[17];
+			temp.m_PatrolEnd.x = config[18];
+			temp.m_PatrolEnd.y = 0; //default
+			temp.m_PatrolEnd.z = config[19];
+			temp.m_ResetPoint.x = config[20];
+			temp.m_ResetPoint.y = 0; //default
+			temp.m_ResetPoint.z = config[21];
 
 			//FileManager::AIAtrributes[index] = temp;
 			map.insert(std::pair<int, AIAttribute>(index, temp));

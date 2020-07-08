@@ -41,6 +41,8 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 
 	addBind(std::make_unique<GeometryShader>());
 
+	addBind(std::make_unique<Rasterizer>(gfx));
+
 	initMaterial();
 }
 

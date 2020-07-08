@@ -8,8 +8,8 @@ class SoundComponent;
 
 class Shell : public GameObject, CollisionEvent {
 public:
+	Shell();
 	Shell(const Vector3& origin, const Vector3& direction, const int& shellType);
-	Shell(const int& shellType);
 	Shell(GameObject* obj, const int& shellType);
 	~Shell();
 

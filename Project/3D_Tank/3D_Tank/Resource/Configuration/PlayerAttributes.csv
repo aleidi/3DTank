@@ -1,4 +1,0 @@
-ID,RotateSpd,MoveSped,BatteryRotSpd,BatteryMaxPitch,BatteryMinPitch,DisToCam,FPOfssetFactorX,FPOfssetFactorY,CamFollowFactorX,CamFollowFactorY,MaxPitchAngle,MinPitchAngle,FPToTPThreshold,MinDisToCam,MaxDisToCam,SOA
-0,30,1,1,10,-30,0.75,0.4,0.1,-2.6,1,80,-30,0.7,0,1,
-,,,,,,,,,,,,,,,,
-,????,,,,,,,,,,,,,,,
