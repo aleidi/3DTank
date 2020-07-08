@@ -198,7 +198,7 @@ bool Graphics::InitD3D()
 
 	D3D11_TEXTURE2D_DESC depthStencilDesc;
 	depthStencilDesc.Width = mClientWidth;
-	depthStencilDesc.Height = mClientWidth;
+	depthStencilDesc.Height = mClientHeight;
 	depthStencilDesc.MipLevels = 1;
 	depthStencilDesc.ArraySize = 1;
 	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
