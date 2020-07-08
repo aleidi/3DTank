@@ -66,8 +66,7 @@ void ShellContainer::applyShell(const Vector3 & position, const Vector3 & direct
 		shell->getShellComponent()->setTarget(target);
 	}
 	else {
-		(*unTriggerShells.begin())->resetPosAndDir(position, direction, shelType);
-		(*unTriggerShells.begin())->getShellComponent()->setTarget(target);
+		(*unTriggerShells.begin())->resetPosAndDir(position, direction, shelType, target);
 	}
 	if (unTriggerShells.size() > 5) {
 		for (std::vector<Shell*>::iterator it = unTriggerShells.begin() + 5; it != unTriggerShells.end();) {

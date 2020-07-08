@@ -14,6 +14,7 @@ public:
 	~Shell();
 
 	void resetPosAndDir(const Vector3& origin, const Vector3& direction, const int& shellType);
+	void resetPosAndDir(const Vector3& origin, const Vector3& direction, const int& shellType, GameObject* obj);
 
 	MBoundingSphere* getCollisionSphere();
 	ShellFlyComponent* getShellComponent();
