@@ -143,7 +143,7 @@ void ParticleSystem::draw(Graphics& gfx, float deltaTime) noexcept
 	{
 		mStepTime += deltaTime;
 	}
-	float interval = 1.0f / mEmitRate;
+	float interval = 1.0f / (float)mEmitRate;
 	if (mParticles.size() < mNeedParticles && mParticles.size() < mMaxParticles && mStepTime > interval)
 	{
 		PAttribute p;
