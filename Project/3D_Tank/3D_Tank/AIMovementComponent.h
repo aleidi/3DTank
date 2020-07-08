@@ -7,7 +7,7 @@ public:
 	AIMovementComponent(EnemyTank* enemy);
 	~AIMovementComponent();
 
-	void onUpdate(float deltaTime);
+	void onUpdate(const float& deltaTime);
 	void addVelocity(Vector3 value);
 	void addForce(Vector3 value);
 

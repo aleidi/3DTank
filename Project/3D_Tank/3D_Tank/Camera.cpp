@@ -21,7 +21,7 @@ Camera::~Camera()
 	MainCamera = nullptr;
 }
 
-void Camera::onUpdate(float deltaTime)
+void Camera::onUpdate(const float& deltaTime)
 {
 	Position = mObject->getTransform()->getPosition();
 	Rotation = mObject->getTransform()->getRotation();

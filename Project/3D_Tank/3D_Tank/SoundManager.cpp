@@ -156,7 +156,8 @@ void SoundManager::playSound(const int & soundNum)
 
 void SoundManager::playOverlapSound(FMOD::Channel*& channel, int soundNum)
 {
-	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &channel);
+	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
+	//mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &channel);
 }
 
 void SoundManager::playSingleSound(FMOD::Channel *& channel, int soundNum)

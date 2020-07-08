@@ -6,6 +6,7 @@
 #include "UIText.h"
 #include "GameCommon.h"
 #include "BoundingCube.h"
+#include "ParticleSystem.h"
 
 EnemyBoss::EnemyBoss(int id)
 {
@@ -53,7 +54,7 @@ EnemyBoss::EnemyBoss(int id)
 	mSuperModel->attach(*this);
 	mSuperModel->enableDraw(false);
 
-	mTransform->setScale(0.5f, 0.5f, 0.5f);
+	mTransform->setScale(0.25f, 0.25f, 0.25f);
 	mUIHP->setEnable(false);
 
 	mFrame = SceneManager::sGetInstance()->createUIImage(L"VFX/BossHP_Frame");
@@ -82,6 +83,8 @@ EnemyBoss::EnemyBoss(int id)
 	cube = new BoundingCube(this);
 	this->addComponent(cube);
 	cube->createBoundingCube(mTransform->getPosition() + mTransform->Up * 6.f,Vector3(4.5f, 5.5f, 4.5f),1);
+
+	initParticles();
 }
 
 EnemyBoss::~EnemyBoss()
@@ -115,12 +118,12 @@ void EnemyBoss::ChangeMode(Mode mode)
 	}
 }
 
-void EnemyBoss::onLateUpdate(float deltaTime)
+void EnemyBoss::onLateUpdate(const float& deltaTime)
 {
 	mImage->setFillAmount((float)mAttribute.m_HP / (float)mAttribute.FullHP);
 }
 
-void EnemyBoss::onUpdate(float deltaTime)
+void EnemyBoss::onUpdate(const float& deltaTime)
 {
 	mOffset += deltaTime;
 	if (mOffset > 2 * Pi)
@@ -132,4 +135,61 @@ void EnemyBoss::onUpdate(float deltaTime)
 
 void EnemyBoss::onCollisionEnter()
 {
+}
+
+void EnemyBoss::superattack()
+{
+	playSuperAttackParticle();
+}
+
+void EnemyBoss::initParticles()
+{
+	mPSAttack = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
+	mPSAttack->setTile(5.0f, 5.0f);
+	mPSAttack->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPSAttack->setEmitRate(1);
+	mPSAttack->setLifeTime(0.3f);
+	mPSAttack->setAnimationInterval(0.3f / 25.0f);
+	mPSAttack->setStartScale(0.2f, 0.2f, 0.2f);
+	mPSAttack->setDuration(0.3f);
+	mPSAttack->setStartScale(1.0f, 1.0f, 1.0f);
+	Material mat;
+	mat.Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mPSAttack->setMaterial(mat);
+
+	mPSHited = SceneManager::sGetInstance()->createParticleSystem(L"VFX/T_Fire_Shock_01");
+	mPSHited->setTile(5.0f, 5.0f);
+	mPSHited->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPSHited->setEmitRate(1);
+	mPSHited->setLifeTime(0.3f);
+	mPSHited->setAnimationInterval(0.2f / 25.0f);
+	mPSHited->setStartScale(0.5f, 0.5f, 0.5f);
+	mPSHited->setDuration(0.3f);
+	mPSAttack->setStartScale(1.0f, 1.0f, 1.0f);
+
+	mPSDeath = SceneManager::sGetInstance()->createParticleSystem(L"VFX/xulie_fire052_5x5");
+	mPSDeath->setTile(5.0f, 5.0f);
+	mPSDeath->setEmitter(ParticleSystem::Emitter::NoEmit);
+	mPSDeath->setEmitRate(1);
+	mPSDeath->setLifeTime(1.0f);
+	mPSDeath->setAnimationInterval(1.0f / 25.0f);
+	mPSDeath->setStartScale(0.3f, 0.3f, 0.3f);
+	mPSDeath->setDuration(10.0f);
+
+	mPSSuperAttack = SceneManager::sGetInstance()->createParticleSystem(L"VFX/fazhen_00003", 10);
+	mPSSuperAttack->setEmitter(ParticleSystem::Emitter::Box);
+	mPSSuperAttack->enableLoop(true);
+	mPSSuperAttack->setEmitRate(5);
+	mPSSuperAttack->setPosition(0.0f, 0.0f, 3.0f);
+	mPSSuperAttack->setLifeTime(50.0f);
+	mPSSuperAttack->setStartScale(1.5f, 1.5f, 1.5f);
+	mPSSuperAttack->setVelocity(0.0f, 0.0f, 0.0f);
+	mPSSuperAttack->setRange(0.5f, 1.5f, 0.5f);
+}
+
+void EnemyBoss::playSuperAttackParticle()
+{
+	Vector3 pos = mTransform->getPosition() + Vector3::up*6.0f;
+	mPSSuperAttack->setPosition(pos.x, pos.y, pos.z);
+	mPSSuperAttack->play();
 }

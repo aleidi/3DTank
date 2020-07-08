@@ -16,22 +16,23 @@ public:
 	static void Destroy();
 
 	void onDraw();
-	void onPostDraw(float deltaTime);
+	void onPostDraw(const float& deltaTime);
 
 	void addMeshToPool(Mesh* mesh) noexcept;
 	bool removeMeshFromPool(Mesh* mesh) noexcept;
 	void addUIToPool(UIBase* ui) noexcept;
 	bool removeUIFromPool(UIBase* ui) noexcept;
-	void addUI3DToPool(UIBase* ui) noexcept;
+	void addUI3DToPool(UIBase* ui, bool isSp = false) noexcept;
 	bool removeUI3DFromPool(UIBase* ui) noexcept;
 	void addParticleToPool(ParticleSystem* p) noexcept;
 	bool removeParticleFromPool(ParticleSystem* p) noexcept;
 	void addVFXToPool(VFXSphere* vfx) noexcept;
 	bool removeVFXFromPool(VFXSphere* vfx) noexcept;
+	bool removeUISPFromSpecial(UIBase* ui) noexcept;
 
 	Graphics& getGraphics() const;
 	DirectionalLight getDirLight() noexcept;
-	void rotateLight(float x, float y, float z);
+	void rotateLight(const float& x, const float& y, const float& z);
 	void setSkyBox(const std::wstring& texture);
 
 private:
@@ -50,6 +51,7 @@ private:
 	std::list<UIBase*> mUIs;
 	std::list<ParticleSystem*> mParticles;
 	std::list<VFXSphere*> mVFXs;
+	std::list<UIBase*> mUISPs;
 	DirectionalLight mDirLight;
 	Graphics& mGraphics;
 };

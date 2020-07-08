@@ -15,9 +15,15 @@ public:
 
 	void showUI(bool value);
 	void ChangeMode(Mode mode);
-	void onLateUpdate(float deltaTime) override;
-	void onUpdate(float deltaTime) override;
+	void onLateUpdate(const float& deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
 	void onCollisionEnter() override;
+
+	void superattack();
+
+private:
+	void initParticles() override;
+	void playSuperAttackParticle();
 
 private:
 	GameObject* mNormalModel;
@@ -28,5 +34,7 @@ private:
 	UIText* mName;
 
 	float mOffset;
+
+	ParticleSystem* mPSSuperAttack;
 };
 

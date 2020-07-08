@@ -12,7 +12,7 @@ public:
 	virtual ~ControllerBase() {} 
 
 	virtual void onStart() override;
-	virtual void onUpdate(float deltaTime) override;
+	virtual void onUpdate(const float& deltaTime) override;
 
 	void posses(Pawn* pawn) noexcept;
 	void unPosses() noexcept;

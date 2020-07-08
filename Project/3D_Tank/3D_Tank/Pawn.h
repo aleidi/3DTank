@@ -48,8 +48,8 @@ public:
 	virtual ~Pawn();
 
 	virtual void onStart() override;
-	virtual void onUpdate(float deltaTime) override;
-	virtual void onLateUpdate(float deltaTime) override;
+	virtual void onUpdate(const float& deltaTime) override;
+	virtual void onLateUpdate(const float& deltaTime) override;
 
 	virtual void move(Vector3 value);
 	virtual void attack(Vector3 battery_position, Vector3 shot_direction);

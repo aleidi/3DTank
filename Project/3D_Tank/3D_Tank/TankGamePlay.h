@@ -5,6 +5,6 @@ class TankGamePlay : public ScriptComponent
 {
 public:
 	TankGamePlay(GameObject* object) noexcept;
-	void onUpdate(float deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
 };
 

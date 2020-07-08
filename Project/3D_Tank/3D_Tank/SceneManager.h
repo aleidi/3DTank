@@ -31,7 +31,7 @@ public:
 	UIImage* createUIImage(const std::wstring& texPath);
 	UIButton* createUIButton(const std::wstring& texPath);
 	UIText* createUIText(const std::wstring& text = L"未设置文本");
-	UIImage3D* createUIImage3D(const std::wstring& texPath);
+	UIImage3D* createUIImage3D(const std::wstring& texPath, bool isSP = false);
 	UIText3D* createUIText3D(const std::wstring& text = L"未设置文本");
 	ParticleSystem* createParticleSystem(const std::wstring& texPath, int maxParticles = 1);
 	VFXSphere* createVFXSphere();

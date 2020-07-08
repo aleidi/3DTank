@@ -36,7 +36,7 @@ void HUD::setAccelator(float inner, float outer)
 	mAccelatorOuter = outer;
 }
 
-void HUD::onLateUpdate(float deltaTime)
+void HUD::onLateUpdate(const float& deltaTime)
 {
 	mCrossHairInner->rotate(0.0f, 0.0f, deltaTime * mRotSpdInner * mAccelatorInner);
 	mCrossHairOuter->rotate(0.0f, 0.0f, deltaTime * mRotSpdOuter * mAccelatorOuter * -1.0f);

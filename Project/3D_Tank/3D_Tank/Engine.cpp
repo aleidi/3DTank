@@ -113,6 +113,7 @@ void Engine::onPostInit()
 
 void Engine::run()
 {
+	//speed up and down
 	if (DInputPC::getInstance().iskeyDown(DIK_F4))
 	{
 		gSpeed = 2.0f;
@@ -121,6 +122,15 @@ void Engine::run()
 	{
 		gSpeed = 1.0f;
 	}
+	if (DInputPC::getInstance().iskeyDown(DIK_F3))
+	{
+		gSpeed = 0.5f;
+	}
+	if (DInputPC::getInstance().iskeyUp(DIK_F3))
+	{
+		gSpeed = 1.0f;
+	}
+
 	//Timer update
 	mTimer.tick();
 	float deltaTime = mTimer.getDeltaTIme() * gSpeed;

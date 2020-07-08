@@ -21,7 +21,7 @@ DamageDisplay::DamageDisplay(int value, const Vector3 & start, float transition,
 	mText->setEnable(false);
 }
 
-void DamageDisplay::onLateUpdate(float deltaTime)
+void DamageDisplay::onLateUpdate(const float& deltaTime)
 {
 	if (!mIsEnable)
 	{

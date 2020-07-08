@@ -32,7 +32,7 @@ void AIController::onStart()
 {
 }
 
-void AIController::onUpdate(float deltaTime)
+void AIController::onUpdate(const float& deltaTime)
 {
 	m_pStateMachine->update(deltaTime);
 	// MoveCharacter(Vector3::right * deltaTime);

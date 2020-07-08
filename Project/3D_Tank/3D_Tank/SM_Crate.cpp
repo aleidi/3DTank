@@ -6,6 +6,7 @@ SM_Crate::SM_Crate(const Vector3& position, const Vector3& rotate, const Vector3
 	DirectX::XMVECTOR maxPoint, minPoint;
 	SceneManager::sGetInstance()->createModel(*this, "Objects\\SM_Crate_01a", L"Objects\\TX_Crates_01a_ALB", maxPoint, minPoint);
 	mTransform->setPosition(position);
+	mTransform->setRotation(rotate);
 	mTransform->setScale(scale);
 
 	DirectX::XMFLOAT3 maxP(69.7716980f, 103.348999f, 48.9459991f);

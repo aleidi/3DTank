@@ -21,7 +21,7 @@ public:
 	SoundComponent* getSoundComponent();
 	
 	int getShelltype();
-	void onUpdate(float deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
 	void onTriggerEnter() override;
 
 	GameObject* shell;

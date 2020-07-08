@@ -32,7 +32,7 @@ public:
 	static void setLockTarget(float x, float y, float z);
 	static void unlockTarget();
 
-	void onUpdate(float deltaTime) noexcept;
+	void onUpdate(const float& deltaTime) noexcept;
 
 private:
 	void calculateDirectionVector() noexcept;

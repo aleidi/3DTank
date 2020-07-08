@@ -11,11 +11,12 @@ public:
 	virtual void draw(Graphics& gfx) noexcept override;
 	void SetBlendTransparent(Graphics& gfx);
 	void ResetBlendState(Graphics& gfx);
-	void tileOffset(float x, float y);
-	void setPosition(float x, float y, float z);
-	void translate(float x, float y, float z);
-	void rotate(float pitch, float yaw, float roll);
-	void setRotation(float pitch, float yaw, float roll);
+	void tileOffset(const float& x, const float& y);
+	void setPosition(const float& x, const float& y, const float& z);
+	void translate(const float& x, const float& y, const float& z);
+	void rotate(const float& pitch, const float& yaw, const float& roll);
+	void setRotation(const float& pitch, const float& yaw, const float& roll);
+	void setScale(const float& x, const float& y, const float& z);
 
 private:
 	float mX;
@@ -26,6 +27,9 @@ private:
 	float mYaw;
 	float mTileOffsetX;
 	float mTileOffsetY;
+	float mScaleX;
+	float mScaleY;
+	float mScaleZ;
 
 	struct CBVS
 	{

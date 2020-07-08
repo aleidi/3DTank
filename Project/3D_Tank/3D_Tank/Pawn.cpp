@@ -26,12 +26,12 @@ void Pawn::onStart()
 	GameObject::onStart();
 }
 
-void Pawn::onUpdate(float deltaTime)
+void Pawn::onUpdate(const float& deltaTime)
 {
 	GameObject::onUpdate(deltaTime);
 }
 
-void Pawn::onLateUpdate(float deltaTime)
+void Pawn::onLateUpdate(const float& deltaTime)
 {
 	mUIHP->setFillAmount((float)mAttribute.m_HP / (float)mAttribute.FullHP);
 	mUIHP->onLateUpdate(deltaTime);

@@ -83,10 +83,10 @@ public:
 	virtual void destroy();
 
 	virtual void onStart();
-	virtual void onUpdate(float deltaTime);
-	virtual void onLateUpdate(float deltaTime);
-	void onEngineUpdate(float deltaTime);
-	void onEngineFixedUpdate(float fixedDeltaTime);
+	virtual void onUpdate(const float& deltaTime);
+	virtual void onLateUpdate(const float& deltaTime);
+	void onEngineUpdate(const float& deltaTime);
+	void onEngineFixedUpdate(const float& fixedDeltaTime);
 
 	void setLastFramePosition(const Vector3& position);
 	Vector3 getLastFramePosition();

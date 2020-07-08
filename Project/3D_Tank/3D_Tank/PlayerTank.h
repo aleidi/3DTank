@@ -18,8 +18,8 @@ public:
 	PlayerTank();
 	~PlayerTank();
 
-	void onUpdate(float deltaTime) override;
-	void onLateUpdate(float deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
+	void onLateUpdate(const float& deltaTime) override;
 	
 
 	void onAttack(float deltaTime);

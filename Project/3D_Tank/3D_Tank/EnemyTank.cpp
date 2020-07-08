@@ -202,12 +202,13 @@ void EnemyTank::onCollisionEnter()
 {
 	float damage = (float)rand() / (float)RAND_MAX * 30.0f + 1.0f;
 	hited(damage);
+	this->setAttacked(true);
 }
 
 void EnemyTank::hited(int damage) {
 	this->setHP(damage * -1.0f);
 	if (this->getHP() <= 0)
-		this->setHP(this->getHP() * -1.0f);;
+		this->setHP(this->getHP() * -1.0f);
 	Vector3 pos = mTransform->getPosition();
 	pos.x += (float)rand() / (float)RAND_MAX - 0.5f;
 	pos.y += (float)rand() / (float)RAND_MAX * 0.6f - 0.2f;

@@ -11,16 +11,16 @@ class Transform : public Component
 {
 public:
 	Transform(GameObject* obj) noexcept;
-	void onEngineUpdate(float deltaTime) override;
-	void onUpdate(float deltaTime) override;
-	void onLateUpdate(float deltaTime) override;
+	void onEngineUpdate(const float& deltaTime) override;
+	void onUpdate(const float& deltaTime) override;
+	void onLateUpdate(const float& deltaTime) override;
 
 	void translate(const Vector3&);
-	void translate(float x, float y, float z);
-	void rotateX(float, bool isDeg = true);
-	void rotateY(float, bool isDeg = true);
-	void rotateZ(float, bool isDeg = true);
-	void rotate(float x, float y, float z, bool isDeg = true);
+	void translate(const float& x, const float& y, const float& z);
+	void rotateX(const float&, bool isDeg = true);
+	void rotateY(const float&, bool isDeg = true);
+	void rotateZ(const float&, bool isDeg = true);
+	void rotate(const float& x, const float& y, const float& z, bool isDeg = true);
 
 	Transform* getChild(int);
 	Transform* getParent();

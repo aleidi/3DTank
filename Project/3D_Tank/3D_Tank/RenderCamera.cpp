@@ -168,7 +168,7 @@ void RenderCamera::unlockTarget()
 	mIsLockOn = false;
 }
 
-void RenderCamera::onUpdate(float deltaTime) noexcept
+void RenderCamera::onUpdate(const float& deltaTime) noexcept
 {
 	if (nullptr == Camera::MainCamera)
 	{

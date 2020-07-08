@@ -10,7 +10,7 @@ public:
 	UIHP();
 	~UIHP();
 
-	void onLateUpdate(float deltaTime) override;
+	void onLateUpdate(const float& deltaTime) override;
 
 	void setFillAmount(float value);
 	void setFillType(FillType type);

@@ -9,7 +9,7 @@ public:
 	MovementComponent(GameObject* object);
 	virtual ~MovementComponent();
 
-	virtual void onUpdate(float deltaTime);
+	virtual void onUpdate(const float& deltaTime);
 
 	virtual void addVelocity(Vector3 value) = 0;
 	virtual void addForce(Vector3 value) = 0;

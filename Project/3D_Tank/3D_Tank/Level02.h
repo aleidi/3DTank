@@ -23,13 +23,17 @@ private:
 	GameObject* mMap;
 	std::vector<AirWall*> airWalls;
 	std::vector<GameObject*> obstacles;
+	std::vector<GameObject*> obstaclesPlay;
 	std::vector<AITank*> firstWaveAI;
 	std::vector<AITank*> secondWaveAI;
 	std::vector<AITank*> thirdWaveAI;
 	bool isWaveClear(std::vector<AITank*> thisWave);
 	void wakeupAI(int ID);
 	void wakeupWave(std::vector<AITank*> thisWave);
+	void destroyWave(std::vector<AITank*> thisWave);
 	bool secondloaded = false;
 	bool thirdloaded = false;
+
+	float count = 0.0f;
 };
 

@@ -198,7 +198,7 @@ bool Graphics::InitD3D()
 
 	D3D11_TEXTURE2D_DESC depthStencilDesc;
 	depthStencilDesc.Width = mClientWidth;
-	depthStencilDesc.Height = mClientWidth;
+	depthStencilDesc.Height = mClientHeight;
 	depthStencilDesc.MipLevels = 1;
 	depthStencilDesc.ArraySize = 1;
 	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -385,7 +385,7 @@ void Graphics::EndFrame()
 	pSwapChain->Present(0,0);
 }
 
-void Graphics::OnResize(float width, float height)
+void Graphics::OnResize(const float& width, const float& height)
 {
 	mClientWidth = width;
 	mClientHeight = height;
@@ -397,7 +397,7 @@ void Graphics::OnResize(float width, float height)
 	BindD2DResource();
 }
 
-void Graphics::onUdpate(float deltaTime)
+void Graphics::onUdpate(const float& deltaTime)
 {
 	mRenderCamera->onUpdate(deltaTime);
 	XMFLOAT3 pos;

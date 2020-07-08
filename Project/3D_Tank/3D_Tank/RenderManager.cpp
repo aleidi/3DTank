@@ -28,6 +28,7 @@ void RenderManager::Destroy()
 
 void RenderManager::onDraw()
 {
+
 	for (std::list<Mesh*>::iterator it = mMeshes.begin(); it != mMeshes.end(); ++it)
 	{
 		if (nullptr == *it)
@@ -36,6 +37,7 @@ void RenderManager::onDraw()
 		}
 		(*it)->draw(mGraphics);
 	}
+
 
 	for (std::list<VFXSphere*>::iterator it = mVFXs.begin(); it != mVFXs.end(); ++it)
 	{
@@ -47,7 +49,7 @@ void RenderManager::onDraw()
 	}
 }
 
-void RenderManager::onPostDraw(float deltaTime)
+void RenderManager::onPostDraw(const float& deltaTime)
 {
 	for (std::list<ParticleSystem*>::iterator it = mParticles.begin(); it != mParticles.end(); ++it)
 	{
@@ -56,6 +58,15 @@ void RenderManager::onPostDraw(float deltaTime)
 			continue;
 		}
 		(*it)->draw(mGraphics, deltaTime);
+	}
+
+	for (std::list<UIBase*>::iterator it = mUISPs.begin(); it != mUISPs.end(); ++it)
+	{
+		if (nullptr == *it)
+		{
+			continue;
+		}
+		(*it)->draw(mGraphics);
 	}
 
 	for (std::list<UIBase*>::iterator it = mUI3Ds.begin(); it != mUI3Ds.end(); ++it)
@@ -75,6 +86,7 @@ void RenderManager::onPostDraw(float deltaTime)
 		}
 		(*it)->draw(mGraphics);
 	}
+
 }
 
 void RenderManager::addMeshToPool(Mesh * mesh) noexcept
@@ -125,9 +137,14 @@ bool RenderManager::removeUIFromPool(UIBase * ui) noexcept
 	return false;
 }
 
-void RenderManager::addUI3DToPool(UIBase * ui) noexcept
+void RenderManager::addUI3DToPool(UIBase * ui, bool isSp) noexcept
 {
-	mUI3Ds.push_back(ui);
+	if (isSp != true)
+	{
+		mUI3Ds.push_back(ui);
+		return;
+	}
+	mUISPs.push_back(ui);
 }
 
 bool RenderManager::removeUI3DFromPool(UIBase * ui) noexcept
@@ -197,6 +214,25 @@ bool RenderManager::removeVFXFromPool(VFXSphere * vfx) noexcept
 	return false;
 }
 
+bool RenderManager::removeUISPFromSpecial(UIBase * ui) noexcept
+{
+	for (std::list<UIBase*>::iterator it = mUISPs.begin(); it != mUISPs.end();)
+	{
+		if (*it == ui)
+		{
+			delete *it;
+			*it = nullptr;
+			mUISPs.erase(it++);
+			return true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return false;
+}
+
 Graphics & RenderManager::getGraphics() const
 {
 	return mGraphics;
@@ -207,7 +243,7 @@ DirectionalLight RenderManager::getDirLight() noexcept
 	return mDirLight;
 }
 
-void RenderManager::rotateLight(float x, float y, float z)
+void RenderManager::rotateLight(const float& x, const float& y, const float& z)
 {
 	XMVECTOR dir = XMLoadFloat3(&mDirLight.Direction);
 	dir = XMVector3Rotate(dir, XMQuaternionRotationRollPitchYaw(

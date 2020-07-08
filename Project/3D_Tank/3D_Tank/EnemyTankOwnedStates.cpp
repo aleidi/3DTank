@@ -88,10 +88,15 @@ void Rest::execute(AIController* pEnemyTank, float deltaTime) {
 			pEnemyTank->getFSM()->changeState(Pursuit::getInstance());
 	}
 
-	if (AITank->getHP() == AITank->FullHP) {
+	if (AITank->getHP() >= AITank->FullHP) {
+		AITank->setHP(AITank->FullHP - AITank->getHP());
 		pEnemyTank->getFSM()->changeState(Wander::getInstance());
 	}
 
+
+	if (AITank->getHP() <= 0) {
+		pEnemyTank->getFSM()->changeState(Death::getInstance());
+	}
 }
 
 void Rest::exit(AIController* pEnemyTank) {
@@ -107,12 +112,12 @@ bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 			return true;
 		}
 
-		case Msg_IsAttacked: {
-			//MessageBox(0, L"nmsl(rest", 0, 0);
-			AITank->setAttacked(true);
-			return true;
-		}
-							 
+		//case Msg_IsAttacked: {
+		//	//MessageBox(0, L"nmsl(rest", 0, 0);
+		//	AITank->setAttacked(true);
+		//	return true;
+		//}
+		//					 
 	}
 	return false;
 }
@@ -179,6 +184,7 @@ void Wander::exit(AIController* pEnemyTank) {
 }
 
 bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
+	/*
 	switch (msg.Msg) {
 		case Msg_IsAttacked: {
 			//MessageBox(0, L"nmsl(wander", 0, 0);
@@ -186,7 +192,7 @@ bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 		}
 
 		return true;
-	}
+	}*/
 	return false;
 
 }
@@ -534,7 +540,13 @@ Death* Death::getInstance() {
 }
 
 void Death::enter(AIController* pEnemyTank) {
-	AITank->playDeathParticle();
+	Dispatch->Dispatch_Message(1.0f,
+		AITank->getID(),
+		AITank->getID(),
+		Msg_DeathDelay,
+		NO_ADDITIONAL_INFO);
+
+	//AITank->playDeathParticle();
 	//MessageBox(0, L"awsl", 0, 0);
 }
 
@@ -550,5 +562,12 @@ void Death::exit(AIController* pEnemyTank) {
 }
 
 bool Death::onMessage(AIController* pEnemyTank, const Telegram& msg) {
+	switch (msg.Msg) {
+	case Msg_DeathDelay: {
+		AITank->playDeathParticle();
+		return true;
+	}
+
+	}
 	return false;
 }

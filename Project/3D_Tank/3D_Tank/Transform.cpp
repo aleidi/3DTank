@@ -10,7 +10,7 @@ Transform::Transform(GameObject * obj) noexcept
 {
 }
 
-void Transform::onEngineUpdate(float deltaTime)
+void Transform::onEngineUpdate(const float& deltaTime)
 {
 	calcultateTransformMatrix();
 
@@ -23,7 +23,7 @@ void Transform::onEngineUpdate(float deltaTime)
 	}
 }
 
-void Transform::onUpdate(float deltaTime)
+void Transform::onUpdate(const float& deltaTime)
 {
 	for (std::list<Transform*>::iterator it = children.begin(); it != children.end(); ++it)
 	{
@@ -34,7 +34,7 @@ void Transform::onUpdate(float deltaTime)
 	}
 }
 
-void Transform::onLateUpdate(float deltaTime)
+void Transform::onLateUpdate(const float& deltaTime)
 {
 	for (std::list<Transform*>::iterator it = children.begin(); it != children.end(); ++it)
 	{
@@ -55,7 +55,7 @@ void Transform::translate(const Vector3& v)
 	}
 }
 
-void Transform::translate(float x, float y, float z)
+void Transform::translate(const float& x, const float& y, const float& z)
 {
 	mPosition.x += x;
 	mPosition.y += y;
@@ -67,7 +67,7 @@ void Transform::translate(float x, float y, float z)
 	}
 }
 
-void Transform::rotateX(float angle, bool isDeg)
+void Transform::rotateX(const float& angle, bool isDeg)
 {
 	if (isDeg == false)
 	{
@@ -82,7 +82,7 @@ void Transform::rotateX(float angle, bool isDeg)
 	}
 }
 
-void Transform::rotateY(float angle, bool isDeg)
+void Transform::rotateY(const float& angle, bool isDeg)
 {
 	if (isDeg == false)
 	{
@@ -108,7 +108,7 @@ void Transform::rotateY(float angle, bool isDeg)
 	}
 }
 
-void Transform::rotateZ(float angle, bool isDeg)
+void Transform::rotateZ(const float& angle, bool isDeg)
 {
 	if (isDeg == false)
 	{
@@ -120,7 +120,7 @@ void Transform::rotateZ(float angle, bool isDeg)
 	}
 }
 
-void Transform::rotate(float x, float y, float z, bool isDeg)
+void Transform::rotate(const float& x, const float& y, const float& z, bool isDeg)
 {
 	if (isDeg == false)
 	{
@@ -375,7 +375,7 @@ void Transform::calculateRotForChildren(float angleX, float angleY, float angleZ
 {
 	for (std::list<Transform*>::iterator it = children.begin(); it != children.end(); ++it)
 	{
-		Vector3 pos = (*it)->mPosition;;
+		Vector3 pos = (*it)->mPosition;
 		XMVECTOR v = XMVectorSet(pos.x, pos.y, pos.z, 1.0f);
 		v = XMVector3Rotate(v, XMQuaternionRotationRollPitchYaw(angleX, angleY, angleZ));
 		(*it)->mPosition.x = XMVectorGetX(v);

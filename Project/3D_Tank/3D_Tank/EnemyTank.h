@@ -80,7 +80,7 @@ public:
 	AIController* getAICtrl()const;
 
 protected:
-	void initParticles();
+	virtual void initParticles();
 	void playHitedParticle();
 
 protected:
