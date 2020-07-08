@@ -25,20 +25,24 @@ EnemyTank::EnemyTank(int ID, float scale)
 	mName = "EnemyTank"+std::to_string(ID);
 	DirectX::XMVECTOR maxPoint, minPoint;
 	mAttribute = { FileManager::AIAttributes[ID].m_HP,
-				   FileManager::AIAttributes[ID].m_HP,
-				   FileManager::AIAttributes[ID].m_AttackRangeRadiusSq,
-				   FileManager::AIAttributes[ID].m_PursuitRangeRadiusSq,
-				   FileManager::AIAttributes[ID].m_WanderRangeRadiusSq,
-				   FileManager::AIAttributes[ID].m_Mass,
-				   FileManager::AIAttributes[ID].m_MaxSpeed,
-				   FileManager::AIAttributes[ID].m_AttackTimeDelay,
-				   FileManager::AIAttributes[ID].m_Offset,
-				   FileManager::AIAttributes[ID].m_HitRate,
-				   FileManager::AIAttributes[ID].m_MaxTurnRate,
-				   FileManager::AIAttributes[ID].m_WanderRadius,
-				   FileManager::AIAttributes[ID].m_WanderDistance,
-				   FileManager::AIAttributes[ID].m_WanderJitter,
-				   FileManager::AIAttributes[ID].m_ResetPoint };
+			   FileManager::AIAttributes[ID].m_HP,
+			   FileManager::AIAttributes[ID].m_AttackMode,
+			   FileManager::AIAttributes[ID].m_MoveMode,
+			   FileManager::AIAttributes[ID].m_HitRate,
+			   FileManager::AIAttributes[ID].m_AttackRangeRadiusSq,
+			   FileManager::AIAttributes[ID].m_PursuitRangeRadiusSq,
+			   FileManager::AIAttributes[ID].m_WanderRangeRadiusSq,
+			   FileManager::AIAttributes[ID].m_Mass,
+			   FileManager::AIAttributes[ID].m_Offset,
+			   FileManager::AIAttributes[ID].m_MaxSpeed,
+			   FileManager::AIAttributes[ID].m_MaxTurnRate,
+			   FileManager::AIAttributes[ID].m_AttackTimeDelay,
+			   FileManager::AIAttributes[ID].m_WanderRadius,
+			   FileManager::AIAttributes[ID].m_WanderDistance,
+			   FileManager::AIAttributes[ID].m_WanderJitter,
+			   FileManager::AIAttributes[ID].m_PatrolStart,
+			   FileManager::AIAttributes[ID].m_PatrolEnd,
+			   FileManager::AIAttributes[ID].m_ResetPoint };
 
 	FullHP = mAttribute.FullHP;
 	DyingHP = FullHP * 0.2; // below this value the enemy tank is dying
