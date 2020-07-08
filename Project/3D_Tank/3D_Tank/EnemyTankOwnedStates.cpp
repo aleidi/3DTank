@@ -106,7 +106,7 @@ void Rest::exit(AIController* pEnemyTank) {
 bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	switch (msg.Msg) {
 		case Msg_HPRecovered: {
-			AITank->setHP(5);
+			AITank->setHP(50);
 			//MessageBox(0, L"HP+5 ", 0, 0);
 			AITank->setHPRecovered(false);
 			return true;
