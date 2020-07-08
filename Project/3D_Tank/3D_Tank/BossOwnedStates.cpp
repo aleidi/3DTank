@@ -72,13 +72,11 @@ bool Alert::onMessage(AIController* pBoss, const Telegram& msg) {
 			if(BOSS->getHP() > BOSS->FullHP)
 				BOSS->setHP(BOSS->FullHP - BOSS->getHP());
 		}
-		//MessageBox(0, L"HP+5 ", 0, 0);
 		BOSS->setHPRecovered(false);
 		return true;
 	}
 
 	case Msg_IsAttacked: {
-		//MessageBox(0, L"nmsl(rest", 0, 0);
 		BOSS->setAttacked(true);
 		return true;
 	}
@@ -94,7 +92,6 @@ Battle* Battle::getInstance() {
 }
 
 void Battle::enter(AIController* pBoss) {
-	//MessageBox(0, L"awsl", 0, 0);
 }
 
 void Battle::execute(AIController* pBoss, float deltaTime) {
@@ -102,7 +99,6 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 	////     Similar to normal enemy tank attack state      ////
 	////            missile every 3 normal shot           ////
 	//// Wait for the attack state of enemytank to be fixed ////
-
 	if (BOSS->aiCount > BOSS->attackTimeDelay()) {
 		BOSS->aiCount = 0.0f;
 		if (normalshot < 3) {
@@ -148,6 +144,52 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 	if (!BOSS->isEnemyInRange()) {
 		pBoss->getFSM()->changeState(Alert::getInstance());
 	}
+}
+
+void Battle::exit(AIController* pBoss) {
+
+}
+
+bool Battle::onMessage(AIController* pBoss, const Telegram& msg) {
+	return false;
+}
+
+//-------------------methods for Battle-------------------//
+Battle* Battle::getInstance() {
+	static Battle m_Battle;
+	return &m_Battle;
+}
+
+void Battle::enter(AIController* pBoss) {
+}
+
+void Battle::execute(AIController* pBoss, float deltaTime) {
+
+	////////////////////////Battery follows////////////////////////////
+	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
+	float dot = Vector3::dot(targetDirection, getBOSSHeading);
+	dot = Math::Clamp(1.0f, -1.0f, dot);
+	float rotate = acosf(dot) * 180 / Pi;
+	Vector3 cross = Vector3::cross(targetDirection, getBOSSHeading);
+	if (cross.y > 0)
+		rotate = -rotate;
+
+	rotate = Math::Clamp(BOSS->maxTurnRate(), -1 * BOSS->maxTurnRate(), rotate);
+	BOSS->getTransform()->rotate(0, rotate, 0);
+	////////////////////////Offset////////////////////////////
+
+	BOSS->aiCount += deltaTime;
+	if (BOSS->aiCount > BOSS->attackTimeDelay()) {
+		int hitRate = BOSS->hitRate();
+		if (0 == rand() % hitRate)  offset = 0.0f;
+		else {
+			offset = Math::RandomClamped() * BOSS->offset();
+			BOSS->rotateBattery(0, offset, 0);
+		}
+	}
+
+	////////////////////////changeState/////////////////////////
+
 }
 
 void Battle::exit(AIController* pBoss) {

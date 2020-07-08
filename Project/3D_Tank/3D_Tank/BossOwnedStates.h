@@ -37,6 +37,21 @@ private:
 	float offset = 0.0f;
 };
 
+class StageTwo : public State<AIController> {
+public:
+	static StageTwo* getInstance();
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
+	virtual void exit(AIController* pETank);
+
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
+private:
+	StageTwo() {}
+
+	StageTwo(const StageTwo&);
+	StageTwo& operator=(const StageTwo&);
+};
+
 class Violent : public State<AIController> {
 public:
 	static Violent* getInstance();
