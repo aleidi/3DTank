@@ -102,14 +102,14 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 	if (BOSS->aiCount > BOSS->attackTimeDelay()) {
 		BOSS->aiCount = 0.0f;
 		if (normalshot < 3) {
-			//pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());
+			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());  // + 01
 			BOSS->rotateBattery(0, -offset, 0);
 			normalshot += 1;
 		}
 		
 		else { 
 			BOSS->rotateBattery(0, -offset, 0);
-			//pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading,pBoss->getTarget());
+			pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading,pBoss->getTarget());  // + 01
 			normalshot = 0;
 		} 
 	}
@@ -137,8 +137,8 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 	}
 
 	////////////////////////changeState/////////////////////////
-	if (BOSS->isDying()) {
-		pBoss->getFSM()->changeState(Violent::getInstance());
+	if (BOSS->getHP() <= BOSS->FullHP * 0.5 ) {
+		pBoss->getFSM()->changeState(StageTwo::getInstance());
 	}
 
 	if (!BOSS->isEnemyInRange()) {
@@ -161,6 +161,7 @@ StageTwo* StageTwo::getInstance() {
 }
 
 void StageTwo::enter(AIController* pBoss) {
+	MessageBox(0, L"fxck u", 0, 0);
 }
 
 void StageTwo::execute(AIController* pBoss, float deltaTime) {

@@ -8,6 +8,7 @@
 #include "BoundingCube.h"
 #include "MagicBall.h"
 #include "GameInstance.h"
+#include "SoundComponent.h"
 
 EnemyBoss::EnemyBoss(int id)
 	:mCanSuperAttack(false),mCanFloat(false),mSAParticles(),mSAIndex(0),mTimerSA(0.0f),mIntervalSA(1.0f)
@@ -89,8 +90,9 @@ EnemyBoss::EnemyBoss(int id)
 
 	cube = new BoundingCube(this);
 	this->addComponent(cube);
-	cube->createBoundingCube(mTransform->getPosition() + mTransform->Up * 6.f,Vector3(4.5f, 5.5f, 4.5f),1);
-
+	cube->createBoundingCube(mTransform->getPosition() + mTransform->Up * 3.f,Vector3(2.f, 2.f, 2.f),1);
+	tankSound = new SoundComponent(this);
+	this->addComponent(tankSound);
 	initParticles();
 }
 

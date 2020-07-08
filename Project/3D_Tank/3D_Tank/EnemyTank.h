@@ -21,7 +21,7 @@ public:
 	//////////////////////////////////////////////////////accessors
 	int FullHP;
 	int DyingHP; // below this value the enemy tank is dying
-	int ReplyInterval = 10;
+	int ReplyInterval = 3;
 
 	void setHP(int changeHP);
 	int getHP()const;
