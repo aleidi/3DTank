@@ -43,14 +43,14 @@ void Pawn::move(Vector3 value)
 
 
 
-void Pawn::attack(Vector3 batteryposition, Vector3 shot_direction)
+void Pawn::attack(Vector3 batteryposition, Vector3 shot_direction, const int& tankType)
 {
-	ShellContainer::sGetInstance()->applyShell(batteryposition, shot_direction, 0, 0);
+	ShellContainer::sGetInstance()->applyShell(batteryposition, shot_direction, 0, tankType);
 }
 
-void Pawn::attack(Vector3 battery_position, Vector3 shot_direction, Pawn* target)
+void Pawn::attack(Vector3 battery_position, Vector3 shot_direction, Pawn* target, const int& tankType)
 {
-	ShellContainer::sGetInstance()->applyShell(battery_position, shot_direction, 1, target, 0);
+	ShellContainer::sGetInstance()->applyShell(battery_position, shot_direction, 1, target, tankType);
 }
 
 void Pawn::hited(int value)

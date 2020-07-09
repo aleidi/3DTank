@@ -104,12 +104,12 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 	if (BOSS->aiCount > BOSS->attackTimeDelay()) {
 		BOSS->aiCount = 0.0f;
 		if (normalshot < 3) {
-			pBoss->Attack(BOSS->batteryPosition(), getTargetPos - BOSS->batteryPosition() );  // + 01
+			pBoss->Attack(BOSS->batteryPosition(), getTargetPos - BOSS->batteryPosition(), 1);  // + 01
 			normalshot += 1;
 		}
 		
 		else { 
-			pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading,pBoss->getTarget());  // + 01
+			pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading,pBoss->getTarget(), 1);  // + 01
 			normalshot = 0;
 		} 
 	}
@@ -159,12 +159,12 @@ void StageTwo::execute(AIController* pBoss, float deltaTime) {
 	if (BOSS->aiCount > BOSS->attackTimeDelay() * 1.5 ) {
 		BOSS->aiCount = 0.0f;
 		if (normalshot < 2) {
-			pBoss->Attack(BOSS->batteryPosition(), getTargetPos - BOSS->batteryPosition());  // + 01
+			pBoss->Attack(BOSS->batteryPosition(), getTargetPos - BOSS->batteryPosition(), 1);  // + 01
 			normalshot += 1;
 		}
 
 		else {
-			pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading, pBoss->getTarget());  // + 01
+			pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading, pBoss->getTarget(), 1);  // + 01
 			normalshot = 0;
 		}
 	}

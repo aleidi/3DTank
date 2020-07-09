@@ -52,12 +52,12 @@ bool AIController::handleMessage(const Telegram& msg) {
 	return m_pStateMachine->handleMessage(msg);
 }
 
-void AIController::Attack(Vector3 battery_position, Vector3 direction) {
-	mPawn->attack(battery_position, direction);
+void AIController::Attack(Vector3 battery_position, Vector3 direction, const int& tankType) {
+	mPawn->attack(battery_position, direction, tankType);
 }
 
-void AIController::Attack(Vector3 battery_position, Vector3 direction, Pawn* target) {
-	mPawn->attack(battery_position, direction, target);
+void AIController::Attack(Vector3 battery_position, Vector3 direction, Pawn* target, const int& tankType) {
+	mPawn->attack(battery_position, direction, target, tankType);
 }
 
 void AIController::Move(Vector3 force)

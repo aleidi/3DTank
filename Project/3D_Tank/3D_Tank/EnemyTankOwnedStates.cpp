@@ -346,10 +346,10 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 
 
 		if (AITank->isMissile()) {
-			pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward(), pEnemyTank->getTarget());
+			pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward(), pEnemyTank->getTarget(), 0);
 		}
 		else {
-			pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward());
+			pEnemyTank->Attack(AITank->batteryPosition(), AITank->batteryForward(), 0);
 		}
 		AITank->playAttackParticle();
 	} 
