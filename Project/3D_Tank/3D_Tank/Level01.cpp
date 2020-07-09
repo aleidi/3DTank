@@ -94,7 +94,7 @@ void Level01::enterLevel()
 	mBtnCancel->setPosition(WINDOW_WIDTH - 200.0f, 50.0f);
 	mBtnCancel->setTextPos(WINDOW_WIDTH - 180.0f, 75.0f);
 
-	mCanvas = new AnimationTitle(0.0f, 0.0f, 6.0f, 10.0f, 0.0f, L"", Vector3(80.0f, 0.0f, 0.0f));
+	mCanvas = new AnimationTitle(0.0f, 0.0f, 6.0f, 10.0f, 0.0f, L"", Vector3(160.0f, 0.0f, 0.0f));
 	mCanvas->setImageSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	mCanvas->setColor(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 
@@ -121,7 +121,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
-	SoundManager::sGetInstance()->playAudio(4);
+
 
 	if (mCurrentGameMode != nullptr)
 	{
@@ -264,6 +264,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 				mState = MainMenu;
 				mCanvas->setEnable(false);
 			}
+			SoundManager::sGetInstance()->playAudio(4);
 			mBtnStart->setEnable(true);
 			mBtnSetting->setEnable(true);
 			mBtnExit->setEnable(true);
