@@ -7,12 +7,15 @@
 #pragma comment (lib,"fmod_vc.lib")
 #pragma comment (lib,"fmodL_vc.lib")
 
-const int SOUND_NUM = 14;
+const int SOUND_NUM = 17;
 
-const std::string SOUND_FILE_PATH[14] =
+const std::string SOUND_FILE_PATH[17] =
 {
 	"Resource/Sound/BGM00_Background.wav",
 	"Resource/Sound/BGM01_Battle.mp3",
+	"Resource/Sound/BGM02_Boss.mp3",
+	"Resource/Sound/BGM03_BossSuper.mp3",
+	"Resource/Sound/BGM04_MainMenu.mp3",
 	"Resource/Sound/SE00_Tank_move_lp.wav",
 	"Resource/Sound/SE01_Tank_shot.wav",
 	"Resource/Sound/SE02_Tank_explossion.wav",
@@ -45,6 +48,7 @@ public:
 
 	void playBGM();
 	void playSound(const int& soundNum);
+	void playAudio(const int& soundNUm);
 	void setPause(const int& soundNum);
 	void setReplay(const int& soundNum);
 	void setBGMValume(const float& valume);
@@ -68,4 +72,5 @@ private:
 	FMOD::System* mFmodSystem;
 	FMOD::Sound* mFmodSound[SOUND_NUM];
 	FMOD::Channel* mFmodChannel[SOUND_NUM];
+	FMOD::Channel* mChannel;
 };

@@ -8,6 +8,7 @@
 #include "ParticleSystem.h"
 #include "GameCommon.h"
 #include "FadeInOut.h"
+#include "SoundManager.h"
 
 Level01::Level01()
 	: mCamTrig(false),mState(Empty)
@@ -119,6 +120,8 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 {
 
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
+
+	SoundManager::sGetInstance()->playAudio(4);
 
 	if (mCurrentGameMode != nullptr)
 	{
@@ -319,6 +322,7 @@ void Level01::leaveLevel()
 	mCamFollower->destroy();
 	mCamera->destroy();
 
+	SoundManager::sGetInstance()->stop(4);
 
 	SceneManager::sGetInstance()->removeParticleFromPool(mRain);
 

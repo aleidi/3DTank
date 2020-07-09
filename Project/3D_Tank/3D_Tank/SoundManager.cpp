@@ -154,6 +154,16 @@ void SoundManager::playSound(const int & soundNum)
 	}
 }
 
+void SoundManager::playAudio(const int & soundNUm)
+{
+	bool isPlaying = false;
+	FMOD_RESULT result;
+	result = mChannel->isPlaying(&isPlaying);
+	if (result == FMOD_OK)
+		return;
+	mFmodSystem->playSound(mFmodSound[soundNUm], NULL, false, &mChannel);
+}
+
 void SoundManager::playOverlapSound(FMOD::Channel*& channel, int soundNum)
 {
 	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &channel);
@@ -234,11 +244,11 @@ void SoundManager::stop(const int & soundNum)
 {
 	bool isPlaying = false;
 	FMOD_RESULT result;
-	result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
+	result = mChannel->isPlaying(&isPlaying);
 	if (result == FMOD_ERR_INVALID_HANDLE || result == FMOD_ERR_CHANNEL_STOLEN)
 		return;
 
-	mFmodChannel[soundNum]->stop();
+	mChannel->stop();
 	return;
 }
 
