@@ -124,6 +124,11 @@ void PlayerTank::onLateUpdate(const float& deltaTime)
 	mCamFollower->getTransform()->setPosition(mTransform->getPosition() + mFPCameraOffset);
 }
 
+void PlayerTank::destroy()
+{
+	SceneManager::sGetInstance()->removeGameObjectFromPool(this);
+}
+
 void PlayerTank::onAttack(float deltaTime)
 {
 	mAttackCount -= deltaTime;

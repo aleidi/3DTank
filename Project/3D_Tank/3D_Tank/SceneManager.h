@@ -56,8 +56,6 @@ public:
 	void onEngineUpdate(float deltaTime);
 	void onEngineFixedUpdate(float fixedDeltaTime);
 	void onGarbageCollection();
-
-private:
 	bool removeGameObjectFromPool(GameObject* object) noexcept;
 
 private:

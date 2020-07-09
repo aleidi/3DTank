@@ -10,6 +10,8 @@
 #include "Graphics.h"
 #include "SoundManager.h"
 #include "CollisionManager.h"
+#include "GameModeTP.h"
+#include "GameLevelManager.h"
 
 
 Engine* Engine::sInstance = nullptr;
@@ -207,6 +209,14 @@ void Engine::onResize(float width, float height)
 void Engine::changeRunSpeed(float value)
 {
 	mRunSpeed = value;
+}
+
+void Engine::startGame()
+{
+	GameLevelManager::sGetInstance()->resetCurrentGameMode();
+	GameLevelManager::sGetInstance()->setCurrentGameMode(new GameModeTP());
+	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
+	enableGameMode(true);
 }
 
 void Engine::showtText(const std::wstring & str = L"", float leftTopX=0, float leftTopY=0, float width=0, float height=0, bool canShow = false)
