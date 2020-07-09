@@ -29,7 +29,13 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 
 	addBind(std::make_unique<Sampler>(gfx));
 	
-	addBind(std::make_unique<Rasterizer>(gfx));
+	D3D11_RASTERIZER_DESC rd;
+	ZeroMemory(&rd, sizeof(rd));
+	rd.FillMode = D3D11_FILL_SOLID;
+	rd.CullMode = D3D11_CULL_NONE;
+	rd.FrontCounterClockwise = false;
+	rd.DepthClipEnable = true;
+	addBind(std::make_unique<Rasterizer>(gfx, rd));
 
 	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
@@ -74,7 +80,13 @@ ModelMesh::ModelMesh(RenderComponent * owner, const std::string vertex, const st
 
 	addBind(std::make_unique<Sampler>(gfx));
 
-	addBind(std::make_unique<Rasterizer>(gfx));
+	D3D11_RASTERIZER_DESC rd;
+	ZeroMemory(&rd, sizeof(rd));
+	rd.FillMode = D3D11_FILL_SOLID;
+	rd.CullMode = D3D11_CULL_NONE;
+	rd.FrontCounterClockwise = false;
+	rd.DepthClipEnable = true;
+	addBind(std::make_unique<Rasterizer>(gfx, rd));
 
 	addBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 

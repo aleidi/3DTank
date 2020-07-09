@@ -175,22 +175,22 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 	if (DInputPC::getInstance().iskeyDown(DIK_F)){
 		Shell* sh = new Shell(enemy->getTank()->getTransform()->getPosition() + enemy->getTank()->getTransform()->Forward*0.6f + enemy->getTank()->getTransform()->Up*0.18f + enemy->getTank()->getTransform()->Right*0.04f, enemy->getTank()->getTransform()->Forward, 0);
 
-		shell = SceneManager::sGetInstance()->createSphere();
-		shell->getTransform()->Forward = SM_WaterTank->getTransform()->Forward * -1;
-		shell->getTransform()->setPosition(SM_WaterTank->getTransform()->getPosition() + SM_WaterTank->getTransform()->Forward*0.6f + enemy->getTank()->getTransform()->Up*0.18f+enemy->getTank()->getTransform()->Right*0.04f);
-		shell->getTransform()->setScale(Vector3(0.02f, 0.02f, 0.02f));
-		SceneManager::sGetInstance()->addGameObjectToPool(shell);
-		ShellFlyComponent* shellFly = new ShellFlyComponent(shell);
-		shell->addComponent(shellFly);
-		MBoundingSphere* shellBoundingSphere = new MBoundingSphere(shell);
-		shellBoundingSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1f, 1);
-		shell->addComponent(shellBoundingSphere);
-		shell->sphere = shellBoundingSphere;
-		shellFly->setTarget(enemy->getTank());
-		tankFire = true;
-		sound = new SoundComponent(shell);
-		sound->setPosition();
-		shell->addComponent(sound);
+		//shell = SceneManager::sGetInstance()->createSphere();
+		//shell->getTransform()->Forward = SM_WaterTank->getTransform()->Forward * -1;
+		//shell->getTransform()->setPosition(SM_WaterTank->getTransform()->getPosition() + SM_WaterTank->getTransform()->Forward*0.6f + enemy->getTank()->getTransform()->Up*0.18f+enemy->getTank()->getTransform()->Right*0.04f);
+		//shell->getTransform()->setScale(Vector3(0.02f, 0.02f, 0.02f));
+		//SceneManager::sGetInstance()->addGameObjectToPool(shell);
+		//ShellFlyComponent* shellFly = new ShellFlyComponent(shell);
+		//shell->addComponent(shellFly);
+		//MBoundingSphere* shellBoundingSphere = new MBoundingSphere(shell);
+		//shellBoundingSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.1f, 1);
+		//shell->addComponent(shellBoundingSphere);
+		//shell->sphere = shellBoundingSphere;
+		//shellFly->setTarget(enemy->getTank());
+		//tankFire = true;
+		//sound = new SoundComponent(shell);
+		//sound->setPosition();
+		//shell->addComponent(sound);
 //		SoundManager::sGetInstance()->playSound(sound->mChannel, 0);
 	}
 	if (shell) {

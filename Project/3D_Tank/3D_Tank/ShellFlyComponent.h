@@ -5,7 +5,6 @@ class ParticleSystem;
 
 class ShellFlyComponent : public Component {
 public:
-	ShellFlyComponent(GameObject* obj);
 	ShellFlyComponent(GameObject* obj, const Vector3& direction);
 	~ShellFlyComponent();
 
