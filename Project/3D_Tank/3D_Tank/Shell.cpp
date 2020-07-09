@@ -81,7 +81,8 @@ Shell::Shell(const Vector3 & ori, const Vector3 & direction, const int & shellTy
 	SceneManager::sGetInstance()->createModel(*shell, "Objects/Shell", L"Objects/Shell");*/
 	mModel = SceneManager::sGetInstance()->createVFXSphere();
 	Material mat;
-	//mat.Color = XMFLOAT4(1.0f, 0.24f, 0.588f, 1.0f);
+	mat.Color = XMFLOAT4(1.0f, 0.498f, 0.314f, 1.0f);
+	mModel->setMaterial(mat);
 	shell = SceneManager::sGetInstance()->createSphere();
 	//shell->getComponent<RenderComponent>()->setMaterial(mat);
 	shell->getTransform()->setPosition(this->origin + direction * 0.6f + Vector3::up * 0.1f);
@@ -89,6 +90,7 @@ Shell::Shell(const Vector3 & ori, const Vector3 & direction, const int & shellTy
 	shell->getTransform()->rotate(90.f, -rotate, 0.f);
 	Vector3 pos = shell->getTransform()->getPosition();
 	mModel->setPosition(pos.x, pos.y, pos.z);
+	mModel->setScale(0.25f, 0.25f, 0.25f);
 
 	mCollisionSphere = new MBoundingSphere(shell);
 	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.05f, 1);
@@ -265,11 +267,6 @@ void Shell::onUpdate(const float& deltaTime)
 					else {
 						ShellContainer::sGetInstance()->unTriggerBossShells.push_back(this);
 						ShellContainer::sGetInstance()->onTriggerBossShells.erase(ShellContainer::sGetInstance()->onTriggerBossShells.begin());
-						if (mModel != nullptr)
-						{
-							Vector3 pos =shell->getTransform()->getPosition();
-							mModel->setPosition(pos.x, pos.y, pos.z);
-						}
 					}
 					mCount = 0.f;
 				}
@@ -298,14 +295,14 @@ void Shell::onUpdate(const float& deltaTime)
 							this->shellType = 0;
 						}
 						ShellContainer::sGetInstance()->onTriggerBossShells.erase(ShellContainer::sGetInstance()->onTriggerBossShells.begin());
-						if (mModel != nullptr)
-						{
-							Vector3 pos = shell->getTransform()->getPosition();
-							mModel->setPosition(pos.x, pos.y, pos.z);
-						}
 					}
 					mCount = 0.f;
 				}
+			}
+			if (mModel != nullptr)
+			{
+				Vector3 pos = shell->getTransform()->getPosition();
+				mModel->setPosition(pos.x, pos.y, pos.z);
 			}
 		}
 	}
@@ -340,5 +337,8 @@ void Shell::onTriggerEnter()
 			this->shellType = 0;
 		}
 		ShellContainer::sGetInstance()->onTriggerBossShells.erase(ShellContainer::sGetInstance()->onTriggerBossShells.begin());
+	}
+	if (mModel) {
+		mModel->setPosition(0.f, -6.f, 0.f);
 	}
 }
