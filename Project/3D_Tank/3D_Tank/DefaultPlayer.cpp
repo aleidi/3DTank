@@ -15,8 +15,11 @@ DefaultPlayer::DefaultPlayer()
 
 DefaultPlayer::~DefaultPlayer()
 {
-	delete mCamera;
-	mCamera = nullptr;
+}
+
+void DefaultPlayer::destroy()
+{
+	SceneManager::sGetInstance()->removeGameObjectFromPool(this);
 }
 
 void DefaultPlayer::MoveForward(float value)

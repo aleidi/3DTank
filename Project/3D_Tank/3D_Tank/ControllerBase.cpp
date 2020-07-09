@@ -1,4 +1,5 @@
 #include "ControllerBase.h"
+#include "SceneManager.h"
 
 ControllerBase::ControllerBase(int value)
 	: mIsEnable(false), GameObject(-1)
@@ -13,6 +14,11 @@ void ControllerBase::onStart()
 void ControllerBase::onUpdate(const float& deltaTime)
 {
 	GameObject::onUpdate(deltaTime);
+}
+
+void ControllerBase::destroy()
+{
+	SceneManager::sGetInstance()->removeGameObjectFromPool(this);
 }
 
 void ControllerBase::posses(Pawn * pawn) noexcept

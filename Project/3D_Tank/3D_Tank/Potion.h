@@ -20,6 +20,7 @@ private:
 	float mOffset;
 	int mHeal;
 	float mRange;
+	bool mIsInitFin;
 
 };
 

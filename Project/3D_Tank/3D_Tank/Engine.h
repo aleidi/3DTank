@@ -27,6 +27,8 @@ public:
 	void enableEditMode(bool value);
 	void enableGameMode(bool value);
 	void onResize(float width, float height);
+	void changeRunSpeed(float value);
+	void startGame();
 
 	void showtText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
 private:
@@ -49,17 +51,6 @@ private:
 
 	bool mIsGameMode;
 	bool mIsEditMode;
-
-	//testcode
-	float gSpeed;
-	float fScale;
-	float fTrans_x;
-	float fTrans_y;
-	float fTrans_z;
-	float fRot_x;
-	float fRot_y;
-	float fRot_z;
-	float fspeed;
-	float rspeed;
+	float mRunSpeed;
 };
 

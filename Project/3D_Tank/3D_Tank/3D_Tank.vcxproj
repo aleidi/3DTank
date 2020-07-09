@@ -239,6 +239,7 @@
     <ClCompile Include="Level03.cpp" />
     <ClCompile Include="MagicBall.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
+    <ClCompile Include="ModelMeshNormal.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Pawn.cpp" />
@@ -390,6 +391,7 @@
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="MessageTypes.h" />
+    <ClInclude Include="ModelMeshNormal.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Pawn.h" />
@@ -478,6 +480,14 @@
     </FxCompile>
     <FxCompile Include="Light_VS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="NormalMap_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="NormalMap_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Particle_GS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
