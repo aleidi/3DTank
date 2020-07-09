@@ -21,6 +21,8 @@ bool isNewCrate = false;
 bool isNewFreightContainer_A = false;
 bool isNewFreightContainer_B = false;
 bool isBindChanged = false;
+bool isChangeToNight = false;
+bool isChangeToSand = false;
 
 void selectObject(std::string objectName);
 void newObject(std::string gameObjectName);
@@ -96,6 +98,22 @@ void ImGuiFrame::onUpdate(float deltaTime)
 				for (std::list<std::string>::iterator it = nameList.begin(); it != nameList.end(); ++it)
 				{
 					selectObject(*it);
+				}
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Sky Box"))
+			{
+				ImGui::MenuItem("Night", NULL, &isChangeToNight);
+				ImGui::MenuItem("Sand", NULL, &isChangeToSand);
+				if (isChangeToNight)
+				{
+					SceneManager::sGetInstance()->setSkyBox(L"Skybox/Night");
+					isChangeToNight = false;
+				}
+				if (isChangeToSand)
+				{
+					SceneManager::sGetInstance()->setSkyBox(L"Skybox/Sand");
+					isChangeToSand = false;
 				}
 				ImGui::EndMenu();
 			}
