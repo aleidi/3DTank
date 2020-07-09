@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
 #include "Vector3.h"
+#include "Shell.h"
 
 class GameObject;
-class Shell;
 
 class ShellContainer {
 public:
@@ -14,8 +14,8 @@ public:
 	std::vector<Shell*> getOnTriggerShells();
 	std::vector<Shell*> getUnTriggerShells();
 
-	void applyShell(const Vector3& position, const Vector3& direction, const int& shelType);
-	void applyShell(const Vector3& position, const Vector3& direction, const int& shelType, GameObject* target);
+	void applyShell(const Vector3& position, const Vector3& direction, const int& shelType, const int& enemyType);
+	void applyShell(const Vector3& position, const Vector3& direction, const int& shelType, GameObject* target, const int& enemyType);
 
 private:
 	static ShellContainer* sInstance;
@@ -29,4 +29,6 @@ private:
 
 	std::vector<Shell*>onTriggerShells;
 	std::vector<Shell*>unTriggerShells;
+	std::vector<Shell*>onTriggerBossShells;
+	std::vector<Shell*>unTriggerBossShells;
 };
