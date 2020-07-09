@@ -22,7 +22,7 @@ void Level03::enterLevel()
 	SceneManager::sGetInstance()->createSphere();
 	mCanStart = true;
 
-	Engine::sGetInstance()->enableGameMode(true);
+	//Engine::sGetInstance()->enableGameMode(true);
 }
 
 GameLevelBase * Level03::onUpdate(float deltaTime)

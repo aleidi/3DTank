@@ -171,6 +171,11 @@ void ImGuiFrame::onUpdate(float deltaTime)
 		}
 
 		ImGui::Text(" --------------------------------- ");
+		if (ImGui::Button("Run"))
+		{
+			Engine::sGetInstance()->startGame();
+		}
+		ImGui::SameLine();
 		if (ImGui::Button("Strat"))
 		{
 			Engine::sGetInstance()->enableGameMode(true);
