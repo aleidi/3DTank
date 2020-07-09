@@ -29,6 +29,7 @@ Alert* Alert::getInstance() {
 }
 
 void Alert::enter(AIController* pBoss) {
+	BOSS->setImmune(false);
 	BOSS->setHPRecovered(false);
 }
 
@@ -99,22 +100,22 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 	////     Similar to normal enemy tank attack state      ////
 	////            missile every 3 normal shot           ////
 	//// Wait for the attack state of enemytank to be fixed ////
+	BOSS->aiCount += deltaTime;
 	if (BOSS->aiCount > BOSS->attackTimeDelay()) {
 		BOSS->aiCount = 0.0f;
 		if (normalshot < 3) {
-			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());  // + 01
-			BOSS->rotateBattery(0, -offset, 0);
+			pBoss->Attack(BOSS->batteryPosition(), getTargetPos - BOSS->batteryPosition() );  // + 01
 			normalshot += 1;
 		}
 		
 		else { 
-			BOSS->rotateBattery(0, -offset, 0);
 			pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading,pBoss->getTarget());  // + 01
 			normalshot = 0;
 		} 
 	}
 	////////////////////////Battery follows////////////////////////////
-	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
+	Vector3 bossxzPos = getBOSSPos - Vector3(0, getBOSSPos.y, 0);
+	Vector3 targetDirection = (getTargetPos - bossxzPos).normalize();
 	float dot = Vector3::dot(targetDirection, getBOSSHeading);
 	dot = Math::Clamp(1.0f, -1.0f, dot);
 	float rotate = acosf(dot) * 180 / Pi;
@@ -124,17 +125,6 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 
 	rotate = Math::Clamp(BOSS->maxTurnRate(), -1 * BOSS->maxTurnRate(), rotate);
 	BOSS->getTransform()->rotate(0, rotate, 0);
-	////////////////////////Offset////////////////////////////
-
-	BOSS->aiCount += deltaTime;
-	if (BOSS->aiCount > BOSS->attackTimeDelay()) {   
-		int hitRate = BOSS->hitRate();
-		if (0 == rand() % hitRate)  offset = 0.0f;
-		else {
-			offset = Math::RandomClamped() * BOSS->offset();
-			BOSS->rotateBattery(0, offset, 0);
-		}
-	}
 
 	////////////////////////changeState/////////////////////////
 	if (BOSS->getHP() <= BOSS->FullHP * 0.5 ) {
@@ -165,22 +155,22 @@ void StageTwo::enter(AIController* pBoss) {
 
 void StageTwo::execute(AIController* pBoss, float deltaTime) {
 	////////////////////////normal attack/////////////////////////////
-	if (BOSS->aiCount > BOSS->attackTimeDelay() * 0.5 ) {
+	BOSS->aiCount += deltaTime;
+	if (BOSS->aiCount > BOSS->attackTimeDelay() * 1.5 ) {
 		BOSS->aiCount = 0.0f;
 		if (normalshot < 2) {
-			pBoss->Attack(BOSS->batteryPosition(), BOSS->batteryForward());  // + 01
-			BOSS->rotateBattery(0, -offset, 0);
+			pBoss->Attack(BOSS->batteryPosition(), getTargetPos - BOSS->batteryPosition());  // + 01
 			normalshot += 1;
 		}
 
 		else {
-			BOSS->rotateBattery(0, -offset, 0);
 			pBoss->Attack(BOSS->batteryPosition(), getBOSSHeading, pBoss->getTarget());  // + 01
 			normalshot = 0;
 		}
 	}
 	////////////////////////Battery follows////////////////////////////
-	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
+	Vector3 bossxzPos = getBOSSPos - Vector3(0, getBOSSPos.y, 0);
+	Vector3 targetDirection = (getTargetPos - bossxzPos).normalize();
 	float dot = Vector3::dot(targetDirection, getBOSSHeading);
 	dot = Math::Clamp(1.0f, -1.0f, dot);
 	float rotate = acosf(dot) * 180 / Pi;
@@ -190,20 +180,8 @@ void StageTwo::execute(AIController* pBoss, float deltaTime) {
 
 	rotate = Math::Clamp(BOSS->maxTurnRate(), -1 * BOSS->maxTurnRate(), rotate);
 	BOSS->getTransform()->rotate(0, rotate, 0);
-	////////////////////////Offset////////////////////////////
-
-	BOSS->aiCount += deltaTime;
-	if (BOSS->aiCount > BOSS->attackTimeDelay() * 0.5) {
-		int hitRate = BOSS->hitRate();
-		if (0 == rand() % hitRate)  offset = 0.0f;
-		else {
-			offset = Math::RandomClamped() * BOSS->offset();
-			BOSS->rotateBattery(0, offset, 0);
-		}
-	}
 
 	////////////////////////SuperAttack/////////////////////////
-
 	superCount += deltaTime;
 	if (superCount > 3.0f ) {
 		if (particleSwitch) {
@@ -262,7 +240,8 @@ void Violent::execute(AIController* pBoss, float deltaTime) {
 	}
 
 	////////////////////////Battery follows////////////////////////////
-	Vector3 targetDirection = (getTargetPos - getBOSSPos).normalize();
+	Vector3 bossxzPos = getBOSSPos - Vector3(0, getBOSSPos.y, 0);
+	Vector3 targetDirection = (getTargetPos - bossxzPos).normalize();
 	float dot = Vector3::dot(targetDirection, getBOSSHeading);
 	dot = Math::Clamp(1.0f, -1.0f, dot);
 	float rotate = acosf(dot) * 180 / Pi;

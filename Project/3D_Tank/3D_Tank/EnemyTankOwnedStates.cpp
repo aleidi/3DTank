@@ -53,8 +53,8 @@ Rest* Rest::getInstance() {
 }
 
 void Rest::enter(AIController* pEnemyTank) {
-	std::wstring wstr;
-	wstr += std::to_wstring(AITank->getID()) + L"I'm going to rest. ";
+	//std::wstring wstr;
+	//wstr += std::to_wstring(AITank->getID()) + L"I'm going to rest. ";
 	AITank->setHPRecovered(false);
 	// MessageBox(0, wstr.c_str(), 0, 0);
 }
