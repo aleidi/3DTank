@@ -22,7 +22,7 @@ Level01::~Level01()
 
 void Level01::enterLevel()
 {
-	std::thread t(&Level01::loadResourcce, this);
+	std::thread t(&Level01::loadResource, this);
 	t.detach();
 
 	std::thread t2(&Level01::loadParticle, this);
@@ -127,10 +127,10 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 	{
 	}
 
-	if (DInputPC::getInstance().iskeyDown(DIK_F2))
-	{
-		return GameLevelManager::sGetInstance()->changeLevel(2);
-	}
+	//if (DInputPC::getInstance().iskeyDown(DIK_F2))
+	//{
+	//	return GameLevelManager::sGetInstance()->changeLevel(2);
+	//}
 
 	if (mCamFollower != nullptr)
 	{
@@ -350,7 +350,7 @@ void Level01::changeLanguage()
 	mBtnCancel->setText(FileManager::localization[9]);
 }
 
-void Level01::loadResourcce()
+void Level01::loadResource()
 {
 	mExhibition = SceneManager::sGetInstance()->createCube();
 	SceneManager::sGetInstance()->createModel(*mExhibition, "Tank\\TankBattery", L"Tank\\TankTex");

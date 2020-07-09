@@ -64,6 +64,7 @@ public:
 	DirectX::XMMATRIX getView() const noexcept;
 	DirectX::XMMATRIX getProj() const noexcept;
 	DirectX::XMVECTOR getCameraPosition() const noexcept;
+	DirectX::XMVECTOR getCameraRotation() const noexcept;
 
 	//test code
 	//DirectX::XMVECTOR getcamForward();

@@ -20,23 +20,11 @@
 #include "FreightContainer_A.h"
 #include "ShellContainer.h"
 #include "Potion.h"
-
-/////////////////////////////////
-AITank* enemy_01;
-AITank* enemy_02;
-AITank* enemy_03;
-AITank* enemy_04;
-AITank* enemy_05;
-AITank* enemy_06;
-AITank* enemy_07;
-AITank* enemy_08;
-AITank* enemy_09;
-AITank* enemy_10;
-AITank* enemy_boss;
-
-Potion* potion1;
+#include "FadeInOut.h"
+#include "Weightless.h"
 
 Level02::Level02()
+	:mTimer(0.0f), mIsInitLoad(false),mIsBossLoad(false)
 {
 	GameLevelManager::sGetInstance()->addLevel(2, this);
 }
@@ -49,9 +37,16 @@ void Level02::enterLevel()
 {
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Sand");
 
+	mState = Opening;
 
-	std::thread t(&Level02::loadResourcce, this);
-	t.detach();
+	mTitle = new FadeInOut(L"UI/Title1", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 8.0f, FadeInOut::Type::FadeOut);
+	mBackGround = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 8.0f, FadeInOut::Type::FadeOut);
+
+	//std::thread t(&Level02::loadResourcce, this);
+	//t.detach();
+
+	mCanStart = true;
+	//Engine::sGetInstance()->enableGameMode(true);
 }
 
 GameLevelBase * Level02::onUpdate(float deltaTime)
@@ -62,20 +57,47 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 	}
 
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
-	
-	//std::wstring wstr;
-	//float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
-	//float y = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().y;
-	//float z = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().z;
-	//wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
-	//Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
+
+	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
+	{
+		mTitle->setEnable(true);
+		std::thread t(&Level02::loadResource, this);
+		t.detach();
+
+		//std::thread t3(&Level02::loadThirdWave, this);
+		//t3.detach();
+		std::thread t2(&Level02::loadBoss, this);
+		t2.detach();
+	}
+
+	switch (mState)
+	{
+	case Level02::Opening:
+		mTimer += deltaTime;
+		if (mTimer > 5.0f)
+		{
+			mBackGround->setEnable(true);
+		}
+		break;
+	case Level02::CutScene1:
+		break;
+	case Level02::CutScene2:
+		break;
+		break;
+	default:
+		break;
+	}
+
+	if (!mIsInitLoad || !mIsBossLoad)
+	{
+		return this;
+	}
 	
 	RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*10.0f, 0.0f);
 
-	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
-
 	Dispatch->DispatchDelayedMessages();
 
+#pragma region testcode
 	//if (!secondloaded && isWaveClear(firstWaveAI) ) {
 
 	//	count += deltaTime;
@@ -99,7 +121,17 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 	//		thirdloaded = true;
 	//	}
 	//}
+
+#pragma endregion
+
+	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 	
+	//std::wstring wstr;
+	//float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
+	//float y = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().y;
+	//float z = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().z;
+	//wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
+	//Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
 	return this;
 }
 
@@ -107,9 +139,11 @@ void Level02::leaveLevel()
 {
 	Engine::sGetInstance()->enableGameMode(false);
 
+	mTitle->destroy();
+	mBackGround->destroy();
 }
 
-void Level02::loadResourcce()
+void Level02::loadResource()
 {
 	mMap = SceneManager::sGetInstance()->createEmptyObject();
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m0_wall3", L"Objects/Level/wall3");
@@ -364,16 +398,15 @@ void Level02::loadResourcce()
 	//mCurrentGameMode->onInit();
 	mCurrentGameMode = new GameModeTP();
 
-	//loadFirstWave();
-	//wakeupWave(firstWaveAI);
 
-	enemy_boss = new AITank(ent_Tank_SuperEnemy);
-	thirdWaveAI.push_back(enemy_boss);
-	reinterpret_cast<EnemyBoss*>(enemy_boss->getTank())->showUI(true);
-	enemy_boss->getCtrl()->wakeup();
+#pragma region testcode
+	loadFirstWave();
+	wakeupWave(firstWaveAI);
+
+#pragma endregion
 
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
-	//reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->translate(30.0,0,9.0);
+	reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->translate(30.0,0,9.0);
 
 	// potion
 	potion1 = new Potion();
@@ -381,7 +414,7 @@ void Level02::loadResourcce()
 
 	ShellContainer::onInit();
 
-	mCanStart = true;
+	mIsInitLoad = true;
 }
 
 void Level02::wakeupAI(int ID) {
@@ -415,9 +448,43 @@ void Level02::loadThirdWave() {
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy09));
 	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy10));
 
+	weightless = new Weightless();
+	weightless->empty->getTransform()->setPosition(Vector3(2, 0, -42));
+	Vector3 position;
+	Vector3 scale;
+	Vector3 rotation;
+	position = Vector3(-5, 7, 0);
+	scale = Vector3(0.015, 0.015, 0.015);
+	rotation = Vector3(1.2, 0.7, 0.4);
+	GameObject* floatObj = new SM_Crate(position, rotation, scale);
+	floatObj->attach(*(weightless->empty));
+	obstaclesPlay.push_back(floatObj);
+
+	position = Vector3(4, 9, 5);
+	scale = Vector3(0.015, 0.015, 0.015);
+	rotation = Vector3(0.4, 1.5, 1.4);
+	floatObj = new SM_Crate(position, rotation, scale);
+	floatObj->attach(*(weightless->empty));
+	obstaclesPlay.push_back(floatObj);
+
+	position = Vector3(1.5, 11, -3);
+	scale = Vector3(0.006, 0.006, 0.006);
+	rotation = Vector3(0.8, 1.1, 2.1);
+	floatObj = new FreightContainer_A(position, rotation, scale, 0);
+	floatObj->attach(*(weightless->empty));
+	obstaclesPlay.push_back(floatObj);
+
+	enemy_boss->getCtrl()->wakeup();
+}
+
+void Level02::loadBoss()
+{
 	enemy_boss = new AITank(ent_Tank_SuperEnemy);
 	thirdWaveAI.push_back(enemy_boss);
 	reinterpret_cast<EnemyBoss*>(enemy_boss->getTank())->showUI(true);
+	//enemy_boss->getCtrl()->wakeup();
+
+	mIsBossLoad = true;
 }
 
 bool Level02::isWaveClear(std::vector<AITank*> thisWave) {

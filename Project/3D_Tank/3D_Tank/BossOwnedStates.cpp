@@ -219,6 +219,7 @@ Violent* Violent::getInstance() {
 
 void Violent::enter(AIController* pBoss) {
 	BOSS->initViolent(10, 10);
+	BOSS->showSuperAttackUI(true);
 	Engine::sGetInstance()->changeRunSpeed(0.5f);
 }
 
@@ -262,6 +263,7 @@ void Violent::execute(AIController* pBoss, float deltaTime) {
 
 void Violent::exit(AIController* pBoss) {
 	BOSS->enableSuperAttack(false);
+	BOSS->showSuperAttackUI(false);
 	Engine::sGetInstance()->changeRunSpeed(1.0f);
 }
 
