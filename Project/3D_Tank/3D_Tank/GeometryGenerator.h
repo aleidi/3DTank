@@ -16,9 +16,23 @@ public:
 		XMFLOAT3 Normal;
 	};
 
+	struct VertexT
+	{
+		XMFLOAT3 Pos;
+		XMFLOAT2 Tex;
+		XMFLOAT3 Normal;
+		XMFLOAT3 Tangent;
+	};
+
 	struct Mesh
 	{
 		std::vector<Vertex> vertices;
+		std::vector<UINT> indices;
+	};
+
+	struct MeshT
+	{
+		std::vector<VertexT> vertices;
 		std::vector<UINT> indices;
 	};
 
@@ -38,6 +52,7 @@ public:
 	static void getModel(Mesh& mesh, const std::string& name, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
 	static void getUIPanel(Mesh& mesh);
 	static void getUIText(Mesh& mesh) noexcept;
+	static void getModelT(MeshT& mesh, const std::string& name) noexcept;
 
 private:
 	static void createCube();
