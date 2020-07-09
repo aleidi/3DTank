@@ -76,29 +76,29 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 
 	Dispatch->DispatchDelayedMessages();
 
-	if (!secondloaded && isWaveClear(firstWaveAI) ) {
+	//if (!secondloaded && isWaveClear(firstWaveAI) ) {
 
-		count += deltaTime;
-		if (count >= 12.0f) {
-			count = 0.0f;
-			destroyWave(firstWaveAI);
-			loadSecondWave();
-			wakeupWave(secondWaveAI);
-			secondloaded = true;
-		}
-	}
-	
-	if (!thirdloaded && secondloaded && isWaveClear(secondWaveAI) ) {
+	//	count += deltaTime;
+	//	if (count >= 12.0f) {
+	//		count = 0.0f;
+	//		destroyWave(firstWaveAI);
+	//		loadSecondWave();
+	//		wakeupWave(secondWaveAI);
+	//		secondloaded = true;
+	//	}
+	//}
+	//
+	//if (!thirdloaded && secondloaded && isWaveClear(secondWaveAI) ) {
 
-		count += deltaTime;
-		if (count >= 12.0f) {
-			count = 0.0f;
-			destroyWave(secondWaveAI);
-			loadThirdWave();
-			wakeupWave(thirdWaveAI);
-			thirdloaded = true;
-		}
-	}
+	//	count += deltaTime;
+	//	if (count >= 12.0f) {
+	//		count = 0.0f;
+	//		destroyWave(secondWaveAI);
+	//		loadThirdWave();
+	//		wakeupWave(thirdWaveAI);
+	//		thirdloaded = true;
+	//	}
+	//}
 	
 	return this;
 }
@@ -364,13 +364,13 @@ void Level02::loadResourcce()
 	//mCurrentGameMode->onInit();
 	mCurrentGameMode = new GameModeTP();
 
-	loadFirstWave();
-	wakeupWave(firstWaveAI);
+	//loadFirstWave();
+	//wakeupWave(firstWaveAI);
 
-	//enemy_boss = new AITank(ent_Tank_SuperEnemy);
-	//thirdWaveAI.push_back(enemy_boss);
-	//reinterpret_cast<EnemyBoss*>(enemy_boss->getTank())->showUI(true);
-	//enemy_boss->getCtrl()->wakeup();
+	enemy_boss = new AITank(ent_Tank_SuperEnemy);
+	thirdWaveAI.push_back(enemy_boss);
+	reinterpret_cast<EnemyBoss*>(enemy_boss->getTank())->showUI(true);
+	enemy_boss->getCtrl()->wakeup();
 
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 	//reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->translate(30.0,0,9.0);
