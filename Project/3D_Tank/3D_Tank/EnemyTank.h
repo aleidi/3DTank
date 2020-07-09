@@ -68,6 +68,7 @@ public:
 	Vector3 batteryForward()const;
 	Vector3 batteryPosition()const;
 	void rotateBattery(float x, float y, float z);
+	void setImmune(bool value);
 
 	void onTriggerEnter(const GameObject* obj) override;
 	void onTriggerExit() override;
@@ -94,7 +95,7 @@ protected:
 	bool m_isObstacleForward;
 	bool m_isObstacleRight;
 	bool m_isObstacleLeft;
-	//bool m_isCollision;
+	bool mIsImmune;
 
 	GameObject* mObstacle;
 	GameObject* mBattery;

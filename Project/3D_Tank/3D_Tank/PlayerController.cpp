@@ -151,17 +151,6 @@ void PlayerController::checkInput(float deltaTime)
 		reinterpret_cast<PlayerTank*>(mPawn)->stopMove();
 	}
 
-
-	if (DInputPC::getInstance().iskeyDown(LIGHTWEAPON))
-	{
-		reinterpret_cast<PlayerTank*>(mPawn)->setWeaponType(PlayerTank::WeaponType::Light);
-	}
-
-	if (DInputPC::getInstance().iskeyDown(HEAVYWEAPON))
-	{
-		reinterpret_cast<PlayerTank*>(mPawn)->setWeaponType(PlayerTank::WeaponType::Heavy);
-	}
-
 	float dz = DInputPC::getInstance().mouseDZ();
 	if (dz > 0)
 	{

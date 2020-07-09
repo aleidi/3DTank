@@ -9,12 +9,6 @@ class ParticleSystem;
 class PlayerTank : public Pawn
 {
 public:
-	enum WeaponType
-	{
-		Light = 0,
-		Heavy = 1,
-	};
-public:
 	PlayerTank();
 	~PlayerTank();
 
@@ -25,7 +19,6 @@ public:
 	void onAttack(float deltaTime);
 	void setAttack();
 	void stopAttack();
-	void setWeaponType(WeaponType type);
 	void move(Vector3 value) override;
 	void stopMove();
 	void rotate(float value);
@@ -72,8 +65,7 @@ private:
 	//Weapon
 	int mWeaponType;
 	float mAttackCount;
-	float mLightInterval;
-	float mHeavyInterval;
+	float mAttackInterval;
 	float mAttackAngle;
 
 	//SoundComponent* tankSound;

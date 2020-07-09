@@ -19,7 +19,7 @@ struct Telegram;
 
 EnemyTank::EnemyTank(int ID, float scale)
 	:m_HPRecovered(false),
-	m_Attacked(false),
+	m_Attacked(false), mIsImmune(true),
 	BaseGameEntity(ID)
 {
 	mName = "EnemyTank"+std::to_string(ID);
@@ -193,6 +193,11 @@ void EnemyTank::rotateBattery(float x, float y, float z)
 	mBattery->getTransform()->rotate(x, y, z);
 }
 
+void EnemyTank::setImmune(bool value)
+{
+	mIsImmune = value;
+}
+
 void EnemyTank::onTriggerEnter(const GameObject * obj)
 {
 
@@ -205,6 +210,11 @@ void EnemyTank::onTriggerExit()
 
 void EnemyTank::onCollisionEnter()
 {
+	if (mIsImmune)
+	{
+		return;
+	}
+
 	float damage = (float)rand() / (float)RAND_MAX * 30.0f + 1.0f;
 	hited(damage);
 	this->setAttacked(true);

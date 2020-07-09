@@ -42,7 +42,7 @@ private:
 
 	UIImage* mImage;
 	UIImage* mFrame;
-	UIText* mName;
+	UIText* mNameText;
 
 	float mOffsetFloat;
 
