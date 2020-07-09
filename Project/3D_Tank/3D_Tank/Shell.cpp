@@ -6,6 +6,7 @@
 #include "SoundComponent.h"
 #include "PlayerTank.h"
 #include "ShellContainer.h"
+#include "VFXSphere.h"
 
 Shell::Shell() :shellType(0),tankType(1)
 {
@@ -72,7 +73,9 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& shellType)
 Shell::Shell(const Vector3 & ori, const Vector3 & direction, const int & shellType, const int& tankType)
 	:shellType(shellType), origin(ori), tankType(tankType)
 {
-
+	mModel = SceneManager::sGetInstance()->createVFXSphere();
+	Material mat;
+	mat.Color = XMFLOAT4(1.0f, 0.24f, 0.588f, 1.0f);
 
 	shell->getTransform()->setPosition(ori);
 
@@ -268,6 +271,12 @@ void Shell::onUpdate(const float& deltaTime)
 				}
 			}
 		}
+	}
+
+	if (mModel != nullptr)
+	{
+		Vector3 pos = mTransform->getPosition();
+		mModel->setPosition(pos.x, pos.y, pos.z);
 	}
 }
 

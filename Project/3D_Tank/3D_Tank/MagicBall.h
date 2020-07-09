@@ -13,7 +13,6 @@ public:
 	~MagicBall();
 
 	void onUpdate(const float& deltaTime) override;
-	void onLateUpdate(const float& deltaTime) override;
 	void enableTile(bool value);
 	void setColor(const DirectX::XMFLOAT4& color);
 	void setTile(const float& x, const float& y);

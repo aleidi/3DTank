@@ -5,6 +5,7 @@
 class MBoundingSphere;
 class ShellFlyComponent;
 class SoundComponent;
+class VFXSphere;
 
 class Shell : public GameObject, CollisionEvent {
 public:
@@ -37,4 +38,5 @@ private:
 	int shellType;
 	int tankType;
 	float mCount;
+	VFXSphere* mModel;
 };
