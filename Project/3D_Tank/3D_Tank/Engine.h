@@ -36,6 +36,7 @@ private:
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
 	void calculateFrameStats();
+	void recordCamraPosition();
 
 private:
 	static Engine* sInstance;

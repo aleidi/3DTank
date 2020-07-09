@@ -469,6 +469,11 @@ XMVECTOR Graphics::getCameraPosition() const noexcept
 	return mRenderCamera->getPosition();
 }
 
+DirectX::XMVECTOR Graphics::getCameraRotation() const noexcept
+{
+	return mRenderCamera->getRotation();
+}
+
 //DirectX::XMVECTOR Graphics::getcamForward()
 //{
 //	return mRenderCamera.get()->getForward();

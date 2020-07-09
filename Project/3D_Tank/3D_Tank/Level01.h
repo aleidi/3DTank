@@ -37,7 +37,7 @@ public :
 	void leaveLevel() override;
 	void changeState(State s);
 	void changeLanguage();
-	void loadResourcce() override;
+	void loadResource() override;
 
 private:
 	void loadParticle();

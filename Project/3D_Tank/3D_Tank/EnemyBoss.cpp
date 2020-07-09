@@ -12,7 +12,7 @@
 #include "DisplayManager.h"
 
 EnemyBoss::EnemyBoss(int id)
-	:mCanSuperAttack(false),mCanFloat(false),mSAParticles(),mSAIndex(0),mTimerSA(0.0f),mIntervalSA(1.0f),mIsImmune(true)
+	:mCanSuperAttack(false),mCanFloat(false),mSAParticles(),mSAIndex(0),mTimerSA(0.0f),mIntervalSA(1.0f),mIsImmune(false)
 {
 	mAttribute = { FileManager::AIAttributes[id].m_HP,
 			   FileManager::AIAttributes[id].m_HP,
@@ -86,6 +86,11 @@ EnemyBoss::EnemyBoss(int id)
 	mNameText->setSize(WINDOW_WIDTH*0.01f, WINDOW_HEIGHT*0.02f);
 	showUI(false);
 
+	mSuperAttackName = SceneManager::sGetInstance()->createUIImage(L"UI/BossSkillName");
+	mSuperAttackName->setPosition(WINDOW_WIDTH*0.5f, WINDOW_HEIGHT - 256.0f);
+	mSuperAttackName->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	mSuperAttackName->setEnable(false);
+
 	mBatteryOffset = mTransform->Forward * 2 + mTransform->Up * 3.4;
 
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
@@ -94,7 +99,6 @@ EnemyBoss::EnemyBoss(int id)
 
 	mFazhen = SceneManager::sGetInstance()->createUIImage3D(L"VFX/fazhen_00003");
 	mFazhen->setSize(2.0f, 2.0f);
-
 
 	cube = new BoundingCube(this);
 	this->addComponent(cube);
@@ -112,6 +116,7 @@ EnemyBoss::~EnemyBoss()
 	SceneManager::sGetInstance()->removreUIFromPool(mImage);
 	SceneManager::sGetInstance()->removreUIFromPool(mNameText);
 	SceneManager::sGetInstance()->removeUI3DFromPool(mFazhen);
+	SceneManager::sGetInstance()->removreUIFromPool(mSuperAttackName);
 }
 
 void EnemyBoss::showUI(bool value)
@@ -159,7 +164,6 @@ void EnemyBoss::onUpdate(const float& deltaTime)
 			mTimerSA = 0.0f;
 		}
 	}
-
 }
 
 void EnemyBoss::onCollisionEnter()
@@ -303,4 +307,9 @@ void EnemyBoss::initViolent(int maxParticle, int emitRate)
 	mPSSuperAttack->setEmitRate(emitRate);
 	setSuperAttackInterval(1.0f);
 	mFazhen->setEnable(false);
+}
+
+void EnemyBoss::showSuperAttackName(bool value)
+{
+	mSuperAttackName->setEnable(value);
 }

@@ -37,7 +37,7 @@ public:
 		return mCanStart;
 	}
 
-	virtual void loadResourcce() {}
+	virtual void loadResource() {}
 
 protected:
 	GameModeBase* mCurrentGameMode;

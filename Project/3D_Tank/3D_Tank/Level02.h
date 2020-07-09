@@ -3,6 +3,9 @@
 
 class AirWall;
 class AITank;
+class FadeInOut;
+class Potion;
+class Weightless;
 
 class Level02 : public GameLevelBase
 {
@@ -13,11 +16,20 @@ public:
 	void enterLevel() override;
 	GameLevelBase* onUpdate(float deltaTime) override;
 	void leaveLevel() override;
-	void loadResourcce() override;
+	void loadResource() override;
 
 	void loadFirstWave();
 	void loadSecondWave();
 	void loadThirdWave();
+	void loadBoss();
+
+private:
+	enum State
+	{
+		CutScene1,
+		CutScene2,
+		Opening,
+	};
 
 private:
 	GameObject* mMap;
@@ -27,13 +39,23 @@ private:
 	std::vector<AITank*> firstWaveAI;
 	std::vector<AITank*> secondWaveAI;
 	std::vector<AITank*> thirdWaveAI;
+	AITank* enemy_boss;
+	Weightless* weightless;
+	Potion* potion1;
 	bool isWaveClear(std::vector<AITank*> thisWave);
 	void wakeupAI(int ID);
 	void wakeupWave(std::vector<AITank*> thisWave);
 	void destroyWave(std::vector<AITank*> thisWave);
 	bool secondloaded = false;
 	bool thirdloaded = false;
+	bool mIsInitLoad;
+	bool mIsBossLoad;
 
 	float count = 0.0f;
+	State mState;
+
+	FadeInOut* mTitle;
+	FadeInOut* mBackGround;
+	float mTimer;
 };
 

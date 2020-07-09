@@ -1,4 +1,5 @@
 #include <sstream>
+#include <fstream>
 
 #include "Engine.h"
 #include "Window.h"
@@ -12,6 +13,7 @@
 #include "CollisionManager.h"
 #include "GameModeTP.h"
 #include "GameLevelManager.h"
+#include "RenderManager.h"
 
 
 Engine* Engine::sInstance = nullptr;
@@ -106,6 +108,11 @@ void Engine::run()
 	if (DInputPC::getInstance().iskeyUp(DIK_F3))
 	{
 		mRunSpeed = 1.0f;
+	}
+
+	if (DInputPC::getInstance().iskeyDown(DIK_F2))
+	{
+		recordCamraPosition();
 	}
 
 	//Timer update
@@ -244,4 +251,20 @@ void Engine::calculateFrameStats()
 		frameCnt = 0;
 		timeElapsed += 1.0f;
 	}
+}
+
+void Engine::recordCamraPosition()
+{
+	XMFLOAT3 pos;
+	XMStoreFloat3(&pos, RenderManager::sGetInstance()->getGraphics().getCameraPosition());
+	std::ofstream os;
+	os.open("./Log/cameralog.txt", std::ios::app);
+	os << "CameraPos:" << pos.x << ",";
+	os << pos.y << ",";
+	os << pos.z << ",";
+	XMStoreFloat3(&pos, RenderManager::sGetInstance()->getGraphics().getCameraRotation());
+	os << "CameraRot:" << pos.x << ",";
+	os << pos.y << ",";
+	os << pos.z << std::endl;
+	os.close();
 }
