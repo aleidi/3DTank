@@ -630,6 +630,9 @@
     <ClCompile Include="ModelMeshNormal.cpp">
       <Filter>Engine\Source\Render\Graphics\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="Weightless.cpp">
+      <Filter>Game\Source\Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -1105,6 +1108,9 @@
     </ClInclude>
     <ClInclude Include="ModelMeshNormal.h">
       <Filter>Engine\Header\Render\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Weightless.h">
+      <Filter>Game\Header\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
