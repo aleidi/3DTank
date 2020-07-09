@@ -27,25 +27,6 @@ AITank::AITank(int ID, int targetID) {
 		changeTarget(targetID);
 	}
 
-	//if (ID == 2) {
-	//	m_AICtrl->setPatrol(true, Vector3(-7.0, 0, 25.0), Vector3(-31, 0, 25.0));
-	//}
-	//
-	//if (ID == 3) {
-	//	m_AICtrl->setPatrol(true, Vector3(2.3, 0, 12.0), Vector3(2.3, 0, -13.0));
-	//}
-	//
-	//if (ID == 4) {
-	//	m_AICtrl->setPatrol(true, Vector3(-33.0, 0, -34.0), Vector3(-33.0, 0, -82.0));
-	//}
-
-	//if (ID == 6) {
-	//	m_AICtrl->setPatrol(true, Vector3(-25.0, 0, -82.0), Vector3(-2.0, 0, -82.0));
-	//}
-
-	//if (ID == 8) {
-	//	m_AICtrl->setPatrol(true, Vector3(30.0, 0, -80.0), Vector3(30.0, 0, -15.0));
-	//}
 }
 
 AITank::~AITank() {
