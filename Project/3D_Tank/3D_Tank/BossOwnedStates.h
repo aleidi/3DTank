@@ -34,7 +34,6 @@ private:
 	Battle(const Battle&);
 	Battle& operator=(const Battle&);
 	int normalshot = 0;
-	float offset = 0.0f;
 };
 
 class StageTwo : public State<AIController> {
@@ -51,7 +50,6 @@ private:
 	StageTwo(const StageTwo&);
 	StageTwo& operator=(const StageTwo&);
 	int normalshot = 0;
-	float offset = 0.0f;
 	float superCount = 0.0f;
 	bool particleSwitch = true;
 };
