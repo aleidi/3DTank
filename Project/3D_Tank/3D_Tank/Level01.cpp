@@ -259,7 +259,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			if (mCanvas->isEnd())
 			{
 				mState = MainMenu;
-				mCanvas->destroy();
+				mCanvas->setEnable(false);
 			}
 			mBtnStart->setEnable(true);
 			mBtnSetting->setEnable(true);
