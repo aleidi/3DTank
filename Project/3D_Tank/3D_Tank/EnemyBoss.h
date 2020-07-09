@@ -30,7 +30,7 @@ public:
 	void setSuperAttackInterval(float interval);
 
 	void initViolent(int maxParticle, int emitRate);
-	void showSuperAttackName(bool value);
+	void showSuperAttackUI(bool value);
 
 private:
 	void initParticles() override;
@@ -59,6 +59,7 @@ private:
 	Vector3 mBatteryOffset;
 	UIImage3D* mFazhen;
 	UIImage* mSuperAttackName;
+	UIImage* mSuperAttackFrame;
 
 };
 

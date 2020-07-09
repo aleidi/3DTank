@@ -69,6 +69,19 @@ EnemyBoss::EnemyBoss(int id)
 	mTransform->setScale(0.25f, 0.25f, 0.25f);
 	mUIHP->setEnable(false);
 
+	mSuperAttackFrame = SceneManager::sGetInstance()->createUIImage(L"");
+	mSuperAttackFrame->setPosition(WINDOW_WIDTH * 0.375f , WINDOW_HEIGHT - 97.5f);
+	mSuperAttackFrame->setSize(WINDOW_WIDTH * 0.25f, 64);
+	Material mat;
+	mat.Color = XMFLOAT4(0.27f, 0.51f, 0.71f, 0.8f);
+	mSuperAttackFrame->setMaterial(mat);
+	mSuperAttackFrame->setEnable(false);
+
+	mSuperAttackName = SceneManager::sGetInstance()->createUIImage(L"UI/BossSkillName");
+	mSuperAttackName->setPosition(WINDOW_WIDTH * 0.25f, WINDOW_HEIGHT - 130.0f);
+	mSuperAttackName->setSize(WINDOW_WIDTH * 0.5f, 128);
+	mSuperAttackName->setEnable(false);
+
 	mFrame = SceneManager::sGetInstance()->createUIImage(L"VFX/BossHP_Frame");
 	mFrame->setPosition(WINDOW_WIDTH * (0.5f-0.3375f), WINDOW_HEIGHT*(0.79f-0.0235f));
 	mFrame->setSize(WINDOW_WIDTH * 0.675f, WINDOW_HEIGHT * 0.047f);
@@ -76,20 +89,15 @@ EnemyBoss::EnemyBoss(int id)
 	mImage = SceneManager::sGetInstance()->createUIImage(L"");
 	mImage->setPosition(WINDOW_WIDTH*0.2f, WINDOW_HEIGHT*0.775f);
 	mImage->setSize(WINDOW_WIDTH * 0.6f, WINDOW_HEIGHT * 0.03f);
-	Material mat;
+	mat;
 	mat.Color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	mImage->setMaterial(mat);
 	mImage->setFillType(FillType::HR);
 
 	mNameText = SceneManager::sGetInstance()->createUIText(L"???");
-	mNameText->setPosition(WINDOW_WIDTH*0.5f - 0.05f, WINDOW_HEIGHT*0.82f);
+	mNameText->setPosition(WINDOW_WIDTH*0.49f, WINDOW_HEIGHT*0.82f);
 	mNameText->setSize(WINDOW_WIDTH*0.01f, WINDOW_HEIGHT*0.02f);
 	showUI(false);
-
-	mSuperAttackName = SceneManager::sGetInstance()->createUIImage(L"UI/BossSkillName");
-	mSuperAttackName->setPosition(WINDOW_WIDTH*0.5f, WINDOW_HEIGHT - 256.0f);
-	mSuperAttackName->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-	mSuperAttackName->setEnable(false);
 
 	mBatteryOffset = mTransform->Forward * 2 + mTransform->Up * 3.4;
 
@@ -117,6 +125,7 @@ EnemyBoss::~EnemyBoss()
 	SceneManager::sGetInstance()->removreUIFromPool(mNameText);
 	SceneManager::sGetInstance()->removeUI3DFromPool(mFazhen);
 	SceneManager::sGetInstance()->removreUIFromPool(mSuperAttackName);
+	SceneManager::sGetInstance()->removreUIFromPool(mSuperAttackFrame);
 }
 
 void EnemyBoss::showUI(bool value)
@@ -309,7 +318,8 @@ void EnemyBoss::initViolent(int maxParticle, int emitRate)
 	mFazhen->setEnable(false);
 }
 
-void EnemyBoss::showSuperAttackName(bool value)
+void EnemyBoss::showSuperAttackUI(bool value)
 {
 	mSuperAttackName->setEnable(value);
+	mSuperAttackFrame->setEnable(value);
 }

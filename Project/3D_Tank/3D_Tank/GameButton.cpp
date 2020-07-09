@@ -18,9 +18,7 @@ GameButton::GameButton(const std::wstring & texPath, float width, float height, 
 GameButton::~GameButton()
 {
 	SceneManager::sGetInstance()->removreUIFromPool(mButton);
-	mButton = nullptr;
 	SceneManager::sGetInstance()->removreUIFromPool(mText);
-	mText = nullptr;
 }
 
 void GameButton::setEnable(bool value)
