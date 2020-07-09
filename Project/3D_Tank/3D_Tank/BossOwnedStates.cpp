@@ -29,7 +29,7 @@ Alert* Alert::getInstance() {
 }
 
 void Alert::enter(AIController* pBoss) {
-	BOSS->setImmune(false);
+	//BOSS->setImmune(false);
 	BOSS->setHPRecovered(false);
 }
 
