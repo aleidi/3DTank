@@ -226,7 +226,9 @@ void EnemyBoss::initParticles()
 	mPSDeath->setStartScale(0.3f, 0.3f, 0.3f);
 	mPSDeath->setDuration(10.0f);
 
-	mPSSuperAttack = SceneManager::sGetInstance()->createParticleSystem(L"VFX/fazhen_00003", 1);
+	mPSSuperAttack = SceneManager::sGetInstance()->createParticleSystem(L"VFX/fazhen_00049", 1);
+	mat.Color = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
+	mPSSuperAttack->setMaterial(mat);
 	mPSSuperAttack->setEmitter(ParticleSystem::Emitter::Box);
 	mPSSuperAttack->enableLoop(true);
 	mPSSuperAttack->setEmitRate(5);
@@ -288,5 +290,5 @@ void EnemyBoss::initViolent(int maxParticle, int emitRate)
 	ChangeMode(Mode::Super);
 	mPSSuperAttack->setMaxPatricles(maxParticle);
 	mPSSuperAttack->setEmitRate(emitRate);
-	setSuperAttackInterval(0.5f);
+	setSuperAttackInterval(1.0f);
 }
