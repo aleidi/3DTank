@@ -39,7 +39,7 @@ void Sleeep::execute(AIController* pEnemyTank, float deltaTime) {
 }
 
 void Sleeep::exit(AIController* pEnemyTank) {
-
+	AITank->setImmune(false);
 }
 
 bool Sleeep::onMessage(AIController* pEnemyTank, const Telegram& msg) {

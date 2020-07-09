@@ -13,6 +13,7 @@ ShellFlyComponent::ShellFlyComponent(GameObject * obj, const Vector3 & direction
 	this->rotateSpeed = 90.f;
 	angle = 0.f;
 	count = 0.f;
+	turnCount = 0;
 	initParticle();
 }
 
@@ -33,32 +34,30 @@ void ShellFlyComponent::onUpdate(const float& detaTime)
 		return;
 	else {
 		float normalShellSpeed, trackShellSpeed;
-		if (tankType == 0) { normalShellSpeed = 20.f; trackShellSpeed = 2.f; }
-		if (tankType == 1) { normalShellSpeed = 10.f; trackShellSpeed = 2.f; }
+		int maxTurnCount;
+		if (tankType == 0) { normalShellSpeed = 20.f; trackShellSpeed = 2.f; maxTurnCount = 3; }
+		if (tankType == 1) { normalShellSpeed = 10.f; trackShellSpeed = 2.f; maxTurnCount = INT16_MAX; }
 		if (target) {
 			this->getObject()->getTransform()->translate(velocity * detaTime * trackShellSpeed);
-			velocity.x += gracity.x * detaTime;
-			velocity.y += gracity.y * detaTime;
-			velocity.z += gracity.z * detaTime;
+			velocity.x += gracity.x * detaTime; velocity.y += gracity.y * detaTime; velocity.z += gracity.z * detaTime;
 			if (this->getObject()->sphere && this->getObject()->sphere->moveable == 1) {
 				this->getObject()->sphere->sphere.Center.x += velocity.x*detaTime * trackShellSpeed;
 				this->getObject()->sphere->sphere.Center.y += velocity.y*detaTime * trackShellSpeed;
 				this->getObject()->sphere->sphere.Center.z += velocity.z*detaTime * trackShellSpeed;
 			}
 			count += detaTime;
-			if (count >= 1.f) {
+			if (count >= 1.f && turnCount <= maxTurnCount) {
 				updateForward(detaTime);
 				Vector3 pos = this->getObject()->getTransform()->getPosition();
 				mPS->setPosition(pos.x, pos.y, pos.z);
 				mPS->play();
+				turnCount++;
 				count = 0.f;
 			}
 		}
 		else {
 			this->getObject()->getTransform()->translate(velocity * detaTime * normalShellSpeed);
-			velocity.x += gracity.x * detaTime;
-			velocity.y += gracity.y * detaTime;
-			velocity.z += gracity.z * detaTime;
+			velocity.x += gracity.x * detaTime; velocity.y += gracity.y * detaTime; velocity.z += gracity.z * detaTime;
 			if (this->getObject()->sphere && this->getObject()->sphere->moveable == 1) {
 				this->getObject()->sphere->sphere.Center.x += velocity.x*detaTime * normalShellSpeed;
 				this->getObject()->sphere->sphere.Center.y += velocity.y*detaTime * normalShellSpeed;
@@ -70,25 +69,26 @@ void ShellFlyComponent::onUpdate(const float& detaTime)
 
 void ShellFlyComponent::updateForward(float detaTime)
 {
-	//Vector3 forward = this->velocity.normalize();
-	//forward.y = 0.f;
+	Vector3 forward = this->velocity.normalize();
+	forward.y = 0.f;
 	finalForward = (target->getTransform()->getPosition() - this->getObject()->getTransform()->getPosition()).normalize();
-	//finalForward.y = 0.f;
-	//Vector3 finalF = finalForward;
-	//finalF.y = 0.f;
-	//float dot = Vector3::dot(finalF, forward);
-	//dot = Math::Clamp(1.0f, -1.0f, dot);
-	//float rotate = acosf(dot) * 180 / Pi;
-	//Vector3 cross = Vector3::cross(finalF, forward);
-	//if (cross.y > 0)
-	//	rotate = -rotate;
-	//this->getObject()->getTransform()->rotate(0.f, rotate, 0.f);
+	if (tankType == 0) {
+		float dot = Vector3::dot(finalForward, forward);
+		dot = Math::Clamp(1.0f, -1.0f, dot);
+		float rotate = acosf(dot) * 180 / Pi;
+		Vector3 cross = Vector3::cross(finalForward, forward);
+		if (cross.y > 0)
+			rotate = -rotate;
+		this->getObject()->getTransform()->rotate(0.f, rotate, 0.f);
+	}
 	this->velocity = finalForward;
 }
 
 void ShellFlyComponent::setTarget(GameObject* t)
 {
 	this->target = t;
+	if (target == NULL)
+		turnCount = 0;
 }
 
 void ShellFlyComponent::setVelocity(const Vector3 & dir)
