@@ -8,7 +8,6 @@ RenderComponent::RenderComponent(GameObject* obj)
 	:Component(obj),mMesh()
 {
 	initMaterial();
-	obj->setRenderComponent(this);
 }
 
 RenderComponent::~RenderComponent()

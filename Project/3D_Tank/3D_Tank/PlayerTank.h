@@ -20,7 +20,7 @@ public:
 
 	void onUpdate(const float& deltaTime) override;
 	void onLateUpdate(const float& deltaTime) override;
-	
+	void destroy() override;
 
 	void onAttack(float deltaTime);
 	void setAttack();

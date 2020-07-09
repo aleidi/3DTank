@@ -69,16 +69,6 @@ bool GameObject::removeComponent(Component * comp)
 	return false;
 }
 
-RenderComponent * GameObject::getRenderComponent()
-{
-	return mRc;
-}
-
-void GameObject::setRenderComponent(RenderComponent * rc)
-{
-	mRc = rc;
-}
-
 Transform * GameObject::getTransform() const noexcept
 {
 	return mTransform;

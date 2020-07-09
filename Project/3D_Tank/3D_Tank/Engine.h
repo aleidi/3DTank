@@ -28,6 +28,7 @@ public:
 	void enableGameMode(bool value);
 	void onResize(float width, float height);
 	void changeRunSpeed(float value);
+	void startGame();
 
 	void showtText(const std::wstring& str, float leftTopX, float leftTopY, float width, float height,bool canShow);
 private:

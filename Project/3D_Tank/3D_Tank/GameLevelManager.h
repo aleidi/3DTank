@@ -3,6 +3,7 @@
 #include "GameCommon.h"
 
 class GameLevelBase;
+class GameModeBase;
 
 class GameLevelManager
 {
@@ -16,6 +17,8 @@ public:
 	void addLevel(int id, GameLevelBase* level);
 	GameLevelBase* changeLevel(int id);
 	void setDefaultLevel(int id);
+	void setCurrentGameMode(GameModeBase* mode);
+	void resetCurrentGameMode();
 
 private:
 	GameLevelManager();

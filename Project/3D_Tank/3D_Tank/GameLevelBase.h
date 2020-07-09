@@ -19,6 +19,14 @@ public:
 		mCurrentGameMode = gameMode;
 	}
 
+	void resetGameMode()
+	{
+		if (mCurrentGameMode != nullptr)
+		{
+			delete mCurrentGameMode;
+		}
+	}
+
 	GameModeBase* getGameMode()
 	{
 		return mCurrentGameMode;

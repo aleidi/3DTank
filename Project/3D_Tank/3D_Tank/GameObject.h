@@ -67,9 +67,6 @@ public:
 		return list;
 	}
 
-	RenderComponent* getRenderComponent();
-	void setRenderComponent(RenderComponent* rc);
-
 	Transform* getTransform() const noexcept;
 	std::string getName() const noexcept;
 	void setName(const std::string& name) noexcept;
@@ -106,7 +103,6 @@ protected:
 	std::string mName;
 	CollisionLayer mColLayer;
 	ObjectTag mTag;
-	RenderComponent* mRc;
 private:
 	Vector3* lastFramePostion;
 };

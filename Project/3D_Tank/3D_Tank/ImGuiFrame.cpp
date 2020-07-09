@@ -21,6 +21,8 @@ bool isNewCrate = false;
 bool isNewFreightContainer_A = false;
 bool isNewFreightContainer_B = false;
 bool isBindChanged = false;
+bool isChangeToNight = false;
+bool isChangeToSand = false;
 
 void selectObject(std::string objectName);
 void newObject(std::string gameObjectName);
@@ -99,6 +101,22 @@ void ImGuiFrame::onUpdate(float deltaTime)
 				}
 				ImGui::EndMenu();
 			}
+			if (ImGui::BeginMenu("Sky Box"))
+			{
+				ImGui::MenuItem("Night", NULL, &isChangeToNight);
+				ImGui::MenuItem("Sand", NULL, &isChangeToSand);
+				if (isChangeToNight)
+				{
+					SceneManager::sGetInstance()->setSkyBox(L"Skybox/Night");
+					isChangeToNight = false;
+				}
+				if (isChangeToSand)
+				{
+					SceneManager::sGetInstance()->setSkyBox(L"Skybox/Sand");
+					isChangeToSand = false;
+				}
+				ImGui::EndMenu();
+			}
 			if (ImGui::BeginMenu("Setting"))
 			{
 				ImGui::MenuItem("Hide the Window", NULL, &isVisiable);
@@ -153,6 +171,11 @@ void ImGuiFrame::onUpdate(float deltaTime)
 		}
 
 		ImGui::Text(" --------------------------------- ");
+		if (ImGui::Button("Run"))
+		{
+			Engine::sGetInstance()->startGame();
+		}
+		ImGui::SameLine();
 		if (ImGui::Button("Strat"))
 		{
 			Engine::sGetInstance()->enableGameMode(true);

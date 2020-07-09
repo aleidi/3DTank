@@ -80,6 +80,17 @@ void GameLevelManager::setDefaultLevel(int id)
 	}
 }
 
+void GameLevelManager::setCurrentGameMode(GameModeBase * mode)
+{
+	mCurrentLevel->setGameMode(mode);
+	GameModeBase::MainGameMode = mode;
+}
+
+void GameLevelManager::resetCurrentGameMode()
+{
+	mCurrentLevel->resetGameMode();
+}
+
 GameLevelManager::GameLevelManager()
 	:mLevels()
 {

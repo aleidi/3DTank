@@ -9,6 +9,7 @@ class DefaultPlayer : public Pawn
 public:
 	DefaultPlayer();
 	~DefaultPlayer();
+	void destroy() override;
 
 	void MoveForward(float value);
 	void MoveRight(float value);

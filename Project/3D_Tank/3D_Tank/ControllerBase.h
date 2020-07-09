@@ -13,6 +13,7 @@ public:
 
 	virtual void onStart() override;
 	virtual void onUpdate(const float& deltaTime) override;
+	void destroy() override;
 
 	void posses(Pawn* pawn) noexcept;
 	void unPosses() noexcept;

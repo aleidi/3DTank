@@ -22,7 +22,7 @@ void Level03::enterLevel()
 	SceneManager::sGetInstance()->createSphere();
 	mCanStart = true;
 
-	Engine::sGetInstance()->enableGameMode(true);
+	//Engine::sGetInstance()->enableGameMode(true);
 }
 
 GameLevelBase * Level03::onUpdate(float deltaTime)
@@ -51,8 +51,13 @@ GameLevelBase * Level03::onUpdate(float deltaTime)
 		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
 	}
 
+
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 
+	//if (DInputPC::getInstance().iskeyDown(DIK_F6))
+	//{
+	//	Engine::sGetInstance()->startGame();
+	//}
 	return this;
 }
 

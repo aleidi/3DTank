@@ -2,7 +2,7 @@
 #include "GameCommon.h"
 
 Potion::Potion()
-	:mOffset(0.0f),mHeal(100.0f),mRange(0.6f)
+	:mOffset(0.0f),mHeal(100.0f),mRange(0.6f), mIsInitFin(false)
 {
 	mName = "PotionContainer";
 	mPotion = SceneManager::sGetInstance()->createCube();
@@ -14,13 +14,14 @@ Potion::Potion()
 	mat.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	mat.Specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 5.0f);
 	mat.Color = XMFLOAT4(0.498f, 1.0f, 0.0f, 0.6f);
-	mPotion->getRenderComponent()->setMaterial(mat);
+	mPotion->getComponent<RenderComponent>()->setMaterial(mat);
 
 	mTransform->rotateZ(30,true);
 	mTransform->translate(0.0f, 0.0f, 5.0f);
 
 	//save player transform
 	mPlayer = GameInstance::sGetInstance()->getPlayer();
+	mIsInitFin = true;
 }
 
 Potion::~Potion()
@@ -30,6 +31,11 @@ Potion::~Potion()
 
 void Potion::onUpdate(const float& deltaTime)
 {
+	if (!mIsInitFin)
+	{
+		return;
+	}
+
 	mOffset += deltaTime;
 	if (mOffset > 2 * Pi)
 	{

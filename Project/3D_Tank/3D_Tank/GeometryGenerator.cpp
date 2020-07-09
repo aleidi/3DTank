@@ -67,6 +67,11 @@ void GeometryGenerator::getUIText(Mesh & mesh) noexcept
 	mesh = mMeshes[MeshType::Text];
 }
 
+void GeometryGenerator::getModelT(MeshT & mesh, const std::string & name) noexcept
+{
+	FileManager::LoadOBJModelWithTangent(mesh, name);
+}
+
 void GeometryGenerator::createCube()
 {
 	std::vector<Vertex> vertices =

@@ -28,7 +28,7 @@ void GameSystem::onInit()
 	new Level01();
 	new Level02();
 	new Level03();
-	GameLevelManager::sGetInstance()->setDefaultLevel(2);
+	GameLevelManager::sGetInstance()->setDefaultLevel(1);
 	
 	CameraShake::sGetInstance()->createSingleton();
 }
