@@ -9,6 +9,7 @@
 #include "MagicBall.h"
 #include "GameInstance.h"
 #include "SoundComponent.h"
+#include "DisplayManager.h"
 
 EnemyBoss::EnemyBoss(int id)
 	:mCanSuperAttack(false),mCanFloat(false),mSAParticles(),mSAIndex(0),mTimerSA(0.0f),mIntervalSA(1.0f)
@@ -35,7 +36,8 @@ EnemyBoss::EnemyBoss(int id)
 
 	m_ID = id;
 	FullHP = mAttribute.FullHP;
-
+	DyingHP = FullHP * 0.2;
+	mAttribute.m_ResetPoint += Vector3(0.0f, 1.0f, 0.0f);
 	//create normal model
 	mNormalModel = SceneManager::sGetInstance()->createEmptyObject();
 	SceneManager::sGetInstance()->createModel(*mNormalModel, "Boss/RedBaronN/m0_Arm_Base_Color", L"Boss/RedBaronN/Arm_Base_Color");
@@ -82,11 +84,15 @@ EnemyBoss::EnemyBoss(int id)
 	mName->setSize(WINDOW_WIDTH*0.01f, WINDOW_HEIGHT*0.02f);
 	showUI(false);
 
+	mBatteryOffset = mTransform->Forward * 2 + mTransform->Up * 3.4;
+
 	mBattery = SceneManager::sGetInstance()->createEmptyObject();
-	//mBattery->setName("BossBattery");
-	//RenderComponent* rc = SceneManager::sGetInstance()->createModel(*mBattery, "Tank\\TankBattery", L"Tank\\TankTex");
-	//mBattery->getTransform()->setScale(Vector3(0.1, 0.1, 0.1));
 	mBattery->attach(*this);
+	mBattery->getTransform()->translate(mBatteryOffset);
+
+	mFazhen = SceneManager::sGetInstance()->createUIImage3D(L"VFX/fazhen_00003");
+	mFazhen->setSize(2.0f, 2.0f);
+
 
 	cube = new BoundingCube(this);
 	this->addComponent(cube);
@@ -103,6 +109,7 @@ EnemyBoss::~EnemyBoss()
 	SceneManager::sGetInstance()->removreUIFromPool(mFrame);
 	SceneManager::sGetInstance()->removreUIFromPool(mImage);
 	SceneManager::sGetInstance()->removreUIFromPool(mName);
+	SceneManager::sGetInstance()->removeUI3DFromPool(mFazhen);
 }
 
 void EnemyBoss::showUI(bool value)
@@ -130,6 +137,8 @@ void EnemyBoss::ChangeMode(Mode mode)
 void EnemyBoss::onLateUpdate(const float& deltaTime)
 {
 	mImage->setFillAmount((float)mAttribute.m_HP / (float)mAttribute.FullHP);
+	Vector3 pos = mBattery->getTransform()->getPosition();
+	mFazhen->setPosition(pos.x, pos.y, pos.z);
 }
 
 void EnemyBoss::onUpdate(const float& deltaTime)
@@ -163,10 +172,18 @@ void EnemyBoss::hited(int value)
 	this->setHP(value * -1.0f);
 	if (this->getHP() <= 0)
 		this->setHP(this->getHP() * -1.0f);
+
+	Vector3 pos = mTransform->getPosition();
+	pos.x += (float)rand() / (float)RAND_MAX * 2 - 4.0f;
+	pos.y += (float)rand() / (float)RAND_MAX * 4.0f - 0.2f;
+	float size = value * 6.0;
+	Math::Clamp(100.0f, 20.0f, size);
+	DisplayManager::sGetInstance()->displayText(std::to_wstring(value), size, size, pos);
 }
 
 void EnemyBoss::enableSuperAttack(bool value)
 {
+	mTimerSA = 0.0f;
 	mCanSuperAttack = value;
 }
 
@@ -209,15 +226,15 @@ void EnemyBoss::initParticles()
 	mPSDeath->setStartScale(0.3f, 0.3f, 0.3f);
 	mPSDeath->setDuration(10.0f);
 
-	mPSSuperAttack = SceneManager::sGetInstance()->createParticleSystem(L"VFX/fazhen_00003", 10);
+	mPSSuperAttack = SceneManager::sGetInstance()->createParticleSystem(L"VFX/fazhen_00003", 1);
 	mPSSuperAttack->setEmitter(ParticleSystem::Emitter::Box);
 	mPSSuperAttack->enableLoop(true);
 	mPSSuperAttack->setEmitRate(5);
 	mPSSuperAttack->setPosition(0.0f, 0.0f, 3.0f);
-	mPSSuperAttack->setLifeTime(50.0f);
+	mPSSuperAttack->setLifeTime(10.0f);
 	mPSSuperAttack->setStartScale(1.5f, 1.5f, 1.5f);
 	mPSSuperAttack->setVelocity(0.0f, 0.0f, 0.0f);
-	mPSSuperAttack->setRange(0.5f, 1.5f, 0.5f);
+	mPSSuperAttack->setRange(0.3f, 1.5f, 0.3f);
 }
 
 void EnemyBoss::playSuperAttackParticle()
@@ -229,12 +246,12 @@ void EnemyBoss::playSuperAttackParticle()
 
 void EnemyBoss::doFloat(const float & deltaTime)
 {
-	mOffset += deltaTime;
-	if (mOffset > 2 * Pi)
+	mOffsetFloat += deltaTime;
+	if (mOffsetFloat > 2 * Pi)
 	{
-		mOffset = 0.0f;
+		mOffsetFloat = 0.0f;
 	}
-	mTransform->translate(Vector3(0.0f, sinf(mOffset)*deltaTime, 0.0f));
+	mTransform->translate(Vector3(0.0f, sinf(mOffsetFloat)*deltaTime, 0.0f));
 }
 
 void EnemyBoss::doSuperAttack()
@@ -259,4 +276,17 @@ void EnemyBoss::preDoSuperAttack()
 {
 	mSAParticles = mPSSuperAttack->getParticles();
 	mSAIndex = 0;
+}
+
+void EnemyBoss::setSuperAttackInterval(float interval)
+{
+	mIntervalSA = interval;
+}
+
+void EnemyBoss::initViolent(int maxParticle, int emitRate)
+{
+	ChangeMode(Mode::Super);
+	mPSSuperAttack->setMaxPatricles(maxParticle);
+	mPSSuperAttack->setEmitRate(emitRate);
+	setSuperAttackInterval(0.5f);
 }
