@@ -38,6 +38,8 @@ EnemyBoss::EnemyBoss(int id)
 	FullHP = mAttribute.FullHP;
 	DyingHP = FullHP * 0.2;
 	mAttribute.m_ResetPoint += Vector3(0.0f, 1.0f, 0.0f);
+	mTag = ObjectTag::Enemy;
+
 	//create normal model
 	mNormalModel = SceneManager::sGetInstance()->createEmptyObject();
 	SceneManager::sGetInstance()->createModel(*mNormalModel, "Boss/RedBaronN/m0_Arm_Base_Color", L"Boss/RedBaronN/Arm_Base_Color");
@@ -79,9 +81,9 @@ EnemyBoss::EnemyBoss(int id)
 	mImage->setMaterial(mat);
 	mImage->setFillType(FillType::HR);
 
-	mName = SceneManager::sGetInstance()->createUIText(L"???");
-	mName->setPosition(WINDOW_WIDTH*0.5f, WINDOW_HEIGHT*0.82f);
-	mName->setSize(WINDOW_WIDTH*0.01f, WINDOW_HEIGHT*0.02f);
+	mNameText = SceneManager::sGetInstance()->createUIText(L"???");
+	mNameText->setPosition(WINDOW_WIDTH*0.5f - 0.05f, WINDOW_HEIGHT*0.82f);
+	mNameText->setSize(WINDOW_WIDTH*0.01f, WINDOW_HEIGHT*0.02f);
 	showUI(false);
 
 	mBatteryOffset = mTransform->Forward * 2 + mTransform->Up * 3.4;
@@ -108,7 +110,7 @@ EnemyBoss::~EnemyBoss()
 	mSuperModel->destroy();
 	SceneManager::sGetInstance()->removreUIFromPool(mFrame);
 	SceneManager::sGetInstance()->removreUIFromPool(mImage);
-	SceneManager::sGetInstance()->removreUIFromPool(mName);
+	SceneManager::sGetInstance()->removreUIFromPool(mNameText);
 	SceneManager::sGetInstance()->removeUI3DFromPool(mFazhen);
 }
 
@@ -116,7 +118,7 @@ void EnemyBoss::showUI(bool value)
 {
 	mFrame->setEnable(value);
 	mImage->setEnable(value);
-	mName->setEnable(value);
+	mNameText->setEnable(value);
 }
 
 void EnemyBoss::ChangeMode(Mode mode)
@@ -300,4 +302,5 @@ void EnemyBoss::initViolent(int maxParticle, int emitRate)
 	mPSSuperAttack->setMaxPatricles(maxParticle);
 	mPSSuperAttack->setEmitRate(emitRate);
 	setSuperAttackInterval(1.0f);
+	mFazhen->setEnable(false);
 }

@@ -13,11 +13,11 @@
 #include "SoundManager.h"
 
 PlayerTank::PlayerTank()
-	:mRotateSpd(60.0f),mMoveSped(1.5f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
+	:mRotateSpd(60.0f),mMoveSped(1.0f),mBatteryRotSpd(1.0f), mBatteryMaxPitch(10.0f), mBatteryMinPitch(-30.0f),
 	mDisToCam(0.75f),mFPCameraOffset(mTransform->Forward * 0.5f + mTransform->Up*0.1f),mFPOfssetFactorX(0.4f), mFPOfssetFactorY(0.1f),
 	mCamFollowFactorX(-2.6f), mCamFollowFactorY(1.0f),
 	mMaxPitchAngle(XMConvertToRadians(80.0f)),mMinPitchAngle(XMConvertToRadians(-30.0f)), 
-	mFPToTPThreshold(0.7f), mMinDisToCam(0.0f),mMaxDisToCam(1.0f), mCameraRotSpd(60.0f)
+	mFPToTPThreshold(0.7f), mMinDisToCam(0.0f),mMaxDisToCam(1.0f), mCameraRotSpd(60.0f), mAttackInterval(0.3f)
 {
 	mTag = ObjectTag::Player;
 	mName = "PlayerTank";
@@ -68,9 +68,7 @@ PlayerTank::PlayerTank()
 	mAttribute.FullHP = 1000;
 	mAttribute.m_AttackRangeRadiusSq = 20.0f;
 
-	mLightInterval = 0.1f;
-	mHeavyInterval = 2.0f;
-	mAttackCount = mLightInterval;
+	mAttackCount = mAttackInterval;
 	mAttackAngle = DirectX::XMConvertToRadians(60);
 
 	initParticle();
@@ -154,31 +152,22 @@ void PlayerTank::onAttack(float deltaTime)
 			if (angle < mAttackAngle)
 			{
 				playAttackParticle();
-				ShellContainer::sGetInstance()->applyShell(startPos, dir, 0);
+				ShellContainer::sGetInstance()->applyShell(startPos, dir, 0, 0);
 			}
 			else
 			{
 				playAttackParticle();
 
-				ShellContainer::sGetInstance()->applyShell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+				ShellContainer::sGetInstance()->applyShell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0, 0);
 			}
 		}
 		else
 		{
 			playAttackParticle();
-			ShellContainer::sGetInstance()->applyShell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+			ShellContainer::sGetInstance()->applyShell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0, 0);
 		}
 
-		if (mWeaponType == WeaponType::Light)
-		{
-			//do light attack
-			mAttackCount = mLightInterval;
-		}
-		else if (mWeaponType == WeaponType::Heavy)
-		{
-			//do heavy attack
-			mAttackCount = mHeavyInterval;
-		}
+		mAttackCount = mAttackInterval;
 	}
 }
 
@@ -190,11 +179,6 @@ void PlayerTank::setAttack()
 void PlayerTank::stopAttack()
 {
 	reinterpret_cast<HUD*>(mHUD)->setAccelator(1.0f, 1.0f);
-}
-
-void PlayerTank::setWeaponType(WeaponType type)
-{
-	mWeaponType = type;
 }
 
 void PlayerTank::move(Vector3 value)

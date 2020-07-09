@@ -12,6 +12,7 @@ public:
 	void updateForward(float detaTime);
 	void setTarget(GameObject* t);
 	void setVelocity(const Vector3& dir);
+	void setTankType(const int& type);
 	Vector3 getVelocity();
 
 	float count;
@@ -23,7 +24,7 @@ private:
 	Vector3 finalForward;
 	float rotateSpeed;
 	float angle;
-	//float angle;
+	int tankType;
 
 	Vector3 velocity;
 	Vector3 gracity;

@@ -27,7 +27,7 @@ const std::string SOUND_FILE_PATH[17] =
 	"Resource/Sound/SE08_Click02.mp3",
 	"Resource/Sound/SE09_ContinueFly.mp3",
 	"Resource/Sound/SE10_Rain.mp3",
-	"Resource/Sound/SE11_Button_click.wav",
+	"Resource/Sound/SE11_Button_click.wav"
 };
 
 enum MusicManagerIndex { BGM, BUTTON_CLICK, TNAK_MOVE, TANK_SHOT, TANK_EXPLOSSION, SHELL_FLYBY, SHELL_BOOM };

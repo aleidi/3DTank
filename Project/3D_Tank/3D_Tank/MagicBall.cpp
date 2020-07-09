@@ -60,11 +60,6 @@ void MagicBall::onUpdate(const float& deltaTime)
 	}
 
 	mVFX->tileOffset(mTileX*deltaTime, mTileY*deltaTime);
-
-}
-
-void MagicBall::onLateUpdate(const float & deltaTime)
-{
 	Vector3 pos = mTransform->getPosition();
 	mVFX->setPosition(pos.x, pos.y, pos.z);
 }

@@ -6,8 +6,9 @@
 #include "SoundComponent.h"
 #include "PlayerTank.h"
 #include "ShellContainer.h"
+#include "VFXSphere.h"
 
-Shell::Shell() :shellType(0)
+Shell::Shell() :shellType(0),tankType(1)
 {
 	shell = SceneManager::sGetInstance()->createSphere();
 	Material mat = shell->getComponent<RenderComponent>()->getMaterial();
@@ -29,8 +30,8 @@ Shell::Shell() :shellType(0)
 	ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
 }
 
-Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
-	:shellType(type), origin(ori)
+Shell::Shell(const Vector3& ori, const Vector3& direction, const int& shellType)
+	:shellType(shellType), origin(ori), tankType(0)
 {
 	//float dot = Vector3::dot(Vector3::forward, direction.normalize());
 	//dot = Math::Clamp(1.0f, -1.0f, dot);
@@ -42,7 +43,7 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	//SceneManager::sGetInstance()->createModel(*shell,"Objects/Shell", L"Objects/Shell");
 	shell = SceneManager::sGetInstance()->createSphere();
 	Material mat = shell->getComponent<RenderComponent>()->getMaterial();
-	if (type == 0) {
+	if (shellType == 0) {
 		mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 	}
 	else {
@@ -58,6 +59,7 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	shell->addComponent(mCollisionSphere);
 	mShellFly = new ShellFlyComponent(shell, direction);
 	shell->addComponent(mShellFly);
+	mShellFly->setTankType(0);
 	shell->sphere = mCollisionSphere;
 	mSound = new SoundComponent(shell);
 	shell->addComponent(mSound);
@@ -68,69 +70,120 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	//SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
 }
 
+Shell::Shell(const Vector3 & ori, const Vector3 & direction, const int & shellType, const int& tankType)
+	:shellType(shellType), origin(ori), tankType(tankType)
+{
+	mModel = SceneManager::sGetInstance()->createVFXSphere();
+	Material mat;
+	mat.Color = XMFLOAT4(1.0f, 0.24f, 0.588f, 1.0f);
+
+	shell->getTransform()->setPosition(ori);
+
+	mCollisionSphere = new MBoundingSphere(shell);
+	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.05f, 1);
+	shell->addComponent(mCollisionSphere);
+	mShellFly = new ShellFlyComponent(shell, direction);
+	shell->addComponent(mShellFly);
+	mShellFly->setTankType(tankType);
+	shell->sphere = mCollisionSphere;
+	mSound = new SoundComponent(shell);
+	shell->addComponent(mSound);
+	this->onTrigger = true;
+	ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
+
+	ShellContainer::sGetInstance()->onTriggerBossShells.push_back(this);
+	mSound->setPosition();
+	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
+}
+
 Shell::~Shell()
 {
 }
 
-void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, const int & shellType)
+void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, const int & shellType, const int& enemyType)
 {
-	//float dot = Vector3::dot(Vector3::forward, direction.normalize());
-	//dot = Math::Clamp(1.0f, -1.0f, dot);
-	//float rotate = acosf(dot) * 180 / Pi;
-	//Vector3 cross = Vector3::cross(Vector3::forward, direction.normalize());
-	//if (cross.y > 0)
-	//	rotate = -rotate;
-	//shell->getTransform()->rotate(90.f, -rotate, 0.f);
-	this->onTrigger = true;
-	this->shell->getTransform()->setPosition(origin + direction * 0.6f + Vector3::up * 0.1f);
-	Material mat = shell->getComponent<RenderComponent>()->getMaterial();
-	mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-	shell->getComponent<RenderComponent>()->setMaterial(mat);
-	this->mCollisionSphere->sphere.Center.x = shell->getTransform()->getPosition().x;
-	this->mCollisionSphere->sphere.Center.y = shell->getTransform()->getPosition().y;
-	this->mCollisionSphere->sphere.Center.z = shell->getTransform()->getPosition().z;
-	this->shellType = shellType;
-	this->mShellFly->setVelocity(direction);
-	mSound->setPosition();
-	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
-	SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
-	ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
-	for (std::vector<Shell*>::iterator it = ShellContainer::sGetInstance()->unTriggerShells.begin(); it != ShellContainer::sGetInstance()->unTriggerShells.end(); it++) {
-		if (*it == this) {
-			ShellContainer::sGetInstance()->unTriggerShells.erase(it);
-			break;
+	if (enemyType == 0) {
+		this->onTrigger = true;
+		this->shell->getTransform()->setPosition(origin + direction * 0.6f + Vector3::up * 0.1f);
+		Material mat = shell->getComponent<RenderComponent>()->getMaterial();
+		mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+		shell->getComponent<RenderComponent>()->setMaterial(mat);
+		this->mCollisionSphere->sphere.Center.x = shell->getTransform()->getPosition().x;
+		this->mCollisionSphere->sphere.Center.y = shell->getTransform()->getPosition().y;
+		this->mCollisionSphere->sphere.Center.z = shell->getTransform()->getPosition().z;
+		this->shellType = shellType;
+		this->mShellFly->setVelocity(direction);
+		mSound->setPosition();
+		SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
+		SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
+		ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
+		for (std::vector<Shell*>::iterator it = ShellContainer::sGetInstance()->unTriggerShells.begin(); it != ShellContainer::sGetInstance()->unTriggerShells.end(); it++) {
+			if (*it == this) {
+				ShellContainer::sGetInstance()->unTriggerShells.erase(it);
+				break;
+			}
+		}
+	}
+	else {
+		this->onTrigger = true;
+		this->shell->getTransform()->setPosition(origin);
+		this->mCollisionSphere->sphere.Center.x = origin.x;
+		this->mCollisionSphere->sphere.Center.y = origin.y;
+		this->mCollisionSphere->sphere.Center.z = origin.z;
+		this->shellType = shellType;
+		this->mShellFly->setVelocity(direction);
+
+		ShellContainer::sGetInstance()->onTriggerBossShells.push_back(this);
+		for (std::vector<Shell*>::iterator it = ShellContainer::sGetInstance()->unTriggerBossShells.begin(); it != ShellContainer::sGetInstance()->unTriggerBossShells.end(); it++) {
+			if (*it == this) {
+				ShellContainer::sGetInstance()->unTriggerBossShells.erase(it);
+				break;
+			}
 		}
 	}
 }
 
-void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, const int & shellType, GameObject * obj)
+void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, const int & shellType, GameObject * obj, const int& enemyType)
 {
-	//float dot = Vector3::dot(Vector3::forward, direction.normalize());
-	//dot = Math::Clamp(1.0f, -1.0f, dot);
-	//float rotate = acosf(dot) * 180 / Pi;
-	//Vector3 cross = Vector3::cross(Vector3::forward, direction.normalize());
-	//if (cross.y > 0)
-	//	rotate = -rotate;
-	//shell->getTransform()->rotate(90.f, -rotate, 0.f);
-	this->onTrigger = true;
-	this->shell->getTransform()->setPosition(origin + direction * 0.6f + Vector3::up * 0.1f);
-	Material mat = shell->getComponent<RenderComponent>()->getMaterial();
-	mat.Color = XMFLOAT4(0.863f, 0.863f, 0.863f, 0.6f);
-	shell->getComponent<RenderComponent>()->setMaterial(mat);
-	this->mCollisionSphere->sphere.Center.x = shell->getTransform()->getPosition().x;
-	this->mCollisionSphere->sphere.Center.y = shell->getTransform()->getPosition().y;
-	this->mCollisionSphere->sphere.Center.z = shell->getTransform()->getPosition().z;
-	this->shellType = shellType;
-	this->mShellFly->setVelocity(direction);
-	mSound->setPosition();
-	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
-	SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
-	ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
-	this->mShellFly->setTarget(obj);
-	for (std::vector<Shell*>::iterator it = ShellContainer::sGetInstance()->unTriggerShells.begin(); it != ShellContainer::sGetInstance()->unTriggerShells.end(); it++) {
-		if (*it == this) {
-			ShellContainer::sGetInstance()->unTriggerShells.erase(it);
-			break;
+	if (enemyType == 0) {
+		this->onTrigger = true;
+		this->shell->getTransform()->setPosition(origin + direction * 0.6f + Vector3::up * 0.1f);
+		Material mat = shell->getComponent<RenderComponent>()->getMaterial();
+		mat.Color = XMFLOAT4(0.863f, 0.863f, 0.863f, 0.6f);
+		shell->getComponent<RenderComponent>()->setMaterial(mat);
+		this->mCollisionSphere->sphere.Center.x = shell->getTransform()->getPosition().x;
+		this->mCollisionSphere->sphere.Center.y = shell->getTransform()->getPosition().y;
+		this->mCollisionSphere->sphere.Center.z = shell->getTransform()->getPosition().z;
+		this->shellType = shellType;
+		this->mShellFly->setVelocity(direction);
+		mSound->setPosition();
+		SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
+		SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
+		ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
+		this->mShellFly->setTarget(obj);
+		for (std::vector<Shell*>::iterator it = ShellContainer::sGetInstance()->unTriggerShells.begin(); it != ShellContainer::sGetInstance()->unTriggerShells.end(); it++) {
+			if (*it == this) {
+				ShellContainer::sGetInstance()->unTriggerShells.erase(it);
+				break;
+			}
+		}
+	}
+	else {
+		this->onTrigger = true;
+		this->shell->getTransform()->setPosition(origin);
+		this->mCollisionSphere->sphere.Center.x = origin.x;
+		this->mCollisionSphere->sphere.Center.y = origin.y;
+		this->mCollisionSphere->sphere.Center.z = origin.z;
+		this->shellType = shellType;
+		this->mShellFly->setVelocity(direction);
+		this->mShellFly->setTarget(obj);
+
+		ShellContainer::sGetInstance()->onTriggerBossShells.push_back(this);
+		for (std::vector<Shell*>::iterator it = ShellContainer::sGetInstance()->unTriggerBossShells.begin(); it != ShellContainer::sGetInstance()->unTriggerBossShells.end(); it++) {
+			if (*it == this) {
+				ShellContainer::sGetInstance()->unTriggerBossShells.erase(it);
+				break;
+			}
 		}
 	}
 }
@@ -177,31 +230,53 @@ void Shell::onUpdate(const float& deltaTime)
 					this->mCollisionSphere->sphere.Center.y = -3.f;
 					this->mCollisionSphere->sphere.Center.z = 0.f;
 					this->mShellFly->setVelocity(Vector3(0.f, 0.f, 0.f));
-					shell->getTransform()->setRotation(Vector3(0.f, 0.f, 0.f));
-					ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
-					ShellContainer::sGetInstance()->onTriggerShells.erase(ShellContainer::sGetInstance()->onTriggerShells.begin());
+					//shell->getTransform()->setRotation(Vector3(0.f, 0.f, 0.f));
+					if (tankType == 0) {
+						ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
+						ShellContainer::sGetInstance()->onTriggerShells.erase(ShellContainer::sGetInstance()->onTriggerShells.begin());
+					}
+					else {
+						ShellContainer::sGetInstance()->unTriggerBossShells.push_back(this);
+						ShellContainer::sGetInstance()->onTriggerBossShells.erase(ShellContainer::sGetInstance()->onTriggerBossShells.begin());
+					}
 					mCount = 0.f;
 				}
 			}
 			else {
-				if (mCount >= 20.f) {
+				if (mCount >= 10.f) {
 					this->onTrigger = false;
 					this->shell->getTransform()->setPosition(Vector3(0.f, -3.f, 0.f));
 					this->mCollisionSphere->sphere.Center.x = 0.f;
 					this->mCollisionSphere->sphere.Center.y = -3.f;
 					this->mCollisionSphere->sphere.Center.z = 0.f;
 					this->mShellFly->setVelocity(Vector3(0.f, 0.f, 0.f));
-					shell->getTransform()->setRotation(Vector3(0.f, 0.f, 0.f));
-					ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
-					if (this->getShelltype() == 1) {
-						this->getShellComponent()->setTarget(NULL);
-						this->shellType = 0;
+					//->getTransform()->setRotation(Vector3(0.f, 0.f, 0.f));
+					if (tankType == 0) {
+						ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
+						if (this->getShelltype() == 1) {
+							this->getShellComponent()->setTarget(NULL);
+							this->shellType = 0;
+						}
+						ShellContainer::sGetInstance()->onTriggerShells.erase(ShellContainer::sGetInstance()->onTriggerShells.begin());
 					}
-					ShellContainer::sGetInstance()->onTriggerShells.erase(ShellContainer::sGetInstance()->onTriggerShells.begin());
+					else {
+						ShellContainer::sGetInstance()->unTriggerBossShells.push_back(this);
+						if (this->getShelltype() == 1) {
+							this->getShellComponent()->setTarget(NULL);
+							this->shellType = 0;
+						}
+						ShellContainer::sGetInstance()->onTriggerBossShells.erase(ShellContainer::sGetInstance()->onTriggerBossShells.begin());
+					}
 					mCount = 0.f;
 				}
 			}
 		}
+	}
+
+	if (mModel != nullptr)
+	{
+		Vector3 pos = mTransform->getPosition();
+		mModel->setPosition(pos.x, pos.y, pos.z);
 	}
 }
 
@@ -218,11 +293,21 @@ void Shell::onTriggerEnter()
 	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 9);
 	//SoundManager::sGetInstance()->setFrequency(0.5f, mSound->mChannel);
 	SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
-	shell->getTransform()->setRotation(Vector3(0.f, 0.f, 0.f));
-	ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
-	if (this->getShelltype() == 1) {
-		this->getShellComponent()->setTarget(NULL);
-		this->shellType = 0;
+	//shell->getTransform()->setRotation(Vector3(0.f, 0.f, 0.f));
+	if (tankType == 0) {
+		ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
+		if (this->getShelltype() == 1) {
+			this->getShellComponent()->setTarget(NULL);
+			this->shellType = 0;
+		}
+		ShellContainer::sGetInstance()->onTriggerShells.erase(ShellContainer::sGetInstance()->onTriggerShells.begin());
 	}
-	ShellContainer::sGetInstance()->onTriggerShells.erase(ShellContainer::sGetInstance()->onTriggerShells.begin());
+	else {
+		ShellContainer::sGetInstance()->unTriggerBossShells.push_back(this);
+		if (this->getShelltype() == 1) {
+			this->getShellComponent()->setTarget(NULL);
+			this->shellType = 0;
+		}
+		ShellContainer::sGetInstance()->onTriggerBossShells.erase(ShellContainer::sGetInstance()->onTriggerBossShells.begin());
+	}
 }

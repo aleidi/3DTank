@@ -34,13 +34,3 @@
 #define ATTACK 0
 #endif // !ATTACK
 
-#ifndef LIGHTWEAPON
-#define LIGHTWEAPON DIK_1
-#endif // !LIGHTWEAPON
-
-#ifndef HEAVYWEAPON
-#define HEAVYWEAPON DIK_2
-#endif // !HEAVYWEAPON
-
-
-
