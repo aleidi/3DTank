@@ -69,7 +69,18 @@ void ShellFlyComponent::onUpdate(const float& detaTime)
 
 void ShellFlyComponent::updateForward(float detaTime)
 {
+	Vector3 forward = this->velocity.normalize();
+	forward.y = 0.f;
 	finalForward = (target->getTransform()->getPosition() - this->getObject()->getTransform()->getPosition()).normalize();
+	if (tankType == 0) {
+		float dot = Vector3::dot(finalForward, forward);
+		dot = Math::Clamp(1.0f, -1.0f, dot);
+		float rotate = acosf(dot) * 180 / Pi;
+		Vector3 cross = Vector3::cross(finalForward, forward);
+		if (cross.y > 0)
+			rotate = -rotate;
+		this->getObject()->getTransform()->rotate(0.f, rotate, 0.f);
+	}
 	this->velocity = finalForward;
 }
 
