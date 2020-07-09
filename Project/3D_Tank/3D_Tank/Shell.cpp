@@ -39,15 +39,6 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& shellType)
 		rotate = -rotate;
 	shell = SceneManager::sGetInstance()->createEmptyObject();
 	SceneManager::sGetInstance()->createModel(*shell,"Objects/Shell", L"Objects/Shell");
-	//shell = SceneManager::sGetInstance()->createSphere();
-	//Material mat = shell->getComponent<RenderComponent>()->getMaterial();
-	//if (shellType == 0) {
-	//	mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-	//}
-	//else {
-	//	mat.Color = XMFLOAT4(0.863f, 0.863f, 0.863f, 0.6f);
-	//}
-	//shell->getComponent<RenderComponent>()->setMaterial(mat);
 	shell->getTransform()->setPosition(this->origin + direction * 0.6f + Vector3::up * 0.1f);
 	shell->getTransform()->setScale(0.02f, 0.02f, 0.02f); 
 	shell->getTransform()->rotate(90.f, -rotate, 0.f);
@@ -77,14 +68,11 @@ Shell::Shell(const Vector3 & ori, const Vector3 & direction, const int & shellTy
 	Vector3 cross = Vector3::cross(Vector3::forward, direction.normalize());
 	if (cross.y > 0)
 		rotate = -rotate;
-	/*shell = SceneManager::sGetInstance()->createEmptyObject();
-	SceneManager::sGetInstance()->createModel(*shell, "Objects/Shell", L"Objects/Shell");*/
 	mModel = SceneManager::sGetInstance()->createVFXSphere();
 	Material mat;
 	mat.Color = XMFLOAT4(1.0f, 0.498f, 0.314f, 1.0f);
 	mModel->setMaterial(mat);
 	shell = SceneManager::sGetInstance()->createSphere();
-	//shell->getComponent<RenderComponent>()->setMaterial(mat);
 	shell->getTransform()->setPosition(this->origin + direction * 0.6f + Vector3::up * 0.1f);
 	shell->getTransform()->setScale(0.06f, 0.06f, 0.06f);
 	shell->getTransform()->rotate(90.f, -rotate, 0.f);
@@ -102,7 +90,6 @@ Shell::Shell(const Vector3 & ori, const Vector3 & direction, const int & shellTy
 	mSound = new SoundComponent(shell);
 	shell->addComponent(mSound);
 	this->onTrigger = true;
-	//ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
 
 	ShellContainer::sGetInstance()->onTriggerBossShells.push_back(this);
 	mSound->setPosition();
@@ -125,9 +112,6 @@ void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, co
 		this->onTrigger = true;
 		this->shell->getTransform()->setPosition(origin + direction * 0.6f + Vector3::up * 0.1f);
 		shell->getTransform()->rotate(90.f, -rotate, 0.f);
-		/*Material mat = shell->getComponent<RenderComponent>()->getMaterial();
-		mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-		shell->getComponent<RenderComponent>()->setMaterial(mat);*/
 		this->mCollisionSphere->sphere.Center.x = shell->getTransform()->getPosition().x;
 		this->mCollisionSphere->sphere.Center.y = shell->getTransform()->getPosition().y;
 		this->mCollisionSphere->sphere.Center.z = shell->getTransform()->getPosition().z;
@@ -176,9 +160,6 @@ void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, co
 		this->onTrigger = true;
 		this->shell->getTransform()->setPosition(origin + direction * 0.6f + Vector3::up * 0.1f);
 		shell->getTransform()->rotate(90.f, -rotate, 0.f);
-		//Material mat = shell->getComponent<RenderComponent>()->getMaterial();
-		////mat.Color = XMFLOAT4(0.863f, 0.863f, 0.863f, 0.6f);
-		//shell->getComponent<RenderComponent>()->setMaterial(mat);
 		this->mCollisionSphere->sphere.Center.x = shell->getTransform()->getPosition().x;
 		this->mCollisionSphere->sphere.Center.y = shell->getTransform()->getPosition().y;
 		this->mCollisionSphere->sphere.Center.z = shell->getTransform()->getPosition().z;
@@ -206,7 +187,6 @@ void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, co
 		this->shellType = shellType;
 		this->mShellFly->setVelocity(direction);
 		this->mShellFly->setTarget(obj);
-
 		ShellContainer::sGetInstance()->onTriggerBossShells.push_back(this);
 		for (std::vector<Shell*>::iterator it = ShellContainer::sGetInstance()->unTriggerBossShells.begin(); it != ShellContainer::sGetInstance()->unTriggerBossShells.end(); it++) {
 			if (*it == this) {

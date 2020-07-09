@@ -25,6 +25,7 @@ private:
 	float rotateSpeed;
 	float angle;
 	int tankType;
+	int turnCount;
 
 	Vector3 velocity;
 	Vector3 gracity;
