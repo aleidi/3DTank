@@ -33,8 +33,8 @@ void ShellFlyComponent::onUpdate(const float& detaTime)
 		return;
 	else {
 		float normalShellSpeed, trackShellSpeed;
-		if (tankType == 0) { normalShellSpeed = 10.f; trackShellSpeed = 2.f; }
-		if (tankType == 1) { normalShellSpeed = 5.f; trackShellSpeed = 2.f; }
+		if (tankType == 0) { normalShellSpeed = 20.f; trackShellSpeed = 2.f; }
+		if (tankType == 1) { normalShellSpeed = 10.f; trackShellSpeed = 2.f; }
 		if (target) {
 			this->getObject()->getTransform()->translate(velocity * detaTime * trackShellSpeed);
 			velocity.x += gracity.x * detaTime;
