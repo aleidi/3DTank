@@ -42,7 +42,7 @@ void Potion::onUpdate(const float& deltaTime)
 		mOffset = 0.0f;
 	}
 	Vector3 pos = mTransform->getPosition();
-	mTransform->setPosition(Vector3(pos.x, sinf(mOffset)*0.1f, pos.z));
+	mTransform->translate(Vector3(pos.x, sinf(mOffset)*0.1f + 0.5f, pos.z));
 	mTransform->rotateY(deltaTime*10.0f);
 
 	float dis = Vector3::lengthSq(mPlayer->getTransform()->getPosition(), mTransform->getPosition());

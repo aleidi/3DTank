@@ -22,6 +22,8 @@
 #include "Potion.h"
 #include "FadeInOut.h"
 #include "Weightless.h"
+#include "FileManager.h"
+#include "TrackTransform.h"
 
 //std::wstring wstr;
 //float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
@@ -45,6 +47,9 @@ void Level02::enterLevel()
 {
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Sand");
 
+	//load opening sequence
+	loadOpeningSequence();
+
 	mTitle = new FadeInOut(L"UI/Title1", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 2.0f, FadeInOut::Type::FadeOut);
 	mBackGround = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 4.0f, FadeInOut::Type::FadeOut);
 
@@ -56,6 +61,9 @@ void Level02::enterLevel()
 
 	std::thread t3(&Level02::loadFirstWave, this);
 	t3.detach();
+
+	std::thread t4(&Level02::loadEnvironment, this);
+	t4.detach();
 
 	mState = Title;
 	mCanStart = true;
@@ -72,20 +80,6 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
-	if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
-	{
-
-		//std::thread t3(&Level02::loadThirdWave, this);
-		//t3.detach();
-	}
-
-	if (DInputPC::getInstance().iskeyDown(DIK_K))
-	{
-		Camera::MainCamera = reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->getCamera();
-		GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
-
-	}
-
 	switch (mState)
 	{
 	case Level02::Title:
@@ -97,29 +91,29 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 		if (mBackGround->isEnd())
 		{
 			mTitle->setEnable(true);
-			//mBackGround->setEnable(false);
 			mState = Level02::Opening;
+			SoundManager::sGetInstance()->playAudio(1);
 		}
-		break;
+		return this;
+
 	case Level02::Opening:
 		if (!mTitle->isEnd())
 		{
-			break;
+			return this;
 		}
-		if (!mTrigger)
+		mOpening->play(deltaTime);
+		if (mOpening->isFin())
 		{
+			mState = GameStart;
+		}
+		break;
+	case Level02::GameStart:
 			Camera::MainCamera = reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->getCamera();
 			GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 			reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->enableHUD(true);
-			mTrigger = true;
-		}
-		break;
-	case Level02::CutScene1:
-		break;
-	case Level02::CutScene2:
-		break;
-		break;
-	default:
+			wakeupWave(firstWaveAI);
+			mState = Idel;
+	case Level02::Idel:
 		break;
 	}
 
@@ -132,7 +126,6 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 
 	Dispatch->DispatchDelayedMessages();
 
-#pragma region testcode
 	if (!secondloaded && isWaveClear(firstWaveAI) ) {
 
 		count += deltaTime;
@@ -157,10 +150,7 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 		}
 	}
 
-#pragma endregion
-
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
-	
 
 	return this;
 }
@@ -192,14 +182,6 @@ void Level02::loadResource()
 	mMap->getTransform()->translate(0.0f, -0.075f, 0.0f);
 	mMap->getTransform()->setScale(0.07f, 0.07f, 0.07f);
 
-#pragma region testcode
-	//wakeupWave(firstWaveAI);
-
-#pragma endregion
-
-	//GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
-	//reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->translate(30.0,0,9.0);
-
 	ShellContainer::onInit();
 
 	mIsInitLoad = true;
@@ -208,6 +190,33 @@ void Level02::loadResource()
 void Level02::wakeupAI(int ID) {
 	if (SceneManager::sGetInstance()->getAIController(ID) != nullptr ) 
 		SceneManager::sGetInstance()->getAIController(ID)->wakeup();
+
+}
+
+void Level02::loadOpeningSequence()
+{
+	mCamera = SceneManager::sGetInstance()->createEmptyObject();
+	mCamera->addComponent(new Camera(mCamera));
+	Camera::MainCamera = mCamera->getComponent<Camera>();
+	mCamera->getTransform()->setPosition(Vector3(28.4502f, 9.65098f, 20.4881f));
+	mCamera->getTransform()->setRotation(Vector3(0.596903f, 3.35801, 0.0f));
+
+	FileManager::LoadKeyFrames("Sequence");
+
+	mOpening = new TrackTransform(mCamera->getTransform());
+	TrackTransform::Frame f;
+	for (int i = 0; i < FileManager::KeyFrames.size(); ++i)
+	{
+		for (int j = 0; j < FileManager::KeyFrames[i].size(); ++j)
+		{
+			f.Key = FileManager::KeyFrames[i][j].Key;
+			f.KeyData.Position = FileManager::KeyFrames[i][j].Position;
+			f.KeyData.Rotation = FileManager::KeyFrames[i][j].Rotation;
+			f.KeyData.Scale = FileManager::KeyFrames[i][j].Scale;
+			mOpening->addKeyFrame(f);
+		}
+	}
+
 
 }
 
@@ -484,7 +493,8 @@ void Level02::loadEnvironment()
 
 void Level02::loadFirstWave() {
 	mCurrentGameMode = new GameModeTP();
-	Camera::MainCamera = nullptr;
+	reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->translate(30.0, 0, 9.0);
+	//Camera::MainCamera = nullptr;
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(false);
 
 	//potion
@@ -565,6 +575,8 @@ void Level02::loadThirdWave() {
 	obstaclesPlay.push_back(floatObj);
 
 	enemy_boss->getCtrl()->wakeup();
+
+	SoundManager::sGetInstance()->playAudio(2);
 }
 
 void Level02::loadBoss()

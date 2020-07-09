@@ -15,7 +15,7 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 	mPitch = 0.0f;
 	mYaw = 0.0f;
 	mRoll = 0.0f;
-	setEnable(true);
+	setEnable(false);
 
 	GeometryGenerator::Mesh mesh;
 	GeometryGenerator::getUIPanel(mesh);

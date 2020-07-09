@@ -66,7 +66,7 @@ PlayerTank::PlayerTank()
 
 	mAttribute.m_HP = 1000;
 	mAttribute.FullHP = 1000;
-	mAttribute.m_AttackRangeRadiusSq = 20.0f;
+	mAttribute.m_AttackRangeRadiusSq = 60.0f;
 
 	mAttackCount = mAttackInterval;
 	mAttackAngle = DirectX::XMConvertToRadians(60);

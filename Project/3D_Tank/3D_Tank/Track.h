@@ -20,9 +20,15 @@ public:
 		mKeyFrames.push_back(keyFrame);
 	}
 
+	bool isFin() const
+	{
+		return mIsFin;
+	}
+
 protected:
 	std::vector<Frame> mKeyFrames;
 	int mCurrentKey;
 	float mCurrentTime;
 	bool mIsActivate;
+	bool mIsFin;
 };

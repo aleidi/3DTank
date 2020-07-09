@@ -1,3 +1,5 @@
+#include <assert.h>
+
 #include "CollisionManager.h"
 #include "BossOwnedStates.h"
 #include "EnemyTankOwnedStates.h"
@@ -10,8 +12,7 @@
 #include "CrudeTimer.h"
 #include "EntityNames.h"
 #include "Math.h"
-#include <assert.h>
-
+#include "SoundManager.h"
 #include "Engine.h"
 
 #define getTargetVelocity pBoss->getTarget()->getVelocity()
@@ -221,6 +222,7 @@ void Violent::enter(AIController* pBoss) {
 	BOSS->initViolent(10, 10);
 	BOSS->showSuperAttackUI(true);
 	Engine::sGetInstance()->changeRunSpeed(0.5f);
+	SoundManager::sGetInstance()->playAudio(3);
 }
 
 void Violent::execute(AIController* pBoss, float deltaTime) {

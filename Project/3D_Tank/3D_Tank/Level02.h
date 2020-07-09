@@ -6,6 +6,7 @@ class AITank;
 class FadeInOut;
 class Potion;
 class Weightless;
+class TrackTransform;
 
 class Level02 : public GameLevelBase
 {
@@ -18,20 +19,23 @@ public:
 	void leaveLevel() override;
 	void loadResource() override;
 
+
+private:
+	enum State
+	{
+		Opening,
+		Title,
+		GameStart,
+		Idel,
+	};
+
+private:
+	void loadOpeningSequence();
 	void loadEnvironment();
 	void loadFirstWave();
 	void loadSecondWave();
 	void loadThirdWave();
 	void loadBoss();
-
-private:
-	enum State
-	{
-		CutScene1,
-		CutScene2,
-		Opening,
-		Title,
-	};
 
 private:
 	GameObject* mMap;
@@ -61,6 +65,9 @@ private:
 
 	FadeInOut* mTitle;
 	FadeInOut* mBackGround;
+	TrackTransform* mOpening;
+	GameObject* mCamera;
+
 	float mTimer;
 	bool mTrigger;
 };

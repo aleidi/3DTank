@@ -9,6 +9,7 @@ FadeInOut::FadeInOut(const std::wstring & image, float width, float height, floa
 	mImage = SceneManager::sGetInstance()->createUIImage(image);
 	mImage->setPosition(posX, posY);
 	mImage->setSize(width, height);
+	mImage->setEnable(true);
 
 	switch (mType)
 	{
