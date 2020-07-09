@@ -91,6 +91,9 @@ void VFXSphere::setRotation(const float& pitch, const float& yaw, const float& r
 
 void VFXSphere::setScale(const float & x, const float & y, const float & z)
 {
+	mScaleX = x;
+	mScaleY = y;
+	mScaleZ = z;
 }
 
 void VFXSphere::draw(Graphics& gfx) noexcept
