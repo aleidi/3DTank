@@ -21,11 +21,11 @@ public:
 	void onCollisionEnter() override;
 	void hited(int value) override;
 
-
 	void playSuperAttackParticle();
 	void enableSuperAttack(bool value);
 	void enableFloat(bool value);
 	void preDoSuperAttack();
+	void setImmune(bool value);
 
 	void setSuperAttackInterval(float interval);
 
@@ -49,6 +49,7 @@ private:
 	ParticleSystem* mPSSuperAttack;
 	bool mCanSuperAttack;
 	bool mCanFloat;
+	bool mIsImmune;
 
 	std::vector<ParticleSystem::PAttribute> mSAParticles;
 	int mSAIndex;

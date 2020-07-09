@@ -12,7 +12,7 @@
 #include "DisplayManager.h"
 
 EnemyBoss::EnemyBoss(int id)
-	:mCanSuperAttack(false),mCanFloat(false),mSAParticles(),mSAIndex(0),mTimerSA(0.0f),mIntervalSA(1.0f)
+	:mCanSuperAttack(false),mCanFloat(false),mSAParticles(),mSAIndex(0),mTimerSA(0.0f),mIntervalSA(1.0f),mIsImmune(true)
 {
 	mAttribute = { FileManager::AIAttributes[id].m_HP,
 			   FileManager::AIAttributes[id].m_HP,
@@ -162,6 +162,10 @@ void EnemyBoss::onUpdate(const float& deltaTime)
 
 void EnemyBoss::onCollisionEnter()
 {
+	if (mIsImmune)
+	{
+		return;
+	}
 	float damage = (float)rand() / (float)RAND_MAX * 30.0f + 1.0f;
 	hited(damage);
 	this->setAttacked(true);
@@ -174,10 +178,10 @@ void EnemyBoss::hited(int value)
 		this->setHP(this->getHP() * -1.0f);
 
 	Vector3 pos = mTransform->getPosition();
-	pos.x += (float)rand() / (float)RAND_MAX * 2 - 4.0f;
-	pos.y += (float)rand() / (float)RAND_MAX * 4.0f - 0.2f;
-	float size = value * 6.0;
-	Math::Clamp(100.0f, 20.0f, size);
+	pos.x += (float)rand() / (float)RAND_MAX - 0.5f;
+	pos.y += (float)rand() / (float)RAND_MAX * 6.0f - 0.2f;
+	float size = value * 8.0;
+	Math::Clamp(200.0f, 20.0f, size);
 	DisplayManager::sGetInstance()->displayText(std::to_wstring(value), size, size, pos);
 }
 
@@ -278,6 +282,11 @@ void EnemyBoss::preDoSuperAttack()
 {
 	mSAParticles = mPSSuperAttack->getParticles();
 	mSAIndex = 0;
+}
+
+void EnemyBoss::setImmune(bool value)
+{
+	mIsImmune = value;
 }
 
 void EnemyBoss::setSuperAttackInterval(float interval)
