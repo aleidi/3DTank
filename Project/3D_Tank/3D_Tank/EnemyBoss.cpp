@@ -300,4 +300,5 @@ void EnemyBoss::initViolent(int maxParticle, int emitRate)
 	mPSSuperAttack->setMaxPatricles(maxParticle);
 	mPSSuperAttack->setEmitRate(emitRate);
 	setSuperAttackInterval(1.0f);
+	mFazhen->setEnable(false);
 }
