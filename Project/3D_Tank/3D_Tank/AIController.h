@@ -21,8 +21,8 @@ public:
 	StateMachine<AIController>* getFSM() const { return m_pStateMachine; }
 	bool handleMessage(const Telegram& msg);
 
-	void Attack(Vector3 battery_position, Vector3 direction);
-	void Attack(Vector3 battery_position, Vector3 direction, Pawn* target);
+	void Attack(Vector3 battery_position, Vector3 direction, const int& tankType);
+	void Attack(Vector3 battery_position, Vector3 direction, Pawn* target, const int& tankType);
 	void Move(Vector3 Force);
 	void Rotate(float x, float y, float z);
 

@@ -53,8 +53,8 @@ public:
 	virtual void onLateUpdate(const float& deltaTime) override;
 
 	virtual void move(Vector3 value);
-	virtual void attack(Vector3 battery_position, Vector3 shot_direction);
-	virtual void attack(Vector3 battery_position, Vector3 shot_direction,Pawn* target);
+	virtual void attack(Vector3 battery_position, Vector3 shot_direction, const int& tankType);
+	virtual void attack(Vector3 battery_position, Vector3 shot_direction,Pawn* target, const int& tankType);
 	virtual void hited(int value);
 
 	virtual void onTriggerEnter(const GameObject* obj) override;
