@@ -627,6 +627,9 @@
     <ClCompile Include="TrackTransform.cpp">
       <Filter>Engine\Source\Sequence</Filter>
     </ClCompile>
+    <ClCompile Include="ModelMeshNormal.cpp">
+      <Filter>Engine\Source\Render\Graphics\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -1100,6 +1103,9 @@
     <ClInclude Include="TrackTransform.h">
       <Filter>Engine\Header\Sequence</Filter>
     </ClInclude>
+    <ClInclude Include="ModelMeshNormal.h">
+      <Filter>Engine\Header\Render\Graphics\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -1193,6 +1199,12 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="VFXSphere_VS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="NormalMap_PS.hlsl">
+      <Filter>Engine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="NormalMap_VS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
   </ItemGroup>

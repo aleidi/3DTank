@@ -38,8 +38,22 @@ enum Language { CN, US };
 class FileManager
 {
 public:
+	struct TempVertexType
+	{
+		float x, y, z;
+		float tu, tv;
+		float nx, ny, nz;
+	};
+
+	struct VectorType
+	{
+		float x, y, z;
+	};
+
 	static void LoadOBJModel(GeometryGenerator::Mesh& mesh, const std::string& name);
 	static void LoadOBJModel(GeometryGenerator::Mesh& mesh, const std::string& name, DirectX::XMVECTOR& maxPoint, DirectX::XMVECTOR& minPoint);
+	static void LoadOBJModelWithTangent(GeometryGenerator::MeshT& mesh, const std::string& name);
+	static void CalculateTangentBinormal(TempVertexType vertex1, TempVertexType vertex2, TempVertexType vertex3, VectorType& tangent, VectorType& binormal);
 
 	static wchar_t* GetTexture(const std::string& name);
 

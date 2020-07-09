@@ -102,6 +102,131 @@ void FileManager::LoadOBJModel(GeometryGenerator::Mesh & mesh, const std::string
 	}
 }
 
+void FileManager::LoadOBJModelWithTangent(GeometryGenerator::MeshT & mesh, const std::string & name)
+{
+	char input;
+	GeometryGenerator::VertexT vertex;
+	UINT index = 0;
+	std::fstream fin;
+	std::string path;
+	path = ".\\Resource\\Model\\" + name + ".txt";
+	fin.open(path);
+
+	if (!fin.good())
+	{
+		return;
+	}
+
+	//fin.get(input);
+	while (!fin.eof())
+	{
+		fin >> vertex.Pos.x >> vertex.Pos.y >> vertex.Pos.z >> vertex.Tex.x >> vertex.Tex.y;
+		fin.get(input);
+		while (input != '\n')
+		{
+			fin.get(input);
+		}
+		mesh.vertices.push_back(vertex);
+		mesh.indices.push_back(index++);
+	}
+
+	for (int i = 0; i < mesh.vertices.size() - 1;)
+	{
+		XMVECTOR v0 = XMLoadFloat3(&mesh.vertices[i].Pos);
+		XMVECTOR v1 = XMLoadFloat3(&mesh.vertices[i + 1].Pos);
+		XMVECTOR v2 = XMLoadFloat3(&mesh.vertices[i + 2].Pos);
+
+		XMVECTOR v01 = XMVectorSubtract(v1, v0);
+		XMVECTOR v12 = XMVectorSubtract(v2, v1);
+
+		XMFLOAT3 pnormal;
+		XMStoreFloat3(&pnormal, XMVector3Normalize(XMVector3Cross(v01, v12)));
+
+
+		mesh.vertices[i].Normal = pnormal;
+		mesh.vertices[i + 1].Normal = pnormal;
+		mesh.vertices[i + 2].Normal = pnormal;
+
+		//calculate TBN
+		TempVertexType vertex1, vertex2, vertex3;
+		VectorType tangent, binormal, normal;
+		vertex1.x = mesh.vertices[i].Pos.x;
+		vertex1.y = mesh.vertices[i].Pos.y;
+		vertex1.z = mesh.vertices[i].Pos.z;
+		vertex1.tu = mesh.vertices[i].Tex.x;
+		vertex1.tv = mesh.vertices[i].Tex.y;
+		vertex1.nx = mesh.vertices[i].Normal.x;
+		vertex1.ny = mesh.vertices[i].Normal.y;
+		vertex1.nz = mesh.vertices[i].Normal.z;
+
+		vertex2.x = mesh.vertices[i + 1].Pos.x;
+		vertex2.y = mesh.vertices[i + 1].Pos.y;
+		vertex2.z = mesh.vertices[i + 1].Pos.z;
+		vertex2.tu = mesh.vertices[i + 1].Tex.x;
+		vertex2.tv = mesh.vertices[i + 1].Tex.y;
+		vertex2.nx = mesh.vertices[i + 1].Normal.x;
+		vertex2.ny = mesh.vertices[i + 1].Normal.y;
+		vertex2.nz = mesh.vertices[i + 1].Normal.z;
+
+		vertex3.x = mesh.vertices[i + 2].Pos.x;
+		vertex3.y = mesh.vertices[i + 2].Pos.y;
+		vertex3.z = mesh.vertices[i + 2].Pos.z;
+		vertex3.tu = mesh.vertices[i + 2].Tex.x;
+		vertex3.tv = mesh.vertices[i + 2].Tex.y;
+		vertex3.nx = mesh.vertices[i + 2].Normal.x;
+		vertex3.ny = mesh.vertices[i + 2].Normal.y;
+		vertex3.nz = mesh.vertices[i + 2].Normal.z;
+
+		CalculateTangentBinormal(vertex1, vertex2, vertex3, tangent, binormal);
+
+		mesh.vertices[i].Tangent.y = tangent.y;
+		mesh.vertices[i].Tangent.z = tangent.z;
+
+		mesh.vertices[i + 1].Tangent.x = tangent.x;
+		mesh.vertices[i + 1].Tangent.y = tangent.y;
+		mesh.vertices[i + 1].Tangent.z = tangent.z;
+
+		mesh.vertices[i + 2].Tangent.x = tangent.x;
+		mesh.vertices[i + 2].Tangent.y = tangent.y;
+		mesh.vertices[i + 2].Tangent.z = tangent.z;
+
+		i += 3;
+	}
+}
+
+void FileManager::CalculateTangentBinormal(TempVertexType vertex1, TempVertexType vertex2, TempVertexType vertex3, VectorType & tangent, VectorType & binormal)
+{
+	float vector1[3], vector2[3];
+	float tuVector[2], tvVector[2];
+	float den;
+	float length;
+
+
+	// Calculate the two vectors for this face.
+	vector1[0] = vertex2.x - vertex1.x;
+	vector1[1] = vertex2.y - vertex1.y;
+	vector1[2] = vertex2.z - vertex1.z;
+
+	vector2[0] = vertex3.x - vertex1.x;
+	vector2[1] = vertex3.y - vertex1.y;
+	vector2[2] = vertex3.z - vertex1.z;
+
+	// Calculate the tu and tv texture space vectors.
+	tuVector[0] = vertex2.tu - vertex1.tu;
+	tvVector[0] = vertex2.tv - vertex1.tv;
+
+	tuVector[1] = vertex3.tu - vertex1.tu;
+	tvVector[1] = vertex3.tv - vertex1.tv;
+
+	// Calculate the denominator of the tangent/binormal equation.
+	den = 1.0f / (tuVector[0] * tvVector[1] - tuVector[1] * tvVector[0]);
+
+	// Calculate the cross products and multiply by the coefficient to get the tangent and binormal.
+	tangent.x = (tvVector[1] * vector1[0] - tvVector[0] * vector2[0]) * den;
+	tangent.y = (tvVector[1] * vector1[1] - tvVector[0] * vector2[1]) * den;
+	tangent.z = (tvVector[1] * vector1[2] - tvVector[0] * vector2[2]) * den;
+}
+
 wchar_t * FileManager::GetTexture(const std::string & name)
 {
 	std::string path;
