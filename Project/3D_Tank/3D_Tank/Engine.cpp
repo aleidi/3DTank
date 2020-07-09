@@ -6,18 +6,13 @@
 #include "ComponentFactory.h"
 #include "Configuration.h"
 #include "FileManager.h"
-
-
-//test
 #include "Rendering.h"
 #include "Graphics.h"
 #include "SoundManager.h"
 #include "CollisionManager.h"
-#include "Collision.h"
+
 
 Engine* Engine::sInstance = nullptr;
-
-//test code
 
 Engine::Engine(Window& wnd)
 	:
@@ -25,7 +20,7 @@ Engine::Engine(Window& wnd)
 	mSound(std::make_unique<Sound>()),
 	mRendering(std::make_unique<Rendering>(wnd)),
 	mGameSystem(std::make_unique<GameSystem>()),
-	mIsGameMode(true), mIsEditMode(true)
+	mIsGameMode(true), mIsEditMode(true),mRunSpeed(1.0f)
 {
 	onPreInit();
 
@@ -83,27 +78,10 @@ void Engine::onInit()
 
 	//EUI Init
 	mEui->onInit();
-
-#pragma region TestCode
-
-	//test code
-	 fScale = 1.0f;
-	 fTrans_x = 0.0f;
-	 fTrans_y = 0.0f;
-	 fTrans_z = 0.0f;
-	 fRot_x = 0.0f;
-	 fRot_y = 0.0f;
-	 fRot_z = 0.0f;
-	 fspeed = 300.0f;
-	 rspeed = 5.0f; 
-	 gSpeed = 1.0f;
-
-#pragma endregion
 }
 
 void Engine::onPostInit()
 {
-
 	//Game Init
 	mGameSystem->onInit();
 }
@@ -113,24 +91,24 @@ void Engine::run()
 	//speed up and down
 	if (DInputPC::getInstance().iskeyDown(DIK_F4))
 	{
-		gSpeed = 2.0f;
+		mRunSpeed = 2.0f;
 	}
 	if (DInputPC::getInstance().iskeyUp(DIK_F4))
 	{
-		gSpeed = 1.0f;
+		mRunSpeed = 1.0f;
 	}
 	if (DInputPC::getInstance().iskeyDown(DIK_F3))
 	{
-		gSpeed = 0.5f;
+		mRunSpeed = 0.5f;
 	}
 	if (DInputPC::getInstance().iskeyUp(DIK_F3))
 	{
-		gSpeed = 1.0f;
+		mRunSpeed = 1.0f;
 	}
 
 	//Timer update
 	mTimer.tick();
-	float deltaTime = mTimer.getDeltaTIme() * gSpeed;
+	float deltaTime = mTimer.getDeltaTIme() * mRunSpeed;
 	calculateFrameStats();
 
 	//Input Update
@@ -224,6 +202,11 @@ void Engine::enableGameMode(bool value)
 void Engine::onResize(float width, float height)
 {
 	mRendering->onResize(width, height);
+}
+
+void Engine::changeRunSpeed(float value)
+{
+	mRunSpeed = value;
 }
 
 void Engine::showtText(const std::wstring & str = L"", float leftTopX=0, float leftTopY=0, float width=0, float height=0, bool canShow = false)
