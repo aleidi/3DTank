@@ -219,6 +219,7 @@ Violent* Violent::getInstance() {
 
 void Violent::enter(AIController* pBoss) {
 	BOSS->initViolent(10, 10);
+	Engine::sGetInstance()->changeRunSpeed(0.5f);
 }
 
 void Violent::execute(AIController* pBoss, float deltaTime) {
@@ -261,6 +262,7 @@ void Violent::execute(AIController* pBoss, float deltaTime) {
 
 void Violent::exit(AIController* pBoss) {
 	BOSS->enableSuperAttack(false);
+	Engine::sGetInstance()->changeRunSpeed(1.0f);
 }
 
 bool Violent::onMessage(AIController* pBoss, const Telegram& msg) {
