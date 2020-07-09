@@ -5,16 +5,6 @@
 #include "Math.h"
 #include "SceneManager.h"
 #include "ParticleSystem.h"
-#include "Engine.h"
-
-ShellFlyComponent::ShellFlyComponent(GameObject * obj):Component(obj)
-{
-	this->velocity = this->getObject()->getTransform()->Forward.normalize();
-	this->gracity = Vector3(0.f, 0.f, 0.f);
-	this->rotateSpeed = 90.f;
-	angle = 0.f;
-	count = 0.f;
-}
 
 ShellFlyComponent::ShellFlyComponent(GameObject * obj, const Vector3 & direction) :Component(obj)
 {
@@ -53,10 +43,8 @@ void ShellFlyComponent::onUpdate(const float& detaTime)
 				this->getObject()->sphere->sphere.Center.z += velocity.z*detaTime * 2.f;
 			}
 			count += detaTime;
-			if (target && count >= 1.f) {
+			if (count >= 1.f) {
 				updateForward(detaTime);
-				//this->velocity = this->getObject()->getTransform()->Forward.normalize();
-				//this->velocity.y = 0.f;
 				Vector3 pos = this->getObject()->getTransform()->getPosition();
 				mPS->setPosition(pos.x, pos.y, pos.z);
 				mPS->play();
@@ -79,46 +67,20 @@ void ShellFlyComponent::onUpdate(const float& detaTime)
 
 void ShellFlyComponent::updateForward(float detaTime)
 {
-	Vector3 forward = this->velocity.normalize();
-	forward.y = 0.f;
+	//Vector3 forward = this->velocity.normalize();
+	//forward.y = 0.f;
 	finalForward = (target->getTransform()->getPosition() - this->getObject()->getTransform()->getPosition()).normalize();
-	finalForward.y = 0.f;
-	float dot = Vector3::dot(finalForward, forward);
-	dot = Math::Clamp(1.0f, -1.0f, dot);
-	float rotate = acosf(dot) * 180 / Pi;
-	Vector3 cross = Vector3::cross(finalForward, forward);
-	if (cross.y > 0)
-		rotate = -rotate;
-	//DirectX::XMFLOAT3 f1(forward.x, forward.y, forward.z);
-	//DirectX::XMFLOAT3 f2(finalForward.x, finalForward.y, finalForward.z);
-	//DirectX::XMVECTOR for1 = DirectX::XMLoadFloat3(&f1);
-	//DirectX::XMVECTOR for2 = DirectX::XMLoadFloat3(&f2);
-	//angle = DirectX::XMConvertToDegrees(DirectX::XMVectorGetX(DirectX::XMVector3AngleBetweenVectors(for1, for2)));
-	this->getObject()->getTransform()->rotate(0.f, rotate, 0.f);
-	this->velocity = finalForward;
-	//velocity = this->getObject()->getTransform()->Forward;
-	//if (angle == 0.f) return;
-	//if (angle <= 20.f && angle != 0.f) {
-	//	this->getObject()->getTransform()->Forward = finalForward.normalize();
-	//	return;
-	//}
-	//float dot = Vector3::dot(finalForward, forward);
+	//finalForward.y = 0.f;
+	//Vector3 finalF = finalForward;
+	//finalF.y = 0.f;
+	//float dot = Vector3::dot(finalF, forward);
 	//dot = Math::Clamp(1.0f, -1.0f, dot);
 	//float rotate = acosf(dot) * 180 / Pi;
-	//Vector3 cross = Vector3::cross(finalForward, forward);
+	//Vector3 cross = Vector3::cross(finalF, forward);
 	//if (cross.y > 0)
 	//	rotate = -rotate;
-	//this->getObject()->getTransform()->rotate(0.f, -rotate, 0.f);
-	//if (finalForward != this->getObject()->getTransform()->Forward.normalize()) {
-	//	this->getObject()->getTransform()->Forward = Math::lerp(this->getObject()->getTransform()->Forward, finalForward, angle / rotateSpeed).normalize();
-	//	//float dot = Vector3::dot(this->getObject()->getTransform()->Forward, Math::lerp(this->getObject()->getTransform()->Forward, finalForward, angle / rotateSpeed).normalize());
-	//	//dot = Math::Clamp(1.0f, -1.0f, dot);
-	//	//float rotate = acosf(dot) * 180 / Pi;
-	//	//Vector3 cross = Vector3::cross(this->getObject()->getTransform()->Forward, Math::lerp(this->getObject()->getTransform()->Forward, finalForward, angle / rotateSpeed).normalize());
-	//	//if (cross.y > 0)
-	//	//	rotate = -rotate;
-	//	//this->getObject()->getTransform()->rotate(0.f, -rotate, 0.f);
-	//}
+	//this->getObject()->getTransform()->rotate(0.f, rotate, 0.f);
+	this->velocity = finalForward;
 }
 
 void ShellFlyComponent::setTarget(GameObject* t)
