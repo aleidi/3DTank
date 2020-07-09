@@ -32,15 +32,18 @@ void ShellFlyComponent::onUpdate(const float& detaTime)
 	if (this->getObject()->getTransform()->getPosition() == Vector3(0.f,-3.f,0.f))
 		return;
 	else {
+		float normalShellSpeed, trackShellSpeed;
+		if (tankType == 0) { normalShellSpeed = 10.f; trackShellSpeed = 2.f; }
+		if (tankType == 1) { normalShellSpeed = 5.f; trackShellSpeed = 2.f; }
 		if (target) {
-			this->getObject()->getTransform()->translate(velocity * detaTime * 2.f);
+			this->getObject()->getTransform()->translate(velocity * detaTime * trackShellSpeed);
 			velocity.x += gracity.x * detaTime;
 			velocity.y += gracity.y * detaTime;
 			velocity.z += gracity.z * detaTime;
 			if (this->getObject()->sphere && this->getObject()->sphere->moveable == 1) {
-				this->getObject()->sphere->sphere.Center.x += velocity.x*detaTime * 2.f;
-				this->getObject()->sphere->sphere.Center.y += velocity.y*detaTime * 2.f;
-				this->getObject()->sphere->sphere.Center.z += velocity.z*detaTime * 2.f;
+				this->getObject()->sphere->sphere.Center.x += velocity.x*detaTime * trackShellSpeed;
+				this->getObject()->sphere->sphere.Center.y += velocity.y*detaTime * trackShellSpeed;
+				this->getObject()->sphere->sphere.Center.z += velocity.z*detaTime * trackShellSpeed;
 			}
 			count += detaTime;
 			if (count >= 1.f) {
@@ -52,14 +55,14 @@ void ShellFlyComponent::onUpdate(const float& detaTime)
 			}
 		}
 		else {
-			this->getObject()->getTransform()->translate(velocity * detaTime * 20.f);
+			this->getObject()->getTransform()->translate(velocity * detaTime * normalShellSpeed);
 			velocity.x += gracity.x * detaTime;
 			velocity.y += gracity.y * detaTime;
 			velocity.z += gracity.z * detaTime;
 			if (this->getObject()->sphere && this->getObject()->sphere->moveable == 1) {
-				this->getObject()->sphere->sphere.Center.x += velocity.x*detaTime * 20.f;
-				this->getObject()->sphere->sphere.Center.y += velocity.y*detaTime * 20.f;
-				this->getObject()->sphere->sphere.Center.z += velocity.z*detaTime * 20.f;
+				this->getObject()->sphere->sphere.Center.x += velocity.x*detaTime * normalShellSpeed;
+				this->getObject()->sphere->sphere.Center.y += velocity.y*detaTime * normalShellSpeed;
+				this->getObject()->sphere->sphere.Center.z += velocity.z*detaTime * normalShellSpeed;
 			}
 		}
 	}
@@ -96,6 +99,11 @@ void ShellFlyComponent::setVelocity(const Vector3 & dir)
 	else {
 		this->velocity = dir.normalize();
 	}
+}
+
+void ShellFlyComponent::setTankType(const int & type)
+{
+	tankType = type;
 }
 
 Vector3 ShellFlyComponent::getVelocity()

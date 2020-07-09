@@ -152,19 +152,19 @@ void PlayerTank::onAttack(float deltaTime)
 			if (angle < mAttackAngle)
 			{
 				playAttackParticle();
-				ShellContainer::sGetInstance()->applyShell(startPos, dir, 0);
+				ShellContainer::sGetInstance()->applyShell(startPos, dir, 0, 0);
 			}
 			else
 			{
 				playAttackParticle();
 
-				ShellContainer::sGetInstance()->applyShell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+				ShellContainer::sGetInstance()->applyShell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0, 0);
 			}
 		}
 		else
 		{
 			playAttackParticle();
-			ShellContainer::sGetInstance()->applyShell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0);
+			ShellContainer::sGetInstance()->applyShell(startPos, mBattery->getTransform()->Forward + Vector3::up*0.02f, 0, 0);
 		}
 
 		mAttackCount = mAttackInterval;
