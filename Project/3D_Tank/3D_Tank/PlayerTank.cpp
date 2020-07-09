@@ -202,7 +202,7 @@ void PlayerTank::move(Vector3 value)
 	mTransform->translate(value * mMoveSped);
 	mBattery->getTransform()->translate(value * mMoveSped);
 	m_Velocity = value;
-	SoundManager::sGetInstance()->playSingleSound(tankSound->mChannel, 2);
+	SoundManager::sGetInstance()->playSingleSound(tankSound->mChannel, 5);
 	SoundManager::sGetInstance()->setValume(0.3, tankSound->mChannel);
 	mBatteryRotSpd = 1.0f;
 }

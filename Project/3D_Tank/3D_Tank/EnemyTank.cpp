@@ -287,7 +287,7 @@ void EnemyTank::playHitedParticle()
 
 void EnemyTank::playDeathParticle()
 {
-	SoundManager::sGetInstance()->playOverlapSound(tankSound->mChannel, 4);
+	SoundManager::sGetInstance()->playOverlapSound(tankSound->mChannel, 7);
 	Vector3 pos = mTransform->getPosition() + Vector3::up*0.2f;
 	mPSDeath->setPosition(pos.x, pos.y, pos.z);
 	mPSDeath->play();

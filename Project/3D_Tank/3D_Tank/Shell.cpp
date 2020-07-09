@@ -64,7 +64,7 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& type)
 	this->onTrigger = true;
 	ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
 	mSound->setPosition();
-	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 3);
+	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
 	//SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
 }
 
@@ -92,7 +92,7 @@ void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, co
 	this->shellType = shellType;
 	this->mShellFly->setVelocity(direction);
 	mSound->setPosition();
-	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 3);
+	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
 	SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
 	ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
 	for (std::vector<Shell*>::iterator it = ShellContainer::sGetInstance()->unTriggerShells.begin(); it != ShellContainer::sGetInstance()->unTriggerShells.end(); it++) {
@@ -123,7 +123,7 @@ void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, co
 	this->shellType = shellType;
 	this->mShellFly->setVelocity(direction);
 	mSound->setPosition();
-	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 3);
+	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
 	SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
 	ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
 	this->mShellFly->setTarget(obj);
@@ -215,7 +215,7 @@ void Shell::onTriggerEnter()
 	this->mCollisionSphere->sphere.Center.z = 0.f;
 	this->mShellFly->setVelocity(Vector3(0.f, 0.f, 0.f));
 	mSound->setPosition();
-	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
+	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 9);
 	//SoundManager::sGetInstance()->setFrequency(0.5f, mSound->mChannel);
 	SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
 	shell->getTransform()->setRotation(Vector3(0.f, 0.f, 0.f));
