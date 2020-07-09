@@ -127,7 +127,7 @@ void PlayerTank::destroy()
 	SceneManager::sGetInstance()->removeGameObjectFromPool(this);
 }
 
-void PlayerTank::onAttack(float deltaTime)
+void PlayerTank::onAttack(const float& deltaTime)
 {
 	mAttackCount -= deltaTime;
 	if (mAttackCount <= 0.0f)
@@ -197,7 +197,7 @@ void PlayerTank::stopMove()
 	mBatteryRotSpd = 2.0f;
 }
 
-void PlayerTank::rotate(float value)
+void PlayerTank::rotate(const float& value)
 {
 	mTransform->rotateY(value * mRotateSpd);
 }
@@ -216,7 +216,7 @@ void PlayerTank::rotateCamera(float valueX, float valueY)
 	mCamFollower->getTransform()->rotate(valueX*mCameraRotSpd, valueY*mCameraRotSpd,0.0f);
 }
 
-void PlayerTank::adjustDisToCam(float value)
+void PlayerTank::adjustDisToCam(const float& value)
 {
 	mDisToCam += value;
 	Math::Clamp(mMaxDisToCam, mMinDisToCam, mDisToCam);
@@ -237,20 +237,30 @@ void PlayerTank::adjustDisToCam(float value)
 	//	L"," + std::to_wstring(mBattery->getTransform()->getRotation().z);
 }
 
-void PlayerTank::setCameraFov(float value)
+void PlayerTank::setCameraFov(const float& value)
 {
 	mCameraComp->setFov(value);
 }
 
-void PlayerTank::setCameraRotSpd(float value)
+void PlayerTank::setCameraRotSpd(const float& value)
 {
 	mCameraRotSpd = value;
 }
 
-void PlayerTank::translate(float x, float y, float z)
+void PlayerTank::translate(const float& x, const float& y, const float& z)
 {
 	mTransform->translate(x, y, z);
 	mBattery->getTransform()->translate(x, y, z);
+}
+
+void PlayerTank::enableHUD(bool value)
+{
+	reinterpret_cast<HUD*>(mHUD)->enableShow(value);
+}
+
+Camera * PlayerTank::getCamera() const
+{
+	return mCameraComp;
 }
 
 void PlayerTank::hited(int value)

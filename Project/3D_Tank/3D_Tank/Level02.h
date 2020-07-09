@@ -18,6 +18,7 @@ public:
 	void leaveLevel() override;
 	void loadResource() override;
 
+	void loadEnvironment();
 	void loadFirstWave();
 	void loadSecondWave();
 	void loadThirdWave();
@@ -29,6 +30,7 @@ private:
 		CutScene1,
 		CutScene2,
 		Opening,
+		Title,
 	};
 
 private:
@@ -39,17 +41,20 @@ private:
 	std::vector<AITank*> firstWaveAI;
 	std::vector<AITank*> secondWaveAI;
 	std::vector<AITank*> thirdWaveAI;
+	std::vector<Potion*> mItems;
 	AITank* enemy_boss;
 	Weightless* weightless;
-	Potion* potion1;
+
 	bool isWaveClear(std::vector<AITank*> thisWave);
 	void wakeupAI(int ID);
 	void wakeupWave(std::vector<AITank*> thisWave);
 	void destroyWave(std::vector<AITank*> thisWave);
-	bool secondloaded = false;
-	bool thirdloaded = false;
+
+	bool secondloaded;
+	bool thirdloaded;
 	bool mIsInitLoad;
 	bool mIsBossLoad;
+	bool mIsEnvironmentLoad;
 
 	float count = 0.0f;
 	State mState;
@@ -57,5 +62,6 @@ private:
 	FadeInOut* mTitle;
 	FadeInOut* mBackGround;
 	float mTimer;
+	bool mTrigger;
 };
 

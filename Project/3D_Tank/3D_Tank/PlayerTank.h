@@ -16,17 +16,19 @@ public:
 	void onLateUpdate(const float& deltaTime) override;
 	void destroy() override;
 
-	void onAttack(float deltaTime);
+	void onAttack(const float& deltaTime);
 	void setAttack();
 	void stopAttack();
 	void move(Vector3 value) override;
 	void stopMove();
-	void rotate(float value);
+	void rotate(const float& value);
 	void rotateCamera(float valueX, float valueY);
-	void adjustDisToCam(float value);
-	void setCameraFov(float value);
-	void setCameraRotSpd(float value);
-	void translate(float x, float y, float z);
+	void adjustDisToCam(const float& value);
+	void setCameraFov(const float& value);
+	void setCameraRotSpd(const float& value);
+	void translate(const float& x, const float& y, const float& z);
+	void enableHUD(bool value);
+	Camera* getCamera() const;
 
 	void hited(int value) override;
 	void onTriggerEnter(const GameObject* obj) override;

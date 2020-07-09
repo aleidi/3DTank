@@ -9,8 +9,10 @@ public:
 	HUD();
 	~HUD();
 
-	void setAccelator(float inner, float outer);
+	void setAccelator(const float& inner, const float& outer);
 	void onLateUpdate(const float& deltaTime) override;
+
+	void enableShow(const bool& value);
 
 private:
 	UIImage* mCrossHairInner;

@@ -16,7 +16,7 @@ PlayerCamera::PlayerCamera(GameObject * object, float fov, float aspect, float n
 	:Camera(object,fov, aspect, nearZ, farZ),
 	mTargetFov(fov),mSpdForPos(10.0f),mSpdForRot(10.0f), mSpdForFov(10.0f)
 {
-	MainCamera = this;
+	//MainCamera = this;
 }
 
 PlayerCamera::~PlayerCamera()

@@ -17,11 +17,12 @@ HUD::HUD()
 	mCrossHairInner->setBlend(true);
 	mCrossHairInner->setSize(width, height);
 	mCrossHairInner->setPosition(posw, posh);
+	mCrossHairInner->setEnable(false);
 	mCrossHairOuter = SceneManager::sGetInstance()->createUIImage(L"UI/crosshair_mid");
 	mCrossHairOuter->setSize(width, height);
 	mCrossHairOuter->setPosition(posw, posh);
 	mCrossHairOuter->setBlend(true);
-
+	mCrossHairOuter->setEnable(false);
 }
 
 HUD::~HUD()
@@ -30,7 +31,7 @@ HUD::~HUD()
 	SceneManager::sGetInstance()->removreUIFromPool(dynamic_cast<UIBase*>(mCrossHairOuter));
 }
 
-void HUD::setAccelator(float inner, float outer)
+void HUD::setAccelator(const float& inner, const float& outer)
 {
 	mAccelatorInner = inner;
 	mAccelatorOuter = outer;
@@ -40,4 +41,10 @@ void HUD::onLateUpdate(const float& deltaTime)
 {
 	mCrossHairInner->rotate(0.0f, 0.0f, deltaTime * mRotSpdInner * mAccelatorInner);
 	mCrossHairOuter->rotate(0.0f, 0.0f, deltaTime * mRotSpdOuter * mAccelatorOuter * -1.0f);
+}
+
+void HUD::enableShow(const bool& value)
+{
+	mCrossHairInner->setEnable(value);
+	mCrossHairOuter->setEnable(value);
 }
