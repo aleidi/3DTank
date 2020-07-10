@@ -46,12 +46,9 @@ void TrackTransform::play(const float & deltaTime)
 	float t = mKeyFrames[mCurrentKey + 1].Key - mKeyFrames[mCurrentKey].Key;
 	mTarget->setPosition(Math::lerp(src, dest, deltaTime / t));
 
-	std::wstring wstr;
-	//float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
-	//float y = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().y;
-	//float z = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().z;
-	wstr += std::to_wstring(dest.x) + L"," + std::to_wstring(dest.y) + L"," + std::to_wstring(dest.z);
-	Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
+	//std::wstring wstr;
+	//wstr += std::to_wstring(dest.x) + L"," + std::to_wstring(dest.y) + L"," + std::to_wstring(dest.z);
+	//Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
 
 	src = mTarget->getRotation();
 	dest = mKeyFrames[mCurrentKey + 1].KeyData.Rotation;
