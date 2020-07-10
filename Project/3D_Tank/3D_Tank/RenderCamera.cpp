@@ -172,8 +172,8 @@ void RenderCamera::onUpdate(const float& deltaTime) noexcept
 {
 	if (nullptr == Camera::MainCamera)
 	{
-		mPosition = XMFLOAT3(0.0f, 0.0f, 0.0f);
-		mRotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
+		mPosition = XMFLOAT3(28.4502f, 9.65098f, 20.4881f);
+		mRotation = XMFLOAT3(0.596903f, 3.35801f, 0.0f);
 		mProjType = ProjectionType::Perspective;
 		mFov = XM_PI / 3;
 		mAspect = (float)(WINDOW_WIDTH / WINDOW_HEIGHT);
