@@ -228,6 +228,7 @@ void Violent::enter(AIController* pBoss) {
 		BOSS->initViolent(10, 10);
 		BOSS->showSuperAttackUI(true);
 		Engine::sGetInstance()->changeRunSpeed(0.5f);
+		SoundManager::sGetInstance()->stop(2);
 		SoundManager::sGetInstance()->playLoopAudio(3);
 	}
 }
