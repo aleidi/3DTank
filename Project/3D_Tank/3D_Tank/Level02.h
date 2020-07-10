@@ -27,6 +27,8 @@ private:
 		Title,
 		GameStart,
 		Idel,
+		FirstWave,
+		SecondWave
 	};
 
 private:
