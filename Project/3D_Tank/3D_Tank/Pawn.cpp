@@ -69,6 +69,10 @@ void Pawn::onCollisionEnter()
 void Pawn::addHP(int value)
 {
 	mAttribute.m_HP += value;
+	if (mAttribute.m_HP > mAttribute.FullHP)
+	{
+		mAttribute.m_HP = mAttribute.FullHP;
+	}
 }
 
 void Pawn::setMaxSpeed(float maxspeed) {

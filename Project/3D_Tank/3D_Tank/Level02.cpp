@@ -78,6 +78,7 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 		return this;
 	}
 
+
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
 
 	switch (mState)
@@ -112,7 +113,36 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 			GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 			reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->enableHUD(true);
 			wakeupWave(firstWaveAI);
-			mState = Idel;
+			mState = FirstWave;
+			break;
+	case Level02::FirstWave:
+		if (!secondloaded && isWaveClear(firstWaveAI)) {
+
+			count += deltaTime;
+			if (count >= 12.0f) {
+				count = 0.0f;
+				destroyWave(firstWaveAI);
+				loadSecondWave();
+				wakeupWave(secondWaveAI);
+				secondloaded = true;
+				mState = SecondWave;
+			}
+		}
+		break;
+	case Level02::SecondWave:
+		if (!thirdloaded && secondloaded && isWaveClear(secondWaveAI)) {
+
+			count += deltaTime;
+			if (count >= 12.0f) {
+				count = 0.0f;
+				destroyWave(secondWaveAI);
+				loadThirdWave();
+				wakeupWave(thirdWaveAI);
+				thirdloaded = true;
+				mState = Idel;
+			}
+		}
+		break;
 	case Level02::Idel:
 		break;
 	}
@@ -122,33 +152,15 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 		return this;
 	}
 	
+//	std::wstring wstr;
+//float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
+//float y = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().y;
+//float z = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().z;
+//wstr += std::to_wstring(x) + L"," + std::to_wstring(y) + L"," + std::to_wstring(z);
+//Engine::sGetInstance()->showtText(wstr.c_str(), 0, 0, 300, 300, true);
 	RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*10.0f, 0.0f);
 
 	Dispatch->DispatchDelayedMessages();
-
-	if (!secondloaded && isWaveClear(firstWaveAI) ) {
-
-		count += deltaTime;
-		if (count >= 12.0f) {
-			count = 0.0f;
-			destroyWave(firstWaveAI);
-			loadSecondWave();
-			wakeupWave(secondWaveAI);
-			secondloaded = true;
-		}
-	}
-	
-	if (!thirdloaded && secondloaded && isWaveClear(secondWaveAI) ) {
-
-		count += deltaTime;
-		if (count >= 12.0f) {
-			count = 0.0f;
-			destroyWave(secondWaveAI);
-			loadThirdWave();
-			wakeupWave(thirdWaveAI);
-			thirdloaded = true;
-		}
-	}
 
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 
@@ -575,6 +587,7 @@ void Level02::loadThirdWave() {
 	obstaclesPlay.push_back(floatObj);
 
 	enemy_boss->getCtrl()->wakeup();
+	reinterpret_cast<EnemyBoss*>(enemy_boss)->showUI(true);
 
 	SoundManager::sGetInstance()->playLoopAudio(2);
 }

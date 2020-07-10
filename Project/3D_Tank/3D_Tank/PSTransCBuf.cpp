@@ -23,6 +23,6 @@ PSTransCBuf::CBPS PSTransCBuf::getCBPS(Graphics& gfx) noexcept
 		mParent.getMaterial(),
 		RenderManager::sGetInstance()->getDirLight(),
 		XMFLOAT3(cam.x,cam.y,cam.z),
-		0.4f
+		0.86f
 	};
 }
