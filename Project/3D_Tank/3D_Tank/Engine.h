@@ -1,7 +1,6 @@
 
 #pragma once
 #include "Timer.h"
-#include "Sound.h"
 #include "Rendering.h"
 #include "GameSystem.h"
 #include "ImGuiFrame.h"
@@ -44,7 +43,6 @@ private:
 	friend class ImGuiFrame;
 
 	Window& mWnd;
-	std::unique_ptr<Sound> mSound;
 	std::unique_ptr<Rendering> mRendering;
 	Timer mTimer;
 	std::unique_ptr<GameSystem> mGameSystem;
