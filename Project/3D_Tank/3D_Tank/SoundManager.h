@@ -31,8 +31,6 @@ const std::string SOUND_FILE_PATH[18] =
 	"Resource/Sound/BGM05_End.mp3",
 };
 
-enum MusicManagerIndex { BGM, BUTTON_CLICK, TNAK_MOVE, TANK_SHOT, TANK_EXPLOSSION, SHELL_FLYBY, SHELL_BOOM };
-
 class SoundManager
 {
 public:
@@ -73,6 +71,5 @@ private:
 private:
 	FMOD::System* mFmodSystem;
 	FMOD::Sound* mFmodSound[SOUND_NUM];
-	FMOD::Channel* mFmodChannel[SOUND_NUM];
 	FMOD::Channel* mChannel;
 };
