@@ -154,14 +154,20 @@ void SoundManager::playSound(const int & soundNum)
 	}
 }
 
-void SoundManager::playAudio(const int & soundNUm)
+void SoundManager::playLoopAudio(const int & soundNum)
 {
 	bool isPlaying = false;
 	FMOD_RESULT result;
 	result = mChannel->isPlaying(&isPlaying);
 	if (result == FMOD_OK)
 		return;
-	mFmodSystem->playSound(mFmodSound[soundNUm], NULL, false, &mChannel);
+	mFmodSound[soundNum]->setMode(FMOD_LOOP_NORMAL);
+	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mChannel);
+}
+
+void SoundManager::playOnceAudio(const int & soundNum)
+{
+	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mChannel);
 }
 
 void SoundManager::playOverlapSound(FMOD::Channel*& channel, int soundNum)
@@ -238,6 +244,11 @@ void SoundManager::setBGMValume(const float & valume)
 void SoundManager::setValume(const float & valume, FMOD::Channel *& channel)
 {
 	channel->setVolume(valume);
+}
+
+void SoundManager::setFrequency(const float & f)
+{
+	mChannel->setFrequency(f);
 }
 
 void SoundManager::stop(const int & soundNum)

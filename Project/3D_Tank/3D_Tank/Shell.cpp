@@ -56,7 +56,7 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& shellType)
 	ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
 	mSound->setPosition();
 	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
-	//SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
+	SoundManager::sGetInstance()->setValume(0.2f, mSound->mChannel);
 }
 
 Shell::Shell(const Vector3 & ori, const Vector3 & direction, const int & shellType, const int& tankType)
@@ -119,7 +119,7 @@ void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, co
 		this->mShellFly->setVelocity(direction);
 		mSound->setPosition();
 		SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
-		SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
+		SoundManager::sGetInstance()->setValume(0.2f, mSound->mChannel);
 		ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
 		for (std::vector<Shell*>::iterator it = ShellContainer::sGetInstance()->unTriggerShells.begin(); it != ShellContainer::sGetInstance()->unTriggerShells.end(); it++) {
 			if (*it == this) {
@@ -167,7 +167,7 @@ void Shell::resetPosAndDir(const Vector3 & origin, const Vector3 & direction, co
 		this->mShellFly->setVelocity(direction);
 		mSound->setPosition();
 		SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
-		SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
+		SoundManager::sGetInstance()->setValume(0.2f, mSound->mChannel);
 		ShellContainer::sGetInstance()->onTriggerShells.push_back(this);
 		this->mShellFly->setTarget(obj);
 		for (std::vector<Shell*>::iterator it = ShellContainer::sGetInstance()->unTriggerShells.begin(); it != ShellContainer::sGetInstance()->unTriggerShells.end(); it++) {
@@ -231,7 +231,7 @@ void Shell::onUpdate(const float& deltaTime)
 		else {
 			mCount += deltaTime;
 			if (shellType == 0) {
-				if (mCount >= 5.0f)
+				if (mCount >= 7.0f)
 				{
 					this->onTrigger = false;
 					this->shell->getTransform()->setPosition(Vector3(0.f, -3.f, 0.f));
