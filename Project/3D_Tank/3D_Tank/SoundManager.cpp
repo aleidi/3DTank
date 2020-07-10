@@ -44,7 +44,7 @@ void SoundManager::playLoopAudio(const int & soundNum)
 	result = mChannel->isPlaying(&isPlaying);
 	if (result == FMOD_OK)
 		return;
-	//mFmodSound[soundNum]->setMode(FMOD_LOOP_NORMAL);
+	mFmodSound[soundNum]->setMode(FMOD_LOOP_NORMAL);
 	if (soundNum == 4) {
 		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mSecondChannel);
 	}
