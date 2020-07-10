@@ -80,6 +80,8 @@ EnemyBoss::EnemyBoss(int id)
 	mSuperAttackName = SceneManager::sGetInstance()->createUIImage(L"UI/BossSkillName");
 	mSuperAttackName->setPosition(WINDOW_WIDTH * 0.25f, WINDOW_HEIGHT - 130.0f);
 	mSuperAttackName->setSize(WINDOW_WIDTH * 0.5f, 128);
+	mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+	mSuperAttackName->setMaterial(mat);
 	mSuperAttackName->setEnable(false);
 
 	mFrame = SceneManager::sGetInstance()->createUIImage(L"VFX/BossHP_Frame");
