@@ -90,6 +90,10 @@ Pawn * AIController::getTarget()
 {
 	int targetID = -1;
 	if ( !m_target->isAlive() ) {
+		if (m_target == GameInstance::sGetInstance()->getPlayer())
+		{
+			return m_target;
+		}
 		if (m_target != GameInstance::sGetInstance()->getPlayer())
 			targetID = this->getID();//reinterpret_cast<EnemyTank*>(m_target)->getAICtrl()->getID();
 		targetID += 1;
