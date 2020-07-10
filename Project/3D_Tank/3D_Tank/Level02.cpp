@@ -93,7 +93,7 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 		{
 			mTitle->setEnable(true);
 			mState = Level02::Opening;
-			SoundManager::sGetInstance()->playAudio(1);
+			SoundManager::sGetInstance()->playLoopAudio(1);
 		}
 		return this;
 
@@ -589,7 +589,7 @@ void Level02::loadThirdWave() {
 	enemy_boss->getCtrl()->wakeup();
 	reinterpret_cast<EnemyBoss*>(enemy_boss)->showUI(true);
 
-	SoundManager::sGetInstance()->playAudio(2);
+	SoundManager::sGetInstance()->playLoopAudio(2);
 }
 
 void Level02::loadBoss()

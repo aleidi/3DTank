@@ -325,3 +325,13 @@ void EnemyBoss::showSuperAttackUI(bool value)
 	mSuperAttackName->setEnable(value);
 	mSuperAttackFrame->setEnable(value);
 }
+
+void EnemyBoss::setIsReady(bool isReady)
+{
+	mIsReady = isReady;
+}
+
+bool EnemyBoss::getIsReady() const
+{
+	return mIsReady;
+}

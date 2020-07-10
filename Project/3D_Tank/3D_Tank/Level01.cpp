@@ -256,7 +256,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 				mState = Canvas;
 				mCanvas->setEnable(true);
 				mTeamTitle->setEnable(false);
-				SoundManager::sGetInstance()->playAudio(4);
+				SoundManager::sGetInstance()->playLoopAudio(4);
 			}
 			break;
 		case Canvas:
@@ -265,6 +265,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 				mState = MainMenu;
 				mCanvas->setEnable(false);
 			}
+
 			mBtnStart->setEnable(true);
 			mBtnSetting->setEnable(true);
 			mBtnExit->setEnable(true);

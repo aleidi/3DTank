@@ -48,11 +48,13 @@ public:
 
 	void playBGM();
 	void playSound(const int& soundNum);
-	void playAudio(const int& soundNUm);
+	void playLoopAudio(const int& soundNum);
+	void playOnceAudio(const int& soundNum);
 	void setPause(const int& soundNum);
 	void setReplay(const int& soundNum);
 	void setBGMValume(const float& valume);
 	void setValume(const float& valume, FMOD::Channel*& channel);
+	void setFrequency(const float& f);
 	void stop(const int& soundNum);
 	void onUpdate();
 	void setSoundPosAndVel(const Vector3& pos, const Vector3& vel, const int& soundNum);
