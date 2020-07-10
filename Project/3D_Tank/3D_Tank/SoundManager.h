@@ -16,7 +16,6 @@ const std::string SOUND_FILE_PATH[18] =
 	"Resource/Sound/BGM02_Boss.mp3",
 	"Resource/Sound/BGM03_BossSuper.mp3",
 	"Resource/Sound/BGM04_MainMenu.mp3",
-	"Resource/Sound/BGM05_End.mp3",
 	"Resource/Sound/SE00_Tank_move_lp.wav",
 	"Resource/Sound/SE01_Tank_shot.wav",
 	"Resource/Sound/SE02_Tank_explossion.wav",
@@ -28,7 +27,8 @@ const std::string SOUND_FILE_PATH[18] =
 	"Resource/Sound/SE08_Click02.mp3",
 	"Resource/Sound/SE09_ContinueFly.mp3",
 	"Resource/Sound/SE10_Rain.mp3",
-	"Resource/Sound/SE11_Button_click.wav"
+	"Resource/Sound/SE11_Button_click.wav",
+	"Resource/Sound/BGM05_End.mp3"
 };
 
 class SoundManager
