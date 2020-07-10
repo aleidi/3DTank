@@ -32,6 +32,9 @@ public:
 	void initViolent(int maxParticle, int emitRate);
 	void showSuperAttackUI(bool value);
 
+	void setIsReady(bool isReady);
+	bool getIsReady()const;
+
 private:
 	void initParticles() override;
 	void doFloat(const float& deltaTime);
@@ -51,6 +54,8 @@ private:
 	bool mCanSuperAttack;
 	bool mCanFloat;
 	bool mIsImmune;
+
+	bool mIsReady;
 
 	std::vector<ParticleSystem::PAttribute> mSAParticles;
 	int mSAIndex;

@@ -71,4 +71,19 @@ private:
 	bool particleSwitch = true;
 };
 
+class Preparation : public State<AIController> {
+public:
+	static Preparation* getInstance();
+	virtual void enter(AIController* pETank);
+	virtual void execute(AIController* pETank, float deltaTime);
+	virtual void exit(AIController* pETank);
+
+	virtual bool onMessage(AIController* agent, const Telegram& msg);
+private:
+	Preparation() {}
+
+	Preparation(const Preparation&);
+	Preparation& operator=(const Preparation&);
+};
+
 
