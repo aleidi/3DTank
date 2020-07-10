@@ -23,6 +23,8 @@ void Level03::enterLevel()
 	SceneManager::sGetInstance()->createSphere();
 	ShellContainer::onInit();
 	mCanStart = true;
+	
+	Engine::sGetInstance()->enableEditMode(true);
 
 	//Engine::sGetInstance()->enableGameMode(true);
 }
