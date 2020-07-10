@@ -43,6 +43,7 @@ public:
 	void setPause(FMOD::Channel*& channel);
 	void setReplay(FMOD::Channel*& channel);
 	void setFrequency(const float& f, FMOD::Channel*& channel);
+	void setValume(const float& valume, FMOD::Channel*& channel);
 	void stop(FMOD::Channel* channel);
 
 	void playBGM();
@@ -51,7 +52,6 @@ public:
 	void setPause(const int& soundNum);
 	void setReplay(const int& soundNum);
 	void setBGMValume(const float& valume);
-	void setValume(const float& valume, FMOD::Channel*& channel);
 	void setFrequency(const float& f);
 	void stop(const int& soundNum);
 	void onUpdate();
@@ -72,4 +72,5 @@ private:
 	FMOD::System* mFmodSystem;
 	FMOD::Sound* mFmodSound[SOUND_NUM];
 	FMOD::Channel* mChannel;
+	FMOD::Channel* mSecondChannel;
 };

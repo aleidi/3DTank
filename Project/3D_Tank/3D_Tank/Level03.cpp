@@ -3,6 +3,7 @@
 #include "GameModeTP.h"
 #include "RenderManager.h"
 #include "DefaultPlayer.h"
+#include "ShellContainer.h"
 
 Level03::Level03()
 {
@@ -20,6 +21,7 @@ void Level03::enterLevel()
 
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Night");
 	SceneManager::sGetInstance()->createSphere();
+	ShellContainer::onInit();
 	mCanStart = true;
 
 	//Engine::sGetInstance()->enableGameMode(true);
