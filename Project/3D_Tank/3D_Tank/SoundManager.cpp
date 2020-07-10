@@ -30,11 +30,11 @@ void SoundManager::playBGM()
 {
 	bool isPlaying = false;
 	FMOD_RESULT result;
-	result = mFmodChannel[0]->isPlaying(&isPlaying);
+	result = mChannel->isPlaying(&isPlaying);
 	if (result == FMOD_OK)
 		return;
 	mFmodSound[0]->setMode(FMOD_LOOP_NORMAL);
-	mFmodSystem->playSound(mFmodSound[0], NULL, false, &mFmodChannel[0]);
+	mFmodSystem->playSound(mFmodSound[0], NULL, false, &mChannel);
 }
 
 void SoundManager::playLoopAudio(const int & soundNum)
@@ -97,12 +97,12 @@ void SoundManager::setPause(const int & soundNum)
 {
 	bool isPaused = false;
 	FMOD_RESULT result;
-	result = mFmodChannel[soundNum]->getPaused(&isPaused);
+	result = mChannel->getPaused(&isPaused);
 	if (result != FMOD_OK) {
 		return;
 	}
 
-	mFmodChannel[soundNum]->setPaused(true);
+	mChannel->setPaused(true);
 	return;
 }
 
@@ -110,18 +110,18 @@ void SoundManager::setReplay(const int & soundNum)
 {
 	bool isPaused = true;
 	FMOD_RESULT result;
-	result = mFmodChannel[soundNum]->getPaused(&isPaused);
+	result = mChannel->getPaused(&isPaused);
 	if (result != FMOD_OK) {
 		return;
 	}
 
-	mFmodChannel[soundNum]->setPaused(false);
+	mChannel->setPaused(false);
 	return;
 }
 
 void SoundManager::setBGMValume(const float & valume)
 {
-	mFmodChannel[0]->setVolume(valume);
+	mChannel->setVolume(valume);
 }
 
 void SoundManager::setValume(const float & valume, FMOD::Channel *& channel)
@@ -169,8 +169,7 @@ void SoundManager::setSoundPosAndVel(const Vector3 & pos, const Vector3 & vel, c
 	position.x = pos.x; position.y = pos.y; position.z = pos.z;
 	FMOD_VECTOR velocity;
 	velocity.x = vel.x; velocity.y = vel.y; velocity.z = vel.z;
-	//mFmodSound[soundNum]->set3DMinMaxDistance(5.f, 1000.f);
-	mFmodChannel[soundNum]->set3DAttributes(&position, NULL);
+	mChannel->set3DAttributes(&position, NULL);
 }
 
 void SoundManager::setLisenterPosition(const Vector3 & pos)
@@ -185,8 +184,6 @@ FMOD_RESULT SoundManager::loadSoundFile(const std::string & filepath, const int 
 	FMOD_RESULT result = FMOD_OK;
 	const char* soundfilename = filepath.c_str();
 	result = mFmodSystem->createSound(soundfilename, FMOD_3D, NULL, &mFmodSound[soundNum]);
-	//	//#define FMOD_LOOP_OFF 
-	//	//#define FMOD_LOOP_NORMAL   
 	return result;
 }
 
@@ -205,8 +202,6 @@ FMOD_RESULT SoundManager::loadALLSoundFile()
 			mFmodSound[i]->set3DMinMaxDistance(10.f, 1000.f);
 		}
 	}
-	//	//#define FMOD_LOOP_OFF
-	//	//#define FMOD_LOOP_NORMAL
 	return result;
 }
 
