@@ -168,6 +168,7 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 		break;
 	case Level02::Fin:
 		mFinCanvas = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 4.0f, FadeInOut::Type::FadeOut);
+		SoundManager::sGetInstance()->stop(3);
 		SoundManager::sGetInstance()->playOnceAudio(17);
 		mState = Idel;
 		break;
@@ -611,7 +612,8 @@ void Level02::loadThirdWave() {
 
 	enemy_boss->getCtrl()->wakeup();
 	reinterpret_cast<EnemyBoss*>(enemy_boss->getTank())->showUI(true);
-
+	
+	SoundManager::sGetInstance()->stop(1);
 	SoundManager::sGetInstance()->playLoopAudio(2);
 }
 

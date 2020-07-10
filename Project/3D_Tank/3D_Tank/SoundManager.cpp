@@ -45,7 +45,12 @@ void SoundManager::playLoopAudio(const int & soundNum)
 	if (result == FMOD_OK)
 		return;
 	mFmodSound[soundNum]->setMode(FMOD_LOOP_NORMAL);
-	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mChannel);
+	if (soundNum == 4) {
+		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mSecondChannel);
+	}
+	else {
+		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mChannel);
+	}
 }
 
 void SoundManager::playOnceAudio(const int & soundNum)
@@ -134,16 +139,19 @@ void SoundManager::setFrequency(const float & f)
 	mChannel->setFrequency(f);
 }
 
-void SoundManager::stop(const int & soundNum)
+void SoundManager::stop(const int& soundNum)
 {
-	bool isPlaying = false;
-	FMOD_RESULT result;
-	result = mChannel->isPlaying(&isPlaying);
-	if (result == FMOD_ERR_INVALID_HANDLE || result == FMOD_ERR_CHANNEL_STOLEN)
-		return;
-
-	mChannel->stop();
-	return;
+	//bool isPlaying = false;
+	//FMOD_RESULT result;
+	//result = mChannel->isPlaying(&isPlaying);
+	//if (result == FMOD_ERR_INVALID_HANDLE || result == FMOD_ERR_CHANNEL_STOLEN)
+	//	return;
+	if (soundNum == 4) {
+		mSecondChannel->stop();
+	}
+	else {
+		mChannel->stop();
+	}
 }
 
 void SoundManager::stop(FMOD::Channel* channel)
@@ -155,7 +163,6 @@ void SoundManager::stop(FMOD::Channel* channel)
 		return;
 
 	channel->stop();
-	return;
 }
 
 void SoundManager::onUpdate()
