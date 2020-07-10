@@ -13,8 +13,6 @@
 #include "SM_Crate.h"
 #include "FreightContainer_A.h"
 
-//static std::map<std::string, bool> selectKey;
-
 ImGuiFrame::ImGuiFrame(HWND hwnd, ID3D11Device* device, ID3D11DeviceContext* context)
 {
 	IMGUI_CHECKVERSION();
@@ -218,6 +216,8 @@ void ImGuiFrame::newObject(std::string gameObjectName)
 	Vector3 position = Vector3(0, 0, 0);
 	Vector3 scale = Vector3(0.01, 0.01, 0.01);
 	Vector3 rotation = Vector3(0, 0, 0);
+	//default configuration
+
 	if (isNewAITank)
 	{
 		static int id = 1;
