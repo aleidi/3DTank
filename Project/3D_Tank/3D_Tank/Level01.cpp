@@ -264,7 +264,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 				mState = MainMenu;
 				mCanvas->setEnable(false);
 			}
-			SoundManager::sGetInstance()->playAudio(4);
+			SoundManager::sGetInstance()->playLoopAudio(4);
 			mBtnStart->setEnable(true);
 			mBtnSetting->setEnable(true);
 			mBtnExit->setEnable(true);
