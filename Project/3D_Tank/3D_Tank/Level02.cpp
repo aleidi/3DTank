@@ -143,9 +143,33 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 				loadThirdWave();
 				wakeupWave(thirdWaveAI);
 				thirdloaded = true;
-				mState = Idel;
+				mState = Boss;
 			}
 		}
+		break;
+	case Level02::Boss:
+		if (reinterpret_cast<EnemyBoss*>(enemy_boss->getTank())->getHP() <= 0)
+		{
+			mState = Ending;
+			GameInstance::sGetInstance()->getPlayerController()->setEnable(false);
+		}
+		break;
+	case Level02::Ending:
+		if (!mTrigger)
+		{
+			mEndCanvas = new FadeInOut(L"UI/FadeWhite", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 3.0f, FadeInOut::Type::FadeIn);
+			mEndCanvas->setEnable(true);
+			mTrigger = true;
+		}
+		if (mEndCanvas->isEnd())
+		{
+			mState = Fin;
+		}
+		break;
+	case Level02::Fin:
+		mFinCanvas = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 4.0f, FadeInOut::Type::FadeOut);
+		SoundManager::sGetInstance()->playOnceAudio(17);
+		mState = Idel;
 		break;
 	case Level02::Idel:
 		break;
