@@ -587,6 +587,7 @@ void Level02::loadThirdWave() {
 	obstaclesPlay.push_back(floatObj);
 
 	enemy_boss->getCtrl()->wakeup();
+	reinterpret_cast<EnemyBoss*>(enemy_boss)->showUI(true);
 
 	SoundManager::sGetInstance()->playAudio(2);
 }
