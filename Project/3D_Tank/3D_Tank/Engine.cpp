@@ -14,6 +14,7 @@
 #include "GameModeTP.h"
 #include "GameLevelManager.h"
 #include "RenderManager.h"
+#include "PlayerTank.h"
 
 
 Engine* Engine::sInstance = nullptr;
@@ -221,6 +222,7 @@ void Engine::startGame()
 {
 	GameLevelManager::sGetInstance()->resetCurrentGameMode();
 	GameLevelManager::sGetInstance()->setCurrentGameMode(new GameModeTP());
+	Camera::MainCamera = reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->getCamera();
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 	enableGameMode(true);
 }
