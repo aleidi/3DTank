@@ -28,7 +28,7 @@ const std::string SOUND_FILE_PATH[18] =
 	"Resource/Sound/SE09_ContinueFly.mp3",
 	"Resource/Sound/SE10_Rain.mp3",
 	"Resource/Sound/SE11_Button_click.wav",
-	"Resource/Sound/BGM05_End.mp3"
+	"Resource/Sound/BGM05_End.mp3",
 };
 
 class SoundManager
