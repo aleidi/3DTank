@@ -357,7 +357,7 @@ void FileManager::changeLanguage(Language l)
 	}
 }
 
-std::map<int, std::wstring> FileManager::localization = FileManager::LoadLocalization_US();
+std::map<int, std::wstring> FileManager::localization = FileManager::LoadLocalization_CN();
 
 
 void FileManager::LoadKeyFrames(std::string filename)

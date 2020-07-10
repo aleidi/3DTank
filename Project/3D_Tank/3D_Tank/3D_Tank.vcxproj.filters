@@ -50,9 +50,6 @@
     <Filter Include="Engine\Header\Gameplay\AI">
       <UniqueIdentifier>{21f34dfb-ac7b-4686-92bf-f64cccd06db3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Header\Sound">
-      <UniqueIdentifier>{381ed3ce-b30c-4e16-a3fe-526e507a976e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Source">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -89,9 +86,6 @@
     </Filter>
     <Filter Include="Engine\Source\Gameplay\AI">
       <UniqueIdentifier>{a565a145-8500-45a7-81a3-f86e69478151}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Source\Sound">
-      <UniqueIdentifier>{b13d60af-e127-4d47-bd05-256a3072befe}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Source\Misc">
       <UniqueIdentifier>{507199e9-4e0e-4be2-9df4-a8559b56ebd0}</UniqueIdentifier>
@@ -273,9 +267,6 @@
     <ClCompile Include="GeometryGenerator.cpp">
       <Filter>Engine\Source\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>Engine\Source\Sound</Filter>
-    </ClCompile>
     <ClCompile Include="DInput_PC.cpp">
       <Filter>Engine\Source\Input</Filter>
     </ClCompile>
@@ -317,9 +308,6 @@
     </ClCompile>
     <ClCompile Include="DXTrace.cpp">
       <Filter>Engine\Source\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
       <Filter>Engine\Source\Misc</Filter>
@@ -368,9 +356,6 @@
     </ClCompile>
     <ClCompile Include="ScriptComponent.cpp">
       <Filter>Engine\Source\Gameplay\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Engine\Source\Render</Filter>
@@ -473,9 +458,6 @@
     </ClCompile>
     <ClCompile Include="PlayerTank.cpp">
       <Filter>Game\Source\Pawn</Filter>
-    </ClCompile>
-    <ClCompile Include="ShellFlyComponent.cpp">
-      <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
     <ClCompile Include="FreeType.cpp">
       <Filter>Engine\Source\Misc</Filter>
@@ -633,6 +615,9 @@
     <ClCompile Include="Weightless.cpp">
       <Filter>Game\Source\Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="ShellFlyComponent.cpp">
+      <Filter>Engine\Source\Gameplay\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -680,9 +665,6 @@
     <ClInclude Include="GeometryGenerator.h">
       <Filter>Engine\Header\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>Engine\Header\Sound</Filter>
-    </ClInclude>
     <ClInclude Include="DInput_PC.h">
       <Filter>Engine\Header\Input</Filter>
     </ClInclude>
@@ -727,9 +709,6 @@
     </ClInclude>
     <ClInclude Include="DXTrace.h">
       <Filter>Engine\Header\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Ray.h">
-      <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
     <ClInclude Include="FileManager.h">
       <Filter>Engine\Header\Misc</Filter>
@@ -790,9 +769,6 @@
     </ClInclude>
     <ClInclude Include="ScriptComponent.h">
       <Filter>Engine\Header\Gameplay\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
     <ClInclude Include="GameCommon.h">
       <Filter>Game\Header</Filter>
@@ -949,9 +925,6 @@
     </ClInclude>
     <ClInclude Include="UIEvent.h">
       <Filter>Engine\Header\Render\Graphics\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ShellFlyComponent.h">
-      <Filter>Engine\Header\Physics</Filter>
     </ClInclude>
     <ClInclude Include="FreeType.h">
       <Filter>Engine\Header\Misc</Filter>
@@ -1111,6 +1084,9 @@
     </ClInclude>
     <ClInclude Include="Weightless.h">
       <Filter>Game\Header\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellFlyComponent.h">
+      <Filter>Engine\Header\Gameplay\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

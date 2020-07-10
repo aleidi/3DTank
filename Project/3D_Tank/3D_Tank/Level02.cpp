@@ -68,7 +68,7 @@ void Level02::enterLevel()
 	mState = Title;
 	mCanStart = true;
 
-	//Engine::sGetInstance()->enableGameMode(true);
+	Engine::sGetInstance()->enableGameMode(true);
 }
 
 GameLevelBase * Level02::onUpdate(float deltaTime)
@@ -101,6 +101,10 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 		if (!mTitle->isEnd())
 		{
 			return this;
+		}
+		if (Camera::MainCamera != mCamera->getComponent<Camera>())
+		{
+			Camera::MainCamera = mCamera->getComponent<Camera>();
 		}
 		mOpening->play(deltaTime);
 		if (mOpening->isFin())
@@ -209,9 +213,11 @@ void Level02::loadOpeningSequence()
 {
 	mCamera = SceneManager::sGetInstance()->createEmptyObject();
 	mCamera->addComponent(new Camera(mCamera));
-	Camera::MainCamera = mCamera->getComponent<Camera>();
 	mCamera->getTransform()->setPosition(Vector3(28.4502f, 9.65098f, 20.4881f));
-	mCamera->getTransform()->setRotation(Vector3(0.596903f, 3.35801, 0.0f));
+	mCamera->getTransform()->setRotation(Vector3(0.596903f, 3.35801f, 0.0f));
+	Camera::MainCamera = mCamera->getComponent<Camera>();
+	Camera::MainCamera->Position = mCamera->getTransform()->getPosition();
+	Camera::MainCamera->Rotation = mCamera->getTransform()->getRotation();
 
 	FileManager::LoadKeyFrames("Sequence");
 
@@ -228,8 +234,6 @@ void Level02::loadOpeningSequence()
 			mOpening->addKeyFrame(f);
 		}
 	}
-
-
 }
 
 void Level02::loadEnvironment()
@@ -521,11 +525,6 @@ void Level02::loadFirstWave() {
 	item->getTransform()->setPosition(position);
 	mItems.push_back(item);
 
-	position = Vector3(-16, 0, -48);
-	item = new Potion();
-	item->getTransform()->setPosition(position);
-	mItems.push_back(item);
-
 	position = Vector3(-4, 0, -22);
 	item = new Potion();
 	item->getTransform()->setPosition(position);
@@ -587,7 +586,7 @@ void Level02::loadThirdWave() {
 	obstaclesPlay.push_back(floatObj);
 
 	enemy_boss->getCtrl()->wakeup();
-	reinterpret_cast<EnemyBoss*>(enemy_boss)->showUI(true);
+	reinterpret_cast<EnemyBoss*>(enemy_boss->getTank())->showUI(true);
 
 	SoundManager::sGetInstance()->playLoopAudio(2);
 }

@@ -7,9 +7,9 @@
 #pragma comment (lib,"fmod_vc.lib")
 #pragma comment (lib,"fmodL_vc.lib")
 
-const int SOUND_NUM = 17;
+const int SOUND_NUM = 18;
 
-const std::string SOUND_FILE_PATH[17] =
+const std::string SOUND_FILE_PATH[18] =
 {
 	"Resource/Sound/BGM00_Background.wav",
 	"Resource/Sound/BGM01_Battle.mp3",
@@ -27,10 +27,9 @@ const std::string SOUND_FILE_PATH[17] =
 	"Resource/Sound/SE08_Click02.mp3",
 	"Resource/Sound/SE09_ContinueFly.mp3",
 	"Resource/Sound/SE10_Rain.mp3",
-	"Resource/Sound/SE11_Button_click.wav"
+	"Resource/Sound/SE11_Button_click.wav",
+	"Resource/Sound/BGM05_End.mp3",
 };
-
-enum MusicManagerIndex { BGM, BUTTON_CLICK, TNAK_MOVE, TANK_SHOT, TANK_EXPLOSSION, SHELL_FLYBY, SHELL_BOOM };
 
 class SoundManager
 {
@@ -47,7 +46,6 @@ public:
 	void stop(FMOD::Channel* channel);
 
 	void playBGM();
-	void playSound(const int& soundNum);
 	void playLoopAudio(const int& soundNum);
 	void playOnceAudio(const int& soundNum);
 	void setPause(const int& soundNum);
@@ -73,6 +71,5 @@ private:
 private:
 	FMOD::System* mFmodSystem;
 	FMOD::Sound* mFmodSound[SOUND_NUM];
-	FMOD::Channel* mFmodChannel[SOUND_NUM];
 	FMOD::Channel* mChannel;
 };

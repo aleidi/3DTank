@@ -7,6 +7,7 @@ AnimationTitle::AnimationTitle(float posStartX, float posStartY, float animTime1
 {
 	mImage = SceneManager::sGetInstance()->createUIImage(image);
 	mImage->setPosition(posStartX, posStartY);
+	mImage->setEnable(true);
 	mAnimTime1 = animTime1;
 	mAnimTime2 = animTime2;
 	mStopTime = stopTime;

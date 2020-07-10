@@ -90,7 +90,6 @@ Shell::Shell(const Vector3 & ori, const Vector3 & direction, const int & shellTy
 	mSound = new SoundComponent(shell);
 	shell->addComponent(mSound);
 	this->onTrigger = true;
-
 	ShellContainer::sGetInstance()->onTriggerBossShells.push_back(this);
 	mSound->setPosition();
 	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 6);
@@ -299,7 +298,6 @@ void Shell::onTriggerEnter()
 	this->mShellFly->setVelocity(Vector3(0.f, 0.f, 0.f));
 	mSound->setPosition();
 	SoundManager::sGetInstance()->playOverlapSound(mSound->mChannel, 9);
-	//SoundManager::sGetInstance()->setFrequency(0.5f, mSound->mChannel);
 	SoundManager::sGetInstance()->setValume(0.3f, mSound->mChannel);
 	shell->getTransform()->setRotation(Vector3(0.f, 0.f, 0.f));
 	if (tankType == 0) {
