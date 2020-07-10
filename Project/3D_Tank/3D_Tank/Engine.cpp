@@ -14,6 +14,7 @@
 #include "GameModeTP.h"
 #include "GameLevelManager.h"
 #include "RenderManager.h"
+#include "PlayerTank.h"
 
 
 Engine* Engine::sInstance = nullptr;
@@ -75,10 +76,6 @@ void Engine::onInit()
 	//Input Init
 	DInputPC::getInstance().onInit(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
 
-	//Sound Init
-	//mSound->onInit();
-
-
 	//EUI Init
 	mEui->onInit();
 }
@@ -126,7 +123,6 @@ void Engine::run()
 	SceneManager::sGetInstance()->onEngineFixedUpdate(FixedDeltaTime);
 
 	//Game Update
-
 	SceneManager::sGetInstance()->onEngineUpdate(deltaTime);
 
 	//SoundManager Update
@@ -136,20 +132,6 @@ void Engine::run()
 	{
 		mGameSystem->onUpdate(deltaTime);
 	}
-
-
-#pragma region test code
-
-	if (!mIsGameMode)
-	{
-		if (DInputPC::getInstance().iskeyDown(DIK_SPACE))
-		{
-			enableGameMode(true);
-		}
-	}
-
-#pragma endregion
-
 
 	//Sound Update
 	//mSound->onUpdate(dis);
@@ -162,8 +144,6 @@ void Engine::run()
 
 	//PostRender
 	mRendering.get()->onPostRender(deltaTime);
-
-	//gui update
 
 	//eui update
 	if (mIsEditMode)
@@ -221,7 +201,9 @@ void Engine::startGame()
 {
 	GameLevelManager::sGetInstance()->resetCurrentGameMode();
 	GameLevelManager::sGetInstance()->setCurrentGameMode(new GameModeTP());
+	Camera::MainCamera = reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->getCamera();
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
+	reinterpret_cast<PlayerTank*>(GameInstance::sGetInstance()->getPlayer())->enableHUD(true);
 	enableGameMode(true);
 }
 

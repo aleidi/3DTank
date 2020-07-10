@@ -3,6 +3,7 @@
 #include "GameModeTP.h"
 #include "RenderManager.h"
 #include "DefaultPlayer.h"
+#include "ShellContainer.h"
 
 Level03::Level03()
 {
@@ -20,6 +21,7 @@ void Level03::enterLevel()
 
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Night");
 	SceneManager::sGetInstance()->createSphere();
+	ShellContainer::onInit();
 	mCanStart = true;
 
 	//Engine::sGetInstance()->enableGameMode(true);
@@ -29,7 +31,11 @@ GameLevelBase * Level03::onUpdate(float deltaTime)
 {
 	if (Camera::MainCamera == nullptr)
 	{
-		Camera::MainCamera = reinterpret_cast<DefaultPlayer*>(GameInstance::sGetInstance()->getPlayer())->GetCamera();
+		auto defaultPlayer = reinterpret_cast<DefaultPlayer*>(GameInstance::sGetInstance()->getPlayer());
+		if (defaultPlayer != nullptr)
+		{
+			Camera::MainCamera = defaultPlayer->GetCamera();
+		}
 	}
 
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
@@ -50,7 +56,6 @@ GameLevelBase * Level03::onUpdate(float deltaTime)
 	{
 		RenderManager::sGetInstance()->rotateLight(0.0f, deltaTime*-100.0f, 0.0f);
 	}
-
 
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
 

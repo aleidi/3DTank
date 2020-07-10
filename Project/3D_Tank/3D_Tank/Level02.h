@@ -28,7 +28,10 @@ private:
 		GameStart,
 		Idel,
 		FirstWave,
-		SecondWave
+		SecondWave,
+		Boss,
+		Ending,
+		Fin
 	};
 
 private:
@@ -67,6 +70,8 @@ private:
 
 	FadeInOut* mTitle;
 	FadeInOut* mBackGround;
+	FadeInOut* mEndCanvas;
+	FadeInOut* mFinCanvas;
 	TrackTransform* mOpening;
 	GameObject* mCamera;
 
