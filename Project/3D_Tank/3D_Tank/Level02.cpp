@@ -125,8 +125,8 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 				loadSecondWave();
 				wakeupWave(secondWaveAI);
 				secondloaded = true;
+				mState = SecondWave;
 			}
-			mState = SecondWave;
 		}
 		break;
 	case Level02::SecondWave:
@@ -139,8 +139,8 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 				loadThirdWave();
 				wakeupWave(thirdWaveAI);
 				thirdloaded = true;
+				mState = Idel;
 			}
-			mState = Idel;
 		}
 		break;
 	case Level02::Idel:
@@ -587,6 +587,7 @@ void Level02::loadThirdWave() {
 	obstaclesPlay.push_back(floatObj);
 
 	enemy_boss->getCtrl()->wakeup();
+	reinterpret_cast<EnemyBoss*>(enemy_boss)->showUI(true);
 
 	SoundManager::sGetInstance()->playAudio(2);
 }

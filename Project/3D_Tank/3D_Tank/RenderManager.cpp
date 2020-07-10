@@ -51,15 +51,6 @@ void RenderManager::onDraw()
 
 void RenderManager::onPostDraw(const float& deltaTime)
 {
-	for (std::list<ParticleSystem*>::iterator it = mParticles.begin(); it != mParticles.end(); ++it)
-	{
-		if (nullptr == *it)
-		{
-			continue;
-		}
-		(*it)->draw(mGraphics, deltaTime);
-	}
-
 	for (std::list<UIBase*>::iterator it = mUISPs.begin(); it != mUISPs.end(); ++it)
 	{
 		if (nullptr == *it)
@@ -67,6 +58,15 @@ void RenderManager::onPostDraw(const float& deltaTime)
 			continue;
 		}
 		(*it)->draw(mGraphics);
+	}
+
+	for (std::list<ParticleSystem*>::iterator it = mParticles.begin(); it != mParticles.end(); ++it)
+	{
+		if (nullptr == *it)
+		{
+			continue;
+		}
+		(*it)->draw(mGraphics, deltaTime);
 	}
 
 	for (std::list<UIBase*>::iterator it = mUI3Ds.begin(); it != mUI3Ds.end(); ++it)
