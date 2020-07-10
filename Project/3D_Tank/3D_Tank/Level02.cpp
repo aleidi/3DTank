@@ -555,9 +555,9 @@ void Level02::loadSecondWave() {
 }
 
 void Level02::loadThirdWave() {
-	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy08));
-	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy09));
-	thirdWaveAI.push_back(new AITank(ent_Tank_Enemy10));
+	//thirdWaveAI.push_back(new AITank(ent_Tank_Enemy08));
+	//thirdWaveAI.push_back(new AITank(ent_Tank_Enemy09));
+	//thirdWaveAI.push_back(new AITank(ent_Tank_Enemy10));
 
 	weightless = new Weightless();
 	weightless->empty->getTransform()->setPosition(Vector3(2, 0, -42));
