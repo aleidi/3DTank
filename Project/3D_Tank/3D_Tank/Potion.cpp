@@ -2,7 +2,7 @@
 #include "GameCommon.h"
 
 Potion::Potion()
-	:mOffset(0.0f),mHeal(100.0f),mRange(0.6f), mIsInitFin(false)
+	:mOffset(0.0f),mHeal(500.0f),mRange(0.6f), mIsInitFin(false)
 {
 	mName = "PotionContainer";
 	mPotion = SceneManager::sGetInstance()->createCube();
@@ -42,7 +42,7 @@ void Potion::onUpdate(const float& deltaTime)
 		mOffset = 0.0f;
 	}
 	Vector3 pos = mTransform->getPosition();
-	mTransform->setPosition(Vector3(pos.x, sinf(mOffset)*0.1f + 0.75f, pos.z));
+	mTransform->setPosition(Vector3(pos.x, sinf(mOffset)*0.1f + 0.65f, pos.z));
 	mTransform->rotateY(deltaTime*10.0f);
 
 	float dis = Vector3::lengthSq(mPlayer->getTransform()->getPosition(), mTransform->getPosition());

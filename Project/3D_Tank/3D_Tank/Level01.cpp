@@ -110,10 +110,8 @@ void Level01::enterLevel()
 	//mCurrentGameMode->onInit();
 	//GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
 
-
 	mCompanyTitle->setEnable(true);
 	mCanStart = true;
-
 }
 
 GameLevelBase * Level01::onUpdate(float deltaTime)
