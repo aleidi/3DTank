@@ -47,7 +47,6 @@ public:
 	void stop(FMOD::Channel* channel);
 
 	void playBGM();
-	void playSound(const int& soundNum);
 	void playLoopAudio(const int& soundNum);
 	void playOnceAudio(const int& soundNum);
 	void setPause(const int& soundNum);
