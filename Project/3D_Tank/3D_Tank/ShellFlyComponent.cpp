@@ -33,8 +33,6 @@ void ShellFlyComponent::onUpdate(const float& detaTime)
 	if (this->getObject()->getTransform()->getPosition() == Vector3(0.f,-3.f,0.f))
 		return;
 	else {
-		float normalShellSpeed, trackShellSpeed;
-		int maxTurnCount;
 		if (tankType == 0) { normalShellSpeed = 20.f; trackShellSpeed = 2.f; maxTurnCount = 3; }
 		if (tankType == 1) { normalShellSpeed = 10.f; trackShellSpeed = 2.f; maxTurnCount = INT16_MAX; }
 		if (target) {

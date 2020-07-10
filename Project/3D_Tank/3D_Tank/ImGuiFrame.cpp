@@ -13,21 +13,6 @@
 #include "SM_Crate.h"
 #include "FreightContainer_A.h"
 
-static std::map<std::string, bool> selectKey;
-bool isNewAITank = false;
-bool isNewFence = false;
-bool isNewWaterTank = false;
-bool isNewCrate = false;
-bool isNewFreightContainer_A = false;
-bool isNewFreightContainer_B = false;
-bool isBindChanged = false;
-bool isChangeToNight = false;
-bool isChangeToSand = false;
-
-void selectObject(std::string objectName);
-void newObject(std::string gameObjectName);
-void bindObjectTransform(std::string gameObjectName);
-
 ImGuiFrame::ImGuiFrame(HWND hwnd, ID3D11Device* device, ID3D11DeviceContext* context)
 {
 	IMGUI_CHECKVERSION();
@@ -192,7 +177,7 @@ void ImGuiFrame::onUpdate(float deltaTime)
 }
 
 
-void selectObject(std::string objectName)
+void ImGuiFrame::selectObject(std::string objectName)
 {
 	char name[32];
 	strcpy_s(name, objectName.c_str());
@@ -225,12 +210,14 @@ void selectObject(std::string objectName)
 	}
 }
 
-void newObject(std::string gameObjectName)
+void ImGuiFrame::newObject(std::string gameObjectName)
 {
 	GameObject* newObject = nullptr;
 	Vector3 position = Vector3(0, 0, 0);
 	Vector3 scale = Vector3(0.01, 0.01, 0.01);
 	Vector3 rotation = Vector3(0, 0, 0);
+	//default configuration
+
 	if (isNewAITank)
 	{
 		static int id = 1;
@@ -266,7 +253,7 @@ void newObject(std::string gameObjectName)
 	newObject->setName(gameObjectName);
 }
 
-void bindObjectTransform(std::string gameObjectName)
+void ImGuiFrame::bindObjectTransform(std::string gameObjectName)
 {
 	//search GameObject
 	GameObject* gameObj = SceneManager::sGetInstance()->findObjectWithName(gameObjectName);

@@ -21,7 +21,6 @@ Engine* Engine::sInstance = nullptr;
 Engine::Engine(Window& wnd)
 	:
 	mWnd(wnd),
-	mSound(std::make_unique<Sound>()),
 	mRendering(std::make_unique<Rendering>(wnd)),
 	mGameSystem(std::make_unique<GameSystem>()),
 	mIsGameMode(true), mIsEditMode(true),mRunSpeed(1.0f)

@@ -186,7 +186,6 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraCtrl.cpp" />
     <ClCompile Include="CameraShake.cpp" />
-    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
@@ -258,7 +257,6 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PlaneObjectFactory.cpp" />
-    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ModelMesh.cpp" />
     <ClCompile Include="RenderCamera.cpp" />
@@ -273,7 +271,6 @@
     <ClCompile Include="SM_construction_fence.cpp" />
     <ClCompile Include="SM_Crate.cpp" />
     <ClCompile Include="SM_WaterTank.cpp" />
-    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="SoundComponent.cpp" />
     <ClCompile Include="SoundManager.cpp" />
@@ -323,7 +320,6 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraCtrl.h" />
     <ClInclude Include="CameraShake.h" />
-    <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionEvent.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
@@ -414,7 +410,6 @@
     <ClInclude Include="MeshBase.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PlaneObjectFactory.h" />
-    <ClInclude Include="Ray.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="RenderCamera.h" />
@@ -429,7 +424,6 @@
     <ClInclude Include="SM_construction_fence.h" />
     <ClInclude Include="SM_Crate.h" />
     <ClInclude Include="SM_WaterTank.h" />
-    <ClInclude Include="Sound.h" />
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="SoundComponent.h" />
     <ClInclude Include="SoundManager.h" />

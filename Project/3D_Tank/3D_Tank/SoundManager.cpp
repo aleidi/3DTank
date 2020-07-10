@@ -37,131 +37,20 @@ void SoundManager::playBGM()
 	mFmodSystem->playSound(mFmodSound[0], NULL, false, &mFmodChannel[0]);
 }
 
-void SoundManager::playSound(const int & soundNum)
-{
-	FMOD_RESULT result;
-	bool isPlaying = false;
-	switch (soundNum) {
-	case 0: {
-		playBGM();
-		break;
-	}
-	case 1: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[1], NULL, false, &mFmodChannel[1]);
-		break;
-	}
-	case 2: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[2], NULL, false, &mFmodChannel[2]);
-		break;
-	}
-	case 3: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[3], NULL, false, &mFmodChannel[3]);
-		break;
-	}
-	case 4: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[4], NULL, false, &mFmodChannel[4]);
-		break;
-	}
-	case 5: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[5], NULL, false, &mFmodChannel[5]);
-		break;
-	}
-	case 6: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[6], NULL, false, &mFmodChannel[6]);
-		break;
-	}
-	case 7: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
-		break;
-	}
-	case 8: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
-		break;
-	}
-	case 9: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
-		break;
-	}
-	case 10: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
-		break;
-	}
-	case 11: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
-		break;
-	}
-	case 12: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
-		break;
-	}
-	case 13: {
-		result = mFmodChannel[soundNum]->isPlaying(&isPlaying);
-		if (result == FMOD_OK)
-			return;
-
-		mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mFmodChannel[soundNum]);
-		break;
-	}
-	default:break;
-	}
-}
-
-void SoundManager::playAudio(const int & soundNUm)
+void SoundManager::playLoopAudio(const int & soundNum)
 {
 	bool isPlaying = false;
 	FMOD_RESULT result;
 	result = mChannel->isPlaying(&isPlaying);
 	if (result == FMOD_OK)
 		return;
-	mFmodSystem->playSound(mFmodSound[soundNUm], NULL, false, &mChannel);
+	mFmodSound[soundNum]->setMode(FMOD_LOOP_NORMAL);
+	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mChannel);
+}
+
+void SoundManager::playOnceAudio(const int & soundNum)
+{
+	mFmodSystem->playSound(mFmodSound[soundNum], NULL, false, &mChannel);
 }
 
 void SoundManager::playOverlapSound(FMOD::Channel*& channel, int soundNum)
@@ -238,6 +127,11 @@ void SoundManager::setBGMValume(const float & valume)
 void SoundManager::setValume(const float & valume, FMOD::Channel *& channel)
 {
 	channel->setVolume(valume);
+}
+
+void SoundManager::setFrequency(const float & f)
+{
+	mChannel->setFrequency(f);
 }
 
 void SoundManager::stop(const int & soundNum)

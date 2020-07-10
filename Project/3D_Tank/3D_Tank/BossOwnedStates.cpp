@@ -135,7 +135,7 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 }
 
 void Battle::exit(AIController* pBoss) {
-
+	BOSS->setIsReady(false);
 }
 
 bool Battle::onMessage(AIController* pBoss, const Telegram& msg) {
@@ -149,9 +149,12 @@ StageTwo* StageTwo::getInstance() {
 }
 
 void StageTwo::enter(AIController* pBoss) {
-	//MessageBox(0, L"fxck u", 0, 0);
-	BOSS->enableFloat(true);
-	BOSS->setSuperAttackInterval(3.0f);
+	if (!BOSS->getIsReady())
+		pBoss->getFSM()->changeState(Preparation::getInstance());
+	else {
+		BOSS->enableFloat(true);
+		BOSS->setSuperAttackInterval(3.0f);
+	}
 }
 
 void StageTwo::execute(AIController* pBoss, float deltaTime) {
@@ -205,7 +208,7 @@ void StageTwo::execute(AIController* pBoss, float deltaTime) {
 }
 
 void StageTwo::exit(AIController* pBoss) {
-
+	BOSS->setIsReady(false);
 }
 
 bool StageTwo::onMessage(AIController* pBoss, const Telegram& msg) {
@@ -219,10 +222,14 @@ Violent* Violent::getInstance() {
 }
 
 void Violent::enter(AIController* pBoss) {
-	BOSS->initViolent(10, 10);
-	BOSS->showSuperAttackUI(true);
-	Engine::sGetInstance()->changeRunSpeed(0.5f);
-	SoundManager::sGetInstance()->playAudio(3);
+	if (!BOSS->getIsReady())
+		pBoss->getFSM()->changeState(Preparation::getInstance());
+	else {
+		BOSS->initViolent(10, 10);
+		BOSS->showSuperAttackUI(true);
+		Engine::sGetInstance()->changeRunSpeed(0.5f);
+		SoundManager::sGetInstance()->playLoopAudio(3);
+	}
 }
 
 void Violent::execute(AIController* pBoss, float deltaTime) {
@@ -270,5 +277,34 @@ void Violent::exit(AIController* pBoss) {
 }
 
 bool Violent::onMessage(AIController* pBoss, const Telegram& msg) {
+	return false;
+}
+
+
+//-------------------methods for Preparation-------------------//
+Preparation* Preparation::getInstance() {
+	static Preparation m_Preparation;
+	return &m_Preparation;
+}
+
+void Preparation::enter(AIController* pBoss) {
+
+}
+
+void Preparation::execute(AIController* pBoss, float deltaTime) {
+	////////////////////////changeState/////////////////////////
+	BOSS->aiCount += deltaTime;
+	if (BOSS->aiCount >= 1.5) {
+		BOSS->aiCount = 0.0f;
+		BOSS->setIsReady(true);
+		pBoss->getFSM()->revertToPerviousState();
+	}
+}
+
+void Preparation::exit(AIController* pBoss) {
+	//MessageBox(0, L"im ready", 0, 0);
+}
+
+bool Preparation::onMessage(AIController* pBoss, const Telegram& msg) {
 	return false;
 }

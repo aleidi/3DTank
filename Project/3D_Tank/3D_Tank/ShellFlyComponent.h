@@ -20,13 +20,15 @@ public:
 private:
 	void initParticle();
 private:
-	GameObject* target;
-	Vector3 finalForward;
 	float rotateSpeed;
 	float angle;
 	int tankType;
 	int turnCount;
+	float normalShellSpeed, trackShellSpeed;
+	int maxTurnCount;
 
+	GameObject* target;
+	Vector3 finalForward;
 	Vector3 velocity;
 	Vector3 gracity;
 
