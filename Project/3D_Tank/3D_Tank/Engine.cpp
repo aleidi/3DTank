@@ -24,7 +24,7 @@ Engine::Engine(Window& wnd)
 	mWnd(wnd),
 	mRendering(std::make_unique<Rendering>(wnd)),
 	mGameSystem(std::make_unique<GameSystem>()),
-	mIsGameMode(true), mIsEditMode(true),mRunSpeed(1.0f)
+	mIsGameMode(true), mIsEditMode(false),mRunSpeed(1.0f)
 {
 	onPreInit();
 
