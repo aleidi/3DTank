@@ -211,7 +211,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 			reinterpret_cast<EnemyTank*>(enemy->getCtrl()->getPawn())->getID(),
 			reinterpret_cast<EnemyTank*>(enemy->getCtrl()->getPawn())->getID(),
 			Msg_IsAttacked,
-			NO_ADDITIONAL_INFO);
+			(void*)NO_ADDITIONAL_INFO);
 	}
 
 	Dispatch->DispatchDelayedMessages();

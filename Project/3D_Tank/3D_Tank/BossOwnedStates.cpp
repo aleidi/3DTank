@@ -41,7 +41,7 @@ void Alert::execute(AIController* pBoss, float deltaTime) {
 									BOSS->getID(),
 									BOSS->getID(),
 									Msg_HPRecovered,
-									NO_ADDITIONAL_INFO);
+									(void*)NO_ADDITIONAL_INFO);
 	}
 
 	////////////////////////changeState////////////////////////

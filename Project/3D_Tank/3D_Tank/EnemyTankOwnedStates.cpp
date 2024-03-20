@@ -69,7 +69,7 @@ void Rest::execute(AIController* pEnemyTank, float deltaTime) {
 								   AITank->getID(),
 								   AITank->getID(),
 								   Msg_HPRecovered,
-								   NO_ADDITIONAL_INFO);
+								   (void*)NO_ADDITIONAL_INFO);
 	}
 
 	////////////////////////changeState////////////////////////
@@ -541,7 +541,7 @@ void Death::enter(AIController* pEnemyTank) {
 		AITank->getID(),
 		AITank->getID(),
 		Msg_DeathDelay,
-		NO_ADDITIONAL_INFO);
+		(void*)NO_ADDITIONAL_INFO);
 
 	//AITank->playDeathParticle();
 	//MessageBox(0, L"awsl", 0, 0);
