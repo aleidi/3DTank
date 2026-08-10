@@ -22,11 +22,8 @@ Level01::~Level01()
 
 void Level01::enterLevel()
 {
-	std::thread t(&Level01::loadResource, this);
-	t.detach();
-
-	std::thread t2(&Level01::loadParticle, this);
-	t2.detach();
+	loadResource();
+	loadParticle();
 
 	mBtnStart = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[0]);
 	mStartEvent = new UStartEvent(this);
@@ -106,10 +103,6 @@ void Level01::enterLevel()
 
 	mFadeInImage = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 5.0f, FadeInOut::Type::FadeIn);
 
-	//mCurrentGameMode = new GameModeBase();
-	//mCurrentGameMode->onInit();
-	//GameInstance::sGetInstance()->getPlayerController()->setEnable(true);
-
 	mCompanyTitle->setEnable(true);
 	mCanStart = true;
 }
@@ -118,8 +111,6 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 {
 
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
-
-
 
 	if (mCurrentGameMode != nullptr)
 	{
@@ -285,6 +276,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 		}
 
 	SceneManager::sGetInstance()->onLateUpdate(deltaTime);
+
 	return this;
 }
 

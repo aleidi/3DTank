@@ -10,7 +10,7 @@ UIButton::UIButton(Graphics& gfx)
 }
 
 UIButton::UIButton(Graphics & gfx, const std::wstring & texPath)
-	: mBtnState(State::Normal), mHasBtnPressed(0), mColors()
+	: mBtnState(State::Normal), mHasBtnPressed(0), mColors(), mEvent(nullptr)
 {
 	mWidth = 100.0f;
 	mHeight = 100.0f;
