@@ -6,6 +6,12 @@
 #include "UIBase.h"
 #include "ParticleSystem.h"
 #include "VFXSphere.h"
+#include "Blender.h"
+#include "DepthStencil.h"
+
+#include <algorithm>
+#include <memory>
+#include <vector>
 
 RenderManager* RenderManager::sInstance = nullptr;
 
@@ -28,6 +34,24 @@ void RenderManager::Destroy()
 
 void RenderManager::onDraw()
 {
+	static std::unique_ptr<Blender> sOpaqueBlend;
+	static std::unique_ptr<Blender> sAlphaBlend;
+	static std::unique_ptr<DepthStencil> sDepthWrite;
+	static std::unique_ptr<DepthStencil> sDepthReadOnly;
+
+	if (sOpaqueBlend == nullptr)
+	{
+		sOpaqueBlend = std::make_unique<Blender>(mGraphics, Blender::BlendMode::Opaque);
+		sAlphaBlend = std::make_unique<Blender>(mGraphics, Blender::BlendMode::AlphaBlend, false);
+		sDepthWrite = std::make_unique<DepthStencil>(mGraphics, DepthStencil::DepthMode::DepthWrite);
+		sDepthReadOnly = std::make_unique<DepthStencil>(mGraphics, DepthStencil::DepthMode::DepthReadOnly);
+	}
+
+	std::vector<Mesh*> transparentMeshes;
+
+	// 1) Opaque pass
+	sOpaqueBlend->bind(mGraphics);
+	sDepthWrite->bind(mGraphics);
 
 	for (std::list<Mesh*>::iterator it = mMeshes.begin(); it != mMeshes.end(); ++it)
 	{
@@ -35,9 +59,51 @@ void RenderManager::onDraw()
 		{
 			continue;
 		}
+
+		if (!(*it)->isTransparent())
+		{
+			(*it)->draw(mGraphics);
+		}
+		else
+		{
+			transparentMeshes.push_back(*it);
+		}
+	}
+
+	// 2) Skybox before transparent pass
+	mGraphics.DrawSkyBox();
+
+	// 3) Transparent pass
+	XMFLOAT3 camPos;
+	XMStoreFloat3(&camPos, mGraphics.getCameraPosition());
+
+	auto distSq = [&](Mesh* mesh)
+	{
+		XMFLOAT4X4 m;
+		XMStoreFloat4x4(&m, mesh->getTransformXM());
+		const float dx = m._41 - camPos.x;
+		const float dy = m._42 - camPos.y;
+		const float dz = m._43 - camPos.z;
+		return dx * dx + dy * dy + dz * dz;
+	};
+
+	std::sort(transparentMeshes.begin(), transparentMeshes.end(),
+		[&](Mesh* a, Mesh* b)
+		{
+			return distSq(a) > distSq(b);
+		});
+
+	sAlphaBlend->bind(mGraphics);
+	sDepthReadOnly->bind(mGraphics);
+
+	for (std::vector<Mesh*>::iterator it = transparentMeshes.begin(); it != transparentMeshes.end(); ++it)
+	{
 		(*it)->draw(mGraphics);
 	}
 
+	// Restore default state for post draw
+	sOpaqueBlend->bind(mGraphics);
+	sDepthWrite->bind(mGraphics);
 
 	for (std::list<VFXSphere*>::iterator it = mVFXs.begin(); it != mVFXs.end(); ++it)
 	{
@@ -51,6 +117,21 @@ void RenderManager::onDraw()
 
 void RenderManager::onPostDraw(const float& deltaTime)
 {
+	static std::unique_ptr<Blender> sAlphaBlend;
+	static std::unique_ptr<DepthStencil> sDepthWrite;
+	static std::unique_ptr<DepthStencil> sDepthReadOnly;
+
+	if (sAlphaBlend == nullptr)
+	{
+		sAlphaBlend = std::make_unique<Blender>(mGraphics, Blender::BlendMode::AlphaBlend, false);
+		sDepthWrite = std::make_unique<DepthStencil>(mGraphics, DepthStencil::DepthMode::DepthWrite);
+		sDepthReadOnly = std::make_unique<DepthStencil>(mGraphics, DepthStencil::DepthMode::DepthReadOnly);
+	}
+
+	// 3D UI / particles: keep depth test, disable depth writes to avoid self-fighting
+	sAlphaBlend->bind(mGraphics);
+	sDepthReadOnly->bind(mGraphics);
+
 	for (std::list<UIBase*>::iterator it = mUISPs.begin(); it != mUISPs.end(); ++it)
 	{
 		if (nullptr == *it)
@@ -78,6 +159,9 @@ void RenderManager::onPostDraw(const float& deltaTime)
 		(*it)->draw(mGraphics);
 	}
 
+	// Restore normal state for screen-space UI
+	sDepthWrite->bind(mGraphics);
+
 	for (std::list<UIBase*>::iterator it = mUIs.begin(); it != mUIs.end(); ++it)
 	{
 		if (nullptr == *it)
@@ -86,7 +170,6 @@ void RenderManager::onPostDraw(const float& deltaTime)
 		}
 		(*it)->draw(mGraphics);
 	}
-
 }
 
 void RenderManager::addMeshToPool(Mesh * mesh) noexcept

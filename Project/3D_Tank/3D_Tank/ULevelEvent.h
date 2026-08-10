@@ -60,10 +60,10 @@ public:
 	void onPressed() override {}
 };
 
-class UCNEvent : public ULevelEvent
+class UJPEvent : public ULevelEvent
 {
 public:
-	UCNEvent(GameLevelBase* level) : ULevelEvent(level) {};
+	UJPEvent(GameLevelBase* level) : ULevelEvent(level) {};
 	void onClick() override;
 	
 	void onPressed() override {}

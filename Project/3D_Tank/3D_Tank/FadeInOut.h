@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "LightHelper.h"
+#include "UIBase.h"
 
 class UIImage;
 
@@ -15,10 +16,12 @@ public:
 public:
 	FadeInOut(const std::wstring& image, float width, float height, float posX, float posY, float fadeTime, Type type);
 	~FadeInOut();
-	
+
 	void onUpdate(const float& deltaTime) override;
 	void setEnable(bool value);
 	bool isEnd();
+
+	void setBlendMode(UIBase::UIBlendMode mode);
 
 private:
 	float mStep;

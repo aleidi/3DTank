@@ -78,6 +78,16 @@ void UIBase::setBlend(bool value)
 	mCanBlend = value;
 }
 
+void UIBase::setBlendMode(UIBlendMode mode) noexcept
+{
+	mBlendMode = mode;
+}
+
+UIBase::UIBlendMode UIBase::getBlendMode() const noexcept
+{
+	return mBlendMode;
+}
+
 void UIBase::setBlendTransparent(Graphics & gfx)
 {
 	Microsoft::WRL::ComPtr<ID3D11BlendState> pBlendState;
@@ -86,7 +96,7 @@ void UIBase::setBlendTransparent(Graphics & gfx)
 	bd.IndependentBlendEnable = false;
 	bd.RenderTarget[0].BlendEnable = true;
 	bd.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	bd.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	bd.RenderTarget[0].DestBlend = (mBlendMode == UIBlendMode::AlphaBlend) ? D3D11_BLEND_INV_SRC_ALPHA : D3D11_BLEND_ONE;
 	bd.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 	bd.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 	bd.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;

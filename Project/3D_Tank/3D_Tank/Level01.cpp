@@ -45,9 +45,9 @@ void Level01::enterLevel()
 	mEditEvent = new UEditModeEvent(this);
 	mBtnEditMode->setBtnEvent(mEditEvent);
 
-	mBtnCN = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[5]);
-	mCNEvent = new UCNEvent(this);
-	mBtnCN->setBtnEvent(mCNEvent);
+	mBtnJP = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[5]);
+	mJPEvent = new UJPEvent(this);
+	mBtnJP->setBtnEvent(mJPEvent);
 
 	mBtnEN = new GameButton(L"", 150.0f, 100.0f, FileManager::localization[6]);
 	mENEvent = new UENEvent(this);
@@ -78,8 +78,8 @@ void Level01::enterLevel()
 	mBtnEditMode->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 6);
 	mBtnEditMode->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 6 + 40.0f);
 	//Language
-	mBtnCN->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 2);
-	mBtnCN->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 2 + 40.0f);
+	mBtnJP->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 2);
+	mBtnJP->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 2 + 40.0f);
 	mBtnEN->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 6);
 	mBtnEN->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 6 + 40.0f);
 	//Select
@@ -156,7 +156,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			mBtnExit->setEnable(true);
 			mBtnGameMode->setEnable(false);
 			mBtnEditMode->setEnable(false);
-			mBtnCN->setEnable(false);
+			mBtnJP->setEnable(false);
 			mBtnEN->setEnable(false);
 			mBtnShutDown->setEnable(false);
 			mBtnReturn->setEnable(false);
@@ -169,7 +169,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			mBtnExit->setEnable(false);
 			mBtnGameMode->setEnable(true);
 			mBtnEditMode->setEnable(true);
-			mBtnCN->setEnable(false);
+			mBtnJP->setEnable(false);
 			mBtnEN->setEnable(false);
 			mBtnShutDown->setEnable(false);
 			mBtnReturn->setEnable(false);
@@ -182,7 +182,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			mBtnExit->setEnable(false);
 			mBtnGameMode->setEnable(false);
 			mBtnEditMode->setEnable(false);
-			mBtnCN->setEnable(true);
+			mBtnJP->setEnable(true);
 			mBtnEN->setEnable(true);
 			mBtnShutDown->setEnable(false);
 			mBtnReturn->setEnable(false);
@@ -195,7 +195,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			mBtnExit->setEnable(false);
 			mBtnGameMode->setEnable(false);
 			mBtnEditMode->setEnable(false);
-			mBtnCN->setEnable(false);
+			mBtnJP->setEnable(false);
 			mBtnEN->setEnable(false);
 			mBtnShutDown->setEnable(true);
 			mBtnReturn->setEnable(true);
@@ -210,7 +210,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			mBtnExit->setEnable(false);
 			mBtnGameMode->setEnable(false);
 			mBtnEditMode->setEnable(false);
-			mBtnCN->setEnable(false);
+			mBtnJP->setEnable(false);
 			mBtnEN->setEnable(false);
 			mBtnShutDown->setEnable(false);
 			mBtnReturn->setEnable(false);
@@ -225,7 +225,7 @@ GameLevelBase * Level01::onUpdate(float deltaTime)
 			mBtnExit->setEnable(false);
 			mBtnGameMode->setEnable(false);
 			mBtnEditMode->setEnable(false);
-			mBtnCN->setEnable(false);
+			mBtnJP->setEnable(false);
 			mBtnEN->setEnable(false);
 			mBtnShutDown->setEnable(false);
 			mBtnReturn->setEnable(false);
@@ -289,7 +289,7 @@ void Level01::leaveLevel()
 	mBtnExit->destroy();
 	mBtnGameMode->destroy();
 	mBtnEditMode->destroy();
-	mBtnCN->destroy();
+	mBtnJP->destroy();
 	mBtnEN->destroy();
 	mBtnShutDown->destroy();
 	mBtnReturn->destroy();
@@ -304,7 +304,7 @@ void Level01::leaveLevel()
 	delete mExitEvent;
 	delete mGameModeEvent;
 	delete mEditEvent;
-	delete mCNEvent;
+	delete mJPEvent;
 	delete mENEvent;
 	delete mShutDownEvent;
 	delete mReturnEvent;
@@ -334,7 +334,7 @@ void Level01::changeLanguage()
 	mBtnExit->setText(FileManager::localization[2]);
 	mBtnGameMode->setText(FileManager::localization[3]);
 	mBtnEditMode->setText(FileManager::localization[4]);
-	mBtnCN->setText(FileManager::localization[5]);
+	mBtnJP->setText(FileManager::localization[5]);
 	mBtnEN->setText(FileManager::localization[6]);
 	mBtnShutDown->setText(FileManager::localization[7]);
 	mBtnReturn->setText(FileManager::localization[8]);

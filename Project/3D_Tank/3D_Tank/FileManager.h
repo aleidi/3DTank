@@ -33,7 +33,7 @@ struct KeyFrame
 	Vector3 Scale;
 };
 
-enum Language { CN, US };
+enum Language { JP, US };
 
 class FileManager
 {
@@ -64,7 +64,7 @@ public:
 
 	// Localization configuration map
 	static std::map<int, std::wstring> LoadLocalization_US();
-	static std::map<int, std::wstring> LoadLocalization_CN();
+	static std::map<int, std::wstring> LoadLocalization_JP();
 	static void changeLanguage(Language l);
 	static std::map<int, std::wstring> localization;
 

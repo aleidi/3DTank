@@ -5,6 +5,7 @@
 #include "FileManager.h"
 #include "ShellFlyComponent.h"
 #include "ShellContainer.h"
+#include "Math.h"
 
 Pawn::Pawn()
 	:mAttribute{}
@@ -56,6 +57,8 @@ void Pawn::attack(Vector3 battery_position, Vector3 shot_direction, Pawn* target
 void Pawn::hited(int value)
 {
 	mAttribute.m_HP -= value;
+
+	Math::MaxOf(mAttribute.m_HP, 0);
 }
 
 void Pawn::onTriggerEnter(const GameObject * obj)

@@ -17,6 +17,8 @@ public:
 	Material getMaterial() const noexcept;
 	void setMaterial(Material mat) noexcept;
 	void enableDraw(bool value) noexcept;
+	void setTransparent(bool value) noexcept;
+	bool isTransparent() const noexcept;
 
 private:
 	void initMaterial();

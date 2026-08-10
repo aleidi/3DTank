@@ -6,14 +6,18 @@ UIHP::UIHP()
 {
 	mName = "UIHP";
 
-	mFrame = SceneManager::sGetInstance()->createUIImage3D(L"UI/HpFrame",true);
+	mFrame = SceneManager::sGetInstance()->createUIImage3D(L"UI/HpFrame", true);
 	mFrame->setSize(0.42f, 0.057f);
+	mFrame->setBlend(true);
+	mFrame->setBlendMode(UIBase::UIBlendMode::AlphaBlend);
 
 	mImage = SceneManager::sGetInstance()->createUIImage3D(L"", true);
 	Material mat;
 	mat.Color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	mImage->setMaterial(mat);
 	mImage->setSize(0.4f, 0.05f);
+	mImage->setBlend(true);
+	mImage->setBlendMode(UIBase::UIBlendMode::AlphaBlend);
 }
 
 UIHP::~UIHP()

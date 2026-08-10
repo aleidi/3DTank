@@ -50,7 +50,7 @@ private:
 	GameButton* mBtnExit;
 	GameButton* mBtnGameMode;
 	GameButton* mBtnEditMode;
-	GameButton* mBtnCN;
+	GameButton* mBtnJP;
 	GameButton* mBtnEN;
 	GameButton* mBtnShutDown;
 	GameButton* mBtnReturn;
@@ -61,7 +61,7 @@ private:
 	UExitEvent* mExitEvent;
 	UGmeModeEvent* mGameModeEvent;
 	UEditModeEvent* mEditEvent;
-	UCNEvent* mCNEvent;
+	UJPEvent* mJPEvent;
 	UENEvent* mENEvent;
 	UShutDownEvent* mShutDownEvent;
 	UReturnEvent* mReturnEvent;

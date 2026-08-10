@@ -329,27 +329,29 @@ std::map<int, std::wstring> FileManager::LoadLocalization_US()
 	return map;
 }
 
-std::map<int, std::wstring> FileManager::LoadLocalization_CN()
+std::map<int, std::wstring> FileManager::LoadLocalization_JP()
 {
 	std::map<int, std::wstring> map;
-	map[0] = std::wstring(L"开始");
-	map[1] = std::wstring(L"设置");
-	map[2] = std::wstring(L"退出");
-	map[3] = std::wstring(L"游戏模式");
-	map[4] = std::wstring(L"编辑器模式");
-	map[5] = std::wstring(L"中文");
-	map[6] = std::wstring(L"英文");
-	map[7] = std::wstring(L"是");
-	map[8] = std::wstring(L"否");
-	map[9] = std::wstring(L"返回");
+
+	map[0] = std::wstring(L"スタート");
+	map[1] = std::wstring(L"設定");
+	map[2] = std::wstring(L"終了");
+	map[3] = std::wstring(L"ゲームモード");
+	map[4] = std::wstring(L"エディタモード");
+	map[5] = std::wstring(L"日本語");
+	map[6] = std::wstring(L"英語");
+	map[7] = std::wstring(L"はい");
+	map[8] = std::wstring(L"いいえ");
+	map[9] = std::wstring(L"戻る");
+
 	return map;
 }
 
 void FileManager::changeLanguage(Language l)
 {
-	if (l == CN)
+	if (l == JP)
 	{
-		FileManager::localization = FileManager::LoadLocalization_CN();
+		FileManager::localization = FileManager::LoadLocalization_JP();
 	}
 	else if (l == US)
 	{
@@ -357,7 +359,7 @@ void FileManager::changeLanguage(Language l)
 	}
 }
 
-std::map<int, std::wstring> FileManager::localization = FileManager::LoadLocalization_CN();
+std::map<int, std::wstring> FileManager::localization = FileManager::LoadLocalization_JP();
 
 
 void FileManager::LoadKeyFrames(std::string filename)

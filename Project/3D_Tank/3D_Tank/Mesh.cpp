@@ -2,7 +2,7 @@
 #include "RenderComponent.h"
 
 Mesh::Mesh(RenderComponent * owner)
-	:mOwner(owner)
+	:mOwner(owner), mIsTransparent(false)
 {
 	enableDraw(true);
 }
@@ -19,6 +19,16 @@ DirectX::XMMATRIX Mesh::getTransformXM() const noexcept
 Material Mesh::getMaterial() const noexcept
 {
 	return mOwner->getMaterial();
+}
+
+void Mesh::setTransparent(bool value) noexcept
+{
+	mIsTransparent = value;
+}
+
+bool Mesh::isTransparent() const noexcept
+{
+	return mIsTransparent;
 }
 
 Mesh::~Mesh()

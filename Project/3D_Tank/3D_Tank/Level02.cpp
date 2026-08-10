@@ -50,8 +50,10 @@ void Level02::enterLevel()
 	//load opening sequence
 	loadOpeningSequence();
 
-	mTitle = new FadeInOut(L"UI/Title1", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 2.0f, FadeInOut::Type::FadeOut);
 	mBackGround = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 4.0f, FadeInOut::Type::FadeOut);
+	mBackGround->setBlendMode(UIBase::UIBlendMode::AlphaBlend);
+
+	mTitle = new FadeInOut(L"UI/Title1", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 2.0f, FadeInOut::Type::FadeOut);
 
 	std::thread t(&Level02::loadResource, this);
 	t.detach();
@@ -85,13 +87,19 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 	{
 	case Level02::Title:
 		mTimer += deltaTime;
+
 		if (mTimer > 5.0f)
+		{
+			mTitle->setEnable(true);
+		}
+
+		if (mTitle->isEnd())
 		{
 			mBackGround->setEnable(true);
 		}
-		if (mBackGround->isEnd())
+
+		if (mTitle->isEnd() && mBackGround->isEnd())
 		{
-			mTitle->setEnable(true);
 			mState = Level02::Opening;
 			SoundManager::sGetInstance()->playLoopAudio(1);
 		}
@@ -219,7 +227,8 @@ void Level02::loadResource()
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m9_arc2", L"Objects/Level/arc2");
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m10_arc3", L"Objects/Level/arc3");
 	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m11_tree", L"Objects/Level/tree");
-	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m12_reaf", L"Objects/Level/reaf");
+	SceneManager::sGetInstance()->createModel(*mMap, "Objects/Level/m12_reaf", L"Objects/Level/reaf")->setTransparent(true);
+
 	mMap->getTransform()->translate(0.0f, -0.075f, 0.0f);
 	mMap->getTransform()->setScale(0.07f, 0.07f, 0.07f);
 

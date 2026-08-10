@@ -67,6 +67,11 @@ void UIImage3D::draw(Graphics& gfx) noexcept
 		return;
 	}
 
+	if (mCanBlend)
+	{
+		setBlendTransparent(gfx);
+	}
+
 	mPCBuf->onUpdate(gfx, mMaterial.Color);
 	XMFLOAT3 cam;
 	XMStoreFloat3(&cam, gfx.getCameraPosition());
@@ -88,6 +93,11 @@ void UIImage3D::draw(Graphics& gfx) noexcept
 		b->bind(gfx);
 	}
 	gfx.DrawIndexed(4);
+
+	if (mCanBlend)
+	{
+		resetBlendState(gfx);
+	}
 }
 
 void UIImage3D::setFillType(FillType fillType) noexcept

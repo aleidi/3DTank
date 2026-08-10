@@ -10,6 +10,7 @@ FadeInOut::FadeInOut(const std::wstring & image, float width, float height, floa
 	mImage->setPosition(posX, posY);
 	mImage->setSize(width, height);
 	mImage->setEnable(true);
+	mImage->setBlend(true); // critical: enable alpha blending for fade panel
 
 	switch (mType)
 	{
@@ -68,4 +69,12 @@ void FadeInOut::setEnable(bool value)
 bool FadeInOut::isEnd()
 {
 	return mIsEnd;
+}
+
+void FadeInOut::setBlendMode(UIBase::UIBlendMode mode)
+{
+	if (mImage != nullptr)
+	{
+		mImage->setBlendMode(mode);
+	}
 }

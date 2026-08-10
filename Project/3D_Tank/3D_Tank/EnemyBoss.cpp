@@ -15,24 +15,24 @@ EnemyBoss::EnemyBoss(int id)
 	:mCanSuperAttack(false),mCanFloat(false),mSAParticles(),mSAIndex(0),mTimerSA(0.0f),mIntervalSA(1.0f),mIsImmune(false)
 {
 	mAttribute = { FileManager::AIAttributes[id].m_HP,
-			   FileManager::AIAttributes[id].m_HP,
-			   FileManager::AIAttributes[id].m_AttackMode,
-			   FileManager::AIAttributes[id].m_MoveMode,
-			   FileManager::AIAttributes[id].m_HitRate,
-			   FileManager::AIAttributes[id].m_AttackRangeRadiusSq,
-			   FileManager::AIAttributes[id].m_PursuitRangeRadiusSq,
-			   FileManager::AIAttributes[id].m_WanderRangeRadiusSq,
-			   FileManager::AIAttributes[id].m_Mass,
-			   FileManager::AIAttributes[id].m_Offset,
-			   FileManager::AIAttributes[id].m_MaxSpeed,
-			   FileManager::AIAttributes[id].m_MaxTurnRate,
-			   FileManager::AIAttributes[id].m_AttackTimeDelay,
-			   FileManager::AIAttributes[id].m_WanderRadius,
-			   FileManager::AIAttributes[id].m_WanderDistance,
-			   FileManager::AIAttributes[id].m_WanderJitter,
-			   FileManager::AIAttributes[id].m_PatrolStart,
-			   FileManager::AIAttributes[id].m_PatrolEnd,
-			   FileManager::AIAttributes[id].m_ResetPoint };
+				   FileManager::AIAttributes[id].m_HP,
+				   FileManager::AIAttributes[id].m_AttackMode,
+				   FileManager::AIAttributes[id].m_MoveMode,
+				   FileManager::AIAttributes[id].m_HitRate,
+				   FileManager::AIAttributes[id].m_AttackRangeRadiusSq,
+				   FileManager::AIAttributes[id].m_PursuitRangeRadiusSq,
+				   FileManager::AIAttributes[id].m_WanderRangeRadiusSq,
+				   FileManager::AIAttributes[id].m_Mass,
+				   FileManager::AIAttributes[id].m_Offset,
+				   FileManager::AIAttributes[id].m_MaxSpeed,
+				   FileManager::AIAttributes[id].m_MaxTurnRate,
+				   FileManager::AIAttributes[id].m_AttackTimeDelay,
+				   FileManager::AIAttributes[id].m_WanderRadius,
+				   FileManager::AIAttributes[id].m_WanderDistance,
+				   FileManager::AIAttributes[id].m_WanderJitter,
+				   FileManager::AIAttributes[id].m_PatrolStart,
+				   FileManager::AIAttributes[id].m_PatrolEnd,
+				   FileManager::AIAttributes[id].m_ResetPoint };
 
 	m_ID = id;
 	FullHP = mAttribute.FullHP;
@@ -109,6 +109,8 @@ EnemyBoss::EnemyBoss(int id)
 
 	mFazhen = SceneManager::sGetInstance()->createUIImage3D(L"VFX/fazhen_00003");
 	mFazhen->setSize(2.0f, 2.0f);
+	mFazhen->setBlend(true);
+	mFazhen->setBlendMode(UIBase::UIBlendMode::AlphaBlend);
 
 	cube = new BoundingCube(this);
 	this->addComponent(cube);
@@ -322,7 +324,7 @@ void EnemyBoss::initViolent(int maxParticle, int emitRate)
 
 void EnemyBoss::showSuperAttackUI(bool value)
 {
-	mSuperAttackName->setEnable(value);
+	//mSuperAttackName->setEnable(value);
 	mSuperAttackFrame->setEnable(value);
 }
 

@@ -35,10 +35,10 @@ void UEditModeEvent::onClick()
 	reinterpret_cast<Level01*>(mLevel)->changeState(Level01::State::EditStart);
 }
 
-void UCNEvent::onClick()
+void UJPEvent::onClick()
 {
 	SoundManager::sGetInstance()->playOnceAudio(12);
-	FileManager::changeLanguage(Language::CN);
+	FileManager::changeLanguage(Language::JP);
 	reinterpret_cast<Level01*>(mLevel)->changeLanguage();
 }
 

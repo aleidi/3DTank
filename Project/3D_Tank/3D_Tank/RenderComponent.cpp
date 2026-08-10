@@ -51,6 +51,19 @@ void RenderComponent::enableDraw(bool value) noexcept
 	mMesh->enableDraw(value);
 }
 
+void RenderComponent::setTransparent(bool value) noexcept
+{
+	if (mMesh != nullptr)
+	{
+		mMesh->setTransparent(value);
+	}
+}
+
+bool RenderComponent::isTransparent() const noexcept
+{
+	return mMesh != nullptr ? mMesh->isTransparent() : false;
+}
+
 void RenderComponent::initMaterial()
 {
 	mMaterial.Ambient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
