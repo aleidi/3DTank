@@ -77,5 +77,6 @@ private:
 
 	float mTimer;
 	bool mTrigger;
+	bool mTitleFadeOutStarted;
 };
 

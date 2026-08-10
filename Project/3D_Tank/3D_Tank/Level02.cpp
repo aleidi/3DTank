@@ -34,7 +34,7 @@
 
 Level02::Level02()
 	:mTimer(0.0f), mIsInitLoad(false),mIsBossLoad(false), secondloaded(false), thirdloaded(false),
-	 mIsEnvironmentLoad(false),mTrigger(false)
+	 mIsEnvironmentLoad(false),mTrigger(false), mTitleFadeOutStarted(false)
 {
 	GameLevelManager::sGetInstance()->addLevel(2, this);
 }
@@ -50,10 +50,15 @@ void Level02::enterLevel()
 	//load opening sequence
 	loadOpeningSequence();
 
-	mBackGround = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 4.0f, FadeInOut::Type::FadeOut);
+	mTimer = 0.0f;
+	mTitleFadeOutStarted = false;
+
+	mBackGround = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 2.5f, FadeInOut::Type::FadeOut);
 	mBackGround->setBlendMode(UIBase::UIBlendMode::AlphaBlend);
 
-	mTitle = new FadeInOut(L"UI/Title1", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 2.0f, FadeInOut::Type::FadeOut);
+	mTitle = new FadeInOut(L"UI/Title1", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 1.5f, FadeInOut::Type::FadeIn);
+	mTitle->setBlendMode(UIBase::UIBlendMode::AlphaBlend);
+	mTitle->setEnable(true);
 
 	std::thread t(&Level02::loadResource, this);
 	t.detach();
@@ -86,16 +91,24 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 	switch (mState)
 	{
 	case Level02::Title:
-		mTimer += deltaTime;
-
-		if (mTimer > 5.0f)
+{
+		if (!mTitleFadeOutStarted)
 		{
-			mTitle->setEnable(true);
-		}
+			if (mTitle->isEnd())
+			{
+				mTimer += deltaTime;
+				if (mTimer >= 5.0f)
+				{
+					mTitle->destroy();
+					mTitle = new FadeInOut(L"UI/Title1", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 2.5f, FadeInOut::Type::FadeOut);
+					mTitle->setBlendMode(UIBase::UIBlendMode::AlphaBlend);
+					mTitle->setEnable(true);
 
-		if (mTitle->isEnd())
-		{
-			mBackGround->setEnable(true);
+					mBackGround->setEnable(true);
+					mTitleFadeOutStarted = true;
+				}
+			}
+			return this;
 		}
 
 		if (mTitle->isEnd() && mBackGround->isEnd())
@@ -104,7 +117,7 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 			SoundManager::sGetInstance()->playLoopAudio(1);
 		}
 		return this;
-
+	}
 	case Level02::Opening:
 		if (!mTitle->isEnd())
 		{

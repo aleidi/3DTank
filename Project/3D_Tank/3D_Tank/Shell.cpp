@@ -7,25 +7,33 @@
 #include "PlayerTank.h"
 #include "ShellContainer.h"
 #include "VFXSphere.h"
+#include "RenderComponent.h"
 
 Shell::Shell() :shellType(0),tankType(0)
 {
-	shell = SceneManager::sGetInstance()->createEmptyObject();
-	SceneManager::sGetInstance()->createModel(*shell, "Objects/Shell", L"Objects/Shell");
+    shell = SceneManager::sGetInstance()->createEmptyObject();
+    RenderComponent* shellRender = SceneManager::sGetInstance()->createModel(*shell, "Objects/Shell", L"Objects/Shell");
 
-	shell->getTransform()->setPosition(Vector3(0.f, -3.f, 0.f));
-	shell->getTransform()->setScale(0.02f, 0.02f, 0.02f);
+    Material mat;
+    mat.Ambient = XMFLOAT4(1.0f, 0.25f, 0.25f, 1.0f);
+    mat.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+    mat.Specular = XMFLOAT4(1.0f, 1.0f, 1.0f, 48.0f);
+    mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+    shellRender->setMaterial(mat);
 
-	mCollisionSphere = new MBoundingSphere(shell);
-	mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.02f, 1);
-	shell->addComponent(mCollisionSphere);
-	mShellFly = new ShellFlyComponent(shell, Vector3(0.f,0.f,0.f));
-	shell->addComponent(mShellFly);
-	shell->sphere = mCollisionSphere;
-	mSound = new SoundComponent(shell);
-	shell->addComponent(mSound);
-	this->onTrigger = false;
-	ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
+    shell->getTransform()->setPosition(Vector3(0.f, -3.f, 0.f));
+    shell->getTransform()->setScale(0.1f, 0.1f, 0.1f);
+
+    mCollisionSphere = new MBoundingSphere(shell);
+    mCollisionSphere->createBoundingSphere(shell->getTransform()->getPosition(), 0.02f, 1);
+    shell->addComponent(mCollisionSphere);
+    mShellFly = new ShellFlyComponent(shell, Vector3(0.f,0.f,0.f));
+    shell->addComponent(mShellFly);
+    shell->sphere = mCollisionSphere;
+    mSound = new SoundComponent(shell);
+    shell->addComponent(mSound);
+    this->onTrigger = false;
+    ShellContainer::sGetInstance()->unTriggerShells.push_back(this);
 }
 
 Shell::Shell(const Vector3& ori, const Vector3& direction, const int& shellType)
@@ -38,9 +46,17 @@ Shell::Shell(const Vector3& ori, const Vector3& direction, const int& shellType)
 	if (cross.y > 0)
 		rotate = -rotate;
 	shell = SceneManager::sGetInstance()->createEmptyObject();
-	SceneManager::sGetInstance()->createModel(*shell,"Objects/Shell", L"Objects/Shell");
+	RenderComponent* shellRender = SceneManager::sGetInstance()->createModel(*shell, "Objects/Shell", L"Objects/Shell");
+
+	Material mat;
+	mat.Ambient = XMFLOAT4(1.0f, 0.25f, 0.25f, 1.0f);
+	mat.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	mat.Specular = XMFLOAT4(1.0f, 1.0f, 1.0f, 48.0f);
+	mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f); 
+	shellRender->setMaterial(mat);
+
 	shell->getTransform()->setPosition(this->origin + direction * 0.6f + Vector3::up * 0.1f);
-	shell->getTransform()->setScale(0.02f, 0.02f, 0.02f); 
+	shell->getTransform()->setScale(0.1f, 0.1f, 0.1f);
 	shell->getTransform()->rotate(90.f, -rotate, 0.f);
 
 	mCollisionSphere = new MBoundingSphere(shell);
@@ -70,7 +86,7 @@ Shell::Shell(const Vector3 & ori, const Vector3 & direction, const int & shellTy
 		rotate = -rotate;
 	mModel = SceneManager::sGetInstance()->createVFXSphere();
 	Material mat;
-	mat.Color = XMFLOAT4(1.0f, 0.498f, 0.314f, 1.0f);
+	mat.Color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 	mModel->setMaterial(mat);
 	shell = SceneManager::sGetInstance()->createSphere();
 	shell->getTransform()->setPosition(this->origin + direction * 0.6f + Vector3::up * 0.1f);
