@@ -64,8 +64,8 @@ PlayerTank::PlayerTank()
 
 	mHUD = new HUD();
 
-	mAttribute.m_HP = 1000;
-	mAttribute.FullHP = 1000;
+	mAttribute.m_HP = 10000;
+	mAttribute.FullHP = 10000;
 	mAttribute.m_AttackRangeRadiusSq = 60.0f;
 
 	mAttackCount = mAttackInterval;
