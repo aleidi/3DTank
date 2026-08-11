@@ -24,6 +24,7 @@
 #include "Weightless.h"
 #include "FileManager.h"
 #include "TrackTransform.h"
+#include "GameCommon.h"
 
 //std::wstring wstr;
 //float x = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition().x;
@@ -34,7 +35,9 @@
 
 Level02::Level02()
 	:mTimer(0.0f), mIsInitLoad(false),mIsBossLoad(false), secondloaded(false), thirdloaded(false),
-	 mIsEnvironmentLoad(false),mTrigger(false), mTitleFadeOutStarted(false)
+	 mIsEnvironmentLoad(false),mTrigger(false), mTitleFadeOutStarted(false),
+	 mTitle(nullptr), mBackGround(nullptr), mEndCanvas(nullptr), mFinCanvas(nullptr),
+	 mOpening(nullptr), mCamera(nullptr), mMap(nullptr), enemy_boss(nullptr), weightless(nullptr)
 {
 	GameLevelManager::sGetInstance()->addLevel(2, this);
 }
@@ -46,6 +49,14 @@ Level02::~Level02()
 void Level02::enterLevel()
 {
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Sand");
+
+	// hide cursor when entering level02
+	while (ShowCursor(FALSE) >= 0) {}
+
+	// reset end-flow flags
+	mTrigger = false;
+	mEndCanvas = nullptr;
+	mFinCanvas = nullptr;
 
 	//load opening sequence
 	loadOpeningSequence();
@@ -85,8 +96,10 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 		return this;
 	}
 
-
 	SceneManager::sGetInstance()->onUpdate(deltaTime);
+
+	trySkipFirstSecondWaveForDebug();
+	trySkipBossForDebug();
 
 	switch (mState)
 	{
@@ -188,10 +201,17 @@ GameLevelBase * Level02::onUpdate(float deltaTime)
 		}
 		break;
 	case Level02::Fin:
-		mFinCanvas = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 4.0f, FadeInOut::Type::FadeOut);
-		SoundManager::sGetInstance()->stop(3);
-		SoundManager::sGetInstance()->playOnceAudio(17);
-		mState = Idel;
+		if (mFinCanvas == nullptr)
+		{
+			mFinCanvas = new FadeInOut(L"UI/FadeBlack", WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 4.0f, FadeInOut::Type::FadeOut);
+			mFinCanvas->setEnable(true);
+			SoundManager::sGetInstance()->stop(3);
+		}
+
+		if (mFinCanvas->isEnd())
+		{
+			DestroyWindow(Engine::sGetInstance()->getHWND());
+		}
 		break;
 	case Level02::Idel:
 		break;
@@ -221,8 +241,13 @@ void Level02::leaveLevel()
 {
 	Engine::sGetInstance()->enableGameMode(false);
 
-	mTitle->destroy();
-	mBackGround->destroy();
+	// restore cursor when leaving level02
+	while (ShowCursor(TRUE) < 0) {}
+
+	if (mTitle != nullptr) mTitle->destroy();
+	if (mBackGround != nullptr) mBackGround->destroy();
+	if (mEndCanvas != nullptr) mEndCanvas->destroy();
+	if (mFinCanvas != nullptr) mFinCanvas->destroy();
 }
 
 void Level02::loadResource()
@@ -648,6 +673,58 @@ void Level02::loadBoss()
 	//enemy_boss->getCtrl()->wakeup();
 
 	mIsBossLoad = true;
+}
+
+void Level02::trySkipFirstSecondWaveForDebug()
+{
+	if (!DInputPC::getInstance().iskeyDown(DIK_F6))
+	{
+		return;
+	}
+
+	if (mState != GameStart && mState != FirstWave && mState != SecondWave)
+	{
+		return;
+	}
+
+	// Ensure boss is ready before forcing transition.
+	if (!mIsBossLoad || enemy_boss == nullptr)
+	{
+		return;
+	}
+
+	// Kill all currently existing enemies in wave 1 / wave 2.
+	destroyWave(firstWaveAI);
+	destroyWave(secondWaveAI);
+
+	// Mark wave flow as completed and jump to boss.
+	secondloaded = true;
+	count = 0.0f;
+
+	if (!thirdloaded)
+	{
+		loadThirdWave();
+		thirdloaded = true;
+	}
+
+	mState = Boss;
+}
+
+void Level02::trySkipBossForDebug()
+{
+	if (!DInputPC::getInstance().iskeyDown(DIK_F7))
+	{
+		return;
+	}
+
+	if (mState != Boss || enemy_boss == nullptr)
+	{
+		return;
+	}
+
+	enemy_boss->destroy();
+	GameInstance::sGetInstance()->getPlayerController()->setEnable(false);
+	mState = Ending;
 }
 
 bool Level02::isWaveClear(std::vector<AITank*> thisWave) {

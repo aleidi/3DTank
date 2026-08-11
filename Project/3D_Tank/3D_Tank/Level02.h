@@ -41,6 +41,8 @@ private:
 	void loadSecondWave();
 	void loadThirdWave();
 	void loadBoss();
+	void trySkipFirstSecondWaveForDebug();
+	void trySkipBossForDebug();
 
 private:
 	GameObject* mMap;

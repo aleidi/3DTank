@@ -35,6 +35,11 @@ MessageDispatcher* MessageDispatcher::getInstance()
 void MessageDispatcher::Discharge(AIController* pReceiverController,
 	const Telegram& telegram)
 {
+	if (pReceiverController == NULL)
+	{
+		return;
+	}
+
 	if (!pReceiverController->handleMessage(telegram))
 	{
 		//telegram could not be handled
@@ -129,7 +134,14 @@ void MessageDispatcher::DispatchDelayedMessages()
 		AIController* pReceiverController = SceneManager::sGetInstance()->getAIController(telegram.Receiver);
 
 		//send the telegram to the recipient
-		Discharge(pReceiverController, telegram);
+		if (pReceiverController != NULL)
+		{
+			Discharge(pReceiverController, telegram);
+		}
+		else
+		{
+			cout << "\nWarning! Delayed telegram receiver destroyed. Receiver ID = " << telegram.Receiver;
+		}
 
 		//remove it from the queue
 		PriorityQ.erase(PriorityQ.begin());
