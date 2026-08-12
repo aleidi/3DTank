@@ -98,13 +98,13 @@ bool Graphics::InitD3D()
 
 	if (FAILED(hr))
 	{
-		MessageBox(0, L"D3D11CreateDevice Failed.", 0, 0);
+		MessageBoxW(nullptr, L"D3D11CreateDevice Failed.", nullptr, 0);
 		return false;
 	}
 
 	if (featureLevel != D3D_FEATURE_LEVEL_11_0 && featureLevel != D3D_FEATURE_LEVEL_11_1)
 	{
-		MessageBox(0, L"Direct3D Feature Level 11 unsupported.", 0, 0);
+		MessageBoxW(nullptr, L"Direct3D Feature Level 11 unsupported.", nullptr, 0);
 		return false;
 	}
 
@@ -387,8 +387,8 @@ void Graphics::EndFrame()
 
 void Graphics::OnResize(const float& width, const float& height)
 {
-	mClientWidth = width;
-	mClientHeight = height;
+	mClientWidth = static_cast<int>(width);
+	mClientHeight = static_cast<int>(height);
 
 	ReleaseResource();
 
@@ -444,7 +444,12 @@ void Graphics::showText()
 	pd2dRenderTarget->BeginDraw();
 
 	D2D1_RECT_F rc{ mTextDisplay.leftTopX,mTextDisplay.leftTopY,mTextDisplay.width,mTextDisplay.height };
-	pd2dRenderTarget->DrawTextW(mTextDisplay.str.c_str(), mTextDisplay.str.size() + 1, pTextFormat.Get(), rc, pColorBrush.Get());
+	pd2dRenderTarget->DrawText(
+		mTextDisplay.str.c_str(),
+		static_cast<UINT32>(mTextDisplay.str.size()),
+		pTextFormat.Get(),
+		rc,
+		pColorBrush.Get());
 
 	pd2dRenderTarget->EndDraw();
 }

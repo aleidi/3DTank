@@ -5,8 +5,11 @@
 #include "Vector3.h"
 #include "Component.h"
 
-#pragma comment (lib,"fmod_vc.lib")
-#pragma comment (lib,"fmodL_vc.lib")
+#ifdef _DEBUG
+#pragma comment(lib,"fmodL_vc.lib")
+#else
+#pragma comment(lib,"fmod_vc.lib")
+#endif
 
 class SoundComponent : public Component {
 public:

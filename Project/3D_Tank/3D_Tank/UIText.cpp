@@ -18,11 +18,11 @@ UIText::UIText(Graphics& gfx, std::wstring text)
 
 	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
-	auto pvs = std::make_unique<VertexShader>(gfx, L"UIVertexShader.cso");
+	auto pvs = std::make_unique<VertexShader>(gfx, L"UI_VS.cso");
 	auto pvsbc = pvs->getBytecode();
 	addBind(std::move(pvs));
 
-	addBind(std::make_unique<PixelShader>(gfx, L"UIPSText.cso"));
+	addBind(std::make_unique<PixelShader>(gfx, L"UIText_PS.cso"));
 
 	addIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
 
@@ -38,6 +38,12 @@ UIText::UIText(Graphics& gfx, std::wstring text)
 	{
 		FreeType::Character charInfo;
 		charInfo = ft.getChar(gfx, *it);
+
+		if (charInfo.Texture == nullptr)
+		{
+			continue;
+		}
+
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> srv;
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 		srvDesc.Format = DXGI_FORMAT_R8_UNORM;
@@ -114,6 +120,12 @@ void UIText::setText(const std::wstring& wstr)
 	{
 		FreeType::Character charInfo;
 		charInfo = ft.getChar(gfx, *it);
+
+		if (charInfo.Texture == nullptr)
+		{
+			continue;
+		}
+
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> srv;
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 		srvDesc.Format = DXGI_FORMAT_R8_UNORM;

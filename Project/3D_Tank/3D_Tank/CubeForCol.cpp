@@ -11,11 +11,11 @@ CubeForCol::CubeForCol()
 	GeometryGenerator::getCube(mesh);
 	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
-	auto pvs = std::make_unique<VertexShader>(gfx, L"SolidVertexShader.cso");
+	auto pvs = std::make_unique<VertexShader>(gfx, L"Solid_VS.cso");
 	auto pvsbc = pvs->getBytecode();
 	addBind(std::move(pvs));
 
-	addBind(std::make_unique<PixelShader>(gfx, L"SolidPixelShader.cso"));
+	addBind(std::make_unique<PixelShader>(gfx, L"Solid_PS.cso"));
 
 	addIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
 

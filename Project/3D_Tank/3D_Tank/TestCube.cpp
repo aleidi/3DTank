@@ -9,12 +9,11 @@ TestCube::TestCube(Graphics & gfx)
 	GeometryGenerator::getCube(mesh);
 	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices));
 
-	auto pvs = std::make_unique<VertexShader>(gfx, L"VertexShaderTex.cso");
+	auto pvs = std::make_unique<VertexShader>(gfx, L"Tex_VS.cso");
 	auto pvsbc = pvs->getBytecode();
 	addBind(std::move(pvs));
 
-	addBind(std::make_unique<PixelShader>(gfx, L"PixelShaderTex.cso"));
-
+	addBind(std::make_unique<PixelShader>(gfx, L"Tex_PS.cso"));
 	addIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
 
 	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied =

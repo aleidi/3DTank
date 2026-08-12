@@ -1,6 +1,8 @@
 #include <utility>
-#include<sstream>
+#include <sstream>
 #include <wincodec.h>
+#include <string>
+#include <Windows.h>
 
 #include "FreeType.h"
 #include "ft2build.h"
@@ -11,8 +13,21 @@
 
 std::map<wchar_t, FreeType::Character> FreeType::mCharacters;
 
+static std::string GetExeDirA()
+{
+	char path[MAX_PATH] = {};
+	GetModuleFileNameA(nullptr, path, MAX_PATH);
+	std::string full(path);
+	const size_t pos = full.find_last_of("\\/");
+	if (pos == std::string::npos)
+	{
+		return ".";
+	}
+	return full.substr(0, pos);
+}
+
 FreeType::FreeType(Graphics& gfx)
-	:mFontSize(30)
+	: mFontSize(30)
 {
 }
 
@@ -23,47 +38,75 @@ void FreeType::setFontSize(unsigned int value)
 
 FreeType::Character FreeType::getChar(Graphics& gfx, wchar_t key)
 {
-	if (mCharacters.find(key) == mCharacters.end())
+	auto it = mCharacters.find(key);
+	if (it == mCharacters.end())
 	{
 		LoadChar(gfx, key);
+		it = mCharacters.find(key);
+		if (it == mCharacters.end())
+		{
+			Character empty{};
+			return empty;
+		}
 	}
-	return mCharacters[key];
+	return it->second;
 }
 
 void FreeType::LoadChar(Graphics& gfx, wchar_t wstr)
 {
-	FT_Library library;
-	FT_Init_FreeType(&library);
-
-	FT_Face face;
-	FT_New_Face(library, "./Resource/Fonts/msyh.ttc", 0, &face);
-
-	FT_Set_Pixel_Sizes(face, 0, mFontSize);
-
-	// Load character glyph 
-
-	if (FT_Load_Char(face, wstr, FT_LOAD_RENDER))
+	FT_Library library = nullptr;
+	if (FT_Init_FreeType(&library) != 0)
 	{
 		return;
 	}
 
-	// Generate texture
+	FT_Face face = nullptr;
+	const std::string fontPath = GetExeDirA() + "\\Resource\\Fonts\\msyh.ttc";
+	if (FT_New_Face(library, fontPath.c_str(), 0, &face) != 0 || face == nullptr)
+	{
+		FT_Done_FreeType(library);
+		return;
+	}
+
+	if (FT_Set_Pixel_Sizes(face, 0, mFontSize) != 0)
+	{
+		FT_Done_Face(face);
+		FT_Done_FreeType(library);
+		return;
+	}
+
+	if (FT_Load_Char(face, wstr, FT_LOAD_RENDER) != 0)
+	{
+		FT_Done_Face(face);
+		FT_Done_FreeType(library);
+		return;
+	}
+
 	FT_Bitmap bitmap = face->glyph->bitmap;
 
 	if (wstr == L' ')
 	{
-		Character ch;
+		Character ch{};
 		ch.SizeX = mFontSize;
 		ch.SizeY = mFontSize;
 		ch.BearingX = 0;
 		ch.BearingY = 0;
 		ch.Advance = face->glyph->advance.x;
 		mCharacters.insert(std::pair<wchar_t, Character>(wstr, ch));
+
 		FT_Done_Face(face);
+		FT_Done_FreeType(library);
 		return;
 	}
 
-	Character ch;
+	if (bitmap.width == 0 || bitmap.rows == 0 || bitmap.buffer == nullptr)
+	{
+		FT_Done_Face(face);
+		FT_Done_FreeType(library);
+		return;
+	}
+
+	Character ch{};
 	ch.SizeX = bitmap.width;
 	ch.SizeY = bitmap.rows;
 	ch.BearingX = face->glyph->bitmap_left;
@@ -89,8 +132,8 @@ void FreeType::LoadChar(Graphics& gfx, wchar_t wstr)
 	sd.SysMemSlicePitch = bitmap.width * bitmap.rows * sizeof(unsigned char);
 	HRD(gfx.getDevice()->CreateTexture2D(&texDesc, &sd, ch.Texture.GetAddressOf()));
 
-	// Now store character for later use
 	mCharacters.insert(std::pair<wchar_t, Character>(wstr, ch));
 
 	FT_Done_Face(face);
+	FT_Done_FreeType(library);
 }

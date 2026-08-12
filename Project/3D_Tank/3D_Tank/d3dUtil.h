@@ -28,7 +28,9 @@
 #endif
 
 // 安全COM组件释放宏
+#ifndef SAFE_RELEASE
 #define SAFE_RELEASE(p) { if ((p)) { (p)->Release(); (p) = nullptr; } }
+#endif
 
 //
 // 辅助调试相关函数

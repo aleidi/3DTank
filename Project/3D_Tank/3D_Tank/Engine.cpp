@@ -221,14 +221,13 @@ void Engine::calculateFrameStats()
 
 	if ((mTimer.getTotalTime() - timeElapsed) >= 1.0f)
 	{
-		float fps = (float)frameCnt;
-		float mspf = 1000 / fps;
+		const float fps = static_cast<float>(frameCnt);
+		const float mspf = (fps > 0.0f) ? (1000.0f / fps) : 0.0f;
 
-		std::wostringstream outs;
-		outs.precision(6);
-		outs << WNDTITLE << "   " << "FPS: " << fps << "   " << "Frame Time: " << mspf << "(ms)";
-		SetWindowText(mWnd.getHwnd(), outs.str().c_str());
-		
+		wchar_t title[256] = {};
+		swprintf_s(title, L"3D Tank   FPS: %.2f   Frame Time: %.2f (ms)", fps, mspf);
+		SetWindowTextW(mWnd.getHwnd(), title);
+
 		frameCnt = 0;
 		timeElapsed += 1.0f;
 	}

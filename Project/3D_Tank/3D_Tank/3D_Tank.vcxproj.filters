@@ -1096,18 +1096,6 @@
     <FxCompile Include="PixelShader.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="SolidPixelShader.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="SolidVertexShader.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PixelShaderTex.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="VertexShaderTex.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
     <FxCompile Include="SkyBox_VS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
@@ -1118,42 +1106,6 @@
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="Light_VS.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIPixelShader.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIPSButton.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIVertexShader.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIVSHorizontalL.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIVSHorizontalR.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIVSVerticalB.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIVSVerticalT.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UIPSText.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UI3DGSHorizontalL.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UI3DGSHorizontalR.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UI3DGSVerticalB.hlsl">
-      <Filter>Engine\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="UI3DGSVerticalT.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
     <FxCompile Include="Billboard_PS.hlsl">
@@ -1189,6 +1141,22 @@
     <FxCompile Include="NormalMap_VS.hlsl">
       <Filter>Engine\Shader</Filter>
     </FxCompile>
+    <FxCompile Include="Tex_PS.hlsl" />
+    <FxCompile Include="Solid_PS.hlsl" />
+    <FxCompile Include="Solid_VS.hlsl" />
+    <FxCompile Include="UI3DHorizontalL_GS.hlsl" />
+    <FxCompile Include="UI3DHorizontalR_GS.hlsl" />
+    <FxCompile Include="UI3DVerticalB_GS.hlsl" />
+    <FxCompile Include="UI3DVerticalT_GS.hlsl" />
+    <FxCompile Include="UI_PS.hlsl" />
+    <FxCompile Include="UIButton_PS.hlsl" />
+    <FxCompile Include="UIText_PS.hlsl" />
+    <FxCompile Include="UI_VS.hlsl" />
+    <FxCompile Include="UIHorizontalL_VS.hlsl" />
+    <FxCompile Include="UIHorizontalR_VS.hlsl" />
+    <FxCompile Include="UIVerticalB_VS.hlsl" />
+    <FxCompile Include="UIVerticalT_VS.hlsl" />
+    <FxCompile Include="Tex_VS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LightHelper.hlsli">

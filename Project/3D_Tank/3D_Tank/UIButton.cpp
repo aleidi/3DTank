@@ -23,11 +23,11 @@ UIButton::UIButton(Graphics & gfx, const std::wstring & texPath)
 
 	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices, true));
 
-	auto pvs = std::make_unique<VertexShader>(gfx, L"UIVertexShader.cso");
+	auto pvs = std::make_unique<VertexShader>(gfx, L"UI_VS.cso");
 	auto pvsbc = pvs->getBytecode();
 	addBind(std::move(pvs));
 
-	addBind(std::make_unique<PixelShader>(gfx, L"UIPSButton.cso"));
+	addBind(std::make_unique<PixelShader>(gfx, L"UIButton_PS.cso"));
 
 	addIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
 

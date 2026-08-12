@@ -1,6 +1,6 @@
 struct PointSprite
 {
-    float2 SizeW : SIZE;
+    float2 SizeW : TEXCOORD0;
 };
 
 struct BillboardVertex

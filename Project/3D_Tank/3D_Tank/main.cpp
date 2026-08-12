@@ -1,10 +1,10 @@
 ﻿#include "Window.h"
 #include "Engine.h"
 
-int WINAPI WinMain(
+int WINAPI wWinMain(
 	_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
-	_In_ LPSTR lpCmdLine,
+	_In_ LPWSTR lpCmdLine,
 	_In_ int nShowCmd)
 {
 	Window wnd(hInstance);
@@ -15,7 +15,7 @@ int WINAPI WinMain(
 	{
 		Engine::sGetInstance()->run();
 	}
-	
+
 	Engine::sGetInstance()->Destroy();
 
 	return 0;

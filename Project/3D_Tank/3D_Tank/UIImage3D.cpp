@@ -29,10 +29,10 @@ UIImage3D::UIImage3D(Graphics & gfx, const std::wstring & texPath)
 	addBind(std::move(pvs));
 
 	std::vector<std::wstring> vsPathes;
-	vsPathes.push_back(L"UI3DGSHorizontalL.cso");
-	vsPathes.push_back(L"UI3DGSHorizontalR.cso");
-	vsPathes.push_back(L"UI3DGSVerticalT.cso");
-	vsPathes.push_back(L"UI3DGSVerticalB.cso");
+	vsPathes.push_back(L"UI3DHorizontalL_GS.cso");
+	vsPathes.push_back(L"UI3DHorizontalR_GS.cso");
+	vsPathes.push_back(L"UI3DVerticalT_GS.cso");
+	vsPathes.push_back(L"UI3DVerticalB_GS.cso");
 	mGS = std::make_unique<GeometryShader>(gfx, vsPathes);
 
 	addBind(std::make_unique<PixelShader>(gfx, L"Billboard_PS.cso"));

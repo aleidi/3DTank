@@ -23,14 +23,14 @@ UIImage::UIImage(Graphics & gfx, const std::wstring & texPath)
 	addBind(std::make_unique<VertexBuffer>(gfx, mesh.vertices, true));
 
 	std::vector<std::wstring> vsPathes;
-	vsPathes.push_back(L"UIVSHorizontalL.cso");
-	vsPathes.push_back(L"UIVSHorizontalR.cso");
-	vsPathes.push_back(L"UIVSVerticalT.cso");
-	vsPathes.push_back(L"UIVSVerticalB.cso");
+	vsPathes.push_back(L"UIHorizontalL_VS.cso");
+	vsPathes.push_back(L"UIHorizontalR_VS.cso");
+	vsPathes.push_back(L"UIVerticalT_VS.cso");
+	vsPathes.push_back(L"UIVerticalB_VS.cso");
 	mVS = std::make_unique<VertexShader>(gfx, vsPathes);
 	auto pvsbc = mVS->getBytecode();
 
-	addBind(std::make_unique<PixelShader>(gfx, L"UIPixelShader.cso"));
+	addBind(std::make_unique<PixelShader>(gfx, L"UI_PS.cso"));
 
 	addIndexBuffer(std::make_unique<IndexBuffer>(gfx, mesh.indices));
 
