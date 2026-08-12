@@ -324,7 +324,7 @@ void EnemyBoss::initViolent(int maxParticle, int emitRate)
 
 void EnemyBoss::showSuperAttackUI(bool value)
 {
-	//mSuperAttackName->setEnable(value);
+	mSuperAttackName->setEnable(value);
 	mSuperAttackFrame->setEnable(value);
 }
 
