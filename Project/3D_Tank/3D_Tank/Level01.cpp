@@ -65,29 +65,29 @@ void Level01::enterLevel()
 	mCancelEvent = new UCancelEvent(this);
 	mBtnCancel->setBtnEvent(mCancelEvent);
 
-	//MainMenu
+	//メインメニュー
 	mBtnStart->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 2);
 	mBtnStart->setTextPos(WINDOW_WIDTH / 2 - 56.0f, WINDOW_HEIGHT * 1 / 2 + 40.0f);
 	mBtnSetting->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 3 - 20.0f);
 	mBtnSetting->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 3 - 20.0f + 40.0f);
 	mBtnExit->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 6 - 40.0f);
 	mBtnExit->setTextPos(WINDOW_WIDTH / 2 - 35.0f, WINDOW_HEIGHT * 1 / 6 - 40.0f + 40.0f);
-	//GameMode
+	//ゲームモード
 	mBtnGameMode->setPosition(WINDOW_WIDTH / 2 - 130.0f, WINDOW_HEIGHT * 1 / 2);
 	mBtnGameMode->setTextPos(WINDOW_WIDTH / 2 - 96.0f, WINDOW_HEIGHT * 1 / 2 + 40.0f);
 	mBtnEditMode->setPosition(WINDOW_WIDTH / 2 - 130.0f, WINDOW_HEIGHT * 1 / 6);
 	mBtnEditMode->setTextPos(WINDOW_WIDTH / 2 - 103.0f, WINDOW_HEIGHT * 1 / 6 + 40.0f);
-	//Language
+	//言語
 	mBtnJP->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 2);
 	mBtnJP->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 2 + 40.0f);
 	mBtnEN->setPosition(WINDOW_WIDTH / 2 - 75.0f, WINDOW_HEIGHT * 1 / 6);
 	mBtnEN->setTextPos(WINDOW_WIDTH / 2 - 55.0f, WINDOW_HEIGHT * 1 / 6 + 40.0f);
-	//Select
+	//選択
 	mBtnShutDown->setPosition(WINDOW_WIDTH / 3, WINDOW_HEIGHT * 1 / 2 - 25.0f);
 	mBtnShutDown->setTextPos(WINDOW_WIDTH / 3 + 12.5f, WINDOW_HEIGHT * 1 / 2);
 	mBtnReturn->setPosition(WINDOW_WIDTH * 2 / 3, WINDOW_HEIGHT * 1 / 2 - 25.0f);
 	mBtnReturn->setTextPos(WINDOW_WIDTH * 2 / 3 + 18.5f, WINDOW_HEIGHT * 1 / 2);
-	//cancle
+	//キャンセル
 	mBtnCancel->setPosition(WINDOW_WIDTH - 200.0f, 50.0f);
 	mBtnCancel->setTextPos(WINDOW_WIDTH - 180.0f, 75.0f);
 

@@ -33,7 +33,7 @@ void PlayerCamera::onLateUpdate(const float& deltaTime)
 	Rotation = Math::lerp(Rotation, mObject->getTransform()->getRotation(), mSpdForRot * deltaTime);
 	Fov = Math::lerp(Fov, mTargetFov, mSpdForFov * deltaTime);
 
-	//raycast test
+	//レイキャストのテスト
 	Vector3 pos = GameInstance::sGetInstance()->getPlayer()->getTransform()->getPosition();
 	Vector3 origin = pos;
 	Vector3 dir = Position - pos;

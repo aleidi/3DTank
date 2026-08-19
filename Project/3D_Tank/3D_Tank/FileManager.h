@@ -57,18 +57,18 @@ public:
 
 	static wchar_t* GetTexture(const std::string& name);
 
-	// AI configuration map
+	// AI設定マップ
 	static void LoadAIAttribute(std::map<int, AIAttribute>& map);
 	static std::map<int, AIAttribute> createAttributesMap();
 	static std::map<int, AIAttribute> AIAttributes;
 
-	// Localization configuration map
+	// ローカライズ設定マップ
 	static std::map<int, std::wstring> LoadLocalization_US();
 	static std::map<int, std::wstring> LoadLocalization_JP();
 	static void changeLanguage(Language l);
 	static std::map<int, std::wstring> localization;
 
-	// load keyframes
+	// キーフレームを読み込む
 	static std::vector<std::map<int, KeyFrame>> KeyFrames;
 	static void LoadKeyFrames(std::string filename);
 };

@@ -87,7 +87,7 @@ bool Graphics::InitD3D()
 
 		if (hr == E_INVALIDARG)
 		{
-			// Direct3D 11.0 µÄAPI²»³ÐÈÏD3D_FEATURE_LEVEL_11_1£¬ËùÒÔÎÒÃÇÐèÒª³¢ÊÔÌØÐÔµÈ¼¶11.0ÒÔ¼°ÒÔÏÂµÄ°æ±¾
+			// Direct3D 11.0 APIはD3D_FEATURE_LEVEL_11_1を認識しないため、機能レベル11.0以下を試す
 			hr = D3D11CreateDevice(nullptr, d3dDriverType, nullptr, createDeviceFlags, &featureLevels[1], numFeatureLevels - 1,
 				D3D11_SDK_VERSION, pDevice.GetAddressOf(), &featureLevel, pContext.GetAddressOf());
 		}

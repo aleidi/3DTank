@@ -4,7 +4,7 @@
 #include <string>
 #include <cassert>
 #include "Pawn.h"
-// desc: base class for a game object
+// 説明: ゲームオブジェクトの基底クラス
 
 struct Telegram;
 
@@ -25,13 +25,13 @@ public:
 	int getID()const { return m_ID; }
 
 protected:
-	int m_ID; // every entity must have a unique identifying number
+	int m_ID; // 各エンティティに一意の識別番号を割り当てる
 
-	static int m_iNextValidID; // this is the next valid ID. Each time a BaseGameEntity is instantiated. this value is updated.
+	static int m_iNextValidID; // 次に割り当てる有効なID。BaseGameEntityの生成ごとに更新する
 
-	void setID(int val); // must ba called within the constructor to make sure the ID is set correctly.  
-	                     // it verifies that the value passed tp the method is greater or equal to the next valid ID,
-						 // before setting the ID and incrementing the next valid ID
+	void setID(int val); // IDを正しく設定するため、コンストラクター内で呼び出す
+	                     // 指定値が次の有効なID以上であることを検証し、
+						 // IDを設定して次の有効なIDをインクリメントする
 
 };
 

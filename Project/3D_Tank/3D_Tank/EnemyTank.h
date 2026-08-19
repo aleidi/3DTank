@@ -1,6 +1,6 @@
 #pragma once
 
-// a class defining an enemy tank
+// 敵戦車を定義するクラス
 #include <string>
 #include <cassert>
 
@@ -18,9 +18,9 @@ public:
 	EnemyTank();
 	~EnemyTank();
 
-	//////////////////////////////////////////////////////accessors
+	//////////////////////////////////////////////////////アクセサ
 	int FullHP;
-	int DyingHP; // below this value the enemy tank is dying
+	int DyingHP; // 敵戦車が瀕死状態になるHP閾値
 	int ReplyInterval = 3;
 
 	void setHP(int changeHP);

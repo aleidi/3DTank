@@ -89,7 +89,7 @@ XMVECTOR RenderCamera::getForward() noexcept
 XMMATRIX RenderCamera::getViewXM() noexcept
 {
 	const DirectX::XMVECTOR forwardBaseVector = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
-	// apply the camera rotations to a base vector
+	//基準ベクトルにカメラの回転を適用
 	const auto lookVector = XMVector3Transform(forwardBaseVector,
 		XMMatrixRotationRollPitchYaw(mRotation.x, mRotation.y, mRotation.z));
 
@@ -190,7 +190,7 @@ void RenderCamera::onUpdate(const float& deltaTime) noexcept
 	Camera::MainCamera->IsPerpective ? setProjectionType(ProjectionType::Perspective) : 
 		setProjectionType(ProjectionType::Orthographic);
 
-	////test code
+	////テストコード
 	//std::wstring wc = L"RenderCamPosition: ";
 	//wc += std::to_wstring(mPosition.x);
 	//wc += L"," + std::to_wstring(mPosition.y) + L"," + std::to_wstring(mPosition.z);
@@ -201,17 +201,17 @@ void RenderCamera::onUpdate(const float& deltaTime) noexcept
 void RenderCamera::calculateDirectionVector() noexcept
 {
 	XMMATRIX matrix = XMMatrixRotationRollPitchYaw(mRotation.x, mRotation.y, mRotation.z);
-	//calculate forward vector
+	//前方ベクトルを計算
 	XMVECTOR v = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
 	v = XMVector3Transform(v, matrix);
 	XMStoreFloat3(&mForward, v);
 
-	//calculate right vector
+	//右方向ベクトルを計算
 	v = XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
 	v = XMVector3Transform(v, matrix);
 	XMStoreFloat3(&mRight, v);
 
-	//calculate up vector
+	//上方向ベクトルを計算
 	v = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	v = XMVector3Transform(v, matrix);
 	XMStoreFloat3(&mUp, v);

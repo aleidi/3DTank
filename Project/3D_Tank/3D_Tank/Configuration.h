@@ -1,6 +1,6 @@
 #pragma once
 
-//defien resoultion
+// 解像度を定義
 #define  RES720
 
 #ifdef RES720

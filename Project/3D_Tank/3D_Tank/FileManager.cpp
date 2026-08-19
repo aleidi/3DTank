@@ -147,7 +147,7 @@ void FileManager::LoadOBJModelWithTangent(GeometryGenerator::MeshT & mesh, const
 		mesh.vertices[i + 1].Normal = pnormal;
 		mesh.vertices[i + 2].Normal = pnormal;
 
-		//calculate TBN
+		// TBNを計算
 		TempVertexType vertex1, vertex2, vertex3;
 		VectorType tangent, binormal, normal;
 		vertex1.x = mesh.vertices[i].Pos.x;
@@ -202,7 +202,7 @@ void FileManager::CalculateTangentBinormal(TempVertexType vertex1, TempVertexTyp
 	float length;
 
 
-	// Calculate the two vectors for this face.
+	// この面の2つのベクトルを計算
 	vector1[0] = vertex2.x - vertex1.x;
 	vector1[1] = vertex2.y - vertex1.y;
 	vector1[2] = vertex2.z - vertex1.z;
@@ -211,17 +211,17 @@ void FileManager::CalculateTangentBinormal(TempVertexType vertex1, TempVertexTyp
 	vector2[1] = vertex3.y - vertex1.y;
 	vector2[2] = vertex3.z - vertex1.z;
 
-	// Calculate the tu and tv texture space vectors.
+	// テクスチャ空間のtu、tvベクトルを計算
 	tuVector[0] = vertex2.tu - vertex1.tu;
 	tvVector[0] = vertex2.tv - vertex1.tv;
 
 	tuVector[1] = vertex3.tu - vertex1.tu;
 	tvVector[1] = vertex3.tv - vertex1.tv;
 
-	// Calculate the denominator of the tangent/binormal equation.
+	// 接線・従法線の方程式の分母を計算
 	den = 1.0f / (tuVector[0] * tvVector[1] - tuVector[1] * tvVector[0]);
 
-	// Calculate the cross products and multiply by the coefficient to get the tangent and binormal.
+	// 外積に係数を乗算して接線と従法線を算出
 	tangent.x = (tvVector[1] * vector1[0] - tvVector[0] * vector2[0]) * den;
 	tangent.y = (tvVector[1] * vector1[1] - tvVector[0] * vector2[1]) * den;
 	tangent.z = (tvVector[1] * vector1[2] - tvVector[0] * vector2[2]) * den;
@@ -240,7 +240,7 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 {
 	std::ifstream fin(".\\Resource\\Configuration\\AIConfig.csv");
 	std::string line;
-	float config[22]; // 21 attributes of AI and 1 id
+	float config[22]; // AI属性21個とID 1個
 
 	if (fin.is_open())
 	{
@@ -276,13 +276,13 @@ void FileManager::LoadAIAttribute(std::map<int, AIAttribute>& map)
 			temp.m_WanderDistance = config[14];
 			temp.m_WanderJitter = config[15];
 			temp.m_PatrolStart.x = config[16];
-			temp.m_PatrolStart.y = 0; //default
+			temp.m_PatrolStart.y = 0; // デフォルト
 			temp.m_PatrolStart.z = config[17];
 			temp.m_PatrolEnd.x = config[18];
-			temp.m_PatrolEnd.y = 0; //default
+			temp.m_PatrolEnd.y = 0; // デフォルト
 			temp.m_PatrolEnd.z = config[19];
 			temp.m_ResetPoint.x = config[20];
-			temp.m_ResetPoint.y = 0; //default
+			temp.m_ResetPoint.y = 0; // デフォルト
 			temp.m_ResetPoint.z = config[21];
 
 			//FileManager::AIAtrributes[index] = temp;
@@ -367,7 +367,7 @@ void FileManager::LoadKeyFrames(std::string filename)
 	filename = std::string(".\\Resource\\Configuration\\") + filename + std::string(".csv");
 	std::ifstream fin(filename);
 	std::string line;
-	float config[11]; // 1 id and 1 key and 3 Vector3
+	float config[11]; // ID 1個、キー1個、Vector3 3個
 	std::map<int, KeyFrame> map;
 
 	if (fin.is_open())

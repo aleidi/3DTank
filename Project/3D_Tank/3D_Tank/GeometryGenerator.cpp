@@ -139,12 +139,12 @@ void GeometryGenerator::createSphere()
 	UINT sliceCount = 20;
 	float radius = 1.0f;
 	//
-	// Compute the vertices stating at the top pole and moving down the stacks.
+	// 上極からスタックに沿って頂点を生成する。
 	//
 
-	// Poles: note that there will be texture coordinate distortion as there is
-	// not a unique point on the texture map to assign to the pole when mapping
-	// a rectangular texture onto a sphere.
+	// 極点では、矩形テクスチャを球面へマッピングする際に、
+	// 対応するテクスチャ上の点が一意に定まらないため、
+	// テクスチャ座標に歪みが生じる。
 	Vertex topVertex{ XMFLOAT3(0.0f, +radius, 0.0f), XMFLOAT2(0.0f, 0.0f) };
 	Vertex bottomVertex{ XMFLOAT3(0.0f, -radius, 0.0f),XMFLOAT2(0.0f, 1.0f) };
 
@@ -153,24 +153,24 @@ void GeometryGenerator::createSphere()
 	float phiStep = XM_PI / stackCount;
 	float thetaStep = 2.0f*XM_PI / sliceCount;
 
-	// Compute vertices for each stack ring (do not count the poles as rings).
+	// 各スタックリングの頂点を生成する（極点はリングに含めない）。
 	for (UINT i = 1; i <= stackCount - 1; ++i)
 	{
 		float phi = i * phiStep;
 
-		// Vertices of ring.
+		// リングの頂点。
 		for (UINT j = 0; j <= sliceCount; ++j)
 		{
 			float theta = j * thetaStep;
 
 			Vertex v;
 
-			// spherical to cartesian
+			// 球面座標から直交座標へ変換
 			v.Position.x = radius * sinf(phi)*cosf(theta);
 			v.Position.y = radius * cosf(phi);
 			v.Position.z = radius * sinf(phi)*sinf(theta);
 
-			//// Partial derivative of P with respect to theta
+			//// Pのthetaに関する偏微分
 			//v.TangentU.x = -radius * sinf(phi)*sinf(theta);
 			//v.TangentU.y = 0.0f;
 			//v.TangentU.z = +radius * sinf(phi)*cosf(theta);
@@ -191,8 +191,8 @@ void GeometryGenerator::createSphere()
 	meshData.vertices.push_back(bottomVertex);
 
 	//
-	// Compute indices for top stack.  The top stack was written first to the vertex buffer
-	// and connects the top pole to the first ring.
+	// 上部スタックのインデックスを生成する。上部スタックは頂点バッファの先頭にあり、
+	// 上極と最初のリングを接続する。
 	//
 
 	for (UINT i = 1; i <= sliceCount; ++i)
@@ -203,11 +203,11 @@ void GeometryGenerator::createSphere()
 	}
 
 	//
-	// Compute indices for inner stacks (not connected to poles).
+	// 極点に接続しない内部スタックのインデックスを生成する。
 	//
 
-	// Offset the indices to the index of the first vertex in the first ring.
-	// This is just skipping the top pole vertex.
+	// インデックスを最初のリングの先頭頂点までオフセットする。
+	// 上極の頂点をスキップする。
 	UINT baseIndex = 1;
 	UINT ringVertexCount = sliceCount + 1;
 	for (UINT i = 0; i < stackCount - 2; ++i)
@@ -225,14 +225,14 @@ void GeometryGenerator::createSphere()
 	}
 
 	//
-	// Compute indices for bottom stack.  The bottom stack was written last to the vertex buffer
-	// and connects the bottom pole to the bottom ring.
+	// 下部スタックのインデックスを生成する。下部スタックは頂点バッファの末尾にあり、
+	// 下極と最後のリングを接続する。
 	//
 
-	// South pole vertex was added last.
+	// 南極の頂点は最後に追加されている。
 	UINT southPoleIndex = (UINT)meshData.vertices.size() - 1;
 
-	// Offset the indices to the index of the first vertex in the last ring.
+	// インデックスを最後のリングの先頭頂点までオフセットする。
 	baseIndex = southPoleIndex - ringVertexCount;
 
 	for (UINT i = 0; i < sliceCount; ++i)

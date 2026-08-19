@@ -30,14 +30,14 @@ HRESULT DInputPC::onInit(HWND hWnd, HINSTANCE hInstance, DWORD keyboardCoopFlags
 	HR(DirectInput8Create(hInstance, DIRECTINPUT_VERSION,
 		IID_IDirectInput8, (void**)&m_pDirectInput, NULL));
 
-	//initialize keyboard
+	// キーボードを初期化
 	HR(m_pDirectInput->CreateDevice(GUID_SysKeyboard, &m_KeyboardDevice, NULL));
 	HR(m_KeyboardDevice->SetCooperativeLevel(hWnd, keyboardCoopFlags));
 	HR(m_KeyboardDevice->SetDataFormat(&c_dfDIKeyboard));
 	HR(m_KeyboardDevice->Acquire());
 	HR(m_KeyboardDevice->Poll());
 
-	//initialie mouse
+	// マウスを初期化
 	HR(m_pDirectInput->CreateDevice(GUID_SysMouse, &m_MouseDevice, NULL));
 	HR(m_MouseDevice->SetCooperativeLevel(hWnd, mouseCoopFlags));
 	HR(m_MouseDevice->SetDataFormat(&c_dfDIMouse));
@@ -49,14 +49,14 @@ HRESULT DInputPC::onInit(HWND hWnd, HINSTANCE hInstance, DWORD keyboardCoopFlags
 
 void DInputPC::onUpdate() {
 
-	//// copykeybuffer
+	//// キーバッファをコピー
 	int k = 0;
 	for (auto& buff : pre_keyBuffer)
 	{
 		buff = m_keyBuffer[k];
 		++k;
 	}
-	// copymousebuffer
+	// マウスバッファをコピー
 	for (int i = 0; i < 4; i++) {
 		pre_rgbButtons[i] = m_MouseState.rgbButtons[i];
 	} 
@@ -70,20 +70,20 @@ void DInputPC::onUpdate() {
 
 void DInputPC::getInput() {
 	HRESULT hr = m_KeyboardDevice->GetDeviceState(sizeof(m_keyBuffer), (void**)&m_keyBuffer);
-	// get keyboard input
+	// キーボード入力を取得
 	if (hr) {
 		m_KeyboardDevice->Acquire();
 		m_KeyboardDevice->GetDeviceState(sizeof(m_keyBuffer), (LPVOID)m_keyBuffer);
 	}
 
 	if (m_MouseDevice != nullptr) {
-		hr = m_MouseDevice->GetDeviceState(sizeof(DIMOUSESTATE), (void**)&m_MouseState); // Exception thrown: read access violation.	this->m_MouseDevice was nullptr. ?
-	// get mouse input
+		hr = m_MouseDevice->GetDeviceState(sizeof(DIMOUSESTATE), (void**)&m_MouseState); // 例外: 読み取りアクセス違反。this->m_MouseDeviceがnullptrの可能性あり
+	// マウス入力を取得
 		if (hr) {
 			m_MouseDevice->Acquire();
 			m_MouseDevice->GetDeviceState(sizeof(DIMOUSESTATE), (void**)&m_MouseState);
 		}
-	} // make sure this->m_MouseDevice is not nullptr.
+	} // this->m_MouseDeviceがnullptrでないことを保証する
 }
 
 bool DInputPC::iskey(int iKey) {
@@ -123,7 +123,7 @@ float DInputPC::mouseDZ() {
 }
 
 
-////////////////// singleton///////////////////////
+////////////////// シングルトン///////////////////////
 
 DInputPC& DInputPC::getInstance() {
 	static DInputPC m_DInputPC;

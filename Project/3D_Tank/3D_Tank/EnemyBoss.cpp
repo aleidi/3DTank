@@ -40,7 +40,7 @@ EnemyBoss::EnemyBoss(int id)
 	mAttribute.m_ResetPoint += Vector3(0.0f, 1.0f, 0.0f);
 	mTag = ObjectTag::Enemy;
 
-	//create normal model
+	// 通常モデルを生成
 	mNormalModel = SceneManager::sGetInstance()->createEmptyObject();
 	SceneManager::sGetInstance()->createModel(*mNormalModel, "Boss/RedBaronN/m0_Arm_Base_Color", L"Boss/RedBaronN/Arm_Base_Color");
 	SceneManager::sGetInstance()->createModel(*mNormalModel, "Boss/RedBaronN/m1_Body_Base_Color", L"Boss/RedBaronN/Body_Base_Color");
@@ -53,7 +53,7 @@ EnemyBoss::EnemyBoss(int id)
 	mNormalModel->attach(*this);
 	//mNormalModel->enableDraw(false);
 
-	//create super model
+	// 強化モデルを生成
 	mSuperModel = SceneManager::sGetInstance()->createEmptyObject();
 	SceneManager::sGetInstance()->createModel(*mSuperModel, "Boss/RedBaronS/m0_Arm_Base_Color", L"Boss/RedBaronS/Arm_Base_Color");
 	SceneManager::sGetInstance()->createModel(*mSuperModel, "Boss/RedBaronS/m1_Body_Base_Color", L"Boss/RedBaronS/Body_Base_Color");

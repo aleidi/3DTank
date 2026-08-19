@@ -49,7 +49,7 @@ void RenderManager::onDraw()
 
 	std::vector<Mesh*> transparentMeshes;
 
-	// 1) Opaque pass
+	// 1) 不透明パス
 	sOpaqueBlend->bind(mGraphics);
 	sDepthWrite->bind(mGraphics);
 
@@ -70,10 +70,10 @@ void RenderManager::onDraw()
 		}
 	}
 
-	// 2) Skybox before transparent pass
+	// 2) 透明パスの前にスカイボックスを描画
 	mGraphics.DrawSkyBox();
 
-	// 3) Transparent pass
+	// 3) 透明パス
 	XMFLOAT3 camPos;
 	XMStoreFloat3(&camPos, mGraphics.getCameraPosition());
 
@@ -101,7 +101,7 @@ void RenderManager::onDraw()
 		(*it)->draw(mGraphics);
 	}
 
-	// Restore default state for post draw
+	//後続描画用にデフォルト状態へ戻す
 	sOpaqueBlend->bind(mGraphics);
 	sDepthWrite->bind(mGraphics);
 
@@ -128,7 +128,7 @@ void RenderManager::onPostDraw(const float& deltaTime)
 		sDepthReadOnly = std::make_unique<DepthStencil>(mGraphics, DepthStencil::DepthMode::DepthReadOnly);
 	}
 
-	// 3D UI / particles: keep depth test, disable depth writes to avoid self-fighting
+	//3D UI／パーティクル: 深度テストを維持し、自己干渉を避けるため深度書き込みを無効化
 	sAlphaBlend->bind(mGraphics);
 	sDepthReadOnly->bind(mGraphics);
 
@@ -159,7 +159,7 @@ void RenderManager::onPostDraw(const float& deltaTime)
 		(*it)->draw(mGraphics);
 	}
 
-	// Restore normal state for screen-space UI
+	//スクリーン空間UI用の通常状態へ戻す
 	sDepthWrite->bind(mGraphics);
 
 	for (std::list<UIBase*>::iterator it = mUIs.begin(); it != mUIs.end(); ++it)

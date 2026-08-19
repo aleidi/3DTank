@@ -43,14 +43,14 @@ private:
 	void initParticle();
 
 private:
-	//tank move and rotate
+	//戦車の移動と回転
 	float mRotateSpd;
 	float mMoveSped;
 	float mBatteryRotSpd;
 	float mBatteryMaxPitch;
 	float mBatteryMinPitch;
 
-	//camera follow paramaters
+	//カメラ追従パラメーター
 	float mDisToCam;
 	Vector3 mFPCameraOffset;
 	float mFPOfssetFactorX;
@@ -64,7 +64,7 @@ private:
 	float mMaxDisToCam;
 	float mCameraRotSpd;
 
-	//Weapon
+	//武器
 	int mWeaponType;
 	float mAttackCount;
 	float mAttackInterval;

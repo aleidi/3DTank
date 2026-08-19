@@ -52,43 +52,43 @@ void Engine::Destroy()
 
 void Engine::onPreInit()
 {
-	//Timer Init
+	// タイマーを初期化
 	mTimer.reset();
 
-	//SceneManagerInit
+	// SceneManagerを初期化
 	SceneManager::createSingleton();
 
-	//SoundManagerInit
+	// SoundManagerを初期化
 	SoundManager::onInit();
 
 	CollisionManager::onInit();
 
-	//Rendering Init
+	// 描画を初期化
 	mRendering.get()->onInit();
 
-	//eui creation
+	// EUIを生成
 	mEui = std::make_unique<ImGuiFrame>(
 		mWnd.getHwnd(), mRendering->getGFX()->getDevice(), mRendering->getGFX()->getContext());
 }
 
 void Engine::onInit()
 {
-	//Input Init
+	// 入力を初期化
 	DInputPC::getInstance().onInit(mWnd.getHwnd(), mWnd.getHinst(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
 
-	//EUI Init
+	// EUIを初期化
 	mEui->onInit();
 }
 
 void Engine::onPostInit()
 {
-	//Game Init
+	// ゲームを初期化
 	mGameSystem->onInit();
 }
 
 void Engine::run()
 {
-	//speed up and down
+	// 速度を増減
 	if (DInputPC::getInstance().iskeyDown(DIK_F4))
 	{
 		mRunSpeed = 2.0f;
@@ -111,21 +111,21 @@ void Engine::run()
 		recordCamraPosition();
 	}
 
-	//Timer update
+	// タイマーを更新
 	mTimer.tick();
 	float deltaTime = mTimer.getDeltaTIme() * mRunSpeed;
 	calculateFrameStats();
 
-	//Input Update
+	// 入力を更新
 	DInputPC::getInstance().onUpdate();
 
-	//Physics Update
+	// 物理処理を更新
 	SceneManager::sGetInstance()->onEngineFixedUpdate(FixedDeltaTime);
 
-	//Game Update
+	// ゲームを更新
 	SceneManager::sGetInstance()->onEngineUpdate(deltaTime);
 
-	//SoundManager Update
+	// SoundManagerを更新
 	SoundManager::sGetInstance()->onUpdate();
 
 	if (mIsGameMode)
@@ -133,19 +133,19 @@ void Engine::run()
 		mGameSystem->onUpdate(deltaTime);
 	}
 
-	//Sound Update
+	// サウンドを更新
 	//mSound->onUpdate(dis);
 
-	//PreRender
+	// 描画前処理
 	mRendering.get()->onPreRender(deltaTime);
 
-	//OnRender
+	// 描画処理
 	mRendering.get()->onRender(deltaTime);
 
-	//PostRender
+	// 描画後処理
 	mRendering.get()->onPostRender(deltaTime);
 
-	//eui update
+	// EUIを更新
 	if (mIsEditMode)
 	{
 		mEui->onUpdate(deltaTime);
@@ -153,7 +153,7 @@ void Engine::run()
 
 	mRendering.get()->onEndRender(deltaTime);
 
-	//Garbage Collection
+	// ガベージコレクション
 	SceneManager::sGetInstance()->onGarbageCollection();
 }
 

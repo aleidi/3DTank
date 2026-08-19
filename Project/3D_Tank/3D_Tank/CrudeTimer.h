@@ -2,15 +2,15 @@
 #define CRUDETIMER_H
 //------------------------------------------------------------------------
 //
-//  Name:   CrudeTimer.h
+//  ファイル名: CrudeTimer.h
 //
-//  Desc:   timer to measure time in seconds
+//  概要: 秒単位で時間を計測するタイマー
 //
-//  Author: Mat Buckland 2002 (fup@ai-junkie.com)
+//  作成者: Mat Buckland 2002 (fup@ai-junkie.com)
 //
 //------------------------------------------------------------------------
 
-//this library must be included
+// このライブラリをインクルードする必要がある
 #pragma comment(lib, "winmm.lib")
 
 #include <windows.h>
@@ -22,13 +22,13 @@ class CrudeTimer
 private:
 
 
-	//set to the time (in seconds) when class is instantiated
+	// クラス生成時刻を秒単位で設定
 	double m_dStartTime;
 
-	//set the start time
+	// 開始時刻を設定
 	CrudeTimer() { m_dStartTime = timeGetTime() * 0.001; }
 
-	//copy ctor and assignment should be private
+	// コピーコンストラクターと代入演算子はprivateにする
 	CrudeTimer(const CrudeTimer&);
 	CrudeTimer& operator=(const CrudeTimer&);
 
@@ -36,7 +36,7 @@ public:
 
 	static CrudeTimer* Instance();
 
-	//returns how much time has elapsed since the timer was started
+	// タイマー開始後の経過時間を返す
 	double getCurrentTime() { return timeGetTime() * 0.001 - m_dStartTime; }
 
 };

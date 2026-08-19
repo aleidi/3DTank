@@ -66,7 +66,7 @@ public:
 	DirectX::XMVECTOR getCameraPosition() const noexcept;
 	DirectX::XMVECTOR getCameraRotation() const noexcept;
 
-	//test code
+	//テストコード
 	//DirectX::XMVECTOR getcamForward();
 	//DirectX::XMVECTOR getcamRight();
 	//DirectX::XMVECTOR getcamUp();

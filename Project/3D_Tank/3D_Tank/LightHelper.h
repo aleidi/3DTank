@@ -4,7 +4,7 @@
 #include <DirectXMath.h>
 
 
-// 方向光
+// 平行光源
 struct DirectionalLight
 {
 	DirectionalLight() = default;
@@ -23,10 +23,10 @@ struct DirectionalLight
 	DirectX::XMFLOAT4 Diffuse;
 	DirectX::XMFLOAT4 Specular;
 	DirectX::XMFLOAT3 Direction;
-	float Pad; // 最后用一个浮点数填充使得该结构体大小满足16的倍数，便于我们以后在HLSL设置数组
+	float Pad; // 構造体サイズを16の倍数に揃え、HLSLで配列を設定できるようにする
 };
 
-// 点光
+// 点光源
 struct PointLight
 {
 	PointLight() = default;
@@ -45,16 +45,16 @@ struct PointLight
 	DirectX::XMFLOAT4 Diffuse;
 	DirectX::XMFLOAT4 Specular;
 
-	// 打包成4D向量: (position, range)
+	// 4Dベクトルとして格納：(position, range)
 	DirectX::XMFLOAT3 position;
 	float range;
 
-	// 打包成4D向量: (A0, A1, A2, Pad)
+	// 4Dベクトルとして格納：(A0, A1, A2, Pad)
 	DirectX::XMFLOAT3 Att;
-	float Pad; // 最后用一个浮点数填充使得该结构体大小满足16的倍数，便于我们以后在HLSL设置数组
+	float Pad; // 構造体サイズを16の倍数に揃え、HLSLで配列を設定できるようにする
 };
 
-// 聚光灯
+// スポットライト
 struct SpotLight
 {
 	SpotLight() = default;
@@ -75,20 +75,20 @@ struct SpotLight
 	DirectX::XMFLOAT4 Diffuse;
 	DirectX::XMFLOAT4 Specular;
 
-	// 打包成4D向量: (position, range)
+	// 4Dベクトルとして格納：(position, range)
 	DirectX::XMFLOAT3 position;
 	float range;
 
-	// 打包成4D向量: (Direction, Spot)
+	// 4Dベクトルとして格納：(Direction, Spot)
 	DirectX::XMFLOAT3 Direction;
 	float Spot;
 
-	// 打包成4D向量: (Att, Pad)
+	// 4Dベクトルとして格納：(Att, Pad)
 	DirectX::XMFLOAT3 Att;
-	float Pad; // 最后用一个浮点数填充使得该结构体大小满足16的倍数，便于我们以后在HLSL设置数组
+	float Pad; // 構造体サイズを16の倍数に揃え、HLSLで配列を設定できるようにする
 };
 
-// 物体表面材质
+// オブジェクトの表面材質
 struct Material
 {
 	Material() = default;
@@ -105,7 +105,7 @@ struct Material
 
 	DirectX::XMFLOAT4 Ambient;
 	DirectX::XMFLOAT4 Diffuse;
-	DirectX::XMFLOAT4 Specular; // w = 镜面反射强度
+	DirectX::XMFLOAT4 Specular; // w = 鏡面反射強度
 	DirectX::XMFLOAT4 Reflect;
 	DirectX::XMFLOAT4 Color;
 };

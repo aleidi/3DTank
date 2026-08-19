@@ -17,13 +17,13 @@ struct VertexPosNormalTangentTex
 struct VertexPosHWNormalTangentTex
 {
     float4 PosH : SV_POSITION;
-    float3 PosW : POSITION; // ÔÚÊÀ½çÖĞµÄÎ»ÖÃ
-    float3 NormalW : NORMAL; // ·¨ÏòÁ¿ÔÚÊÀ½çÖĞµÄ·½Ïò
-    float4 TangentW : TANGENT; // ÇĞÏßÔÚÊÀ½çÖĞµÄ·½Ïò
+    float3 PosW : POSITION; // ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã®ä½ç½®
+    float3 NormalW : NORMAL; // ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã®æ³•ç·š
+    float4 TangentW : TANGENT; // ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã®æ¥ç·š
     float2 Tex : TEXCOORD;
 };
 
-// ¶¥µã×ÅÉ«Æ÷
+// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 VertexPosHWNormalTangentTex main(VertexPosNormalTangentTex vIn)
 {
     VertexPosHWNormalTangentTex vOut;

@@ -2,7 +2,7 @@
 
 Sampler::Sampler(Graphics & gfx)
 {
-	// Create the sample state
+	//サンプラーステートを生成
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
 	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;

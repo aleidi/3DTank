@@ -1,12 +1,12 @@
 #include "GameCharacter.h"
 #include "MovementComponent.h"
 
-//test code
+//テストコード
 #include "SceneManager.h"
 
 GameCharacter::GameCharacter()
 {
-	//test code
+	//テストコード
 	//movecomp = new MovementComponent(SceneManager::sGetInstance()->findObjectWithName("DefaultPlayer"));
 }
 

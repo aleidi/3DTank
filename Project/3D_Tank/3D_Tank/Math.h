@@ -24,7 +24,7 @@ public:
 		if (a > b) return a; return b;
 	}
 
-	//returns the minimum of two values
+	//2値の最小値を返す
 	template <class T>
 	static inline T MinOf(const T& a, const T& b)
 	{

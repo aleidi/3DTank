@@ -7,7 +7,7 @@ Window::Window(HINSTANCE hInst)
 	:
 	mWndClassName(WNDCLASSNAME), mHinst(hInst), mCanShowCursor(false), mCanClipCurosr(true)
 {
-	//define window class and register
+	//ウィンドウクラスを定義して登録
 	WNDCLASSEXW wndClass = { 0 };
 	wndClass.cbSize = sizeof(WNDCLASSEXW);
 	wndClass.style = CS_CLASSDC;
@@ -29,7 +29,7 @@ Window::Window(HINSTANCE hInst)
 	wr.bottom = WINDOW_HEIGHT + wr.top;
 	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU | WS_MAXIMIZEBOX, FALSE);
 
-	//create window
+	//ウィンドウを作成
 	mHwnd = CreateWindowW(mWndClassName, WNDTITLE, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU | WS_MAXIMIZEBOX,
 		wr.left, wr.top, wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr, mHinst, this);
@@ -97,30 +97,30 @@ POINT Window::getCursorPosInWnd()
 
 LRESULT WINAPI Window::handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	// use create parameter passed in from CreateWindow() to store window class pointer at WinAPI side
+	//CreateWindow()から渡された生成パラメータを使用し、WinAPI側にウィンドウクラスのポインタを保存
 	if (msg == WM_NCCREATE)
 	{
-		// extract ptr to window class from creation data
+		//生成データからウィンドウクラスのポインタを取得
 		const CREATESTRUCTW* const pCreate = reinterpret_cast<const CREATESTRUCTW*>(lParam);
 		Window* const pWnd = reinterpret_cast<Window*>(pCreate->lpCreateParams);
-		// sanity check
+		//有効性を確認
 		assert(pWnd != nullptr);
-		// set WinAPI-managed user data to store ptr to window class
+		//WinAPI管理のユーザーデータにウィンドウクラスのポインタを保存
 		SetWindowLongPtrW(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
-		// set message proc to normal (non-setup) handler now that setup is finished
+		//初期化完了後、メッセージプロシージャを通常のハンドラーへ切り替え
 		SetWindowLongPtrW(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&Window::handleMsgThunk));
-		// forward message to window class handler
+		//ウィンドウクラスのハンドラーへメッセージを転送
 		return pWnd->handleMsg(hWnd, msg, wParam, lParam);
 	}
-	// if we get a message before the WM_NCCREATE message, handle with default handler
+	//WM_NCCREATEより前に受信したメッセージは既定のハンドラーで処理
 	return DefWindowProcW(hWnd, msg, wParam, lParam);
 }
 
 LRESULT WINAPI Window::handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	// retrieve ptr to window class
+	//ウィンドウクラスのポインタを取得
 	Window* const pWnd = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-	// forward message to window class handler
+	//ウィンドウクラスのハンドラーへメッセージを転送
 	return pWnd->handleMsg(hWnd, msg, wParam, lParam);
 }
 

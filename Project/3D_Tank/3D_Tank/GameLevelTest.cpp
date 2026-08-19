@@ -149,7 +149,7 @@ void GameLevelTest::enterLevel()
 	//SM_construction_fence->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 
 	//hq->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
-	//set ai
+	//AIを設定
 	//enemy = new AITank(ent_Tank_Enemy);
 	//enemytarget = new AITank(ent_Tank_EnemyTarget);
 	
@@ -204,7 +204,7 @@ GameLevelBase* GameLevelTest::onUpdate(float deltaTime)
 //		SoundManager::sGetInstance()->playSound(sound->mChannel,6);
 	}
 
-	////////////////put in bullet class int the future /////////////////
+	////////////////将来は弾丸クラスに移す /////////////////
 	if (DInputPC::getInstance().iskeyDown(DIK_O))
 	{
 		Dispatch->Dispatch_Message(0,

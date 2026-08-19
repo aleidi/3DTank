@@ -45,7 +45,7 @@ EnemyTank::EnemyTank(int ID, float scale)
 			   FileManager::AIAttributes[ID].m_ResetPoint };
 
 	FullHP = mAttribute.FullHP;
-	DyingHP = FullHP * 0.2; // below this value the enemy tank is dying
+	DyingHP = FullHP * 0.2; // 敵戦車が瀕死状態になるHP閾値
 	mTag = ObjectTag::Enemy;
 
 	mRCs.push_back(SceneManager::sGetInstance()->createModel(*this, "Tank\\TankBody", L"Tank\\TankTex", maxPoint, minPoint));
@@ -329,7 +329,7 @@ void EnemyTank::setHPRecovered( bool isRecovered ) {
 
 bool EnemyTank::isEnemyInRange()const {
 	if( Vector3::lengthSq( getTargetPos, mTransform->getPosition() ) <= mAttribute.m_AttackRangeRadiusSq ) {
-		//check if there are any obstacles
+		// 障害物の有無を確認
 		bool isObstacle = CollisionManager::sGetInstance()->rayCheckWithObstacle(mTransform->getPosition(),
 															   (getTargetPos - mTransform->getPosition()).normalize(),
 															   sqrt(Vector3::lengthSq(getTargetPos, mTransform->getPosition())));

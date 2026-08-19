@@ -19,7 +19,7 @@ Potion::Potion()
 	mTransform->rotateZ(30,true);
 	mTransform->translate(0.0f, 0.0f, 5.0f);
 
-	//save player transform
+	//プレイヤーのTransformを保持
 	mPlayer = GameInstance::sGetInstance()->getPlayer();
 	mIsInitFin = true;
 }

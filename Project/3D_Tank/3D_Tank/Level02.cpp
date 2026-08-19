@@ -50,15 +50,15 @@ void Level02::enterLevel()
 {
 	SceneManager::sGetInstance()->setSkyBox(L"Skybox/Sand");
 
-	// hide cursor when entering level02
+	// Level02進入時にカーソルを非表示にする
 	while (ShowCursor(FALSE) >= 0) {}
 
-	// reset end-flow flags
+	// 終了フローのフラグをリセットする
 	mTrigger = false;
 	mEndCanvas = nullptr;
 	mFinCanvas = nullptr;
 
-	//load opening sequence
+	//オープニングシーケンスを読み込む
 	loadOpeningSequence();
 
 	mTimer = 0.0f;
@@ -241,7 +241,7 @@ void Level02::leaveLevel()
 {
 	Engine::sGetInstance()->enableGameMode(false);
 
-	// restore cursor when leaving level02
+	// Level02退出時にカーソルを再表示する
 	while (ShowCursor(TRUE) < 0) {}
 
 	if (mTitle != nullptr) mTitle->destroy();
@@ -310,7 +310,7 @@ void Level02::loadOpeningSequence()
 
 void Level02::loadEnvironment()
 {
-	//// seven buildings'
+	//// 7棟の建物
 
 	Vector3 position, scale;
 	position = Vector3(-16.5, 7, 12.5);
@@ -341,7 +341,7 @@ void Level02::loadEnvironment()
 	scale = Vector3(15.3, 13, 21.1);
 	airWalls.push_back(new AirWall(position, scale));
 
-	// four walls'
+	// 4面の壁
 	position = Vector3(-1, 4.5, 32.2);
 	scale = Vector3(75, 9, 0.05);
 	airWalls.push_back(new AirWall(position, scale));
@@ -358,12 +358,12 @@ void Level02::loadEnvironment()
 	scale = Vector3(0.05, 10.3, 120);
 	airWalls.push_back(new AirWall(position, scale));
 
-	// ground's
+	// 地面
 	position = Vector3(-0.8, -0.57, -27.4);
 	scale = Vector3(77.2, 1, 120);
 	airWalls.push_back(new AirWall(position, scale));
 
-	// obstacles fence
+	// 障害物：フェンス
 	position = Vector3(-38, -0.5, 33);
 	scale = Vector3(0.05, 0.01, 0.01);
 	Vector3 rotation = Vector3(0, -3.1425926 / 2.0, 0); // PI / 2
@@ -484,7 +484,7 @@ void Level02::loadEnvironment()
 	rotation = Vector3(0, -3.1425926, 0);
 	obstacles.push_back(new SM_construction_fence(position, rotation, scale));*/
 
-	// obstacles FreightContainer
+	// 障害物：貨物コンテナ
 	position = Vector3(-19, 0, -50);
 	scale = Vector3(0.03, 0.005, 0.005);
 	rotation = Vector3(0, 0, 0);
@@ -505,7 +505,7 @@ void Level02::loadEnvironment()
 	rotation = Vector3(0, 85, 0);
 	obstaclesPlay.push_back(new FreightContainer_A(position, rotation, scale, 1));
 
-	// obstacles WaterTank
+	// 障害物：給水タンク
 	position = Vector3(2.5, 0, -23.0);
 	scale = Vector3(0.06, 0.02, 0.02);
 	rotation = Vector3(-3.1415926 / 2.0, 0.2, 0);
@@ -521,7 +521,7 @@ void Level02::loadEnvironment()
 	rotation = Vector3(0, -0.4, 0);
 	obstaclesPlay.push_back(new SM_WaterTank(position, rotation, scale));
 
-	// Crate
+	// 木箱
 	position = Vector3(-33, 0, -27.5);
 	scale = Vector3(0.02, 0.015, 0.015);
 	rotation = Vector3(0, 0, 0);
@@ -585,7 +585,7 @@ void Level02::loadFirstWave() {
 	//Camera::MainCamera = nullptr;
 	GameInstance::sGetInstance()->getPlayerController()->setEnable(false);
 
-	//potion
+	//回復アイテム
 	Vector3 position;
 	position = Vector3(30.0, 0.0, 2.0);
 	auto item = new Potion();
@@ -607,16 +607,16 @@ void Level02::loadFirstWave() {
 	item->getTransform()->setPosition(position);
 	mItems.push_back(item);
 
-	firstWaveAI.push_back(new AITank(ent_Tank_Enemy01)); //ok
-	firstWaveAI.push_back(new AITank(ent_Tank_Enemy02)); //ok
-	firstWaveAI.push_back(new AITank(ent_Tank_Enemy03)); //ok
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy04)); //ok
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy05)); //ok
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy06)); //ok
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy07)); //ok
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy08)); //ok
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy09)); //ok
-	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy10)); //ok	
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy01)); //有効
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy02)); //有効
+	firstWaveAI.push_back(new AITank(ent_Tank_Enemy03)); //有効
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy04)); //有効
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy05)); //有効
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy06)); //有効
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy07)); //有効
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy08)); //有効
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy09)); //有効
+	//firstWaveAI.push_back(new AITank(ent_Tank_Enemy10)); //有効
 }
 
 void Level02::loadSecondWave() {
@@ -687,17 +687,17 @@ void Level02::trySkipFirstSecondWaveForDebug()
 		return;
 	}
 
-	// Ensure boss is ready before forcing transition.
+	// 強制遷移前にボスの準備完了を確認する。
 	if (!mIsBossLoad || enemy_boss == nullptr)
 	{
 		return;
 	}
 
-	// Kill all currently existing enemies in wave 1 / wave 2.
+	// ウェーブ1と2に残っている敵をすべて倒す。
 	destroyWave(firstWaveAI);
 	destroyWave(secondWaveAI);
 
-	// Mark wave flow as completed and jump to boss.
+	// ウェーブ進行を完了扱いにしてボス戦へ移行する。
 	secondloaded = true;
 	count = 0.0f;
 

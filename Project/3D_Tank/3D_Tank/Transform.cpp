@@ -318,7 +318,7 @@ void Transform::calcultateTransformMatrix() noexcept
 	//mRotation.z = fmodf(mRotation.z, XM_2PI);
 
 
-	//calculate model->world matrix, world rotation and world scale
+	//モデルからワールドへの変換行列、ワールド回転、ワールドスケールを計算
 	//Vector3 pos;
 	//Vector3 rot;
 	//Vector3 scale;
@@ -346,7 +346,7 @@ void Transform::calcultateTransformMatrix() noexcept
 	XMStoreFloat4x4(&localToWorld, matrix);
 
 	XMVECTOR v;
-	//calculate forward vector of model
+	//モデルの前方向ベクトルを計算
 	v = XMVectorSet(Vector3::forward.x, Vector3::forward.y, Vector3::forward.z, 0.0f);
 	v = XMVector4Transform(v, matrix);
 	v = XMVector3Normalize(v);
@@ -354,7 +354,7 @@ void Transform::calcultateTransformMatrix() noexcept
 	Forward.y = XMVectorGetY(v);
 	Forward.z = XMVectorGetZ(v);
 
-	//calculate right vector of model
+	//モデルの右方向ベクトルを計算
 	v = XMVectorSet(Vector3::right.x, Vector3::right.y, Vector3::right.z, 0.0f);
 	v = XMVector4Transform(v, matrix);
 	v = XMVector3Normalize(v);
@@ -362,7 +362,7 @@ void Transform::calcultateTransformMatrix() noexcept
 	Right.y = XMVectorGetY(v);
 	Right.z = XMVectorGetZ(v);
 
-	//calculate up vector of model
+	//モデルの上方向ベクトルを計算
 	v = XMVectorSet(Vector3::up.x, Vector3::up.y, Vector3::up.z, 0.0f);
 	v = XMVector4Transform(v, matrix);
 	v = XMVector3Normalize(v);

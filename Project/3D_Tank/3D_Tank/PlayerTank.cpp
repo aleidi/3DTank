@@ -138,7 +138,7 @@ void PlayerTank::onAttack(const float& deltaTime)
 		Vector3 offset = Vector3(randX, randY, randZ);
 		Vector3 startPos = mBattery->getTransform()->getPosition() + offset;
 
-		//detect enemy whether can be attacked
+		//敵が攻撃可能か判定
 		Vector3 origin = mCamera->getTransform()->getPosition();
 		Vector3 dir = mCamera->getTransform()->Forward;
 		GameObject* col = nullptr;

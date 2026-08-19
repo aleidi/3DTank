@@ -16,7 +16,7 @@ Sound::Sound(const Sound& other) {
 bool Sound::onInit()
 {
 	FMOD_RESULT result;
-	//init FMOD
+	//FMODを初期化
 	result = mFmodAudio->init(10, FMOD_INIT_NORMAL, NULL);
 	if (result != FMOD_OK) {
 		return false;

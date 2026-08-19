@@ -21,7 +21,7 @@ public:
 	struct Attribute
 	{
 		int m_HP;
-		int FullHP; // not initial by FileManger
+		int FullHP; // FileManagerでは初期化しない
 		int m_AttackMode;
 		int m_MoveMode;
 		int m_HitRate;
@@ -41,7 +41,7 @@ public:
 		Vector3 m_PatrolStart;
 		Vector3 m_PatrolEnd;
 		Vector3 m_ResetPoint;
-		Vector3 m_WanderTarget; //not initial by FileManger
+		Vector3 m_WanderTarget; //FileManagerでは初期化しない
 	};
 
 public:

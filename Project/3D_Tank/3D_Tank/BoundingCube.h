@@ -10,7 +10,7 @@ public:
 	BoundingCube(GameObject* obj);
 	~BoundingCube();
 
-	void createBoundingCube(const DirectX::XMVECTOR& center, const DirectX::XMVECTOR& extents, int isMoveable);//pt1和pt2可以是包围盒某一对角线上的两个顶点，也可以是所有点中xyz分量中最大值和最小值的两个构造点
+	void createBoundingCube(const DirectX::XMVECTOR& center, const DirectX::XMVECTOR& extents, int isMoveable);// pt1とpt2には、バウンディングボックスの対角頂点、または全頂点のXYZ成分の最大値と最小値から構成した点を指定できる
 	void createBoundingCube(const Vector3& center, const Vector3& extents, int isMoveable);
 	void createBoundingCube(const BoundingCube* cube1, const BoundingCube* cube2);
 	void onFixedUpdate(const float& deltaTime) override;

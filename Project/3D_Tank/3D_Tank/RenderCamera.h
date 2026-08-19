@@ -27,7 +27,7 @@ public:
 
 	void setFrustum(float nearZ, float farZ, float aspect, float fov) noexcept;
 	void setViewport(float topLeftX, float topLeftY, float width, float height, float minDepth, float maxDepth) noexcept;
-	/// 0 for Perspective, 1 for Orthographic , default is Perspective mode
+	/// 0は透視投影、1は正投影。デフォルトは透視投影
 	void setProjectionType(int type = 0) noexcept;
 	static void setLockTarget(float x, float y, float z);
 	static void unlockTarget();
@@ -52,7 +52,7 @@ private:
 	ProjectionType mProjType;
 	XMFLOAT3 mViewUp;
 	
-	//frustum
+	//視錐台
 	float mFov;
 	float mAspect;
 	float mNearZ;

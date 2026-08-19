@@ -19,7 +19,7 @@ public:
 
 	void onResize(const float& width, const float& height);
 
-	//test code
+	//テストコード
 	Graphics* getGFX();
 
 private:

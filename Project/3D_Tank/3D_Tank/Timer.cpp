@@ -85,14 +85,14 @@ void Timer::tick()
 	QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
 	mCurrTime = currTime;
 
-	//���㵱ǰ֡����һ֡��ʱ���
+	//現在のフレームと前フレームの時間差を計算
 	mDeltaTime = (mCurrTime - mPrevTime) * mSecondsPerCount;
 
-	//Ϊ��һ֡��׼��
+	//次フレームの計測に備える
 	mPrevTime = mCurrTime;
 
-	//DXSDK��CDXUTTimer�ᵽ���������������ڵ�ģʽ���л�����һ����������mDeltaTime���ɸ�ֵ
-	//Ҫȷ��mDeltaTime��Ϊ��ֵ
+	//DXSDKのCDXUTTimerでは、省電力モードへの移行や実行プロセッサの切り替えにより
+	//mDeltaTimeが負になる場合があるため、非負値に補正する
 	if (mDeltaTime < 0)
 	{
 		mDeltaTime = 0;

@@ -25,7 +25,7 @@ void MagicBall::onUpdate(const float& deltaTime)
 		destroy();
 	}
 
-	//detect whether hit targetpawn
+	//対象Pawnへの命中を判定
 	Vector3 dis{};
 	if (mTargetPawn != nullptr)
 	{
@@ -43,7 +43,7 @@ void MagicBall::onUpdate(const float& deltaTime)
 		}
 	}
 
-	//move to target position
+	//目標位置へ移動
 	if (mCanChase)
 	{
 		dis = mTargetPos - mTransform->getPosition();

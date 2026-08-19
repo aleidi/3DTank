@@ -39,72 +39,72 @@ public:
 	DirectX::XMMATRIX getTransformXM() const noexcept override;
 	void draw(Graphics& gfx, float deltaTime) noexcept;
 
-	//Explanation:
-	//the max amount of particles can be used
+	//説明:
+	//使用可能なパーティクルの最大数
 	void setMaxPatricles(int value) noexcept;
 
-	//Explanation:
-	//the shape particles will be emitted
+	//説明:
+	//パーティクルを放出する形状
 	void setEmitter(Emitter type);
 
-	//Explanation:
-	//the time particles will be alive
+	//説明:
+	//パーティクルの生存時間
 	void setLifeTime(float value);
 	
-	//Explanation:
-	//x for pitch, y for yaw, z for roll
+	//説明:
+	//xはピッチ、yはヨー、zはロール
 	void setStartRotation(float x, float y, float z);
 
-	//Explanation:
-	//it is the start scale of particle
-	//x for width, y for height, z is unused now
+	//説明:
+	//パーティクルの初期スケール
+	//xは幅、yは高さ、zは現在未使用
 	void setStartScale(float x, float y, float z);
 
-	//Explanation:
-	//it is the start position of particle
+	//説明:
+	//パーティクルの初期位置
 	void setPosition(float x, float y, float z);
 
-	//Explanation:
-	//x is the width of emitter, y is the height of the emitter, z is the depth of emiiter
+	//説明:
+	//xはエミッターの幅、yは高さ、zは奥行き
 	void setRange(float x, float y, float z);
 
-	//Explanation:
-	//paricle's velocity will be in the range of (max,min)
-	//if max == min, the speed will be min
+	//説明:
+	//パーティクルの速度をminからmaxの範囲に設定
+	//maxとminが等しい場合、速度はminになる
 	void setMaxMinSpeed(float max, float min);
 
-	//Explanation:
-	//x is the max horizontal tile amount, y is the max vertical tile amount
+	//説明:
+	//xは水平方向、yは垂直方向の最大タイル数
 	void setTile(float x, float y);
 
-	//Explanation:
-	//the step time between two sprite
+	//説明:
+	//スプライト間の切り替え間隔
 	void setAnimationInterval(float value);
 
-	//Explanation:
-	//x for the horizontal tile step, y for the vertical step
+	//説明:
+	//xは水平方向、yは垂直方向のタイル移動量
 	void setTileStep(float x, float y);
 
-	//Explanation:
-	//particles emited per seconds
+	//説明:
+	//1秒あたりのパーティクル放出数
 	void setEmitRate(int value);
 
-	//Explanation:
-	//the start velocity  of particle
+	//説明:
+	//パーティクルの初速度
 	void setVelocity(float x, float y, float z);
 	
-	//Explanation:
-	//active particle system
+	//説明:
+	//パーティクルシステムを有効化
 	void play();
 
-	//Explanation:
-	//deactive particle system
+	//説明:
+	//パーティクルシステムを無効化
 	void stop();
 
-	//if is not loop, the duration particle play once time
+	//ループしない場合の1回分の再生時間
 	void setDuration(float value);
 
-	//set whether particle will loop
+	//パーティクルをループ再生するか設定
 	void enableLoop(bool value);
 
 	const std::vector<PAttribute>& getParticles();
@@ -146,7 +146,7 @@ protected:
 	float mMinSpeed;
 	XMFLOAT3 mStartVelocity;
 
-	//sprite animation param
+	//スプライトアニメーションのパラメーター
 	float mMaxTileX;
 	float mMaxTileY;
 	float mTileInterval;

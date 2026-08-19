@@ -23,7 +23,7 @@
 #define getAIHeading pEnemyTank->getPawn()->getTransform()->Forward
 #define getAIVelocity  pEnemyTank->getPawn()->getVelocity()
 
-//-------------------methods for Sleep-------------------//
+//-------------------Sleep用メソッド-------------------//
 
 Sleeep* Sleeep::getInstance() {
 	static Sleeep m_Sleep;
@@ -35,7 +35,7 @@ void Sleeep::enter(AIController* pEnemyTank) {
 }
 
 void Sleeep::execute(AIController* pEnemyTank, float deltaTime) {
-	////////////////////////changeState////////////////////////
+	////////////////////////ステート変更////////////////////////
 }
 
 void Sleeep::exit(AIController* pEnemyTank) {
@@ -46,7 +46,7 @@ bool Sleeep::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for Rest-------------------//
+//-------------------Rest用メソッド-------------------//
 Rest* Rest::getInstance() {
 	static Rest m_Rest;
 	return &m_Rest;
@@ -72,7 +72,7 @@ void Rest::execute(AIController* pEnemyTank, float deltaTime) {
 								   (void*)NO_ADDITIONAL_INFO);
 	}
 
-	////////////////////////changeState////////////////////////
+	////////////////////////ステート変更////////////////////////
 	if (AITank->isEnemyInRange()) {
 		if(AITank->isDying() )
 			pEnemyTank->getFSM()->changeState(Evade::getInstance());
@@ -122,7 +122,7 @@ bool Rest::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for Wander-------------------//
+//-------------------Wander用メソッド-------------------//
 Wander* Wander::getInstance() {
 	static Wander m_Wander;
 	return &m_Wander;
@@ -135,7 +135,7 @@ void Wander::enter(AIController* pEnemyTank) {
 void Wander::execute(AIController* pEnemyTank, float deltaTime) {
 	if (AITank->isPatrol())
 		pEnemyTank->getFSM()->changeState(Patrol::getInstance());
-	/////////////////////////////Patrol/////////////////////////////////
+	/////////////////////////////巡回/////////////////////////////////
 	else {
 		AITank->aiCount += deltaTime;
 
@@ -161,7 +161,7 @@ void Wander::execute(AIController* pEnemyTank, float deltaTime) {
 
 				pEnemyTank->Move(target);
 			}
-			////////////////////////changeState////////////////////////
+			////////////////////////ステート変更////////////////////////
 			if (AITank->isEnemyInRange()) {
 				pEnemyTank->getFSM()->changeState(Attack::getInstance());
 			}
@@ -197,7 +197,7 @@ bool Wander::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 
 }
 
-//-------------------methods for Patrol-------------------//
+//-------------------Patrol用メソッド-------------------//
 Patrol* Patrol::getInstance() {
 	static Patrol m_Patrol; 
 	return &m_Patrol;
@@ -240,11 +240,11 @@ void Patrol::execute(AIController* pEnemyTank, float deltaTime) {
 				pEnemyTank->toPatrolEnd = true;
 			}
 		}
-		/////////////////////////beginning of movement/////////////////////////////
+		/////////////////////////移動開始/////////////////////////////
 		
 		//pEnemyTank->Move(target);
 		
-		////////////////////////changeState////////////////////////
+		////////////////////////ステート変更////////////////////////
 		if (AITank->isEnemyInRange()) {
 			pEnemyTank->getFSM()->changeState(Attack::getInstance());
 		}
@@ -276,7 +276,7 @@ bool Patrol::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for Avoidance-------------------//
+//-------------------Avoidance用メソッド-------------------//
 Avoidance* Avoidance::getInstance() {
 	static Avoidance m_Avoidance;
 	return &m_Avoidance;
@@ -315,7 +315,7 @@ void Avoidance::execute(AIController* pEnemyTank, float deltaTime) {
 	}
 
 	pEnemyTank->Move(target);
-	////////////////////////changeState////////////////////////
+	////////////////////////ステート変更////////////////////////
 	if (!AITank->isObstacleHere()) {
 		pEnemyTank->getFSM()->revertToPerviousState();
 	}
@@ -329,7 +329,7 @@ bool Avoidance::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for Attack-------------------//
+//-------------------Attack用メソッド-------------------//
 Attack* Attack::getInstance() {
 	static Attack m_Attack;
 	return &m_Attack;
@@ -374,7 +374,7 @@ void Attack::execute(AIController* pEnemyTank, float deltaTime) {
 		}
 	}
 
-	////////////////////////changeState////////////////////////
+	////////////////////////ステート変更////////////////////////
 	if (AITank->isDying()) {
 		pEnemyTank->getFSM()->changeState(Evade::getInstance());
 	}
@@ -401,7 +401,7 @@ bool Attack::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for Evade-------------------//
+//-------------------Evade用メソッド-------------------//
 Evade* Evade::getInstance() {
 	static Evade m_Evade;
 	return &m_Evade;
@@ -422,15 +422,15 @@ void Evade::execute(AIController* pEnemyTank, float deltaTime) {
 		Vector3 targetPos = getTargetPos + getTargetVelocity * lookAheadTime;
 		Vector3 desiredVelocity = (getAIPos - targetPos).normalize() * AITank->getMaxSpeed();
 		target = desiredVelocity - getAIVelocity;
-		/////////////////////////beginning of movement/////////////////////////////
+		/////////////////////////移動開始/////////////////////////////
 		pEnemyTank->Move(target);
 	
-		////////////////////////changeState////////////////////////
+		////////////////////////ステート変更////////////////////////
 		
 		if (AITank->getAttacked()) {
 			AITank->setAttacked(false);
 		}
-		else if (!AITank->isEnemyInRange()) { // safe
+		else if (!AITank->isEnemyInRange()) { // 安全
 			pEnemyTank->getFSM()->changeState(Rest::getInstance());
 		}
 
@@ -460,7 +460,7 @@ bool Evade::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for Pursuit-------------------//
+//-------------------Pursuit用メソッド-------------------//
 Pursuit* Pursuit::getInstance() {
 	static Pursuit m_Pursuit;
 	return &m_Pursuit;
@@ -479,7 +479,7 @@ void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
 		Vector3 toEvader = getTargetPos - getAIPos;
 		float relativeHeading = Vector3::dot(getAIHeading, getTargetHeading);
 		
-		if ((Vector3::dot(toEvader, getAIHeading) > 0) && (relativeHeading < -0.95)) { // acos(0.95)=18degs
+		if ((Vector3::dot(toEvader, getAIHeading) > 0) && (relativeHeading < -0.95)) { // acos(0.95)=18度
 			Vector3 targetPos = getTargetPos;
 			Vector3 desiredVelocity = (targetPos - getAIPos).normalize() * AITank->getMaxSpeed();
 			target = desiredVelocity - getAIVelocity;
@@ -498,10 +498,10 @@ void Pursuit::execute(AIController* pEnemyTank, float deltaTime) {
 			target = desiredVelocity - getAIVelocity;
 		} 
 
-		/////////////////////////beginning of movement/////////////////////////////
+		/////////////////////////移動開始/////////////////////////////
 		pEnemyTank->Move(target);
 
-		////////////////////////changeState////////////////////////
+		////////////////////////ステート変更////////////////////////
 		
 		if (AITank->isObstacleHere()) {
 			pEnemyTank->getFSM()->changeState(Avoidance::getInstance());
@@ -530,7 +530,7 @@ bool Pursuit::onMessage(AIController* pEnemyTank, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for Death-------------------//
+//-------------------Death用メソッド-------------------//
 Death* Death::getInstance() {
 	static Death m_Death;
 	return &m_Death;
@@ -550,8 +550,8 @@ void Death::enter(AIController* pEnemyTank) {
 void Death::execute(AIController* pEnemyTank, float deltaTime) {
 
 	//MessageBox(0, L"BOW! I DEAD", 0, 0);
-	////////////////////////changeState////////////////////////
-	// Dead is end//
+	////////////////////////ステート変更////////////////////////
+	// 死亡後は終了//
 }
 
 void Death::exit(AIController* pEnemyTank) {

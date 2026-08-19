@@ -9,14 +9,14 @@ CubeObjectFactory::~CubeObjectFactory() {
 }
 
 GameObject* CubeObjectFactory::getObject() {
-	//create gameobject
+	// ゲームオブジェクトを生成
 	GameObject* obj = new GameObject();
 
-	//create render component
+	// 描画コンポーネントを生成
 	RenderComponent* rc = new RenderComponent(obj);
 	Cube* cube = new Cube(rc);
 	rc->setMesh(cube);
-	//attach render component to gameobject
+	// 描画コンポーネントをゲームオブジェクトに追加
 	obj->addComponent(rc);
 
 	return obj;

@@ -93,7 +93,7 @@ void UIText3D::draw(Graphics& gfx) noexcept
 
 	XMFLOAT3 camPos;
 	DirectX::XMStoreFloat3(&camPos,gfx.getCameraPosition());
-	// Calculate the rotation that needs to be applied to the billboard model to face the current camera position using the arc tangent function.
+	//逆正接関数を使用し、ビルボードを現在のカメラ位置へ向ける回転角を計算する
 	mYaw = atan2(mX - camPos.x, mZ - camPos.z);
 
 	mPCBuf->onUpdate(gfx, mMaterial.Color);

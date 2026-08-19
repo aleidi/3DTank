@@ -12,14 +12,14 @@ PlaneObjectFactory::~PlaneObjectFactory()
 
 GameObject * PlaneObjectFactory::getObject()
 {
-	//create gameobject
+	//ゲームオブジェクトを生成
 	GameObject* obj = new GameObject();
 
-	//create render component
+	//描画コンポーネントを生成
 	RenderComponent* rc = new RenderComponent(obj);
 	Plane* plane = new Plane(rc);
 	rc->setMesh(plane);
-	//attach render component to gameobject
+	//描画コンポーネントをゲームオブジェクトへ追加
 	obj->addComponent(rc);
 
 	return obj;

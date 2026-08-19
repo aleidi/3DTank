@@ -1,5 +1,5 @@
 #pragma once
-// all states that can be assigned to the enemytank class
+// EnemyTankクラスに割り当て可能な全ステート
 #include "State.h"
 
 class AIController;

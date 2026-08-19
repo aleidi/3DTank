@@ -16,18 +16,18 @@ const int NO_ADDITIONAL_INFO = 0;
 
 class MessageDispatcher {
 public:
-	//this class is a singleton
+	//このクラスはシングルトン
 	static MessageDispatcher* getInstance();
 
-	//send a message to another agent. Receiving agent is referenced by ID.
+	//別のエージェントへメッセージを送信する。受信側はIDで指定する。
 	void Dispatch_Message(double  delay,
 		int    sender,
 		int    receiver,
 		int    msg,
 		void*  ExtraInfo);
 
-	//send out any delayed messages. This method is called each time through   
-	//the main game loop.
+	//遅延メッセージを送信する。このメソッドは
+	//メインゲームループごとに呼び出す。
 	void DispatchDelayedMessages();
 private:
 	std::set<Telegram> PriorityQ;
@@ -36,7 +36,7 @@ private:
 
 	MessageDispatcher() {}
 
-	//copy ctor and assignment should be private
+	//コピーコンストラクターと代入演算子はprivateにする
 	MessageDispatcher(const MessageDispatcher&);
 	MessageDispatcher& operator=(const MessageDispatcher&);
 };

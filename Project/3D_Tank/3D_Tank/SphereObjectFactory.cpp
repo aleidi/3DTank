@@ -9,14 +9,14 @@ SphereObjectFactory::~SphereObjectFactory() {
 }
 
 GameObject* SphereObjectFactory::getObject() {
-	//create gameobject
+	//ゲームオブジェクトを生成
 	GameObject* obj = new GameObject();
 
-	//create render component
+	//描画コンポーネントを生成
 	RenderComponent* rc = new RenderComponent(obj);
 	Sphere* sphere = new Sphere(rc);
 	rc->setMesh(sphere);
-	//attach render component to gameobject
+	//描画コンポーネントをゲームオブジェクトへ追加
 	obj->addComponent(rc);
 
 	return obj;

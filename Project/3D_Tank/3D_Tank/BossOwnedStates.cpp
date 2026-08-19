@@ -23,7 +23,7 @@
 #define BOSS reinterpret_cast<EnemyBoss*>(pBoss->getPawn())
 #define getBOSSPos pBoss->getPawn()->getTransform()->getPosition()
 #define getBOSSHeading pBoss->getPawn()->getTransform()->Forward
-//-------------------methods for Alert-------------------//
+//-------------------Alert用メソッド-------------------//
 Alert* Alert::getInstance() {
 	static Alert m_Alert;
 	return &m_Alert;
@@ -44,7 +44,7 @@ void Alert::execute(AIController* pBoss, float deltaTime) {
 									(void*)NO_ADDITIONAL_INFO);
 	}
 
-	////////////////////////changeState////////////////////////
+	////////////////////////ステート変更////////////////////////
 	if (BOSS->isEnemyInRange()) {
 		if (BOSS->isDying())
 			pBoss->getFSM()->changeState(Violent::getInstance());
@@ -87,7 +87,7 @@ bool Alert::onMessage(AIController* pBoss, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for Battle-------------------//
+//-------------------Battle用メソッド-------------------//
 Battle* Battle::getInstance() {
 	static Battle m_Battle;
 	return &m_Battle;
@@ -98,9 +98,9 @@ void Battle::enter(AIController* pBoss) {
 
 void Battle::execute(AIController* pBoss, float deltaTime) {
 	////////////////////////////////////////////////////////////
-	////     Similar to normal enemy tank attack state      ////
-	////            missile every 3 normal shot           ////
-	//// Wait for the attack state of enemytank to be fixed ////
+	////       通常の敵戦車の攻撃ステートと同様       ////
+	////            通常弾3発ごとにミサイル           ////
+	////        敵戦車の攻撃ステート修正待ち        ////
 	BOSS->aiCount += deltaTime;
 	if (BOSS->aiCount > BOSS->attackTimeDelay()) {
 		BOSS->aiCount = 0.0f;
@@ -114,7 +114,7 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 			normalshot = 0;
 		} 
 	}
-	////////////////////////Battery follows////////////////////////////
+	////////////////////////砲塔追従////////////////////////////
 	Vector3 bossxzPos = getBOSSPos - Vector3(0, getBOSSPos.y, 0);
 	Vector3 targetDirection = (getTargetPos - bossxzPos).normalize();
 	float dot = Vector3::dot(targetDirection, getBOSSHeading);
@@ -127,7 +127,7 @@ void Battle::execute(AIController* pBoss, float deltaTime) {
 	rotate = Math::Clamp(BOSS->maxTurnRate(), -1 * BOSS->maxTurnRate(), rotate);
 	BOSS->getTransform()->rotate(0, rotate, 0);
 
-	////////////////////////changeState/////////////////////////
+	////////////////////////ステート変更/////////////////////////
 	if (BOSS->getHP() <= BOSS->FullHP * 0.5 ) {
 		pBoss->getFSM()->changeState(StageTwo::getInstance());
 	}
@@ -142,7 +142,7 @@ bool Battle::onMessage(AIController* pBoss, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for StageTwo-------------------//
+//-------------------StageTwo用メソッド-------------------//
 StageTwo* StageTwo::getInstance() {
 	static StageTwo m_StageTwo;
 	return &m_StageTwo;
@@ -158,7 +158,7 @@ void StageTwo::enter(AIController* pBoss) {
 }
 
 void StageTwo::execute(AIController* pBoss, float deltaTime) {
-	////////////////////////normal attack/////////////////////////////
+	////////////////////////通常攻撃/////////////////////////////
 	BOSS->aiCount += deltaTime;
 	if (BOSS->aiCount > BOSS->attackTimeDelay() * 1.5 ) {
 		BOSS->aiCount = 0.0f;
@@ -172,7 +172,7 @@ void StageTwo::execute(AIController* pBoss, float deltaTime) {
 			normalshot = 0;
 		}
 	}
-	////////////////////////Battery follows////////////////////////////
+	////////////////////////砲塔追従////////////////////////////
 	Vector3 bossxzPos = getBOSSPos - Vector3(0, getBOSSPos.y, 0);
 	Vector3 targetDirection = (getTargetPos - bossxzPos).normalize();
 	float dot = Vector3::dot(targetDirection, getBOSSHeading);
@@ -185,7 +185,7 @@ void StageTwo::execute(AIController* pBoss, float deltaTime) {
 	rotate = Math::Clamp(BOSS->maxTurnRate(), -1 * BOSS->maxTurnRate(), rotate);
 	BOSS->getTransform()->rotate(0, rotate, 0);
 
-	////////////////////////SuperAttack/////////////////////////
+	////////////////////////特殊攻撃/////////////////////////
 	superCount += deltaTime;
 	if (superCount > 3.0f ) {
 		if (particleSwitch) {
@@ -201,7 +201,7 @@ void StageTwo::execute(AIController* pBoss, float deltaTime) {
 		}
 	}
 
-	////////////////////////changeState/////////////////////////
+	////////////////////////ステート変更/////////////////////////
 	if (BOSS->isDying()) {
 		pBoss->getFSM()->changeState(Violent::getInstance());
 	}
@@ -215,7 +215,7 @@ bool StageTwo::onMessage(AIController* pBoss, const Telegram& msg) {
 	return false;
 }
 
-//-------------------methods for Violent-------------------//
+//-------------------Violent用メソッド-------------------//
 Violent* Violent::getInstance() {
 	static Violent m_Violent;
 	return &m_Violent;
@@ -234,7 +234,7 @@ void Violent::enter(AIController* pBoss) {
 }
 
 void Violent::execute(AIController* pBoss, float deltaTime) {
-	////////////////////////SuperAttack/////////////////////////
+	////////////////////////特殊攻撃/////////////////////////
 
 	superCount += deltaTime;
 	if (superCount > 3.0f) {
@@ -251,7 +251,7 @@ void Violent::execute(AIController* pBoss, float deltaTime) {
 		}
 	}
 
-	////////////////////////Battery follows////////////////////////////
+	////////////////////////砲塔追従////////////////////////////
 	Vector3 bossxzPos = getBOSSPos - Vector3(0, getBOSSPos.y, 0);
 	Vector3 targetDirection = (getTargetPos - bossxzPos).normalize();
 	float dot = Vector3::dot(targetDirection, getBOSSHeading);
@@ -265,7 +265,7 @@ void Violent::execute(AIController* pBoss, float deltaTime) {
 	BOSS->getTransform()->rotate(0, rotate, 0);
 
 
-	////////////////////////changeState/////////////////////////
+	////////////////////////ステート変更/////////////////////////
 	if (BOSS->getHP() <= 0) {
 		pBoss->getFSM()->changeState(Death::getInstance());
 	}
@@ -282,7 +282,7 @@ bool Violent::onMessage(AIController* pBoss, const Telegram& msg) {
 }
 
 
-//-------------------methods for Preparation-------------------//
+//-------------------Preparation用メソッド-------------------//
 Preparation* Preparation::getInstance() {
 	static Preparation m_Preparation;
 	return &m_Preparation;
@@ -293,7 +293,7 @@ void Preparation::enter(AIController* pBoss) {
 }
 
 void Preparation::execute(AIController* pBoss, float deltaTime) {
-	////////////////////////changeState/////////////////////////
+	////////////////////////ステート変更/////////////////////////
 	BOSS->aiCount += deltaTime;
 	if (BOSS->aiCount >= 1.5) {
 		BOSS->aiCount = 0.0f;

@@ -10,7 +10,7 @@ FadeInOut::FadeInOut(const std::wstring & image, float width, float height, floa
 	mImage->setPosition(posX, posY);
 	mImage->setSize(width, height);
 	mImage->setEnable(true);
-	mImage->setBlend(true); // critical: enable alpha blending for fade panel
+	mImage->setBlend(true); // 重要: フェードパネルのアルファブレンドを有効化
 
 	switch (mType)
 	{

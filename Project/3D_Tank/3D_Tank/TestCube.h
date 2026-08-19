@@ -14,7 +14,7 @@ public:
 	void Rotate(float pitch, float yaw, float roll);
 	void Scale(float x, float y, float z);
 private:
-	// positional
+	//位置情報
 	XMFLOAT3 pos;
 	XMFLOAT3 rot;
 	XMFLOAT3 scale;
@@ -24,7 +24,7 @@ private:
 	//float theta;
 	//float phi;
 	//float chi;
-	//// speed (delta/s)
+	////速度（変化量/秒）
 	//float droll;
 	//float dpitch;
 	//float dyaw;

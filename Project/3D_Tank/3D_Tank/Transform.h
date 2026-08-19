@@ -45,7 +45,7 @@ public:
 	Vector3 Forward;
 	Vector3 Right;
 	Vector3 Up;
-	int MoveDirection;   //0:forward, 1:back
+	int MoveDirection;   //0:前進、1:後退
 
 //private:
 	void calcultateTransformMatrix() noexcept;

@@ -15,7 +15,7 @@ public:
 	static DInputPC& getInstance();
 
 	////////////////////////////////////////////
-	HRESULT onInit(HWND hWnd, HINSTANCE hInstance, DWORD keyboardCoopFlags, DWORD mouseCoopFlags); // initialize DirectInput keyboard & mouse
+	HRESULT onInit(HWND hWnd, HINSTANCE hInstance, DWORD keyboardCoopFlags, DWORD mouseCoopFlags); // DirectInputのキーボードとマウスを初期化
 
 	void onUpdate();
 	void getInput();
@@ -40,7 +40,7 @@ private:
 	DIMOUSESTATE m_MouseState;
 	BYTE    pre_rgbButtons[4];
 
-	////////////////// singleton///////////////////////
+	////////////////// シングルトン///////////////////////
 	DInputPC();
 	~DInputPC();
 		// DInputPC(const DInputPC& other);

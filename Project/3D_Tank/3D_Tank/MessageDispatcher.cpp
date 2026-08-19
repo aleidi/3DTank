@@ -30,7 +30,7 @@ MessageDispatcher* MessageDispatcher::getInstance()
 
 //----------------------------- Dispatch ---------------------------------
 //  
-//  see description in header
+//  説明はヘッダーを参照
 //------------------------------------------------------------------------
 void MessageDispatcher::Discharge(AIController* pReceiverController,
 	const Telegram& telegram)
@@ -42,16 +42,16 @@ void MessageDispatcher::Discharge(AIController* pReceiverController,
 
 	if (!pReceiverController->handleMessage(telegram))
 	{
-		//telegram could not be handled
+		//Telegramを処理できなかった
 		cout << "Message not handled";
 	}
 }
 
 //---------------------------- DispatchMessage ---------------------------
 //
-//  given a message, a receiver, a sender and any time delay , this function
-//  routes the message to the correct agent (if no delay) or stores
-//  in the message queue to be dispatched at the correct time
+//  メッセージ、受信者、送信者、遅延時間を受け取り、
+//  遅延がなければ対象エージェントへ送信し、遅延があれば
+//  適切な時刻に送信するためメッセージキューへ格納する
 //------------------------------------------------------------------------
 void MessageDispatcher::Dispatch_Message(double  delay,
 	int    sender,
@@ -61,13 +61,13 @@ void MessageDispatcher::Dispatch_Message(double  delay,
 {
 	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
-	//get pointers to the sender and receiver
+	//送信者と受信者のポインターを取得
 	//BaseGameEntity* pSender = EntityMgr->getEntityFromID(sender);
 	//BaseGameEntity* pReceiver = EntityMgr->getEntityFromID(receiver);
 	AIController* pSenderController = SceneManager::sGetInstance()->getAIController(sender);
 	AIController* pReceiverController = SceneManager::sGetInstance()->getAIController(receiver);
 
-	//make sure the receiver is valid
+	//受信者が有効か確認
 	if (pReceiverController == NULL)
 	{
 		cout << "\nWarning! No Receiver with ID of " << receiver << " found";
@@ -75,28 +75,28 @@ void MessageDispatcher::Dispatch_Message(double  delay,
 		return;
 	}
 
-	//create the telegram
+	//Telegramを作成
 	Telegram telegram(0, sender, receiver, msg, ExtraInfo);
 
-	//if there is no delay, route telegram immediately                       
+	//遅延がなければTelegramを即時送信
 	if (delay <= 0.0f)
 	{
 		cout << "\nInstant telegram dispatched at time: " << Clock->getCurrentTime()
 			<< " by " << getNameOfEntity(pSenderController->getID()) << " for " << getNameOfEntity(pReceiverController->getID())
 			<< ". Msg is " << MsgToStr(msg);
 
-		//send the telegram to the recipient
+		//受信者へTelegramを送信
 		Discharge(pReceiverController, telegram);
 	}
 
-	//else calculate the time when the telegram should be dispatched
+	//遅延があればTelegramの送信時刻を計算
 	else
 	{
 		double CurrentTime = Clock->getCurrentTime();
 
 		telegram.DispatchTime = CurrentTime + delay;
 
-		//and put it in the queue
+		//キューへ格納
 		PriorityQ.insert(telegram);
 
 		cout << "\nDelayed telegram from " << getNameOfEntity(pSenderController->getID()) << " recorded at time "
@@ -109,31 +109,31 @@ void MessageDispatcher::Dispatch_Message(double  delay,
 
 //---------------------- DispatchDelayedMessages -------------------------
 //
-//  This function dispatches any telegrams with a timestamp that has
-//  expired. Any dispatched telegrams are removed from the queue
+//  送信時刻を迎えたTelegramを送信する。
+//  送信済みのTelegramはキューから削除する
 //------------------------------------------------------------------------
 void MessageDispatcher::DispatchDelayedMessages()
 {
 	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
-	//get current time
+	//現在時刻を取得
 	double CurrentTime = Clock->getCurrentTime();
 
-	//now peek at the queue to see if any telegrams need dispatching.
-	//remove all telegrams from the front of the queue that have gone
-	//past their sell by date
+	//キューを確認し、送信が必要なTelegramを調べる。
+	//送信時刻を過ぎたTelegramを
+	//キューの先頭からすべて取り出す
 	while (!PriorityQ.empty() &&
 		(PriorityQ.begin()->DispatchTime < CurrentTime) &&
 		(PriorityQ.begin()->DispatchTime > 0))
 	{
-		//read the telegram from the front of the queue
+		//キュー先頭のTelegramを取得
 		const Telegram& telegram = *PriorityQ.begin();
 
-		//find the recipient
+		//受信者を検索
 		//BaseGameEntity* pReceiver = EntityMgr->getEntityFromID(telegram.Receiver);
 		AIController* pReceiverController = SceneManager::sGetInstance()->getAIController(telegram.Receiver);
 
-		//send the telegram to the recipient
+		//受信者へTelegramを送信
 		if (pReceiverController != NULL)
 		{
 			Discharge(pReceiverController, telegram);
@@ -143,7 +143,7 @@ void MessageDispatcher::DispatchDelayedMessages()
 			cout << "\nWarning! Delayed telegram receiver destroyed. Receiver ID = " << telegram.Receiver;
 		}
 
-		//remove it from the queue
+		//キューから削除
 		PriorityQ.erase(PriorityQ.begin());
 	}
 }

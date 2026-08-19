@@ -1,13 +1,13 @@
 #pragma once
 //------------------------------------------------------------------------
 //
-//  Name:   Telegram.h
+//  ファイル名: Telegram.h
 //
-//  Desc:   This defines a telegram. A telegram is a data structure that
-//          records information required to dispatch messages. Messages 
-//          are used by game agents to communicate with each other.
+//  概要:   テレグラムを定義する。テレグラムはメッセージの送信に必要な
+//          情報を記録するデータ構造であり、ゲームエージェント間の通信に
+//          使用される。
 //
-//  Author: Mat Buckland (fup@ai-junkie.com)
+//  作成者: Mat Buckland (fup@ai-junkie.com)
 //
 //------------------------------------------------------------------------
 #include <iostream>
@@ -16,22 +16,22 @@
 
 struct Telegram
 {
-	//the entity that sent this telegram
+	//このテレグラムの送信元エンティティ
 	int          Sender;
 
-	//the entity that is to receive this telegram
+	//このテレグラムの受信先エンティティ
 	int          Receiver;
 
-	//the message itself. These are all enumerated in the file
+	//メッセージ本体。すべてのメッセージは次のファイルで列挙される
 	//"MessageTypes.h"
 	int          Msg;
 
-	//messages can be dispatched immediately or delayed for a specified amount
-	//of time. If a delay is necessary this field is stamped with the time 
-	//the message should be dispatched.
+	//メッセージは即時送信、または指定時間後に遅延送信できる。
+	//遅延が必要な場合、このフィールドに送信予定時刻を
+	//記録する。
 	double       DispatchTime;
 
-	//any additional information that may accompany the message
+	//メッセージに付随する追加情報
 	void*        ExtraInfo;
 
 
@@ -56,10 +56,10 @@ struct Telegram
 };
 
 
-//these telegrams will be stored in a priority queue. Therefore the >
-//operator needs to be overloaded so that the PQ can sort the telegrams
-//by time priority. Note how the times must be smaller than
-//SmallestDelay apart before two Telegrams are considered unique.
+//テレグラムは優先度付きキューに格納されるため、キューが送信時刻順に
+//並べ替えられるように > 演算子をオーバーロードする。
+//2つのテレグラムを同一とみなすには、送信時刻の差が
+//SmallestDelay未満である必要がある。
 const double SmallestDelay = 0.25;
 
 
@@ -92,8 +92,8 @@ inline std::ostream& operator<<(std::ostream& os, const Telegram& t)
 	return os;
 }
 
-//handy helper function for dereferencing the ExtraInfo field of the Telegram 
-//to the required type.
+//TelegramのExtraInfoフィールドを必要な型として参照するための
+//補助関数。
 template <class T>
 inline T DereferenceToType(void* p)
 {

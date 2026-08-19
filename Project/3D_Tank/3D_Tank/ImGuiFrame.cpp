@@ -36,11 +36,11 @@ void ImGuiFrame::onInit()
 
 void ImGuiFrame::onUpdate(float deltaTime)
 {
-	static bool isToNew = false;     // create a new object
-	static bool isVisiable = false;   // imGui window visible
+	static bool isToNew = false;     // 新規オブジェクトを作成
+	static bool isVisiable = false;   // ImGuiウィンドウの表示状態
 	static bool isNameKeyInitial = false;
 
-	//initial the nameKey
+	//nameKeyを初期化
 	if (!isNameKeyInitial)
 	{	
 		std::list<std::string> nameList = SceneManager::sGetInstance()->getAllGameobjectName();
@@ -51,13 +51,13 @@ void ImGuiFrame::onUpdate(float deltaTime)
 		isNameKeyInitial = true;
 	}
 	
-	//visible operation by hotkey
+	//ホットキーで表示を切り替える
 	if (DInputPC::getInstance().iskey(HOTKEY))
 	{
 		isVisiable = false;
 	}
 
-	//is to close the frame or not
+	//フレームを閉じるか判定
 	if (!isVisiable)
 	{
 		ImGui_ImplDX11_NewFrame();
@@ -111,7 +111,7 @@ void ImGuiFrame::onUpdate(float deltaTime)
 			ImGui::EndMenuBar();
 		}
 
-		//Select operation
+		//選択処理
 		std::list<std::string> nameList = SceneManager::sGetInstance()->getAllGameobjectName();
 		for (std::list<std::string>::iterator it = nameList.begin(); it != nameList.end(); ++it)
 		{
@@ -139,7 +139,7 @@ void ImGuiFrame::onUpdate(float deltaTime)
 			}
 		}
 
-		//New operation
+		//新規作成処理
 		isToNew = isNewAITank || isNewFence || isNewWaterTank || isNewCrate || isNewFreightContainer_A || isNewFreightContainer_B;
 		if (isToNew)
 		{
@@ -216,7 +216,7 @@ void ImGuiFrame::newObject(std::string gameObjectName)
 	Vector3 position = Vector3(0, 0, 0);
 	Vector3 scale = Vector3(0.01, 0.01, 0.01);
 	Vector3 rotation = Vector3(0, 0, 0);
-	//default configuration
+	//デフォルト設定
 
 	if (isNewAITank)
 	{
@@ -255,7 +255,7 @@ void ImGuiFrame::newObject(std::string gameObjectName)
 
 void ImGuiFrame::bindObjectTransform(std::string gameObjectName)
 {
-	//search GameObject
+	//GameObjectを検索
 	GameObject* gameObj = SceneManager::sGetInstance()->findObjectWithName(gameObjectName);
 
 	static float positionOffset[3];
@@ -275,11 +275,11 @@ void ImGuiFrame::bindObjectTransform(std::string gameObjectName)
 		isBindChanged = false;
 	}
 
-	//bind GameObject Transform
+	//GameObjectのTransformを連動
 	ImGui::Text("Position:");
 	gameObj->getTransform()->setPosition(Vector3(positionOffset[0], positionOffset[1], positionOffset[2]));
 	ImGui::SliderFloat3("label 1", positionOffset, -50.0f, 50.0f);
-	//range from -50.0f to 50.0f
+	//範囲は-50.0fから50.0fまで
 
 	ImGui::Text("Rotation:");
 	gameObj->getTransform()->setRotation(Vector3(rotationOffset[0], rotationOffset[1], rotationOffset[2]));

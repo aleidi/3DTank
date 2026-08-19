@@ -2,18 +2,18 @@
 
 //------------------------------------------------------------------------
 //
-//  Name:   ConsoleUtils.h
+//  ファイル名: ConsoleUtils.h
 //
-//  Desc:   Just a few handy utilities for dealing with consoles
+//  概要: コンソール操作用のユーティリティ
 //
-//  Author: Mat Buckland (fup@ai-junkie.com)
+//  作成者: Mat Buckland (fup@ai-junkie.com)
 //
 //------------------------------------------------------------------------
 #include <windows.h>
 #include <conio.h>
 #include <iostream>
 
-//default text colors can be found in wincon.h
+// デフォルトの文字色はwincon.hを参照
 inline void SetTextColor(WORD colors)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -23,7 +23,7 @@ inline void SetTextColor(WORD colors)
 
 inline void PressAnyKeyToContinue()
 {
-	//change text color to white
+	// 文字色を白に変更
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
 
 	std::cout << "\n\nPress any key to continue" << std::endl;

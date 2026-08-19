@@ -14,7 +14,7 @@ public:
 public:
 	Vector3 Position;
 	Vector3 Rotation;	
-	//frustum
+	// 視錐台
 	float Fov;
 	float Aspect;
 	float Near;
