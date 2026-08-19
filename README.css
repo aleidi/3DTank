@@ -1,0 +1,93 @@
+@page {
+  size: A4;
+  margin: 16mm 14mm 18mm;
+}
+
+:root {
+  color: #17242b;
+  font-family: "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+  font-size: 9.5pt;
+  line-height: 1.65;
+}
+
+body {
+  max-width: none;
+  margin: 0;
+}
+
+h1,
+h2 {
+  color: #102f3b;
+  break-after: avoid;
+}
+
+h1 {
+  margin: 0 0 8mm;
+  padding-bottom: 3mm;
+  border-bottom: 2px solid #ee9f2d;
+  font-size: 24pt;
+}
+
+h2 {
+  margin: 8mm 0 3mm;
+  padding-left: 3mm;
+  border-left: 4px solid #ee9f2d;
+  font-size: 15pt;
+}
+
+p,
+ul {
+  margin: 0 0 3mm;
+}
+
+a {
+  color: #126783;
+  text-decoration: none;
+}
+
+code {
+  padding: 0.2em 0.35em;
+  border-radius: 3px;
+  background: #eef2f3;
+  font-family: "Cascadia Mono", "Consolas", monospace;
+  font-size: 0.9em;
+}
+
+table {
+  width: 100%;
+  margin: 0 0 5mm;
+  border-collapse: collapse;
+  font-size: 8.2pt;
+}
+
+thead {
+  display: table-header-group;
+  background: #173b49;
+  color: #fff;
+}
+
+tr {
+  break-inside: avoid;
+}
+
+th,
+td {
+  padding: 1.7mm 2mm;
+  border: 1px solid #b9c6cb;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+tbody tr:nth-child(even) {
+  background: #f4f7f8;
+}
+
+img {
+  display: block;
+  width: 100%;
+  max-height: 170mm;
+  margin: 3mm auto 0;
+  object-fit: contain;
+  break-inside: avoid;
+}
